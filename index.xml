@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site </title>
+    <title>My New Hugo Site</title>
     <link>https://jonathanpoelen.github.io/</link>
-    <language>en-us</language>
-    <author>Jonathan Poelen</author>
-    <rights>(C) 2017</rights>
-    <updated>2017-07-08 22:02:11 &#43;0200 CEST</updated>
-
+    <description>Recent content on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-fr</language>
+    <lastBuildDate>Sat, 08 Jul 2017 22:02:11 +0200</lastBuildDate>
     
-      
-        <item>
-          <title>Good To Great</title>
-          <link>https://jonathanpoelen.github.io/post/good-to-great/</link>
-          <pubDate>Sat, 08 Jul 2017 22:02:11 CEST</pubDate>
-          <author>Jonathan Poelen</author>
-          <guid>https://jonathanpoelen.github.io/post/good-to-great/</guid>
-          <description>&lt;p&gt;I read &lt;strong&gt;Good to Great in January 2016&lt;/strong&gt;. An awesome read sharing detailed analysis on how good companies became great&lt;/p&gt;
-</description>
-        </item>
-      
+	<atom:link href="https://jonathanpoelen.github.io/index.xml" rel="self" type="application/rss+xml" />
     
-
+    
+    <item>
+      <title>Implémentation efficace des opérateurs</title>
+      <link>https://jonathanpoelen.github.io/2017/07/impl%C3%A9mentation-efficace-des-op%C3%A9rateurs/</link>
+      <pubDate>Sat, 08 Jul 2017 22:02:11 +0200</pubDate>
+      
+      <guid>https://jonathanpoelen.github.io/2017/07/impl%C3%A9mentation-efficace-des-op%C3%A9rateurs/</guid>
+      <description>je vais me baser sur un classique: une classe de matrice contenant un std::vector&amp;lt;int&amp;gt;. Cette classe va implémenter 2 opérateurs mathématiques + et +=. Le premier en fonction libre, le second en fonction membre.
+Pour rigoler un peu, on ajoute une petite contrainte qui est &amp;ldquo;l&amp;rsquo;efficacité&amp;rdquo;. Petit mot qui englobe un peu tout et n&amp;rsquo;importe quoi tel que la performance en mémoire et en temps.
+À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc.</description>
+    </item>
+    
   </channel>
 </rss>
