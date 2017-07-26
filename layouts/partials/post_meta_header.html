@@ -10,7 +10,7 @@
   {{- end }}
   {{ partial "tags.html" . }}
   {{ partial "categories.html" . }}
-  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>{{ int (div .WordCount 120) }} minutes ;
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>{{ .ReadingTime }} minutes ;
   <a href="{{ .Permalink }}#gh-comments" onclick="DoGithubComments({{ $.Params.ghcommentid }})"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
   <a href="#{{ .UniqueID }}-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
 </p>
