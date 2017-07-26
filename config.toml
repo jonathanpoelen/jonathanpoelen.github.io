@@ -1,0 +1,66 @@
+baseURL = "https://jonathanpoelen.github.io/"
+languageCode = "fr-FR"
+defaultContentLanguage = "fr"
+title = "Jonathan Poelen"
+#copyright = "This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."
+
+#paginate=10
+
+pygmentsuseclasses = true
+PygmentsCodeFences = true
+pygmentsstyle = "emacs"
+#pygmentsoptions = "linenos=1,style=emacs"
+
+#SectionPagesMenu = "main"
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[params]
+  author = "Jonathan Poelen"
+  githubUser = "jonathanpoelen"
+  title = "Le blog de Jonathan Poelen"
+  #title = "Jonathan Poelen"
+  subtitle = "Mon petit mémo sur tout ce qui touche à la programmation =)"
+  #description = "Mon petit mémo sur tout ce qui touche à la programmation =)"
+  readmore = false
+  authorbox = false
+  post_navigation = true
+  recent_articles_dateformat = "02/01/2006"
+  dateformat = "02 January 2006"
+
+[author]
+  avatar = "https://gravatar.com/avatar/88e6e1ff6628ffe10775817ce91d4c09"
+  name = "Jonathan Poelen"
+  email = "jonathan.poelen@gmail.com"
+  #bio = "template wizard"
+
+[params.widgets]
+  search = true
+  categories = true
+  tags = true
+  tags_counter = true
+  recent_articles = true
+  recent_articles_num = 5
+  #social = true
+  social_github = "jonathanpoelen"
+  #social_email = "jonathan.poelen@gmail.com"
+  taglist = true
+
+[permalinks]
+  post = "/:year/:month/:title/"
+
+[blackfriday]
+  angledQuotes = true
+
+#[[menu.main]]
+#    name = "Mon Github"
+#    weight = -110
+#    identifier = "github"
+#    url = "https://github.com/jonathanpoelen"
+#[[menu.main]]
+#    name = "getting started"
+#    pre = "<i class='fa fa-road'></i>"
+#    weight = -100
+#    url = "/getting-started/"

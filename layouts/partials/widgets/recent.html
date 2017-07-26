@@ -1,0 +1,30 @@
+{{- if .Site.Params.widgets.recent_articles }}
+{{- $recent_articles_num := (.Site.Params.widgets.recent_articles_num | default 10) }}
+{{- $posts := where .Site.RegularPages "Section" "in" (.Site.Params.postSections | default (slice "post")) }}
+<div class="widget-recent widget">
+  <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      {{- range first $recent_articles_num $posts }}
+      <li class="widget__item"><a class="widget__link" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{- end }}
+    </ul>
+  </div>
+</div>
+<div class="widget-recent widget">
+  <h4 class="widget__title"><i class="fa fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      {{- range first $recent_articles_num (where (sort $posts "Lastmod" "desc") "Lastmod" "ne" nil) }}
+      {{- if ne .Date .Lastmod }}
+      <li class="widget__item"><a class="widget__link" href="{{ .RelPermalink }}">
+        <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05" }}">{{.Lastmod.Format ( .Site.Params.recent_articles_dateformat | default "02/01/2006")}}</time>
+        -- {{ .Title }}
+      </a></li>
+      {{- end }}
+      {{- end }}
+
+    </ul>
+  </div>
+</div>
+{{- end }}

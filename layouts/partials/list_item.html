@@ -1,0 +1,27 @@
+<article class="list__item post clearfix">
+  {{- if .Params.thumbnail }}
+  <figure class="list__thumbnail">
+    <a href="{{ .Permalink }}">
+      <img src="{{ .Params.thumbnail | relURL }}" alt="{{ .Title }}" />
+    </a>
+  </figure>
+  {{- end }}
+  <div class="list__content clearfix">
+    <header class="list__header">
+      <h1 class="list__title post__title ">
+        <a href="{{ .RelPermalink }}" rel="bookmark">{{ .Title }}</a>
+      </h1>
+      {{ partial "post_meta_header.html" . }}
+    </header>
+    <div class="list__excerpt">
+      {{ .Summary }}
+    </div>
+    {{- if .Site.Params.readmore }}
+    {{- if .Truncated }}
+    <div class="list__footer">
+      <a class="list__footer-readmore btn" href="{{ .RelPermalink }}">Lire plus…</a>
+    </div>
+    {{- end }}
+    {{- end }}
+  </div>
+</article>

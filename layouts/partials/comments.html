@@ -1,0 +1,17 @@
+<!--https://github.com/dwilliamson/donw.io/blob/master/public/post/github-comments/index.html-->
+{{- if $.Params.ghcommentid }}
+<section id="gh-comments">
+  <h1>Commentaires</h1>
+  <article id="gh-comments-list"></article>
+  <a href="#" id="gh-load-comments" class="btn" onclick="DoGithubComments({{ $.Params.ghcommentid }}); return false">Charger plus de commentaires</a>
+</section>
+
+<!--<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+<script type="text/javascript" src="{{ "js/github-comment.js" | relURL }}"></script>
+<script type="text/javascript">
+if (document.URL.split('#')[1] === 'gh-comments')
+{
+  DoGithubComments({{ $.Params.ghcommentid }});
+}
+</script>
+{{- end }}

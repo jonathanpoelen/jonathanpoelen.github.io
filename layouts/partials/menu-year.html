@@ -1,0 +1,21 @@
+{{- $.Scratch.Set "count" 1 }}
+{{- $.Scratch.Set "last" 0 }}
+<ul class="list__archive-year">
+{{- range .Pages }}
+  {{- $year := .Date.Format "2006" | int }}
+  {{- $last := $.Scratch.Get "last" }}
+  {{- $count := $.Scratch.Get "count" }}
+  {{- if ne $last $year }}
+    {{- if ne $last 0 }}
+      <li class="item__archive-year"><a href="#year-{{ $last }}"><time datetime="{{ $last }}">{{ $last }}</time> ({{ $count }})</a></li>
+    {{- end }}
+    {{- $.Scratch.Set "last" $year }}
+    {{- $.Scratch.Set "count" 1 }}
+  {{- else }}
+    {{- $.Scratch.Set "count" (add $count 1) }}
+  {{- end }}
+{{- end }}
+  {{- $last := $.Scratch.Get "last" }}
+  {{- $count := $.Scratch.Get "count" }}
+  <li class="item__archive-year"><a href="#year-{{ $last }}">{{ $last }} ({{ $count }})</a></li>
+</ul>

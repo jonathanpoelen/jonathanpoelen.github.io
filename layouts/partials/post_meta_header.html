@@ -1,0 +1,17 @@
+<!--{{- if or (not .Date.IsZero) .Params.categories .Params.tags }}-->
+<p class="post__meta meta">
+  {{- if not .Date.IsZero }}
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="{{ .Date.Format "2006-01-02T15:04:05" }}">{{ partial "date_french.html" (.Date.Format ( .Site.Params.dateformat | default "January 02, 2006")) }}</time>
+    {{ if ne .Date .Lastmod }}
+    ({{ i18n "lastModifiedOn" }} <time class="post__meta-lastmod" datetime="{{ .Lastmod.Format "2006-01-02T15:04:05" }}">{{ partial "date_french.html" (.Lastmod.Format ( .Site.Params.dateformat | default "January 02, 2006")) }})</time>
+    {{ end }}
+    ;
+  {{- end }}
+  {{ partial "tags.html" . }}
+  {{ partial "categories.html" . }}
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>{{ int (div .WordCount 120) }} minutes ;
+  <a href="{{ .Permalink }}#gh-comments" onclick="DoGithubComments({{ $.Params.ghcommentid }})"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#{{ .UniqueID }}-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+<!--{{- end }}-->

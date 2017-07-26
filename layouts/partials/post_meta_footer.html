@@ -1,0 +1,22 @@
+<p class="post__meta meta">
+  {{- if not .Date.IsZero }}
+  Le <time class="post__meta-date" datetime="{{ .Date.Format "2006-01-02T15:04:05" }}">{{ partial "date_french.html" (.Date.Format ( .Site.Params.dateformat | default "January 02, 2006")) }}</time> {{ i18n "byAuthor" }}
+  {{- else }}
+  {{ i18n "ByAuthor" }}
+  {{- end }}
+  {{- if .Params.author }} {{ .Params.author }} {{- else }} {{ .Site.Params.Author }} {{- end }}
+  {{- if .Params.categories }} {{ i18n "inCat" }} {{ partial "list_category.html" . }}{{- end }} ;
+  {{ partial "tags.html" . }}
+  {{- if ne .Date .Lastmod }}<br />({{ i18n "lastModifiedOn" }} <time class="post__meta-lastmod" datetime="{{ .Lastmod.Format "2006-01-02T15:04:05" }}">{{ partial "date_french.html" (.Lastmod.Format ( .Site.Params.dateformat | default "January 02, 2006")) }})</time>{{- end }}
+  <br/><a href="{{ .Permalink }}"><i class="fa fa-link fa-fw" aria-hidden="true"></i>{{ i18n "permalink" }}.</a>
+</p>
+<p class="post__meta meta share" id="{{ .UniqueID }}-share">
+  <!--<i class="fa fa-share-alt fa-fw" aria-hidden="true"></i><span class="sr-only">Partager Par </span>-->
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject={{ .Title | urlize }}&amp;Body={{ .Permalink }}"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url={{ .Permalink }}" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url={{ .Permalink }}" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u={{ .Permalink }}" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url={{ .Permalink }}&amp;title={{ .Title | urlize }}" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url={{ .Permalink }}&amp;name={{ .Title | urlize }}" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true"></i><span class="sr-only">Tumblr</span></a>
+</p>

@@ -1,0 +1,1 @@
+{{- range $index, $category := .Params.categories }}{{ if gt $index 0 }}, {{ end }}<a class="meta-categories__link" href="{{ "categories/" | relLangURL }}{{ . | urlize | lower }}" rel="category">{{ . }}</a>{{- end }}

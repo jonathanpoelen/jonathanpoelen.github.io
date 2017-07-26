@@ -1,0 +1,26 @@
+<nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <ul class="menu__list">
+    {{- if .Site.Menus.main }}
+    {{- $currentNode := . }}
+    {{- range sort .Site.Menus.main }}
+    {{- if .Name}}
+    <li class="menu__item {{if or ($currentNode.IsMenuCurrent "main" .) ($currentNode.HasMenuCurrent "main" .) }}menu__item--active{{end}}"><a class="menu__link" href="{{ .URL }}">
+      {{ .Name | upper }}
+    </a></li>
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- with .Site.Params.GithubUser }}
+    <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/{{ . }}">
+      <i class="fa fa-github" aria-hidden="true"></i> Github
+    </a></li>
+    <li class="menu__item"><a class="menu__link" title="Archives" href="/archives">
+      <i class="fa fa-archive" aria-hidden="true"></i> Archives</a>
+    </li>
+    <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
+      <i class="fa fa-rss" aria-hidden="true"></i> RSS</a>
+    </li>
+    {{- end }}
+  </ul>
+</nav>
+<!--<hr class="divider">-->

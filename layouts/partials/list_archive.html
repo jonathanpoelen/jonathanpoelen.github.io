@@ -1,0 +1,31 @@
+{{- $.Scratch.Set "last" 0 }}
+{{- range .Pages }}
+  {{- $year := .Date.Format "2006" | int }}
+  {{- $last := $.Scratch.Get "last" }}
+  {{- if ne $last $year }}
+    {{- if ne $last 0 }}
+        </div>
+      </section>
+    {{- end }}
+    {{- $.Scratch.Set "last" $year }}
+    <section class="archives">
+      <h1 class="year"{{if $.SetId}} id="year-{{ $year }}"{{end}}><time datetime="{{ $year }}">{{ $year }}</time></h1>
+      <div>
+  {{- end }}
+  <article>
+    <time class="list__meta-date" datetime="{{ .Date.Format "2006-01-02T15:04:05" }}" pubdate="pubdate">{{ partial "date_french.html" (.Date.Format "02 Jan") }}</time>
+    <h1 class="list__title"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
+    <div class="list__meta meta">
+      {{ partial "tags.html" . }}
+      {{ partial "categories.html" . }}
+      {{- if ne .Date .Lastmod }}&nbsp;<i class="fa fa-clock-o" aria-hidden="true"></i> ({{ i18n "lastModifiedOn" }} <time class="list__meta-lastmod" datetime="{{ .Lastmod.Format "2006-01-02T15:04:05" }}">{{.Lastmod.Format ( .Site.Params.dateformat | default "January 02, 2006") }})</time>{{- end }}
+      {{- if $.Site.Params.theme.disqus_shortname }}
+      <span class="comments"><a href="{{ .Permalink }}#disqus_thread">Comments</a></span>
+      {{- end }}
+    </div>
+  </article>
+{{- end }}
+{{- if ne ($.Scratch.Get "last") 0 }}
+  </div>
+</section>
+{{- end }}

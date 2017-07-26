@@ -1,0 +1,38 @@
+{{ partial "header.html" . }}
+
+<section class="main-content content" role="main">
+  <article class="post">
+  <header class="page-header">
+    <h1 class="page-header__title"><i class="fa fa-chain-broken" aria-hidden="true"></i> Oups, le lien est cassé.</h1>
+  </header>
+
+  <div class="post post__content">
+    <p>Heureusement,
+    si on décale de deux caractères la première lettre,
+    qu'on ajoute "in" au début en remplaçant le dernier mot par "dex",
+    que tout le milieu soit éliminé
+    et qu'on termine par l'extension ".html",
+    alors on se retrouve sur la <a href="/" title="{{ .Site.Title }}">page d'accueil</a>.
+    </p>
+    <p>Ceux qui préfèrent les cartons remplis de feuille peuvent toujours fouyer dans les <a href="/archives" title="Archives">archives</a>.</p>
+  </div>
+  <!--<div class="p404">
+    <p>Imaginer du sable fin.</p>
+    <p>Imaginer un soleil radieux.</p>
+    <p>Imaginer un bon article à lire.</p>
+    <p>Mais n'imaginer pas le trouver ici.</p>
+  </div>
+
+  <header class="p404">
+    <p>Bienvenue sur</p>
+    <h1 id="title">404, page introuvable</h1>
+  </header>
+
+  <footer class="p404">
+    <p>Allez aux <a href="/archives" title="Archives">archives</a> ou retourner à la <a href="/" title="{{ .Site.Title }}">page d'accueil</a>.</p>
+  </footer>-->
+  </article>
+</section>
+
+{{ partial "sidebar.html" . }}
+{{ partial "footer.html" . }}
