@@ -70,7 +70,7 @@
 ;
 
 
-  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>16 minutes ;
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>10 minutes ;
   <a href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#gh-comments" onclick="DoGithubComments( 1 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
   <a href="#8d66709af0c9e47357d2fae8b9c175bd-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
 </p>
@@ -100,26 +100,26 @@
 <p>Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter <code>noexcept</code> sur de tels prototypes.</p>
 
 <p>Voici ce que donne l&rsquo;implémentation:</p>
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="n">Matrix</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">Matrix</span> <span class="n">ret</span> <span class="p">{</span><span class="n">lhs</span><span class="p">};</span>
   <span class="n">ret</span> <span class="o">+=</span> <span class="n">rhs</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">ret</span><span class="p">;</span> <span class="c1">// et non pas return `ret += rhs`, ce qui empêcherait la NRVO.</span>
 <span class="p">}</span>
 
-<span class="n">Matrix</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="n">Matrix</span> <span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lhs</span><span class="p">)</span> <span class="o">+=</span> <span class="n">rhs</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lhs</span><span class="p">);</span> <span class="c1">// ne pas oublier std::move, sinon il y a aura copie en sortie puisque lhs est une référence</span>
+  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lhs</span><span class="p">);</span> <span class="c1">// ne pas oublier std::move, sinon il y a aura copie en sortie</span>
 <span class="p">}</span>
 
-<span class="n">Matrix</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span> <span class="o">+=</span> <span class="n">lhs</span><span class="p">;</span> <span class="c1">// commutativité: x+y = y+x</span>
   <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="n">Matrix</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="n">Matrix</span> <span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span> <span class="o">+=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lhs</span><span class="p">);</span>
   <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
@@ -128,18 +128,18 @@
 
 <p>L&rsquo;utilisation de std::move sur l&rsquo;opérande de gauche pour <code>+=</code> (cf: <code>std::move(lhs) += rhs;</code> et autres) n&rsquo;est pas utile pour notre classe Matrix qui contient un <code>std::vector&lt;int&gt;</code>. Mais dans l&rsquo;hypothèse d&rsquo;un <code>std::vector&lt;std::vector&lt;T&gt;&gt;</code> cela permet d&rsquo;informer que le sous-vecteur, ou carrément <code>T</code> peut être recyclé.</p>
 
-<p>Par exemple, dans le cas où les 2 opérandes sont des rvalues, on pourrait déplacer les vecteurs de rhs parce que leur capacité est plus grande. C&rsquo;est  une optimisation très spécifique et je pense que très peu de personnes (aucune?) s&rsquo;en sert dans la réalité. On pourrait aussi faire <code>std::move(ret) +=</code> dans la première implémentation pour les mêmes raisons.</p>
+<p>Par exemple, dans le cas où les 2 opérandes sont des rvalues, on pourrait déplacer les vecteurs de rhs parce que leur capacité est plus grande. C&rsquo;est une optimisation très spécifique et je pense que très peu de personnes (aucune?) s&rsquo;en sert dans la réalité. On pourrait aussi faire <code>std::move(ret) +=</code> dans la première implémentation pour les mêmes raisons.</p>
 
 <p>Petite note sur la dernière implémentation. Utiliser <code>rhs</code> comme valeur de retour permet de gagner un <code>mov</code> (asm). <a href="https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(j:1,source:'%23include+%3Cutility%3E%0A%23include+%3Cvector%3E%0A%0Astruct+Matrix%0A%7B%0A++++++std::vector%3Cint%3E+v%3B%0A++++++Matrix%26+operator+%2B%3D(Matrix+const%26)+%3B%0A%7D%3B%0A%0AMatrix+operator%2B+(Matrix+%26%26+lhs,+Matrix+const+%26+rhs)%0A%7B%0A++++std::move(lhs)+%2B%3D+rhs%3B%0A++++//+ne+pas+oublier+std::move,+sinon+il+y+a+aura+copie+en+sortie+puisque+que+lhs+est+une+r%C3%A9f%C3%A9rence%0A++++return+std::move(lhs)%3B%0A%7D%0A%0AMatrix+operator+%2B+(Matrix+const+%26+lhs,+Matrix+%26%26+rhs)%0A%7B%0A++++std::move(rhs)+%2B%3D+lhs%3B+//+commutativit%C3%A9:+x%2By+%3D+y%2Bx%0A++++return+std::move(rhs)%3B%0A%7D%0A'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:31.812073713509285,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g71,filters:(b:'0',commentOnly:'0',directives:'0',intel:'0'),options:'-O3+-std%3Dc%2B%2B14+-fverbose-asm+',source:1),l:'5',n:'0',o:'x86-64+gcc+7.1+(Editor+%231,+Compiler+%231)',t:'0')),k:34.07627444894807,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g71,filters:(b:'0',commentOnly:'0',directives:'0',intel:'0'),options:'+-std%3Dc%2B%2B14+-O3+-fverbose-asm+',source:1),l:'5',n:'0',o:'x86-64+gcc+7.1+(Editor+%231,+Compiler+%232)',t:'0')),k:34.11165183754265,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4">ici</a>.</p>
 
 <p>Bon, c&rsquo;est bien joli, mais on peut faire la même avec seulement 2 prototypes et gagner une optimisation sur la <a href="http://en.cppreference.com/w/cpp/language/copy_elision">copy-elision</a> qui n&rsquo;est pas faite par gcc. Le sagouin, il utilise un constructeur de déplacement !</p>
-<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span></span><span class="n">Matrix</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="n">Matrix</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">lhs</span> <span class="o">+=</span> <span class="n">rhs</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">lhs</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="n">Matrix</span> <span class="k">operator</span> <span class="o">+</span> <span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">)</span> <span class="o">+=</span> <span class="n">lhs</span><span class="p">;</span> <span class="c1">// commutativité: x+y = y+x</span>
   <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
@@ -149,7 +149,7 @@
 <p>Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.</p>
 
 <p>Ainsi, si dans l&rsquo;expresssion <code>a + b</code>, <code>b</code> une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un <code>std::cout &lt;&lt; __PRETTY_FUNCTION__ &lt;&lt; '\n'</code> dans les implémentations et le test qui suit.</p>
-<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Rhs</span><span class="o">&gt;</span>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Rhs</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">test</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Matrix &quot;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_const</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span><span class="p">{}</span> <span class="o">?</span> <span class="s">&quot;const&quot;</span> <span class="o">:</span> <span class="s">&quot;     &quot;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; a; &quot;</span><span class="p">;</span>
@@ -161,8 +161,8 @@
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">left</span><span class="p">;</span>
   <span class="cp">#define C(a,b) std::cout &lt;&lt; std::setw(13) &lt;&lt; #a &lt;&lt; &quot;+ &quot; &lt;&lt; std::setw(15) &lt;&lt; #b; a+b</span>
   <span class="n">C</span><span class="p">(</span><span class="n">a</span><span class="p">,</span>            <span class="n">b</span><span class="p">);</span>
-  <span class="n">C</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">b</span><span class="p">);</span>
   <span class="n">C</span><span class="p">(</span><span class="n">a</span><span class="p">,</span>            <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
+  <span class="n">C</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">b</span><span class="p">);</span>
   <span class="n">C</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
   <span class="cp">#undef C</span>
 <span class="p">}</span>
@@ -170,9 +170,9 @@
 <span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="n">test</span><span class="o">&lt;</span>      <span class="n">Matrix</span><span class="p">,</span>       <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
+  <span class="n">test</span><span class="o">&lt;</span>      <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
   <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span>       <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
-  <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">;</span>
-  <span class="n">test</span><span class="o">&lt;</span>      <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -181,36 +181,36 @@
 <pre><code>Matrix       a; Matrix       b;
 
 a            + b              Matrix operator+(Matrix, const Matrix&amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
 a            + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
+std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
+
+
+Matrix       a; Matrix const b;
+
+a            + b              Matrix operator+(Matrix, const Matrix&amp;)
+a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
+std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
+std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
 
 Matrix const a; Matrix       b;
 
 a            + b              Matrix operator+(Matrix, const Matrix&amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
 a            + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
+std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
 
 
 Matrix const a; Matrix const b;
 
 a            + b              Matrix operator+(Matrix, const Matrix&amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
 a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
-std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
-
-
-Matrix       a; Matrix const b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
-a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 </code></pre>
 
-<p>Si on y tient vraiment, on peut ajouter <code>Matrix operator + (Matrix &amp;&amp;, Matrix &amp;&amp;)</code>. Mais comme dit précédemment le besoin est très faible.</p>
+<p>Si on y tient vraiment, on peut ajouter <code>Matrix operator+(Matrix&amp;&amp;, Matrix&amp;&amp;)</code>. Mais comme dit précédemment le besoin est très faible.</p>
 
 <p>Toutefois, un défaut existe en utilisant que 2 fonctions: il n&rsquo;est pas possible de marquer <code>noexcept</code> le prototype qui correspond à <code>std::move(a)+b</code> (qui réutilise <code>a</code>), car c&rsquo;est le même qui est utilisé pour <code>a+b</code> qui fait une copie de <code>a</code>.</p>
 
@@ -220,17 +220,17 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
 <p>Une autre solution pour la surcharge d&rsquo;opérateur est de ne faire qu&rsquo;un seul et unique prototype template qui s&rsquo;active en présence d&rsquo;un certain type. Ce n&rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.</p>
 
-<p>Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de std::enable_if. Ce qui donne:</p>
-<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">MatrixLhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">MatrixRhs</span><span class="o">&gt;</span>
+<p>Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de <code>std::enable_if</code>. Ce qui donne:</p>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">MatrixLhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">MatrixRhs</span><span class="o">&gt;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixLhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixRhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span>
   <span class="n">Matrix</span><span class="o">&gt;</span>
-<span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">MatrixLhs</span> <span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">MatrixRhs</span> <span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
+<span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">MatrixLhs</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">MatrixRhs</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
 </code></pre></div>
 
-<p>Dans la réalité, l&rsquo;addition d&rsquo;une matrice fonctionne aussi sur des entiers (cf: <code>int + Matrix</code>, <code>Matrix + int</code>). Le filtre sera alors beaucoup plus compliqué puisqu&rsquo;il faut qu&rsquo;au moins une des opérandes soit un type <code>Matrix</code> et que les paramètres soient des types compatibles (en prenant en compte la préscence des références et des const). La condition devient alors quelque chose comme:</p>
-<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span></span><span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
+<p>Dans la réalité, l&rsquo;addition d&rsquo;une matrice fonctionne aussi sur des entiers (cf: <code>int + Matrix</code>, <code>Matrix + int</code>). Le filtre sera alors beaucoup plus compliqué puisqu&rsquo;il faut qu&rsquo;au moins une des opérandes soit un type <code>Matrix</code> et que les paramètres soient des types compatibles (en prenant en compte la préscence des références et des <code>const</code>). La condition devient alors quelque chose comme:</p>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
 <span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
 <span class="p">(</span><span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">||</span> <span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span><span class="p">)</span>
 </code></pre></div>
@@ -243,7 +243,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
 <p>Une solution possible est de mettre 2 valeurs intermédiaires qui représentent l&rsquo;opérande de gauche et l&rsquo;opérande de droite et dont le type s&rsquo;adapte en fonction des types en entrée.</p>
 
-<p>Ci-dessous un tableau récapitulatif des types et valeurs de nos 2 nouvelles variables Lhs et Rhs. Les <code>const</code> sont supprimés car seule la référence importe.</p>
+<p>Ci-dessous un tableau récapitulatif des types et valeurs de nos 2 nouvelles variables <code>Lhs</code> et <code>Rhs</code>. Les <code>const</code> sont supprimés car seule la référence importe.</p>
 
 <table>
 <thead>
@@ -256,36 +256,36 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
 <tbody>
 <tr>
-<td>M &amp;,  M &amp;</td>
-<td>M    = lhs</td>
-<td>M &amp;  = rhs</td>
+<td><code>M &amp;</code>, <code>M &amp;</code></td>
+<td><code>M</code> = lhs</td>
+<td><code>M &amp;</code> = rhs</td>
 </tr>
 
 <tr>
-<td>M &amp;&amp;, M &amp;</td>
-<td>M &amp;&amp; = lhs</td>
-<td>M &amp;  = rhs</td>
+<td><code>M &amp;&amp;</code>, <code>M &amp;</code></td>
+<td><code>M &amp;&amp;</code> = lhs</td>
+<td><code>M &amp;</code> = rhs</td>
 </tr>
 
 <tr>
-<td>M &amp;,  M &amp;&amp;</td>
-<td>M &amp;&amp; = rhs</td>
-<td>M &amp;  = lhs</td>
+<td><code>M &amp;</code>, <code>M &amp;&amp;</code></td>
+<td><code>M &amp;&amp;</code> = rhs</td>
+<td><code>M &amp;</code> = lhs</td>
 </tr>
 
 <tr>
-<td>M &amp;&amp;, M &amp;&amp;</td>
-<td>M &amp;&amp; = rhs</td>
-<td>M &amp;&amp; = lhs</td>
+<td><code>M &amp;&amp;</code>, <code>M &amp;&amp;</code></td>
+<td><code>M &amp;&amp;</code> = rhs</td>
+<td><code>M &amp;&amp;</code> = lhs</td>
 </tr>
 </tbody>
 </table>
 
 <p>Et l&rsquo;implémentation:</p>
-<div class="highlight"><pre><code class="language-c++" data-lang="c++"><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="n">rvalue_wrapper</span>
 <span class="p">{</span>
-  <span class="n">T</span> <span class="o">&amp;</span> <span class="n">value</span><span class="p">;</span>
+  <span class="n">T</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">;</span>
 
   <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;&amp;</span> <span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span>
   <span class="p">{</span> <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="p">}</span>
@@ -304,30 +304,24 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 <span class="p">}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Rhs</span><span class="o">&gt;</span>
-<span class="n">Matrix</span> <span class="k">operator</span> <span class="o">+</span><span class="p">(</span><span class="n">Lhs</span> <span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Rhs</span> <span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="n">Matrix</span> <span class="k">operator</span> <span class="o">+</span><span class="p">(</span><span class="n">Lhs</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Rhs</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">using</span> <span class="n">NewLhs</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional_t</span><span class="o">&lt;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
     <span class="n">Matrix</span><span class="p">,</span>
-    <span class="n">rvalue_wrapper</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&gt;</span>
-  <span class="o">&gt;</span><span class="p">;</span>
+    <span class="n">rvalue_wrapper</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&gt;&gt;</span><span class="p">;</span>
 
   <span class="k">using</span> <span class="n">NewRhs</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional_t</span><span class="o">&lt;</span>
     <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
     <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-    <span class="n">Matrix</span> <span class="o">&amp;</span><span class="p">,</span>
-    <span class="n">Matrix</span> <span class="o">&amp;&amp;&gt;</span><span class="p">;</span>
+    <span class="n">Matrix</span><span class="o">&amp;</span><span class="p">,</span>
+    <span class="n">Matrix</span><span class="o">&amp;&amp;&gt;</span><span class="p">;</span>
 
   <span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">swap_arg</span> <span class="o">=</span> <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
 
-  <span class="n">NewLhs</span> <span class="n">new_lhs</span> <span class="p">{</span>
-    <span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">swap_arg</span> <span class="o">?</span> <span class="nl">rhs</span> <span class="p">:</span> <span class="n">lhs</span><span class="p">)</span>
-  <span class="p">};</span>
-
-  <span class="n">NewRhs</span> <span class="n">new_rhs</span> <span class="p">{</span>
-    <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NewRhs</span><span class="o">&gt;</span><span class="p">(</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">swap_arg</span> <span class="o">?</span> <span class="nl">lhs</span> <span class="p">:</span> <span class="n">rhs</span><span class="p">))</span>
-  <span class="p">};</span>
+  <span class="n">NewLhs</span> <span class="n">new_lhs</span><span class="p">{</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">swap_arg</span> <span class="o">?</span> <span class="nl">rhs</span> <span class="p">:</span> <span class="n">lhs</span><span class="p">)};</span>
+  <span class="n">NewRhs</span> <span class="n">new_rhs</span><span class="p">{</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NewRhs</span><span class="o">&gt;</span><span class="p">(</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">swap_arg</span> <span class="o">?</span> <span class="nl">lhs</span> <span class="p">:</span> <span class="n">rhs</span><span class="p">))};</span>
 
   <span class="n">unwrap</span><span class="p">(</span><span class="n">new_lhs</span><span class="p">)</span> <span class="o">+=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NewRhs</span><span class="o">&gt;</span><span class="p">(</span><span class="n">new_rhs</span><span class="p">);</span>
 
@@ -337,11 +331,11 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
 <p>Le code mérite quelques explications. Pour commencer, parlons de <code>rvalue_reference</code> qui est un palliatif pour une optimisation au niveau de <code>return</code>. Au niveau du retour, si <code>NewLhs</code> est une rvalue, il faut utiliser <code>std::move</code>, sauf que l&rsquo;utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un <code>if (std::is_rvalue_reference&lt;NewLhs&gt;{}) return std::move(lhs);</code> avant <code>return new_lhs</code> l&rsquo;optimisation n&rsquo;est pas faite. Cela fonctionne néanmoins avec <code>if constexpr</code> de c++17. Le but de <code>rvalue_reference</code>  est finalement de rendre automatique un retour par rvalue grâce à l&rsquo;opérateur de cast interne.</p>
 
-<p>Concernant ce curieux enchaînement de cast, celui-ci s&rsquo;explique par la difficulté de contrôler le type retourner par une ternaire. Une ternaire sur deux variables de même type va retourner une référence (une variable est toujours une lvalue). La référence sera considérée constante si une des deux valeurs est une référence constante. Du coup, on vire le const pour ensuite construire les types NewLhs et NewRhs.</p>
+<p>Concernant ce curieux enchaînement de cast, celui-ci s&rsquo;explique par la difficulté de contrôler le type retourner par une ternaire. Une ternaire sur deux variables de même type va retourner une référence (une variable est toujours une lvalue). La référence sera considérée constante si une des deux valeurs est une référence constante. Du coup, on vire le const pour ensuite construire les types <code>NewLhs</code> et <code>NewRhs</code>.</p>
 
 <p>Ici, le constructeur de la matrice (quand <code>NewLhs = Matrix</code>) va recevoir un type non const. À moins qu&rsquo;un constructeur existe pour les références non const, cela ne cause pas de problème. On peut très bien ajouter un <code>std::conditional</code> pour forcer le const.</p>
 
-<p>En première impression <code>static_cast&lt;NewRhs&gt;</code> pourrait être optionnel, mais celui-ci permet de forcer la rvalue pour construire NewRhs. Une lvalue (le retour de <code>const_cast</code>) ne pouvant être affectée à une rvalue sans cela.</p>
+<p>En première impression <code>static_cast&lt;NewRhs&gt;</code> pourrait être optionnel, mais celui-ci permet de forcer la rvalue pour construire NewRhs. Une lvalue (le retour de <code>const_cast&lt;Matrix&amp;&gt;</code>) ne pouvant être affectée à une rvalue sans cela.</p>
 
 <p>Les casts présents fonctionnent bien parce que <code>lhs</code> et <code>rhs</code> sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font <code>falcon::cif</code> ou <code>boost::hana::if_</code>. Plusieurs de mes articles en parlent.</p>
 
@@ -359,7 +353,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
 <p>La dernière solution consiste à se servir des traits pour activer ou non certains prototypes comme dans le chapitre précédent. Une mise en oeuvre poussée peut être extrêmement extensible et s&rsquo;adapte très facilement aux catégories de valeur (séquence, intégrale), mais c&rsquo;est un poil complexe à mettre en place. Je ne connais pas de bibliothèque qui le fasse.</p>
 
-<p>Il n&rsquo;existe actuellement pas d&rsquo;outil satisfaisant pour générer les opérateurs alors qu&rsquo;il est presque aussi rapide d&rsquo;écrire une lib ou des macros pour le faire. Le temps perdu sera largement compensé par le nombre d&rsquo;opérateurs à implémenter par la suite. Avec un peu de jugeote, il est même possible de mutualiser l&rsquo;écriture des opérateurs <code>@=</code>. Pensez-y la prochaine fois qu&rsquo;il faudra écrire des opérateurs ;).</p>
+<p>Au final, il n&rsquo;existe actuellement pas d&rsquo;outil satisfaisant pour générer les opérateurs alors qu&rsquo;il est presque aussi rapide d&rsquo;écrire une lib ou des macros pour le faire. Le temps perdu sera largement compensé par le nombre d&rsquo;opérateurs à implémenter par la suite. Avec un peu de jugeote, il est même possible de mutualiser l&rsquo;écriture des opérateurs <code>@=</code>. Pensez-y la prochaine fois qu&rsquo;il faudra écrire des opérateurs ;).</p>
 
   </div>
   <footer class="post__footer">
