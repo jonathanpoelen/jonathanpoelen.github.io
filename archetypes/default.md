@@ -1,5 +1,5 @@
 ---
-title: "{{ replace .TranslationBaseName "-" " " | title }}"
+title: "{{ .TranslationBaseName }}"
 #description: ""
 date: {{ .Date }}
 #lastmod: {{ .Date }}

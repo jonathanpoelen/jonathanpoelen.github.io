@@ -2,7 +2,8 @@
 
 set -e
 
-hugo --theme=mainroad --i18n-warnings --buildDrafts
+#hugo --theme=mainroad --i18n-warnings --buildDrafts
+hugo --theme=mainroad --i18n-warnings
 cd public
 git add *
 git commit -m "Site updated at $(LANG=en date --rfc-3339=seconds -u)"
