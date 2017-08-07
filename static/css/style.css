@@ -236,7 +236,7 @@ body {
 
 /*** Typography ***/
 h1 {
-  /* font-size: 32px; */
+   font-size: 32px;
   font-size: 2rem;
 }
 
@@ -369,6 +369,37 @@ address {
 
 .text-alt {
   font-size: .8em;
+}
+
+/*** Title ***/
+.post__content h1 {
+  font-size: 48px;
+  font-size: 4rem;
+}
+
+.post__content h2 {
+  font-size: 32px;
+  font-size: 2rem;
+}
+
+.post__content h3 {
+  font-size: 24px;
+  font-size: 1.5rem;
+}
+
+.post__content h4 {
+  font-size: 20px;
+  font-size: 1.25rem;
+}
+
+.post__content h5 {
+  font-size: 18px;
+  font-size: 1.125rem;
+}
+
+.post__content h6 {
+  font-size: 16px;
+  font-size: 1rem;
 }
 
 /*** Lists ***/
@@ -713,7 +744,7 @@ select {
 	text-decoration: underline;
 }
 
-.post__content h1/*, .post__content h2, .post__content h3*/ {
+.post__content h1, .post__content h2/*, .post__content h2, .post__content h3*/ {
   border-top: 1px dashed #c4c4c4;
   padding-top: 10px
 }

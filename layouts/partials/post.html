@@ -13,7 +13,7 @@
     {{- if and (and $.isSinglePage (gt .WordCount 400)) (ne .Params.toc false) }}
     <aside id="toc"><div id="tocInner">
       <span id="tocHeading">Sommaire</span>
-      {{ .TableOfContents }}
+      {{ replaceRE "^(<nav id=\"TableOfContents\">)\\s*<ul>\\s*<li>|</ul>\\s*</li>\\s*(</nav>)$" "$1$2" .TableOfContents | safeHTML }}
     </div></aside>
     {{- end }}
     {{ .Content }}

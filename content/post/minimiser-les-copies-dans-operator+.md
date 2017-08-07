@@ -21,7 +21,7 @@ En réalité, il y a plusieurs approches possibles que je mets ici en opposition
 2. un opérator unique pour les gouverner tous. (Ouais, comme pour l'anneau).
 
 
-# Plein de surcharges de operator+
+## Plein de surcharges de operator+
 
 Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter `noexcept` sur de tels prototypes.
 
@@ -150,7 +150,7 @@ Toutefois, un défaut existe en utilisant que 2 fonctions: il n'est pas possible
 Dans le cas d'opérateurs non-commutatifs, cette multiplication de fonction n'a pas lieu d'être. Il est largement préférable de ne faire qu'un opérateur prenant `lhs` par copie. On bénéficie ainsi aussi bien de la copy-elision que de la RVO.
 
 
-# Un prototype multi-fonction
+## Un prototype multi-fonction
 
 Une autre solution pour la surcharge d'opérateur est de ne faire qu'un seul et unique prototype template qui s'active en présence d'un certain type. Ce n'est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.
 
@@ -251,7 +251,7 @@ En première impression `static_cast<NewRhs>` pourrait être optionnel, mais cel
 Les casts présents fonctionnent bien parce que `lhs` et `rhs` sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font `falcon::cif` ou `boost::hana::if_`. Plusieurs de mes articles en parlent.
 
 
-# N'écrivez pas operator+ vous-même, c'est trop compliqué&nbsp;!
+## N'écrivez pas operator+ vous-même, c'est trop compliqué&nbsp;!
 
 Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est allourdi, la lisibilité réduite. Il y a moyen d'implémenter la plupart des opérateurs en quelques lignes pour le même résultat.
 
