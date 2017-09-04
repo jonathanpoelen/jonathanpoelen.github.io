@@ -730,6 +730,7 @@ select {
 
 .post__content p {
 	text-align: justify;
+  /* hyphens: auto; */
 }
 
 .post__content blockquote p:last-child {
@@ -1116,6 +1117,52 @@ th {
 	font-weight: bold;
 }
 
+/*** Pygmentize ***/
+.highlightwrap {
+  overflow-x: auto;
+  /* margin-bottom: 20px; */
+  /* margin-bottom: 1.25rem; */
+}
+
+/* .highlightwrap:focus, .highlightwrap:hover { */
+/* } */
+
+.highlighttable {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.highlighttable td {
+  border: 0;
+  padding: 0;
+  vertical-align: top;
+}
+
+.highlighttable td:first-child {
+  width: 1px; /* smallest possible column */
+}
+
+.highlighttable td:first-child pre {
+  padding-right: 0;
+}
+
+.highlighttable .highlight pre {
+  padding-left: .6em;
+}
+
+.highlighttable pre {
+  padding: 10px 5px;
+  margin: 0;
+  border: 0;
+}
+
+.post__content pre {
+  overflow-x: auto;
+  white-space: pre;
+  hyphens: none;
+}
+
 /*** Forms ***/
 input {
 	/* font-size: 12px; */
@@ -1482,6 +1529,9 @@ body, html { background: #252525; color: #000; }
 .warning { border-color: #ddd; }
 /* pre { background: #f5f5f5; border-color: #c4c4c4; } */
 pre { background: #3a3a3a; border-color: #c4c4c4; }
+.highlighttable pre { border-color: #555; }
+.highlighttable td:first-child pre { background: #444; }
+.linenodiv code { color: #888 }
 pre code { color: #c5c8c6 }
 code { background-color: #f9f9f9; border-color: #fadbf4; }
 code { border: none; }

@@ -3,11 +3,11 @@ title: "{{ .TranslationBaseName }}"
 #description: ""
 date: {{ .Date }}
 #lastmod: {{ .Date }}
-#tags: [ ]
-#categories: [ ]
-#project_url: ""
 #slug: "a-site-page"
 #toc: false
-draft: false
+#tags: [ ]
+aliases: []
+categories: [ "c++" ]
+draft: true
 ghcommentid: 0
 ---

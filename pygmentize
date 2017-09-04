@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo '<div class="highlightwrap">'
+/usr/bin/pygmentize "$@"
+r=$?
+echo '</div>'
+exit $r

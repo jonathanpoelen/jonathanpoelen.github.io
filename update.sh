@@ -2,10 +2,12 @@
 
 set -e
 
-#hugo --theme=mainroad --i18n-warnings --buildDrafts
-hugo --theme=mainroad --i18n-warnings
+cd "$(dirname "$0")"
+
+./generate.sh
+
 cd public
-git add *
+git add .
 git commit -m "Site updated at $(LANG=en date --rfc-3339=seconds -u)"
 git push
 
