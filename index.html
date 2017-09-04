@@ -54,6 +54,108 @@
         
 <article class="post">
   <header class="post__header clearfix">
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></h1>
+    
+<p class="post__meta meta">
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2017-07-29T16:03:53">29 juillet 2017
+</time>
+    
+    ;
+  
+
+  
+
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>5 minutes ;
+  <a href="https://jonathanpoelen.github.io/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#96a58f4e3d0ef332dd3ad4bb99d219c5-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+    
+
+<p>Il y a 2 ans je me suis dit :</p>
+
+<blockquote>
+<p>Au prochain article, j&rsquo;essaye un autre système de blog !</p>
+</blockquote>
+
+<p>Et depuis 2 ans, plus rien&hellip; Je n&rsquo;ai pas parcouru le web à la recherche de la solution idéale, loin de là, je n&rsquo;avais juste pas d&rsquo;idée d&rsquo;article.</p>
+
+<p>Il y a 3 mois, en regardant une classe de matrice en C++, une idée m&rsquo;est venue. J&rsquo;ai écrit mon article puis cherché un système de site statique.</p>
+
+<p>Au départ, j&rsquo;avais en tête [Octopress][octopress] utilisé par Luc Hermitte pour son <a href="http://luchermitte.github.io/">blog</a>. Le principe est d&rsquo;écrire des fichiers en markdown, de générer le blog et mettre le tout sur github pour avoir une adresse en <code>github.io</code>. Le mettre sur github n&rsquo;est pas une obligation, mais c&rsquo;est pour moi le plus simple.</p>
+
+<p>J&rsquo;ai donc essayé [Hugo][hugo]&hellip; Ma logique est infaillible :).</p>
+
+<h2 id="pourquoi-quitter-blogspot">Pourquoi quitter Blogspot ?</h2>
+
+<p>Avant de commencer, une petite explication sur pourquoi Blogspot ne m&rsquo;est pas pratique.</p>
+
+<p>La principale raison est que l&rsquo;utilisation de Blogspot m&rsquo;oblige à faire du post-traitement sur mes articles. Pour avoir la couleur dans les codes, ils sont écrits dans un éditeur puis convertits en HTML (via Kate dans mon cas). La couleur de fond est trop contrastée pour le blog ce qui oblige un post-traitement supplémentaire. L&rsquo;ensemble est plutôt rapide à faire, mais modifier un code est pénible.</p>
+
+<p>Puisque je suis dans le mode HTML de blogspot, je me tape aussi tout le balisage des liens, paragraphes, mots importants, etc, ce qui parasite le texte. L&rsquo;absence de couleur dans la zone d&rsquo;édition n&rsquo;aide pas beaucoup.</p>
+
+<p>Autre point, j&rsquo;écris rarement un article depuis l&rsquo;interface web. Déjà parce qu&rsquo;il faut y accéder &ndash; il y a un peu trop de clics à faire et Blogspot reste lent à charger &ndash; ensuite parce que l&rsquo;éditeur est trop pauvre. Ça paraît con, mais les possibilités de mon éditeur de code sont très sollicités, même pour l&rsquo;écriture d&rsquo;un article. J&rsquo;envisage même de faire des plugins pour de la saisie rapide.</p>
+
+<p>Ceci fait qu&rsquo;utiliser un générateur de type markdown me trottait dans la tête depuis un bon moment. Il existe plein de générateurs vers HTML, <a href="http://pandoc.org/">Pandoc</a> étant probablement le plus connu. C&rsquo;est suffisant. On écrit un article, on convertit et on colle la sortie dans la zone d&rsquo;édition du blog.</p>
+
+<p>J&rsquo;aurais très bien pu utiliser Blogspot + un générateur. Sauf que je trouve Blogspot lourd à charger et les possibilités de menu et de mise en page sont un peu limitées. Alors autant voir ailleurs !</p>
+
+<h2 id="essai-de-hugo">Essai de Hugo.</h2>
+
+<p>En fait, au moment où je commençais à regarder les systèmes existants, quelqu&rsquo;un sur le <a href="https://openclassrooms.com/forum/sujet/groupe-communautaire-groupe-42">MM de 42</a> mit un lien vers Hugo. Le principe reste le même &ndash; au moins pour la génération de blog &ndash; avec comme objectif principal de ne pas avoir de dépendance et de générer rapidement le site.</p>
+
+<p>Un truc qui me plaît bien est de pouvoir utiliser autre chose que le markdown par défaut, par exemple, <a href="http://asciidoc.org/">Asciidoctor</a> ou <a href="http://docutils.sourceforge.net/rst.html">ReStructuredText</a>. Les implémentations ne sont pas nativement incorporées à Hugo ce qui rend leur utilisation plus lente dans la génération (il faut appeler un programme externe). Toutefois, il y a en native 2 implémentaitons de <a href="https://gohugo.io/content-management/formats/">markdown</a> et le <a href="http://orgmode.org/">mode Org</a> de Emacs. Pour se faire une idée du mode org, il y a 3 traductions françaises dont 2 à venir de <a href="pragmatic_emacs">Pragmatic Emacs</a> sur <a href="linuxfr_org">linuxfr</a>.</p>
+
+<p>J&rsquo;ai essayé Asciidoc, mais il ne fonctionne pas tel quel, il m&rsquo;a fallu un intermédiaire qui supprime l&rsquo;option <code>--safe</code> pour la coloraion du code (celle-ci utilise <a href="pygmentize">Pygmentize</a>). Par contre, je trouve le code HTML généré vraiment trop verbeux. À mon sens, entourer les paragraphes de <code>&lt;div class=&quot;paragraph&quot;&gt;...&lt;/div&gt;</code> est plus que superflux. Je ne sais pas ce qu&rsquo;il en est des autres formats ne les ayant pas essayés, pour le moment mes besoins suffisent pour le markdown. À savoir que les formats non natifs ne peuvent pas générer le sommaire, il faut faire un post-traitement sur la sortie HTML.</p>
+
+<p>Une autre chose sympathique que je n&rsquo;ai pas eu l&rsquo;occasion d&rsquo;utiliser concerne les templates Hugo au sein même des documents. Par exemple, un template <code>image</code> qui sort un code HTML avec caption + figure + image de la bonne taille + lien pour voir l&rsquo;image d&rsquo;origine. En gros, générer un truc bien casse pied à écrire :).</p>
+
+<h2 id="et-octopress">Et Octopress ?</h2>
+
+<p>Bon Hugo c&rsquo;est bon pour moi, mais j&rsquo;ai rapidement fait un tour sur Octopress entre deux. Pour tout dire, j&rsquo;ai rapidement abandonné. Le plugin le plus intéressant pour moi est <a href="http://octopress.org/docs/plugins/codeblock/">Codeblock</a> et il ne fonctionne pas comme indiqué. J&rsquo;ai regardé les sources et finalement renoncé.</p>
+
+<p>Au passage, je remarque que le projet n&rsquo;est plus maintenu depuis plusieurs années et qu&rsquo;il se base sur <a href="Jekyll">Jekyll</a>. J&rsquo;essaye ce dernier et me retrouve avec des problèmes de dépendances et des packageurs &ndash; il y en a pas qu&rsquo;un &ndash; qui demandent les droits root pour l&rsquo;installation. Las, j&rsquo;abandonne. Finalement, Hugo c&rsquo;est bien.</p>
+
+<h2 id="pour-finir">Pour finir</h2>
+
+<p>J&rsquo;ai beaucoup touché au template de Hugo, aussi bien la partie CSS que HTML en me basant sur un des thèmes disponibles. À la base je voulais un thème sombre, mais j&rsquo;ai finalement adopté un thème clair pour le contenu. Premièrement parce que le thème choisi l&rsquo;est de base, deuxièmement parce que je trouve le résultat peu satisfaisant. Toutefois, le thème sombre est disponible en le sélectionnant dans le menu du navigateur: Vue -&gt; Style de page -&gt; Night theme (sur firefox, cela varie peut-être sur d&rsquo;autres navigateurs). À terme, je pense chavirer du côté obscur.</p>
+
+<p>La plupart des morceaux modifiés concernent des éritants que je rencontre sur certains sites et logiciels. J&rsquo;ai essayé de faire quelque chose d&rsquo;accessible et de pratique (là je vous vends un objet rare et de grande valeur :D). Du coup, le prochain article y sera consacré. Ça va me changer du c++ et de la méta-programmation.</p>
+
+<p>Et parce que les habitudes ont la vie dure, l&rsquo;article qui suivra sera dédié au dispatcheur d&rsquo;un std::variant. La méta-prog, on ne la quitte que les pieds devant :o).</p>
+
+<p>En même temps, les articles de l&rsquo;ancien blog seront déportés et mis à jour si besoin.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2017-07-29T16:03:53">29 juillet 2017
+</time> par Jonathan Poelen ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="96a58f4e3d0ef332dd3ad4bb99d219c5-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fde-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fde-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fde-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fde-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fde-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau%2f&amp;title=de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fde-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau%2f&amp;name=de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></h1>
     
 <p class="post__meta meta">
@@ -95,11 +197,12 @@
 <li>un opérator unique pour les gouverner tous. (Ouais, comme pour l&rsquo;anneau).</li>
 </ol>
 
-<h1 id="plein-de-surcharges-de-operator">Plein de surcharges de operator+</h1>
+<h2 id="plein-de-surcharges-de-operator">Plein de surcharges de operator+</h2>
 
 <p>Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter <code>noexcept</code> sur de tels prototypes.</p>
 
 <p>Voici ce que donne l&rsquo;implémentation:</p>
+<div class="highlightwrap">
 <div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">Matrix</span> <span class="n">ret</span> <span class="p">{</span><span class="n">lhs</span><span class="p">};</span>
@@ -125,6 +228,7 @@
   <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
+</div>
 
 <p>L&rsquo;utilisation de std::move sur l&rsquo;opérande de gauche pour <code>+=</code> (cf: <code>std::move(lhs) += rhs;</code> et autres) n&rsquo;est pas utile pour notre classe Matrix qui contient un <code>std::vector&lt;int&gt;</code>. Mais dans l&rsquo;hypothèse d&rsquo;un <code>std::vector&lt;std::vector&lt;T&gt;&gt;</code> cela permet d&rsquo;informer que le sous-vecteur, ou carrément <code>T</code> peut être recyclé.</p>
 
@@ -133,6 +237,7 @@
 <p>Petite note sur la dernière implémentation. Utiliser <code>rhs</code> comme valeur de retour permet de gagner un <code>mov</code> (asm). <a href="https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(j:1,source:'%23include+%3Cutility%3E%0A%23include+%3Cvector%3E%0A%0Astruct+Matrix%0A%7B%0A++++++std::vector%3Cint%3E+v%3B%0A++++++Matrix%26+operator+%2B%3D(Matrix+const%26)+%3B%0A%7D%3B%0A%0AMatrix+operator%2B+(Matrix+%26%26+lhs,+Matrix+const+%26+rhs)%0A%7B%0A++++std::move(lhs)+%2B%3D+rhs%3B%0A++++//+ne+pas+oublier+std::move,+sinon+il+y+a+aura+copie+en+sortie+puisque+que+lhs+est+une+r%C3%A9f%C3%A9rence%0A++++return+std::move(lhs)%3B%0A%7D%0A%0AMatrix+operator+%2B+(Matrix+const+%26+lhs,+Matrix+%26%26+rhs)%0A%7B%0A++++std::move(rhs)+%2B%3D+lhs%3B+//+commutativit%C3%A9:+x%2By+%3D+y%2Bx%0A++++return+std::move(rhs)%3B%0A%7D%0A'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:31.812073713509285,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g71,filters:(b:'0',commentOnly:'0',directives:'0',intel:'0'),options:'-O3+-std%3Dc%2B%2B14+-fverbose-asm+',source:1),l:'5',n:'0',o:'x86-64+gcc+7.1+(Editor+%231,+Compiler+%231)',t:'0')),k:34.07627444894807,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g71,filters:(b:'0',commentOnly:'0',directives:'0',intel:'0'),options:'+-std%3Dc%2B%2B14+-O3+-fverbose-asm+',source:1),l:'5',n:'0',o:'x86-64+gcc+7.1+(Editor+%231,+Compiler+%232)',t:'0')),k:34.11165183754265,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4">ici</a>.</p>
 
 <p>Bon, c&rsquo;est bien joli, mais on peut faire la même avec seulement 2 prototypes et gagner une optimisation sur la <a href="http://en.cppreference.com/w/cpp/language/copy_elision">copy-elision</a> qui n&rsquo;est pas faite par gcc. Le sagouin, il utilise un constructeur de déplacement !</p>
+<div class="highlightwrap">
 <div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">lhs</span> <span class="o">+=</span> <span class="n">rhs</span><span class="p">;</span>
@@ -145,10 +250,12 @@
   <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
+</div>
 
 <p>Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.</p>
 
 <p>Ainsi, si dans l&rsquo;expresssion <code>a + b</code>, <code>b</code> une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un <code>std::cout &lt;&lt; __PRETTY_FUNCTION__ &lt;&lt; '\n'</code> dans les implémentations et le test qui suit.</p>
+<div class="highlightwrap">
 <div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Rhs</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">test</span><span class="p">()</span>
 <span class="p">{</span>
@@ -175,6 +282,7 @@
   <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
+</div>
 
 <p>Résultat:</p>
 
@@ -216,11 +324,12 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
 <p>Dans le cas d&rsquo;opérateurs non-commutatifs, cette multiplication de fonction n&rsquo;a pas lieu d&rsquo;être. Il est largement préférable de ne faire qu&rsquo;un opérateur prenant <code>lhs</code> par copie. On bénéficie ainsi aussi bien de la copy-elision que de la RVO.</p>
 
-<h1 id="un-prototype-multi-fonction">Un prototype multi-fonction</h1>
+<h2 id="un-prototype-multi-fonction">Un prototype multi-fonction</h2>
 
 <p>Une autre solution pour la surcharge d&rsquo;opérateur est de ne faire qu&rsquo;un seul et unique prototype template qui s&rsquo;active en présence d&rsquo;un certain type. Ce n&rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.</p>
 
 <p>Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de <code>std::enable_if</code>. Ce qui donne:</p>
+<div class="highlightwrap">
 <div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">MatrixLhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">MatrixRhs</span><span class="o">&gt;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixLhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
@@ -228,12 +337,15 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
   <span class="n">Matrix</span><span class="o">&gt;</span>
 <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">MatrixLhs</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">MatrixRhs</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
 </code></pre></div>
+</div>
 
 <p>Dans la réalité, l&rsquo;addition d&rsquo;une matrice fonctionne aussi sur des entiers (cf: <code>int + Matrix</code>, <code>Matrix + int</code>). Le filtre sera alors beaucoup plus compliqué puisqu&rsquo;il faut qu&rsquo;au moins une des opérandes soit un type <code>Matrix</code> et que les paramètres soient des types compatibles (en prenant en compte la préscence des références et des <code>const</code>). La condition devient alors quelque chose comme:</p>
+<div class="highlightwrap">
 <div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
 <span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
 <span class="p">(</span><span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">||</span> <span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span><span class="p">)</span>
 </code></pre></div>
+</div>
 
 <p>Il devient alors très facile d&rsquo;ajouter un nouveau type à prendre en compte, comme par exemple un contenaire de la SL, un tableau C, un autre type matriciel d&rsquo;une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.</p>
 
@@ -282,6 +394,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 </table>
 
 <p>Et l&rsquo;implémentation:</p>
+<div class="highlightwrap">
 <div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="n">rvalue_wrapper</span>
 <span class="p">{</span>
@@ -328,6 +441,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
   <span class="k">return</span> <span class="n">new_lhs</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
+</div>
 
 <p>Le code mérite quelques explications. Pour commencer, parlons de <code>rvalue_reference</code> qui est un palliatif pour une optimisation au niveau de <code>return</code>. Au niveau du retour, si <code>NewLhs</code> est une rvalue, il faut utiliser <code>std::move</code>, sauf que l&rsquo;utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un <code>if (std::is_rvalue_reference&lt;NewLhs&gt;{}) return std::move(lhs);</code> avant <code>return new_lhs</code> l&rsquo;optimisation n&rsquo;est pas faite. Cela fonctionne néanmoins avec <code>if constexpr</code> de c++17. Le but de <code>rvalue_reference</code>  est finalement de rendre automatique un retour par rvalue grâce à l&rsquo;opérateur de cast interne.</p>
 
@@ -339,7 +453,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
 <p>Les casts présents fonctionnent bien parce que <code>lhs</code> et <code>rhs</code> sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font <code>falcon::cif</code> ou <code>boost::hana::if_</code>. Plusieurs de mes articles en parlent.</p>
 
-<h1 id="n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp">N&rsquo;écrivez pas operator+ vous-même, c&rsquo;est trop compliqué&nbsp;!</h1>
+<h2 id="n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp">N&rsquo;écrivez pas operator+ vous-même, c&rsquo;est trop compliqué&nbsp;!</h2>
 
 <p>Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est allourdi, la lisibilité réduite. Il y a moyen d&rsquo;implémenter la plupart des opérateurs en quelques lignes pour le même résultat.</p>
 
@@ -404,6 +518,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
   <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></li>
       <li class="widget__item"><a class="widget__link" href="/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></li>
     </ul>
   </div>

@@ -85,6 +85,7 @@
 <li><a href="#plein-de-surcharges-de-operator">Plein de surcharges de operator+</a></li>
 <li><a href="#un-prototype-multi-fonction">Un prototype multi-fonction</a></li>
 <li><a href="#n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp">N&rsquo;écrivez pas operator+ vous-même, c&rsquo;est trop compliqué&nbsp;!</a></li>
+</ul></li>
 </ul>
 </nav>
     </div></aside>
@@ -105,11 +106,12 @@
 <li>un opérator unique pour les gouverner tous. (Ouais, comme pour l&rsquo;anneau).</li>
 </ol>
 
-<h1 id="plein-de-surcharges-de-operator">Plein de surcharges de operator+</h1>
+<h2 id="plein-de-surcharges-de-operator">Plein de surcharges de operator+</h2>
 
 <p>Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter <code>noexcept</code> sur de tels prototypes.</p>
 
 <p>Voici ce que donne l&rsquo;implémentation:</p>
+<div class="highlightwrap">
 <div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">Matrix</span> <span class="n">ret</span> <span class="p">{</span><span class="n">lhs</span><span class="p">};</span>
@@ -135,6 +137,7 @@
   <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
+</div>
 
 <p>L&rsquo;utilisation de std::move sur l&rsquo;opérande de gauche pour <code>+=</code> (cf: <code>std::move(lhs) += rhs;</code> et autres) n&rsquo;est pas utile pour notre classe Matrix qui contient un <code>std::vector&lt;int&gt;</code>. Mais dans l&rsquo;hypothèse d&rsquo;un <code>std::vector&lt;std::vector&lt;T&gt;&gt;</code> cela permet d&rsquo;informer que le sous-vecteur, ou carrément <code>T</code> peut être recyclé.</p>
 
@@ -143,6 +146,7 @@
 <p>Petite note sur la dernière implémentation. Utiliser <code>rhs</code> comme valeur de retour permet de gagner un <code>mov</code> (asm). <a href="https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(j:1,source:'%23include+%3Cutility%3E%0A%23include+%3Cvector%3E%0A%0Astruct+Matrix%0A%7B%0A++++++std::vector%3Cint%3E+v%3B%0A++++++Matrix%26+operator+%2B%3D(Matrix+const%26)+%3B%0A%7D%3B%0A%0AMatrix+operator%2B+(Matrix+%26%26+lhs,+Matrix+const+%26+rhs)%0A%7B%0A++++std::move(lhs)+%2B%3D+rhs%3B%0A++++//+ne+pas+oublier+std::move,+sinon+il+y+a+aura+copie+en+sortie+puisque+que+lhs+est+une+r%C3%A9f%C3%A9rence%0A++++return+std::move(lhs)%3B%0A%7D%0A%0AMatrix+operator+%2B+(Matrix+const+%26+lhs,+Matrix+%26%26+rhs)%0A%7B%0A++++std::move(rhs)+%2B%3D+lhs%3B+//+commutativit%C3%A9:+x%2By+%3D+y%2Bx%0A++++return+std::move(rhs)%3B%0A%7D%0A'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:31.812073713509285,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g71,filters:(b:'0',commentOnly:'0',directives:'0',intel:'0'),options:'-O3+-std%3Dc%2B%2B14+-fverbose-asm+',source:1),l:'5',n:'0',o:'x86-64+gcc+7.1+(Editor+%231,+Compiler+%231)',t:'0')),k:34.07627444894807,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g71,filters:(b:'0',commentOnly:'0',directives:'0',intel:'0'),options:'+-std%3Dc%2B%2B14+-O3+-fverbose-asm+',source:1),l:'5',n:'0',o:'x86-64+gcc+7.1+(Editor+%231,+Compiler+%232)',t:'0')),k:34.11165183754265,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4">ici</a>.</p>
 
 <p>Bon, c&rsquo;est bien joli, mais on peut faire la même avec seulement 2 prototypes et gagner une optimisation sur la <a href="http://en.cppreference.com/w/cpp/language/copy_elision">copy-elision</a> qui n&rsquo;est pas faite par gcc. Le sagouin, il utilise un constructeur de déplacement !</p>
+<div class="highlightwrap">
 <div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">lhs</span> <span class="o">+=</span> <span class="n">rhs</span><span class="p">;</span>
@@ -155,10 +159,12 @@
   <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
+</div>
 
 <p>Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.</p>
 
 <p>Ainsi, si dans l&rsquo;expresssion <code>a + b</code>, <code>b</code> une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un <code>std::cout &lt;&lt; __PRETTY_FUNCTION__ &lt;&lt; '\n'</code> dans les implémentations et le test qui suit.</p>
+<div class="highlightwrap">
 <div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Rhs</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">test</span><span class="p">()</span>
 <span class="p">{</span>
@@ -185,6 +191,7 @@
   <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
+</div>
 
 <p>Résultat:</p>
 
@@ -226,11 +233,12 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
 <p>Dans le cas d&rsquo;opérateurs non-commutatifs, cette multiplication de fonction n&rsquo;a pas lieu d&rsquo;être. Il est largement préférable de ne faire qu&rsquo;un opérateur prenant <code>lhs</code> par copie. On bénéficie ainsi aussi bien de la copy-elision que de la RVO.</p>
 
-<h1 id="un-prototype-multi-fonction">Un prototype multi-fonction</h1>
+<h2 id="un-prototype-multi-fonction">Un prototype multi-fonction</h2>
 
 <p>Une autre solution pour la surcharge d&rsquo;opérateur est de ne faire qu&rsquo;un seul et unique prototype template qui s&rsquo;active en présence d&rsquo;un certain type. Ce n&rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.</p>
 
 <p>Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de <code>std::enable_if</code>. Ce qui donne:</p>
+<div class="highlightwrap">
 <div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">MatrixLhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">MatrixRhs</span><span class="o">&gt;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixLhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
@@ -238,12 +246,15 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
   <span class="n">Matrix</span><span class="o">&gt;</span>
 <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">MatrixLhs</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">MatrixRhs</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
 </code></pre></div>
+</div>
 
 <p>Dans la réalité, l&rsquo;addition d&rsquo;une matrice fonctionne aussi sur des entiers (cf: <code>int + Matrix</code>, <code>Matrix + int</code>). Le filtre sera alors beaucoup plus compliqué puisqu&rsquo;il faut qu&rsquo;au moins une des opérandes soit un type <code>Matrix</code> et que les paramètres soient des types compatibles (en prenant en compte la préscence des références et des <code>const</code>). La condition devient alors quelque chose comme:</p>
+<div class="highlightwrap">
 <div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
 <span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
 <span class="p">(</span><span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">||</span> <span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span><span class="p">)</span>
 </code></pre></div>
+</div>
 
 <p>Il devient alors très facile d&rsquo;ajouter un nouveau type à prendre en compte, comme par exemple un contenaire de la SL, un tableau C, un autre type matriciel d&rsquo;une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.</p>
 
@@ -292,6 +303,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 </table>
 
 <p>Et l&rsquo;implémentation:</p>
+<div class="highlightwrap">
 <div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="n">rvalue_wrapper</span>
 <span class="p">{</span>
@@ -338,6 +350,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
   <span class="k">return</span> <span class="n">new_lhs</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
+</div>
 
 <p>Le code mérite quelques explications. Pour commencer, parlons de <code>rvalue_reference</code> qui est un palliatif pour une optimisation au niveau de <code>return</code>. Au niveau du retour, si <code>NewLhs</code> est une rvalue, il faut utiliser <code>std::move</code>, sauf que l&rsquo;utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un <code>if (std::is_rvalue_reference&lt;NewLhs&gt;{}) return std::move(lhs);</code> avant <code>return new_lhs</code> l&rsquo;optimisation n&rsquo;est pas faite. Cela fonctionne néanmoins avec <code>if constexpr</code> de c++17. Le but de <code>rvalue_reference</code>  est finalement de rendre automatique un retour par rvalue grâce à l&rsquo;opérateur de cast interne.</p>
 
@@ -349,7 +362,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
 <p>Les casts présents fonctionnent bien parce que <code>lhs</code> et <code>rhs</code> sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font <code>falcon::cif</code> ou <code>boost::hana::if_</code>. Plusieurs de mes articles en parlent.</p>
 
-<h1 id="n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp">N&rsquo;écrivez pas operator+ vous-même, c&rsquo;est trop compliqué&nbsp;!</h1>
+<h2 id="n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp">N&rsquo;écrivez pas operator+ vous-même, c&rsquo;est trop compliqué&nbsp;!</h2>
 
 <p>Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est allourdi, la lisibilité réduite. Il y a moyen d&rsquo;implémenter la plupart des opérateurs en quelques lignes pour le même résultat.</p>
 
@@ -391,6 +404,11 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
   
   
+<nav class="post-nav row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--next col-1-2">
+    <a class="post-nav__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/" rel="next"><span class="post-nav__caption">Next»</span><span class="post-nav__post-title">De Blogspot à Hugo, il a changé de peau</span></a>
+  </div>
+</nav>
 
   
 <section id="gh-comments">
@@ -428,6 +446,7 @@ if (document.URL.split('#')[1] === 'gh-comments')
   <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></li>
       <li class="widget__item"><a class="widget__link" href="/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></li>
     </ul>
   </div>

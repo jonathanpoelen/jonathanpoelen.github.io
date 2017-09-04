@@ -6,8 +6,72 @@
     
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <lastBuildDate>Wed, 05 Jul 2017 22:02:11 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 29 Jul 2017 16:03:53 +0200</lastBuildDate>
     <atom:link href="/post/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>De Blogspot à Hugo, il a changé de peau</title>
+      <link>https://jonathanpoelen.github.io/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/</link>
+      <pubDate>Sat, 29 Jul 2017 16:03:53 +0200</pubDate>
+      
+      <guid>https://jonathanpoelen.github.io/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/</guid>
+      <description>
+
+&lt;p&gt;Il y a 2 ans je me suis dit :&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Au prochain article, j&amp;rsquo;essaye un autre système de blog !&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Et depuis 2 ans, plus rien&amp;hellip; Je n&amp;rsquo;ai pas parcouru le web à la recherche de la solution idéale, loin de là, je n&amp;rsquo;avais juste pas d&amp;rsquo;idée d&amp;rsquo;article.&lt;/p&gt;
+
+&lt;p&gt;Il y a 3 mois, en regardant une classe de matrice en C++, une idée m&amp;rsquo;est venue. J&amp;rsquo;ai écrit mon article puis cherché un système de site statique.&lt;/p&gt;
+
+&lt;p&gt;Au départ, j&amp;rsquo;avais en tête [Octopress][octopress] utilisé par Luc Hermitte pour son &lt;a href=&#34;http://luchermitte.github.io/&#34;&gt;blog&lt;/a&gt;. Le principe est d&amp;rsquo;écrire des fichiers en markdown, de générer le blog et mettre le tout sur github pour avoir une adresse en &lt;code&gt;github.io&lt;/code&gt;. Le mettre sur github n&amp;rsquo;est pas une obligation, mais c&amp;rsquo;est pour moi le plus simple.&lt;/p&gt;
+
+&lt;p&gt;J&amp;rsquo;ai donc essayé [Hugo][hugo]&amp;hellip; Ma logique est infaillible :).&lt;/p&gt;
+
+&lt;h2 id=&#34;pourquoi-quitter-blogspot&#34;&gt;Pourquoi quitter Blogspot ?&lt;/h2&gt;
+
+&lt;p&gt;Avant de commencer, une petite explication sur pourquoi Blogspot ne m&amp;rsquo;est pas pratique.&lt;/p&gt;
+
+&lt;p&gt;La principale raison est que l&amp;rsquo;utilisation de Blogspot m&amp;rsquo;oblige à faire du post-traitement sur mes articles. Pour avoir la couleur dans les codes, ils sont écrits dans un éditeur puis convertits en HTML (via Kate dans mon cas). La couleur de fond est trop contrastée pour le blog ce qui oblige un post-traitement supplémentaire. L&amp;rsquo;ensemble est plutôt rapide à faire, mais modifier un code est pénible.&lt;/p&gt;
+
+&lt;p&gt;Puisque je suis dans le mode HTML de blogspot, je me tape aussi tout le balisage des liens, paragraphes, mots importants, etc, ce qui parasite le texte. L&amp;rsquo;absence de couleur dans la zone d&amp;rsquo;édition n&amp;rsquo;aide pas beaucoup.&lt;/p&gt;
+
+&lt;p&gt;Autre point, j&amp;rsquo;écris rarement un article depuis l&amp;rsquo;interface web. Déjà parce qu&amp;rsquo;il faut y accéder &amp;ndash; il y a un peu trop de clics à faire et Blogspot reste lent à charger &amp;ndash; ensuite parce que l&amp;rsquo;éditeur est trop pauvre. Ça paraît con, mais les possibilités de mon éditeur de code sont très sollicités, même pour l&amp;rsquo;écriture d&amp;rsquo;un article. J&amp;rsquo;envisage même de faire des plugins pour de la saisie rapide.&lt;/p&gt;
+
+&lt;p&gt;Ceci fait qu&amp;rsquo;utiliser un générateur de type markdown me trottait dans la tête depuis un bon moment. Il existe plein de générateurs vers HTML, &lt;a href=&#34;http://pandoc.org/&#34;&gt;Pandoc&lt;/a&gt; étant probablement le plus connu. C&amp;rsquo;est suffisant. On écrit un article, on convertit et on colle la sortie dans la zone d&amp;rsquo;édition du blog.&lt;/p&gt;
+
+&lt;p&gt;J&amp;rsquo;aurais très bien pu utiliser Blogspot + un générateur. Sauf que je trouve Blogspot lourd à charger et les possibilités de menu et de mise en page sont un peu limitées. Alors autant voir ailleurs !&lt;/p&gt;
+
+&lt;h2 id=&#34;essai-de-hugo&#34;&gt;Essai de Hugo.&lt;/h2&gt;
+
+&lt;p&gt;En fait, au moment où je commençais à regarder les systèmes existants, quelqu&amp;rsquo;un sur le &lt;a href=&#34;https://openclassrooms.com/forum/sujet/groupe-communautaire-groupe-42&#34;&gt;MM de 42&lt;/a&gt; mit un lien vers Hugo. Le principe reste le même &amp;ndash; au moins pour la génération de blog &amp;ndash; avec comme objectif principal de ne pas avoir de dépendance et de générer rapidement le site.&lt;/p&gt;
+
+&lt;p&gt;Un truc qui me plaît bien est de pouvoir utiliser autre chose que le markdown par défaut, par exemple, &lt;a href=&#34;http://asciidoc.org/&#34;&gt;Asciidoctor&lt;/a&gt; ou &lt;a href=&#34;http://docutils.sourceforge.net/rst.html&#34;&gt;ReStructuredText&lt;/a&gt;. Les implémentations ne sont pas nativement incorporées à Hugo ce qui rend leur utilisation plus lente dans la génération (il faut appeler un programme externe). Toutefois, il y a en native 2 implémentaitons de &lt;a href=&#34;https://gohugo.io/content-management/formats/&#34;&gt;markdown&lt;/a&gt; et le &lt;a href=&#34;http://orgmode.org/&#34;&gt;mode Org&lt;/a&gt; de Emacs. Pour se faire une idée du mode org, il y a 3 traductions françaises dont 2 à venir de &lt;a href=&#34;pragmatic_emacs&#34;&gt;Pragmatic Emacs&lt;/a&gt; sur &lt;a href=&#34;linuxfr_org&#34;&gt;linuxfr&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;J&amp;rsquo;ai essayé Asciidoc, mais il ne fonctionne pas tel quel, il m&amp;rsquo;a fallu un intermédiaire qui supprime l&amp;rsquo;option &lt;code&gt;--safe&lt;/code&gt; pour la coloraion du code (celle-ci utilise &lt;a href=&#34;pygmentize&#34;&gt;Pygmentize&lt;/a&gt;). Par contre, je trouve le code HTML généré vraiment trop verbeux. À mon sens, entourer les paragraphes de &lt;code&gt;&amp;lt;div class=&amp;quot;paragraph&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;&lt;/code&gt; est plus que superflux. Je ne sais pas ce qu&amp;rsquo;il en est des autres formats ne les ayant pas essayés, pour le moment mes besoins suffisent pour le markdown. À savoir que les formats non natifs ne peuvent pas générer le sommaire, il faut faire un post-traitement sur la sortie HTML.&lt;/p&gt;
+
+&lt;p&gt;Une autre chose sympathique que je n&amp;rsquo;ai pas eu l&amp;rsquo;occasion d&amp;rsquo;utiliser concerne les templates Hugo au sein même des documents. Par exemple, un template &lt;code&gt;image&lt;/code&gt; qui sort un code HTML avec caption + figure + image de la bonne taille + lien pour voir l&amp;rsquo;image d&amp;rsquo;origine. En gros, générer un truc bien casse pied à écrire :).&lt;/p&gt;
+
+&lt;h2 id=&#34;et-octopress&#34;&gt;Et Octopress ?&lt;/h2&gt;
+
+&lt;p&gt;Bon Hugo c&amp;rsquo;est bon pour moi, mais j&amp;rsquo;ai rapidement fait un tour sur Octopress entre deux. Pour tout dire, j&amp;rsquo;ai rapidement abandonné. Le plugin le plus intéressant pour moi est &lt;a href=&#34;http://octopress.org/docs/plugins/codeblock/&#34;&gt;Codeblock&lt;/a&gt; et il ne fonctionne pas comme indiqué. J&amp;rsquo;ai regardé les sources et finalement renoncé.&lt;/p&gt;
+
+&lt;p&gt;Au passage, je remarque que le projet n&amp;rsquo;est plus maintenu depuis plusieurs années et qu&amp;rsquo;il se base sur &lt;a href=&#34;Jekyll&#34;&gt;Jekyll&lt;/a&gt;. J&amp;rsquo;essaye ce dernier et me retrouve avec des problèmes de dépendances et des packageurs &amp;ndash; il y en a pas qu&amp;rsquo;un &amp;ndash; qui demandent les droits root pour l&amp;rsquo;installation. Las, j&amp;rsquo;abandonne. Finalement, Hugo c&amp;rsquo;est bien.&lt;/p&gt;
+
+&lt;h2 id=&#34;pour-finir&#34;&gt;Pour finir&lt;/h2&gt;
+
+&lt;p&gt;J&amp;rsquo;ai beaucoup touché au template de Hugo, aussi bien la partie CSS que HTML en me basant sur un des thèmes disponibles. À la base je voulais un thème sombre, mais j&amp;rsquo;ai finalement adopté un thème clair pour le contenu. Premièrement parce que le thème choisi l&amp;rsquo;est de base, deuxièmement parce que je trouve le résultat peu satisfaisant. Toutefois, le thème sombre est disponible en le sélectionnant dans le menu du navigateur: Vue -&amp;gt; Style de page -&amp;gt; Night theme (sur firefox, cela varie peut-être sur d&amp;rsquo;autres navigateurs). À terme, je pense chavirer du côté obscur.&lt;/p&gt;
+
+&lt;p&gt;La plupart des morceaux modifiés concernent des éritants que je rencontre sur certains sites et logiciels. J&amp;rsquo;ai essayé de faire quelque chose d&amp;rsquo;accessible et de pratique (là je vous vends un objet rare et de grande valeur :D). Du coup, le prochain article y sera consacré. Ça va me changer du c++ et de la méta-programmation.&lt;/p&gt;
+
+&lt;p&gt;Et parce que les habitudes ont la vie dure, l&amp;rsquo;article qui suivra sera dédié au dispatcheur d&amp;rsquo;un std::variant. La méta-prog, on ne la quitte que les pieds devant :o).&lt;/p&gt;
+
+&lt;p&gt;En même temps, les articles de l&amp;rsquo;ancien blog seront déportés et mis à jour si besoin.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Minimiser les copies dans operator&#43;</title>
@@ -32,11 +96,12 @@
 &lt;li&gt;un opérator unique pour les gouverner tous. (Ouais, comme pour l&amp;rsquo;anneau).&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h1 id=&#34;plein-de-surcharges-de-operator&#34;&gt;Plein de surcharges de operator+&lt;/h1&gt;
+&lt;h2 id=&#34;plein-de-surcharges-de-operator&#34;&gt;Plein de surcharges de operator+&lt;/h2&gt;
 
 &lt;p&gt;Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter &lt;code&gt;noexcept&lt;/code&gt; sur de tels prototypes.&lt;/p&gt;
 
 &lt;p&gt;Voici ce que donne l&amp;rsquo;implémentation:&lt;/p&gt;
+&lt;div class=&#34;highlightwrap&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
@@ -62,6 +127,7 @@
   &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;L&amp;rsquo;utilisation de std::move sur l&amp;rsquo;opérande de gauche pour &lt;code&gt;+=&lt;/code&gt; (cf: &lt;code&gt;std::move(lhs) += rhs;&lt;/code&gt; et autres) n&amp;rsquo;est pas utile pour notre classe Matrix qui contient un &lt;code&gt;std::vector&amp;lt;int&amp;gt;&lt;/code&gt;. Mais dans l&amp;rsquo;hypothèse d&amp;rsquo;un &lt;code&gt;std::vector&amp;lt;std::vector&amp;lt;T&amp;gt;&amp;gt;&lt;/code&gt; cela permet d&amp;rsquo;informer que le sous-vecteur, ou carrément &lt;code&gt;T&lt;/code&gt; peut être recyclé.&lt;/p&gt;
 
@@ -70,6 +136,7 @@
 &lt;p&gt;Petite note sur la dernière implémentation. Utiliser &lt;code&gt;rhs&lt;/code&gt; comme valeur de retour permet de gagner un &lt;code&gt;mov&lt;/code&gt; (asm). &lt;a href=&#34;https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(j:1,source:&#39;%23include+%3Cutility%3E%0A%23include+%3Cvector%3E%0A%0Astruct+Matrix%0A%7B%0A++++++std::vector%3Cint%3E+v%3B%0A++++++Matrix%26+operator+%2B%3D(Matrix+const%26)+%3B%0A%7D%3B%0A%0AMatrix+operator%2B+(Matrix+%26%26+lhs,+Matrix+const+%26+rhs)%0A%7B%0A++++std::move(lhs)+%2B%3D+rhs%3B%0A++++//+ne+pas+oublier+std::move,+sinon+il+y+a+aura+copie+en+sortie+puisque+que+lhs+est+une+r%C3%A9f%C3%A9rence%0A++++return+std::move(lhs)%3B%0A%7D%0A%0AMatrix+operator+%2B+(Matrix+const+%26+lhs,+Matrix+%26%26+rhs)%0A%7B%0A++++std::move(rhs)+%2B%3D+lhs%3B+//+commutativit%C3%A9:+x%2By+%3D+y%2Bx%0A++++return+std::move(rhs)%3B%0A%7D%0A&#39;),l:&#39;5&#39;,n:&#39;0&#39;,o:&#39;C%2B%2B+source+%231&#39;,t:&#39;0&#39;)),k:31.812073713509285,l:&#39;4&#39;,n:&#39;0&#39;,o:&#39;&#39;,s:0,t:&#39;0&#39;),(g:!((h:compiler,i:(compiler:g71,filters:(b:&#39;0&#39;,commentOnly:&#39;0&#39;,directives:&#39;0&#39;,intel:&#39;0&#39;),options:&#39;-O3+-std%3Dc%2B%2B14+-fverbose-asm+&#39;,source:1),l:&#39;5&#39;,n:&#39;0&#39;,o:&#39;x86-64+gcc+7.1+(Editor+%231,+Compiler+%231)&#39;,t:&#39;0&#39;)),k:34.07627444894807,l:&#39;4&#39;,n:&#39;0&#39;,o:&#39;&#39;,s:0,t:&#39;0&#39;),(g:!((h:compiler,i:(compiler:g71,filters:(b:&#39;0&#39;,commentOnly:&#39;0&#39;,directives:&#39;0&#39;,intel:&#39;0&#39;),options:&#39;+-std%3Dc%2B%2B14+-O3+-fverbose-asm+&#39;,source:1),l:&#39;5&#39;,n:&#39;0&#39;,o:&#39;x86-64+gcc+7.1+(Editor+%231,+Compiler+%232)&#39;,t:&#39;0&#39;)),k:34.11165183754265,l:&#39;4&#39;,n:&#39;0&#39;,o:&#39;&#39;,s:0,t:&#39;0&#39;)),l:&#39;2&#39;,n:&#39;0&#39;,o:&#39;&#39;,t:&#39;0&#39;)),version:4&#34;&gt;ici&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Bon, c&amp;rsquo;est bien joli, mais on peut faire la même avec seulement 2 prototypes et gagner une optimisation sur la &lt;a href=&#34;http://en.cppreference.com/w/cpp/language/copy_elision&#34;&gt;copy-elision&lt;/a&gt; qui n&amp;rsquo;est pas faite par gcc. Le sagouin, il utilise un constructeur de déplacement !&lt;/p&gt;
+&lt;div class=&#34;highlightwrap&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -82,10 +149,12 @@
   &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.&lt;/p&gt;
 
 &lt;p&gt;Ainsi, si dans l&amp;rsquo;expresssion &lt;code&gt;a + b&lt;/code&gt;, &lt;code&gt;b&lt;/code&gt; une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un &lt;code&gt;std::cout &amp;lt;&amp;lt; __PRETTY_FUNCTION__ &amp;lt;&amp;lt; &#39;\n&#39;&lt;/code&gt; dans les implémentations et le test qui suit.&lt;/p&gt;
+&lt;div class=&#34;highlightwrap&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -112,6 +181,7 @@
   &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Résultat:&lt;/p&gt;
 
@@ -153,11 +223,12 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
 
 &lt;p&gt;Dans le cas d&amp;rsquo;opérateurs non-commutatifs, cette multiplication de fonction n&amp;rsquo;a pas lieu d&amp;rsquo;être. Il est largement préférable de ne faire qu&amp;rsquo;un opérateur prenant &lt;code&gt;lhs&lt;/code&gt; par copie. On bénéficie ainsi aussi bien de la copy-elision que de la RVO.&lt;/p&gt;
 
-&lt;h1 id=&#34;un-prototype-multi-fonction&#34;&gt;Un prototype multi-fonction&lt;/h1&gt;
+&lt;h2 id=&#34;un-prototype-multi-fonction&#34;&gt;Un prototype multi-fonction&lt;/h2&gt;
 
 &lt;p&gt;Une autre solution pour la surcharge d&amp;rsquo;opérateur est de ne faire qu&amp;rsquo;un seul et unique prototype template qui s&amp;rsquo;active en présence d&amp;rsquo;un certain type. Ce n&amp;rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.&lt;/p&gt;
 
 &lt;p&gt;Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de &lt;code&gt;std::enable_if&lt;/code&gt;. Ce qui donne:&lt;/p&gt;
+&lt;div class=&#34;highlightwrap&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;MatrixLhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;MatrixRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;enable_if_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;
   &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_same&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MatrixLhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
@@ -165,12 +236,15 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
   &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MatrixLhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MatrixRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Dans la réalité, l&amp;rsquo;addition d&amp;rsquo;une matrice fonctionne aussi sur des entiers (cf: &lt;code&gt;int + Matrix&lt;/code&gt;, &lt;code&gt;Matrix + int&lt;/code&gt;). Le filtre sera alors beaucoup plus compliqué puisqu&amp;rsquo;il faut qu&amp;rsquo;au moins une des opérandes soit un type &lt;code&gt;Matrix&lt;/code&gt; et que les paramètres soient des types compatibles (en prenant en compte la préscence des références et des &lt;code&gt;const&lt;/code&gt;). La condition devient alors quelque chose comme:&lt;/p&gt;
+&lt;div class=&#34;highlightwrap&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_matrix_operand&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;is_matrix_operand&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;is_matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Il devient alors très facile d&amp;rsquo;ajouter un nouveau type à prendre en compte, comme par exemple un contenaire de la SL, un tableau C, un autre type matriciel d&amp;rsquo;une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.&lt;/p&gt;
 
@@ -219,6 +293,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
 &lt;/table&gt;
 
 &lt;p&gt;Et l&amp;rsquo;implémentation:&lt;/p&gt;
+&lt;div class=&#34;highlightwrap&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rvalue_wrapper&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -265,6 +340,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
   &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;new_lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Le code mérite quelques explications. Pour commencer, parlons de &lt;code&gt;rvalue_reference&lt;/code&gt; qui est un palliatif pour une optimisation au niveau de &lt;code&gt;return&lt;/code&gt;. Au niveau du retour, si &lt;code&gt;NewLhs&lt;/code&gt; est une rvalue, il faut utiliser &lt;code&gt;std::move&lt;/code&gt;, sauf que l&amp;rsquo;utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un &lt;code&gt;if (std::is_rvalue_reference&amp;lt;NewLhs&amp;gt;{}) return std::move(lhs);&lt;/code&gt; avant &lt;code&gt;return new_lhs&lt;/code&gt; l&amp;rsquo;optimisation n&amp;rsquo;est pas faite. Cela fonctionne néanmoins avec &lt;code&gt;if constexpr&lt;/code&gt; de c++17. Le but de &lt;code&gt;rvalue_reference&lt;/code&gt;  est finalement de rendre automatique un retour par rvalue grâce à l&amp;rsquo;opérateur de cast interne.&lt;/p&gt;
 
@@ -276,7 +352,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
 
 &lt;p&gt;Les casts présents fonctionnent bien parce que &lt;code&gt;lhs&lt;/code&gt; et &lt;code&gt;rhs&lt;/code&gt; sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font &lt;code&gt;falcon::cif&lt;/code&gt; ou &lt;code&gt;boost::hana::if_&lt;/code&gt;. Plusieurs de mes articles en parlent.&lt;/p&gt;
 
-&lt;h1 id=&#34;n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp&#34;&gt;N&amp;rsquo;écrivez pas operator+ vous-même, c&amp;rsquo;est trop compliqué&amp;nbsp;!&lt;/h1&gt;
+&lt;h2 id=&#34;n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp&#34;&gt;N&amp;rsquo;écrivez pas operator+ vous-même, c&amp;rsquo;est trop compliqué&amp;nbsp;!&lt;/h2&gt;
 
 &lt;p&gt;Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est allourdi, la lisibilité réduite. Il y a moyen d&amp;rsquo;implémenter la plupart des opérateurs en quelques lignes pour le même résultat.&lt;/p&gt;
 

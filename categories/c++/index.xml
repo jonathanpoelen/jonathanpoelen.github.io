@@ -32,11 +32,12 @@
 &lt;li&gt;un opérator unique pour les gouverner tous. (Ouais, comme pour l&amp;rsquo;anneau).&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h1 id=&#34;plein-de-surcharges-de-operator&#34;&gt;Plein de surcharges de operator+&lt;/h1&gt;
+&lt;h2 id=&#34;plein-de-surcharges-de-operator&#34;&gt;Plein de surcharges de operator+&lt;/h2&gt;
 
 &lt;p&gt;Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter &lt;code&gt;noexcept&lt;/code&gt; sur de tels prototypes.&lt;/p&gt;
 
 &lt;p&gt;Voici ce que donne l&amp;rsquo;implémentation:&lt;/p&gt;
+&lt;div class=&#34;highlightwrap&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
@@ -62,6 +63,7 @@
   &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;L&amp;rsquo;utilisation de std::move sur l&amp;rsquo;opérande de gauche pour &lt;code&gt;+=&lt;/code&gt; (cf: &lt;code&gt;std::move(lhs) += rhs;&lt;/code&gt; et autres) n&amp;rsquo;est pas utile pour notre classe Matrix qui contient un &lt;code&gt;std::vector&amp;lt;int&amp;gt;&lt;/code&gt;. Mais dans l&amp;rsquo;hypothèse d&amp;rsquo;un &lt;code&gt;std::vector&amp;lt;std::vector&amp;lt;T&amp;gt;&amp;gt;&lt;/code&gt; cela permet d&amp;rsquo;informer que le sous-vecteur, ou carrément &lt;code&gt;T&lt;/code&gt; peut être recyclé.&lt;/p&gt;
 
@@ -70,6 +72,7 @@
 &lt;p&gt;Petite note sur la dernière implémentation. Utiliser &lt;code&gt;rhs&lt;/code&gt; comme valeur de retour permet de gagner un &lt;code&gt;mov&lt;/code&gt; (asm). &lt;a href=&#34;https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(j:1,source:&#39;%23include+%3Cutility%3E%0A%23include+%3Cvector%3E%0A%0Astruct+Matrix%0A%7B%0A++++++std::vector%3Cint%3E+v%3B%0A++++++Matrix%26+operator+%2B%3D(Matrix+const%26)+%3B%0A%7D%3B%0A%0AMatrix+operator%2B+(Matrix+%26%26+lhs,+Matrix+const+%26+rhs)%0A%7B%0A++++std::move(lhs)+%2B%3D+rhs%3B%0A++++//+ne+pas+oublier+std::move,+sinon+il+y+a+aura+copie+en+sortie+puisque+que+lhs+est+une+r%C3%A9f%C3%A9rence%0A++++return+std::move(lhs)%3B%0A%7D%0A%0AMatrix+operator+%2B+(Matrix+const+%26+lhs,+Matrix+%26%26+rhs)%0A%7B%0A++++std::move(rhs)+%2B%3D+lhs%3B+//+commutativit%C3%A9:+x%2By+%3D+y%2Bx%0A++++return+std::move(rhs)%3B%0A%7D%0A&#39;),l:&#39;5&#39;,n:&#39;0&#39;,o:&#39;C%2B%2B+source+%231&#39;,t:&#39;0&#39;)),k:31.812073713509285,l:&#39;4&#39;,n:&#39;0&#39;,o:&#39;&#39;,s:0,t:&#39;0&#39;),(g:!((h:compiler,i:(compiler:g71,filters:(b:&#39;0&#39;,commentOnly:&#39;0&#39;,directives:&#39;0&#39;,intel:&#39;0&#39;),options:&#39;-O3+-std%3Dc%2B%2B14+-fverbose-asm+&#39;,source:1),l:&#39;5&#39;,n:&#39;0&#39;,o:&#39;x86-64+gcc+7.1+(Editor+%231,+Compiler+%231)&#39;,t:&#39;0&#39;)),k:34.07627444894807,l:&#39;4&#39;,n:&#39;0&#39;,o:&#39;&#39;,s:0,t:&#39;0&#39;),(g:!((h:compiler,i:(compiler:g71,filters:(b:&#39;0&#39;,commentOnly:&#39;0&#39;,directives:&#39;0&#39;,intel:&#39;0&#39;),options:&#39;+-std%3Dc%2B%2B14+-O3+-fverbose-asm+&#39;,source:1),l:&#39;5&#39;,n:&#39;0&#39;,o:&#39;x86-64+gcc+7.1+(Editor+%231,+Compiler+%232)&#39;,t:&#39;0&#39;)),k:34.11165183754265,l:&#39;4&#39;,n:&#39;0&#39;,o:&#39;&#39;,s:0,t:&#39;0&#39;)),l:&#39;2&#39;,n:&#39;0&#39;,o:&#39;&#39;,t:&#39;0&#39;)),version:4&#34;&gt;ici&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Bon, c&amp;rsquo;est bien joli, mais on peut faire la même avec seulement 2 prototypes et gagner une optimisation sur la &lt;a href=&#34;http://en.cppreference.com/w/cpp/language/copy_elision&#34;&gt;copy-elision&lt;/a&gt; qui n&amp;rsquo;est pas faite par gcc. Le sagouin, il utilise un constructeur de déplacement !&lt;/p&gt;
+&lt;div class=&#34;highlightwrap&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -82,10 +85,12 @@
   &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.&lt;/p&gt;
 
 &lt;p&gt;Ainsi, si dans l&amp;rsquo;expresssion &lt;code&gt;a + b&lt;/code&gt;, &lt;code&gt;b&lt;/code&gt; une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un &lt;code&gt;std::cout &amp;lt;&amp;lt; __PRETTY_FUNCTION__ &amp;lt;&amp;lt; &#39;\n&#39;&lt;/code&gt; dans les implémentations et le test qui suit.&lt;/p&gt;
+&lt;div class=&#34;highlightwrap&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -112,6 +117,7 @@
   &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Résultat:&lt;/p&gt;
 
@@ -153,11 +159,12 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
 
 &lt;p&gt;Dans le cas d&amp;rsquo;opérateurs non-commutatifs, cette multiplication de fonction n&amp;rsquo;a pas lieu d&amp;rsquo;être. Il est largement préférable de ne faire qu&amp;rsquo;un opérateur prenant &lt;code&gt;lhs&lt;/code&gt; par copie. On bénéficie ainsi aussi bien de la copy-elision que de la RVO.&lt;/p&gt;
 
-&lt;h1 id=&#34;un-prototype-multi-fonction&#34;&gt;Un prototype multi-fonction&lt;/h1&gt;
+&lt;h2 id=&#34;un-prototype-multi-fonction&#34;&gt;Un prototype multi-fonction&lt;/h2&gt;
 
 &lt;p&gt;Une autre solution pour la surcharge d&amp;rsquo;opérateur est de ne faire qu&amp;rsquo;un seul et unique prototype template qui s&amp;rsquo;active en présence d&amp;rsquo;un certain type. Ce n&amp;rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.&lt;/p&gt;
 
 &lt;p&gt;Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de &lt;code&gt;std::enable_if&lt;/code&gt;. Ce qui donne:&lt;/p&gt;
+&lt;div class=&#34;highlightwrap&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;MatrixLhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;MatrixRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;enable_if_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;
   &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_same&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MatrixLhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
@@ -165,12 +172,15 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
   &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MatrixLhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MatrixRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Dans la réalité, l&amp;rsquo;addition d&amp;rsquo;une matrice fonctionne aussi sur des entiers (cf: &lt;code&gt;int + Matrix&lt;/code&gt;, &lt;code&gt;Matrix + int&lt;/code&gt;). Le filtre sera alors beaucoup plus compliqué puisqu&amp;rsquo;il faut qu&amp;rsquo;au moins une des opérandes soit un type &lt;code&gt;Matrix&lt;/code&gt; et que les paramètres soient des types compatibles (en prenant en compte la préscence des références et des &lt;code&gt;const&lt;/code&gt;). La condition devient alors quelque chose comme:&lt;/p&gt;
+&lt;div class=&#34;highlightwrap&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_matrix_operand&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;is_matrix_operand&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;is_matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Il devient alors très facile d&amp;rsquo;ajouter un nouveau type à prendre en compte, comme par exemple un contenaire de la SL, un tableau C, un autre type matriciel d&amp;rsquo;une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.&lt;/p&gt;
 
@@ -219,6 +229,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
 &lt;/table&gt;
 
 &lt;p&gt;Et l&amp;rsquo;implémentation:&lt;/p&gt;
+&lt;div class=&#34;highlightwrap&#34;&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rvalue_wrapper&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -265,6 +276,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
   &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;new_lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Le code mérite quelques explications. Pour commencer, parlons de &lt;code&gt;rvalue_reference&lt;/code&gt; qui est un palliatif pour une optimisation au niveau de &lt;code&gt;return&lt;/code&gt;. Au niveau du retour, si &lt;code&gt;NewLhs&lt;/code&gt; est une rvalue, il faut utiliser &lt;code&gt;std::move&lt;/code&gt;, sauf que l&amp;rsquo;utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un &lt;code&gt;if (std::is_rvalue_reference&amp;lt;NewLhs&amp;gt;{}) return std::move(lhs);&lt;/code&gt; avant &lt;code&gt;return new_lhs&lt;/code&gt; l&amp;rsquo;optimisation n&amp;rsquo;est pas faite. Cela fonctionne néanmoins avec &lt;code&gt;if constexpr&lt;/code&gt; de c++17. Le but de &lt;code&gt;rvalue_reference&lt;/code&gt;  est finalement de rendre automatique un retour par rvalue grâce à l&amp;rsquo;opérateur de cast interne.&lt;/p&gt;
 
@@ -276,7 +288,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
 
 &lt;p&gt;Les casts présents fonctionnent bien parce que &lt;code&gt;lhs&lt;/code&gt; et &lt;code&gt;rhs&lt;/code&gt; sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font &lt;code&gt;falcon::cif&lt;/code&gt; ou &lt;code&gt;boost::hana::if_&lt;/code&gt;. Plusieurs de mes articles en parlent.&lt;/p&gt;
 
-&lt;h1 id=&#34;n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp&#34;&gt;N&amp;rsquo;écrivez pas operator+ vous-même, c&amp;rsquo;est trop compliqué&amp;nbsp;!&lt;/h1&gt;
+&lt;h2 id=&#34;n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp&#34;&gt;N&amp;rsquo;écrivez pas operator+ vous-même, c&amp;rsquo;est trop compliqué&amp;nbsp;!&lt;/h2&gt;
 
 &lt;p&gt;Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est allourdi, la lisibilité réduite. Il y a moyen d&amp;rsquo;implémenter la plupart des opérateurs en quelques lignes pour le même résultat.&lt;/p&gt;
 

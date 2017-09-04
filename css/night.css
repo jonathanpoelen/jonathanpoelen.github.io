@@ -1,6 +1,7 @@
 /** Dark theme **/
 
 html,body, .container-inner { background: #131619 }
+blockquote { color: #b0b0b0; border-color: #a64946; }
 
 .header { box-shadow: 0 -5px 5px 5px #444; }
 .wrapper { box-shadow: 0 5px 5px 5px #444; }
