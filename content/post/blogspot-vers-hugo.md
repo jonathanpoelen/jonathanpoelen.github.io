@@ -65,7 +65,8 @@ Et parce que les habitudes ont la vie dure, l'article qui suivra sera dédié au
 En même temps, les articles de l'ancien blog seront déportés et mis à jour si besoin.
 
 
-
+[octopress]:http://octopress.org/
+[hugo]:https://github.com/gohugoio/hugo
 [pandoc]:http://pandoc.org/
 [lmghs_blog]:http://luchermitte.github.io/
 [mm42]:https://openclassrooms.com/forum/sujet/groupe-communautaire-groupe-42
