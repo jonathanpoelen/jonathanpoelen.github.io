@@ -99,7 +99,7 @@ body {
 }
 
 .sidebar {
-  padding: 20px 2%;
+  padding: 20px 0%;
   padding-top: 25px;
 }
 
@@ -126,7 +126,7 @@ body {
 
 .sidebar {
 	/* width: 31.66%; */
-	width: 25%;
+	width: 29%;
 	float: left;
 }
 
@@ -1240,7 +1240,7 @@ textarea {
 .widget-search__form {
 	display: block;
 	margin: 0 auto;
-	padding: 2%;
+	padding: 0 6%;
 }
 
 .widget-search__form .widget-search__field {
@@ -1287,7 +1287,12 @@ textarea {
 
 .widget li a {
 	display: block;
-  padding: 5px 0;
+  padding: 5px 6%;
+}
+
+.widget h4 {
+  margin-left: 6%;
+  margin-right: 6%;
 }
 
 .widget li:first-child a {
