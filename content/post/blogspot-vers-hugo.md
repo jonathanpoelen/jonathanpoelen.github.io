@@ -52,7 +52,7 @@ Une autre chose sympathique que je n'ai pas eu l'occasion d'utiliser concerne le
 
 Bon Hugo c'est bon pour moi, mais j'ai rapidement fait un tour sur Octopress entre deux. Pour tout dire, j'ai rapidement abandonné. Le plugin le plus intéressant pour moi est [Codeblock][octopress_codeblock] et il ne fonctionne pas comme indiqué. J'ai regardé les sources et finalement renoncé.
 
-Au passage, je remarque que le projet n'est plus maintenu depuis plusieurs années et qu'il se base sur [Jekyll](Jekyll). J'essaye ce dernier et me retrouve avec des problèmes de dépendances et des packageurs -- il y en a pas qu'un -- qui demandent les droits root pour l'installation. Las, j'abandonne. Finalement, Hugo c'est bien.
+Au passage, je remarque que le projet n'est plus maintenu depuis plusieurs années et qu'il se base sur [Jekyll](jekyll). J'essaye ce dernier et me retrouve avec des problèmes de dépendances et des packageurs -- il y en a pas qu'un -- qui demandent les droits root pour l'installation. Las, j'abandonne. Finalement, Hugo c'est bien.
 
 ## Pour finir
 
