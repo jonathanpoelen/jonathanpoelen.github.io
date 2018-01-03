@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>404 Page not found</title>
 
-<meta name="generator" content="Hugo 0.25.1" />
+<meta name="generator" content="Hugo 0.31.1" />
 
 
 
@@ -22,6 +22,10 @@
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+  <div id="avoidance-link">
+    <a class="evitement" href="#main-content" title="Aller au contenu">Aller au contenu</a>
+    <a class="evitement" href="#main-menu" title="Aller au menu">Aller au menu</a>
+  </div>
   <div class="container container-outer">
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
@@ -36,7 +40,7 @@
     <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
       <i class="fa fa-github" aria-hidden="true"></i> Github
     </a></li>
-    <li class="menu__item"><a class="menu__link" title="Archives" href="/archives">
+    <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
       <i class="fa fa-archive" aria-hidden="true"></i> Archives</a>
     </li>
     <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
@@ -65,7 +69,7 @@
     et qu'on termine par l'extension ".html",
     alors on se retrouve sur la <a href="/" title="Le blog de Jonathan Poelen">page d'accueil</a>.
     </p>
-    <p>Ceux qui préfèrent les cartons remplis de feuille peuvent toujours fouyer dans les <a href="/archives" title="Archives">archives</a>.</p>
+    <p>Ceux qui préfèrent les cartons remplis de feuille peuvent toujours fouiller dans les <a href="/archives" title="Archives">archives</a>.</p>
   </div>
   
   </article>
@@ -85,12 +89,14 @@
 </div>
 
 	
-<div class="widget-recent widget">
+<div class="widget-recent widget" id="main-menu">
   <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
       <li class="widget__item"><a class="widget__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></li>
       <li class="widget__item"><a class="widget__link" href="/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></li>
+      
     </ul>
   </div>
 </div>
@@ -109,12 +115,20 @@
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilité-Web">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/accessibilit%c3%a9-web">Accessibilité-Web (1)</a>
+      </li>
+      <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
           &nbsp;
           <i class="fa fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43;</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (1)</a>
       </li>
     </ul>
   </div>
@@ -126,8 +140,9 @@
 </aside>
 </div>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+    <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-      &copy; 2017 Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
@@ -135,6 +150,7 @@
     </p>
   </footer>
 </div>
+<a id="backtop" href="#avoidance-link"><i class="fa fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
 
 
 </body>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>C&#43;&#43;</title>
 
-<meta name="generator" content="Hugo 0.25.1" />
+<meta name="generator" content="Hugo 0.31.1" />
 
 
 
@@ -22,6 +22,10 @@
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+  <div id="avoidance-link">
+    <a class="evitement" href="#main-content" title="Aller au contenu">Aller au contenu</a>
+    <a class="evitement" href="#main-menu" title="Aller au menu">Aller au menu</a>
+  </div>
   <div class="container container-outer">
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
@@ -36,7 +40,7 @@
     <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
       <i class="fa fa-github" aria-hidden="true"></i> Github
     </a></li>
-    <li class="menu__item"><a class="menu__link" title="Archives" href="/archives">
+    <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
       <i class="fa fa-archive" aria-hidden="true"></i> Archives</a>
     </li>
     <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
@@ -50,43 +54,6 @@
     </header>
     <div class="wrapper clearfix">
 
-  <section class="main-content list content" role="main">
-    <header class="page-header">
-      <h1 class="page-header__title">
-        
-        <a class="page-rss" href="https://jonathanpoelen.github.io/categories/c&#43;&#43;/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">C&#43;&#43; &nbsp;<i class="fa fa-rss" aria-hidden="true"> </i><span class="sr-only link-alt">(Flux RSS)</span>&nbsp;</a>
-      </h1>
-    </header>
-<ul class="list__archive-year">
-  <li class="item__archive-year"><a href="#year-2017">2017 (1)</a></li>
-</ul>
-
-    <section class="archives">
-      <h1 class="year"><time datetime="2017">2017</time></h1>
-      <div>
-  <article>
-    <time class="list__meta-date" datetime="2017-07-05T22:02:11" pubdate="pubdate">05 juil.
-</time>
-    <h1 class="list__title"><a href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></h1>
-    <div class="list__meta meta">
-      
-
-      
-
-<i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span><a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
-;
-
-
-    </div>
-  </article>
-  </div>
-</section>
-
-
-    
-      
-
-  </section>
 
 <aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
 	
@@ -102,12 +69,14 @@
 </div>
 
 	
-<div class="widget-recent widget">
+<div class="widget-recent widget" id="main-menu">
   <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
       <li class="widget__item"><a class="widget__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></li>
       <li class="widget__item"><a class="widget__link" href="/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></li>
+      
     </ul>
   </div>
 </div>
@@ -126,12 +95,20 @@
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilité-Web">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/accessibilit%c3%a9-web">Accessibilité-Web (1)</a>
+      </li>
+      <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
           &nbsp;
           <i class="fa fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43;</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (1)</a>
       </li>
     </ul>
   </div>
@@ -141,10 +118,46 @@
 	
 
 </aside>
+
+  <section class="main-content list content" role="main" id="main-content"><article class="list_archive">
+  <header class="post__header clearfix">
+    <h1 class="post__title">
+        <a class="page-rss" href="https://jonathanpoelen.github.io/categories/c&#43;&#43;/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">C&#43;&#43; (1) &nbsp;<i class="fa fa-rss" aria-hidden="true"> </i><span class="sr-only link-alt">(Flux RSS)</span>&nbsp;</a>
+    </h1>
+  </header>
+  <div class="list__content">
+    <ul>
+      <li>
+        <time class="list__meta-date" datetime="2017-07-05T22:02:11" pubdate="pubdate">2017/07/05</time>
+        —
+        <a href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a>
+        <span class="list__meta meta">
+          
+
+          
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+        </span>
+      </li>
+    </ul>
+  </div>
+</article>
+
+
+
+    
+      
+
+  </section>
+
 </div>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+    <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-      &copy; 2017 Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
@@ -152,6 +165,7 @@
     </p>
   </footer>
 </div>
+<a id="backtop" href="#avoidance-link"><i class="fa fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
 
 
 </body>
