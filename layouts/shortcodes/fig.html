@@ -1,0 +1,4 @@
+<div class="figure{{ if len .Params | eq 2 }} {{ .Get 1 }}{{ end }}"><figure>
+  {{ .Inner }}
+  <figcaption>{{ .Get 0 }}</figcaption>
+</figure></div>

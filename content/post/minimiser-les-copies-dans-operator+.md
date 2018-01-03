@@ -7,7 +7,7 @@ categories: [ "c++" ]
 ghcommentid: 1
 ---
 
-Je vais me baser sur un classique: une classe de matrice contenant un `std::vector<int>`. Cette classe va implémenter 2 opérateurs mathématiques `+` et `+=`. Le premier en fonction libre, le second en fonction membre.
+Je vais me baser sur un classique: une classe de matrice contenant un `std::vector<int>`. Cette classe va implémenter 2 opérateurs mathématiques: `+` et `+=`. Le premier en fonction libre, le second en fonction membre.
 
 Pour rigoler un peu, on ajoute une petite contrainte qui est "l'efficacité". Petit mot qui englobe un peu tout et n'importe quoi tel que la performance en mémoire et en temps.
 
@@ -18,7 +18,7 @@ Grosso-modo, des rvalues à droite, des rvalues à gauche, des rvalues partout e
 En réalité, il y a plusieurs approches possibles que je mets ici en opposition sans qu'elles le soient réellement.
 
 1. une surcharge pour tous les prototypes possibles.
-2. un opérator unique pour les gouverner tous. (Ouais, comme pour l'anneau).
+2. un opérator unique pour les gouverner tous.
 
 
 ## Plein de surcharges de operator+

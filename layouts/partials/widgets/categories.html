@@ -5,14 +5,14 @@
   <h4 class="widget__title"><i class="fa fa-folder-o" aria-hidden="true"></i> Categories</h4>
   <div class="widget__content">
     <ul class="widget__list">
-      {{- range $name, $items := .Site.Taxonomies.categories }}
+      {{- range $key, $value := .Site.Taxonomies.categories.ByCount }}
       <li class="widget__item">
-        <a class="rss-link" href="{{ "categories/index.xml" | relLangURL }}" type="application/rss+xml" title="Flux RSS pour {{ $name | title }}">
+        <a class="rss-link" href="{{ "categories/index.xml" | relLangURL }}" type="application/rss+xml" title="Flux RSS pour {{ $value.Name | title }}">
           &nbsp;
           <i class="fa fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="{{ "categories/" | relLangURL }}{{ $name | urlize | lower }}">{{ $name | title }}</a>
+        <a class="widget__link" href="{{ "categories/" | relLangURL }}{{ $value.Name | urlize | lower }}">{{ $value.Name | title }} ({{ $value.Count }})</a>
       </li>
       {{- end }}
     </ul>

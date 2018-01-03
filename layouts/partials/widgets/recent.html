@@ -1,12 +1,15 @@
 {{- if .Site.Params.widgets.recent_articles }}
 {{- $recent_articles_num := (.Site.Params.widgets.recent_articles_num | default 10) }}
 {{- $posts := where .Site.RegularPages "Section" "in" (.Site.Params.postSections | default (slice "post")) }}
-<div class="widget-recent widget">
+<div class="widget-recent widget" id="main-menu">
   <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
       {{- range first $recent_articles_num $posts }}
       <li class="widget__item"><a class="widget__link" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{- end }}
+      {{ if gt ( len $posts ) $recent_articles_num }}
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">{{ sub (len $posts) $recent_articles_num }} autres…</a></li>
       {{- end }}
     </ul>
   </div>

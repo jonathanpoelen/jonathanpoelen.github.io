@@ -1,6 +1,6 @@
 baseURL = "https://jonathanpoelen.github.io/"
 languageCode = "fr-FR"
-defaultContentLanguage = "fr"
+DefaultContentLanguage = "fr"
 title = "Jonathan Poelen"
 #copyright = "This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."
 
@@ -42,7 +42,7 @@ pygmentsstyle = "emacs"
   tags = true
   tags_counter = true
   recent_articles = true
-  recent_articles_num = 5
+  recent_articles_num = 4
   #social = true
   social_github = "jonathanpoelen"
   #social_email = "jonathan.poelen@gmail.com"
@@ -53,6 +53,8 @@ pygmentsstyle = "emacs"
 
 [blackfriday]
   angledQuotes = true
+  smartypantsQuotesNBSP = true
+
 
 #[[menu.main]]
 #    name = "Mon Github"

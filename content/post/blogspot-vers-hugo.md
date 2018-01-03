@@ -38,7 +38,7 @@ Ceci fait qu'utiliser un générateur de type markdown me trottait dans la tête
 
 J'aurais très bien pu utiliser Blogspot + un générateur. Sauf que je trouve Blogspot lourd à charger et les possibilités de menu et de mise en page sont un peu limitées. Alors autant voir ailleurs !
 
-## Essai de Hugo.
+## Essai de Hugo
 
 En fait, au moment où je commençais à regarder les systèmes existants, quelqu'un sur le [MM de 42][mm42] mit un lien vers Hugo. Le principe reste le même -- au moins pour la génération de blog -- avec comme objectif principal de ne pas avoir de dépendance et de générer rapidement le site.
 

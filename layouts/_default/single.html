@@ -1,10 +1,9 @@
 {{ partial "header.html" . }}
-<section class="main-content content" role="main" itemprop="mainContentOfPage">
+{{ partial "sidebar.html" . }}
+<section class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
   {{ partial "post.html" (dict "article" . "isSinglePage" 1) }}
   {{ partial "authorbox.html" . }}
   {{ partial "post_nav.html" . }}
   {{ partial "comments.html" . }}
 </section>
-
-{{ partial "sidebar.html" . }}
 {{ partial "footer.html" . }}

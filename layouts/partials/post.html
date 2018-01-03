@@ -1,7 +1,25 @@
 {{- with .article }}
 <article class="post">
   <header class="post__header clearfix">
-    <h1 class="post__title">{{if $.isSinglePage}}{{.Title}}{{else}}<a href="{{ .Permalink }}">{{ .Title }}</a>{{end}}</h1>
+    <div class="post__title-nextprev" id="{{ urlize .Title }}"><span>
+      {{- with .Prev }}
+        <a href="{{- if $.isSinglePage }}{{ .Permalink }}{{- else }}#{{- urlize .Title }}{{- end }}"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: {{ .Title }}"></i></a>
+      {{- else }}
+        &nbsp;
+      {{- end }}
+      {{- with .Next }}
+        <a href="{{- if $.isSinglePage }}{{ .Permalink }}{{- else }}#{{- urlize .Title }}{{- end }}"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: {{ .Title }}"></i></a>
+      {{- end }}
+    </span></div>
+    <h1 class="post__title"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+      {{- with .Prev }}
+        <a href="{{- if $.isSinglePage }}{{ .Permalink }}{{- else }}#{{- urlize .Title }}{{- end }}">Article suivant: {{ .Title }}</a><br/>
+      {{- end }}
+      {{- with .Next }}
+        <a href="{{- if $.isSinglePage }}{{ .Permalink }}{{- else }}#{{- urlize .Title }}{{- end }}">Article précédent: {{ .Title }}</a><br/>
+      {{- end }}
+    </div>
     {{ partial "post_meta_header.html" . }}
   </header>
   <div class="post__content">
@@ -12,9 +30,12 @@
     {{- end }}
     {{- if and (and $.isSinglePage (gt .WordCount 400)) (ne .Params.toc false) }}
     <aside id="toc"><div id="tocInner">
-      <span id="tocHeading">Sommaire</span>
+      <h2 id="tocHeading">Sommaire</h2>
       {{ replaceRE "^(<nav id=\"TableOfContents\">)\\s*<ul>\\s*<li>|</ul>\\s*</li>\\s*(</nav>)$" "$1$2" .TableOfContents | safeHTML }}
     </div></aside>
+    {{- end }}
+    {{- if lt .Lastmod (now.AddDate -2 0 0) }}
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 2 ans. Les informations y figurant peuvent être dépassées.</p>
     {{- end }}
     {{ .Content }}
   </div>

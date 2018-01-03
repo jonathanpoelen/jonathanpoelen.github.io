@@ -1,5 +1,5 @@
 ---
-title: "Dans les entrailles d'un variant"
+title: "Au cœur d'un variant"
 #description: ""
 date: 2017-08-08T00:45:55+02:00
 #lastmod: 2017-08-08T00:45:55+02:00

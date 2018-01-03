@@ -2,9 +2,9 @@
 <p class="post__meta meta">
   {{- if not .Date.IsZero }}
     <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="{{ .Date.Format "2006-01-02T15:04:05" }}">{{ partial "date_french.html" (.Date.Format ( .Site.Params.dateformat | default "January 02, 2006")) }}</time>
+    <time class="post__meta-date" datetime="{{ .Date.Format "2006-01-02T15:04:05" }}">{{ partial "date_format.html" (dict "Date" .Date "Site" $.Site) }}</time>
     {{ if ne .Date .Lastmod }}
-    ({{ i18n "lastModifiedOn" }} <time class="post__meta-lastmod" datetime="{{ .Lastmod.Format "2006-01-02T15:04:05" }}">{{ partial "date_french.html" (.Lastmod.Format ( .Site.Params.dateformat | default "January 02, 2006")) }})</time>
+    ({{ i18n "lastModifiedOn" }} <time class="post__meta-lastmod" datetime="{{ .Lastmod.Format "2006-01-02T15:04:05" }}">{{ partial "date_format.html" (dict "Date" .Lastmod "Site" $.Site)}})</time>
     {{ end }}
     ;
   {{- end }}

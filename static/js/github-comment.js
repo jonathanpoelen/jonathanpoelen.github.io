@@ -43,24 +43,29 @@ var DoGithubComments = (function(){
       if (this.status === 200) {
         var json = JSON.parse(event.currentTarget.response)
         var t = btncomment
-        var comment, d
-        for (var i in json)
-        {
-          comment = json[i]
-          d = new Date(comment.created_at)
+        if (json.lenght) {
+          var comment, d
+          for (var i in json)
+          {
+            comment = json[i]
+            d = new Date(comment.created_at)
 
-          t += "<div class='gh-comment'>"
-          t += "<div class='gh-comment-header'><img src='" + comment.user.avatar_url + "' width='24px'>"
-          t += "<a class='gh-comment-user' href='" + comment.user.html_url + "'>" + comment.user.login + "</a>"
-          t += " posté à <time datetime=" + d.getUTCFullYear()
-          t += (d.getUTCMonth()<9?'-0':'-')+(d.getUTCMonth()+1)
-          t += (d.getUTCDate()<=9?'-0':'-')+d.getUTCDate()
-          t += (d.getUTCHours()<=9?' 0':' ')+d.getUTCHours()
-          t += +(d.getUTCMinutes()<=9?' 0':' ')+d.getUTCMinutes()
-          t += '">' + d.toUTCString() + "</time>"
-          t += "</div><div class='gh-comment-content'>"
-          t += comment.body_html
-          t += "</div></div>"
+            t += "<div class='gh-comment'>"
+            t += "<div class='gh-comment-header'><img src='" + comment.user.avatar_url + "' width='24px'>"
+            t += "<a class='gh-comment-user' href='" + comment.user.html_url + "'>" + comment.user.login + "</a>"
+            t += " posté à <time datetime=" + d.getUTCFullYear()
+            t += (d.getUTCMonth()<9?'-0':'-')+(d.getUTCMonth()+1)
+            t += (d.getUTCDate()<=9?'-0':'-')+d.getUTCDate()
+            t += (d.getUTCHours()<=9?' 0':' ')+d.getUTCHours()
+            t += +(d.getUTCMinutes()<=9?' 0':' ')+d.getUTCMinutes()
+            t += '">' + d.toUTCString() + "</time>"
+            t += "</div><div class='gh-comment-content'>"
+            t += comment.body_html
+            t += "</div></div>"
+          }
+        }
+        else {
+          t += "<div class='gh-comment'>Aucun commentaire pour le moment.</div>"
         }
 
         t += btncomment

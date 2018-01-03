@@ -1,25 +1,8 @@
 {{ partial "header.html" . }}
-  <section class="main-content list content" role="main">
-    {{- if not .IsHome}}
-    {{- if .Title }}
-    <header class="page-header">
-      <h1 class="page-header__title">
-        <!--{{- if hasPrefix .URL "/tags/" }}
-        <i class="fa fa-tag" aria-hidden="true"></i>
-        {{- else if hasPrefix .URL "/categories/" }}
-        <i class="fa fa-folder-open-o" aria-hidden="true"></i>
-        {{- else }}
-        <i class="fa fa-archive" aria-hidden="true"></i>
-        {{- end }}-->
-        {{- if .RSSLink }}
-        <a class="page-rss" href="{{ .RSSLink }}" type="application/rss+xml" title="Flux RSS pour {{ .Title }}">{{ .Title }} &nbsp;<i class="fa fa-rss" aria-hidden="true"> </i><span class="sr-only link-alt">(Flux RSS)</span>&nbsp;</a>
-        {{- else }}
-        {{ .Title }}
-        {{- end }}
-      </h1>
-    </header>
-    {{- end }}
-    {{- end }}
+
+{{ partial "sidebar.html" . }}
+
+  <section class="main-content list content" role="main" id="main-content">
     {{- with .Content }}
     <div class="page-content">
       {{ . }}
@@ -38,14 +21,11 @@
         <p class="warning__text">As posts are added in {{ replaceRE ",([^,]*)$" " and $1" (delimit (apply $postSections "printf" "content/%s" ".") ", ") }} folder{{ if gt (len $postSections) 1 }}s{{ end }}, they'll appear here.</p>
       </div>
       {{- end }}
-      <footer class="page-footer"><p><a href="/archives" title="Archives">Archives</a></p></footer>
     {{- else if eq .Type "archives" }}
       {{- $pages := where .Site.RegularPages "Section" "in" (.Site.Params.postSections | default (slice "post")) }}
-      {{- partial "menu-year.html" (dict "Pages" $pages "Scratch" $.Scratch) }}
-      {{- partial "list_archive.html" (dict "Pages" $pages "Scratch" $.Scratch "SetId" 1 ) }}
+      {{- partial "list_archive.html" (dict "Pages" $pages           "Title" .Title "RSSLink" .RSSLink) }}
     {{ else }}
-      {{- partial "menu-year.html" (dict "Pages" .Paginator.Pages "Scratch" $.Scratch) }}
-      {{- partial "list_archive.html" (dict "Pages" .Paginator.Pages "Scratch" $.Scratch) }}
+      {{- partial "list_archive.html" (dict "Pages" .Paginator.Pages "Title" .Title "RSSLink" .RSSLink) }}
     {{- end }}
 
     {{ if ne .Type "archives" }}
@@ -53,5 +33,4 @@
     {{- end }}
   </section>
 
-{{ partial "sidebar.html" . }}
 {{ partial "footer.html" . }}
