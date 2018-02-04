@@ -145,8 +145,6 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&)
 
 Si on y tient vraiment, on peut ajouter `Matrix operator+(Matrix&&, Matrix&&)`. Mais comme dit précédemment le besoin est très faible.
 
-Toutefois, un défaut existe en utilisant que 2 fonctions: il n'est pas possible de marquer `noexcept` le prototype qui correspond à `std::move(a)+b` (qui réutilise `a`), car c'est le même qui est utilisé pour `a+b` qui fait une copie de `a`.
-
 Dans le cas d'opérateurs non-commutatifs, cette multiplication de fonction n'a pas lieu d'être. Il est largement préférable de ne faire qu'un opérateur prenant `lhs` par copie. On bénéficie ainsi aussi bien de la copy-elision que de la RVO.
 
 
