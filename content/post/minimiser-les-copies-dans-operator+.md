@@ -37,41 +37,37 @@ Matrix operator+(Matrix const& lhs, Matrix const& rhs)
 
 Matrix operator+(Matrix&& lhs, Matrix const& rhs)
 {
-  std::move(lhs) += rhs;
+  lhs += rhs;
   return std::move(lhs); // ne pas oublier std::move, sinon il y a aura copie en sortie
 }
 
 Matrix operator+(Matrix const& lhs, Matrix&& rhs)
 {
-  std::move(rhs) += lhs; // commutativité: x+y = y+x
+  rhs += lhs; // commutativité: x+y = y+x
   return std::move(rhs);
 }
 
 Matrix operator+(Matrix&& lhs, Matrix&& rhs)
 {
-  std::move(rhs) += std::move(lhs);
+  rhs += lhs; // éventuellement `rhs += std::move(lhs)`
   return std::move(rhs);
 }
 ```
 
-L'utilisation de std::move sur l'opérande de gauche pour `+=` (cf: `std::move(lhs) += rhs;` et autres) n'est pas utile pour notre classe Matrix qui contient un `std::vector<int>`. Mais dans l'hypothèse d'un `std::vector<std::vector<T>>` cela permet d'informer que le sous-vecteur, ou carrément `T` peut être recyclé.
-
-Par exemple, dans le cas où les 2 opérandes sont des rvalues, on pourrait déplacer les vecteurs de rhs parce que leur capacité est plus grande. C'est une optimisation très spécifique et je pense que très peu de personnes (aucune?) s'en sert dans la réalité. On pourrait aussi faire `std::move(ret) += ` dans la première implémentation pour les mêmes raisons.
-
 Petite note sur la dernière implémentation. Utiliser `rhs` comme valeur de retour permet de gagner un `mov` (asm). [ici][cmp_rhs_lsh_return].
 
-Bon, c'est bien joli, mais on peut faire la même avec seulement 2 prototypes et gagner une optimisation sur la [copy-elision](http://en.cppreference.com/w/cpp/language/copy_elision) qui n'est pas faite par gcc. Le sagouin, il utilise un constructeur de déplacement !
+Bon, c'est bien joli, mais on peut quasiment faire la même avec seulement 2 prototypes. Seulement, pour une raison que j'ignore, ni clang, ni gcc n'applique la RVO correctement. Le constructeur de déplacement est systèmatiquement utilisé.
 
 ```cpp
 Matrix operator+(Matrix lhs, Matrix const& rhs)
 {
   lhs += rhs;
-  return lhs;
+  return lhs; // pas de RVO ???
 }
 
 Matrix operator+(Matrix const& lhs, Matrix&& rhs)
 {
-  std::move(rhs) += lhs; // commutativité: x+y = y+x
+  rhs += lhs; // commutativité: x+y = y+x
   return std::move(rhs);
 }
 ```
@@ -144,8 +140,6 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&)
 ```
 
 Si on y tient vraiment, on peut ajouter `Matrix operator+(Matrix&&, Matrix&&)`. Mais comme dit précédemment le besoin est très faible.
-
-Dans le cas d'opérateurs non-commutatifs, cette multiplication de fonction n'a pas lieu d'être. Il est largement préférable de ne faire qu'un opérateur prenant `lhs` par copie. On bénéficie ainsi aussi bien de la copy-elision que de la RVO.
 
 
 ## Un prototype multi-fonction
