@@ -218,6 +218,12 @@ small {
   font-size: 0.75rem;
 }
 
+.inlinecode{
+  margin: 0px;
+  padding: 0px;
+  display: inline;
+  border: none;
+}
 code {
   border: .05em solid #fadbf4;
   display: inline-block;
@@ -1601,8 +1607,7 @@ pre { background: #3a3a3a; border-color: #c4c4c4; }
 .highlighttable td:first-child pre { background: #444; }
 .linenodiv code { color: #888 }
 pre code { color: #c5c8c6 }
-code { background-color: #f9f9f9; border-color: #fadbf4; }
-code { border: none; }
+.inlinecode, code { background-color: #f9f9f9; border-color: #fadbf4; border: none; }
 kbd { background: #f5f5f5; border-color: #e64946; }
 blockquote { color: #666; border-color: #e64946; }
 abbr, acronym { border-color: default; }
@@ -1785,7 +1790,7 @@ table, td, th
 .highlight .mi { color: #f99157 } /* Literal.Number.Integer */
 .highlight .mo { color: #f99157 } /* Literal.Number.Oct */
 .highlight .sb { color: #99cc99 } /* Literal.String.Backtick */
-.highlight .sc { color: #cccccc } /* Literal.String.Char */
+.highlight .sc { color: #88cc88 } /* Literal.String.Char */
 .highlight .sd { color: #999999 } /* Literal.String.Doc */
 .highlight .s2 { color: #99cc99 } /* Literal.String.Double */
 .highlight .se { color: #f99157 } /* Literal.String.Escape */
@@ -1808,6 +1813,14 @@ table, td, th
 
 /** Dark theme **/
 
+.inlinecode.highlight .n,
+.inlinecode.highlight .ni,
+.inlinecode.highlight .nl,
+.inlinecode.highlight .py,
+.inlinecode.highlight .w,
+.inlinecode.highlight .bp
+ { color: #ddd }
+
 body, html { background: #252525; color: #dedfda; }
 .warning, .disclaimer, .old_article { color: #000; }
 .warning, .old_article { border-color: #f9dddd; background: #c99; }
@@ -1822,7 +1835,7 @@ th { background-color: #333; }
 input, textarea { background: #252525; }
 input[type=submit]:hover, input[type=submit]:focus { background: #2a2a2a; }
 pre { background: #2e2e2e; border-color: #999; }
-code { background-color: #3a3a3a; border-color: #000; color: #e0e1dc }
+.inlinecode, code { background-color: #3a3a3a; border-color: #000; color: #e0e1dc }
 table, td, th { border-color: #999; }
 a { color: #dedfda; }
 figure { background: #333; border-color: #444; }
