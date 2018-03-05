@@ -7,11 +7,11 @@ categories: [ "c++" ]
 ghcommentid: 1
 ---
 
-Je vais me baser sur un classique: une classe de matrice contenant un `std::vector<int>`. Cette classe va implémenter 2 opérateurs mathématiques: `+` et `+=`. Le premier en fonction libre, le second en fonction membre.
+Je vais me baser sur un classique: une classe de matrice contenant un {{<hi cpp "std::vector<int>"/>}}. Cette classe va implémenter 2 opérateurs mathématiques: {{<hi cpp "+"/>}} et {{<hi cpp "+="/>}}. Le premier en fonction libre, le second en fonction membre.
 
 Pour rigoler un peu, on ajoute une petite contrainte qui est "l'efficacité". Petit mot qui englobe un peu tout et n'importe quoi tel que la performance en mémoire et en temps.
 
-À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc. Des bibliothèques comme uBLAS, Eigen, Blitz implémentent une tripotée de choses. Ici, on va uniquement s'intéresser à la manière d'implémenter `operator+` pour recycler les variables temporaires dans le but d'avoir le moins d'allocations possibles dûes aux copies.
+À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc. Des bibliothèques comme uBLAS, Eigen, Blitz implémentent une tripotée de choses. Ici, on va uniquement s'intéresser à la manière d'implémenter {{<hi cpp "operator+"/>}} pour recycler les variables temporaires dans le but d'avoir le moins d'allocations possibles dûes aux copies.
 
 Grosso-modo, des rvalues à droite, des rvalues à gauche, des rvalues partout et pour finir, pas de rvalue.
 
@@ -23,7 +23,7 @@ En réalité, il y a plusieurs approches possibles que je mets ici en opposition
 
 ## Plein de surcharges de operator+
 
-Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter `noexcept` sur de tels prototypes.
+Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter {{<hi cpp "noexcept"/>}} sur de tels prototypes.
 
 Voici ce que donne l'implémentation:
 
@@ -74,7 +74,7 @@ Matrix operator+(Matrix const& lhs, Matrix&& rhs)
 
 Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.
 
-Ainsi, si dans l'expresssion `a + b`, `b` une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un `std::cout << __PRETTY_FUNCTION__ << '\n'` dans les implémentations et le test qui suit.
+Ainsi, si dans l'expresssion {{<hi cpp "a + b"/>}}, {{<hi cpp "b"/>}} une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un {{<hi cpp "std::cout << __PRETTY_FUNCTION__ << '\n'"/>}} dans les implémentations et le test qui suit.
 
 ```cpp
 template<class Lhs, class Rhs>
@@ -139,14 +139,14 @@ std::move(a) + b              Matrix operator+(Matrix, const Matrix&)
 std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&)
 ```
 
-Si on y tient vraiment, on peut ajouter `Matrix operator+(Matrix&&, Matrix&&)`. Mais comme dit précédemment le besoin est très faible.
+Si on y tient vraiment, on peut ajouter {{<hi cpp "Matrix operator+(Matrix&&, Matrix&&)"/>}}. Mais comme dit précédemment le besoin est très faible.
 
 
 ## Un prototype multi-fonction
 
 Une autre solution pour la surcharge d'opérateur est de ne faire qu'un seul et unique prototype template qui s'active en présence d'un certain type. Ce n'est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.
 
-Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de `std::enable_if`. Ce qui donne:
+Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de {{<hi cpp "std::enable_if"/>}}. Ce qui donne:
 
 ```cpp
 template<class MatrixLhs, class MatrixRhs>
@@ -157,7 +157,7 @@ std::enable_if_t<
 operator+(MatrixLhs&& lhs, MatrixRhs&& rhs);
 ```
 
-Dans la réalité, l'addition d'une matrice fonctionne aussi sur des entiers (cf: `int + Matrix`, `Matrix + int`). Le filtre sera alors beaucoup plus compliqué puisqu'il faut qu'au moins une des opérandes soit un type `Matrix` et que les paramètres soient des types compatibles (en prenant en compte la préscence des références et des `const`). La condition devient alors quelque chose comme:
+Dans la réalité, l'addition d'une matrice fonctionne aussi sur des entiers (cf: {{<hi cpp "int + Matrix"/>}}, {{<hi cpp "Matrix + int"/>}}). Le filtre sera alors beaucoup plus compliqué puisqu'il faut qu'au moins une des opérandes soit un type `Matrix` et que les paramètres soient des types compatibles (en prenant en compte la préscence des références et des `const`). La condition devient alors quelque chose comme:
 
 ```cpp
 is_matrix_operand<Lhs> &&
@@ -169,18 +169,18 @@ Il devient alors très facile d'ajouter un nouveau type à prendre en compte, co
 
 Il est également envisageable de faire des prototypes par catégorie de variable: Sequence et Matrix, Integer et Matrix.
 
-Revenons-en à notre `operator+` et son implémentation. Celle-ci va être plus compliqué car elle doit être équivalente aux 4 implémentations du début ; sachant que la première possède une variable et les opérandes sont inversés dans la troisième et la quatrième.
+Revenons-en à notre {{<hi cpp "operator+"/>}} et son implémentation. Celle-ci va être plus compliqué car elle doit être équivalente aux 4 implémentations du début ; sachant que la première possède une variable et les opérandes sont inversés dans la troisième et la quatrième.
 
 Une solution possible est de mettre 2 valeurs intermédiaires qui représentent l'opérande de gauche et l'opérande de droite et dont le type s'adapte en fonction des types en entrée.
 
-Ci-dessous un tableau récapitulatif des types et valeurs de nos 2 nouvelles variables `Lhs` et `Rhs`. Les `const` sont supprimés car seule la référence importe.
+Ci-dessous un tableau récapitulatif des types et valeurs de nos 2 nouvelles variables `Lhs` et `Rhs`. Les {{<hi cpp "const"/>}} sont supprimés car seule la référence importe.
 
    Prototype   |    NewLhs    |   NewRhs
 ---------------|--------------|-------------
-`M & `, `M & ` | `M   ` = lhs | `M & ` = rhs
-`M &&`, `M & ` | `M &&` = lhs | `M & ` = rhs
-`M & `, `M &&` | `M &&` = rhs | `M & ` = lhs
-`M &&`, `M &&` | `M &&` = rhs | `M &&` = lhs
+{{<hi cpp "M & "/>}}, {{<hi cpp "M & "/>}} | {{<hi cpp "M   "/>}} = lhs | {{<hi cpp "M & "/>}} = rhs
+{{<hi cpp "M &&"/>}}, {{<hi cpp "M & "/>}} | {{<hi cpp "M &&"/>}} = lhs | {{<hi cpp "M & "/>}} = rhs
+{{<hi cpp "M & "/>}}, {{<hi cpp "M &&"/>}} | {{<hi cpp "M &&"/>}} = rhs | {{<hi cpp "M & "/>}} = lhs
+{{<hi cpp "M &&"/>}}, {{<hi cpp "M &&"/>}} | {{<hi cpp "M &&"/>}} = rhs | {{<hi cpp "M &&"/>}} = lhs
 
 Et l'implémentation:
 
@@ -232,15 +232,15 @@ Matrix operator +(Lhs&& lhs, Rhs&& rhs)
 }
 ```
 
-Le code mérite quelques explications. Pour commencer, parlons de `rvalue_reference` qui est un palliatif pour une optimisation au niveau de `return`. Au niveau du retour, si `NewLhs` est une rvalue, il faut utiliser `std::move`, sauf que l'utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un `if (std::is_rvalue_reference<NewLhs>{}) return std::move(lhs);` avant `return new_lhs` l'optimisation n'est pas faite. Cela fonctionne néanmoins avec `if constexpr` de c++17. Le but de `rvalue_reference`  est finalement de rendre automatique un retour par rvalue grâce à l'opérateur de cast interne.
+Le code mérite quelques explications. Pour commencer, parlons de `rvalue_reference` qui est un palliatif pour une optimisation au niveau de {{<hi cpp "return"/>}}. Au niveau du retour, si `NewLhs` est une rvalue, il faut utiliser {{<hi cpp "std::move"/>}}, sauf que l'utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un {{<hi cpp "if (std::is_rvalue_reference<NewLhs>{}) return std::move(lhs);"/>}} avant {{<hi cpp "return new_lhs"/>}} l'optimisation n'est pas faite. Cela fonctionne néanmoins avec {{<hi cpp "if constexpr"/>}} de c++17. Le but de `rvalue_reference`  est finalement de rendre automatique un retour par rvalue grâce à l'opérateur de cast interne.
 
 Concernant ce curieux enchaînement de cast, celui-ci s'explique par la difficulté de contrôler le type retourner par une ternaire. Une ternaire sur deux variables de même type va retourner une référence (une variable est toujours une lvalue). La référence sera considérée constante si une des deux valeurs est une référence constante. Du coup, on vire le const pour ensuite construire les types `NewLhs` et `NewRhs`.
 
-Ici, le constructeur de la matrice (quand `NewLhs = Matrix`) va recevoir un type non const. À moins qu'un constructeur existe pour les références non const, cela ne cause pas de problème. On peut très bien ajouter un `std::conditional` pour forcer le const.
+Ici, le constructeur de la matrice (quand `NewLhs = Matrix`) va recevoir un type non const. À moins qu'un constructeur existe pour les références non const, cela ne cause pas de problème. On peut très bien ajouter un {{<hi cpp "std::conditional"/>}} pour forcer le const.
 
-En première impression `static_cast<NewRhs>` pourrait être optionnel, mais celui-ci permet de forcer la rvalue pour construire NewRhs. Une lvalue (le retour de `const_cast<Matrix&>`) ne pouvant être affectée à une rvalue sans cela.
+En première impression {{<hi cpp "static_cast<NewRhs>"/>}} pourrait être optionnel, mais celui-ci permet de forcer la rvalue pour construire NewRhs. Une lvalue (le retour de {{<hi cpp "const_cast<Matrix&>"/>}}) ne pouvant être affectée à une rvalue sans cela.
 
-Les casts présents fonctionnent bien parce que `lhs` et `rhs` sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font `falcon::cif` ou `boost::hana::if_`. Plusieurs de mes articles en parlent.
+Les casts présents fonctionnent bien parce que `lhs` et `rhs` sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font {{<hi cpp "falcon::cif"/>}} ou {{<hi cpp "boost::hana::if_"/>}}. Plusieurs de mes articles en parlent.
 
 
 ## N'écrivez pas operator+ vous-même, c'est trop compliqué&nbsp;!
