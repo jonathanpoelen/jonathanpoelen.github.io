@@ -28,14 +28,17 @@
       <img src="{{ .Params.thumbnail | relURL }}" alt="{{ .Title }}">
     </figure>
     {{- end }}
-    {{- if and (and $.isSinglePage (gt .WordCount 400)) (ne .Params.toc false) }}
-    <aside id="toc"><div id="tocInner">
-      <h2 id="tocHeading">Sommaire</h2>
-      {{ replaceRE "^(<nav id=\"TableOfContents\">)\\s*<ul>\\s*<li>|</ul>\\s*</li>\\s*(</nav>)$" "$1$2" .TableOfContents | safeHTML }}
-    </div></aside>
+    {{- if and $.isSinglePage (ne .Params.toc false) }}
+      {{- $toc := string (replaceRE "^(<nav id=\"TableOfContents\">)\\s*<ul>\\s*<li>|</li>\\s*</ul>\\s*(</nav>)$" "$1$2" .TableOfContents) }}
+      {{- if ne "" $toc }}
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2>
+          {{- safeHTML $toc }}
+        </div></aside>
+      {{- end }}
     {{- end }}
     {{- if lt .Lastmod (now.AddDate -2 0 0) }}
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 2 ans. Les informations y figurant peuvent être dépassées.</p>
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de {{ sub now.Year ( add .Lastmod.Year 1 )}} ans. Les informations y figurant peuvent être dépassées.</p>
     {{- end }}
     {{ .Content }}
   </div>

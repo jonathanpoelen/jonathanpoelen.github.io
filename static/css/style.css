@@ -218,11 +218,13 @@ small {
   font-size: 0.75rem;
 }
 
-.inlinecode{
+.inlinecode, p > code {
   margin: 0px;
   padding: 0px;
   display: inline;
   border: none;
+  white-space: pre-wrap;
+  font-family: "Consolas", "Courier New", Courier, monospace;
 }
 code {
   border: .05em solid #fadbf4;
@@ -333,27 +335,27 @@ figcaption {
 
 .post__content h2 {
   font-size: 32px;
-  font-size: 2rem;
+  font-size: 2.2rem;
 }
 
 .post__content h3 {
   font-size: 24px;
-  font-size: 1.5rem;
+  font-size: 1.65rem;
 }
 
 .post__content h4 {
   font-size: 20px;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
 }
 
 .post__content h5 {
   font-size: 18px;
-  font-size: 1.125rem;
+  font-size: 1.236rem;
 }
 
 .post__content h6 {
   font-size: 16px;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 /*** Lists ***/
@@ -500,17 +502,17 @@ select {
   padding: 10px 20px;
   margin: 0;
   font-size: 32px;
-	font-size: 2rem;
-	line-height: 1;
+  font-size: 2rem;
+  line-height: 1;
 }
 
 .logo__tagline {
   padding: 10px 20px 12px 20px;
   display: inline-block;
-	font-size: 14px;
-	font-size: 0.875rem;
-	line-height: 1;
-	border-top: 1px solid #e5e5e5;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1;
+  border-top: 1px solid #e5e5e5;
 }
 
 /*** Navigation — Responsive-nav.js ***/
@@ -704,6 +706,11 @@ select {
 	width: 100%;
 }
 
+.post__content {
+  font-size: 18px;
+  font-size: 1.1rem;
+}
+
 .post__content h1, .post__content h2, .post__content h3, .post__content h4,
 .post__content h5, .post__content h6, .post__content p,
 .post__content blockquote, .post__content .row {
@@ -731,7 +738,7 @@ select {
 	font-weight: 700;
 }*/
 
-.post__content a:hover, .post__content a:focus {
+.post__content a:hover, .post__content a:focus, .post__content a code {
 	text-decoration: underline;
 }
 
@@ -816,10 +823,11 @@ select {
   margin-left: 5px;
   list-style-position: inside;
   list-style-type: disc;
+  text-align: left;
 }
 
 #TableOfContents a {
-  font-size: .9rem;
+  font-size: 1rem;
 }
 
 /*** Archive ***/
@@ -1690,11 +1698,8 @@ textarea:focus,
 input[type=submit]
 { background: #e64946; color: #eee; }
 
-.widget__link:hover, .widget__link:focus { background: #eee; }
-
 .menu__item--active, .menu__item--active .menu__link { background: #e64946; }
 .logo__tagline { color: #e64946; border-color: #ddd }
-@media screen and (min-width: 767px) { .header { border-color: #e64946} }
 .widget__title { border-color: #e64946; }
 
 .fa-rss:before { color: #f8a550 }
@@ -1735,6 +1740,15 @@ table, td, th
 }
 
 
+/* pre code::before {
+  content: attr(data-lang);
+  color: #eee;
+  padding-bottom: .4em;
+  display: block;
+  text-decoration: underline;
+  position: relative;
+  right: 0px;
+} */
 
 /** tomorrow_night.css **/
 /** https://github.com/mozmorris/tomorrow-pygments **/
@@ -1750,7 +1764,8 @@ table, td, th
 .highlight .o { color: #66cccc } /* Operator */
 .highlight .p { color: #cccccc } /* Punctuation */
 .highlight .cm { color: #999999 } /* Comment.Multiline */
-.highlight .cp { color: #999999 } /* Comment.Preproc */
+.highlight .cp { color: #99cc99 } /* Comment.Preproc */
+.highlight .cpf { color: #99bf99 } /* Comment.Preproc */
 .highlight .c1 { color: #999999 } /* Comment.Single */
 .highlight .cs { color: #999999 } /* Comment.Special */
 .highlight .gd { color: #f2777a } /* Generic.Deleted */
@@ -1808,7 +1823,10 @@ table, td, th
 
 
 .highlight .p { color: #cc8f50 } /* Punctuation */
+.highlight .p { color: #cc8f50 } /* Punctuation */
 
+/* bug comments end for empty line */
+.highlight .c1:empty { display: block; }
 
 
 /** Dark theme **/
@@ -1820,6 +1838,7 @@ table, td, th
 .inlinecode.highlight .w,
 .inlinecode.highlight .bp
  { color: #ddd }
+.highlight pre { background: #1a1a1a; color: red }
 
 body, html { background: #252525; color: #dedfda; }
 .warning, .disclaimer, .old_article { color: #000; }
@@ -1835,6 +1854,7 @@ th { background-color: #333; }
 input, textarea { background: #252525; }
 input[type=submit]:hover, input[type=submit]:focus { background: #2a2a2a; }
 pre { background: #2e2e2e; border-color: #999; }
+pre code { color: #d0d0d0 }
 .inlinecode, code { background-color: #3a3a3a; border-color: #000; color: #e0e1dc }
 table, td, th { border-color: #999; }
 a { color: #dedfda; }
@@ -1847,10 +1867,14 @@ figure { background: #333; border-color: #444; }
 .gh-comment, .gh-comment-header { border-color: #999; }
 #tocInner { background: #2e2f2c; border-color: #444; }
 
+.logo__tagline { color: #ca8244 }
+.widget__title { border-color: #ca8244; }
+.header { border-color: #ca8244; border-width: 2px}
+blockquote { border-color: #ca8244; }
 
 .footer__copyright a { color: #ccc; }
 
-.post__content a, .list__content a { color: #31a1fb; }
+.post__content a, .list__content a { color: #51b0eb; }
 
 .post__content a:visited,
 .list__content a:visited,
@@ -1882,7 +1906,7 @@ a:focus,
 .post__content a:visited:focus,
 .p404 a:hover,
 .p404 a:focus
-{ color: #e64946; }
+{ color: #ca8244 /*#e64946*/; }
 
 .menu__item a:hover,
 .menu__item a:focus,
@@ -1906,10 +1930,13 @@ input[type=url]:focus,
 textarea:hover,
 textarea:focus,
 input[type=submit]
-{ background: #e64946; color: #eee; }
+{ background: #ca8244; color: #000; }
 
 .footer-archive a { color: #54aefc; background: #444; }
-.footer-archive a:hover { color: #e64946; }
+.footer-archive a:hover, .footer-archive a:focus { color: #ca8244; }
+
+.menu__item--active, .menu__item--active .menu__link, .menu__item a:hover, .menu__item a:focus { background: #ca8244; }
+.widget__link:hover, .widget__link:focus { color: #ea9254 }
 
 .post__title a,
 .post__content h2,
@@ -1919,3 +1946,47 @@ input[type=submit]
 .post__content h6{
   color: #d0b993;
 }
+
+.post__title a:hover, .post__title a:focus {
+  text-decoration: underline;
+}
+
+.post__content h2::before,
+.post__content h3::before,
+.post__content h4::before,
+.post__content h5::before,
+.post__content h6::before {
+  color: #ca8244;
+  font-size: .8em;
+}
+
+.post__content h2::before { content: "# "; }
+.post__content h3::before { content: "## "; }
+.post__content h4::before { content: "### "; }
+.post__content h5::before { content: "#### "; }
+.post__content h6::before { content: "##### "; }
+
+.post__content ul {
+  list-style: none;
+  margin-left:1em
+}
+.post__content ul li::before {
+  content: "■ ";
+  /* content: "▪■ "; */
+  color: #ca8244
+}
+
+#TableOfContents ul li::before {
+  content: "";
+}
+
+::-moz-selection {
+  color: #222;
+  background: #ca8244;
+}
+
+::selection {
+  color: gold;
+  background: red;
+} 
+

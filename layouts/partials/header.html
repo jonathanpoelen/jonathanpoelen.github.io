@@ -31,7 +31,7 @@
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
           <a class="logo__link" href="{{ "" | relLangURL }}" title="{{ .Site.Title }}" rel="home">
-            <h1 class="logo__title">{{ .Site.Title }}</h1>
+            <h1 class="logo__title">{{ .Site.Params.Title }}</h1>
             {{ with .Site.Params.subtitle }}<h2 class="logo__tagline">{{ . }}</h2>{{ end }}
           </a>
         </div>

@@ -25,10 +25,11 @@
       {{- $pages := where .Site.RegularPages "Section" "in" (.Site.Params.postSections | default (slice "post")) }}
       {{- partial "list_archive.html" (dict "Pages" $pages           "Title" .Title "RSSLink" .RSSLink) }}
     {{ else }}
-      {{- partial "list_archive.html" (dict "Pages" .Paginator.Pages "Title" .Title "RSSLink" .RSSLink) }}
+      <!-- .Data -> .Paginator -->
+      {{- partial "list_archive.html" (dict "Pages" .Data.Pages "Title" .Title "RSSLink" .RSSLink) }}
     {{- end }}
 
-    {{ if ne .Type "archives" }}
+    {{ if .IsHome }}
       {{ partial "pagination.html" . }}
     {{- end }}
   </section>

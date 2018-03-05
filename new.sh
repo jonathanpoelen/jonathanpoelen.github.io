@@ -13,7 +13,10 @@ ext=.md
 cd "$(dirname "$0")"
 
 filename="${title,,}"
+filename="${filename//,/}"
+filename="${filename//?/}"
 filename="${filename// /-}"
+filename="${filename//\//-}"
 filename="${filename//\'/-}"
 filename="${filename//\"/-}"
 filename="${filename//é/e}"
