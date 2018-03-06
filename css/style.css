@@ -695,6 +695,9 @@ select {
 	border-top: 1px dotted #c4c4c4;
 	border-bottom: 1px dotted #c4c4c4;
 }
+.post__meta.share {
+	border-top: none;
+}
 
 .post__thumbnail {
 	max-width: 1030px;
