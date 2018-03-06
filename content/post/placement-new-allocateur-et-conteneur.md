@@ -43,7 +43,7 @@ Maintenant qu'on a un joli espace mémoire tout fraîchement alloué, construiso
 
 ## Placement new
 
-Le placement new permet d'appeller le construire d'un objet sur une zone mémoire prédéfinie.
+Le placement new permet d'appeler le constructeur d'un objet sur une zone mémoire prédéfinie.
 
 ```cpp
 Machin* machin = new (p) Machin(/params…/);
@@ -89,7 +89,7 @@ Machin* machin = new(p) Machin[n]/*{params...}*/;
 
 Toutes les formes de {{<hi cpp "new"/>}} et {{<hi cpp "delete"/>}} sont surchargeables de façon locale ou globale. Local quand l'opérateur est implémenté à l'intérieur d'une classe (son prototype sera implicitement statique) et global lorsqu'implémenté dans le namespace global.
 
-De plus, comme {{<hi cpp "new"/>}} peux prendre des paramètres, il est possible de les personnaliser et d'en ajouter.
+De plus, comme {{<hi cpp "new"/>}} peut prendre des paramètres, il est possible de les personnaliser et d'en ajouter.
 
 ```cpp
 #include <new>
@@ -119,20 +119,20 @@ Présent dans boost et la dernière norme du C++, il existe [aligned_storage](ht
 
 ## Allocateurs de la SL
 
-Les allocateurs sont des objets qui s'occupent de faire tout ce qui a été dit auparavant à travers des fonction comme `allocate`/`desallocate`, `construct`/`destroy`, etc, mais sans faire de surcharge. En fait, tous les conteneur dynamique de la stl utilisent un [std::allocator](http://en.cppreference.com/w/cpp/memory/allocator) comme allocateur par défaut paramètrable à travers le dernier type template du conteneur.
+Les allocateurs sont des objets qui s'occupent de faire tout ce qui a été dit auparavant à travers des fonctions comme `allocate`/`desallocate`, `construct`/`destroy`, etc, mais sans faire de surcharge. En fait, tous les conteneurs dynamiques de la stl utilisent un [std::allocator](http://en.cppreference.com/w/cpp/memory/allocator) comme allocateur par défaut paramétrable à travers le dernier type template du conteneur.
 
-Depuis C++11, il existe [std::allocator_traits](http://en.cppreference.com/w/cpp/memory/allocator_traits) qui simplifie grandement la création d'un allocateur en randant la plupart des fonctions optionnelles.
-Et à partir de C++17 un [allocateurs polymorphiques](http://en.cppreference.com/w/cpp/header/memory_resource) voit le jour avec quelques gestionnaires de mémoire.
+Depuis C++11, il existe [std::allocator_traits](http://en.cppreference.com/w/cpp/memory/allocator_traits) qui simplifie grandement la création d'un allocateur en rendant la plupart des fonctions optionnelles.
+Et à partir de C++17 un [allocateur polymorphique](http://en.cppreference.com/w/cpp/header/memory_resource) voit le jour avec quelques gestionnaires de mémoire.
 
 ## Allocateurs et conteneurs
 
-Utiliser un allocateur personnalisé permet d'avoir un contrôle plus fin de la mémoire pour répondre plus efficacement au besoin et augmenter les performance,
+Utiliser un allocateur personnalisé permet d'avoir un contrôle plus fin de la mémoire pour répondre plus efficacement au besoin et augmenter les performances.
 
-Évidemment, l'allocateur peut être personnalisable et dans certaines circonstances permet un gain de performance en évitant l'allocation/dés-allocation répéter.
+Évidemment, l'allocateur peut être personnalisable et dans certaines circonstances permet un gain de performance en évitant l'allocation/dés-allocation répété.
 
-Par exemple, il y quelques semaines, j'ai fait un algorithme qui faisait au total 2'100'000 new pour au final ne garder que 100'000 objets. Donc 2'000'000 de delete.
+Par exemple, il y a quelques semaines, j'ai fait un algorithme qui faisait au total 2'100'000 `new` pour au final ne garder que 100'000 objets. Donc 2'000'000 de `delete`.
 
-Dans le pire des cas, il y avait une suite de 25 objets à supprimer. Avec un allocateur qui ne vide pas la mémoire mais garde un tableau des pointeurs alloués je n'avais plus qu'à faire 25 dés-allocations au lieu de 2'000'000. Le nombre de new effectuées descendait quant à lui à 100'025.
+Dans le pire des cas, il y avait une suite de 25 objets à supprimer. Avec un allocateur qui ne vide pas la mémoire mais garde un tableau des pointeurs alloués je n'avais plus qu'à faire 25 dés-allocations au lieu de 2'000'000. Le nombre de `new` effectuées descendait quant à lui à 100'025.
 
 Seul le nombre d'appels au destructeur et au placement new restait inchangé. Respectivement 2'000'000 et 2'100'000.
 

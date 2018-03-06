@@ -14,7 +14,7 @@ ghcommentid: 0
 
 Un petit article pour parler d'optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par [std::unique_ptr](http://en.cppreference.com/w/cpp/memory/unique_ptr).
 
-## Implementation naïve de std::unique_ptr
+## Implémentation naïve de std::unique_ptr
 
 Pour rappel, `std::unique_ptr` prend 2 paramètres template: `T` et `Deleter` (qui par défaut égal `std::default_delete<T>`).
 
@@ -40,12 +40,12 @@ Cependant, même si `Deleter` est une classe sans attribut, sa taille est de 1 o
 - {{<hi cpp "sizeof(my_unique_ptr<T>)"/>}} == 16
 - {{<hi cpp "sizeof(std::unique_ptr<T>)"/>}} == 8
 
-Ouille, méchant padding, alors que seule 8 octets sont vraiment utilisés.
+Ouille, méchant padding, alors que seuls 8 octets sont vraiment utilisés.
 
 ## Comment fait la stl pour "supprimer" 8 octets ?
 
 La bibliohèque standard utilise une optimisation surnommée [Empty Base Class Optimization (EBCO)](http://en.cppreference.com/w/cpp/language/ebo).
-Concrétement, cela se traduit par une classe interne qui contient le pointeur et hérite de `Deleter`. Les attributs de la classe dérivée vont se mettre après ceux de `Deleter`, et s'il n'en a pas, ils se positionnent au début de la classe. Grâce à cette astuces, l'adresse du premier membre de la classe (ici, le pointeur) se confond avec celle de la classe englobante et parente éliminant ainsi l'espace occupé par `Deleter`.
+Concrètement, cela se traduit par une classe interne qui contient le pointeur et hérite de `Deleter`. Les attributs de la classe dérivée vont se mettre après ceux de `Deleter`, et s'il n'en a pas, ils se positionnent au début de la classe. Grâce à cette astuce, l'adresse du premier membre de la classe (ici, le pointeur) se confond avec celle de la classe englobante et parente, éliminant ainsi l'espace occupé par `Deleter`.
 
 ```cpp
 template<T, Deleter = std::default_delete<T>>
@@ -65,7 +65,7 @@ Mieux, non ?
 
 Si le Deleter est une référence ou une classe {{<hi cpp "final"/>}}, l'héritage ne fonctionne pas. Il faut se rabattre sur la première forme (celle naïve).
 Avec des traits et un code plus ou moins volumineux, cela est "facile".
-Il faut cependant noter que {{<hi cpp "std::is_final"/>}} n'apparait qu'à partir de C++14 et son implémentation n'est pas possible en pure C++.
+Il faut cependant noter que {{<hi cpp "std::is_final"/>}} n'apparaît qu'à partir de C++14 et son implémentation n'est pas possible en pure C++.
 Il faut à la place utiliser `__is_final` qui n'est pas standard.
 
 Toutefois, la stl possède un conteneur générique qui utilise l'EBO si possible: {{<hi cpp "std::tuple"/>}}. Ce qui permet de s'affranchir de ces difficultés tout en optimisant l'espace mémoire à condition de mettre les types dans l'ordre croissant d'alignement pour réduire le padding entre les membres lorsqu'il y en a plus de 2.

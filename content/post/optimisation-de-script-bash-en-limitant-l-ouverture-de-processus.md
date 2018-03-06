@@ -15,16 +15,16 @@ ghcommentid: 0
 Une des choses qui prend du temps dans l'exécution d'un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés.
 
 Le meilleur moyen d'accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme.
-En fait, dans certain cas, on pourrait avoir une commande qui lit sur l'entrée standard et retourne un résultat ; un peu comme `bc`.
+En fait, dans certains cas, on pourrait avoir une commande qui lit sur l'entrée standard et retourne un résultat ; un peu comme `bc`.
 C'est là que les coprocessus viennent à la rescousse :).
 
 Un coprocessus est un sous-shell exécuté de façon asynchrone et fournissant les tubes d'entrée/sortie. Ceux-ci sont accessibles via {{<hi sh "$COPROC[1]"/>}} et {{<hi sh "$COPROC[2]"/>}}.
 
-Dû coup, avec `bc`, la méthode est d'écrire dans un tube et lire dans l'autre. Comme la lecture est bloquante, le script va attendre que `bc` retourne le résultat.
+Du coup, avec `bc`, la méthode est d'écrire dans un tube et lire dans l'autre. Comme la lecture est bloquante, le script va attendre que `bc` retourne le résultat.
 
 Et voilà ! L'ouverture d'un programme est remplacé par une lecture/écriture.
 
-Pour exemple, un petit programme qui lit un fichier contenant des opérations mathématiques et les affiches suivies du résultat.
+Pour exemple, un petit programme qui lit un fichier contenant des opérations mathématiques et les affichent suivies du résultat.
 
 ```bash
 #!/bin/bash
@@ -49,7 +49,7 @@ while read l; do
 done < "$1"
 ```
 
-À tester avec par exemple un fichier de calcul comme celui-ci
+À tester avec par exemple un fichier de calcul comme celui-ci:
 
 ```
 2+3

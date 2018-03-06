@@ -20,7 +20,7 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
 
 L'autre fois dans une fonction variadique qui distribue les valeurs vers différentes fonctions. Le but étant de ne pas se soucier de l'ordre des paramètres, certains étant optionnels.
 
-`std::tuple` fait plutôt bien le boulot, mais possède un énorme inconvénients pour ce cas de figure: aucune erreur de compilation si un type est présent 2 fois (et c'est normal pour un tuple).
+`std::tuple` fait plutôt bien le boulot, mais possède un énorme inconvénient pour ce cas de figure: aucune erreur de compilation si un type est présent 2 fois (et c'est normal pour un tuple).
 
 ## Planter la compilation quand un type est en doublon
 
@@ -31,34 +31,34 @@ Seulement, un héritage direct n'est pas possible avec les types scalaires, il f
 ```cpp
 template<class T> struct item { T x; };
 
-template<class... Ts> struct typesets : item<Ts>... {};
+template<class... Ts> struct typeset : item<Ts>... {};
 ```
 
-Avec cette implémentation, des petits malins pourraient faire de la pseudo-duplication de type en y ajoutant des qualificatifs, {{<hi cpp "typesets<int, int const>"/>}} par exemple.
+Avec cette implémentation, des petits malins pourraient faire de la pseudo-duplication de type en y ajoutant des qualificeurs, {{<hi cpp "typeset<int, int const>"/>}} par exemple.
 
 On peut être tolérant ou devenir un tyran sans pitié en empêchant cela.
 
 ```cpp
 template<class... Ts>
-struct tyrannical_typesets_impl : typesets<std::remove_cv_t<Ts>...> {
-  using type = typesets<Ts...>;
+struct tyrannical_typeset_impl : typeset<std::remove_cv_t<Ts>...> {
+  using type = typeset<Ts...>;
 };
 
 template<class... Ts>
-using tyrannical_typesets = typename tyrannical_typesets_impl<Ts...>::type;
+using tyrannical_typeset = typename tyrannical_typeset_impl<Ts...>::type;
 ```
 
-Le typesets tyrannique est construit en 2 étapes, car un alias direct sur un typesets épuré ne permet pas de garder les qualificatifs.
+Le typeset tyrannique est construit en 2 étapes, car un alias direct sur un typeset épuré ne permet pas de garder les qualificatifs.
 
 
 ## Piocher dans le magasin
 
-Piquer un élément du typesets est une affaire de cast. Un simple `static_cast`.
+Piquer un élément du typeset est une affaire de cast. Un simple `static_cast`.
 
 ```cpp
-typesets<int, char> my_typesets;
+typeset<int, char> my_typeset;
 
-static_cast<item<int>&>(my_typesets).x;
+static_cast<item<int>&>(my_typeset).x;
 ```
 
 En mettant des opérateurs de cast dans la classe item, plus besoin de préciser cette dernière avec le `static_cast`.
@@ -72,17 +72,17 @@ private:
 };
 ```
 ```cpp
-typesets<int, char> my_typesets;
-static_cast<int&>(my_typesets);
+typeset<int, char> my_typeset;
+static_cast<int&>(my_typeset);
 ```
 
 Petit bémol toutefois, cela ne permet pas d'enlever l'ambiguïté pour un type qui diffère uniquement par son qualificatif.
 
 ```cpp
-typesets<int, int volatile> my_typesets;
+typeset<int, int volatile> my_typeset;
 
-// ‘typesets<int, volatile int>’ to ‘volatile int&’ is ambiguous
-static_cast<int volatile&>(my_typesets);
+// ‘typeset<int, volatile int>’ to ‘volatile int&’ is ambiguous
+static_cast<int volatile&>(my_typeset);
 ```
 
 ## Ce qu'il manque

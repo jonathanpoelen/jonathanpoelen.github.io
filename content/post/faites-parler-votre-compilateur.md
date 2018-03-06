@@ -12,7 +12,7 @@ draft: false
 ghcommentid: 0
 ---
 
-En C++, notre meilleur ami est le compilateur. Encore faut-il bien le configurer pour qu'il nous crache un maximum d'avertissement en pleine poire.
+En C++, notre meilleur ami est le compilateur. Encore faut-il bien le configurer pour qu'il nous crache un maximum d'avertissements en pleine poire.
 Hélas, il s'avère que les options dépendent grandement du compilateur et de la version.
 
 Du côté de Clang, il y a un `-Weverything` qui active absolument tous les warnings -- dont certains que je qualifie de douteux --,

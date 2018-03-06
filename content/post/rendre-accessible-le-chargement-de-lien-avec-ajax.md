@@ -1,5 +1,5 @@
 ---
-title: "Rendre accèssible le chargement de lien avec AJAX"
+title: "Rendre accessible le chargement de lien avec AJAX"
 #description: ""
 date: 2011-12-31T12:05:43+01:00
 #lastmod: 2018-02-13T02:05:43+01:00
@@ -12,12 +12,12 @@ draft: false
 ghcommentid: 0
 ---
 
-Le but d'un site chargeant ces pages avec ajax est double:
+Le but d'un site chargeant ces pages avec AJAX est double:
 
-- Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peu potentiellement réduire le nombre de requêtes à la base de donnée et les données transférées).
-- Avoir une navigation plus fluide et réactive puisque le navigateur travail moins.
+- Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées).
+- Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins.
 
-Toutefois, si mal fait, des problèmes apparaissent au niveau de l'historique qui n'est plus utilisable. Par la même occasion, il serra impossible d'accéder à une page via son url. Quant à ceux n'ayant pas javascript ‑moteur de recherche compris‑ il est totalement impossible de visiter le site.
+Toutefois, si mal fait, des problèmes apparaissent au niveau de l'historique qui n'est plus utilisable. Par la même occasion, il sera impossible d'accéder à une page via son url. Quant à ceux n'ayant pas javascript ‑moteur de recherche compris‑ il est totalement impossible de visiter le site.
 
 Le premier problème peut se corriger avec [`history.pushState`](https://developer.mozilla.org/en-US/docs/Web/API/History_API#The_pushState().C2.A0method) qui permet d'ajouter, supprimer et modifier l'historique d'une page. Le second problème est tout simple, il suffit d'indiquer une page complète et ajouter un paramètre dans l'url pour les utilisateurs ayant javascript. Si ce paramètre existe, la page ne renvoie que le contenu désiré. Dans le cas contraire, la page est entièrement retournée.
 
@@ -35,4 +35,4 @@ Alors soit je fuis le site, soit je commence un véritable parcours du combattan
 
 Généralement, je fuis !
 
-Pour une bonne expérience utilisateur, il faut aussi indiquer les chargements quelque part, surtout quand ils s'éternisent (c'est perturbant de ne rien voir réagir après un clic). Et ne surtout pas oublier la gestion d'erreur. Avoir des problèmes de connexion peut arriver à n'importe qui, si le site ne réagit plus sans en avertir l'utilisateur, alors dans la tête de l'usagé, le site est bogué. Mais il faut le faire de manière intelligente, pas en cachant le contenu sous une énorme popup ;).
+Pour une bonne expérience utilisateur, il faut aussi indiquer les chargements quelque part, surtout quand ils s'éternisent (c'est perturbant de ne rien voir réagir après un clic). Et ne surtout pas oublier la gestion d'erreur. Avoir des problèmes de connexion peut arriver à n'importe qui, si le site ne réagit plus sans en avertir l'utilisateur, alors dans la tête de l'usager, le site est bogué. Mais il faut le faire de manière intelligente, pas en cachant le contenu sous une énorme popup ;).

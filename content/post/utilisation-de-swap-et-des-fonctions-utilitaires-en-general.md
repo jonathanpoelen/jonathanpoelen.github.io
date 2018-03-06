@@ -20,7 +20,7 @@ Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilit
 
 Il arrive qu'un jour ou l'autre on veuille faire une surcharge de `swap` pour un objet particulier. À ce moment 2 choix s'offrent: en faire une fonction libre dans le namespace où se trouve la classe ou dans le namespace `std`. Évidemment, le meilleur choix est le premier.
 
-Et là, pour toutes les personnes qui ont en horreur le `using namespace std` ou travaillant dans les .h, un problème va se poser. Comme `swap` se trouve dans le namespace de la stl, il est logique de faire `std::swap(...)`. Mais à ce moment, la fonction `swap` spécialisée dans le namespace de la classe n'est pas utilisée...</p>
+Et là, pour toutes les personnes qui ont en horreur le `using namespace std` ou travaillant dans les .h, un problème va se poser. Comme `swap` se trouve dans le namespace de la stl, il est logique de faire `std::swap(...)`. Mais à ce moment, la fonction `swap` spécialisée dans le namespace de la classe n'est pas utilisée...
 
 ```cpp
 #include <iostream>
@@ -55,7 +55,7 @@ int main()
 }
 ```
 
-Comme une fonction `swap` prenant des `my::A` existe, elle est utilisé. Cela est possible car la fonction `swap` fait partie du namespace `my` et que les variables `a` et `b` sont des instances d'une classe du même namespace.
+Comme une fonction `swap` prenant des `my::A` existe, elle est utilisée. Cela est possible car la fonction `swap` fait partie du namespace `my` et que les variables `a` et `b` sont des instances d'une classe du même namespace.
 
 Alors que ceci ne compile pas.
 
@@ -70,7 +70,7 @@ int main()
 Donc, d'un côté on a un `swap` générique dans la stl et de l'autre un `swap` spécialisé dans `my`.
 Et surtout, 2 syntaxes différentes.
 
-Dans un contexte générique (typiquement des templates) et de maintient de code ; 2 formes n'est pas acceptable.
+Dans un contexte générique (typiquement des templates) et de maintient de code, 2 formes, ce n'est pas acceptable.
 Il faudrait que `std::swap` soit utilisé si aucun `swap` spécialisé n'existe.
 
 Pour ce, on "déplace" `std::swap` dans le scope courant avec {{<hi cpp "using"/>}} et grâce l'[ADL (Argument-dependent lookup)](http://en.cppreference.com/w/cpp/language/adl), le compilateur appellera la bonne fonction.

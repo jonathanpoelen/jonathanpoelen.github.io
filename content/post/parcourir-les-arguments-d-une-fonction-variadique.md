@@ -53,7 +53,7 @@ int main()
 }
 ```
 
-Ce qui a affiche:
+Ce qui affiche:
 
 ```
 2.4
@@ -65,7 +65,7 @@ plop
 
 Il existe cependant une autre façon de faire qui n'utilise pas la récursivité. J'ai découvert cette méthode sur le forum de openclassroms ([ce sujet, 10ème message](http://fr.openclassrooms.com/forum/sujet/atelier-quiz-question-pour-un-champion-c?page=4)), elle est très astucieuse.
 
-Implémentée sous la forme d'une macro cela donne:</p>
+Implémentée sous la forme d'une macro cela donne:
 
 ```cpp
 #define UNPACK(...)                   \

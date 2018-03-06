@@ -26,7 +26,7 @@ Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la constructi
 
 La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau. Écrire ce wrapper n'est pas très compliqué et Oh joie, Oh bonheur, il existe [std::array](http://en.cppreference.com/w/cpp/container/array).
 
-Mais si l'on tient vraiment à notre tableau (pour d'obscures raisons satanique :D) il est toujours possible de modifier le comportement du vector pour qu'il comprenne les tableaux. Ceci à travers l'allocateur, le second paramètre template d'un vector ; celui jamais utilisé, toujours oublié {{<hi cpp "std::vector<T, là_ici>"/>}}.
+Mais si l'on tient vraiment à notre tableau (pour d'obscures raisons sataniques :D) il est toujours possible de modifier le comportement du vector pour qu'il comprenne les tableaux. Ceci à travers l'allocateur, le second paramètre template d'un vector ; celui jamais utilisé, toujours oublié {{<hi cpp "std::vector<T, là_ici>"/>}}.
 
 La technique consiste à remplacer l'allocateur par une version spécialisée pour les tableaux. Le plus simple est d'hériter d'un [std::allocator](http://en.cppreference.com/w/cpp/memory/allocator) et de redéfinir les 2 méthodes problématiques: [construct](http://en.cppreference.com/w/cpp/memory/allocator/construct) et [destroy](http://en.cppreference.com/w/cpp/memory/allocator/destroy). On peut aussi utiliser une spécialisation de template.
 
@@ -36,7 +36,7 @@ Et ne surtout pas oublier `rebind` qui permet de recréer l'allocateur avec un t
 
 L'implémentation de `construct` et `destroy` est vraiment bateau, il suffit d'appeler le constructeur ou le destructeur pour chaque élément du tableau.
 
-Mais pour faire au minimum bien les choses et supporter l'allocation de tableau de tableau ({{<hi cpp "int[3][2]"/>}}) on utilise `array_allocator::construct/destroy` si les cellules sont des tableaux (appel récursive) ou `std::allocator::construct/destroy` dans le cas contraire.
+Mais pour faire au minimum bien les choses et supporter l'allocation de tableau de tableau ({{<hi cpp "int[3][2]"/>}}) on utilise `array_allocator::construct/destroy` si les cellules sont des tableaux (appel récursif) ou `std::allocator::construct/destroy` dans le cas contraire.
 
 À noter que la récursivité peut être éliminée en utilisant les propriétés d'alignement des tableaux ({{<hi cpp "int[3][2]"/>}} -> {{<hi cpp "int[3*2]"/>}}).
 
@@ -79,7 +79,7 @@ public:
 };
 ```
 
-Dans l'idéal, il faudrait un `construct` avec un nombre variable d'arguments ce qui permet d'utiliser `emplace_back`
+Dans l'idéal, il faudrait un `construct` avec un nombre variable d'arguments ce qui permet d'utiliser `emplace_back`.
 Toutefois, cette version est fonctionnelle avec `push_back` :).
 
 ```cpp

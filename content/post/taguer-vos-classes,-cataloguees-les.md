@@ -35,20 +35,21 @@ void advance(InputIt& it, Distance n)
 }
 ```
 
+
 ## Optimisation
 
-Maintenant, que se passe-t-il quand l'itérateur est un pointeur ? Réponse: Une boucle.
+Maintenant, que se passe-t-il quand l'itérateur est un pointeur ? Réponse: une boucle.
 
 Ne serait-il pas préférable de faire `it += n` !?
 
-C'est là que les tags rentrent en jeux.
+C'est là que les tags entrent en jeu.
 
 
 ## Utilisation des tags
 
 Les itérateurs possèdent des types prédéfinis qui sont: `pointer`, `value_type`, `reference`, `difference_type` et `iterator_category`. C'est ce dernier qui correspond au tag de l'itérateur.
 
-En réalité un tag est une classe vide, cela suffit, le type est porteur de l'information. Les [tags des itérateurs](http://en.cppreference.com/w/cpp/iterator/iterator_tags) possèdent aussi une hiérarchie et certains sont donc hérités.
+En réalité un tag est une classe vide. Cela suffit, le type est porteur de l'information. Les [tags des itérateurs](http://en.cppreference.com/w/cpp/iterator/iterator_tags) possèdent aussi une hiérarchie et certains sont donc hérités.
 
 Pour récupérer le type contenu dans un itérateur il faut passer par `std::iterator_traits<>`, cela permet de fonctionner même avec un type scalaire comme le pointeur qui ne possède pas de type interne.
 

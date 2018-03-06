@@ -38,7 +38,7 @@ xargs --arg-file "$tmpf" -d'\n' du -hc | tail -n1
 rm "$tmpf"
 ```
 
-Et Une petite version qui prend des fichiers en paramètre:
+Et une petite version qui prend des fichiers en paramètre:
 
 ```bash
 #!/bin/sh

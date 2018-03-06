@@ -24,7 +24,7 @@ r = 3;
 Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de `r`.
 En fait, ajouter {{<hi cpp "const"/>}} sur une référence ne fait rien car cela ne s'applique pas sur le référé qui reste un {{<hi cpp "int&"/>}}.
 
-Si on déroule complétement le type de `r`, on obtient {{<hi cpp "int & const r"/>}}: une référence constante sur un entier.
+Si on déroule complètement le type de `r`, on obtient {{<hi cpp "int & const r"/>}}: une référence constante sur un entier.
 Comme une référence est par nature immutable (le référé ne peut pas changer), le {{<hi cpp "const"/>}} est superflux.
 Le type de `r` est donc bien une référence sur un entier non-constant.
 

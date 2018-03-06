@@ -12,7 +12,7 @@ draft: false
 ghcommentid: 0
 ---
 
-Cet article est la démonstration de l'article précédent. La problématique présentée est la suivante: "Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnels qui précèdent ?"
+Cet article est la démonstration de l'article précédent. La problématique présentée est la suivante: "Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?"
 
 La fonction de référence sera la suivante:
 
@@ -35,7 +35,7 @@ Comment faire un appel proche de {{<hi cpp "draw_rect(4,3, fill='@')"/>}} ?
 
 ## Création d'un paramètre nommé
 
-La première étape consiste à créer un type par paramètre optionnel. Comme je n'ai pas envie de me compliquer la vie, la syntaxe {{<hi cpp "fill='@'"/>}} qui demande plus de code sera remplacer par un simple appel de constructeur {{<hi cpp "fill{'@'}"/>}}.
+La première étape consiste à créer un type par paramètre optionnel. Comme je n'ai pas envie de me compliquer la vie, la syntaxe {{<hi cpp "fill='@'"/>}} qui demande plus de code sera remplacée par un simple appel de constructeur {{<hi cpp "fill{'@'}"/>}}.
 
 La définition des types devient alors véritablement simpliste:
 
@@ -52,9 +52,9 @@ struct fill { char value; };
 
 Au lieu d'adapter `draw_rect`, je vais passer par une surcharge, ceci n'impactera pas le résultat.
 
-La nouvelle fonction doit pouvoir prendre les nouveaux types, mais pas forcement tous et de préférence dans un ordre indéfini.
+La nouvelle fonction doit pouvoir prendre les nouveaux types, mais pas forcément tous et de préférence dans un ordre indéfini.
 
-On pourrait faire toutes les surcharges possibles, il n'y a "que" plus d'une centaine de possibilités après tous... Solution rejetée, évidemment ;).
+On pourrait faire toutes les surcharges possibles, il n'y a "que" plus d'une centaine de possibilités après tout... Solution rejetée, évidemment ;).
 
 Une template variadique fera l'affaire.
 
@@ -65,7 +65,7 @@ void draw_rect(unsigned w, unsigned h, Ts... params);
 
 Il reste maintenant à associer chaque type de `params` avec le paramètre de notre premier prototype de draw_rect.
 
-## Distribution des paramètres.
+## Distribution des paramètres
 
 C'est là qu'intervient le magasin de type de l'article précédant (toujours pas trouvé de meilleur nom).
 
@@ -117,4 +117,4 @@ Les choses se compliquent quand on veut récupérer un type partiel. Un {{<hi cp
 
 Pour compléter la solution, il faudrait aussi prendre en compte les références et ajouter des contraintes sur le paramètre.
 
-Pour continuer dans la voie des paramètres nommés, il existe `Boost.Parameters` et des variantes plus moderne tel que [parameter2](https://github.com/odinthenerd/parameter2).
+Pour continuer dans la voie des paramètres nommés, il existe `Boost.Parameters` et des variantes plus modernes telles que [parameter2](https://github.com/odinthenerd/parameter2).

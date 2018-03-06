@@ -12,10 +12,10 @@ draft: false
 ghcommentid: 0
 ---
 
-Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l'interpréteur utilisé. Actuellement j'ai eu le coup une fois, lorsqu'il fallait charger le module `canberra-gtk` pour les programmes java.
+Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l'interpréteur utilisé. J'ai eu le coup une fois lorsqu'il fallait charger le module `canberra-gtk` pour les programmes java.
 
 Une variable `$GTK_MODULES` est définie et contient tous les modules gtk séparés par des deux points (`:`).
-Visiblement, j'ai 2 modules gtk. Tous 2 servant à ajouter `canberra-gtk-module`. Les fautifs ? `52libcanberra-gtk-module_add-to-gtk-modules` et `52libcanberra-gtk3-module_add-to-gtk-modules` Avec un contenu identique :
+Visiblement, j'ai 2 modules gtk. Tous 2 servant à ajouter `canberra-gtk-module`. Les fautifs ? `52libcanberra-gtk-module_add-to-gtk-modules` et `52libcanberra-gtk3-module_add-to-gtk-modules` Avec un contenu identique:
 
 ```bash
 if [ -z "$GTK_MODULES" ] ; then
@@ -29,7 +29,7 @@ export GTK_MODULES
 
 Et là, paf ! C'est le drame. `$GTK_MODULES` = `canberra-gtk-moduleanberra-gtk-module`, naturellement :D.
 
-Vous venez d'assister à l'effet du modificateur `c` (dans `:c`) qui ajoute le chemin de l'executable présent dans `$GTK_MODULES`. Comme `canberra-gtk-module` n'est pas un executable, rien n'est fait, mais `:c` disparait. Avec l'auto-complétion on peut voir qu'il y en a une petite quinzaine de disponible, de quoi tomber plisieurs fois dans le piège..
+Vous venez d'assister à l'effet du modificateur `c` (dans `:c`) qui ajoute le chemin de l'executable présent dans `$GTK_MODULES`. Comme `canberra-gtk-module` n'est pas un executable, rien n'est fait, mais `:c` disparaît. Avec l'auto-complétion on peut voir qu'il y en a une petite quinzaine de disponibles, de quoi tomber plusieurs fois dans le piège.
 
 Les modificateurs existent aussi dans bash, mais ils sont moins nombreux et ne s'utilisent qu'avec l'historique (paragraphe `HISTORY EXPANSION` du manuel).
 
@@ -38,7 +38,7 @@ echo unfichier.txt
 echo !:1:r
 ```
 
-resultat :
+Résultat :
 
 ```
 unfichier.txt

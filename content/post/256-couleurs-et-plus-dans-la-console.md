@@ -12,7 +12,7 @@ draft: false
 ghcommentid: 0
 ---
 
-À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j'ai récemment appris l'existence de 256 couleurs dans la console en tombant sur <a href="http://dotshare.it/dots/100/">un screen</a> un peu trop de coloré. Ce qui m'a dirigé sur un <a href="https://github.com/trapd00r/LS_COLORS">dépôt contenant un $LS_COLORS</a> particulièrement fourni.</p>
+À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j'ai récemment appris l'existence de 256 couleurs dans la console en tombant sur <a href="http://dotshare.it/dots/100/">un screen</a> un peu trop coloré. Ce qui m'a dirigé sur un <a href="https://github.com/trapd00r/LS_COLORS">dépôt contenant un $LS_COLORS</a> particulièrement fourni.
 
 En fait, il s'avère qu'en rajoutant extended dans la recherche "color shell" on puisse trouver <a href="http://misc.flogisoft.com/bash/tip_colors_and_formatting">quelque(s) ressource(s)</a>. J'aurais bien voulu y penser la semaine dernière, ça m'aurait évité de comprendre par tâtonnement...
 
@@ -22,15 +22,15 @@ En fait, il s'avère qu'en rajoutant extended dans la recherche "color shell" on
 "\e[${FormatColor}m"
 ```
 
-Le caractère {{<hi sh "\e"/>}} correspond à la touche Esc (échap). On peut aussi l'écrire en héxadécimal {{<hi sh "\x1B"/>}} ou en octal {{<hi sh "\033"/>}}.
+Le caractère {{<hi sh "\e"/>}} correspond à la touche Esc (échap). On peut aussi l'écrire en hexadécimal {{<hi sh "\x1B"/>}} ou en octal {{<hi sh "\033"/>}}.
 
 Pour bash et `echo`, il faut utiliser l'option `-e` pour interpréter les séquences backslashés.
 
-{{<hi sh "${FormatColor}"/>}} correspond à un nombre représentant une couleur de texte, de fond ou un effet. Plusieurs format peuvent être mis en les séparant par des {{<hi sh ";"/>}} (point virgule). L'ordre n'a pas d'importance.
+{{<hi sh "${FormatColor}"/>}} correspond à un nombre représentant une couleur de texte, de fond ou un effet. Plusieurs formats peuvent être mis en les séparant par des {{<hi sh ";"/>}} (point virgule). L'ordre n'a pas d'importance.
 
 ## 8 couleurs
 
-C'est le mode de couleur supporté par la majorité des terminaux. La valeur des couleurs peut également être configuré.</p>
+C'est le mode de couleur supporté par la majorité des terminaux. La valeur des couleurs peut également être configurée.
 
 Couleur | Texte | Fond
 --------|-------|-----
@@ -45,7 +45,7 @@ Gris clair | 37 | 47
 
 ## Style/effet de texte
 
-L'italique (3) n'est pas répertorié dans le lien précédemment cité. Aussi, l'effet sombre (ou dim) et caché ne fonctionnent pas partout. Il n'existe pas de code 6.
+L'italique (3) n'est pas répertorié dans le lien précédemment cité. Aussi, l'effet sombre (ou dim) et mode caché ne fonctionnent pas partout. Il n'existe pas de code 6.
 
 Effet      | Code | Code annulation
 -----------|------|----------------
@@ -60,7 +60,7 @@ caché      | 8    | 28
 
 ## 16 couleurs
 
-Ce sont 8 couleurs supplémentaire accessible pour certains terminaux.
+Ce sont 8 couleurs supplémentaires accessibles pour certains terminaux.
 
 Couleur       | Texte | Fond
 --------------|-------|-----
@@ -84,7 +84,7 @@ Dont {{<hi sh "${X}"/>}} est à remplacer par un nombre allant de 0 à 255 inclu
 
 ## TrueColor
 
-Il est possible d'utiliser le classique RGB quand le terminal le permet. Beaucoup d'interface console ne le prennent pas bien en charge ou le ne le détecte pas. Pour la seconde catégorie, il faut généralement activer une option.
+Il est possible d'utiliser le classique RGB quand le terminal le permet. Beaucoup d'interfaces consoles ne le prennent pas bien en charge ou ne le détectent pas. Pour la seconde catégorie, il faut généralement activer une option.
 
 - Texte: {{<hi sh "38;2;${r}${g}${b}"/>}}
 - Fond: {{<hi sh "48;2;${r}${g}${b}"/>}}

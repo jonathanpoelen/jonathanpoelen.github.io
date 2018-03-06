@@ -12,15 +12,15 @@ draft: false
 ghcommentid: 0
 ---
 
-Le but de {{<hi cpp "if constexpr"/>}} est d'interpréter le code uniquement si celui-ci respect la condition. Il doit être syntaxiquement valide, mais n'a pas l'obligation de pouvoir être compilé.
+Le but de {{<hi cpp "if constexpr"/>}} est d'interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n'a pas l'obligation de pouvoir être compilé.
 
 Plutôt étrange, n'est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.
 
-Prenons comme exemple une fonction `invoke` qui s'utilise de 3 manières
+Prenons comme exemple une fonction `invoke` qui s'utilise de 3 manières:
 
-- foncteur + paramètres.
+- foncteur + paramètres
 - fonction membre + objet + paramètres
-- fonction membre + pointeur de objet + paramètres
+- fonction membre + pointeur d'objet + paramètres
 
 ```cpp
 // x et y sont des std::string
@@ -29,7 +29,7 @@ invoke(&std::string::size, x, y); // fonction membre et référence
 invoke(&std::string::size, &x, y); // fonction membre et pointeur
 ```
 
-En C++17, tout peut se faire en une seule fonction, alors qu'avant C++17, il faudrait faire plusieurs surcharges pour les différentes situations et jouer avec `std::enable_if`.
+En C++17, tout peut se faire en une seule fonction, alors qu'avant C++17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec `std::enable_if`.
 
 ## Implémentation avec if constexpr
 
@@ -59,9 +59,9 @@ decltype(auto) invoke(F&& f)
 
 ## Simulation de if constexpr en pre-C++17
 
-L'atout principal de {{<hi cpp "if constexpr"/>}} ici est de n'évaluer le code qu'au besoin. Il faut donc un moyen de court-circuiter le flux de code. Le plus simple consiste à faire 2 fonctions, une avec un paramètre de type `std::true_type`, l'autre avec un `std::false_type` qui représente le résultat de la condition et 2 panamètres: `If` et `Else`.
+L'atout principal de {{<hi cpp "if constexpr"/>}} ici est de n'évaluer le code qu'au besoin. Il faut donc un moyen de court-circuiter le flux de code. Le plus simple consiste à faire 2 fonctions, une avec un paramètre de type `std::true_type`, l'autre avec un `std::false_type` qui représente le résultat de la condition et 2 paramètres: `If` et `Else`.
 
-Aussi, pour que les foncteurs `If` et `Else` soient évaluées au dernier moment, ils devront prendre et utiliser un paramètre générique ({{<hi cpp "auto"/>}}). Sinon le compilateur va vérifier le code au moment de l'instanciation de la lambda plutôt qu'au moment de son utilisation.
+Aussi, pour que les foncteurs `If` et `Else` soient évalués au dernier moment, ils devront prendre et utiliser un paramètre générique ({{<hi cpp "auto"/>}}). Sinon le compilateur va vérifier le code au moment de l'instanciation de la lambda plutôt qu'au moment de son utilisation.
 
 ```cpp
 struct Identity

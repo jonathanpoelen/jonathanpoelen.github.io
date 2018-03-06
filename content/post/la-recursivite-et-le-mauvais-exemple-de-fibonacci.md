@@ -61,4 +61,4 @@ long long fib_r(unsigned n)
 }
 ```
 
-Cet algo est strictement identique au premier car applique la [récursion terminale](http://fr.wikipedia.org/wiki/R%C3%A9cursion_terminale). Ainsi, le code généré par un compilateur (avec les options d'optimisations) donnera un binaire identique (ou très proche). Des langages comme OCaml ou Haskel optimisent la pile quand il y a une récursion terminale.
+Cet algo est strictement identique au premier car applique la [récursion terminale](http://fr.wikipedia.org/wiki/R%C3%A9cursion_terminale). Ainsi, le code généré par un compilateur (avec les options d'optimisation) donnera un binaire identique (ou très proche). Des langages comme OCaml ou Haskel optimisent la pile quand il y a une récursion terminale.

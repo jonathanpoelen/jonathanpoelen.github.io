@@ -18,11 +18,11 @@ L'approche suivante consiste à vérifier qu'une fonction (membre ou statique) e
 
 L'exemple va se faire sur la classe `std::list` qui n'est pas triable avec `std::sort`, mais possède une fonction membre `sort()`. Ainsi que sur `std::vector` qui, inversement, n'a pas de fonction membre `sort()`, mais fonctionne avec `std::sort`.
 
-La méthode est simple et consiste à créer 2 fonctions: une pour vérifie si une expression est valide (ici `x.sort()`) et une autre en cas d'échec.
+La méthode est simple et consiste à créer 2 fonctions: une pour vérifier si une expression est valide (ici `x.sort()`) et une autre en cas d'échec.
 
 Seulement, qui dit 2 fonctions dit 2 prototypes. Leur prototype doit être légèrement différent mais compatible avec les mêmes valeurs d'entrée pour appeler la seconde si la première échoue (principe du [SFINAE](http://en.cppreference.com/w/cpp/language/sfinae)).
 
-Pour vérifier l'expression, seul 2 mots clef existent: {{<hi cpp "sizeof"/>}} et {{<hi cpp "decltype"/>}}. Cette procédure est donc possible avant C++11, même si {{<hi cpp "sizeof"/>}} requière un peu d'enrobage.
+Pour vérifier l'expression, seuls 2 mots clef existent: {{<hi cpp "sizeof"/>}} et {{<hi cpp "decltype"/>}}. Cette procédure est donc possible avant C++11, même si {{<hi cpp "sizeof"/>}} requière un peu d'enrobage.
 
 ```cpp
 #include <algorithm>
@@ -48,9 +48,9 @@ void sort(Cont& c)
 
 La fonction `sort` appel `dispatch_sort` avec un {{<hi cpp "int"/>}} (la valeur n'importe pas, seul le type compte). Comme la seule différence des 2 fonctions `dispatch_sort` est le premier paramètre, le prototype avec un {{<hi cpp "int"/>}} correspond parfaitement.
 
-Si une fonction membre `sort` existe, alors l'expression dans {{<hi cpp "decltype"/>}} est valide et la fonction appelé. Dans le cas contraire, le compilateur cherche une fonction avec des paramètres pouvant être conpatible. Le {{<hi cpp "int"/>}} pouvant être convertit en {{<hi cpp "unsigned"/>}}, le compilateur se rabat sur le second prototype qui fait appel à `std::sort`.
+Si une fonction membre `sort` existe, alors l'expression dans {{<hi cpp "decltype"/>}} est valide et la fonction appelé. Dans le cas contraire, le compilateur cherche une fonction avec des paramètres pouvant être compatibles. Le {{<hi cpp "int"/>}} pouvant être converti en {{<hi cpp "unsigned"/>}}, le compilateur se rabat sur le second prototype qui fait appel à `std::sort`.
 
-Le point clef étant de mettre toutes les informations dans le prototype. J'aurais par exemple put mettre {{<hi cpp "decltype"/>}} dans un paramètre initialisé avec une valeur par défaut ({{<hi cpp "f(int, decltype(xxx)* = 0);"/>}}, mais il faudra probablement ajouter {{<hi cpp "std::remove_reference"/>}} car un pointeur sur une référence n'est pas permis).
+Le point clef étant de mettre toutes les informations dans le prototype. J'aurais par exemple pu mettre {{<hi cpp "decltype"/>}} dans un paramètre initialisé avec une valeur par défaut ({{<hi cpp "f(int, decltype(xxx)* = 0);"/>}}, mais il faudra probablement ajouter {{<hi cpp "std::remove_reference"/>}} car un pointeur sur une référence n'est pas permis).
 
 ## Programme de test
 
@@ -102,6 +102,6 @@ dispatch_sort(Container& c, int)
 
 Le {{<hi cpp ",1"/>}} de {{<hi cpp "sizeof(xxx,1)"/>}} peut dérouter mais est requis si l'expression `xxx` retourne {{<hi cpp "void"/>}}. Comme {{<hi cpp "void"/>}} n'est pas vraiment un type, il ne fonctionne pas avec {{<hi cpp "sizeof"/>}} et il faut donc lui fournir autre chose. Il faut bien comprendre qu'ici {{<hi cpp "xxx,1"/>}} est **une seule** expression et non pas 2 paramètres.
 
-Bien que très peu probable, si j'ai mit {{<hi cpp "void(yyy)"/>}}, c'est pour prévenir la surcharge de l'opérator '`,`' sur le type de retour retourné par `yyy` (car cet opérateur peut lui-même retourner un {{<hi cpp "void"/>}}).
+Bien que très peu probable, si j'ai mis {{<hi cpp "void(yyy)"/>}}, c'est pour prévenir la surcharge de l'opérator '`,`' sur le type de retour retourné par `yyy` (car cet opérateur peut lui-même retourner un {{<hi cpp "void"/>}}).
 
-{{<hi cpp "sizeof"/>}} ne donne pas l'information sur le type de retour mais une valeur, il est couplé à {{<hi cpp "dispatch_result_type"/>}} qui prend en second paramètre template le type de retour ({{<hi cpp "void"/>}} par défaut). Quand à {{<hi cpp "declval"/>}}, c'est le même principe que [celui de la SL](http://en.cppreference.com/w/cpp/utility/declval).
+{{<hi cpp "sizeof"/>}} ne donne pas l'information sur le type de retour mais une valeur, il est couplé à {{<hi cpp "dispatch_result_type"/>}} qui prend en second paramètre template le type de retour ({{<hi cpp "void"/>}} par défaut). Quant à {{<hi cpp "declval"/>}}, c'est le même principe que [celui de la SL](http://en.cppreference.com/w/cpp/utility/declval).

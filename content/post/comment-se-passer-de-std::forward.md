@@ -14,9 +14,9 @@ ghcommentid: 0
 
 Actuellement en pleine écriture d'une fonction `match` (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de `std::forward` utilisée à chaque appel de fonction. J'en compte 21 pour un total de 6 niveaux d'imbrications. Autant dire qu'oublier de le mettre est plutôt facile.
 
-C'est d'ailleurs la raison de ce billet, puisque que bien sûr, j'en ai oubliés.
+C'est d'ailleurs la raison de ce billet, puisque bien sûr, j'en ai oubliés.
 
-Pour réduire leus nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence. Comme l'objet créé a pleinement connaissance du type de variable qu'il contient et que traverser une chaîne de fonctions ne fait pas disparaître cette information, il n'y a plus besoin de std::forward. Le dernier maillon peut alors extraire une lvalue ou une rvalue via --par exemple-- une fonction `get()`.
+Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence. Comme l'objet créé a pleinement connaissance du type de variable qu'il contient et que traverser une chaîne de fonctions ne fait pas disparaître cette information, il n'y a plus besoin de std::forward. Le dernier maillon peut alors extraire une lvalue ou une rvalue via --par exemple-- une fonction `get()`.
 
 Pour illustrer, voilà ce que cela donne:
 
