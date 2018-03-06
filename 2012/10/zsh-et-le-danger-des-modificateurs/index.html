@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zsh et le danger des modificateurs</title>
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+
+<link rel="stylesheet" type="text/css" media="all" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous" />
+
+<link rel="alternate stylesheet" title="Night theme" href="/css/night.css">
+<link rel="shortcut icon" href="/favicon.ico" />
+
+</head>
+<body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+  <div id="avoidance-link">
+    <a class="evitement" href="#main-content" title="Aller au contenu">Aller au contenu</a>
+    <a class="evitement" href="#main-menu" title="Aller au menu">Aller au menu</a>
+  </div>
+  <div class="container container-outer">
+    <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+      <div class="container-inner">
+        <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+          <a class="logo__link" href="/" title="Jonathan Poelen" rel="home">
+            <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
+            <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
+          </a>
+        </div>
+        <nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <ul class="menu__list">
+    <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
+      <i class="fa fa-github" aria-hidden="true"></i> Github
+    </a></li>
+    <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
+      <i class="fa fa-archive" aria-hidden="true"></i> Archives</a>
+    </li>
+    <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
+      <i class="fa fa-rss" aria-hidden="true"></i> RSS</a>
+    </li>
+  </ul>
+</nav>
+
+
+      </div>
+    </header>
+    <div class="wrapper clearfix">
+
+<aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="widget-search widget">
+  <form class="widget-search__form" role="search" method="get" action="//google.com/search">
+    <label>
+      <span class="screen-reader-text">Search for:</span>
+      <input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+    </label>
+    <input class="widget-search__submit" type="submit" value="Search">
+    <input type="hidden" name="sitesearch" value="https://jonathanpoelen.github.io/" />
+  </form>
+</div>
+
+	
+<div class="widget-recent widget" id="main-menu">
+  <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></li>
+      
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">26 autres…</a></li>
+    </ul>
+  </div>
+</div>
+<div class="widget-recent widget">
+  <h4 class="widget__title"><i class="fa fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2015/09/if-constexpr-avant-c--17/">
+        <time datetime="2018-03-04T23:14:38">04/03/2018</time>
+        -- if constexpr avant C&#43;&#43;17
+      </a></li>
+
+    </ul>
+  </div>
+</div>
+
+	
+<div class="widget-categories widget">
+  <h4 class="widget__title"><i class="fa fa-folder-o" aria-hidden="true"></i> Categories</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (18)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/script-shell">Script-Shell (6)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilité-Web">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/accessibilit%c3%a9-web">Accessibilité-Web (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/make">Make (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/zsh">Zsh (1)</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+	
+	
+
+</aside>
+<section class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
+  
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="zsh-et-le-danger-des-modificateurs"><span>
+        <a href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-catalogu%C3%A9es-les/"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: Taguer vos classes, cataloguées-les"></i></a>
+        <a href="https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: La récursivité et le mauvais exemple de Fibonacci"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/">Zsh et le danger des modificateurs</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-catalogu%C3%A9es-les/">Article suivant: Taguer vos classes, cataloguées-les</a><br/>
+        <a href="https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/">Article précédent: La récursivité et le mauvais exemple de Fibonacci</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2012-10-14T19:46:36">14 octobre 2012
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/script-shell" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>script-shell</a>, <a class="meta-categories__link" href="/categories/zsh" rel="category">zsh</a>
+;
+
+
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
+  <a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#9822b10c1e712637f7ec91dc443129e0-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 5 ans. Les informations y figurant peuvent être dépassées.</p>
+    <p>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&rsquo;interpréteur utilisé. J&rsquo;ai eu le coup une fois lorsqu&rsquo;il fallait charger le module <code>canberra-gtk</code> pour les programmes java.</p>
+
+<p>Une variable <code>$GTK_MODULES</code> est définie et contient tous les modules gtk séparés par des deux points (<code>:</code>).
+Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-gtk-module</code>. Les fautifs ? <code>52libcanberra-gtk-module_add-to-gtk-modules</code> et <code>52libcanberra-gtk3-module_add-to-gtk-modules</code> Avec un contenu identique:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+    <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;canberra-gtk-module&#34;</span>
+<span class="k">else</span>
+    <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">:canberra-gtk-module&#34;</span>
+<span class="k">fi</span>
+
+<span class="nb">export</span> GTK_MODULES</code></pre></div>
+<p>Et là, paf ! C&rsquo;est le drame. <code>$GTK_MODULES</code> = <code>canberra-gtk-moduleanberra-gtk-module</code>, naturellement :D.</p>
+
+<p>Vous venez d&rsquo;assister à l&rsquo;effet du modificateur <code>c</code> (dans <code>:c</code>) qui ajoute le chemin de l&rsquo;executable présent dans <code>$GTK_MODULES</code>. Comme <code>canberra-gtk-module</code> n&rsquo;est pas un executable, rien n&rsquo;est fait, mais <code>:c</code> disparaît. Avec l&rsquo;auto-complétion on peut voir qu&rsquo;il y en a une petite quinzaine de disponibles, de quoi tomber plusieurs fois dans le piège.</p>
+
+<p>Les modificateurs existent aussi dans bash, mais ils sont moins nombreux et ne s&rsquo;utilisent qu&rsquo;avec l&rsquo;historique (paragraphe <code>HISTORY EXPANSION</code> du manuel).</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> unfichier.txt
+<span class="nb">echo</span> !:1:r</code></pre></div>
+<p>Résultat :</p>
+
+<pre><code>unfichier.txt
+unfichier
+</code></pre>
+
+<p>Quasiment jamais utilisé en fait.</p>
+
+<p>Mais voilà, zsh les généralise aussi aux variables ce qui engendre une erreur dans <code>GTK_MODULES</code>.</p>
+
+<p>Alors comment faire ?
+Simple, entourer la variable d&rsquo;accolades:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GTK_MODULES</span><span class="si">}</span><span class="s2">:canberra-gtk-module&#34;</span></code></pre></div>
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2012-10-14T19:46:36">14 octobre 2012
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/script-shell" rel="category">script-shell</a>, <a class="meta-categories__link" href="/categories/zsh" rel="category">zsh</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="9822b10c1e712637f7ec91dc443129e0-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=zsh-et-le-danger-des-modificateurs&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f&amp;title=zsh-et-le-danger-des-modificateurs" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f&amp;name=zsh-et-le-danger-des-modificateurs" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+  
+  
+<nav class="post-nav row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--prev col-1-2">
+    <a class="post-nav__link" href="/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">La récursivité et le mauvais exemple de Fibonacci</span></a>
+  </div>
+  <div class="post-nav__item post-nav__item--next col-1-2">
+    <a class="post-nav__link" href="/2012/12/taguer-vos-classes-catalogu%C3%A9es-les/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">Taguer vos classes, cataloguées-les</span></a>
+  </div>
+</nav>
+
+  
+
+</section>
+</div>
+  <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+    <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
+    <p class="footer__copyright">
+       Jonathan Poelen. <span class="footer__copyright-credits">
+      Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
+      et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
+      Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
+      </span>
+    </p>
+  </footer>
+</div>
+<a id="backtop" href="#avoidance-link"><i class="fa fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
+
+
+</body>
+</html>
+

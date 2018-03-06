@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Script Shell on Jonathan Poelen</title>
+    <link>https://jonathanpoelen.github.io/categories/script-shell/</link>
+    <description>Recent content in Script Shell on Jonathan Poelen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-FR</language>
+    <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
+    <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
+    <lastBuildDate>Mon, 09 Jun 2014 00:35:19 +0100</lastBuildDate>
+    
+	<atom:link href="https://jonathanpoelen.github.io/categories/script-shell/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>256 couleurs et plus dans la console</title>
+      <link>https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/</link>
+      <pubDate>Mon, 09 Jun 2014 00:35:19 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/</guid>
+      <description>À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j&amp;rsquo;ai récemment appris l&amp;rsquo;existence de 256 couleurs dans la console en tombant sur un screen un peu trop coloré. Ce qui m&amp;rsquo;a dirigé sur un dépôt contenant un $LS_COLORS particulièrement fourni.
+En fait, il s&amp;rsquo;avère qu&amp;rsquo;en rajoutant extended dans la recherche &amp;laquo;&amp;nbsp;color shell&amp;nbsp;&amp;raquo; on puisse trouver quelque(s) ressource(s). J&amp;rsquo;aurais bien voulu y penser la semaine dernière, ça m&amp;rsquo;aurait évité de comprendre par tâtonnement&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>Optimisation de script bash en limitant l&#39;ouverture de processus</title>
+      <link>https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/</link>
+      <pubDate>Wed, 29 May 2013 00:23:12 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/</guid>
+      <description>Une des choses qui prend du temps dans l&amp;rsquo;exécution d&amp;rsquo;un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés.
+Le meilleur moyen d&amp;rsquo;accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme. En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&amp;rsquo;entrée standard et retourne un résultat ; un peu comme bc. C&amp;rsquo;est là que les coprocessus viennent à la rescousse :).</description>
+    </item>
+    
+    <item>
+      <title>Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;</title>
+      <link>https://jonathanpoelen.github.io/2013/02/diff%C3%A9rence-entre----et-/</link>
+      <pubDate>Sun, 17 Feb 2013 10:42:27 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/02/diff%C3%A9rence-entre----et-/</guid>
+      <description>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées argv dans pas mal d&amp;rsquo;autres langages): $* et $@.
+ $* est une variable ce qu&amp;rsquo;il y a de plus normale et ne diffère pas d&amp;rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&amp;rsquo;y reviens après). $@ est une variable au comportement différent entre les shells basés sur sh (bash, dash, &amp;hellip;) et les autres (ksh, zsh).</description>
+    </item>
+    
+    <item>
+      <title>La vis cachée de getopt</title>
+      <link>https://jonathanpoelen.github.io/2012/12/la-vis-cach%C3%A9e-de-getopt/</link>
+      <pubDate>Tue, 25 Dec 2012 12:58:55 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2012/12/la-vis-cach%C3%A9e-de-getopt/</guid>
+      <description>Voici une petite information très mal connue et peu utilisée du getopt de la lib C et de la commande shell. Ainsi que Boost.Program_options. Parce que boost c&amp;rsquo;est bien :p.
+Les noms des options longues n&amp;rsquo;ont pas besoin d&amp;rsquo;être écrites entièrement.
+function parsecmd() { getopt -o &amp;#39;&amp;#39; --long \  option-longue,option-encore-plus-longue,une-autre-option: \  -n &amp;#39;example&amp;#39; -- &amp;#34;$@&amp;#34; } parsecmd --option-l --u plop bidule Donne
+--option-longue --une-autre-option &#39;plop&#39; -- &#39;bidule&#39;  La commande shell getopt est un peu plus souple que les autres.</description>
+    </item>
+    
+    <item>
+      <title>Zsh et le danger des modificateurs</title>
+      <link>https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/</link>
+      <pubDate>Sun, 14 Oct 2012 19:46:36 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/</guid>
+      <description>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&amp;rsquo;interpréteur utilisé. J&amp;rsquo;ai eu le coup une fois lorsqu&amp;rsquo;il fallait charger le module canberra-gtk pour les programmes java.
+Une variable $GTK_MODULES est définie et contient tous les modules gtk séparés par des deux points (:). Visiblement, j&amp;rsquo;ai 2 modules gtk.</description>
+    </item>
+    
+    <item>
+      <title>Sed tout puissant</title>
+      <link>https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/</link>
+      <pubDate>Mon, 11 Jun 2012 10:11:50 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/</guid>
+      <description>Il y a 3 semaines environ je cherchais le moyen d&amp;rsquo;utiliser la commande sed avec une regex sur plusieurs lignes. Je voulais transformer tous les /\+\n\s+&amp;quot;&amp;quot;/ en rien du tout (oui, les supprimer…). Sauf que comme tel, ça ne fonctionne pas, sed comme beaucoup de commandes unix fonctionne par ligne. Après de lourdes et pompeuses recherches d&amp;rsquo;au moins 7 secondes montre en main, je suis tombé sur la solution.
+Pour ce faire, il suffit d&amp;rsquo;un identifiant, un petit label, une information de multi-ligne au milieu et 3 autres bricoles ; rien que ça :D.</description>
+    </item>
+    
+  </channel>
+</rss>

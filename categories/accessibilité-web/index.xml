@@ -1,285 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Accessibilité Web on Le blog de Jonathan Poelen</title>
+    <title>Accessibilité Web on Jonathan Poelen</title>
     <link>https://jonathanpoelen.github.io/categories/accessibilit%C3%A9-web/</link>
-    
+    <description>Recent content in Accessibilité Web on Jonathan Poelen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
+    <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
+    <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
     <lastBuildDate>Tue, 02 Jan 2018 14:18:22 +0200</lastBuildDate>
-    <atom:link href="/categories/accessibilit%C3%A9-web/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://jonathanpoelen.github.io/categories/accessibilit%C3%A9-web/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Ma vision de l&#39;accessibilité appliquée pour ce blog</title>
       <link>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/</link>
       <pubDate>Tue, 02 Jan 2018 14:18:22 +0200</pubDate>
-      
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/</guid>
-      <description>
-
-&lt;p&gt;Pour changer de la programmation logicielle, je vais parler de l&amp;rsquo;accessibilité d&amp;rsquo;un site et des petits détails exaspérants que je rencontre sur la toile. Je pense qu&amp;rsquo;une bonne partie parle à chacun, généralement on fait avec, simplement parce qu&amp;rsquo;il n&amp;rsquo;y a pas d&amp;rsquo;autre choix, mais c&amp;rsquo;est toujours frustrant de tomber dessus.&lt;/p&gt;
-
-&lt;p&gt;Pour le blog, j&amp;rsquo;ai passé pas mal de temps sur un template déjà existant en touchant finalement un peu à toutes les parties CSS et HTML. Je vais ici parler un peu de couleur, de police, de lien, de la manière de disposer des cadres et quelques autres bricoles insignifiantes et par définition essentielles.&lt;/p&gt;
-
-&lt;!--&lt;p class=&#34;disclaimer&#34;&gt;&lt;strong class=&#34;disclaimer_title&#34;&gt;Avertissement :&lt;/strong&gt; 
-Mon expérience dans le domaine se limite à ce blog et je n&#39;ai pas la prétention d&#39;être un pro du milieu. Ma manière d&#39;aborder les problèmes peut être à l&#39;antipode des bonnes pratiques, mais ce sont mes choix et, finalement, je les impose aux visiteurs comme le fait n&#39;importe quel site :).
-&lt;/p&gt;
---&gt;
-
-&lt;!-- c&#39;est moâ qui décide :p !--&gt;
-
-&lt;h2 id=&#34;plus-de-clics-moins-de-contenu&#34;&gt;Plus de clics, moins de contenu&lt;/h2&gt;
-
-&lt;p&gt;Depuis plusieurs années, une pratique courante consiste à multiplier les clics pour accéder à du contenu. Cela prend plusieurs formes, généralement à travers un menu sectionné sur une multitude de pages, des listes déroulantes ou du texte qui apparait au clic. De l&amp;rsquo;intuitif comme ils disent.&lt;/p&gt;
-
-&lt;p&gt;Le défaut de vouloir tout cacher est de rendre difficile d&amp;rsquo;accès l&amp;rsquo;information:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Il n&amp;rsquo;est pas possible de faire une recherche de texte.&lt;/li&gt;
-&lt;li&gt;Si on ne sait pas dans quel menu aller, on finit par cliquer partout.&lt;/li&gt;
-&lt;li&gt;L&amp;rsquo;information est diffuse sur plusieurs pages, c&amp;rsquo;est beaucoup de manipulations, pénible et long. Encore plus s&amp;rsquo;il faut naviguer sur plusieurs pages avec une connexion lente.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Un des exemples typiques que je déteste est matérialisé par la &lt;a href=&#34;https://cpp.developpez.com/faq/cpp/&#34;&gt;FAQ de dvp&lt;/a&gt;: chaque catégorie doit être déroulée pour qu&amp;rsquo;apparaissent les questions. Résultat, depuis la mise en place de ce nouveau système, je ne la consulte plus puisque trouver une question approximative est une gageure. Il me faut trouver la catégorie, l&amp;rsquo;éventuelle sous-catégorie, dérouler chacune et enfin pouvoir faire une recherche de texte sur le mot qui m&amp;rsquo;intéresse dans la question (le moteur de recherche donne souvent beaucoup trop de résultats).&lt;/p&gt;
-
-&lt;p&gt;À contrario, les FAQs sur le site du gouvernement permettent un affichage de toutes les questions et/ou réponses ce qui permet une recherche rapide et une lecture continue.&lt;/p&gt;
-
-&lt;p&gt;Je trouve que le site &lt;a href=&#34;https://doisjeutiliser.fr&#34;&gt;doisjeutiliser.fr&lt;/a&gt; donne un bon résumé de la situation. Et je suis d&amp;rsquo;accord avec tous les autres contre-exemples.&lt;/p&gt;
-
-&lt;p&gt;De plus, comme le langage graphique est différent entre les logiciels et entre sites on ne sait pas toujours le comportement associé au clic ou au lien par manque d&amp;rsquo;indicateur, on va au-devant de grosses surprises. Une icône qui représente une sous-catégorie déroulée pour tel site, mais enroulée pour un autre site. Un clic pour dérouler alors que cela ouvre une nouvelle page, voire pire, une nouvelle fenêtre ou, inversement, ouvrir dans un nouvel onglet un lien fait pour afficher un zone cachée (généralement, on tombe sur une page vide). Dans les 2 scénarios c&amp;rsquo;est une mauvaise surprise.&lt;/p&gt;
-
-&lt;p&gt;Et certains ont la bonne idée de redéfinir (ou de simuler) les actions d&amp;rsquo;une liste déroulante en supprimant toute action clavier. Tu veux atteindre &amp;laquo;&amp;nbsp;août&amp;nbsp;&amp;raquo; en appuyant sur &lt;code&gt;a&lt;/code&gt; ? Fais autrement ! Avec un peu de chance, il faudra aussi cliquer sur le bouton &amp;laquo;&amp;nbsp;Ok&amp;nbsp;&amp;raquo; pour valider son choix.&lt;/p&gt;
-
-&lt;p&gt;Vous l&amp;rsquo;aurez compris, je suis contre cette pratique du &amp;laquo;&amp;nbsp;clic pour apparaître&amp;nbsp;&amp;raquo; à outrance.
-Pour prendre en exemple le blog, sur l&amp;rsquo;ancien (blogspot) les archives sont déroulées par années et par mois. Avec une moyenne qui dépasse difficilement 2 articles/mois, en trouver un précis en moins de 2 clics mérite une médaille. Ici, les archives sont sur une page dédiée qui permet une vue d&amp;rsquo;ensemble immédiate sans étaler les titres sur plusieurs lignes.&lt;/p&gt;
-
-&lt;p&gt;(On y notera la police monospace sur la date qui facilite le parcours vertical ;).)&lt;/p&gt;
-
-&lt;h2 id=&#34;disposition-générale-et-débordement&#34;&gt;Disposition générale et débordement&lt;/h2&gt;
-
-&lt;p&gt;De mon point de vue, un site web possède classiquement un en-tête, un menu et du contenu, le tout positionné dans un nombre restreint de possibilités. La grande différence se joue sur la gestion du vide. Càd, la place que va prendre un élément sur la page.&lt;/p&gt;
-
-&lt;p&gt;Il existe principalement 3 cas de figures:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Prendre un maximum de place.&lt;/li&gt;
-&lt;li&gt;Mettre une limite maximum sur la largeur.&lt;/li&gt;
-&lt;li&gt;Avoir une largeur fixée.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Une solution n&amp;rsquo;est pas meilleure qu&amp;rsquo;une autre, le choix dépend du design, du type de contenu et du dispositif d&amp;rsquo;affichage. La plupart du temps le site prend toute la largeur jusqu&amp;rsquo;à une taille raisonnable avant de permuter en taille fixe définie en pourcentage ou en pixel.&lt;/p&gt;
-
-&lt;p&gt;On peut très bien avoir un contenu qui prend toute la page quelle que soit la résolution, mais il faut être conscient qu&amp;rsquo;une ligne trop grande est difficile à lire. Plus une ligne est longue ou un paragraphe dense, moins il y a de points de repère visuels pour &amp;laquo;&amp;nbsp;suivre&amp;nbsp;&amp;raquo; le texte. Cela augmente le risque de glisser à la ligne suivante au milieu d&amp;rsquo;une phrase et de sauter une ligne ou relire la même au lieu de passer à la suivante. L&amp;rsquo;extrême inverse étant le format colonne utilisé par les journaux ou magazines, mais difficile à reproduire sur un navigateur.&lt;/p&gt;
-
-&lt;p&gt;Concernant la disposition du menu, à priori, n&amp;rsquo;importe laquelle fait l&amp;rsquo;affaire. À gauche, à droite ou en haut, quelle importance ? Mais c&amp;rsquo;est oublier un point essentiel: que faire quand un élément est trop grand ? La solution immédiate est simple: aller à la ligne. C&amp;rsquo;est même le comportement par défaut des navigateurs sur les blocs de texte. Ouf, nous sommes sauvés, tout va bien dans le meilleur des mondes.&lt;/p&gt;
-
-&lt;p&gt;Sauf qu&amp;rsquo;il existe aussi les images, les tableaux, les lecteurs vidéo et l&amp;rsquo;ensemble des éléments dont un &amp;laquo;&amp;nbsp;saut de ligne&amp;nbsp;&amp;raquo; n&amp;rsquo;est pas envisageable. Et là, c&amp;rsquo;est le drame. Heureusement, il existe plein d&amp;rsquo;horribles solutions.&lt;/p&gt;
-
-&lt;p&gt;Les exemples qui suivent sont faits avec une ligne de code qui ne fait pas de saut de ligne automatique.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;S&amp;rsquo;adapter au plus grand.
-&lt;!-- &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-normal.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Une apparence sans défaut.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
- --&gt;
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Débordement par la droite.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row-reverse.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Débordement par la gauche. Le scroll disparaît. Au moins pour Firefox.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Compacter les éléments ou mettre dans un scroll.
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-scroll.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Un scroll alors qu&amp;#39;il y a de l&amp;#39;espace à droite.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Cacher le surplus.
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-hidden.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Il n&amp;#39;y a plus moyen de lire le contenu qui déborde.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Superposer les éléments.
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-above.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;La partie droite cache une partie du contenu.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Presque toutes ces images ont un point commun: un menu à droite. Ce n&amp;rsquo;est pas anodin, il est difficile d&amp;rsquo;avoir un menu à droite quand la partie gauche veut prendre sa place.&lt;/p&gt;
-
-&lt;p&gt;En déplaçant le menu à gauche, les problèmes de superposition contenu/menu disparaîssent d&amp;rsquo;eux-mêmes. On peut alors laisser le bloc prendre une place optimale.&lt;/p&gt;
-
-&lt;p&gt;Mais il faut le faire intelligemment pour ne pas tomber sur le premier cas qui ajoute un scroll horizontal pour l&amp;rsquo;ensemble du contenu. Vous vous imaginez devoir scroller pour lire une ligne ? Puis bon, les paragraphes qui deviennent des lignes de 3 kilomètres, non merci !&lt;/p&gt;
-
-&lt;p&gt;Il serait également bête de faire comme le second cas qui ajoute un scroll sur tous les éléments dépassant une certaine taille alors qu&amp;rsquo;un énorme vide persiste sur la droite.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;ai assisté sur la doc de Hugo au passage d&amp;rsquo;un gabarit full page à celui d&amp;rsquo;une taille fixe et, malheureusement, chaque code se voyait estampillé d&amp;rsquo;un scroll horizontal. Obligé de déplacer la souris dessus pour qu&amp;rsquo;il s&amp;rsquo;agrandisse automatiquement jusqu&amp;rsquo;au bord droit de ma fenêtre. Ce qui rendait par la même occasion le scroll superflu. La seule question qui m&amp;rsquo;est venue est &amp;laquo;&amp;nbsp;Pourquoi dois-je utiliser une souris ? Pourquoi ce n&amp;rsquo;est pas l&amp;rsquo;apparence par défaut ?&amp;nbsp;&amp;raquo;.&lt;/p&gt;
-
-&lt;p&gt;Bon ok, deux questions.&lt;/p&gt;
-
-&lt;p&gt;Pour le blog, mon choix s&amp;rsquo;est porté sur un menu à gauche, un contenu sur plus au moins 60% de large pour le centrer, mais avec les contenus trop grands qui débordent un maximum avant le recourt au scroll. C&amp;rsquo;est la disposition la plus pratique à mes yeux. Le résultat peut même être visible sur l&amp;rsquo;avant-dernier article dont un code possède une ligne plus grande qu&amp;rsquo;à l&amp;rsquo;habitude.&lt;/p&gt;
-
-&lt;h2 id=&#34;liens-zone-de-clic-et-surbrillance&#34;&gt;Liens, zone de clic et surbrillance&lt;/h2&gt;
-
-&lt;p&gt;Comment parler du web sans un petit mot sur les liens ? Le point central de la navigation internet et pourtant si difficile à cliquer pour moi.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;ai l&amp;rsquo;impression de faire partie des gens dont la souris est invariablement attirée par la rangée de pixels non cliquable en plein milieu d&amp;rsquo;un lien. C&amp;rsquo;est systématique lorsque celui-ci est sur plusieurs lignes. Tout indique que je suis dessus: la couleur de fond du cadre qui change, celle du texte, la petite décoration qui apparaît. Tout, sauf le pointeur de souris. Mais il y a tellement de changement autour que ce détail ne se voit même plus.
-&lt;!-- Demande-moi de faire un gâteau, je te dirai que l&#39;alarme incendie ne s&#39;est pas déclenchée lorsque le four s&#39;est enflammé. --&gt;&lt;/p&gt;
-
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-multi-line.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Clic... Clic ? Clic clic clic ! Comment ? Je ne suis pas dessus ?&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Arrive mon second fléau, déplacer suffisamment la souris pour être sur le lien. Mais pas trop, parce que ce foutu cadre qui change de couleur n&amp;rsquo;en fait pas partie non plus.&lt;/p&gt;
-
-&lt;p&gt;Le problème que je rencontre ici est récurant. Des changements de couleurs et de formes donnent l&amp;rsquo;impression de pouvoir effectuer une action alors que ce n&amp;rsquo;est pas vrai. Il vient alors un sentiment d&amp;rsquo;incompréhension très désagréable qui se change petit à petit en frustration lorsqu&amp;rsquo;on réalise que le pointeur de souris n&amp;rsquo;a pas la bonne forme.&lt;/p&gt;
-
-&lt;p&gt;Quand un cadre contenant un lien change de couleur au passage de la souris, c&amp;rsquo;est une invitation au clic. Celui-ci se doit d&amp;rsquo;être cliquable pour répondre au principe de la moindre surprise. Bonus, cela élargit la surface de clic et rend par la même occasion le lien plus accessible.&lt;/p&gt;
-
-&lt;!--&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-bad.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Contre toute attente, la souris n&amp;#39;est pas sur le lien.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-VS.--&gt;
-
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-good.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;C&amp;#39;est quand même plus agréable lorsque le cadre est un lien.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Cette extension de la zone de clic est très présente sur le blog. Comme les espaces blancs décoratifs sur le menu qui font partie du lien. Il est possible en plein écran de plaquer le curseur à gauche et de pouvoir cliquer dessus. Ou par exemple les liens &amp;laquo;&amp;nbsp;Précédent&amp;nbsp;&amp;raquo; et &amp;laquo;&amp;nbsp;Suivant&amp;nbsp;&amp;raquo; en fin d&amp;rsquo;article qui prennent chacun une moitié de largeur de contenu. Ou encore les icônes de flux RSS qui possèdent une zone de clic réelle beaucoup plus grande que l&amp;rsquo;image. Chacun de ces éléments possède une zone de clic plus large pour simplifier la visée.&lt;/p&gt;
-
-&lt;p&gt;Une dernière chose à éviter impérativement sur un lien concerne l&amp;rsquo;application d&amp;rsquo;un effet de gras au survol. Si par malheur le lien se situe en fin de ligne, la mise en gras va agrandir de quelques pixels les lettres et peut déplacer des mots à la ligne suivante. Qui se retrouvent en dehors de la zone de pointage. Qui reviennent car ne sont plus concernés par le survol. Puis repartent. Et ainsi de suite rendant le lien presque incliquable pour ceux ayant échappé à la crise d&amp;rsquo;épilepsie. Bien sûr, si le lien est une boîte qui grandit ou ne se déplace pas, il n&amp;rsquo;y a aucun problème.&lt;/p&gt;
-
-&lt;p&gt;À présent, parlons d&amp;rsquo;une évidence: un lien doit être mis en surbrillance par rapport au reste du contenu. S&amp;rsquo;il n&amp;rsquo;y a aucun repère visuel qui le différencie, personne ne le remarquera. Dans l&amp;rsquo;imaginaire collectif, un texte bleu ou violet et surtout souligné représente un lien. Bien que l&amp;rsquo;on puisse le modifier, je déconseille d&amp;rsquo;enlever le soulignement. Un simple changement de couleur pouvant être considéré comme une mise en gras.&lt;/p&gt;
-
-&lt;p&gt;En plus de la pseudo-classe &lt;code&gt;:hover&lt;/code&gt; &amp;ndash;source des problèmes cités au début du chapitre lorsqu&amp;rsquo;elle est mal utilisée&amp;ndash;, il est essentiel de mettre en valeur les liens possédant le focus (&lt;code&gt;:focus&lt;/code&gt;) pour les adeptes de la navigation clavier. Certains navigateurs comme Opéra possèdent des raccourcis clavier très pratiques pour sauter de lien en lien, mais très handicapants lorsque le site n&amp;rsquo;utilise pas ce marqueur visuel.&lt;/p&gt;
-
-&lt;p&gt;(Je profite du paragraphe pour parler des &lt;a href=&#34;https://www.alsacreations.com/article/lire/572-Les-liens-d-evitement.html#menu&#34;&gt;liens d&amp;rsquo;évitement&lt;/a&gt; (&lt;a href=&#34;http://blog.atalan.fr/des-liens-devitement-astucieux/#categories&#34;&gt;ici&lt;/a&gt; et &lt;a href=&#34;http://www.accede-web.com/notices/html-css-javascript/12-navigation-clavier/12-2-liens-evitement/&#34;&gt;là&lt;/a&gt;) pour sauter les regroupements de texte comme le menu et simplifier la vie des utilisateurs de clavier et autres dispositifs).&lt;/p&gt;
-
-&lt;p&gt;Pour finir sur les pseudo-classes et clore le sujet, je trouve que beaucoup de sites ignorent &lt;code&gt;:active&lt;/code&gt;, alors que c&amp;rsquo;est un excellent moyen d&amp;rsquo;informer un visiteur que son clic est bien pris en compte. C&amp;rsquo;est un indicateur qui manque souvent quand j&amp;rsquo;ouvre dans un nouvel onglet: ai-je bien cliqué ? Cette information m&amp;rsquo;est tellement essentielle que je force dans mon navigateur un cadre en pointillé rouge lorsque je valide un lien.&lt;/p&gt;
-
-&lt;h2 id=&#34;la-police-des-caractères&#34;&gt;La police des caractères&lt;/h2&gt;
-
-&lt;p&gt;Une chose que j&amp;rsquo;ai apprise en testant plusieurs polices d&amp;rsquo;écriture, est que la taille apparente varie énormément entre 2 fonts. Mettre une taille de police adaptée à la lecture n&amp;rsquo;est pas suffisant, il faut aussi que chaque police dans la liste de &lt;code&gt;font-family&lt;/code&gt; ait une taille similaire au risque d&amp;rsquo;avoir des textes trop grands, ou pire, trop petits.&lt;/p&gt;
-
-&lt;p&gt;Je suis également tombé sur un conseil qui va à l&amp;rsquo;encontre du bon sens: mettre un &lt;code&gt;font-size: 62.5%&lt;/code&gt; global. Avec pour seule justification que la taille par défaut est trop grande. Sans prendre en compte la taille effective d&amp;rsquo;une police et en rejetant toute configuration utilisateur. Si &amp;laquo;&amp;nbsp;62.5%&amp;nbsp;&amp;raquo; est trop petit, c&amp;rsquo;est le problème de l&amp;rsquo;utilisateur après tout.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tr&gt;&lt;th&gt;Police&lt;/th&gt;&lt;th&gt;16px&lt;/th&gt;&lt;th&gt;10px (62.5%)&lt;/th&gt;&lt;/tr&gt;
-  &lt;tr style=&#34;font-family: sans-serif&#34;&gt;
-    &lt;td&gt;Sans-serif&lt;/td&gt;
-    &lt;td style=&#34;font-size: 16px&#34;&gt;Lorem ipsum&lt;/td&gt;
-    &lt;td style=&#34;font-size: 10px&#34;&gt;Lorem ipsum&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr style=&#34;font-family: Arial&#34;&gt;
-    &lt;td&gt;Arial&lt;/td&gt;
-    &lt;td style=&#34;font-size: 16px&#34;&gt;Lorem ipsum&lt;/td&gt;
-    &lt;td style=&#34;font-size: 10px&#34;&gt;Lorem ipsum&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr style=&#34;font-family: &#39;Times New Roman&#39;&#34;&gt;
-    &lt;td style=&#34;font-size: 16px&#34;&gt;Times New Roman&lt;/td&gt;
-    &lt;td style=&#34;font-size: 16px&#34;&gt;Lorem ipsum&lt;/td&gt;
-    &lt;td style=&#34;font-size: 10px&#34;&gt;Lorem ipsum&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr style=&#34;font-family: Times&#34;&gt;
-    &lt;td style=&#34;font-size: 16px&#34;&gt;Times&lt;/td&gt;
-    &lt;td style=&#34;font-size: 16px&#34;&gt;Lorem ipsum&lt;/td&gt;
-    &lt;td style=&#34;font-size: 10px&#34;&gt;Lorem ipsum&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Étrangement, il n&amp;rsquo;y a que sur internet où la taille est redéfinie. Sur une application de bureau personne ne s&amp;rsquo;en occupe et les polices et tailles configurées au niveau du système sont utilisées automatiquement pour les différents types d&amp;rsquo;éléments (titre, paragraphe, police monospace, etc).&lt;/p&gt;
-
-&lt;p&gt;Mon seul conseil pour &lt;code&gt;font-size&lt;/code&gt; est d&amp;rsquo;appliquer le différentiel entre Serif/Sans-Serif et la police choisie car Serif ou Sans-Serif ont un différentiel de &lt;a href=&#34;https://fr.wikipedia.org/wiki/Jambage&#34;&gt;jambage&lt;/a&gt; supérieur et inférieur égal au nombre de pixels demandé.&lt;/p&gt;
-
-&lt;p&gt;Comme on parle d&amp;rsquo;&lt;a href=&#34;https://fr.wikipedia.org/wiki/Empattement_(typographie)&#34;&gt;empattement&lt;/a&gt; (serif ou sans-serif), j&amp;rsquo;en suis venu à la conclusion qu&amp;rsquo;une police sans empattement est plus lisible sur un écran. Peut-être à cause de la petitesse des lettres qui &amp;laquo;&amp;nbsp;charge&amp;nbsp;&amp;raquo; visuellement les glyphes. Ou Le rétro-éclairage, je ne sais pas.&lt;/p&gt;
-
-&lt;h2 id=&#34;le-pouvoir-de-la-couleur&#34;&gt;Le pouvoir de la couleur&lt;/h2&gt;
-
-&lt;p&gt;La couleur est un vecteur d&amp;rsquo;information aussi importante &amp;ndash;voire plus&amp;ndash; que la forme. Par contre, il faut utiliser la couleur d&amp;rsquo;usage sur l&amp;rsquo;objet représenté au risque de perturber le lecteur.&lt;/p&gt;
-
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/ok-cancel.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Perturbant, n&amp;#39;est-ce pas ?&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;La couleur et les effets permettent également de distinguer les éléments entre eux. Par exemple, une légère ombre sur un bouton lui donne un relief qui le distingue d&amp;rsquo;un cadre lambda. Mais il faut savoir varier. Si je prends comme exemple les boutons sociaux, il est difficile d&amp;rsquo;en trouver un précisément lorsqu&amp;rsquo;ils sont tous de la même couleur.&lt;/p&gt;
-
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-gray.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Y a-t-il ton réseau préféré ?&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Alors que mettre la couleur habituellement utilisée par une marque permet de se focaliser presque sans effort dessus.&lt;/p&gt;
-
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-color.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Et maintenant ?&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Même si les couleurs du site sont banales, je me permets quelques remarques. Premièrement, il vaut mieux se restreindre à un nombre raisonnable de couleurs, mais suffisamment contrastées pour les dissocier. Trop de couleurs empêchent de hiérarchiser l&amp;rsquo;information, un contraste trop faible de dissocier les éléments ce qui rend illisible le texte.&lt;/p&gt;
-
-&lt;p&gt;Il existe différents outils pour faire des palettes de couleurs qu&amp;rsquo;on peut fabriquer avec le logiciel &lt;a href=&#34;https://doc.ubuntu-fr.org/agave&#34;&gt;Agave&lt;/a&gt;, le très bon site &lt;a href=&#34;https://color.adobe.com/fr/create/color-wheel&#34;&gt;Adobe Kuler&lt;/a&gt;, &lt;a href=&#34;colourco.de&#34;&gt;colourco.de&lt;/a&gt; ou &lt;a href=&#34;code-couleur.com&#34;&gt;code-couleur.com&lt;/a&gt; qui liste quelques palettes de couleurs. Ce dernier contient également la signification de certaines couleurs dans le monde occidental. Je trouve intéressant d&amp;rsquo;ajouter cet &lt;a href=&#34;https://alfange.com/graphisme-10-couleurs-signification/&#34;&gt;article trouvé sur la toile&lt;/a&gt; pour voir un peu &amp;ndash;bien que difficile à vérifier&amp;ndash; l&amp;rsquo;évolution et usage au fil du temps. En cherchant un peu, on tombe sur pléthore de sites et de conseils. On a l&amp;rsquo;embarras du choix.&lt;/p&gt;
-
-&lt;p&gt;Si je peux donner un conseil, évitez les couleurs trop pures ; celles qui contiennent une composante de couleur proche de 255 et les autres à 0 comme pour les couleurs primaires (ex: &lt;code&gt;#ff0000&lt;/code&gt;). Ce sont des couleurs très prononcées, pas du tout naturelles. Je trouve qu&amp;rsquo;elles brillent trop et agressent les yeux.&lt;/p&gt;
-
-&lt;p&gt;Une dernière chose concernant les couleurs, tout le monde ne les voit pas de la même façon, essayer un filtre pour &lt;a href=&#34;https://www.toptal.com/designers/colorfilter&#34;&gt;simuler le daltonisme&lt;/a&gt; est une expérience intéressante.&lt;/p&gt;
-
-&lt;h2 id=&#34;les-métadonnées-sont-importantes&#34;&gt;Les métadonnées sont importantes !&lt;/h2&gt;
-
-&lt;p&gt;Les métadonnées sont toutes les informations relatives à un document qui permettent notamment de le replacer dans un contexte sans le supposer après lecture de plusieurs paragraphes (même ainsi, certains éléments sont impossibles à déduire). Elles sont tellement importantes qu&amp;rsquo;il est possible de déduire le contenu du document associé sans l&amp;rsquo;avoir jamais lu.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;exagère un peu, mais si on prend un article de blog et qu&amp;rsquo;on a l&amp;rsquo;habitude de lire les commentaires de l&amp;rsquo;auteur sur des forums, on se fait une relativement bonne idée du contenu de ses écrits. Mais pour cela il faut au moins avoir le nom de l&amp;rsquo;auteur, le sujet principal (titre, domaine du sujet) et probablement la date. Cela paraît évident, mais des fois, un ou plusieurs éléments manquent. Grossièrement, ce sont pour moi des marqueurs qui permettent de filtrer les lectures potentiellement intéressantes et de se préparer mentalement.&lt;/p&gt;
-
-&lt;p&gt;Plus généralement, les métadonnées sont un moyen de mettre en relation des données avec d&amp;rsquo;autres via des &lt;a href=&#34;https://fr.wikipedia.org/wiki/Uniform_Resource_Identifier&#34;&gt;URIs&lt;/a&gt; dans le but de faire des requêtes extrêmement sophistiquées à la manière de SQL (&lt;a href=&#34;https://fr.wikipedia.org/wiki/SPARQL&#34;&gt;SPARQL&lt;/a&gt;). On parle aussi de &lt;a href=&#34;https://fr.wikipedia.org/wiki/Web_sémantique&#34;&gt;web sémantique&lt;/a&gt; que je trouve une très bonne idée pour des ressources ayant beaucoup de relations, de dépendances, etc comme les encyclopédies ou des documents de normalisation, mais c&amp;rsquo;est un travail de longue haleine et franchement superflu dans le cadre d&amp;rsquo;un blog.&lt;/p&gt;
-
-&lt;p&gt;Donc voilà, les métadonnées c&amp;rsquo;est cool, mais je me contente de quelques informations en tête et pied d&amp;rsquo;article. On peut aussi les retrouver de manière plus structurée dans le &lt;a href=&#34;https://jonathanpoelen.github.io/index.xml&#34;&gt;flux RSS&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Parmi les informations qui gravitent autour des articles ici, on trouve:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Les catégories, car c&amp;rsquo;est un moyen facile de centrer le domaine d&amp;rsquo;application et filtrer les contenus.&lt;/li&gt;
-&lt;li&gt;La date, parce qu&amp;rsquo;une information se périme vite. Les bonnes pratiques d&amp;rsquo;hier sont les mauvaises pratiques de demain. Et si je parle d&amp;rsquo;hier, on sait au moins de quel hier je fais référence.&lt;/li&gt;
-&lt;li&gt;La date de dernière mise à jour s&amp;rsquo;il y a lieu. Il y a aussi une entrée dédiée dans le menu. Pour le moment je ne sais pas comment mettre en valeur les changements, peut-être une note en pied de page ?&lt;/li&gt;
-&lt;li&gt;Le temps de lecture. C&amp;rsquo;est un bête calcul en fonction du nombre de mots qui peut être plus précis que la taille du scroll en présence d&amp;rsquo;image.
-Et comme la page d&amp;rsquo;accueil contient plusieurs articles, la taille du scroll n&amp;rsquo;est pas une information fiable.&lt;/li&gt;
-&lt;li&gt;L&amp;rsquo;auteur, même si pour le coup il n&amp;rsquo;y aura &amp;ndash; probablement &amp;ndash; que moi.&lt;/li&gt;
-&lt;li&gt;Le lien permanent et les boutons de partage pour conquérir le monde.&lt;!-- Comme chaque soir Minus.--&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;les-commentaires&#34;&gt;Les commentaires&lt;/h2&gt;
-
-&lt;p&gt;Sur un site statique, il n&amp;rsquo;est pas possible d&amp;rsquo;intégrer son propre système de commentaire. On peut utiliser un service web comme &lt;a href=&#34;https://disqus.com&#34;&gt;disqus.com&lt;/a&gt; qui est très bien fait, mais aussi lourd et lent à charger.&lt;/p&gt;
-
-&lt;p&gt;C&amp;rsquo;est un reproche qui peut se faire sur beaucoup de sites. À force d&amp;rsquo;incorporer nombre de services externes (pour certains discutables), le site est ralenti et perd en fluidité.&lt;/p&gt;
-
-&lt;p&gt;Comme je pense qu&amp;rsquo;un espace commentaire est toujours intéressant, je tenais vraiment à en avoir un sur le blog. Alors je me suis dit, quitte à utiliser github.io, autant y aller jusqu&amp;rsquo;au bout et me servir des issues de github comme système d&amp;rsquo;échange. Ce n&amp;rsquo;est pas aussi bien intégré dans la page qu&amp;rsquo;un système natif (il faut passer par github pour poster), mais cela fait son job. Je perds par contre les commentaires anonymes puisqu&amp;rsquo;il faut un compte pour poster.&lt;/p&gt;
-
-&lt;h2 id=&#34;mais-encore&#34;&gt;Mais encore&lt;/h2&gt;
-
-&lt;p&gt;À vrai dire, il y a pas mal de petites choses non citées qui m&amp;rsquo;agacent beaucoup (titre tronqué devenant trop court, animation trop lente, etc), mais ce sont des conseils qu&amp;rsquo;on peut retrouver assez facilement sur la toile.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;ai davantage axé mes propos sur des détails que je trouve peu discutés. Tellement peu évoqués que j&amp;rsquo;ai l&amp;rsquo;impression d&amp;rsquo;être le seul concerné. Pour dire. Mais si cela permet de faire réfléchir, tant mieux.&lt;/p&gt;
-
-&lt;p&gt;Après, c&amp;rsquo;est bien possible que n&amp;rsquo;étant pas spécialement attiré par les technos web, un site spécialisé que je ne connais pas en parle mieux que moi. Tant mieux aussi.&lt;/p&gt;
-</description>
+      <description>Pour changer de la programmation logicielle, je vais parler de l&amp;rsquo;accessibilité d&amp;rsquo;un site et des petits détails exaspérants que je rencontre sur la toile. Je pense qu&amp;rsquo;une bonne partie parle à chacun, généralement on fait avec, simplement parce qu&amp;rsquo;il n&amp;rsquo;y a pas d&amp;rsquo;autre choix, mais c&amp;rsquo;est toujours frustrant de tomber dessus.
+Pour le blog, j&amp;rsquo;ai passé pas mal de temps sur un template déjà existant en touchant finalement un peu à toutes les parties CSS et HTML.</description>
+    </item>
+    
+    <item>
+      <title>Rendre accessible le chargement de lien avec AJAX</title>
+      <link>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</link>
+      <pubDate>Sat, 31 Dec 2011 12:05:43 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</guid>
+      <description>Le but d&amp;rsquo;un site chargeant ces pages avec AJAX est double:
+ Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées). Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins.  Toutefois, si mal fait, des problèmes apparaissent au niveau de l&amp;rsquo;historique qui n&amp;rsquo;est plus utilisable.</description>
     </item>
     
   </channel>

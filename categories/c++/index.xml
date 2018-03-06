@@ -1,285 +1,219 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>C&#43;&#43; on Le blog de Jonathan Poelen</title>
+    <title>C&#43;&#43; on Jonathan Poelen</title>
     <link>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</link>
-    
+    <description>Recent content in C&#43;&#43; on Jonathan Poelen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <lastBuildDate>Wed, 05 Jul 2017 22:02:11 +0200</lastBuildDate>
-    <atom:link href="/categories/c&#43;&#43;/" rel="self" type="application/rss+xml" />
+    <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
+    <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
+    <lastBuildDate>Tue, 13 Feb 2018 03:00:28 +0100</lastBuildDate>
+    
+	<atom:link href="https://jonathanpoelen.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Faites parler votre compilateur</title>
+      <link>https://jonathanpoelen.github.io/2018/02/faites-parler-votre-compilateur/</link>
+      <pubDate>Tue, 13 Feb 2018 03:00:28 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2018/02/faites-parler-votre-compilateur/</guid>
+      <description>En C++, notre meilleur ami est le compilateur. Encore faut-il bien le configurer pour qu&amp;rsquo;il nous crache un maximum d&amp;rsquo;avertissements en pleine poire. Hélas, il s&amp;rsquo;avère que les options dépendent grandement du compilateur et de la version.
+Du côté de Clang, il y a un -Weverything qui active absolument tous les warnings &amp;ndash; dont certains que je qualifie de douteux &amp;ndash;, alors que pour Gcc, -Wall et -Wextra n&amp;rsquo;activent pas tout.</description>
+    </item>
     
     <item>
       <title>Minimiser les copies dans operator&#43;</title>
       <link>https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/</link>
       <pubDate>Wed, 05 Jul 2017 22:02:11 +0200</pubDate>
-      
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/</guid>
-      <description>
-
-&lt;p&gt;Je vais me baser sur un classique: une classe de matrice contenant un &lt;code&gt;std::vector&amp;lt;int&amp;gt;&lt;/code&gt;. Cette classe va implémenter 2 opérateurs mathématiques: &lt;code&gt;+&lt;/code&gt; et &lt;code&gt;+=&lt;/code&gt;. Le premier en fonction libre, le second en fonction membre.&lt;/p&gt;
-
-&lt;p&gt;Pour rigoler un peu, on ajoute une petite contrainte qui est &amp;laquo;&amp;nbsp;l&amp;rsquo;efficacité&amp;nbsp;&amp;raquo;. Petit mot qui englobe un peu tout et n&amp;rsquo;importe quoi tel que la performance en mémoire et en temps.&lt;/p&gt;
-
-&lt;p&gt;À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc. Des bibliothèques comme uBLAS, Eigen, Blitz implémentent une tripotée de choses. Ici, on va uniquement s&amp;rsquo;intéresser à la manière d&amp;rsquo;implémenter &lt;code&gt;operator+&lt;/code&gt; pour recycler les variables temporaires dans le but d&amp;rsquo;avoir le moins d&amp;rsquo;allocations possibles dûes aux copies.&lt;/p&gt;
-
-&lt;p&gt;Grosso-modo, des rvalues à droite, des rvalues à gauche, des rvalues partout et pour finir, pas de rvalue.&lt;/p&gt;
-
-&lt;p&gt;En réalité, il y a plusieurs approches possibles que je mets ici en opposition sans qu&amp;rsquo;elles le soient réellement.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;une surcharge pour tous les prototypes possibles.&lt;/li&gt;
-&lt;li&gt;un opérator unique pour les gouverner tous.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;plein-de-surcharges-de-operator&#34;&gt;Plein de surcharges de operator+&lt;/h2&gt;
-
-&lt;p&gt;Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter &lt;code&gt;noexcept&lt;/code&gt; sur de tels prototypes.&lt;/p&gt;
-
-&lt;p&gt;Voici ce que donne l&amp;rsquo;implémentation:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// et non pas return `ret += rhs`, ce qui empêcherait la NRVO.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// ne pas oublier std::move, sinon il y a aura copie en sortie
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// commutativité: x+y = y+x
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;L&amp;rsquo;utilisation de std::move sur l&amp;rsquo;opérande de gauche pour &lt;code&gt;+=&lt;/code&gt; (cf: &lt;code&gt;std::move(lhs) += rhs;&lt;/code&gt; et autres) n&amp;rsquo;est pas utile pour notre classe Matrix qui contient un &lt;code&gt;std::vector&amp;lt;int&amp;gt;&lt;/code&gt;. Mais dans l&amp;rsquo;hypothèse d&amp;rsquo;un &lt;code&gt;std::vector&amp;lt;std::vector&amp;lt;T&amp;gt;&amp;gt;&lt;/code&gt; cela permet d&amp;rsquo;informer que le sous-vecteur, ou carrément &lt;code&gt;T&lt;/code&gt; peut être recyclé.&lt;/p&gt;
-
-&lt;p&gt;Par exemple, dans le cas où les 2 opérandes sont des rvalues, on pourrait déplacer les vecteurs de rhs parce que leur capacité est plus grande. C&amp;rsquo;est une optimisation très spécifique et je pense que très peu de personnes (aucune?) s&amp;rsquo;en sert dans la réalité. On pourrait aussi faire &lt;code&gt;std::move(ret) +=&lt;/code&gt; dans la première implémentation pour les mêmes raisons.&lt;/p&gt;
-
-&lt;p&gt;Petite note sur la dernière implémentation. Utiliser &lt;code&gt;rhs&lt;/code&gt; comme valeur de retour permet de gagner un &lt;code&gt;mov&lt;/code&gt; (asm). &lt;a href=&#34;https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(j:1,source:&#39;%23include+%3Cutility%3E%0A%23include+%3Cvector%3E%0A%0Astruct+Matrix%0A%7B%0A++++++std::vector%3Cint%3E+v%3B%0A++++++Matrix%26+operator+%2B%3D(Matrix+const%26)+%3B%0A%7D%3B%0A%0AMatrix+operator%2B+(Matrix+%26%26+lhs,+Matrix+const+%26+rhs)%0A%7B%0A++++std::move(lhs)+%2B%3D+rhs%3B%0A++++//+ne+pas+oublier+std::move,+sinon+il+y+a+aura+copie+en+sortie+puisque+que+lhs+est+une+r%C3%A9f%C3%A9rence%0A++++return+std::move(lhs)%3B%0A%7D%0A%0AMatrix+operator+%2B+(Matrix+const+%26+lhs,+Matrix+%26%26+rhs)%0A%7B%0A++++std::move(rhs)+%2B%3D+lhs%3B+//+commutativit%C3%A9:+x%2By+%3D+y%2Bx%0A++++return+std::move(rhs)%3B%0A%7D%0A&#39;),l:&#39;5&#39;,n:&#39;0&#39;,o:&#39;C%2B%2B+source+%231&#39;,t:&#39;0&#39;)),k:31.812073713509285,l:&#39;4&#39;,n:&#39;0&#39;,o:&#39;&#39;,s:0,t:&#39;0&#39;),(g:!((h:compiler,i:(compiler:g71,filters:(b:&#39;0&#39;,commentOnly:&#39;0&#39;,directives:&#39;0&#39;,intel:&#39;0&#39;),options:&#39;-O3+-std%3Dc%2B%2B14+-fverbose-asm+&#39;,source:1),l:&#39;5&#39;,n:&#39;0&#39;,o:&#39;x86-64+gcc+7.1+(Editor+%231,+Compiler+%231)&#39;,t:&#39;0&#39;)),k:34.07627444894807,l:&#39;4&#39;,n:&#39;0&#39;,o:&#39;&#39;,s:0,t:&#39;0&#39;),(g:!((h:compiler,i:(compiler:g71,filters:(b:&#39;0&#39;,commentOnly:&#39;0&#39;,directives:&#39;0&#39;,intel:&#39;0&#39;),options:&#39;+-std%3Dc%2B%2B14+-O3+-fverbose-asm+&#39;,source:1),l:&#39;5&#39;,n:&#39;0&#39;,o:&#39;x86-64+gcc+7.1+(Editor+%231,+Compiler+%232)&#39;,t:&#39;0&#39;)),k:34.11165183754265,l:&#39;4&#39;,n:&#39;0&#39;,o:&#39;&#39;,s:0,t:&#39;0&#39;)),l:&#39;2&#39;,n:&#39;0&#39;,o:&#39;&#39;,t:&#39;0&#39;)),version:4&#34;&gt;ici&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Bon, c&amp;rsquo;est bien joli, mais on peut faire la même avec seulement 2 prototypes et gagner une optimisation sur la &lt;a href=&#34;http://en.cppreference.com/w/cpp/language/copy_elision&#34;&gt;copy-elision&lt;/a&gt; qui n&amp;rsquo;est pas faite par gcc. Le sagouin, il utilise un constructeur de déplacement !&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// commutativité: x+y = y+x
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.&lt;/p&gt;
-
-&lt;p&gt;Ainsi, si dans l&amp;rsquo;expresssion &lt;code&gt;a + b&lt;/code&gt;, &lt;code&gt;b&lt;/code&gt; une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un &lt;code&gt;std::cout &amp;lt;&amp;lt; __PRETTY_FUNCTION__ &amp;lt;&amp;lt; &#39;\n&#39;&lt;/code&gt; dans les implémentations et le test qui suit.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Matrix &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;const&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;     &amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; a; &amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Matrix &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;const&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;     &amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; b;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-
-  &lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;cp&#34;&gt;#define C(a,b) std::cout &amp;lt;&amp;lt; std::setw(13) &amp;lt;&amp;lt; #a &amp;lt;&amp;lt; &amp;#34;+ &amp;#34; &amp;lt;&amp;lt; std::setw(15) &amp;lt;&amp;lt; #b; a+b
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;            &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;            &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
-  &lt;span class=&#34;cp&#34;&gt;#undef C
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;       &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;       &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Résultat:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Matrix       a; Matrix       b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-a            + std::move(b)   Matrix operator+(const Matrix&amp;amp;, Matrix&amp;amp;&amp;amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-std::move(a) + std::move(b)   Matrix operator+(const Matrix&amp;amp;, Matrix&amp;amp;&amp;amp;)
-
-
-Matrix       a; Matrix const b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
-
-
-Matrix const a; Matrix       b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-a            + std::move(b)   Matrix operator+(const Matrix&amp;amp;, Matrix&amp;amp;&amp;amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-std::move(a) + std::move(b)   Matrix operator+(const Matrix&amp;amp;, Matrix&amp;amp;&amp;amp;)
-
-
-Matrix const a; Matrix const b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Si on y tient vraiment, on peut ajouter &lt;code&gt;Matrix operator+(Matrix&amp;amp;&amp;amp;, Matrix&amp;amp;&amp;amp;)&lt;/code&gt;. Mais comme dit précédemment le besoin est très faible.&lt;/p&gt;
-
-&lt;p&gt;Toutefois, un défaut existe en utilisant que 2 fonctions: il n&amp;rsquo;est pas possible de marquer &lt;code&gt;noexcept&lt;/code&gt; le prototype qui correspond à &lt;code&gt;std::move(a)+b&lt;/code&gt; (qui réutilise &lt;code&gt;a&lt;/code&gt;), car c&amp;rsquo;est le même qui est utilisé pour &lt;code&gt;a+b&lt;/code&gt; qui fait une copie de &lt;code&gt;a&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Dans le cas d&amp;rsquo;opérateurs non-commutatifs, cette multiplication de fonction n&amp;rsquo;a pas lieu d&amp;rsquo;être. Il est largement préférable de ne faire qu&amp;rsquo;un opérateur prenant &lt;code&gt;lhs&lt;/code&gt; par copie. On bénéficie ainsi aussi bien de la copy-elision que de la RVO.&lt;/p&gt;
-
-&lt;h2 id=&#34;un-prototype-multi-fonction&#34;&gt;Un prototype multi-fonction&lt;/h2&gt;
-
-&lt;p&gt;Une autre solution pour la surcharge d&amp;rsquo;opérateur est de ne faire qu&amp;rsquo;un seul et unique prototype template qui s&amp;rsquo;active en présence d&amp;rsquo;un certain type. Ce n&amp;rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.&lt;/p&gt;
-
-&lt;p&gt;Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de &lt;code&gt;std::enable_if&lt;/code&gt;. Ce qui donne:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;MatrixLhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;MatrixRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;enable_if_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_same&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MatrixLhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_same&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MatrixRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MatrixLhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MatrixRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Dans la réalité, l&amp;rsquo;addition d&amp;rsquo;une matrice fonctionne aussi sur des entiers (cf: &lt;code&gt;int + Matrix&lt;/code&gt;, &lt;code&gt;Matrix + int&lt;/code&gt;). Le filtre sera alors beaucoup plus compliqué puisqu&amp;rsquo;il faut qu&amp;rsquo;au moins une des opérandes soit un type &lt;code&gt;Matrix&lt;/code&gt; et que les paramètres soient des types compatibles (en prenant en compte la préscence des références et des &lt;code&gt;const&lt;/code&gt;). La condition devient alors quelque chose comme:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;is_matrix_operand&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;is_matrix_operand&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;is_matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Il devient alors très facile d&amp;rsquo;ajouter un nouveau type à prendre en compte, comme par exemple un contenaire de la SL, un tableau C, un autre type matriciel d&amp;rsquo;une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.&lt;/p&gt;
-
-&lt;p&gt;Il est également envisageable de faire des prototypes par catégorie de variable: Sequence et Matrix, Integer et Matrix.&lt;/p&gt;
-
-&lt;p&gt;Revenons-en à notre &lt;code&gt;operator+&lt;/code&gt; et son implémentation. Celle-ci va être plus compliqué car elle doit être équivalente aux 4 implémentations du début ; sachant que la première possède une variable et les opérandes sont inversés dans la troisième et la quatrième.&lt;/p&gt;
-
-&lt;p&gt;Une solution possible est de mettre 2 valeurs intermédiaires qui représentent l&amp;rsquo;opérande de gauche et l&amp;rsquo;opérande de droite et dont le type s&amp;rsquo;adapte en fonction des types en entrée.&lt;/p&gt;
-
-&lt;p&gt;Ci-dessous un tableau récapitulatif des types et valeurs de nos 2 nouvelles variables &lt;code&gt;Lhs&lt;/code&gt; et &lt;code&gt;Rhs&lt;/code&gt;. Les &lt;code&gt;const&lt;/code&gt; sont supprimés car seule la référence importe.&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Prototype&lt;/th&gt;
-&lt;th&gt;NewLhs&lt;/th&gt;
-&lt;th&gt;NewRhs&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&lt;/code&gt;, &lt;code&gt;M &amp;amp;&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M&lt;/code&gt; = lhs&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&lt;/code&gt; = rhs&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt;, &lt;code&gt;M &amp;amp;&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt; = lhs&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&lt;/code&gt; = rhs&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&lt;/code&gt;, &lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt; = rhs&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&lt;/code&gt; = lhs&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt;, &lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt; = rhs&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt; = lhs&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Et l&amp;rsquo;implémentation:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rvalue_wrapper&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-
-  &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;noexcept&lt;/span&gt;
-  &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;static_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rvalue_wrapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;noexcept&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;noexcept&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;forward&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;NewLhs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;conditional_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_lvalue_reference&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_lvalue_reference&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;rvalue_wrapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-
-  &lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;NewRhs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;conditional_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_lvalue_reference&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_lvalue_reference&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-
-  &lt;span class=&#34;k&#34;&gt;constexpr&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;swap_arg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_lvalue_reference&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-
-  &lt;span class=&#34;n&#34;&gt;NewLhs&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;new_lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;swap_arg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;rhs&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)};&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;NewRhs&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;new_rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;static_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NewRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;swap_arg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;lhs&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))};&lt;/span&gt;
-
-  &lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new_lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;static_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NewRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new_rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;new_lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Le code mérite quelques explications. Pour commencer, parlons de &lt;code&gt;rvalue_reference&lt;/code&gt; qui est un palliatif pour une optimisation au niveau de &lt;code&gt;return&lt;/code&gt;. Au niveau du retour, si &lt;code&gt;NewLhs&lt;/code&gt; est une rvalue, il faut utiliser &lt;code&gt;std::move&lt;/code&gt;, sauf que l&amp;rsquo;utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un &lt;code&gt;if (std::is_rvalue_reference&amp;lt;NewLhs&amp;gt;{}) return std::move(lhs);&lt;/code&gt; avant &lt;code&gt;return new_lhs&lt;/code&gt; l&amp;rsquo;optimisation n&amp;rsquo;est pas faite. Cela fonctionne néanmoins avec &lt;code&gt;if constexpr&lt;/code&gt; de c++17. Le but de &lt;code&gt;rvalue_reference&lt;/code&gt;  est finalement de rendre automatique un retour par rvalue grâce à l&amp;rsquo;opérateur de cast interne.&lt;/p&gt;
-
-&lt;p&gt;Concernant ce curieux enchaînement de cast, celui-ci s&amp;rsquo;explique par la difficulté de contrôler le type retourner par une ternaire. Une ternaire sur deux variables de même type va retourner une référence (une variable est toujours une lvalue). La référence sera considérée constante si une des deux valeurs est une référence constante. Du coup, on vire le const pour ensuite construire les types &lt;code&gt;NewLhs&lt;/code&gt; et &lt;code&gt;NewRhs&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Ici, le constructeur de la matrice (quand &lt;code&gt;NewLhs = Matrix&lt;/code&gt;) va recevoir un type non const. À moins qu&amp;rsquo;un constructeur existe pour les références non const, cela ne cause pas de problème. On peut très bien ajouter un &lt;code&gt;std::conditional&lt;/code&gt; pour forcer le const.&lt;/p&gt;
-
-&lt;p&gt;En première impression &lt;code&gt;static_cast&amp;lt;NewRhs&amp;gt;&lt;/code&gt; pourrait être optionnel, mais celui-ci permet de forcer la rvalue pour construire NewRhs. Une lvalue (le retour de &lt;code&gt;const_cast&amp;lt;Matrix&amp;amp;&amp;gt;&lt;/code&gt;) ne pouvant être affectée à une rvalue sans cela.&lt;/p&gt;
-
-&lt;p&gt;Les casts présents fonctionnent bien parce que &lt;code&gt;lhs&lt;/code&gt; et &lt;code&gt;rhs&lt;/code&gt; sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font &lt;code&gt;falcon::cif&lt;/code&gt; ou &lt;code&gt;boost::hana::if_&lt;/code&gt;. Plusieurs de mes articles en parlent.&lt;/p&gt;
-
-&lt;h2 id=&#34;n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp&#34;&gt;N&amp;rsquo;écrivez pas operator+ vous-même, c&amp;rsquo;est trop compliqué&amp;nbsp;!&lt;/h2&gt;
-
-&lt;p&gt;Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est allourdi, la lisibilité réduite. Il y a moyen d&amp;rsquo;implémenter la plupart des opérateurs en quelques lignes pour le même résultat.&lt;/p&gt;
-
-&lt;p&gt;De plus, l&amp;rsquo;implémentation des opérateurs peuvent varier. Par exemple, pas de commutativité. Ses variantes sont difficiles à détecter dans une grande masse de code, il devient facile de faire une erreur aussi bien à l&amp;rsquo;écriture qu&amp;rsquo;à la lecture.&lt;/p&gt;
-
-&lt;p&gt;Autre point, les types des opérandes peuvent être nombreux, faire tous les prototypes necessaires vous vaudra des heures de souffrances :).&lt;/p&gt;
-
-&lt;p&gt;Du coup, comment faire ? Une solution facile est d&amp;rsquo;utiliser une macro pour implémenter les opérateurs voulus. C&amp;rsquo;est simple et rapide, mais l&amp;rsquo;utiliser avec des types template est un peu délicat. Cela reste néanmoins la solution la plus simple.&lt;/p&gt;
-
-&lt;p&gt;Une autre manière passe par du CRTP pour que la classe de base implémente les opérateurs voulus sous forme de fonction amie. C&amp;rsquo;est la solution de &lt;a href=&#34;http://www.boost.org/doc/libs/1_64_0/libs/utility/operators.htm&#34;&gt;boost/operators.hpp&lt;/a&gt;. Malheureusement, elle ne prend pas en compte les optimisations possibles sur les rvalues écrits dans cet article. Il faut la ré-écrire.&lt;/p&gt;
-
-&lt;p&gt;La dernière solution consiste à se servir des traits pour activer ou non certains prototypes comme dans le chapitre précédent. Une mise en oeuvre poussée peut être extrêmement extensible et s&amp;rsquo;adapte très facilement aux catégories de valeur (séquence, intégrale), mais c&amp;rsquo;est un poil complexe à mettre en place. Je ne connais pas de bibliothèque qui le fasse.&lt;/p&gt;
-
-&lt;p&gt;Au final, il n&amp;rsquo;existe actuellement pas d&amp;rsquo;outil satisfaisant pour générer les opérateurs alors qu&amp;rsquo;il est presque aussi rapide d&amp;rsquo;écrire une lib ou des macros pour le faire. Le temps perdu sera largement compensé par le nombre d&amp;rsquo;opérateurs à implémenter par la suite. Avec un peu de jugeote, il est même possible de mutualiser l&amp;rsquo;écriture des opérateurs &lt;code&gt;@=&lt;/code&gt;. Pensez-y la prochaine fois qu&amp;rsquo;il faudra écrire des opérateurs ;).&lt;/p&gt;
-</description>
+      <description>Je vais me baser sur un classique: une classe de matrice contenant un std::vector&amp;lt;int&amp;gt; . Cette classe va implémenter 2 opérateurs mathématiques: +  et += . Le premier en fonction libre, le second en fonction membre.
+Pour rigoler un peu, on ajoute une petite contrainte qui est &amp;laquo;&amp;nbsp;l&amp;rsquo;efficacité&amp;nbsp;&amp;raquo;. Petit mot qui englobe un peu tout et n&amp;rsquo;importe quoi tel que la performance en mémoire et en temps.
+À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc.</description>
+    </item>
+    
+    <item>
+      <title>Comment se passer de std::forward</title>
+      <link>https://jonathanpoelen.github.io/2016/04/comment-se-passer-de-stdforward/</link>
+      <pubDate>Mon, 04 Apr 2016 23:09:41 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2016/04/comment-se-passer-de-stdforward/</guid>
+      <description>Actuellement en pleine écriture d&amp;rsquo;une fonction match (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de std::forward utilisée à chaque appel de fonction. J&amp;rsquo;en compte 21 pour un total de 6 niveaux d&amp;rsquo;imbrications. Autant dire qu&amp;rsquo;oublier de le mettre est plutôt facile.
+C&amp;rsquo;est d&amp;rsquo;ailleurs la raison de ce billet, puisque bien sûr, j&amp;rsquo;en ai oubliés.
+Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence.</description>
+    </item>
+    
+    <item>
+      <title>if constexpr avant C&#43;&#43;17</title>
+      <link>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-c--17/</link>
+      <pubDate>Mon, 21 Sep 2015 00:33:38 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-c--17/</guid>
+      <description>Le but de if constexpr  est d&amp;rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&amp;rsquo;a pas l&amp;rsquo;obligation de pouvoir être compilé.
+Plutôt étrange, n&amp;rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.
+Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières:
+ foncteur + paramètres fonction membre + objet + paramètres fonction membre + pointeur d&amp;rsquo;objet + paramètres  // x et y sont des std::string invoke(std::equal_to&amp;lt;&amp;gt;{}, x, y); // foncteur invoke(&amp;amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;amp;std::string::size, &amp;amp;x, y); // fonction membre et pointeur  En C++17, tout peut se faire en une seule fonction, alors qu&amp;rsquo;avant C++17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if.</description>
+    </item>
+    
+    <item>
+      <title>Paramètres de fonction nommés en C&#43;&#43;</title>
+      <link>https://jonathanpoelen.github.io/2015/07/param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c--/</link>
+      <pubDate>Tue, 28 Jul 2015 00:43:22 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2015/07/param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c--/</guid>
+      <description>Cet article est la démonstration de l&amp;rsquo;article précédent. La problématique présentée est la suivante: &amp;laquo;&amp;nbsp;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&amp;nbsp;&amp;raquo;
+La fonction de référence sera la suivante:
+void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, char border_bottom = &amp;#39;-&amp;#39; , char border_left = &amp;#39;&amp;lt;&amp;#39;, char border_right = &amp;#39;&amp;gt;&amp;#39; , char fill = &amp;#39;#&amp;#39; ) { std::cout &amp;lt;&amp;lt; std::setfill(border_top) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; while (h--) { std::cout &amp;lt;&amp;lt; border_left &amp;lt;&amp;lt; std::setfill(fill) &amp;lt;&amp;lt; std::setw(w) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; border_right &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } std::cout &amp;lt;&amp;lt; std::setfill(border_bottom) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; }  Comment faire un appel proche de draw_rect(4,3, fill=&amp;#39;@&amp;#39;)  ?</description>
+    </item>
+    
+    <item>
+      <title>Implémentation d&#39;un magasin de type</title>
+      <link>https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/</link>
+      <pubDate>Thu, 02 Jul 2015 01:49:41 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/</guid>
+      <description>Ce que j&amp;rsquo;appelle ici un magasin de type n&amp;rsquo;est autre qu&amp;rsquo;un std::tuple où les types ne sont présents qu&amp;rsquo;une seule fois. Une espèce de set version tuple en somme.
+Je me suis servi de ce type de structure à 2 reprises.
+Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&amp;rsquo;étais en C++11 et que dans cette norme std::get&amp;lt;Type&amp;gt;() n&amp;rsquo;existe pas.</description>
+    </item>
+    
+    <item>
+      <title>Appel conditionnel de fonction selon la validité d&#39;une expression</title>
+      <link>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validit%C3%A9-dune-expression/</link>
+      <pubDate>Sun, 30 Nov 2014 19:17:52 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validit%C3%A9-dune-expression/</guid>
+      <description>L&amp;rsquo;approche suivante consiste à vérifier qu&amp;rsquo;une fonction (membre ou statique) est appelable dans le but de l&amp;rsquo;utiliser, ou, à défaut, fournir implémentation générique. De manière plus générale, la méthode présentée ici s&amp;rsquo;applique à toutes expressions.
+Appeler T::sort si possible, sinon std::sort(begin(T), end(T)) L&amp;rsquo;exemple va se faire sur la classe std::list qui n&amp;rsquo;est pas triable avec std::sort, mais possède une fonction membre sort(). Ainsi que sur std::vector qui, inversement, n&amp;rsquo;a pas de fonction membre sort(), mais fonctionne avec std::sort.</description>
+    </item>
+    
+    <item>
+      <title>Réduire l&#39;empreinte mémoire d&#39;une agglomération de types</title>
+      <link>https://jonathanpoelen.github.io/2014/06/r%C3%A9duire-lempreinte-m%C3%A9moire-dune-agglom%C3%A9ration-de-types/</link>
+      <pubDate>Sat, 28 Jun 2014 14:10:11 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2014/06/r%C3%A9duire-lempreinte-m%C3%A9moire-dune-agglom%C3%A9ration-de-types/</guid>
+      <description>Un petit article pour parler d&amp;rsquo;optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par std::unique_ptr.
+Implémentation naïve de std::unique_ptr Pour rappel, std::unique_ptr prend 2 paramètres template: T et Deleter (qui par défaut égal std::default_delete&amp;lt;T&amp;gt;).
+Naïvement, l&amp;rsquo;implémentation serait:
+template&amp;lt;T, Deleter = std::default_delete&amp;lt;T&amp;gt;&amp;gt; class my_unique_ptr { T* m_pointer; Deleter m_deleter; // … };  Rien d&amp;rsquo;extraordinaire.
+Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 octet.</description>
+    </item>
+    
+    <item>
+      <title>Valeur, référence ou pointeur ? (2/2)</title>
+      <link>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/</link>
+      <pubDate>Sat, 31 May 2014 21:18:10 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/</guid>
+      <description>Dans le précédent billet, j&amp;rsquo;opposai les paramètres par références constantes à ceux par valeurs.
+Sans plus attendre entamons la seconde question.
+Référence ou pointeur ? Si je dois faire court je dirai: pointeur jamais ; référence quand possible. Sans autre forme de procès :D
+Mais on me dit dans l&amp;rsquo;oreillette qu&amp;rsquo;il faut argumenter&amp;hellip; Alors c&amp;rsquo;est parti.
+Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.</description>
+    </item>
+    
+    <item>
+      <title>Valeur, référence ou pointeur ? (1/2)</title>
+      <link>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/</link>
+      <pubDate>Thu, 22 May 2014 09:51:53 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/</guid>
+      <description>Quand utiliser une variable par valeur, référence ou pointeur ?
+ Telle fut la question qui m&amp;rsquo;a été posée :p.
+Comme je ne suis pas entièrement satisfait de la réponse que j&amp;rsquo;ai donné, je fais un article. Pour tout dire, la réponse n&amp;rsquo;est pas aussi triviale que l&amp;rsquo;on pourrait le croire depuis l&amp;rsquo;arrivée du C++11 et la sémantique de déplacement.
+Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:</description>
+    </item>
+    
+    <item>
+      <title>Parcourir les arguments d&#39;une fonction variadique</title>
+      <link>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</link>
+      <pubDate>Sun, 22 Dec 2013 10:03:06 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</guid>
+      <description>À l&amp;rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
+Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.
+Quelque chose dans ce goût-là:
+#include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;class T, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;... others) { std::cout &amp;lt;&amp;lt; first &amp;lt;&amp;lt; &amp;#39;\n&amp;#39;; f1(others...); } template&amp;lt;class T&amp;gt; void f2(const T&amp;amp; first) { std::cout &amp;lt;&amp;lt; first &amp;lt;&amp;lt; &amp;#39;\n&amp;#39;; } template&amp;lt;class T, class.</description>
+    </item>
+    
+    <item>
+      <title>Tableau dans un std::vector</title>
+      <link>https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/</link>
+      <pubDate>Wed, 18 Sep 2013 20:09:51 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/</guid>
+      <description>Prenons le type suivant: std::vector&amp;lt;int[4]&amp;gt; . Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&amp;rsquo;est vrai !
+Ajoutons maintenant un élément à notre vector avec push_back.
+std::vector&amp;lt;int[2]&amp;gt; v; int a[2]{}; v.push_back(a);  Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&amp;rsquo;a ni constructeur ni destructeur.
+La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau.</description>
+    </item>
+    
+    <item>
+      <title>Utilisation de swap et des fonctions utilitaires en général</title>
+      <link>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral/</link>
+      <pubDate>Sat, 20 Jul 2013 11:18:49 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral/</guid>
+      <description>Une fonction utilitaire est une fonction libre qui n&amp;rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
+Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilitaire qui me vient à l&amp;rsquo;esprit en C++03 est std::swap (fonction qui échange le contenu de 2 variables). Pour info, l&amp;rsquo;en-tête de std::swap est passé de &amp;lt;algorithm&amp;gt; en C++03 à &amp;lt;utility&amp;gt; en C++11.</description>
+    </item>
+    
+    <item>
+      <title>Référence constante sur référence</title>
+      <link>https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/</link>
+      <pubDate>Mon, 13 May 2013 03:18:42 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/</guid>
+      <description>Une petite note sur les références et le qualificatif const  en commençant par un exemple :).
+using reference = int&amp;amp;; int i = 0; reference const r = i; r = 3;  Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de r. En fait, ajouter const  sur une référence ne fait rien car cela ne s&amp;rsquo;applique pas sur le référé qui reste un int&amp;amp; .</description>
+    </item>
+    
+    <item>
+      <title>Placement new, allocateur et conteneur</title>
+      <link>https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/</link>
+      <pubDate>Mon, 22 Apr 2013 22:17:22 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/</guid>
+      <description>new  est généralement utilisé pour allouer un bloc mémoire et &amp;ndash; où il diffère de malloc(), &amp;ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.
+Mais new  fait une troisième chose: il lance une exception std::bad_alloc si l&amp;rsquo;espace mémoire est insuffisant.
+Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&amp;rsquo;en-tête &amp;lt;new&amp;gt; un type (std::nothrow_t) et une variable (std::nothrow) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</description>
+    </item>
+    
+    <item>
+      <title>Ne pas empêcher la NRVO</title>
+      <link>https://jonathanpoelen.github.io/2013/03/ne-pas-emp%C3%AAcher-la-nrvo/</link>
+      <pubDate>Sun, 17 Mar 2013 17:12:57 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/03/ne-pas-emp%C3%AAcher-la-nrvo/</guid>
+      <description>La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la FAQ C++ developpez.com.
+Cependant, ces optimisations ne s&amp;rsquo;appliquent que sur une variable de type T sans référence. Ce qui veut dire qu&amp;rsquo;une référence ne sera pas optimisée.
+iterator operator+(const iterator&amp;amp; other, int n) { return iterator(other) += n; // pas de RVO }  Alors qu&amp;rsquo;une décomposition de la fonction active la NRVO.</description>
+    </item>
+    
+    <item>
+      <title>Taguer vos classes, cataloguées-les</title>
+      <link>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-catalogu%C3%A9es-les/</link>
+      <pubDate>Thu, 20 Dec 2012 01:22:50 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-catalogu%C3%A9es-les/</guid>
+      <description>Le C++ a l&amp;rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &amp;laquo;&amp;nbsp;tags&amp;nbsp;&amp;raquo;.
+Comme exemple je vais utiliser les tags présents dans les itérateurs de la stl et une implémentation de la fonction std::advance().
+Première implémentation La fonction std::advance() permet d&amp;rsquo;incrémenter un itérateur de N éléments (ou décrémenter si N est négatif). D&amp;rsquo;après cette description, un premier algorithme peut être émis:</description>
+    </item>
+    
+    <item>
+      <title>La récursivité et le mauvais exemple de Fibonacci</title>
+      <link>https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/</link>
+      <pubDate>Thu, 16 Aug 2012 02:22:24 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/</guid>
+      <description>Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:
+ Coder la suite de Fibonacci en récursive et en itérative.
+ Mais partout où j&amp;rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&amp;rsquo;on peut trouver.
+//itérative long long fib(unsigned n) { if (n == 0) return n; long long a = 0, b = 1, tmp; while (--n) { tmp = a + b; a = b; b = tmp; } return b; } // récursive long long fib_r(unsigned n) { if (0 == n || 1 == n) return n; return fib_r(n-1) + fib_r(n-2); } Sauf que cet algorithme récursif est pourri.</description>
     </item>
     
   </channel>

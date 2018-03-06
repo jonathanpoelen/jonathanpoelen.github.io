@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sqlite on Jonathan Poelen</title>
+    <link>https://jonathanpoelen.github.io/categories/sqlite/</link>
+    <description>Recent content in Sqlite on Jonathan Poelen</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-FR</language>
+    <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
+    <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
+    <lastBuildDate>Mon, 04 Mar 2013 23:36:14 +0100</lastBuildDate>
+    
+	<atom:link href="https://jonathanpoelen.github.io/categories/sqlite/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sqlite, reconstruire la bdd pour l&#39;alléger</title>
+      <link>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lall%C3%A9ger/</link>
+      <pubDate>Mon, 04 Mar 2013 23:36:14 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lall%C3%A9ger/</guid>
+      <description>Il existe sur les bases de données SQLite une commande pour réduire la fragmentation des tables et optimiser l&amp;rsquo;espace disque. J&amp;rsquo;ai nommé: VACUUM.
+Cette commande reconstruit la bdd pour éliminer les lignes vides et réorganise les index (plus de détails dans la doc en lien).
+Comme certains logiciels se servent de sqlite comme BDD, il peut être intéressant d&amp;rsquo;utiliser cette commande de temps en temps. La première fois que je l&amp;rsquo;ai fait pour firefox (fichier ~/.</description>
+    </item>
+    
+  </channel>
+</rss>

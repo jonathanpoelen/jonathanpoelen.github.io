@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bash on Le blog de Jonathan Poelen</title>
+    <link>https://jonathanpoelen.github.io/tags/bash/</link>
+    
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-FR</language>
+    <lastBuildDate>Mon, 11 Jun 2012 10:11:50 +0100</lastBuildDate>
+    <atom:link href="/tags/bash/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Sed tout puissant</title>
+      <link>https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/</link>
+      <pubDate>Mon, 11 Jun 2012 10:11:50 +0100</pubDate>
+      
+      <guid>https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/</guid>
+      <description>&lt;p&gt;Il y 3 semaines environ je cherchais le moyen d&amp;rsquo;utiliser la commande sed avec une regex sur plusieurs lignes. En fait je voulais transformer tous les /+\n\s+&amp;laquo;&amp;nbsp;&amp;nbsp;&amp;raquo;/ en rien du tout (oui, les supprimer…). Sauf que comme tel, ça ne fonctionne pas, sed comme beaucoup de commandes unix fonctionne par ligne. Après de lourdes et pompeuses recherches d&amp;rsquo;au moins 7 secondes montre en main, je suis tombé sur la solution.&lt;/p&gt;
+
+&lt;p&gt;Pour ce faire, il suffit d&amp;rsquo;un identifiant, un petit label, une information de multi-ligne au milieu et 3 autres bricoles ; rien que ça :D.
+Ce qui se traduit par:&lt;/p&gt;
+
+&lt;p&gt;sed -e :a -e N -e &amp;lsquo;$!ba&amp;rsquo; -e s&amp;rsquo;/+\n\s+&amp;laquo;&amp;nbsp;&amp;nbsp;&amp;raquo;//g&amp;rsquo;&lt;/p&gt;
+
+&lt;p&gt;Et en version courte:&lt;/p&gt;
+
+&lt;p&gt;sed &amp;lsquo;:a;N;$!ba;s/+\n\s+&amp;laquo;&amp;nbsp;&amp;nbsp;&amp;raquo;//g&amp;rsquo;&lt;/p&gt;
+
+&lt;p&gt;Je sais ce que vous vous demandez: pourquoi il n&amp;rsquo;y a pas -e dans la version courte ?
+Mais parce que c&amp;rsquo;est la version courte, évidemment !&lt;/p&gt;
+
+&lt;dl&gt;
+&lt;dt&gt;Sinon dans une moindre mesure.&lt;/dt&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;:a
+    pour créer un identifiant, mais il peut très bien se nommer bidule
+N
+    pour indiquer plusieurs lignes
+$!ba
+    combinaison pour indiquer plein de choses, la seule dont je suis sûr c&amp;rsquo;est que b demande un identifiant (ici &amp;lsquo;a&amp;rsquo;)…&lt;/p&gt;
+
+&lt;p&gt;N peut être utilisé tout seul mais à ce moment c&amp;rsquo;est comme si on découpait le fichier par nombres de lignes égales à celle de la regex et qu&amp;rsquo;on les traitait indépendamment. Résultat, il peut y avoir des trous.&lt;/p&gt;
+
+&lt;p&gt;$ cat t&lt;/p&gt;
+
+&lt;p&gt;titi
+titi
+toto
+titi
+titi&lt;/p&gt;
+
+&lt;p&gt;$ sed &amp;lsquo;:a;N;$!ba;s/titi\ntiti/tutu/g&amp;rsquo; t&lt;/p&gt;
+
+&lt;p&gt;tutu
+toto
+tutu&lt;/p&gt;
+
+&lt;p&gt;$ sed &amp;lsquo;N;s/titi\ntiti/tutu/g&amp;rsquo; t&lt;/p&gt;
+
+&lt;p&gt;tutu
+toto
+titi
+titi
+Et en bonus&lt;/p&gt;
+
+&lt;p&gt;sed 2,5s/e/U/g #remplace e par U à partir de la ligne 2 jusqu&amp;rsquo;à la 5.
+sed &amp;laquo;&amp;nbsp;/$debut/,/$fin/&amp;laquo;&amp;nbsp;s/A/a/g #depuis $debut jusqu&amp;rsquo;à $fin.
+sed &amp;laquo;&amp;nbsp;/$debut/,+5&amp;nbsp;&amp;raquo;s/A/a/g #depuis $debut et sur 5 ligne.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

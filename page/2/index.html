@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jonathan Poelen</title>
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Jonathan Poelen Feed" href="https://jonathanpoelen.github.io/index.xml">
+
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+
+<link rel="stylesheet" type="text/css" media="all" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous" />
+
+<link rel="alternate stylesheet" title="Night theme" href="/css/night.css">
+<link rel="shortcut icon" href="/favicon.ico" />
+
+</head>
+<body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+  <div id="avoidance-link">
+    <a class="evitement" href="#main-content" title="Aller au contenu">Aller au contenu</a>
+    <a class="evitement" href="#main-menu" title="Aller au menu">Aller au menu</a>
+  </div>
+  <div class="container container-outer">
+    <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+      <div class="container-inner">
+        <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+          <a class="logo__link" href="/" title="Jonathan Poelen" rel="home">
+            <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
+            <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
+          </a>
+        </div>
+        <nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <ul class="menu__list">
+    <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
+      <i class="fa fa-github" aria-hidden="true"></i> Github
+    </a></li>
+    <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
+      <i class="fa fa-archive" aria-hidden="true"></i> Archives</a>
+    </li>
+    <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
+      <i class="fa fa-rss" aria-hidden="true"></i> RSS</a>
+    </li>
+  </ul>
+</nav>
+
+
+      </div>
+    </header>
+    <div class="wrapper clearfix">
+
+
+<aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="widget-search widget">
+  <form class="widget-search__form" role="search" method="get" action="//google.com/search">
+    <label>
+      <span class="screen-reader-text">Search for:</span>
+      <input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+    </label>
+    <input class="widget-search__submit" type="submit" value="Search">
+    <input type="hidden" name="sitesearch" value="https://jonathanpoelen.github.io/" />
+  </form>
+</div>
+
+	
+<div class="widget-recent widget" id="main-menu">
+  <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></li>
+      
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">26 autres…</a></li>
+    </ul>
+  </div>
+</div>
+<div class="widget-recent widget">
+  <h4 class="widget__title"><i class="fa fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2015/09/if-constexpr-avant-c--17/">
+        <time datetime="2018-03-04T23:14:38">04/03/2018</time>
+        -- if constexpr avant C&#43;&#43;17
+      </a></li>
+
+    </ul>
+  </div>
+</div>
+
+	
+<div class="widget-categories widget">
+  <h4 class="widget__title"><i class="fa fa-folder-o" aria-hidden="true"></i> Categories</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (18)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/script-shell">Script-Shell (6)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilité-Web">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/accessibilit%c3%a9-web">Accessibilité-Web (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/make">Make (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/zsh">Zsh (1)</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+	
+	
+
+</aside>
+
+  <section class="main-content list content" role="main" id="main-content">
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="256-couleurs-et-plus-dans-la-console"><span>
+        <a href="#r%25C3%25A9duire-lempreinte-m%25C3%25A9moire-dune-agglom%25C3%25A9ration-de-types"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: Réduire l&#39;empreinte mémoire d&#39;une agglomération de types"></i></a>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: Valeur, référence ou pointeur ? (2/2)"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/">256 couleurs et plus dans la console</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#r%25C3%25A9duire-lempreinte-m%25C3%25A9moire-dune-agglom%25C3%25A9ration-de-types">Article suivant: Réduire l&#39;empreinte mémoire d&#39;une agglomération de types</a><br/>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2">Article précédent: Valeur, référence ou pointeur ? (2/2)</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2014-06-09T00:35:19">09 juin 2014
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/script-shell" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>script-shell</a>
+;
+
+
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
+  <a href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#e9e58638f018ab82631069e0fc453885-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 3 ans. Les informations y figurant peuvent être dépassées.</p>
+    
+
+<p>À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j&rsquo;ai récemment appris l&rsquo;existence de 256 couleurs dans la console en tombant sur <a href="http://dotshare.it/dots/100/">un screen</a> un peu trop coloré. Ce qui m&rsquo;a dirigé sur un <a href="https://github.com/trapd00r/LS_COLORS">dépôt contenant un $LS_COLORS</a> particulièrement fourni.</p>
+
+<p>En fait, il s&rsquo;avère qu&rsquo;en rajoutant extended dans la recherche &laquo;&nbsp;color shell&nbsp;&raquo; on puisse trouver <a href="http://misc.flogisoft.com/bash/tip_colors_and_formatting">quelque(s) ressource(s)</a>. J&rsquo;aurais bien voulu y penser la semaine dernière, ça m&rsquo;aurait évité de comprendre par tâtonnement&hellip;</p>
+
+<h2 id="utilisation">Utilisation</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s2">&#34;\e[</span><span class="si">${</span><span class="nv">FormatColor</span><span class="si">}</span><span class="s2">m&#34;</span></code></pre></div>
+<p>Le caractère <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\e</span></code></span> correspond à la touche Esc (échap). On peut aussi l&rsquo;écrire en hexadécimal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\x</span>1B</code></span> ou en octal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\0</span><span class="m">33</span></code></span>.</p>
+
+<p>Pour bash et <code>echo</code>, il faut utiliser l&rsquo;option <code>-e</code> pour interpréter les séquences backslashés.</p>
+
+<p><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">FormatColor</span><span class="si">}</span></code></span> correspond à un nombre représentant une couleur de texte, de fond ou un effet. Plusieurs formats peuvent être mis en les séparant par des <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="p">;</span></code></span> (point virgule). L&rsquo;ordre n&rsquo;a pas d&rsquo;importance.</p>
+
+<h2 id="8-couleurs">8 couleurs</h2>
+
+<p>C&rsquo;est le mode de couleur supporté par la majorité des terminaux. La valeur des couleurs peut également être configurée.</p>
+
+<table>
+<thead>
+<tr>
+<th>Couleur</th>
+<th>Texte</th>
+<th>Fond</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Noir</td>
+<td>30</td>
+<td>40</td>
+</tr>
+
+<tr>
+<td>Rouge</td>
+<td>31</td>
+<td>41</td>
+</tr>
+
+<tr>
+<td>Vert</td>
+<td>32</td>
+<td>42</td>
+</tr>
+
+<tr>
+<td>Jaune</td>
+<td>33</td>
+<td>43</td>
+</tr>
+
+<tr>
+<td>Bleu</td>
+<td>34</td>
+<td>44</td>
+</tr>
+
+<tr>
+<td>Magenta</td>
+<td>35</td>
+<td>45</td>
+</tr>
+
+<tr>
+<td>Cyan</td>
+<td>36</td>
+<td>46</td>
+</tr>
+
+<tr>
+<td>Gris clair</td>
+<td>37</td>
+<td>47</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="style-effet-de-texte">Style/effet de texte</h2>
+
+<p>L&rsquo;italique (3) n&rsquo;est pas répertorié dans le lien précédemment cité. Aussi, l&rsquo;effet sombre (ou dim) et mode caché ne fonctionnent pas partout. Il n&rsquo;existe pas de code 6.</p>
+
+<table>
+<thead>
+<tr>
+<th>Effet</th>
+<th>Code</th>
+<th>Code annulation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>normal</td>
+<td>0</td>
+<td></td>
+</tr>
+
+<tr>
+<td>gras</td>
+<td>1</td>
+<td>21</td>
+</tr>
+
+<tr>
+<td>sombre</td>
+<td>2</td>
+<td>22</td>
+</tr>
+
+<tr>
+<td>italique</td>
+<td>3</td>
+<td>23</td>
+</tr>
+
+<tr>
+<td>souligné</td>
+<td>4</td>
+<td>24</td>
+</tr>
+
+<tr>
+<td>clignotant</td>
+<td>5</td>
+<td>25</td>
+</tr>
+
+<tr>
+<td>inversé</td>
+<td>7</td>
+<td>27</td>
+</tr>
+
+<tr>
+<td>caché</td>
+<td>8</td>
+<td>28</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="16-couleurs">16 couleurs</h2>
+
+<p>Ce sont 8 couleurs supplémentaires accessibles pour certains terminaux.</p>
+
+<table>
+<thead>
+<tr>
+<th>Couleur</th>
+<th>Texte</th>
+<th>Fond</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Gris foncé</td>
+<td>90</td>
+<td>100</td>
+</tr>
+
+<tr>
+<td>Rouge clair</td>
+<td>91</td>
+<td>101</td>
+</tr>
+
+<tr>
+<td>Vert clair</td>
+<td>92</td>
+<td>102</td>
+</tr>
+
+<tr>
+<td>Jaune clair</td>
+<td>93</td>
+<td>103</td>
+</tr>
+
+<tr>
+<td>Bleu clair</td>
+<td>94</td>
+<td>104</td>
+</tr>
+
+<tr>
+<td>Magenta clair</td>
+<td>95</td>
+<td>105</td>
+</tr>
+
+<tr>
+<td>Cyan clair</td>
+<td>96</td>
+<td>106</td>
+</tr>
+
+<tr>
+<td>Blanc</td>
+<td>97</td>
+<td>107</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="88-et-256-couleurs">88 et 256 couleurs</h2>
+
+<p>C&rsquo;est un mode étendue, certains vieux terminaux limitent à 88 couleurs, mais la plupart en supportent 256. Il s&rsquo;utilise avec le triplet suivant:</p>
+
+<ul>
+<li>Texte: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="m">38</span><span class="p">;</span><span class="m">5</span><span class="p">;</span><span class="si">${</span><span class="nv">X</span><span class="si">}</span></code></span></li>
+<li>Fond: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="m">48</span><span class="p">;</span><span class="m">5</span><span class="p">;</span><span class="si">${</span><span class="nv">X</span><span class="si">}</span></code></span></li>
+</ul>
+
+<p>Dont <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">X</span><span class="si">}</span></code></span> est à remplacer par un nombre allant de 0 à 255 inclus.</p>
+
+<h2 id="truecolor">TrueColor</h2>
+
+<p>Il est possible d&rsquo;utiliser le classique RGB quand le terminal le permet. Beaucoup d&rsquo;interfaces consoles ne le prennent pas bien en charge ou ne le détectent pas. Pour la seconde catégorie, il faut généralement activer une option.</p>
+
+<ul>
+<li>Texte: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="m">38</span><span class="p">;</span><span class="m">2</span><span class="p">;</span><span class="si">${</span><span class="nv">r</span><span class="si">}${</span><span class="nv">g</span><span class="si">}${</span><span class="nv">b</span><span class="si">}</span></code></span></li>
+<li>Fond: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="m">48</span><span class="p">;</span><span class="m">2</span><span class="p">;</span><span class="si">${</span><span class="nv">r</span><span class="si">}${</span><span class="nv">g</span><span class="si">}${</span><span class="nv">b</span><span class="si">}</span></code></span></li>
+</ul>
+
+<p>Dont <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">r</span><span class="si">}</span></code></span>, <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">g</span><span class="si">}</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">b</span><span class="si">}</span></code></span> sont à remplacer par un nombre allant de 0 à 255 inclus.</p>
+
+<h2 id="notes-de-fin">Notes de fin</h2>
+
+<p>Outre le fait que TrueColor et les couleurs étendues ne fonctionnent pas partout, elles peuvent allègrement pourrir le rendu. Pour retrouver un rendu normal utiser <code>tput reset</code>.</p>
+
+<p>Le bout de code ci-dessous permet de visualiser une palette de 256 couleurs.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> m in <span class="m">38</span> <span class="m">48</span> <span class="p">;</span> <span class="k">do</span>
+  <span class="nv">n</span><span class="o">=</span><span class="m">0</span>
+  <span class="k">for</span> l in <span class="o">{</span><span class="m">0</span>..31<span class="o">}</span> <span class="p">;</span> <span class="k">do</span>
+    <span class="k">for</span> c in <span class="o">{</span><span class="m">0</span>..7<span class="o">}</span> <span class="p">;</span> <span class="k">do</span>
+      <span class="nb">echo</span> -ne <span class="s2">&#34;\033[</span><span class="nv">$m</span><span class="s2">;5;</span><span class="nv">$n</span><span class="s2">;1m</span><span class="nv">$n</span><span class="s2">\e[0m\t&#34;</span>
+      <span class="o">((</span>++n<span class="o">))</span>
+    <span class="k">done</span>
+    <span class="nb">echo</span>
+  <span class="k">done</span>
+<span class="k">done</span></code></pre></div>
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2014-06-09T00:35:19">09 juin 2014
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/script-shell" rel="category">script-shell</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="e9e58638f018ab82631069e0fc453885-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=256-couleurs-et-plus-dans-la-console&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2f256-couleurs-et-plus-dans-la-console%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2f256-couleurs-et-plus-dans-la-console%2f&amp;title=256-couleurs-et-plus-dans-la-console" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2f256-couleurs-et-plus-dans-la-console%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2f256-couleurs-et-plus-dans-la-console%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2f256-couleurs-et-plus-dans-la-console%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2f256-couleurs-et-plus-dans-la-console%2f&amp;name=256-couleurs-et-plus-dans-la-console" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2"><span>
+        <a href="#256-couleurs-et-plus-dans-la-console"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: 256 couleurs et plus dans la console"></i></a>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: Valeur, référence ou pointeur ? (1/2)"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/">Valeur, référence ou pointeur ? (2/2)</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#256-couleurs-et-plus-dans-la-console">Article suivant: 256 couleurs et plus dans la console</a><br/>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2">Article précédent: Valeur, référence ou pointeur ? (1/2)</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2014-05-31T21:18:10">31 mai 2014
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
+  <a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#10ed39526a7913e7e5ec22dcf3e6f161-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 3 ans. Les informations y figurant peuvent être dépassées.</p>
+    
+
+<p>Dans le <a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/">précédent billet</a>, j&rsquo;opposai les paramètres par références constantes à ceux par valeurs.</p>
+
+<p>Sans plus attendre entamons la seconde question.</p>
+
+<h2 id="référence-ou-pointeur">Référence ou pointeur ?</h2>
+
+<p>Si je dois faire court je dirai: pointeur jamais ; référence quand possible. Sans autre forme de procès :D</p>
+
+<p>Mais on me dit dans l&rsquo;oreillette qu&rsquo;il faut argumenter&hellip; Alors c&rsquo;est parti.</p>
+
+<p>Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.</p>
+
+<p>À contrario, les pointeurs peuvent changer la variable référencée ou ne pointer sur aucune variable (<a href="http://en.cppreference.com/w/cpp/types/nullptr_t">nullptr</a>.</p>
+
+<p>Une référence est l&rsquo;équivalent d&rsquo;un pointeur constant non-nul (avec une syntaxe d&rsquo;utilisation plus simple: pas besoin de déréférencer).
+De leurs restrictions, celles-ci ne peuvent pas toujours correspondre au besoin ; les pointeurs sont alors envisageables.</p>
+
+<p>De plus, les pointeurs sont beaucoup utilisés dans les constructions dynamiques (allocation dynamique) quand les classes sont à <a href="http://blog.emmanueldeloget.com/index.php?post/2011/11/18/Standard-C11-%3A-la-s%C3%A9mantique-de-d%C3%A9placement">sémantique d&rsquo;entités</a>. Principalement car ces dernières ne sont pas copiables et que l&rsquo;allocation dynamique permet de s&rsquo;affranchir de la portée (le scope) en se détachant de la pile.</p>
+
+<h2 id="le-pointeur-parle-trop">Le pointeur parle trop</h2>
+
+<p>L&rsquo;usage de pointeur (pointeur nu) est cependant à prendre avec des pincettes, voici 3 questions que soulève l&rsquo;usage d&rsquo;un pointeur:</p>
+
+<ul>
+<li>Dois-je contrôler la durée de vie du pointeur (le détruire) ? [oui, non]</li>
+<li>Est-ce un élément ou une séquence d&rsquo;élément ? [séquence, simple valeur, ça dépend]</li>
+<li>Le pointeur peut-il être nul ? [oui, non]</li>
+</ul>
+
+<p>Après un petit calcul combinatoire (2*3*2), il y a 12 réponses possibles. Le pire est de répondre: &laquo;&nbsp;ça dépend&nbsp;&raquo;. Si on l&rsquo;enlève, il reste quand même 8 possibilités.</p>
+
+<p>La sémantique du pointeur est, au final, très faible. Lui en ajouter devient alors capital.</p>
+
+<h2 id="plus-de-sémantique-pour-un-pointeur">Plus de sémantique pour un pointeur</h2>
+
+<p>Hélas, il n&rsquo;y a pas de réponse universelle, tout dépend des cas d&rsquo;usages. De plus certaines combinaisons son conceptuellement douteuses.
+Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène aux références mais idéologiquement une référence n&rsquo;est pas faite pour être détruite.</p>
+
+<p>On peut néanmoins sortir quelques règles:</p>
+
+<ul>
+<li>Si le pointeur n&rsquo;est pas nul et que l&rsquo;appelé ne gère pas la durée de vie: <code>std::reference_wrapper</code> qui permet de changer la référence utilisée.</li>
+<li>Si l&rsquo;appelé contrôle la durée de vie: pointeurs intelligents (<code>std::unique_ptr</code> en priorité, std::shared_ptr, &hellip;).</li>
+<li>Si le pointeur peut être nul et que l&rsquo;appelé ne gère pas la durée de vie alors un pointeur est &laquo;&nbsp;justifié&nbsp;&raquo;. En interne du moins, pour l&rsquo;extérieur un <code>non_owner_ptr</code> ou un <code>observer_ptr</code> sera plus parlant. Si le pointeur peut être invalidé pendant l&rsquo;exécution alors <code>std::weak_ptr</code> ou autres est à envisager.</li>
+<li>Tout ce qui est tableau est indiqué dans les signatures des objets wrapper (<code>unique_ptr&lt;T[]&gt;</code>) ou/et grâce à un attribut de taille. De plus, s&rsquo;il faut soit des tableaux, soit une valeur alors toujours préférer le type commun: tableau (les valeurs deviennent des tableaux de taille 1). Les tableaux dynamiques sont, quant à eux, plus faciles à utiliser avec <code>std::vector</code>.</li>
+</ul>
+
+<p>Au final, l&rsquo;usage de pointeur nu est très peu utilisé, voire pas du tout. De plus, leur mauvais usage avec l&rsquo;allocation dynamique amène des fuites mémoires principalement dues aux libérations manuelles. Dans un langage comme le C++, un code non exception safe <strong>va</strong> faire des fuites mémoires. De manière générale, la libération s&rsquo;applique sur toute forme de ressource: lock, fichier, etc.</p>
+
+<p>Pour éviter cela, les ressources doivent être attachées à la pile et la puissance du déterminisme de destruction permettra de les libérer convenablement. On parle aussi de <a href="http://fr.wikipedia.org/wiki/RAII">RAII</a>. Pour rappel, tout ce qui est sur la pile est détruit à la sortie du scope. La sémantique de déplacement permettra de changer de portée.</p>
+
+<p>Le wiki de Guillaume Belz en parle très bien: <a href="http://guillaume.belz.free.fr/doku.php?id=pourquoi_le_raii_est_fondamental_en_c">pourquoi le RAII est fondamental en C++ ?</a></p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2014-05-31T21:18:10">31 mai 2014
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="10ed39526a7913e7e5ec22dcf3e6f161-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2%2f&amp;title=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2%2f&amp;name=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2"><span>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: Valeur, référence ou pointeur ? (2/2)"></i></a>
+        <a href="#parcourir-les-arguments-dune-fonction-variadique"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: Parcourir les arguments d&#39;une fonction variadique"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/">Valeur, référence ou pointeur ? (1/2)</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2">Article suivant: Valeur, référence ou pointeur ? (2/2)</a><br/>
+        <a href="#parcourir-les-arguments-dune-fonction-variadique">Article précédent: Parcourir les arguments d&#39;une fonction variadique</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2014-05-22T09:51:53">22 mai 2014
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>8 minutes ;
+  <a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#cb482643e61989560b2b661ad7a5d670-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 3 ans. Les informations y figurant peuvent être dépassées.</p>
+    
+
+<blockquote>
+<p>Quand utiliser une variable par valeur, référence ou pointeur ?</p>
+</blockquote>
+
+<p>Telle fut la question qui m&rsquo;a été posée :p.</p>
+
+<p>Comme je ne suis pas entièrement satisfait de la réponse que j&rsquo;ai donné, je fais un article. Pour tout dire, la réponse n&rsquo;est pas aussi triviale que l&rsquo;on pourrait le croire depuis l&rsquo;arrivée du C++11 et la sémantique de déplacement.</p>
+
+<p>Tout d&rsquo;abord, décomposons cette question en 2 parties:</p>
+
+<ul>
+<li>Valeur ou référence constante ?</li>
+<li>Référence ou pointeur ?</li>
+</ul>
+
+<p>Je réponds ici à la première, la seconde fera l&rsquo;objet d&rsquo;un autre article.</p>
+
+<h2 id="valeur-ou-référence-constante">Valeur ou référence constante ?</h2>
+
+<p>Le choix se justifie en majorité par un besoin d&rsquo;optimisation. Une prise par valeur induit forcément une copie, cette dernière pouvant être extrêmement coûteuse. Par exemple, la copie d&rsquo;un <code>std::vector</code> ne se fait pas en un claquement de doigt, il y a tout un attirail derrière: allouer un espace mémoire et copier tous les éléments du vecteur précédent qui peuvent eux-mêmes faire des opérations complexes.</p>
+
+<p>À contrario, la référence constante est un alias vers une variable. Il n&rsquo;y a jamais de copie.</p>
+
+<p>J&rsquo;insiste bien sur référence <strong>constante</strong> car, pour être au plus proche de l&rsquo;effet d&rsquo;une copie, l&rsquo;objet d&rsquo;origine ne doit pas bouger. De plus, une instance constante ne peut appeler que des fonction membre constantes, ce qui assure une invariance (cf: const-correctness).</p>
+
+<p>Donc, référence constante pour les valeurs qui ne sont pas modifiés dans la fonction. Une règle dit: &laquo;&nbsp;tout ce qui est plus grand qu&rsquo;un pointeur pourrait être passé par référence constante&nbsp;&raquo;. Je préfère dire tous les types en référence constante sauf les <a href="http://en.cppreference.com/w/cpp/language/types">fondamentaux</a> (int, float, etc). Même si mettre une référence constante sur un <code>int</code> n&rsquo;est pas une erreur, je n&rsquo;adhère pas vraiment.</p>
+
+<p>Une seule exception cependant, quand le paramètre va de toute façon être copié localement dans la fonction pour être modifié. On pourrait croire que le résultat sera le même, mais c&rsquo;est être naïf.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">BigInt</span> <span class="p">{</span> <span class="err">…</span> <span class="p">};</span>
+<span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">BigInt</span> <span class="n">ret</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+  <span class="n">ret</span> <span class="o">+=</span> <span class="n">b</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Supposons que BigInt fasse de l&rsquo;allocation dynamique pour représenter les nombres. Avec ce code:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">BigInt</span> 
+<span class="nf">n1</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="p">;</span>
+<span class="n">BigInt</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">BigInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">n1</span><span class="p">;</span>
+</code></pre></div>
+<p>Il y a 3 allocations:</p>
+
+<ul>
+<li>n1</li>
+<li>BigInt(2)</li>
+<li>ret</li>
+</ul>
+
+<p>Alors que cette implémentation de <code>operator+</code> n&rsquo;en produit que 2.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">BigInt</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">a</span> <span class="o">+=</span> <span class="n">b</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Car il y a <a href="http://en.cppreference.com/w/cpp/language/copy_elision">copy elision</a> (c&rsquo;est le même principe que la RVO mais pour les paramètres). (Voir aussi <a href="http://cpp.developpez.com/actu/53711/Operateur-d-affectation-copie-implicite-ou-explicite/">ici et la réponse de Flob90</a>.</p>
+
+<h2 id="mais-ça-c-était-avant">Mais ça c&rsquo;était avant&hellip;</h2>
+
+<p>Maintenant qu&rsquo;il y a la <a href="http://h-deb.clg.qc.ca/Sujets/Divers--cplusplus/Mouvement.html">sémantique de déplacement</a>, les copies sont préférées quand une fonction recevant le paramètre va, quoi qu&rsquo;il arrive, le copier dans une variable membre. Premièrement parce que l&rsquo;utilisateur pourra faire un <code>std::move</code> de sa variable pour s&rsquo;en &laquo;&nbsp;débarrasser&nbsp;&raquo; car il n&rsquo;en a plus besoin. Deuxièmement parce que la fonction a besoin d&rsquo;une copie et le compilateur le fera pour nous.</p>
+
+<p>En comparaison avec une copie sur le <code>std::vector</code>, le move-constructor et le move-assignment sont extrêmement rapide: 3 affections de pointeur pour chaque vecteur.</p>
+
+<p>Par exemple avec cette base:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">using</span> <span class="n">vector_int_t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+  <span class="n">vector_int_t</span> <span class="n">c</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">A</span><span class="p">(</span><span class="n">vector_int_t</span> <span class="n">cont</span><span class="p">)</span>
+  <span class="o">:</span> <span class="n">c</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">cont</span><span class="p">))</span>
+  <span class="p">{}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Le code suivant fait 2 allocations (comme avec les références constantes)</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
+<span class="n">A</span> 
+<span class="nf">a</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+<span class="p">;</span>
+</code></pre></div>
+<p>Alors que celui-ci qu&rsquo;une seule</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
+<span class="n">A</span> 
+<span class="nf">a</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="p">;</span>
+<span class="c1">// c.size() == 0;
+</span><span class="c1"></span></code></pre></div>
+<p>Et ce dernier aussi</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="p">(</span><span class="n">vector_int_t</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">});</span>
+<span class="c1">// ou A({1 ,2});
+</span><span class="c1"></span></code></pre></div>
+<p>Mais si le type ne possède pas de constructeur de déplacement, celui de copie sera utilisé et alors une référence constante est probablement mieux.</p>
+
+<h2 id="quand-la-copie-se-fait-sous-condition">Quand la copie se fait sous condition</h2>
+
+<p>Il existe des paramètres pouvant être copiés, mais pas toujours. Dans ce cas, bien que la référence constante reste une bonne solution, une version prenant aussi une temporaire (rvalue ici) est probablement mieux. Mais si les types ne sont pas abstraits (comprendre full template) alors il faudra faire 2 versions: une avec rvalue et une avec constref. Ce qui se traduit, quand le code est un peu long, par l&rsquo;ajout d&rsquo;une fonction de prédicat ou une version template privée appelé par les 2 autres.</p>
+
+<p>Les <code>&amp;&amp;</code> sur les types full templates ont 2 états possibles: rvalue ou lvalue (<a href="http://en.cppreference.com/w/cpp/language/value_category">catégorie de valeurs</a>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">Foo</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">));</span> <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">String</span><span class="o">&gt;</span>
+  <span class="c1">// ici &amp;&amp; représente soit rvalue, soit une référence (constante)
+</span><span class="c1"></span>  <span class="kt">void</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">String</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// …
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">xyz</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// soit un move-assignment soit un copy-assignment
+</span><span class="c1"></span>      <span class="n">str</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Ou</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">Bar</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="n">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="n">str</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="n">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="n">str</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="kt">bool</span> <span class="n">check</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// …
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">xyz</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<h2 id="prise-d-objet-non-copiable-sous-condition">Prise d&rsquo;objet non-copiable sous condition</h2>
+
+<p>Par exemple, donner la propriété d&rsquo;un <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr">std::unique_ptr</a> à une classe selon certains prérequis décidés par une fonction. Contrainte supplémentaire, l&rsquo;objet n&rsquo;est pas copiable.</p>
+
+<ul>
+<li>Une référence constante n&rsquo;est pas envisageable, l&rsquo;objet ne pouvant pas être déplacé car constant.</li>
+<li>Une prise par valeur non plus (grâce à std::move), car la ressource serait systématiquement transmise à la fonction même si cette dernière ne la garde pas. L&rsquo;appelant est dans l&rsquo;incapacité de le savoir et perd la ressource.</li>
+<li>Une référence non-constante est possible, mais il ne sera alors pas possible d&rsquo;envoyer un temporaire. Il faudra obligatoirement passer par une variable intermédiaire ce qui est désagréable quand on ne va rien en faire.</li>
+<li>Reste la rvalue avec laquelle une temporaire fonctionne, mais il faudra automatiquement faire un std::move quand la variable est une référence. Cela a l&rsquo;avantage d&rsquo;informer l&rsquo;utilisateur sur l&rsquo;éventuel déplacement de ressource.</li>
+</ul>
+
+<p>Au final, bien qu&rsquo;une référence fonctionne, seule une rvalue est pratique à l&rsquo;usage. Seulement, aucunes de ces méthodes n&rsquo;indiquent une prise partielle, seule la documentation nous le dira. Ceci pourrait par contre être une convention d&rsquo;écriture: si une ressource non copiable est prise par rvalue, alors la fonction est libre de se l&rsquo;approprier quand certaines conditions internes sont remplies.</p>
+
+<h2 id="quand-les-opérations-ne-sont-pas-connues">Quand les opérations ne sont pas connues</h2>
+
+<p>Reste la dernière situation: les templates. Les règles sont les mêmes qu&rsquo;avant mais si le rôle du paramètre n&rsquo;est pas défini (comprendre la fonction ne fait rien d&rsquo;autre qu&rsquo;envoyer le paramètre à une autre fonction ou que le qualifier importe peu) les paramètres sont à prendre par référence universelle (<code>T&amp;&amp;</code> pour les template). À ce moment, toutes les utilisations de cette variable devraient se faire par l&rsquo;intermédiaire de <a href="http://en.cppreference.com/w/cpp/utility/forward">std::forward</a>, même lorsqu&rsquo;une fonction membre est utilisées (la faute au <a href="http://en.cppreference.com/w/cpp/language/member_functions#const-.2C_volatile-.2C_and_ref-qualified_member_functions">qualificateur de référence sur fonction membre</a>.</p>
+
+<p>Toutefois, attention de ne pas déléguer plusieurs fois la responsabilité et de ne faire std::forward (et std::move) que sur la dernière utilisation de la variable.</p>
+
+<p>Cependant, certains objets de par leur concept seront pris par valeur. Comme les itérateurs pour la bonne raison que leurs états changent dans l&rsquo;execution de la fonction. On peut toutefois prendre l&rsquo;itérateur de fin par référence constante s&rsquo;il n&rsquo;est pas modifié.</p>
+
+<h2 id="pas-de-référence-constante-pour-les-observers">Pas de référence constante pour les observers</h2>
+
+<p>Bien que cela sorte du cadre de la question d&rsquo;origine, il ne faut pas prendre par référence constante une valeur à observer.</p>
+
+<p>J&rsquo;entends par observer les variables qui sont gardées en lecture dans le but de vérifier leur état à un instant t.</p>
+
+<p>Les références constantes peuvent être des temporaires à leur construction (Jusque-là c&rsquo;est défini par la norme: prolongement de la durée de vie d&rsquo;une temporaire). Le problème vient du déplacement vers un scope parent. La valeur temporaire est détruite, mais la référence est gardée ; référence sur une valeur qui n&rsquo;existe plus. Cela débouche sur un comportement indéfini et, dans le meilleurs des cas, un segfault.</p>
+
+<p><a href="http://blog.developpez.com/gpu/?p=309">Un article qui présente une situation similaire avec une lambda retournant T à travers std::function&lt;const T&amp;&gt;.</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">struct</span> <span class="n">Validate</span>
+<span class="p">{</span>
+  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">;</span>
+  <span class="kt">void</span> 
+<span class="nf">display</span><span class="p">()</span>
+ <span class="k">const</span> 
+<span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">Validate</span> 
+<span class="nf">f</span><span class="p">()</span>
+
+<span class="p">{</span> <span class="k">return</span> <span class="p">{</span><span class="sa"></span><span class="s">&#34;plop&#34;</span><span class="p">};</span> <span class="p">}</span>
+
+<span class="kt">int</span> 
+<span class="nf">main</span><span class="p">()</span>
+
+<span class="p">{</span>
+  <span class="n">Validate</span> <span class="n">x</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span>
+  <span class="n">x</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>(Moi j&rsquo;ai un segfault)</p>
+
+<p>Pour limiter ce bug, il faut empêcher de prendre une rvalue. Soit avec les constucteurs suivants:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Validate</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="o">=</span><span class="k">delete</span><span class="p">;</span>
+<span class="n">Validate</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">s</span><span class="p">(</span><span class="n">s</span><span class="p">){}</span>
+</code></pre></div>
+<p>Soit en utilisant <a href="http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper">std::reference_wrapper</a> (et <a href="http://en.cppreference.com/w/cpp/utility/functional/ref">std::cref</a>).</p>
+
+<p>Ou, peut-être mieux, faire un objet <code>observable</code> tout pareil que <code>std::reference_wrapper</code>, mais avec constructeur explicite. L&rsquo;intérêt d&rsquo;utiliser l&rsquo;un des 2 objets cités et de focaliser l&rsquo;utilisateur sur l&rsquo;aspect &laquo;&nbsp;j&rsquo;ai besoin que cette variable vive au moins aussi longtemps que moi&nbsp;&raquo;.</p>
+
+<h2 id="résumé">Résumé</h2>
+
+<ul>
+<li>Valeur pour les types fondamentaux (int, double, etc), ceux modifiés sans que l&rsquo;utilisateur n&rsquo;ai besoin de le savoir (ex: itérateurs ou premier paramètre de l&rsquo;opérateur &lsquo;+&rsquo;) ou les foncteur sans états (prédicats, comparateurs, &hellip;).</li>
+<li>Valeur + std::move quand l&rsquo;objet peut être déplacé (possède un move-ctor ou/et move-assign non trivial (ex: std::string, std::vector, &hellip;).</li>
+<li>Valeur pour les ressources non copiables à transférer (std::unique_ptr, &hellip;).</li>
+<li>Référence constante pour les paramètres en lecture seule ou ne disposant pas de move-ctor ou/et move-assign non trivial.</li>
+<li>Référence constante et rvalue quand le paramètre <em>peut être</em> copié et possède un move-ctor/move-assign non trivial.</li>
+<li>Rvalue pour les ressources non copiables avec déplacement conditionnel (std::unique_ptr, &hellip;).</li>
+<li>Référence constante pour les types inconnus (template) qui n&rsquo;ont pas d&rsquo;intérêt à être pris par valeur (ou au pire, stratégie variable selon le résultat de std::is<em>trivially</em><em>/std::is<em>copy</em></em>/std::is<em>move</em>*).</li>
+<li>Rvalue pour les types inconnus (template) quand le paramètre n&rsquo;a pas de rôle direct dans la fonction ou que le qualificateur n&rsquo;importe pas (ne pas oublier std::forward pour le transmettre à une autre fonction (seulement s&rsquo;il n&rsquo;est plus utilisé ensuite)).</li>
+</ul>
+
+<p><a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/">Partie 2</a></p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2014-05-22T09:51:53">22 mai 2014
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="cb482643e61989560b2b661ad7a5d670-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f&amp;title=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f&amp;name=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="parcourir-les-arguments-dune-fonction-variadique"><span>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: Valeur, référence ou pointeur ? (1/2)"></i></a>
+        <a href="#tableau-dans-un-stdvector"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: Tableau dans un std::vector"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/">Parcourir les arguments d&#39;une fonction variadique</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2">Article suivant: Valeur, référence ou pointeur ? (1/2)</a><br/>
+        <a href="#tableau-dans-un-stdvector">Article précédent: Tableau dans un std::vector</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2013-12-22T10:03:06">22 décembre 2013
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#0881f74fb66a84dee026002282b8e65d-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
+    
+
+<p>À l&rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.</p>
+
+<h2 id="fonction-récursive">Fonction récursive</h2>
+
+<p>La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&rsquo;à plus d&rsquo;argument ou jusqu&rsquo;à un nombre défini, généralement 1.</p>
+
+<p>Quelque chose dans ce goût-là:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">void</span> 
+<span class="nf">f1</span><span class="p">()</span>
+
+<span class="p">{}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+  <span class="n">f1</span><span class="p">(</span><span class="n">others</span><span class="p">...);</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;, &#34;</span><span class="p">;</span>
+  <span class="n">f2</span><span class="p">(</span><span class="n">others</span><span class="p">...);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">f1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;plop&#34;</span><span class="p">);</span>
+  <span class="n">f2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;plop&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ce qui affiche:</p>
+
+<pre><code>2.4
+plop
+1, 2.4, plop
+</code></pre>
+
+<h2 id="sans-récursivité">Sans récursivité</h2>
+
+<p>Il existe cependant une autre façon de faire qui n&rsquo;utilise pas la récursivité. J&rsquo;ai découvert cette méthode sur le forum de openclassroms (<a href="http://fr.openclassrooms.com/forum/sujet/atelier-quiz-question-pour-un-champion-c?page=4">ce sujet, 10ème message</a>), elle est très astucieuse.</p>
+
+<p>Implémentée sous la forme d&rsquo;une macro cela donne:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#define UNPACK(...)                   \
+</span><span class="cp"></span>  <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="o">::</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{</span> \
+    <span class="p">(</span><span class="kt">void</span><span class="p">((</span><span class="n">__VA_ARGS__</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)...</span>       \
+  <span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Le premier <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span>
+</code></span> permet d&rsquo;ignorer l&rsquo;<code>initializer_list</code> créé.</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="p">(</span><span class="kt">void</span><span class="p">((</span><span class="n">__VA_ARGS__</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)...</span>
+</code></span> évalue l&rsquo;ensemble de l&rsquo;expression, ignore le résulat (grâce au <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span>
+</code></span>) et retourne un caractère dans l&rsquo;<code>initalizer_list</code>.</li>
+<li>Au final, l&rsquo;expression est dépaquetée et l&rsquo;<code>initializer_list</code> est rempli de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="mi">0</span>
+</code></span>.</li>
+</ul>
+
+<p>Avec cette macro les 2 fonctions précédentes deviennent:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;initializer_list&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="cp">#define UNPACK(...)                   \
+</span><span class="cp"></span>  <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="o">::</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{</span> \
+    <span class="p">(</span><span class="kt">void</span><span class="p">((</span><span class="n">__VA_ARGS__</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)...</span>       \
+  <span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">UNPACK</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span><span class="p">;</span>
+  <span class="n">UNPACK</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;, &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">others</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ce qui simplifie considérablement l&rsquo;écriture :).</p>
+
+<p>Évidemment, cette macro se trouve depuis dans falcon: <a href="https://github.com/jonathanpoelen/falcon/blob/master/falcon/c%2B%2B1x/unpack.hpp">CPP1X_UNPACK</a>.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2013-12-22T10:03:06">22 décembre 2013
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="0881f74fb66a84dee026002282b8e65d-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=parcourir-les-arguments-dune-fonction-variadique&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f12%2fparcourir-les-arguments-dune-fonction-variadique%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f12%2fparcourir-les-arguments-dune-fonction-variadique%2f&amp;title=parcourir-les-arguments-dune-fonction-variadique" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f12%2fparcourir-les-arguments-dune-fonction-variadique%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f12%2fparcourir-les-arguments-dune-fonction-variadique%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f12%2fparcourir-les-arguments-dune-fonction-variadique%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f12%2fparcourir-les-arguments-dune-fonction-variadique%2f&amp;name=parcourir-les-arguments-dune-fonction-variadique" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="tableau-dans-un-stdvector"><span>
+        <a href="#parcourir-les-arguments-dune-fonction-variadique"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: Parcourir les arguments d&#39;une fonction variadique"></i></a>
+        <a href="#utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: Utilisation de swap et des fonctions utilitaires en général"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/">Tableau dans un std::vector</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#parcourir-les-arguments-dune-fonction-variadique">Article suivant: Parcourir les arguments d&#39;une fonction variadique</a><br/>
+        <a href="#utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral">Article précédent: Utilisation de swap et des fonctions utilitaires en général</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2013-09-18T20:09:51">18 septembre 2013
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#e10801262ecfe2aed9405f7d36c4d734-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
+    <p>Prenons le type suivant: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">&gt;</span>
+</code></span>. Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&rsquo;est vrai !</p>
+
+<p>Ajoutons maintenant un élément à notre vector avec <code>push_back</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]{};</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</code></pre></div>
+<p>Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.</p>
+
+<p>La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau. Écrire ce wrapper n&rsquo;est pas très compliqué et Oh joie, Oh bonheur, il existe <a href="http://en.cppreference.com/w/cpp/container/array">std::array</a>.</p>
+
+<p>Mais si l&rsquo;on tient vraiment à notre tableau (pour d&rsquo;obscures raisons sataniques :D) il est toujours possible de modifier le comportement du vector pour qu&rsquo;il comprenne les tableaux. Ceci à travers l&rsquo;allocateur, le second paramètre template d&rsquo;un vector ; celui jamais utilisé, toujours oublié <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">là_ici</span><span class="o">&gt;</span>
+</code></span>.</p>
+
+<p>La technique consiste à remplacer l&rsquo;allocateur par une version spécialisée pour les tableaux. Le plus simple est d&rsquo;hériter d&rsquo;un <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a> et de redéfinir les 2 méthodes problématiques: <a href="http://en.cppreference.com/w/cpp/memory/allocator/construct">construct</a> et <a href="http://en.cppreference.com/w/cpp/memory/allocator/destroy">destroy</a>. On peut aussi utiliser une spécialisation de template.</p>
+
+<p>Et ne surtout pas oublier <code>rebind</code> qui permet de recréer l&rsquo;allocateur avec un type interne différent. C&rsquo;est utilisé par les conteneurs :).</p>
+
+<p>(Un <a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/">précédent article</a> permet de comprendre les mécanismes utilisés par un allocateur.)</p>
+
+<p>L&rsquo;implémentation de <code>construct</code> et <code>destroy</code> est vraiment bateau, il suffit d&rsquo;appeler le constructeur ou le destructeur pour chaque élément du tableau.</p>
+
+<p>Mais pour faire au minimum bien les choses et supporter l&rsquo;allocation de tableau de tableau (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+</code></span>) on utilise <code>array_allocator::construct/destroy</code> si les cellules sont des tableaux (appel récursif) ou <code>std::allocator::construct/destroy</code> dans le cas contraire.</p>
+
+<p>À noter que la récursivité peut être éliminée en utilisant les propriétés d&rsquo;alignement des tableaux (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+</code></span> -&gt; <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span>
+</code></span>).</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">array_allocator</span><span class="p">;</span>
+
+<span class="c1">//c&#39;est juste pour les tableaux
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">array_allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
+<span class="o">:</span> <span class="k">public</span>  <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">using</span> <span class="n">value_allocator</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional</span><span class="o">&lt;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">is_array</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+    <span class="n">array_allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+  <span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">U</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">rebind</span>
+  <span class="p">{</span> <span class="k">typedef</span> <span class="n">array_allocator</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span> <span class="n">other</span><span class="p">;</span> <span class="p">};</span>
+
+  <span class="kt">void</span> 
+<span class="nf">construct</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)</span>
+<span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="k">const</span> <span class="n">T</span><span class="p">(</span><span class="o">&amp;</span><span class="n">val</span><span class="p">)[</span><span class="n">N</span><span class="p">])</span>
+  
+<span class="p">{</span>
+    <span class="n">value_allocator</span> <span class="n">alloc</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">alloc</span><span class="p">.</span><span class="n">construct</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">n</span><span class="p">],</span> <span class="n">val</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span> 
+<span class="nf">destroy</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)</span>
+<span class="p">[</span><span class="n">N</span><span class="p">])</span>
+  
+<span class="p">{</span>
+    <span class="n">value_allocator</span> <span class="n">alloc</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">alloc</span><span class="p">.</span><span class="n">destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">n</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Dans l&rsquo;idéal, il faudrait un <code>construct</code> avec un nombre variable d&rsquo;arguments ce qui permet d&rsquo;utiliser <code>emplace_back</code>.
+Toutefois, cette version est fonctionnelle avec <code>push_back</code> :).</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">array_allocator</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">});</span>
+</code></pre></div>
+<p>(La bibliothèque <a href="https://github.com/jonathanpoelen/falcon">falcon</a> (dont je suis le seul développeur actuellement :p) dispose d&rsquo;un allocateur de ce style: <a href="https://github.com/jonathanpoelen/falcon/blob/master/falcon/memory/generic_allocator.hpp">generic_allocator</a>. Comme son nom l&rsquo;indique, l&rsquo;allocateur couvre un spectre un peu plus large et gère en plus des types POD.)</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2013-09-18T20:09:51">18 septembre 2013
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="e10801262ecfe2aed9405f7d36c4d734-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=tableau-dans-un-stdvector&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f09%2ftableau-dans-un-stdvector%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f09%2ftableau-dans-un-stdvector%2f&amp;title=tableau-dans-un-stdvector" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f09%2ftableau-dans-un-stdvector%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f09%2ftableau-dans-un-stdvector%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f09%2ftableau-dans-un-stdvector%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f09%2ftableau-dans-un-stdvector%2f&amp;name=tableau-dans-un-stdvector" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral"><span>
+        <a href="#tableau-dans-un-stdvector"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: Tableau dans un std::vector"></i></a>
+        <a href="#make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: make sans Makefile, utilisation des règles implicites"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral/">Utilisation de swap et des fonctions utilitaires en général</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#tableau-dans-un-stdvector">Article suivant: Tableau dans un std::vector</a><br/>
+        <a href="#make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites">Article précédent: make sans Makefile, utilisation des règles implicites</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2013-07-20T11:18:49">20 juillet 2013
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#d3c3f0bf2c7acce35a2319b4b1ee457d-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
+    
+
+<p>Une fonction utilitaire est une fonction libre qui n&rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).</p>
+
+<p>Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilitaire qui me vient à l&rsquo;esprit en C++03 est <code>std::swap</code> (fonction qui échange le contenu de 2 variables). Pour info, l&rsquo;en-tête de <code>std::swap</code> est passé de <code>&lt;algorithm&gt;</code> en C++03 à <code>&lt;utility&gt;</code> en C++11.</p>
+
+<h2 id="comment-déclarer-et-utiliser-une-fonction-utilitaire">Comment déclarer et utiliser une fonction utilitaire</h2>
+
+<p>Il arrive qu&rsquo;un jour ou l&rsquo;autre on veuille faire une surcharge de <code>swap</code> pour un objet particulier. À ce moment 2 choix s&rsquo;offrent: en faire une fonction libre dans le namespace où se trouve la classe ou dans le namespace <code>std</code>. Évidemment, le meilleur choix est le premier.</p>
+
+<p>Et là, pour toutes les personnes qui ont en horreur le <code>using namespace std</code> ou travaillant dans les .h, un problème va se poser. Comme <code>swap</code> se trouve dans le namespace de la stl, il est logique de faire <code>std::swap(...)</code>. Mais à ce moment, la fonction <code>swap</code> spécialisée dans le namespace de la classe n&rsquo;est pas utilisée&hellip;</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp">#if __cplusplus &gt;= 201103L
+</span><span class="cp"># include &lt;utility&gt;
+</span><span class="cp">#else
+</span><span class="cp"># include &lt;algorithm&gt;
+</span><span class="cp">#endif
+</span><span class="cp"></span>
+<span class="k">namespace</span> <span class="n">my</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="n">A</span><span class="p">{};</span>
+  <span class="kt">void</span> 
+<span class="nf">swap</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">A</span><span class="o">&amp;</span><span class="p">)</span>
+
+  
+<span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;ok</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>N&rsquo;affiche rien&hellip; :/.</p>
+
+<p>Par contre ce qui suit affiche &laquo;&nbsp;ok&nbsp;&raquo;.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> 
+<span class="nf">main</span><span class="p">()</span>
+
+<span class="p">{</span>
+  <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Comme une fonction <code>swap</code> prenant des <code>my::A</code> existe, elle est utilisée. Cela est possible car la fonction <code>swap</code> fait partie du namespace <code>my</code> et que les variables <code>a</code> et <code>b</code> sont des instances d&rsquo;une classe du même namespace.</p>
+
+<p>Alors que ceci ne compile pas.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> 
+<span class="nf">main</span><span class="p">()</span>
+
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Donc, d&rsquo;un côté on a un <code>swap</code> générique dans la stl et de l&rsquo;autre un <code>swap</code> spécialisé dans <code>my</code>.
+Et surtout, 2 syntaxes différentes.</p>
+
+<p>Dans un contexte générique (typiquement des templates) et de maintient de code, 2 formes, ce n&rsquo;est pas acceptable.
+Il faudrait que <code>std::swap</code> soit utilisé si aucun <code>swap</code> spécialisé n&rsquo;existe.</p>
+
+<p>Pour ce, on &laquo;&nbsp;déplace&nbsp;&raquo; <code>std::swap</code> dans le scope courant avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">using</span>
+</code></span> et grâce l&rsquo;<a href="http://en.cppreference.com/w/cpp/language/adl">ADL (Argument-dependent lookup)</a>, le compilateur appellera la bonne fonction.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> 
+<span class="nf">main</span><span class="p">()</span>
+
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+  <span class="p">{</span>
+    <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">//affiche ok
+</span><span class="c1"></span>  <span class="p">}</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">//compile
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Et ceci s&rsquo;applique pour toutes les fonctions libres.</p>
+
+<h2 id="simplifier-l-utilisation">Simplifier l&rsquo;utilisation</h2>
+
+<p>La nécessité de &laquo;&nbsp;déplacer&nbsp;&raquo; les fonctions dans le scope est lourd et facile à oublier.</p>
+
+<p>L&rsquo;idéal serait la présence d&rsquo;une unique fonction en charge d&rsquo;appeler la bonne surcharge. La solution consiste en la création d&rsquo;un namespace dans lequel la fonction générale est exportée et où une fonction intermédiaire l&rsquo;appelle. Comme la règle d&rsquo;ADL s&rsquo;applique, la fonction surchargée sera appelée si existante.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">namespace</span> <span class="n">fn</span> <span class="p">{</span>
+  <span class="k">namespace</span> <span class="n">adl_barrier</span> <span class="p">{</span>
+    <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+    <span class="kt">void</span> <span class="n">swap_impl</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
+    <span class="p">{</span> <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+    <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">)</span>
+    <span class="p">{</span> <span class="o">::</span><span class="n">fn</span><span class="o">::</span><span class="n">adl_barrier</span><span class="o">::</span><span class="n">swap_impl</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span> <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Cependant, cette solution souffre de l&rsquo;effet inverse: la fonction ne peut pas être déplacée dans le même scope qu&rsquo;une fonction généraliste. Il y aurait 2 prototypes identiques, le compilateur ne pourrait pas lever l&rsquo;ambiguïté. Comme il est très courant de voir <code>using namespace std;</code>, un <code>using fn::swap</code> dans le même scope rentrerait en conflit avec <code>std::swap</code> lors de l&rsquo;appel (aucun problème si dans un sous-scope).</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">namespace</span> <span class="n">my</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="n">A</span><span class="p">{};</span>
+  <span class="kt">void</span> 
+<span class="nf">swap</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">A</span><span class="o">&amp;</span><span class="p">)</span>
+
+  
+<span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;ok</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="p">{</span>
+    <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">// affiche ok
+</span><span class="c1"></span>  <span class="p">}</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">// compile
+</span><span class="c1"></span>  <span class="p">}</span>
+
+  <span class="p">{</span>
+    <span class="k">using</span> <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+    <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">// ambiguïté
+</span><span class="c1"></span>  <span class="p">}</span>
+
+  <span class="p">{</span>
+    <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+    <span class="p">{</span>
+      <span class="k">using</span> <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+      <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+      <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">// affiche ok
+</span><span class="c1"></span>    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2013-07-20T11:18:49">20 juillet 2013
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="d3c3f0bf2c7acce35a2319b4b1ee457d-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f07%2futilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f07%2futilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral%2f&amp;title=utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f07%2futilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f07%2futilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f07%2futilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f07%2futilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral%2f&amp;name=utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="make-sans-makefile-utilisation-des-r%C3%A8gles-implicites"><span>
+        <a href="#utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: Utilisation de swap et des fonctions utilitaires en général"></i></a>
+        <a href="#optimisation-de-script-bash-en-limitant-louverture-de-processus"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: Optimisation de script bash en limitant l&#39;ouverture de processus"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-r%C3%A8gles-implicites/">make sans Makefile, utilisation des règles implicites</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral">Article suivant: Utilisation de swap et des fonctions utilitaires en général</a><br/>
+        <a href="#optimisation-de-script-bash-en-limitant-louverture-de-processus">Article précédent: Optimisation de script bash en limitant l&#39;ouverture de processus</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2013-06-26T11:05:28">26 juin 2013
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/make" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>make</a>
+;
+
+
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-r%C3%A8gles-implicites/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#f7c1a48984972b3b767b07b4c471902c-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
+    <p>La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile &laquo;&nbsp;par défaut&nbsp;&raquo; avec plein de règles. Celui-ci est visible en tapant <code>make -pf /dev/null</code> dans un terminal.</p>
+
+<p>Rien qu&rsquo;avec ça, on peut compiler des fichiers C, C++, archive, latex, etc. Il y a de quoi faire en fait.</p>
+
+<p>Par exemple, je crée un fichier C nommé <code>test.c</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">ac</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">av</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">ac</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+<p>Que je compile avec <code>make test</code> pour créer l&rsquo;exécutable <code>test</code>.
+Mais si on veut avoir des fichiers objets, il faut le demander explicitement: <code>make test.o test</code>.</p>
+
+<p>Maintenant, on remplace <code>test.c</code> par <code>test.cpp</code> et on inclut <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
+</code></span>.</p>
+
+<p>La compilation se fait encore avec <code>make test</code> ou <code>make test.o test</code> pour avoir les fichiers objets.</p>
+
+<p>Ah ! En fait non, le second ne fonctionne pas.
+<code>test.o</code> est compilé avec <code>cc</code>, et comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
+</code></span> est linké avec une lib, l&rsquo;implémentation du constructeur <a href="http://en.cppreference.com/w/cpp/io/ios_base/Init">std::ios_base::Init</a> n&rsquo;est pas trouvée. L&rsquo;idéal serait d&rsquo;utiliser <code>g++</code> ou un autre compilateur C++ pour avoir les chemins de bibliothèque convenablement configurés.</p>
+
+<p>Si ce n&rsquo;est qu&rsquo;une question de compilateur, changeons-le !</p>
+
+<p>Tout d&rsquo;abord, la règle de compilation d&rsquo;un <code>.o</code> vers un exécutable:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;%: %.o&#39;</span> -A3</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">%</span><span class="o">:</span> %.<span class="n">o</span>
+<span class="c">#  commands to execute (built-in):
+</span><span class="c"></span>        <span class="k">$(</span>LINK.o<span class="k">)</span> $^ <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+</code></pre></div>
+<p>Cela utilise pour compiler la variable <code>LINK.o</code>. Soit, qu&rsquo;est sa valeur ?</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> g <span class="s1">&#39;LINK.o =&#39;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">LINK.o</span> <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+</code></pre></div>
+<p>Qui fait référence à <code>CC</code>. On s&rsquo;approche, vérifions:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> g <span class="s1">&#39;CC =&#39;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">CC</span> <span class="o">=</span> cc
+</code></pre></div>
+<p>Bingo \o/. Il suffit donc de changer la valeur de <code>CC</code>.</p>
+
+<p>On recommence avec <code>make CC=g++ test.o test</code> et ça fonctionne :).</p>
+
+<p>Cette petite excursion permet mine de rien de découvrir pas mal de variables. Au passage, il est plus intéressant de les utiliser que d&rsquo;en recréer des nouvelles. Idem dans les règles de dépendances. S&rsquo;il faut les personnaliser, autant garder les mêmes commandes à exécuter.</p>
+
+<p>Par exemple, pour compiler un <code>.cpp</code> en <code>.o</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">%.o</span><span class="o">:</span> %.<span class="n">cpp</span>
+<span class="c">#  commands to execute (built-in):
+</span><span class="c"></span>        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
+</code></pre></div>
+<p>Généralement les sources sont également dépendantes de fichier d&rsquo;en-tête. Si on fait une règle qui prend en compte cela, autant garder la même commande:
+(petite parenthèse pour dire que gcc possède l&rsquo;option <code>-MM</code> pour lister les dépendances entre les fichiers.)</p>
+<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">bidule.o</span><span class="o">:</span> <span class="n">bidule</span>.<span class="n">cpp</span> <span class="n">bidule</span>.<span class="n">h</span> <span class="n">machin</span>.<span class="n">h</span>
+        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
+</code></pre></div>
+<p>Ainsi, quand <code>CXXFLAGS</code> sera modifié, la règle le prendra en compte car</p>
+<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">COMPILE.cpp</span> <span class="o">=</span> COMPILE.cc
+</code></pre></div>
+<p>Et</p>
+<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">COMPILE.cc</span> <span class="o">=</span> <span class="k">$(</span>CXX<span class="k">)</span> <span class="k">$(</span>CXXFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
+</code></pre></div>
+<p>À noter que la variable <code>CPPFLAGS</code> fait référence à la commande <code>cpp</code> (ou option <code>-E</code> de gcc) et concerne le <a href="http://fr.wikipedia.org/wiki/Pr%C3%A9processeur_C">C-preprocessor</a>.</p>
+
+<p>Bien sûr, la technique du Makefile seul a des limites. Par exemple, s&rsquo;il y a plusieurs fichiers C, je peux créer tous les fichiers objets avec <code>make *.o</code>, mais l&rsquo;exécutable ne sera dépendant que d&rsquo;un fichier. Au final les règles par défaut ne permettront pas de créer l&rsquo;exécutable, il faudra faire <code>gcc *.o</code> ou un Makefile avec au minimum <code>a.out: *.o</code>.</p>
+
+<p>Voilà, ce fut un petit post pour découvrir l&rsquo;existence des règles implicites et des variables prédéfinies :).</p>
+
+<p><a href="http://www.gnu.org/software/make/manual/make.html">Manual de make</a></p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2013-06-26T11:05:28">26 juin 2013
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/make" rel="category">make</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-r%C3%A8gles-implicites/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="f7c1a48984972b3b767b07b4c471902c-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites%2f&amp;title=make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites%2f&amp;name=make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="optimisation-de-script-bash-en-limitant-louverture-de-processus"><span>
+        <a href="#make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: make sans Makefile, utilisation des règles implicites"></i></a>
+        <a href="#r%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: Référence constante sur référence"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/">Optimisation de script bash en limitant l&#39;ouverture de processus</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites">Article suivant: make sans Makefile, utilisation des règles implicites</a><br/>
+        <a href="#r%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence">Article précédent: Référence constante sur référence</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2013-05-29T00:23:12">29 mai 2013
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/script-shell" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>script-shell</a>
+;
+
+
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#8755af74d081efd37462f60d10d897fd-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
+    <p>Une des choses qui prend du temps dans l&rsquo;exécution d&rsquo;un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés.</p>
+
+<p>Le meilleur moyen d&rsquo;accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme.
+En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&rsquo;entrée standard et retourne un résultat ; un peu comme <code>bc</code>.
+C&rsquo;est là que les coprocessus viennent à la rescousse :).</p>
+
+<p>Un coprocessus est un sous-shell exécuté de façon asynchrone et fournissant les tubes d&rsquo;entrée/sortie. Ceux-ci sont accessibles via <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$COPROC</span><span class="o">[</span><span class="m">1</span><span class="o">]</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$COPROC</span><span class="o">[</span><span class="m">2</span><span class="o">]</span></code></span>.</p>
+
+<p>Du coup, avec <code>bc</code>, la méthode est d&rsquo;écrire dans un tube et lire dans l&rsquo;autre. Comme la lecture est bloquante, le script va attendre que <code>bc</code> retourne le résultat.</p>
+
+<p>Et voilà ! L&rsquo;ouverture d&rsquo;un programme est remplacé par une lecture/écriture.</p>
+
+<p>Pour exemple, un petit programme qui lit un fichier contenant des opérations mathématiques et les affichent suivies du résultat.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">: file&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">1</span>
+
+<span class="c1">#coprocessus de bc avec la sortie d&#39;erreur redirigée vers la sortie standard
+</span><span class="c1"></span>coproc bc <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+
+<span class="k">while</span> <span class="nb">read</span> l<span class="p">;</span> <span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> &gt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># écrire dans le processus
+</span><span class="c1"></span>  <span class="nb">read</span> result &lt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[0]</span><span class="si">}</span> <span class="c1"># réception du résultat
+</span><span class="c1"></span>  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2"> = </span><span class="nv">$result</span><span class="s2">&#34;</span>
+<span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span></code></pre></div>
+<p>Sans <code>coproc</code>, la boucle est plus simple, mais un processus sera ouvert pour chaque ligne du fichier, ce qui est particulièrement coûteux.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">while</span> <span class="nb">read</span> l<span class="p">;</span> <span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2"> = &#34;</span>
+  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> <span class="p">|</span> bc
+<span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span></code></pre></div>
+<p>À tester avec par exemple un fichier de calcul comme celui-ci:</p>
+
+<pre><code>2+3
+2+3*9
+23*9
+23s*9
+3*9
+</code></pre>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2013-05-29T00:23:12">29 mai 2013
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/script-shell" rel="category">script-shell</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="8755af74d081efd37462f60d10d897fd-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=optimisation-de-script-bash-en-limitant-louverture-de-processus&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2foptimisation-de-script-bash-en-limitant-louverture-de-processus%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2foptimisation-de-script-bash-en-limitant-louverture-de-processus%2f&amp;title=optimisation-de-script-bash-en-limitant-louverture-de-processus" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2foptimisation-de-script-bash-en-limitant-louverture-de-processus%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2foptimisation-de-script-bash-en-limitant-louverture-de-processus%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2foptimisation-de-script-bash-en-limitant-louverture-de-processus%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2foptimisation-de-script-bash-en-limitant-louverture-de-processus%2f&amp;name=optimisation-de-script-bash-en-limitant-louverture-de-processus" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence"><span>
+        <a href="#optimisation-de-script-bash-en-limitant-louverture-de-processus"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: Optimisation de script bash en limitant l&#39;ouverture de processus"></i></a>
+        <a href="#placement-new-allocateur-et-conteneur"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: Placement new, allocateur et conteneur"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/">Référence constante sur référence</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#optimisation-de-script-bash-en-limitant-louverture-de-processus">Article suivant: Optimisation de script bash en limitant l&#39;ouverture de processus</a><br/>
+        <a href="#placement-new-allocateur-et-conteneur">Article précédent: Placement new, allocateur et conteneur</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2013-05-13T03:18:42">13 mai 2013
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>1 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#3a88ae4aa27e681cc54d8fa940d35444-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
+    <p>Une petite note sur les références et le qualificatif <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
+</code></span> en commençant par un exemple :).</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">using</span> <span class="n">reference</span> <span class="o">=</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">reference</span> <span class="k">const</span> <span class="n">r</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</code></pre></div>
+<p>Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de <code>r</code>.
+En fait, ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
+</code></span> sur une référence ne fait rien car cela ne s&rsquo;applique pas sur le référé qui reste un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="o">&amp;</span>
+</code></span>.</p>
+
+<p>Si on déroule complètement le type de <code>r</code>, on obtient <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span> <span class="n">r</span>
+</code></span>: une référence constante sur un entier.
+Comme une référence est par nature immutable (le référé ne peut pas changer), le <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
+</code></span> est superflux.
+Le type de <code>r</code> est donc bien une référence sur un entier non-constant.</p>
+
+<p>(On notera toutefois que la syntaxe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span>
+</code></span> est invalide puisque <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
+</code></span> ne peut s&rsquo;appliquer directement sur une référence.)</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2013-05-13T03:18:42">13 mai 2013
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="3a88ae4aa27e681cc54d8fa940d35444-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=r%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2fr%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2fr%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence%2f&amp;title=r%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2fr%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2fr%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2fr%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2fr%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence%2f&amp;name=r%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="placement-new-allocateur-et-conteneur"><span>
+        <a href="#r%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: Référence constante sur référence"></i></a>
+        <a href="#ne-pas-emp%25C3%25AAcher-la-nrvo"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: Ne pas empêcher la NRVO"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/">Placement new, allocateur et conteneur</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#r%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence">Article suivant: Référence constante sur référence</a><br/>
+        <a href="#ne-pas-emp%25C3%25AAcher-la-nrvo">Article précédent: Ne pas empêcher la NRVO</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2013-04-22T22:17:22">22 avril 2013
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>5 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#cd274394e663297dc1b6eed4f38f0550-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
+    
+
+<p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
+</code></span> est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de <code>malloc()</code>, &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.</p>
+
+<p>Mais <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
+</code></span> fait une troisième chose: il lance une exception <code>std::bad_alloc</code> si l&rsquo;espace mémoire est insuffisant.</p>
+
+<p>Ou pas. Car <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
+</code></span> est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête <code>&lt;new&gt;</code> un type (<code>std::nothrow_t</code>) et une variable (<code>std::nothrow</code>) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">);</span>
+</code></pre></div>
+<p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparement.</p>
+
+<h2 id="allouer-de-la-mémoire">Allouer de la mémoire</h2>
+
+<p>Comme on veut juste réserver un espace mémoire, <code>malloc()</code> peut suffire, mais prenons les bonnes habitudes, utilisons la fonction <a href="http://en.cppreference.com/w/cpp/memory/new/operator_new">::operator new()</a> !</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">));</span>
+</code></pre></div>
+<p>Ou la version sans exception.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">);</span>
+</code></pre></div>
+<p>Maintenant qu&rsquo;on a un joli espace mémoire tout fraîchement alloué, construisons l&rsquo;objet.</p>
+
+<h2 id="placement-new">Placement new</h2>
+
+<p>Le placement new permet d&rsquo;appeler le constructeur d&rsquo;un objet sur une zone mémoire prédéfinie.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="o">/</span><span class="n">params</span><span class="err">…</span><span class="o">/</span><span class="p">);</span>
+<span class="c1">// machin == p (même zone mémoire)
+</span><span class="c1"></span></code></pre></div>
+<p>Mais attention aux fuites mémoire si le constructeur de <code>Machin</code> lance une exception.</p>
+
+<p>Et maintenant que c&rsquo;est construit, on détruit :D</p>
+
+<h2 id="destruction">Destruction</h2>
+
+<p>Un appel explicite au destructeur et le tour est joué.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">machin</span><span class="o">-&gt;~</span><span class="n">Machin</span><span class="p">();</span>
+</code></pre></div>
+<p>Étape inutile pour les types scalaires. De toute façon ils n&rsquo;ont pas de destructeur. En C++17, la stl contient <a href="http://en.cppreference.com/w/cpp/memory/destroy_at">std::destroy_at</a>.</p>
+
+<p>Évidemment, si <code>machin</code> possède un destructeur virtuel et est en réalité une classe fille, alors c&rsquo;est le destructeur de la classe dérivée qui est appelé.</p>
+
+<p>Il ne reste plus qu&rsquo;à libérer la mémoire.</p>
+
+<h2 id="libération-de-la-mémoire">Libération de la mémoire</h2>
+
+<p>De la même manière qu&rsquo;il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span>
+</code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span><span class="p">[]</span>
+</code></span> pour <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
+</code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span><span class="p">[]</span>
+</code></span>, il existe un <a href="http://en.cppreference.com/w/cpp/memory/new/operator_delete">::operator delete()</a> associé à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">()</span>
+</code></span>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span> <span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="allocation-de-tableau">Allocation de tableau</h2>
+
+<p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[]</span>
+</code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">[]</span>
+</code></span> fonctionnent de la même manière, mais sont plus sûrs qu&rsquo;une gestion manuelle de tableau avec leurs homologues sans crochets. Ne serait-ce que pour détruire proprement les objets si un des constructeurs jette une exception.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[](</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span> <span class="c1">// identique que la version sans crochet
+</span><span class="c1"></span><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="cm">/*{params...}*/</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="surcharge-de-new-et-delete">Surcharge de new et delete</h2>
+
+<p>Toutes les formes de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
+</code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span>
+</code></span> sont surchargeables de façon locale ou globale. Local quand l&rsquo;opérateur est implémenté à l&rsquo;intérieur d&rsquo;une classe (son prototype sera implicitement statique) et global lorsqu&rsquo;implémenté dans le namespace global.</p>
+
+<p>De plus, comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
+</code></span> peut prendre des paramètres, il est possible de les personnaliser et d&rsquo;en ajouter.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;new&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="k">struct</span> <span class="n">A</span>
+<span class="p">{</span>
+  <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;A(&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;)&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;new A &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="n">A</span><span class="p">;</span> <span class="c1">// affiche &#34;new A 1 2 A(0)&#34;
+</span><span class="c1"></span></code></pre></div>
+<h2 id="l-alignement-mémoire">L&rsquo;alignement mémoire</h2>
+
+<p>L&rsquo;alignement mémoire est une histoire à part entière, je n&rsquo;en parle donc pas plus que ça :p.</p>
+
+<p>Toutefois, renseignez-vous dessus, des variables non alignées peuvent faire chuter les performances et planter certaines architectures de processeur.
+Présent dans boost et la dernière norme du C++, il existe <a href="http://en.cppreference.com/w/cpp/types/aligned_storage">aligned_storage</a> et co pour aider.</p>
+
+<h2 id="allocateurs-de-la-sl">Allocateurs de la SL</h2>
+
+<p>Les allocateurs sont des objets qui s&rsquo;occupent de faire tout ce qui a été dit auparavant à travers des fonctions comme <code>allocate</code>/<code>desallocate</code>, <code>construct</code>/<code>destroy</code>, etc, mais sans faire de surcharge. En fait, tous les conteneurs dynamiques de la stl utilisent un <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a> comme allocateur par défaut paramétrable à travers le dernier type template du conteneur.</p>
+
+<p>Depuis C++11, il existe <a href="http://en.cppreference.com/w/cpp/memory/allocator_traits">std::allocator_traits</a> qui simplifie grandement la création d&rsquo;un allocateur en rendant la plupart des fonctions optionnelles.
+Et à partir de C++17 un <a href="http://en.cppreference.com/w/cpp/header/memory_resource">allocateur polymorphique</a> voit le jour avec quelques gestionnaires de mémoire.</p>
+
+<h2 id="allocateurs-et-conteneurs">Allocateurs et conteneurs</h2>
+
+<p>Utiliser un allocateur personnalisé permet d&rsquo;avoir un contrôle plus fin de la mémoire pour répondre plus efficacement au besoin et augmenter les performances.</p>
+
+<p>Évidemment, l&rsquo;allocateur peut être personnalisable et dans certaines circonstances permet un gain de performance en évitant l&rsquo;allocation/dés-allocation répété.</p>
+
+<p>Par exemple, il y a quelques semaines, j&rsquo;ai fait un algorithme qui faisait au total 2&rsquo;100&rsquo;000 <code>new</code> pour au final ne garder que 100&rsquo;000 objets. Donc 2&rsquo;000&rsquo;000 de <code>delete</code>.</p>
+
+<p>Dans le pire des cas, il y avait une suite de 25 objets à supprimer. Avec un allocateur qui ne vide pas la mémoire mais garde un tableau des pointeurs alloués je n&rsquo;avais plus qu&rsquo;à faire 25 dés-allocations au lieu de 2&rsquo;000&rsquo;000. Le nombre de <code>new</code> effectuées descendait quant à lui à 100&rsquo;025.</p>
+
+<p>Seul le nombre d&rsquo;appels au destructeur et au placement new restait inchangé. Respectivement 2&rsquo;000&rsquo;000 et 2&rsquo;100&rsquo;000.</p>
+
+<p>Au final l&rsquo;algorithme était quand même 30% plus rapide. J&rsquo;aurais aussi pu allouer directement tous mes objets et les réutiliser, mais là n&rsquo;est pas le propos :).</p>
+
+<p>Ce type d&rsquo;optimisation reste toutefois exceptionnel et n&rsquo;est pas adapté à tous les conteneurs. Par exemple, std::vector se prête mal à ce genre d&rsquo;exercice car il demande toujours une allocation d&rsquo;au moins la taille du nombre d&rsquo;éléments qu&rsquo;il possède.</p>
+
+<p>Par contre, les conteneurs comme std::list ou std::map, qui allouent toujours un seul élément à la fois sont un meilleur choix pour utiliser ce type d&rsquo;allocateur.
+Cependant, comme les conteneurs retournent une copie de leur allocateur, il sera difficile de supprimer de manière simple la mémoire non utilisée par l&rsquo;allocateur du conteneur.</p>
+
+<p>En ce moment, j&rsquo;ajoute plusieurs allocateurs dans <a href="https://github.com/jonathanpoelen/falcon/tree/master/falcon/memory">falcon/memory</a>. Même si celui dont je viens de parler n&rsquo;est pas encore présent car son implémentation était vraiment basique et spécifique, il fait quand même partie de ma todo-list.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2013-04-22T22:17:22">22 avril 2013
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="cd274394e663297dc1b6eed4f38f0550-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=placement-new-allocateur-et-conteneur&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f&amp;title=placement-new-allocateur-et-conteneur" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f&amp;name=placement-new-allocateur-et-conteneur" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+
+    
+      
+<div class="pagination clearfix">
+  <a class="pagination__item pagination__item--prev" href="/">◀</a>
+  <a class="pagination__item" href="/">1</a>
+  <span class="pagination__item pagination__item--current">2/3</span>
+  <a class="pagination__item" href="/page/3/">3</a>
+  <a class="pagination__item pagination__item--next" href="/page/3/">▶</a>
+</div>
+
+
+  </section>
+
+</div>
+  <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+    <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
+    <p class="footer__copyright">
+       Jonathan Poelen. <span class="footer__copyright-credits">
+      Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
+      et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
+      Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
+      </span>
+    </p>
+  </footer>
+</div>
+<a id="backtop" href="#avoidance-link"><i class="fa fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
+
+
+</body>
+</html>
+
+

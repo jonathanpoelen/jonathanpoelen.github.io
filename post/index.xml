@@ -1,622 +1,347 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Le blog de Jonathan Poelen</title>
+    <title>Posts on Jonathan Poelen</title>
     <link>https://jonathanpoelen.github.io/post/</link>
-    
+    <description>Recent content in Posts on Jonathan Poelen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <lastBuildDate>Tue, 02 Jan 2018 14:18:22 +0200</lastBuildDate>
-    <atom:link href="/post/" rel="self" type="application/rss+xml" />
+    <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
+    <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
+    <lastBuildDate>Tue, 13 Feb 2018 03:00:28 +0100</lastBuildDate>
+    
+	<atom:link href="https://jonathanpoelen.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Faites parler votre compilateur</title>
+      <link>https://jonathanpoelen.github.io/2018/02/faites-parler-votre-compilateur/</link>
+      <pubDate>Tue, 13 Feb 2018 03:00:28 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2018/02/faites-parler-votre-compilateur/</guid>
+      <description>En C++, notre meilleur ami est le compilateur. Encore faut-il bien le configurer pour qu&amp;rsquo;il nous crache un maximum d&amp;rsquo;avertissements en pleine poire. Hélas, il s&amp;rsquo;avère que les options dépendent grandement du compilateur et de la version.
+Du côté de Clang, il y a un -Weverything qui active absolument tous les warnings &amp;ndash; dont certains que je qualifie de douteux &amp;ndash;, alors que pour Gcc, -Wall et -Wextra n&amp;rsquo;activent pas tout.</description>
+    </item>
     
     <item>
       <title>Ma vision de l&#39;accessibilité appliquée pour ce blog</title>
       <link>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/</link>
       <pubDate>Tue, 02 Jan 2018 14:18:22 +0200</pubDate>
-      
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/</guid>
-      <description>
-
-&lt;p&gt;Pour changer de la programmation logicielle, je vais parler de l&amp;rsquo;accessibilité d&amp;rsquo;un site et des petits détails exaspérants que je rencontre sur la toile. Je pense qu&amp;rsquo;une bonne partie parle à chacun, généralement on fait avec, simplement parce qu&amp;rsquo;il n&amp;rsquo;y a pas d&amp;rsquo;autre choix, mais c&amp;rsquo;est toujours frustrant de tomber dessus.&lt;/p&gt;
-
-&lt;p&gt;Pour le blog, j&amp;rsquo;ai passé pas mal de temps sur un template déjà existant en touchant finalement un peu à toutes les parties CSS et HTML. Je vais ici parler un peu de couleur, de police, de lien, de la manière de disposer des cadres et quelques autres bricoles insignifiantes et par définition essentielles.&lt;/p&gt;
-
-&lt;!--&lt;p class=&#34;disclaimer&#34;&gt;&lt;strong class=&#34;disclaimer_title&#34;&gt;Avertissement :&lt;/strong&gt; 
-Mon expérience dans le domaine se limite à ce blog et je n&#39;ai pas la prétention d&#39;être un pro du milieu. Ma manière d&#39;aborder les problèmes peut être à l&#39;antipode des bonnes pratiques, mais ce sont mes choix et, finalement, je les impose aux visiteurs comme le fait n&#39;importe quel site :).
-&lt;/p&gt;
---&gt;
-
-&lt;!-- c&#39;est moâ qui décide :p !--&gt;
-
-&lt;h2 id=&#34;plus-de-clics-moins-de-contenu&#34;&gt;Plus de clics, moins de contenu&lt;/h2&gt;
-
-&lt;p&gt;Depuis plusieurs années, une pratique courante consiste à multiplier les clics pour accéder à du contenu. Cela prend plusieurs formes, généralement à travers un menu sectionné sur une multitude de pages, des listes déroulantes ou du texte qui apparait au clic. De l&amp;rsquo;intuitif comme ils disent.&lt;/p&gt;
-
-&lt;p&gt;Le défaut de vouloir tout cacher est de rendre difficile d&amp;rsquo;accès l&amp;rsquo;information:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Il n&amp;rsquo;est pas possible de faire une recherche de texte.&lt;/li&gt;
-&lt;li&gt;Si on ne sait pas dans quel menu aller, on finit par cliquer partout.&lt;/li&gt;
-&lt;li&gt;L&amp;rsquo;information est diffuse sur plusieurs pages, c&amp;rsquo;est beaucoup de manipulations, pénible et long. Encore plus s&amp;rsquo;il faut naviguer sur plusieurs pages avec une connexion lente.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Un des exemples typiques que je déteste est matérialisé par la &lt;a href=&#34;https://cpp.developpez.com/faq/cpp/&#34;&gt;FAQ de dvp&lt;/a&gt;: chaque catégorie doit être déroulée pour qu&amp;rsquo;apparaissent les questions. Résultat, depuis la mise en place de ce nouveau système, je ne la consulte plus puisque trouver une question approximative est une gageure. Il me faut trouver la catégorie, l&amp;rsquo;éventuelle sous-catégorie, dérouler chacune et enfin pouvoir faire une recherche de texte sur le mot qui m&amp;rsquo;intéresse dans la question (le moteur de recherche donne souvent beaucoup trop de résultats).&lt;/p&gt;
-
-&lt;p&gt;À contrario, les FAQs sur le site du gouvernement permettent un affichage de toutes les questions et/ou réponses ce qui permet une recherche rapide et une lecture continue.&lt;/p&gt;
-
-&lt;p&gt;Je trouve que le site &lt;a href=&#34;https://doisjeutiliser.fr&#34;&gt;doisjeutiliser.fr&lt;/a&gt; donne un bon résumé de la situation. Et je suis d&amp;rsquo;accord avec tous les autres contre-exemples.&lt;/p&gt;
-
-&lt;p&gt;De plus, comme le langage graphique est différent entre les logiciels et entre sites on ne sait pas toujours le comportement associé au clic ou au lien par manque d&amp;rsquo;indicateur, on va au-devant de grosses surprises. Une icône qui représente une sous-catégorie déroulée pour tel site, mais enroulée pour un autre site. Un clic pour dérouler alors que cela ouvre une nouvelle page, voire pire, une nouvelle fenêtre ou, inversement, ouvrir dans un nouvel onglet un lien fait pour afficher un zone cachée (généralement, on tombe sur une page vide). Dans les 2 scénarios c&amp;rsquo;est une mauvaise surprise.&lt;/p&gt;
-
-&lt;p&gt;Et certains ont la bonne idée de redéfinir (ou de simuler) les actions d&amp;rsquo;une liste déroulante en supprimant toute action clavier. Tu veux atteindre &amp;laquo;&amp;nbsp;août&amp;nbsp;&amp;raquo; en appuyant sur &lt;code&gt;a&lt;/code&gt; ? Fais autrement ! Avec un peu de chance, il faudra aussi cliquer sur le bouton &amp;laquo;&amp;nbsp;Ok&amp;nbsp;&amp;raquo; pour valider son choix.&lt;/p&gt;
-
-&lt;p&gt;Vous l&amp;rsquo;aurez compris, je suis contre cette pratique du &amp;laquo;&amp;nbsp;clic pour apparaître&amp;nbsp;&amp;raquo; à outrance.
-Pour prendre en exemple le blog, sur l&amp;rsquo;ancien (blogspot) les archives sont déroulées par années et par mois. Avec une moyenne qui dépasse difficilement 2 articles/mois, en trouver un précis en moins de 2 clics mérite une médaille. Ici, les archives sont sur une page dédiée qui permet une vue d&amp;rsquo;ensemble immédiate sans étaler les titres sur plusieurs lignes.&lt;/p&gt;
-
-&lt;p&gt;(On y notera la police monospace sur la date qui facilite le parcours vertical ;).)&lt;/p&gt;
-
-&lt;h2 id=&#34;disposition-générale-et-débordement&#34;&gt;Disposition générale et débordement&lt;/h2&gt;
-
-&lt;p&gt;De mon point de vue, un site web possède classiquement un en-tête, un menu et du contenu, le tout positionné dans un nombre restreint de possibilités. La grande différence se joue sur la gestion du vide. Càd, la place que va prendre un élément sur la page.&lt;/p&gt;
-
-&lt;p&gt;Il existe principalement 3 cas de figures:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Prendre un maximum de place.&lt;/li&gt;
-&lt;li&gt;Mettre une limite maximum sur la largeur.&lt;/li&gt;
-&lt;li&gt;Avoir une largeur fixée.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Une solution n&amp;rsquo;est pas meilleure qu&amp;rsquo;une autre, le choix dépend du design, du type de contenu et du dispositif d&amp;rsquo;affichage. La plupart du temps le site prend toute la largeur jusqu&amp;rsquo;à une taille raisonnable avant de permuter en taille fixe définie en pourcentage ou en pixel.&lt;/p&gt;
-
-&lt;p&gt;On peut très bien avoir un contenu qui prend toute la page quelle que soit la résolution, mais il faut être conscient qu&amp;rsquo;une ligne trop grande est difficile à lire. Plus une ligne est longue ou un paragraphe dense, moins il y a de points de repère visuels pour &amp;laquo;&amp;nbsp;suivre&amp;nbsp;&amp;raquo; le texte. Cela augmente le risque de glisser à la ligne suivante au milieu d&amp;rsquo;une phrase et de sauter une ligne ou relire la même au lieu de passer à la suivante. L&amp;rsquo;extrême inverse étant le format colonne utilisé par les journaux ou magazines, mais difficile à reproduire sur un navigateur.&lt;/p&gt;
-
-&lt;p&gt;Concernant la disposition du menu, à priori, n&amp;rsquo;importe laquelle fait l&amp;rsquo;affaire. À gauche, à droite ou en haut, quelle importance ? Mais c&amp;rsquo;est oublier un point essentiel: que faire quand un élément est trop grand ? La solution immédiate est simple: aller à la ligne. C&amp;rsquo;est même le comportement par défaut des navigateurs sur les blocs de texte. Ouf, nous sommes sauvés, tout va bien dans le meilleur des mondes.&lt;/p&gt;
-
-&lt;p&gt;Sauf qu&amp;rsquo;il existe aussi les images, les tableaux, les lecteurs vidéo et l&amp;rsquo;ensemble des éléments dont un &amp;laquo;&amp;nbsp;saut de ligne&amp;nbsp;&amp;raquo; n&amp;rsquo;est pas envisageable. Et là, c&amp;rsquo;est le drame. Heureusement, il existe plein d&amp;rsquo;horribles solutions.&lt;/p&gt;
-
-&lt;p&gt;Les exemples qui suivent sont faits avec une ligne de code qui ne fait pas de saut de ligne automatique.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;S&amp;rsquo;adapter au plus grand.
-&lt;!-- &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-normal.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Une apparence sans défaut.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
- --&gt;
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Débordement par la droite.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row-reverse.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Débordement par la gauche. Le scroll disparaît. Au moins pour Firefox.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Compacter les éléments ou mettre dans un scroll.
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-scroll.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Un scroll alors qu&amp;#39;il y a de l&amp;#39;espace à droite.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Cacher le surplus.
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-hidden.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Il n&amp;#39;y a plus moyen de lire le contenu qui déborde.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Superposer les éléments.
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-above.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;La partie droite cache une partie du contenu.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Presque toutes ces images ont un point commun: un menu à droite. Ce n&amp;rsquo;est pas anodin, il est difficile d&amp;rsquo;avoir un menu à droite quand la partie gauche veut prendre sa place.&lt;/p&gt;
-
-&lt;p&gt;En déplaçant le menu à gauche, les problèmes de superposition contenu/menu disparaîssent d&amp;rsquo;eux-mêmes. On peut alors laisser le bloc prendre une place optimale.&lt;/p&gt;
-
-&lt;p&gt;Mais il faut le faire intelligemment pour ne pas tomber sur le premier cas qui ajoute un scroll horizontal pour l&amp;rsquo;ensemble du contenu. Vous vous imaginez devoir scroller pour lire une ligne ? Puis bon, les paragraphes qui deviennent des lignes de 3 kilomètres, non merci !&lt;/p&gt;
-
-&lt;p&gt;Il serait également bête de faire comme le second cas qui ajoute un scroll sur tous les éléments dépassant une certaine taille alors qu&amp;rsquo;un énorme vide persiste sur la droite.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;ai assisté sur la doc de Hugo au passage d&amp;rsquo;un gabarit full page à celui d&amp;rsquo;une taille fixe et, malheureusement, chaque code se voyait estampillé d&amp;rsquo;un scroll horizontal. Obligé de déplacer la souris dessus pour qu&amp;rsquo;il s&amp;rsquo;agrandisse automatiquement jusqu&amp;rsquo;au bord droit de ma fenêtre. Ce qui rendait par la même occasion le scroll superflu. La seule question qui m&amp;rsquo;est venue est &amp;laquo;&amp;nbsp;Pourquoi dois-je utiliser une souris ? Pourquoi ce n&amp;rsquo;est pas l&amp;rsquo;apparence par défaut ?&amp;nbsp;&amp;raquo;.&lt;/p&gt;
-
-&lt;p&gt;Bon ok, deux questions.&lt;/p&gt;
-
-&lt;p&gt;Pour le blog, mon choix s&amp;rsquo;est porté sur un menu à gauche, un contenu sur plus au moins 60% de large pour le centrer, mais avec les contenus trop grands qui débordent un maximum avant le recourt au scroll. C&amp;rsquo;est la disposition la plus pratique à mes yeux. Le résultat peut même être visible sur l&amp;rsquo;avant-dernier article dont un code possède une ligne plus grande qu&amp;rsquo;à l&amp;rsquo;habitude.&lt;/p&gt;
-
-&lt;h2 id=&#34;liens-zone-de-clic-et-surbrillance&#34;&gt;Liens, zone de clic et surbrillance&lt;/h2&gt;
-
-&lt;p&gt;Comment parler du web sans un petit mot sur les liens ? Le point central de la navigation internet et pourtant si difficile à cliquer pour moi.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;ai l&amp;rsquo;impression de faire partie des gens dont la souris est invariablement attirée par la rangée de pixels non cliquable en plein milieu d&amp;rsquo;un lien. C&amp;rsquo;est systématique lorsque celui-ci est sur plusieurs lignes. Tout indique que je suis dessus: la couleur de fond du cadre qui change, celle du texte, la petite décoration qui apparaît. Tout, sauf le pointeur de souris. Mais il y a tellement de changement autour que ce détail ne se voit même plus.
-&lt;!-- Demande-moi de faire un gâteau, je te dirai que l&#39;alarme incendie ne s&#39;est pas déclenchée lorsque le four s&#39;est enflammé. --&gt;&lt;/p&gt;
-
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-multi-line.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Clic... Clic ? Clic clic clic ! Comment ? Je ne suis pas dessus ?&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Arrive mon second fléau, déplacer suffisamment la souris pour être sur le lien. Mais pas trop, parce que ce foutu cadre qui change de couleur n&amp;rsquo;en fait pas partie non plus.&lt;/p&gt;
-
-&lt;p&gt;Le problème que je rencontre ici est récurant. Des changements de couleurs et de formes donnent l&amp;rsquo;impression de pouvoir effectuer une action alors que ce n&amp;rsquo;est pas vrai. Il vient alors un sentiment d&amp;rsquo;incompréhension très désagréable qui se change petit à petit en frustration lorsqu&amp;rsquo;on réalise que le pointeur de souris n&amp;rsquo;a pas la bonne forme.&lt;/p&gt;
-
-&lt;p&gt;Quand un cadre contenant un lien change de couleur au passage de la souris, c&amp;rsquo;est une invitation au clic. Celui-ci se doit d&amp;rsquo;être cliquable pour répondre au principe de la moindre surprise. Bonus, cela élargit la surface de clic et rend par la même occasion le lien plus accessible.&lt;/p&gt;
-
-&lt;!--&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-bad.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Contre toute attente, la souris n&amp;#39;est pas sur le lien.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-VS.--&gt;
-
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-good.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;C&amp;#39;est quand même plus agréable lorsque le cadre est un lien.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Cette extension de la zone de clic est très présente sur le blog. Comme les espaces blancs décoratifs sur le menu qui font partie du lien. Il est possible en plein écran de plaquer le curseur à gauche et de pouvoir cliquer dessus. Ou par exemple les liens &amp;laquo;&amp;nbsp;Précédent&amp;nbsp;&amp;raquo; et &amp;laquo;&amp;nbsp;Suivant&amp;nbsp;&amp;raquo; en fin d&amp;rsquo;article qui prennent chacun une moitié de largeur de contenu. Ou encore les icônes de flux RSS qui possèdent une zone de clic réelle beaucoup plus grande que l&amp;rsquo;image. Chacun de ces éléments possède une zone de clic plus large pour simplifier la visée.&lt;/p&gt;
-
-&lt;p&gt;Une dernière chose à éviter impérativement sur un lien concerne l&amp;rsquo;application d&amp;rsquo;un effet de gras au survol. Si par malheur le lien se situe en fin de ligne, la mise en gras va agrandir de quelques pixels les lettres et peut déplacer des mots à la ligne suivante. Qui se retrouvent en dehors de la zone de pointage. Qui reviennent car ne sont plus concernés par le survol. Puis repartent. Et ainsi de suite rendant le lien presque incliquable pour ceux ayant échappé à la crise d&amp;rsquo;épilepsie. Bien sûr, si le lien est une boîte qui grandit ou ne se déplace pas, il n&amp;rsquo;y a aucun problème.&lt;/p&gt;
-
-&lt;p&gt;À présent, parlons d&amp;rsquo;une évidence: un lien doit être mis en surbrillance par rapport au reste du contenu. S&amp;rsquo;il n&amp;rsquo;y a aucun repère visuel qui le différencie, personne ne le remarquera. Dans l&amp;rsquo;imaginaire collectif, un texte bleu ou violet et surtout souligné représente un lien. Bien que l&amp;rsquo;on puisse le modifier, je déconseille d&amp;rsquo;enlever le soulignement. Un simple changement de couleur pouvant être considéré comme une mise en gras.&lt;/p&gt;
-
-&lt;p&gt;En plus de la pseudo-classe &lt;code&gt;:hover&lt;/code&gt; &amp;ndash;source des problèmes cités au début du chapitre lorsqu&amp;rsquo;elle est mal utilisée&amp;ndash;, il est essentiel de mettre en valeur les liens possédant le focus (&lt;code&gt;:focus&lt;/code&gt;) pour les adeptes de la navigation clavier. Certains navigateurs comme Opéra possèdent des raccourcis clavier très pratiques pour sauter de lien en lien, mais très handicapants lorsque le site n&amp;rsquo;utilise pas ce marqueur visuel.&lt;/p&gt;
-
-&lt;p&gt;(Je profite du paragraphe pour parler des &lt;a href=&#34;https://www.alsacreations.com/article/lire/572-Les-liens-d-evitement.html#menu&#34;&gt;liens d&amp;rsquo;évitement&lt;/a&gt; (&lt;a href=&#34;http://blog.atalan.fr/des-liens-devitement-astucieux/#categories&#34;&gt;ici&lt;/a&gt; et &lt;a href=&#34;http://www.accede-web.com/notices/html-css-javascript/12-navigation-clavier/12-2-liens-evitement/&#34;&gt;là&lt;/a&gt;) pour sauter les regroupements de texte comme le menu et simplifier la vie des utilisateurs de clavier et autres dispositifs).&lt;/p&gt;
-
-&lt;p&gt;Pour finir sur les pseudo-classes et clore le sujet, je trouve que beaucoup de sites ignorent &lt;code&gt;:active&lt;/code&gt;, alors que c&amp;rsquo;est un excellent moyen d&amp;rsquo;informer un visiteur que son clic est bien pris en compte. C&amp;rsquo;est un indicateur qui manque souvent quand j&amp;rsquo;ouvre dans un nouvel onglet: ai-je bien cliqué ? Cette information m&amp;rsquo;est tellement essentielle que je force dans mon navigateur un cadre en pointillé rouge lorsque je valide un lien.&lt;/p&gt;
-
-&lt;h2 id=&#34;la-police-des-caractères&#34;&gt;La police des caractères&lt;/h2&gt;
-
-&lt;p&gt;Une chose que j&amp;rsquo;ai apprise en testant plusieurs polices d&amp;rsquo;écriture, est que la taille apparente varie énormément entre 2 fonts. Mettre une taille de police adaptée à la lecture n&amp;rsquo;est pas suffisant, il faut aussi que chaque police dans la liste de &lt;code&gt;font-family&lt;/code&gt; ait une taille similaire au risque d&amp;rsquo;avoir des textes trop grands, ou pire, trop petits.&lt;/p&gt;
-
-&lt;p&gt;Je suis également tombé sur un conseil qui va à l&amp;rsquo;encontre du bon sens: mettre un &lt;code&gt;font-size: 62.5%&lt;/code&gt; global. Avec pour seule justification que la taille par défaut est trop grande. Sans prendre en compte la taille effective d&amp;rsquo;une police et en rejetant toute configuration utilisateur. Si &amp;laquo;&amp;nbsp;62.5%&amp;nbsp;&amp;raquo; est trop petit, c&amp;rsquo;est le problème de l&amp;rsquo;utilisateur après tout.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tr&gt;&lt;th&gt;Police&lt;/th&gt;&lt;th&gt;16px&lt;/th&gt;&lt;th&gt;10px (62.5%)&lt;/th&gt;&lt;/tr&gt;
-  &lt;tr style=&#34;font-family: sans-serif&#34;&gt;
-    &lt;td&gt;Sans-serif&lt;/td&gt;
-    &lt;td style=&#34;font-size: 16px&#34;&gt;Lorem ipsum&lt;/td&gt;
-    &lt;td style=&#34;font-size: 10px&#34;&gt;Lorem ipsum&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr style=&#34;font-family: Arial&#34;&gt;
-    &lt;td&gt;Arial&lt;/td&gt;
-    &lt;td style=&#34;font-size: 16px&#34;&gt;Lorem ipsum&lt;/td&gt;
-    &lt;td style=&#34;font-size: 10px&#34;&gt;Lorem ipsum&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr style=&#34;font-family: &#39;Times New Roman&#39;&#34;&gt;
-    &lt;td style=&#34;font-size: 16px&#34;&gt;Times New Roman&lt;/td&gt;
-    &lt;td style=&#34;font-size: 16px&#34;&gt;Lorem ipsum&lt;/td&gt;
-    &lt;td style=&#34;font-size: 10px&#34;&gt;Lorem ipsum&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr style=&#34;font-family: Times&#34;&gt;
-    &lt;td style=&#34;font-size: 16px&#34;&gt;Times&lt;/td&gt;
-    &lt;td style=&#34;font-size: 16px&#34;&gt;Lorem ipsum&lt;/td&gt;
-    &lt;td style=&#34;font-size: 10px&#34;&gt;Lorem ipsum&lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Étrangement, il n&amp;rsquo;y a que sur internet où la taille est redéfinie. Sur une application de bureau personne ne s&amp;rsquo;en occupe et les polices et tailles configurées au niveau du système sont utilisées automatiquement pour les différents types d&amp;rsquo;éléments (titre, paragraphe, police monospace, etc).&lt;/p&gt;
-
-&lt;p&gt;Mon seul conseil pour &lt;code&gt;font-size&lt;/code&gt; est d&amp;rsquo;appliquer le différentiel entre Serif/Sans-Serif et la police choisie car Serif ou Sans-Serif ont un différentiel de &lt;a href=&#34;https://fr.wikipedia.org/wiki/Jambage&#34;&gt;jambage&lt;/a&gt; supérieur et inférieur égal au nombre de pixels demandé.&lt;/p&gt;
-
-&lt;p&gt;Comme on parle d&amp;rsquo;&lt;a href=&#34;https://fr.wikipedia.org/wiki/Empattement_(typographie)&#34;&gt;empattement&lt;/a&gt; (serif ou sans-serif), j&amp;rsquo;en suis venu à la conclusion qu&amp;rsquo;une police sans empattement est plus lisible sur un écran. Peut-être à cause de la petitesse des lettres qui &amp;laquo;&amp;nbsp;charge&amp;nbsp;&amp;raquo; visuellement les glyphes. Ou Le rétro-éclairage, je ne sais pas.&lt;/p&gt;
-
-&lt;h2 id=&#34;le-pouvoir-de-la-couleur&#34;&gt;Le pouvoir de la couleur&lt;/h2&gt;
-
-&lt;p&gt;La couleur est un vecteur d&amp;rsquo;information aussi importante &amp;ndash;voire plus&amp;ndash; que la forme. Par contre, il faut utiliser la couleur d&amp;rsquo;usage sur l&amp;rsquo;objet représenté au risque de perturber le lecteur.&lt;/p&gt;
-
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/ok-cancel.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Perturbant, n&amp;#39;est-ce pas ?&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;La couleur et les effets permettent également de distinguer les éléments entre eux. Par exemple, une légère ombre sur un bouton lui donne un relief qui le distingue d&amp;rsquo;un cadre lambda. Mais il faut savoir varier. Si je prends comme exemple les boutons sociaux, il est difficile d&amp;rsquo;en trouver un précisément lorsqu&amp;rsquo;ils sont tous de la même couleur.&lt;/p&gt;
-
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-gray.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Y a-t-il ton réseau préféré ?&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Alors que mettre la couleur habituellement utilisée par une marque permet de se focaliser presque sans effort dessus.&lt;/p&gt;
-
-&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-color.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Et maintenant ?&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-
-
-&lt;p&gt;Même si les couleurs du site sont banales, je me permets quelques remarques. Premièrement, il vaut mieux se restreindre à un nombre raisonnable de couleurs, mais suffisamment contrastées pour les dissocier. Trop de couleurs empêchent de hiérarchiser l&amp;rsquo;information, un contraste trop faible de dissocier les éléments ce qui rend illisible le texte.&lt;/p&gt;
-
-&lt;p&gt;Il existe différents outils pour faire des palettes de couleurs qu&amp;rsquo;on peut fabriquer avec le logiciel &lt;a href=&#34;https://doc.ubuntu-fr.org/agave&#34;&gt;Agave&lt;/a&gt;, le très bon site &lt;a href=&#34;https://color.adobe.com/fr/create/color-wheel&#34;&gt;Adobe Kuler&lt;/a&gt;, &lt;a href=&#34;colourco.de&#34;&gt;colourco.de&lt;/a&gt; ou &lt;a href=&#34;code-couleur.com&#34;&gt;code-couleur.com&lt;/a&gt; qui liste quelques palettes de couleurs. Ce dernier contient également la signification de certaines couleurs dans le monde occidental. Je trouve intéressant d&amp;rsquo;ajouter cet &lt;a href=&#34;https://alfange.com/graphisme-10-couleurs-signification/&#34;&gt;article trouvé sur la toile&lt;/a&gt; pour voir un peu &amp;ndash;bien que difficile à vérifier&amp;ndash; l&amp;rsquo;évolution et usage au fil du temps. En cherchant un peu, on tombe sur pléthore de sites et de conseils. On a l&amp;rsquo;embarras du choix.&lt;/p&gt;
-
-&lt;p&gt;Si je peux donner un conseil, évitez les couleurs trop pures ; celles qui contiennent une composante de couleur proche de 255 et les autres à 0 comme pour les couleurs primaires (ex: &lt;code&gt;#ff0000&lt;/code&gt;). Ce sont des couleurs très prononcées, pas du tout naturelles. Je trouve qu&amp;rsquo;elles brillent trop et agressent les yeux.&lt;/p&gt;
-
-&lt;p&gt;Une dernière chose concernant les couleurs, tout le monde ne les voit pas de la même façon, essayer un filtre pour &lt;a href=&#34;https://www.toptal.com/designers/colorfilter&#34;&gt;simuler le daltonisme&lt;/a&gt; est une expérience intéressante.&lt;/p&gt;
-
-&lt;h2 id=&#34;les-métadonnées-sont-importantes&#34;&gt;Les métadonnées sont importantes !&lt;/h2&gt;
-
-&lt;p&gt;Les métadonnées sont toutes les informations relatives à un document qui permettent notamment de le replacer dans un contexte sans le supposer après lecture de plusieurs paragraphes (même ainsi, certains éléments sont impossibles à déduire). Elles sont tellement importantes qu&amp;rsquo;il est possible de déduire le contenu du document associé sans l&amp;rsquo;avoir jamais lu.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;exagère un peu, mais si on prend un article de blog et qu&amp;rsquo;on a l&amp;rsquo;habitude de lire les commentaires de l&amp;rsquo;auteur sur des forums, on se fait une relativement bonne idée du contenu de ses écrits. Mais pour cela il faut au moins avoir le nom de l&amp;rsquo;auteur, le sujet principal (titre, domaine du sujet) et probablement la date. Cela paraît évident, mais des fois, un ou plusieurs éléments manquent. Grossièrement, ce sont pour moi des marqueurs qui permettent de filtrer les lectures potentiellement intéressantes et de se préparer mentalement.&lt;/p&gt;
-
-&lt;p&gt;Plus généralement, les métadonnées sont un moyen de mettre en relation des données avec d&amp;rsquo;autres via des &lt;a href=&#34;https://fr.wikipedia.org/wiki/Uniform_Resource_Identifier&#34;&gt;URIs&lt;/a&gt; dans le but de faire des requêtes extrêmement sophistiquées à la manière de SQL (&lt;a href=&#34;https://fr.wikipedia.org/wiki/SPARQL&#34;&gt;SPARQL&lt;/a&gt;). On parle aussi de &lt;a href=&#34;https://fr.wikipedia.org/wiki/Web_sémantique&#34;&gt;web sémantique&lt;/a&gt; que je trouve une très bonne idée pour des ressources ayant beaucoup de relations, de dépendances, etc comme les encyclopédies ou des documents de normalisation, mais c&amp;rsquo;est un travail de longue haleine et franchement superflu dans le cadre d&amp;rsquo;un blog.&lt;/p&gt;
-
-&lt;p&gt;Donc voilà, les métadonnées c&amp;rsquo;est cool, mais je me contente de quelques informations en tête et pied d&amp;rsquo;article. On peut aussi les retrouver de manière plus structurée dans le &lt;a href=&#34;https://jonathanpoelen.github.io/index.xml&#34;&gt;flux RSS&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Parmi les informations qui gravitent autour des articles ici, on trouve:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Les catégories, car c&amp;rsquo;est un moyen facile de centrer le domaine d&amp;rsquo;application et filtrer les contenus.&lt;/li&gt;
-&lt;li&gt;La date, parce qu&amp;rsquo;une information se périme vite. Les bonnes pratiques d&amp;rsquo;hier sont les mauvaises pratiques de demain. Et si je parle d&amp;rsquo;hier, on sait au moins de quel hier je fais référence.&lt;/li&gt;
-&lt;li&gt;La date de dernière mise à jour s&amp;rsquo;il y a lieu. Il y a aussi une entrée dédiée dans le menu. Pour le moment je ne sais pas comment mettre en valeur les changements, peut-être une note en pied de page ?&lt;/li&gt;
-&lt;li&gt;Le temps de lecture. C&amp;rsquo;est un bête calcul en fonction du nombre de mots qui peut être plus précis que la taille du scroll en présence d&amp;rsquo;image.
-Et comme la page d&amp;rsquo;accueil contient plusieurs articles, la taille du scroll n&amp;rsquo;est pas une information fiable.&lt;/li&gt;
-&lt;li&gt;L&amp;rsquo;auteur, même si pour le coup il n&amp;rsquo;y aura &amp;ndash; probablement &amp;ndash; que moi.&lt;/li&gt;
-&lt;li&gt;Le lien permanent et les boutons de partage pour conquérir le monde.&lt;!-- Comme chaque soir Minus.--&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;les-commentaires&#34;&gt;Les commentaires&lt;/h2&gt;
-
-&lt;p&gt;Sur un site statique, il n&amp;rsquo;est pas possible d&amp;rsquo;intégrer son propre système de commentaire. On peut utiliser un service web comme &lt;a href=&#34;https://disqus.com&#34;&gt;disqus.com&lt;/a&gt; qui est très bien fait, mais aussi lourd et lent à charger.&lt;/p&gt;
-
-&lt;p&gt;C&amp;rsquo;est un reproche qui peut se faire sur beaucoup de sites. À force d&amp;rsquo;incorporer nombre de services externes (pour certains discutables), le site est ralenti et perd en fluidité.&lt;/p&gt;
-
-&lt;p&gt;Comme je pense qu&amp;rsquo;un espace commentaire est toujours intéressant, je tenais vraiment à en avoir un sur le blog. Alors je me suis dit, quitte à utiliser github.io, autant y aller jusqu&amp;rsquo;au bout et me servir des issues de github comme système d&amp;rsquo;échange. Ce n&amp;rsquo;est pas aussi bien intégré dans la page qu&amp;rsquo;un système natif (il faut passer par github pour poster), mais cela fait son job. Je perds par contre les commentaires anonymes puisqu&amp;rsquo;il faut un compte pour poster.&lt;/p&gt;
-
-&lt;h2 id=&#34;mais-encore&#34;&gt;Mais encore&lt;/h2&gt;
-
-&lt;p&gt;À vrai dire, il y a pas mal de petites choses non citées qui m&amp;rsquo;agacent beaucoup (titre tronqué devenant trop court, animation trop lente, etc), mais ce sont des conseils qu&amp;rsquo;on peut retrouver assez facilement sur la toile.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;ai davantage axé mes propos sur des détails que je trouve peu discutés. Tellement peu évoqués que j&amp;rsquo;ai l&amp;rsquo;impression d&amp;rsquo;être le seul concerné. Pour dire. Mais si cela permet de faire réfléchir, tant mieux.&lt;/p&gt;
-
-&lt;p&gt;Après, c&amp;rsquo;est bien possible que n&amp;rsquo;étant pas spécialement attiré par les technos web, un site spécialisé que je ne connais pas en parle mieux que moi. Tant mieux aussi.&lt;/p&gt;
-</description>
+      <description>Pour changer de la programmation logicielle, je vais parler de l&amp;rsquo;accessibilité d&amp;rsquo;un site et des petits détails exaspérants que je rencontre sur la toile. Je pense qu&amp;rsquo;une bonne partie parle à chacun, généralement on fait avec, simplement parce qu&amp;rsquo;il n&amp;rsquo;y a pas d&amp;rsquo;autre choix, mais c&amp;rsquo;est toujours frustrant de tomber dessus.
+Pour le blog, j&amp;rsquo;ai passé pas mal de temps sur un template déjà existant en touchant finalement un peu à toutes les parties CSS et HTML.</description>
     </item>
     
     <item>
       <title>De Blogspot à Hugo, il a changé de peau</title>
       <link>https://jonathanpoelen.github.io/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/</link>
       <pubDate>Sat, 29 Jul 2017 16:03:53 +0200</pubDate>
-      
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/</guid>
-      <description>
-
-&lt;p&gt;Il y a 2 ans je me suis dit :&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Au prochain article, j&amp;rsquo;essaye un autre système de blog !&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Et depuis 2 ans, plus rien&amp;hellip; Je n&amp;rsquo;ai pas parcouru le web à la recherche de la solution idéale, loin de là, je n&amp;rsquo;avais juste pas d&amp;rsquo;idée d&amp;rsquo;article.&lt;/p&gt;
-
-&lt;p&gt;Il y a 3 mois, en regardant une classe de matrice en C++, une idée m&amp;rsquo;est venue. J&amp;rsquo;ai écrit mon article puis cherché un système de site statique.&lt;/p&gt;
-
-&lt;p&gt;Au départ, j&amp;rsquo;avais en tête &lt;a href=&#34;http://octopress.org/&#34;&gt;Octopress&lt;/a&gt; utilisé par Luc Hermitte pour son &lt;a href=&#34;http://luchermitte.github.io/&#34;&gt;blog&lt;/a&gt;. Le principe est d&amp;rsquo;écrire des fichiers en markdown, de générer le blog et mettre le tout sur github pour avoir une adresse en &lt;code&gt;github.io&lt;/code&gt;. Le mettre sur github n&amp;rsquo;est pas une obligation, mais c&amp;rsquo;est pour moi le plus simple.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;ai donc essayé &lt;a href=&#34;https://github.com/gohugoio/hugo&#34;&gt;Hugo&lt;/a&gt;&amp;hellip; Ma logique est infaillible :).&lt;/p&gt;
-
-&lt;h2 id=&#34;pourquoi-quitter-blogspot&#34;&gt;Pourquoi quitter Blogspot ?&lt;/h2&gt;
-
-&lt;p&gt;Avant de commencer, une petite explication sur pourquoi Blogspot ne m&amp;rsquo;est pas pratique.&lt;/p&gt;
-
-&lt;p&gt;La principale raison est que l&amp;rsquo;utilisation de Blogspot m&amp;rsquo;oblige à faire du post-traitement sur mes articles. Pour avoir la couleur dans les codes, ils sont écrits dans un éditeur puis convertits en HTML (via Kate dans mon cas). La couleur de fond est trop contrastée pour le blog ce qui oblige un post-traitement supplémentaire. L&amp;rsquo;ensemble est plutôt rapide à faire, mais modifier un code est pénible.&lt;/p&gt;
-
-&lt;p&gt;Puisque je suis dans le mode HTML de blogspot, je me tape aussi tout le balisage des liens, paragraphes, mots importants, etc, ce qui parasite le texte. L&amp;rsquo;absence de couleur dans la zone d&amp;rsquo;édition n&amp;rsquo;aide pas beaucoup.&lt;/p&gt;
-
-&lt;p&gt;Autre point, j&amp;rsquo;écris rarement un article depuis l&amp;rsquo;interface web. Déjà parce qu&amp;rsquo;il faut y accéder &amp;ndash; il y a un peu trop de clics à faire et Blogspot reste lent à charger &amp;ndash; ensuite parce que l&amp;rsquo;éditeur est trop pauvre. Ça paraît con, mais les possibilités de mon éditeur de code sont très sollicités, même pour l&amp;rsquo;écriture d&amp;rsquo;un article. J&amp;rsquo;envisage même de faire des plugins pour de la saisie rapide.&lt;/p&gt;
-
-&lt;p&gt;Ceci fait qu&amp;rsquo;utiliser un générateur de type markdown me trottait dans la tête depuis un bon moment. Il existe plein de générateurs vers HTML, &lt;a href=&#34;http://pandoc.org/&#34;&gt;Pandoc&lt;/a&gt; étant probablement le plus connu. C&amp;rsquo;est suffisant. On écrit un article, on convertit et on colle la sortie dans la zone d&amp;rsquo;édition du blog.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;aurais très bien pu utiliser Blogspot + un générateur. Sauf que je trouve Blogspot lourd à charger et les possibilités de menu et de mise en page sont un peu limitées. Alors autant voir ailleurs !&lt;/p&gt;
-
-&lt;h2 id=&#34;essai-de-hugo&#34;&gt;Essai de Hugo&lt;/h2&gt;
-
-&lt;p&gt;En fait, au moment où je commençais à regarder les systèmes existants, quelqu&amp;rsquo;un sur le &lt;a href=&#34;https://openclassrooms.com/forum/sujet/groupe-communautaire-groupe-42&#34;&gt;MM de 42&lt;/a&gt; mit un lien vers Hugo. Le principe reste le même &amp;ndash; au moins pour la génération de blog &amp;ndash; avec comme objectif principal de ne pas avoir de dépendance et de générer rapidement le site.&lt;/p&gt;
-
-&lt;p&gt;Un truc qui me plaît bien est de pouvoir utiliser autre chose que le markdown par défaut, par exemple, &lt;a href=&#34;http://asciidoc.org/&#34;&gt;Asciidoctor&lt;/a&gt; ou &lt;a href=&#34;http://docutils.sourceforge.net/rst.html&#34;&gt;ReStructuredText&lt;/a&gt;. Les implémentations ne sont pas nativement incorporées à Hugo ce qui rend leur utilisation plus lente dans la génération (il faut appeler un programme externe). Toutefois, il y a en native 2 implémentaitons de &lt;a href=&#34;https://gohugo.io/content-management/formats/&#34;&gt;markdown&lt;/a&gt; et le &lt;a href=&#34;http://orgmode.org/&#34;&gt;mode Org&lt;/a&gt; de Emacs. Pour se faire une idée du mode org, il y a 3 traductions françaises dont 2 à venir de &lt;a href=&#34;pragmatic_emacs&#34;&gt;Pragmatic Emacs&lt;/a&gt; sur &lt;a href=&#34;linuxfr_org&#34;&gt;linuxfr&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;ai essayé Asciidoc, mais il ne fonctionne pas tel quel, il m&amp;rsquo;a fallu un intermédiaire qui supprime l&amp;rsquo;option &lt;code&gt;--safe&lt;/code&gt; pour la coloraion du code (celle-ci utilise &lt;a href=&#34;pygmentize&#34;&gt;Pygmentize&lt;/a&gt;). Par contre, je trouve le code HTML généré vraiment trop verbeux. À mon sens, entourer les paragraphes de &lt;code&gt;&amp;lt;div class=&amp;quot;paragraph&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;&lt;/code&gt; est plus que superflux. Je ne sais pas ce qu&amp;rsquo;il en est des autres formats ne les ayant pas essayés, pour le moment mes besoins suffisent pour le markdown. À savoir que les formats non natifs ne peuvent pas générer le sommaire, il faut faire un post-traitement sur la sortie HTML.&lt;/p&gt;
-
-&lt;p&gt;Une autre chose sympathique que je n&amp;rsquo;ai pas eu l&amp;rsquo;occasion d&amp;rsquo;utiliser concerne les templates Hugo au sein même des documents. Par exemple, un template &lt;code&gt;image&lt;/code&gt; qui sort un code HTML avec caption + figure + image de la bonne taille + lien pour voir l&amp;rsquo;image d&amp;rsquo;origine. En gros, générer un truc bien casse pied à écrire :).&lt;/p&gt;
-
-&lt;h2 id=&#34;et-octopress&#34;&gt;Et Octopress ?&lt;/h2&gt;
-
-&lt;p&gt;Bon Hugo c&amp;rsquo;est bon pour moi, mais j&amp;rsquo;ai rapidement fait un tour sur Octopress entre deux. Pour tout dire, j&amp;rsquo;ai rapidement abandonné. Le plugin le plus intéressant pour moi est &lt;a href=&#34;http://octopress.org/docs/plugins/codeblock/&#34;&gt;Codeblock&lt;/a&gt; et il ne fonctionne pas comme indiqué. J&amp;rsquo;ai regardé les sources et finalement renoncé.&lt;/p&gt;
-
-&lt;p&gt;Au passage, je remarque que le projet n&amp;rsquo;est plus maintenu depuis plusieurs années et qu&amp;rsquo;il se base sur &lt;a href=&#34;jekyll&#34;&gt;Jekyll&lt;/a&gt;. J&amp;rsquo;essaye ce dernier et me retrouve avec des problèmes de dépendances et des packageurs &amp;ndash; il y en a pas qu&amp;rsquo;un &amp;ndash; qui demandent les droits root pour l&amp;rsquo;installation. Las, j&amp;rsquo;abandonne. Finalement, Hugo c&amp;rsquo;est bien.&lt;/p&gt;
-
-&lt;h2 id=&#34;pour-finir&#34;&gt;Pour finir&lt;/h2&gt;
-
-&lt;p&gt;J&amp;rsquo;ai beaucoup touché au template de Hugo, aussi bien la partie CSS que HTML en me basant sur un des thèmes disponibles. À la base je voulais un thème sombre, mais j&amp;rsquo;ai finalement adopté un thème clair pour le contenu. Premièrement parce que le thème choisi l&amp;rsquo;est de base, deuxièmement parce que je trouve le résultat peu satisfaisant. Toutefois, le thème sombre est disponible en le sélectionnant dans le menu du navigateur: Vue -&amp;gt; Style de page -&amp;gt; Night theme (sur firefox, cela varie peut-être sur d&amp;rsquo;autres navigateurs). À terme, je pense chavirer du côté obscur.&lt;/p&gt;
-
-&lt;p&gt;La plupart des morceaux modifiés concernent des éritants que je rencontre sur certains sites et logiciels. J&amp;rsquo;ai essayé de faire quelque chose d&amp;rsquo;accessible et de pratique (là je vous vends un objet rare et de grande valeur :D). Du coup, le prochain article y sera consacré. Ça va me changer du c++ et de la méta-programmation.&lt;/p&gt;
-
-&lt;p&gt;Et parce que les habitudes ont la vie dure, l&amp;rsquo;article qui suivra sera dédié au dispatcheur d&amp;rsquo;un std::variant. La méta-prog, on ne la quitte que les pieds devant :o).&lt;/p&gt;
-
-&lt;p&gt;En même temps, les articles de l&amp;rsquo;ancien blog seront déportés et mis à jour si besoin.&lt;/p&gt;
-</description>
+      <description>Il y a 2 ans je me suis dit :
+ Au prochain article, j&amp;rsquo;essaye un autre système de blog !
+ Et depuis 2 ans, plus rien&amp;hellip; Je n&amp;rsquo;ai pas parcouru le web à la recherche de la solution idéale, loin de là, je n&amp;rsquo;avais juste pas d&amp;rsquo;idée d&amp;rsquo;article.
+Il y a 3 mois, en regardant une classe de matrice en C++, une idée m&amp;rsquo;est venue. J&amp;rsquo;ai écrit mon article puis cherché un système de site statique.</description>
     </item>
     
     <item>
       <title>Minimiser les copies dans operator&#43;</title>
       <link>https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/</link>
       <pubDate>Wed, 05 Jul 2017 22:02:11 +0200</pubDate>
-      
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/</guid>
-      <description>
-
-&lt;p&gt;Je vais me baser sur un classique: une classe de matrice contenant un &lt;code&gt;std::vector&amp;lt;int&amp;gt;&lt;/code&gt;. Cette classe va implémenter 2 opérateurs mathématiques: &lt;code&gt;+&lt;/code&gt; et &lt;code&gt;+=&lt;/code&gt;. Le premier en fonction libre, le second en fonction membre.&lt;/p&gt;
-
-&lt;p&gt;Pour rigoler un peu, on ajoute une petite contrainte qui est &amp;laquo;&amp;nbsp;l&amp;rsquo;efficacité&amp;nbsp;&amp;raquo;. Petit mot qui englobe un peu tout et n&amp;rsquo;importe quoi tel que la performance en mémoire et en temps.&lt;/p&gt;
-
-&lt;p&gt;À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc. Des bibliothèques comme uBLAS, Eigen, Blitz implémentent une tripotée de choses. Ici, on va uniquement s&amp;rsquo;intéresser à la manière d&amp;rsquo;implémenter &lt;code&gt;operator+&lt;/code&gt; pour recycler les variables temporaires dans le but d&amp;rsquo;avoir le moins d&amp;rsquo;allocations possibles dûes aux copies.&lt;/p&gt;
-
-&lt;p&gt;Grosso-modo, des rvalues à droite, des rvalues à gauche, des rvalues partout et pour finir, pas de rvalue.&lt;/p&gt;
-
-&lt;p&gt;En réalité, il y a plusieurs approches possibles que je mets ici en opposition sans qu&amp;rsquo;elles le soient réellement.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;une surcharge pour tous les prototypes possibles.&lt;/li&gt;
-&lt;li&gt;un opérator unique pour les gouverner tous.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;plein-de-surcharges-de-operator&#34;&gt;Plein de surcharges de operator+&lt;/h2&gt;
-
-&lt;p&gt;Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter &lt;code&gt;noexcept&lt;/code&gt; sur de tels prototypes.&lt;/p&gt;
-
-&lt;p&gt;Voici ce que donne l&amp;rsquo;implémentation:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// et non pas return `ret += rhs`, ce qui empêcherait la NRVO.
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// ne pas oublier std::move, sinon il y a aura copie en sortie
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// commutativité: x+y = y+x
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;L&amp;rsquo;utilisation de std::move sur l&amp;rsquo;opérande de gauche pour &lt;code&gt;+=&lt;/code&gt; (cf: &lt;code&gt;std::move(lhs) += rhs;&lt;/code&gt; et autres) n&amp;rsquo;est pas utile pour notre classe Matrix qui contient un &lt;code&gt;std::vector&amp;lt;int&amp;gt;&lt;/code&gt;. Mais dans l&amp;rsquo;hypothèse d&amp;rsquo;un &lt;code&gt;std::vector&amp;lt;std::vector&amp;lt;T&amp;gt;&amp;gt;&lt;/code&gt; cela permet d&amp;rsquo;informer que le sous-vecteur, ou carrément &lt;code&gt;T&lt;/code&gt; peut être recyclé.&lt;/p&gt;
-
-&lt;p&gt;Par exemple, dans le cas où les 2 opérandes sont des rvalues, on pourrait déplacer les vecteurs de rhs parce que leur capacité est plus grande. C&amp;rsquo;est une optimisation très spécifique et je pense que très peu de personnes (aucune?) s&amp;rsquo;en sert dans la réalité. On pourrait aussi faire &lt;code&gt;std::move(ret) +=&lt;/code&gt; dans la première implémentation pour les mêmes raisons.&lt;/p&gt;
-
-&lt;p&gt;Petite note sur la dernière implémentation. Utiliser &lt;code&gt;rhs&lt;/code&gt; comme valeur de retour permet de gagner un &lt;code&gt;mov&lt;/code&gt; (asm). &lt;a href=&#34;https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(j:1,source:&#39;%23include+%3Cutility%3E%0A%23include+%3Cvector%3E%0A%0Astruct+Matrix%0A%7B%0A++++++std::vector%3Cint%3E+v%3B%0A++++++Matrix%26+operator+%2B%3D(Matrix+const%26)+%3B%0A%7D%3B%0A%0AMatrix+operator%2B+(Matrix+%26%26+lhs,+Matrix+const+%26+rhs)%0A%7B%0A++++std::move(lhs)+%2B%3D+rhs%3B%0A++++//+ne+pas+oublier+std::move,+sinon+il+y+a+aura+copie+en+sortie+puisque+que+lhs+est+une+r%C3%A9f%C3%A9rence%0A++++return+std::move(lhs)%3B%0A%7D%0A%0AMatrix+operator+%2B+(Matrix+const+%26+lhs,+Matrix+%26%26+rhs)%0A%7B%0A++++std::move(rhs)+%2B%3D+lhs%3B+//+commutativit%C3%A9:+x%2By+%3D+y%2Bx%0A++++return+std::move(rhs)%3B%0A%7D%0A&#39;),l:&#39;5&#39;,n:&#39;0&#39;,o:&#39;C%2B%2B+source+%231&#39;,t:&#39;0&#39;)),k:31.812073713509285,l:&#39;4&#39;,n:&#39;0&#39;,o:&#39;&#39;,s:0,t:&#39;0&#39;),(g:!((h:compiler,i:(compiler:g71,filters:(b:&#39;0&#39;,commentOnly:&#39;0&#39;,directives:&#39;0&#39;,intel:&#39;0&#39;),options:&#39;-O3+-std%3Dc%2B%2B14+-fverbose-asm+&#39;,source:1),l:&#39;5&#39;,n:&#39;0&#39;,o:&#39;x86-64+gcc+7.1+(Editor+%231,+Compiler+%231)&#39;,t:&#39;0&#39;)),k:34.07627444894807,l:&#39;4&#39;,n:&#39;0&#39;,o:&#39;&#39;,s:0,t:&#39;0&#39;),(g:!((h:compiler,i:(compiler:g71,filters:(b:&#39;0&#39;,commentOnly:&#39;0&#39;,directives:&#39;0&#39;,intel:&#39;0&#39;),options:&#39;+-std%3Dc%2B%2B14+-O3+-fverbose-asm+&#39;,source:1),l:&#39;5&#39;,n:&#39;0&#39;,o:&#39;x86-64+gcc+7.1+(Editor+%231,+Compiler+%232)&#39;,t:&#39;0&#39;)),k:34.11165183754265,l:&#39;4&#39;,n:&#39;0&#39;,o:&#39;&#39;,s:0,t:&#39;0&#39;)),l:&#39;2&#39;,n:&#39;0&#39;,o:&#39;&#39;,t:&#39;0&#39;)),version:4&#34;&gt;ici&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Bon, c&amp;rsquo;est bien joli, mais on peut faire la même avec seulement 2 prototypes et gagner une optimisation sur la &lt;a href=&#34;http://en.cppreference.com/w/cpp/language/copy_elision&#34;&gt;copy-elision&lt;/a&gt; qui n&amp;rsquo;est pas faite par gcc. Le sagouin, il utilise un constructeur de déplacement !&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// commutativité: x+y = y+x
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.&lt;/p&gt;
-
-&lt;p&gt;Ainsi, si dans l&amp;rsquo;expresssion &lt;code&gt;a + b&lt;/code&gt;, &lt;code&gt;b&lt;/code&gt; une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un &lt;code&gt;std::cout &amp;lt;&amp;lt; __PRETTY_FUNCTION__ &amp;lt;&amp;lt; &#39;\n&#39;&lt;/code&gt; dans les implémentations et le test qui suit.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Matrix &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;const&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;     &amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; a; &amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Matrix &amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;const&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;     &amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34; b;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-
-  &lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;left&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;cp&#34;&gt;#define C(a,b) std::cout &amp;lt;&amp;lt; std::setw(13) &amp;lt;&amp;lt; #a &amp;lt;&amp;lt; &amp;#34;+ &amp;#34; &amp;lt;&amp;lt; std::setw(15) &amp;lt;&amp;lt; #b; a+b
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;            &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;            &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
-  &lt;span class=&#34;cp&#34;&gt;#undef C
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;       &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;      &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;       &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Résultat:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Matrix       a; Matrix       b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-a            + std::move(b)   Matrix operator+(const Matrix&amp;amp;, Matrix&amp;amp;&amp;amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-std::move(a) + std::move(b)   Matrix operator+(const Matrix&amp;amp;, Matrix&amp;amp;&amp;amp;)
-
-
-Matrix       a; Matrix const b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
-
-
-Matrix const a; Matrix       b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-a            + std::move(b)   Matrix operator+(const Matrix&amp;amp;, Matrix&amp;amp;&amp;amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-std::move(a) + std::move(b)   Matrix operator+(const Matrix&amp;amp;, Matrix&amp;amp;&amp;amp;)
-
-
-Matrix const a; Matrix const b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;amp;)
-std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;amp;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Si on y tient vraiment, on peut ajouter &lt;code&gt;Matrix operator+(Matrix&amp;amp;&amp;amp;, Matrix&amp;amp;&amp;amp;)&lt;/code&gt;. Mais comme dit précédemment le besoin est très faible.&lt;/p&gt;
-
-&lt;p&gt;Toutefois, un défaut existe en utilisant que 2 fonctions: il n&amp;rsquo;est pas possible de marquer &lt;code&gt;noexcept&lt;/code&gt; le prototype qui correspond à &lt;code&gt;std::move(a)+b&lt;/code&gt; (qui réutilise &lt;code&gt;a&lt;/code&gt;), car c&amp;rsquo;est le même qui est utilisé pour &lt;code&gt;a+b&lt;/code&gt; qui fait une copie de &lt;code&gt;a&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Dans le cas d&amp;rsquo;opérateurs non-commutatifs, cette multiplication de fonction n&amp;rsquo;a pas lieu d&amp;rsquo;être. Il est largement préférable de ne faire qu&amp;rsquo;un opérateur prenant &lt;code&gt;lhs&lt;/code&gt; par copie. On bénéficie ainsi aussi bien de la copy-elision que de la RVO.&lt;/p&gt;
-
-&lt;h2 id=&#34;un-prototype-multi-fonction&#34;&gt;Un prototype multi-fonction&lt;/h2&gt;
-
-&lt;p&gt;Une autre solution pour la surcharge d&amp;rsquo;opérateur est de ne faire qu&amp;rsquo;un seul et unique prototype template qui s&amp;rsquo;active en présence d&amp;rsquo;un certain type. Ce n&amp;rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.&lt;/p&gt;
-
-&lt;p&gt;Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de &lt;code&gt;std::enable_if&lt;/code&gt;. Ce qui donne:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;MatrixLhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;MatrixRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;enable_if_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_same&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MatrixLhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_same&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MatrixRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MatrixLhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MatrixRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Dans la réalité, l&amp;rsquo;addition d&amp;rsquo;une matrice fonctionne aussi sur des entiers (cf: &lt;code&gt;int + Matrix&lt;/code&gt;, &lt;code&gt;Matrix + int&lt;/code&gt;). Le filtre sera alors beaucoup plus compliqué puisqu&amp;rsquo;il faut qu&amp;rsquo;au moins une des opérandes soit un type &lt;code&gt;Matrix&lt;/code&gt; et que les paramètres soient des types compatibles (en prenant en compte la préscence des références et des &lt;code&gt;const&lt;/code&gt;). La condition devient alors quelque chose comme:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;is_matrix_operand&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;is_matrix_operand&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;is_matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Il devient alors très facile d&amp;rsquo;ajouter un nouveau type à prendre en compte, comme par exemple un contenaire de la SL, un tableau C, un autre type matriciel d&amp;rsquo;une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.&lt;/p&gt;
-
-&lt;p&gt;Il est également envisageable de faire des prototypes par catégorie de variable: Sequence et Matrix, Integer et Matrix.&lt;/p&gt;
-
-&lt;p&gt;Revenons-en à notre &lt;code&gt;operator+&lt;/code&gt; et son implémentation. Celle-ci va être plus compliqué car elle doit être équivalente aux 4 implémentations du début ; sachant que la première possède une variable et les opérandes sont inversés dans la troisième et la quatrième.&lt;/p&gt;
-
-&lt;p&gt;Une solution possible est de mettre 2 valeurs intermédiaires qui représentent l&amp;rsquo;opérande de gauche et l&amp;rsquo;opérande de droite et dont le type s&amp;rsquo;adapte en fonction des types en entrée.&lt;/p&gt;
-
-&lt;p&gt;Ci-dessous un tableau récapitulatif des types et valeurs de nos 2 nouvelles variables &lt;code&gt;Lhs&lt;/code&gt; et &lt;code&gt;Rhs&lt;/code&gt;. Les &lt;code&gt;const&lt;/code&gt; sont supprimés car seule la référence importe.&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Prototype&lt;/th&gt;
-&lt;th&gt;NewLhs&lt;/th&gt;
-&lt;th&gt;NewRhs&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&lt;/code&gt;, &lt;code&gt;M &amp;amp;&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M&lt;/code&gt; = lhs&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&lt;/code&gt; = rhs&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt;, &lt;code&gt;M &amp;amp;&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt; = lhs&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&lt;/code&gt; = rhs&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&lt;/code&gt;, &lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt; = rhs&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&lt;/code&gt; = lhs&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt;, &lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt; = rhs&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;M &amp;amp;&amp;amp;&lt;/code&gt; = lhs&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Et l&amp;rsquo;implémentation:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rvalue_wrapper&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-
-  &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;noexcept&lt;/span&gt;
-  &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;static_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rvalue_wrapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;noexcept&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;noexcept&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;forward&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;NewLhs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;conditional_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_lvalue_reference&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_lvalue_reference&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;rvalue_wrapper&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-
-  &lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;NewRhs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;conditional_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_lvalue_reference&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Lhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_lvalue_reference&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-
-  &lt;span class=&#34;k&#34;&gt;constexpr&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;swap_arg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_lvalue_reference&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-
-  &lt;span class=&#34;n&#34;&gt;NewLhs&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;new_lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;swap_arg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;rhs&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)};&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;NewRhs&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;new_rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;static_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NewRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Matrix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;swap_arg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;lhs&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))};&lt;/span&gt;
-
-  &lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new_lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;static_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;NewRhs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new_rhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;new_lhs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Le code mérite quelques explications. Pour commencer, parlons de &lt;code&gt;rvalue_reference&lt;/code&gt; qui est un palliatif pour une optimisation au niveau de &lt;code&gt;return&lt;/code&gt;. Au niveau du retour, si &lt;code&gt;NewLhs&lt;/code&gt; est une rvalue, il faut utiliser &lt;code&gt;std::move&lt;/code&gt;, sauf que l&amp;rsquo;utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un &lt;code&gt;if (std::is_rvalue_reference&amp;lt;NewLhs&amp;gt;{}) return std::move(lhs);&lt;/code&gt; avant &lt;code&gt;return new_lhs&lt;/code&gt; l&amp;rsquo;optimisation n&amp;rsquo;est pas faite. Cela fonctionne néanmoins avec &lt;code&gt;if constexpr&lt;/code&gt; de c++17. Le but de &lt;code&gt;rvalue_reference&lt;/code&gt;  est finalement de rendre automatique un retour par rvalue grâce à l&amp;rsquo;opérateur de cast interne.&lt;/p&gt;
-
-&lt;p&gt;Concernant ce curieux enchaînement de cast, celui-ci s&amp;rsquo;explique par la difficulté de contrôler le type retourner par une ternaire. Une ternaire sur deux variables de même type va retourner une référence (une variable est toujours une lvalue). La référence sera considérée constante si une des deux valeurs est une référence constante. Du coup, on vire le const pour ensuite construire les types &lt;code&gt;NewLhs&lt;/code&gt; et &lt;code&gt;NewRhs&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Ici, le constructeur de la matrice (quand &lt;code&gt;NewLhs = Matrix&lt;/code&gt;) va recevoir un type non const. À moins qu&amp;rsquo;un constructeur existe pour les références non const, cela ne cause pas de problème. On peut très bien ajouter un &lt;code&gt;std::conditional&lt;/code&gt; pour forcer le const.&lt;/p&gt;
-
-&lt;p&gt;En première impression &lt;code&gt;static_cast&amp;lt;NewRhs&amp;gt;&lt;/code&gt; pourrait être optionnel, mais celui-ci permet de forcer la rvalue pour construire NewRhs. Une lvalue (le retour de &lt;code&gt;const_cast&amp;lt;Matrix&amp;amp;&amp;gt;&lt;/code&gt;) ne pouvant être affectée à une rvalue sans cela.&lt;/p&gt;
-
-&lt;p&gt;Les casts présents fonctionnent bien parce que &lt;code&gt;lhs&lt;/code&gt; et &lt;code&gt;rhs&lt;/code&gt; sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font &lt;code&gt;falcon::cif&lt;/code&gt; ou &lt;code&gt;boost::hana::if_&lt;/code&gt;. Plusieurs de mes articles en parlent.&lt;/p&gt;
-
-&lt;h2 id=&#34;n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp&#34;&gt;N&amp;rsquo;écrivez pas operator+ vous-même, c&amp;rsquo;est trop compliqué&amp;nbsp;!&lt;/h2&gt;
-
-&lt;p&gt;Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est allourdi, la lisibilité réduite. Il y a moyen d&amp;rsquo;implémenter la plupart des opérateurs en quelques lignes pour le même résultat.&lt;/p&gt;
-
-&lt;p&gt;De plus, l&amp;rsquo;implémentation des opérateurs peuvent varier. Par exemple, pas de commutativité. Ses variantes sont difficiles à détecter dans une grande masse de code, il devient facile de faire une erreur aussi bien à l&amp;rsquo;écriture qu&amp;rsquo;à la lecture.&lt;/p&gt;
-
-&lt;p&gt;Autre point, les types des opérandes peuvent être nombreux, faire tous les prototypes necessaires vous vaudra des heures de souffrances :).&lt;/p&gt;
-
-&lt;p&gt;Du coup, comment faire ? Une solution facile est d&amp;rsquo;utiliser une macro pour implémenter les opérateurs voulus. C&amp;rsquo;est simple et rapide, mais l&amp;rsquo;utiliser avec des types template est un peu délicat. Cela reste néanmoins la solution la plus simple.&lt;/p&gt;
-
-&lt;p&gt;Une autre manière passe par du CRTP pour que la classe de base implémente les opérateurs voulus sous forme de fonction amie. C&amp;rsquo;est la solution de &lt;a href=&#34;http://www.boost.org/doc/libs/1_64_0/libs/utility/operators.htm&#34;&gt;boost/operators.hpp&lt;/a&gt;. Malheureusement, elle ne prend pas en compte les optimisations possibles sur les rvalues écrits dans cet article. Il faut la ré-écrire.&lt;/p&gt;
-
-&lt;p&gt;La dernière solution consiste à se servir des traits pour activer ou non certains prototypes comme dans le chapitre précédent. Une mise en oeuvre poussée peut être extrêmement extensible et s&amp;rsquo;adapte très facilement aux catégories de valeur (séquence, intégrale), mais c&amp;rsquo;est un poil complexe à mettre en place. Je ne connais pas de bibliothèque qui le fasse.&lt;/p&gt;
-
-&lt;p&gt;Au final, il n&amp;rsquo;existe actuellement pas d&amp;rsquo;outil satisfaisant pour générer les opérateurs alors qu&amp;rsquo;il est presque aussi rapide d&amp;rsquo;écrire une lib ou des macros pour le faire. Le temps perdu sera largement compensé par le nombre d&amp;rsquo;opérateurs à implémenter par la suite. Avec un peu de jugeote, il est même possible de mutualiser l&amp;rsquo;écriture des opérateurs &lt;code&gt;@=&lt;/code&gt;. Pensez-y la prochaine fois qu&amp;rsquo;il faudra écrire des opérateurs ;).&lt;/p&gt;
-</description>
+      <description>Je vais me baser sur un classique: une classe de matrice contenant un std::vector&amp;lt;int&amp;gt; . Cette classe va implémenter 2 opérateurs mathématiques: +  et += . Le premier en fonction libre, le second en fonction membre.
+Pour rigoler un peu, on ajoute une petite contrainte qui est &amp;laquo;&amp;nbsp;l&amp;rsquo;efficacité&amp;nbsp;&amp;raquo;. Petit mot qui englobe un peu tout et n&amp;rsquo;importe quoi tel que la performance en mémoire et en temps.
+À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc.</description>
+    </item>
+    
+    <item>
+      <title>Comment se passer de std::forward</title>
+      <link>https://jonathanpoelen.github.io/2016/04/comment-se-passer-de-stdforward/</link>
+      <pubDate>Mon, 04 Apr 2016 23:09:41 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2016/04/comment-se-passer-de-stdforward/</guid>
+      <description>Actuellement en pleine écriture d&amp;rsquo;une fonction match (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de std::forward utilisée à chaque appel de fonction. J&amp;rsquo;en compte 21 pour un total de 6 niveaux d&amp;rsquo;imbrications. Autant dire qu&amp;rsquo;oublier de le mettre est plutôt facile.
+C&amp;rsquo;est d&amp;rsquo;ailleurs la raison de ce billet, puisque bien sûr, j&amp;rsquo;en ai oubliés.
+Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence.</description>
+    </item>
+    
+    <item>
+      <title>if constexpr avant C&#43;&#43;17</title>
+      <link>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-c--17/</link>
+      <pubDate>Mon, 21 Sep 2015 00:33:38 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-c--17/</guid>
+      <description>Le but de if constexpr  est d&amp;rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&amp;rsquo;a pas l&amp;rsquo;obligation de pouvoir être compilé.
+Plutôt étrange, n&amp;rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.
+Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières:
+ foncteur + paramètres fonction membre + objet + paramètres fonction membre + pointeur d&amp;rsquo;objet + paramètres  // x et y sont des std::string invoke(std::equal_to&amp;lt;&amp;gt;{}, x, y); // foncteur invoke(&amp;amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;amp;std::string::size, &amp;amp;x, y); // fonction membre et pointeur  En C++17, tout peut se faire en une seule fonction, alors qu&amp;rsquo;avant C++17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if.</description>
+    </item>
+    
+    <item>
+      <title>Paramètres de fonction nommés en C&#43;&#43;</title>
+      <link>https://jonathanpoelen.github.io/2015/07/param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c--/</link>
+      <pubDate>Tue, 28 Jul 2015 00:43:22 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2015/07/param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c--/</guid>
+      <description>Cet article est la démonstration de l&amp;rsquo;article précédent. La problématique présentée est la suivante: &amp;laquo;&amp;nbsp;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&amp;nbsp;&amp;raquo;
+La fonction de référence sera la suivante:
+void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, char border_bottom = &amp;#39;-&amp;#39; , char border_left = &amp;#39;&amp;lt;&amp;#39;, char border_right = &amp;#39;&amp;gt;&amp;#39; , char fill = &amp;#39;#&amp;#39; ) { std::cout &amp;lt;&amp;lt; std::setfill(border_top) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; while (h--) { std::cout &amp;lt;&amp;lt; border_left &amp;lt;&amp;lt; std::setfill(fill) &amp;lt;&amp;lt; std::setw(w) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; border_right &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } std::cout &amp;lt;&amp;lt; std::setfill(border_bottom) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; }  Comment faire un appel proche de draw_rect(4,3, fill=&amp;#39;@&amp;#39;)  ?</description>
+    </item>
+    
+    <item>
+      <title>Implémentation d&#39;un magasin de type</title>
+      <link>https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/</link>
+      <pubDate>Thu, 02 Jul 2015 01:49:41 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/</guid>
+      <description>Ce que j&amp;rsquo;appelle ici un magasin de type n&amp;rsquo;est autre qu&amp;rsquo;un std::tuple où les types ne sont présents qu&amp;rsquo;une seule fois. Une espèce de set version tuple en somme.
+Je me suis servi de ce type de structure à 2 reprises.
+Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&amp;rsquo;étais en C++11 et que dans cette norme std::get&amp;lt;Type&amp;gt;() n&amp;rsquo;existe pas.</description>
+    </item>
+    
+    <item>
+      <title>Appel conditionnel de fonction selon la validité d&#39;une expression</title>
+      <link>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validit%C3%A9-dune-expression/</link>
+      <pubDate>Sun, 30 Nov 2014 19:17:52 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validit%C3%A9-dune-expression/</guid>
+      <description>L&amp;rsquo;approche suivante consiste à vérifier qu&amp;rsquo;une fonction (membre ou statique) est appelable dans le but de l&amp;rsquo;utiliser, ou, à défaut, fournir implémentation générique. De manière plus générale, la méthode présentée ici s&amp;rsquo;applique à toutes expressions.
+Appeler T::sort si possible, sinon std::sort(begin(T), end(T)) L&amp;rsquo;exemple va se faire sur la classe std::list qui n&amp;rsquo;est pas triable avec std::sort, mais possède une fonction membre sort(). Ainsi que sur std::vector qui, inversement, n&amp;rsquo;a pas de fonction membre sort(), mais fonctionne avec std::sort.</description>
+    </item>
+    
+    <item>
+      <title>Réduire l&#39;empreinte mémoire d&#39;une agglomération de types</title>
+      <link>https://jonathanpoelen.github.io/2014/06/r%C3%A9duire-lempreinte-m%C3%A9moire-dune-agglom%C3%A9ration-de-types/</link>
+      <pubDate>Sat, 28 Jun 2014 14:10:11 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2014/06/r%C3%A9duire-lempreinte-m%C3%A9moire-dune-agglom%C3%A9ration-de-types/</guid>
+      <description>Un petit article pour parler d&amp;rsquo;optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par std::unique_ptr.
+Implémentation naïve de std::unique_ptr Pour rappel, std::unique_ptr prend 2 paramètres template: T et Deleter (qui par défaut égal std::default_delete&amp;lt;T&amp;gt;).
+Naïvement, l&amp;rsquo;implémentation serait:
+template&amp;lt;T, Deleter = std::default_delete&amp;lt;T&amp;gt;&amp;gt; class my_unique_ptr { T* m_pointer; Deleter m_deleter; // … };  Rien d&amp;rsquo;extraordinaire.
+Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 octet.</description>
+    </item>
+    
+    <item>
+      <title>256 couleurs et plus dans la console</title>
+      <link>https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/</link>
+      <pubDate>Mon, 09 Jun 2014 00:35:19 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/</guid>
+      <description>À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j&amp;rsquo;ai récemment appris l&amp;rsquo;existence de 256 couleurs dans la console en tombant sur un screen un peu trop coloré. Ce qui m&amp;rsquo;a dirigé sur un dépôt contenant un $LS_COLORS particulièrement fourni.
+En fait, il s&amp;rsquo;avère qu&amp;rsquo;en rajoutant extended dans la recherche &amp;laquo;&amp;nbsp;color shell&amp;nbsp;&amp;raquo; on puisse trouver quelque(s) ressource(s). J&amp;rsquo;aurais bien voulu y penser la semaine dernière, ça m&amp;rsquo;aurait évité de comprendre par tâtonnement&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>Valeur, référence ou pointeur ? (2/2)</title>
+      <link>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/</link>
+      <pubDate>Sat, 31 May 2014 21:18:10 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/</guid>
+      <description>Dans le précédent billet, j&amp;rsquo;opposai les paramètres par références constantes à ceux par valeurs.
+Sans plus attendre entamons la seconde question.
+Référence ou pointeur ? Si je dois faire court je dirai: pointeur jamais ; référence quand possible. Sans autre forme de procès :D
+Mais on me dit dans l&amp;rsquo;oreillette qu&amp;rsquo;il faut argumenter&amp;hellip; Alors c&amp;rsquo;est parti.
+Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.</description>
+    </item>
+    
+    <item>
+      <title>Valeur, référence ou pointeur ? (1/2)</title>
+      <link>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/</link>
+      <pubDate>Thu, 22 May 2014 09:51:53 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/</guid>
+      <description>Quand utiliser une variable par valeur, référence ou pointeur ?
+ Telle fut la question qui m&amp;rsquo;a été posée :p.
+Comme je ne suis pas entièrement satisfait de la réponse que j&amp;rsquo;ai donné, je fais un article. Pour tout dire, la réponse n&amp;rsquo;est pas aussi triviale que l&amp;rsquo;on pourrait le croire depuis l&amp;rsquo;arrivée du C++11 et la sémantique de déplacement.
+Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:</description>
+    </item>
+    
+    <item>
+      <title>Parcourir les arguments d&#39;une fonction variadique</title>
+      <link>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</link>
+      <pubDate>Sun, 22 Dec 2013 10:03:06 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</guid>
+      <description>À l&amp;rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
+Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.
+Quelque chose dans ce goût-là:
+#include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;class T, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;... others) { std::cout &amp;lt;&amp;lt; first &amp;lt;&amp;lt; &amp;#39;\n&amp;#39;; f1(others...); } template&amp;lt;class T&amp;gt; void f2(const T&amp;amp; first) { std::cout &amp;lt;&amp;lt; first &amp;lt;&amp;lt; &amp;#39;\n&amp;#39;; } template&amp;lt;class T, class.</description>
+    </item>
+    
+    <item>
+      <title>Tableau dans un std::vector</title>
+      <link>https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/</link>
+      <pubDate>Wed, 18 Sep 2013 20:09:51 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/</guid>
+      <description>Prenons le type suivant: std::vector&amp;lt;int[4]&amp;gt; . Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&amp;rsquo;est vrai !
+Ajoutons maintenant un élément à notre vector avec push_back.
+std::vector&amp;lt;int[2]&amp;gt; v; int a[2]{}; v.push_back(a);  Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&amp;rsquo;a ni constructeur ni destructeur.
+La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau.</description>
+    </item>
+    
+    <item>
+      <title>Utilisation de swap et des fonctions utilitaires en général</title>
+      <link>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral/</link>
+      <pubDate>Sat, 20 Jul 2013 11:18:49 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral/</guid>
+      <description>Une fonction utilitaire est une fonction libre qui n&amp;rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
+Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilitaire qui me vient à l&amp;rsquo;esprit en C++03 est std::swap (fonction qui échange le contenu de 2 variables). Pour info, l&amp;rsquo;en-tête de std::swap est passé de &amp;lt;algorithm&amp;gt; en C++03 à &amp;lt;utility&amp;gt; en C++11.</description>
+    </item>
+    
+    <item>
+      <title>make sans Makefile, utilisation des règles implicites</title>
+      <link>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-r%C3%A8gles-implicites/</link>
+      <pubDate>Wed, 26 Jun 2013 11:05:28 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-r%C3%A8gles-implicites/</guid>
+      <description>La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile &amp;laquo;&amp;nbsp;par défaut&amp;nbsp;&amp;raquo; avec plein de règles. Celui-ci est visible en tapant make -pf /dev/null dans un terminal.
+Rien qu&amp;rsquo;avec ça, on peut compiler des fichiers C, C++, archive, latex, etc. Il y a de quoi faire en fait.
+Par exemple, je crée un fichier C nommé test.c:
+int main(int ac, char** av) { return ac; } Que je compile avec make test pour créer l&amp;rsquo;exécutable test.</description>
+    </item>
+    
+    <item>
+      <title>Optimisation de script bash en limitant l&#39;ouverture de processus</title>
+      <link>https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/</link>
+      <pubDate>Wed, 29 May 2013 00:23:12 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/</guid>
+      <description>Une des choses qui prend du temps dans l&amp;rsquo;exécution d&amp;rsquo;un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés.
+Le meilleur moyen d&amp;rsquo;accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme. En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&amp;rsquo;entrée standard et retourne un résultat ; un peu comme bc. C&amp;rsquo;est là que les coprocessus viennent à la rescousse :).</description>
+    </item>
+    
+    <item>
+      <title>Référence constante sur référence</title>
+      <link>https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/</link>
+      <pubDate>Mon, 13 May 2013 03:18:42 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/</guid>
+      <description>Une petite note sur les références et le qualificatif const  en commençant par un exemple :).
+using reference = int&amp;amp;; int i = 0; reference const r = i; r = 3;  Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de r. En fait, ajouter const  sur une référence ne fait rien car cela ne s&amp;rsquo;applique pas sur le référé qui reste un int&amp;amp; .</description>
+    </item>
+    
+    <item>
+      <title>Placement new, allocateur et conteneur</title>
+      <link>https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/</link>
+      <pubDate>Mon, 22 Apr 2013 22:17:22 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/</guid>
+      <description>new  est généralement utilisé pour allouer un bloc mémoire et &amp;ndash; où il diffère de malloc(), &amp;ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.
+Mais new  fait une troisième chose: il lance une exception std::bad_alloc si l&amp;rsquo;espace mémoire est insuffisant.
+Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&amp;rsquo;en-tête &amp;lt;new&amp;gt; un type (std::nothrow_t) et une variable (std::nothrow) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</description>
+    </item>
+    
+    <item>
+      <title>Ne pas empêcher la NRVO</title>
+      <link>https://jonathanpoelen.github.io/2013/03/ne-pas-emp%C3%AAcher-la-nrvo/</link>
+      <pubDate>Sun, 17 Mar 2013 17:12:57 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/03/ne-pas-emp%C3%AAcher-la-nrvo/</guid>
+      <description>La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la FAQ C++ developpez.com.
+Cependant, ces optimisations ne s&amp;rsquo;appliquent que sur une variable de type T sans référence. Ce qui veut dire qu&amp;rsquo;une référence ne sera pas optimisée.
+iterator operator+(const iterator&amp;amp; other, int n) { return iterator(other) += n; // pas de RVO }  Alors qu&amp;rsquo;une décomposition de la fonction active la NRVO.</description>
+    </item>
+    
+    <item>
+      <title>Sqlite, reconstruire la bdd pour l&#39;alléger</title>
+      <link>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lall%C3%A9ger/</link>
+      <pubDate>Mon, 04 Mar 2013 23:36:14 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lall%C3%A9ger/</guid>
+      <description>Il existe sur les bases de données SQLite une commande pour réduire la fragmentation des tables et optimiser l&amp;rsquo;espace disque. J&amp;rsquo;ai nommé: VACUUM.
+Cette commande reconstruit la bdd pour éliminer les lignes vides et réorganise les index (plus de détails dans la doc en lien).
+Comme certains logiciels se servent de sqlite comme BDD, il peut être intéressant d&amp;rsquo;utiliser cette commande de temps en temps. La première fois que je l&amp;rsquo;ai fait pour firefox (fichier ~/.</description>
+    </item>
+    
+    <item>
+      <title>Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;</title>
+      <link>https://jonathanpoelen.github.io/2013/02/diff%C3%A9rence-entre----et-/</link>
+      <pubDate>Sun, 17 Feb 2013 10:42:27 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/02/diff%C3%A9rence-entre----et-/</guid>
+      <description>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées argv dans pas mal d&amp;rsquo;autres langages): $* et $@.
+ $* est une variable ce qu&amp;rsquo;il y a de plus normale et ne diffère pas d&amp;rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&amp;rsquo;y reviens après). $@ est une variable au comportement différent entre les shells basés sur sh (bash, dash, &amp;hellip;) et les autres (ksh, zsh).</description>
+    </item>
+    
+    <item>
+      <title>Délégation d&#39;événement en js</title>
+      <link>https://jonathanpoelen.github.io/2013/01/d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js/</link>
+      <pubDate>Fri, 18 Jan 2013 15:16:12 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2013/01/d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js/</guid>
+      <description>En règle générale les événements sont attachés à l&amp;rsquo;élément qui va le traiter.
+Par exemple en javascript, un menu (ul) contenant 10 entrées (li) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.
+Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&amp;rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</description>
+    </item>
+    
+    <item>
+      <title>La vis cachée de getopt</title>
+      <link>https://jonathanpoelen.github.io/2012/12/la-vis-cach%C3%A9e-de-getopt/</link>
+      <pubDate>Tue, 25 Dec 2012 12:58:55 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2012/12/la-vis-cach%C3%A9e-de-getopt/</guid>
+      <description>Voici une petite information très mal connue et peu utilisée du getopt de la lib C et de la commande shell. Ainsi que Boost.Program_options. Parce que boost c&amp;rsquo;est bien :p.
+Les noms des options longues n&amp;rsquo;ont pas besoin d&amp;rsquo;être écrites entièrement.
+function parsecmd() { getopt -o &amp;#39;&amp;#39; --long \  option-longue,option-encore-plus-longue,une-autre-option: \  -n &amp;#39;example&amp;#39; -- &amp;#34;$@&amp;#34; } parsecmd --option-l --u plop bidule Donne
+--option-longue --une-autre-option &#39;plop&#39; -- &#39;bidule&#39;  La commande shell getopt est un peu plus souple que les autres.</description>
+    </item>
+    
+    <item>
+      <title>Taguer vos classes, cataloguées-les</title>
+      <link>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-catalogu%C3%A9es-les/</link>
+      <pubDate>Thu, 20 Dec 2012 01:22:50 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-catalogu%C3%A9es-les/</guid>
+      <description>Le C++ a l&amp;rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &amp;laquo;&amp;nbsp;tags&amp;nbsp;&amp;raquo;.
+Comme exemple je vais utiliser les tags présents dans les itérateurs de la stl et une implémentation de la fonction std::advance().
+Première implémentation La fonction std::advance() permet d&amp;rsquo;incrémenter un itérateur de N éléments (ou décrémenter si N est négatif). D&amp;rsquo;après cette description, un premier algorithme peut être émis:</description>
+    </item>
+    
+    <item>
+      <title>Zsh et le danger des modificateurs</title>
+      <link>https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/</link>
+      <pubDate>Sun, 14 Oct 2012 19:46:36 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/</guid>
+      <description>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&amp;rsquo;interpréteur utilisé. J&amp;rsquo;ai eu le coup une fois lorsqu&amp;rsquo;il fallait charger le module canberra-gtk pour les programmes java.
+Une variable $GTK_MODULES est définie et contient tous les modules gtk séparés par des deux points (:). Visiblement, j&amp;rsquo;ai 2 modules gtk.</description>
+    </item>
+    
+    <item>
+      <title>La récursivité et le mauvais exemple de Fibonacci</title>
+      <link>https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/</link>
+      <pubDate>Thu, 16 Aug 2012 02:22:24 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/</guid>
+      <description>Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:
+ Coder la suite de Fibonacci en récursive et en itérative.
+ Mais partout où j&amp;rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&amp;rsquo;on peut trouver.
+//itérative long long fib(unsigned n) { if (n == 0) return n; long long a = 0, b = 1, tmp; while (--n) { tmp = a + b; a = b; b = tmp; } return b; } // récursive long long fib_r(unsigned n) { if (0 == n || 1 == n) return n; return fib_r(n-1) + fib_r(n-2); } Sauf que cet algorithme récursif est pourri.</description>
+    </item>
+    
+    <item>
+      <title>Sed tout puissant</title>
+      <link>https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/</link>
+      <pubDate>Mon, 11 Jun 2012 10:11:50 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/</guid>
+      <description>Il y a 3 semaines environ je cherchais le moyen d&amp;rsquo;utiliser la commande sed avec une regex sur plusieurs lignes. Je voulais transformer tous les /\+\n\s+&amp;quot;&amp;quot;/ en rien du tout (oui, les supprimer…). Sauf que comme tel, ça ne fonctionne pas, sed comme beaucoup de commandes unix fonctionne par ligne. Après de lourdes et pompeuses recherches d&amp;rsquo;au moins 7 secondes montre en main, je suis tombé sur la solution.
+Pour ce faire, il suffit d&amp;rsquo;un identifiant, un petit label, une information de multi-ligne au milieu et 3 autres bricoles ; rien que ça :D.</description>
+    </item>
+    
+    <item>
+      <title>Rendre accessible le chargement de lien avec AJAX</title>
+      <link>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</link>
+      <pubDate>Sat, 31 Dec 2011 12:05:43 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</guid>
+      <description>Le but d&amp;rsquo;un site chargeant ces pages avec AJAX est double:
+ Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées). Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins.  Toutefois, si mal fait, des problèmes apparaissent au niveau de l&amp;rsquo;historique qui n&amp;rsquo;est plus utilisable.</description>
     </item>
     
   </channel>

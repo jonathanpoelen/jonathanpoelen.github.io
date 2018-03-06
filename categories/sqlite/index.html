@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sqlite</title>
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Jonathan Poelen Feed" href="https://jonathanpoelen.github.io/categories/sqlite/index.xml">
+
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+
+<link rel="stylesheet" type="text/css" media="all" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous" />
+
+<link rel="alternate stylesheet" title="Night theme" href="/css/night.css">
+<link rel="shortcut icon" href="/favicon.ico" />
+
+</head>
+<body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+  <div id="avoidance-link">
+    <a class="evitement" href="#main-content" title="Aller au contenu">Aller au contenu</a>
+    <a class="evitement" href="#main-menu" title="Aller au menu">Aller au menu</a>
+  </div>
+  <div class="container container-outer">
+    <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+      <div class="container-inner">
+        <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+          <a class="logo__link" href="/" title="Jonathan Poelen" rel="home">
+            <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
+            <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
+          </a>
+        </div>
+        <nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <ul class="menu__list">
+    <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
+      <i class="fa fa-github" aria-hidden="true"></i> Github
+    </a></li>
+    <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
+      <i class="fa fa-archive" aria-hidden="true"></i> Archives</a>
+    </li>
+    <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
+      <i class="fa fa-rss" aria-hidden="true"></i> RSS</a>
+    </li>
+  </ul>
+</nav>
+
+
+      </div>
+    </header>
+    <div class="wrapper clearfix">
+
+
+<aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="widget-search widget">
+  <form class="widget-search__form" role="search" method="get" action="//google.com/search">
+    <label>
+      <span class="screen-reader-text">Search for:</span>
+      <input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+    </label>
+    <input class="widget-search__submit" type="submit" value="Search">
+    <input type="hidden" name="sitesearch" value="https://jonathanpoelen.github.io/" />
+  </form>
+</div>
+
+	
+<div class="widget-recent widget" id="main-menu">
+  <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></li>
+      
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">26 autres…</a></li>
+    </ul>
+  </div>
+</div>
+<div class="widget-recent widget">
+  <h4 class="widget__title"><i class="fa fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2015/09/if-constexpr-avant-c--17/">
+        <time datetime="2018-03-04T23:14:38">04/03/2018</time>
+        -- if constexpr avant C&#43;&#43;17
+      </a></li>
+
+    </ul>
+  </div>
+</div>
+
+	
+<div class="widget-categories widget">
+  <h4 class="widget__title"><i class="fa fa-folder-o" aria-hidden="true"></i> Categories</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (18)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/script-shell">Script-Shell (6)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilité-Web">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/accessibilit%c3%a9-web">Accessibilité-Web (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/make">Make (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
+          &nbsp;
+          <i class="fa fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/zsh">Zsh (1)</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+	
+	
+
+</aside>
+
+  <section class="main-content list content" role="main" id="main-content">
+      <article class="list_archive">
+  <header class="post__header clearfix">
+    <h1 class="post__title">
+        <a class="page-rss" href="https://jonathanpoelen.github.io/categories/sqlite/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">Sqlite (1) &nbsp;<i class="fa fa-rss" aria-hidden="true"> </i><span class="sr-only link-alt">(Flux RSS)</span>&nbsp;</a>
+    </h1>
+  </header>
+  <div class="list__content">
+    <ul>
+      <li>
+        <time class="list__meta-date" datetime="2013-03-04T23:36:14" pubdate="pubdate">2013/03/04</time>
+        —
+        <a href="https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lall%C3%A9ger/">Sqlite, reconstruire la bdd pour l&#39;alléger</a>
+        <span class="list__meta meta">
+          
+
+          
+
+<a class="meta-categories__link" href="/categories/sqlite" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>SQLite</a>
+;
+
+
+        </span>
+      </li>
+    </ul>
+  </div>
+</article>
+
+
+
+    
+  </section>
+
+</div>
+  <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+    <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
+    <p class="footer__copyright">
+       Jonathan Poelen. <span class="footer__copyright-credits">
+      Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
+      et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
+      Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
+      </span>
+    </p>
+  </footer>
+</div>
+<a id="backtop" href="#avoidance-link"><i class="fa fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
+
+
+</body>
+</html>
+
+
