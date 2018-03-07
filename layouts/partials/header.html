@@ -19,6 +19,10 @@
 <!--<script type="text/javascript" src="{{ "js/scripts.js" | relURL }}"></script>-->
 <link rel="alternate stylesheet" title="Night theme" href="{{ "css/night.css" | relURL }}">
 <link rel="shortcut icon" href="{{ "favicon.ico" | relURL }}" />
+<meta name="description" content="{{- if .Params.description}}{{.Params.description}}
+{{- else if .Summary}}{{.Summary}}
+{{- else}}{{.Site.Params.Title}}.{{ with .Site.Params.subtitle }} {{.}}{{ end }}
+{{- end}}" />
 {{ template "_internal/google_analytics_async.html" . }}
 </head>
 <body class="body {{ if (.Site.Params.leftsidebar) or (.Params.leftsidebar) }}body-left-sidebar{{ else }}body-right-sidebar{{ end }} mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">

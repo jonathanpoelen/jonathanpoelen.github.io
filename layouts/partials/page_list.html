@@ -2,7 +2,7 @@
 
 {{ partial "sidebar.html" . }}
 
-  <section class="main-content list content" role="main" id="main-content">
+  <main class="main-content list content" role="main" id="main-content">
     {{- with .Content }}
     <div class="page-content">
       {{ . }}
@@ -32,6 +32,6 @@
     {{ if .IsHome }}
       {{ partial "pagination.html" . }}
     {{- end }}
-  </section>
+  </main>
 
 {{ partial "footer.html" . }}
