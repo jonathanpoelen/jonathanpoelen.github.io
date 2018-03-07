@@ -1,6 +1,6 @@
 {{ partial "header.html" . }}
-
-<section class="main-content content" role="main">
+{{ partial "sidebar.html" . }}
+<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
   <article class="post">
   <header class="page-header">
     <h1 class="page-header__title"><i class="fa fa-chain-broken" aria-hidden="true"></i> Oups, le lien est cassé.</h1>
@@ -17,9 +17,9 @@
     <p>Ceux qui préfèrent les cartons remplis de feuille peuvent toujours fouiller dans les <a href="/archives" title="Archives">archives</a>.</p>
   </div>
   <!--<div class="p404">
-    <p>Imaginer du sable fin.</p>
-    <p>Imaginer un soleil radieux.</p>
-    <p>Imaginer un bon article à lire.</p>
+    <p>Imaginez du sable fin.</p>
+    <p>Imaginez un soleil radieux.</p>
+    <p>Imaginez un bon article à lire.</p>
     <p>Mais n'imaginer pas le trouver ici.</p>
   </div>
 
@@ -32,7 +32,5 @@
     <p>Allez aux <a href="/archives" title="Archives">archives</a> ou retourner à la <a href="/" title="{{ .Site.Title }}">page d'accueil</a>.</p>
   </footer>-->
   </article>
-</section>
-
-{{ partial "sidebar.html" . }}
+</main>
 {{ partial "footer.html" . }}
