@@ -19,6 +19,8 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css">
 <link rel="shortcut icon" href="/favicon.ico" />
+<meta name="description" content="Il y a 3 semaines environ je cherchais le moyen d&rsquo;utiliser la commande sed avec une regex sur plusieurs lignes. Je voulais transformer tous les /\&#43;\n\s&#43;&quot;&quot;/ en rien du tout (oui, les supprimer…). Sauf que comme tel, ça ne fonctionne pas, sed comme beaucoup de commandes unix fonctionne par ligne. Après de lourdes et pompeuses recherches d&rsquo;au moins 7 secondes montre en main, je suis tombé sur la solution.
+Pour ce faire, il suffit d&rsquo;un identifiant, un petit label, une information de multi-ligne au milieu et 3 autres bricoles ; rien que ça :D." />
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -30,7 +32,7 @@
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen" rel="home">
+          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -163,7 +165,7 @@
 	
 
 </aside>
-<section class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
+<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
   
 <article class="post">
   <header class="post__header clearfix">
@@ -270,12 +272,12 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
 
   
 
-</section>
+</main>
 </div>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen. <span class="footer__copyright-credits">
+       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

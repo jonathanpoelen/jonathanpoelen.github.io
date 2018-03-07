@@ -19,6 +19,10 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css">
 <link rel="shortcut icon" href="/favicon.ico" />
+<meta name="description" content="Le but de if constexpr  est d&rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&rsquo;a pas l&rsquo;obligation de pouvoir être compilé.
+Plutôt étrange, n&rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.
+Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
+ foncteur &#43; paramètres fonction membre &#43; objet &#43; paramètres fonction membre &#43; pointeur d&rsquo;objet &#43; paramètres  // x et y sont des std::string invoke(std::equal_to&lt;&gt;{}, x, y); // foncteur invoke(&amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;std::string::size, &amp;x, y); // fonction membre et pointeur  En C&#43;&#43;17, tout peut se faire en une seule fonction, alors qu&rsquo;avant C&#43;&#43;17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if." />
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -30,7 +34,7 @@
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen" rel="home">
+          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -163,7 +167,7 @@
 	
 
 </aside>
-<section class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
+<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
   
 <article class="post">
   <header class="post__header clearfix">
@@ -338,12 +342,12 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
 
   
 
-</section>
+</main>
 </div>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen. <span class="footer__copyright-credits">
+       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

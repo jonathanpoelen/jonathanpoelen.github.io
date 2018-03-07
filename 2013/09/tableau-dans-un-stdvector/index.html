@@ -19,6 +19,10 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css">
 <link rel="shortcut icon" href="/favicon.ico" />
+<meta name="description" content="Prenons le type suivant: std::vector&lt;int[4]&gt; . Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&rsquo;est vrai !
+Ajoutons maintenant un élément à notre vector avec push_back.
+std::vector&lt;int[2]&gt; v; int a[2]{}; v.push_back(a);  Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.
+La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau." />
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -30,7 +34,7 @@
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen" rel="home">
+          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -163,7 +167,7 @@
 	
 
 </aside>
-<section class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
+<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
   
 <article class="post">
   <header class="post__header clearfix">
@@ -318,12 +322,12 @@ Toutefois, cette version est fonctionnelle avec <code>push_back</code> :).</p>
 
   
 
-</section>
+</main>
 </div>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen. <span class="footer__copyright-credits">
+       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

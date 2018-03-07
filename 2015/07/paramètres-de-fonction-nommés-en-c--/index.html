@@ -19,6 +19,9 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css">
 <link rel="shortcut icon" href="/favicon.ico" />
+<meta name="description" content="Cet article est la démonstration de l&rsquo;article précédent. La problématique présentée est la suivante: &laquo;&nbsp;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&nbsp;&raquo;
+La fonction de référence sera la suivante:
+void draw_rect( unsigned w, unsigned h , char border_top = &#39;-&#39;, char border_bottom = &#39;-&#39; , char border_left = &#39;&lt;&#39;, char border_right = &#39;&gt;&#39; , char fill = &#39;#&#39; ) { std::cout &lt;&lt; std::setfill(border_top) &lt;&lt; std::setw(w&#43;2) &lt;&lt; &#34;&#34; &lt;&lt; &#34;\n&#34;; while (h--) { std::cout &lt;&lt; border_left &lt;&lt; std::setfill(fill) &lt;&lt; std::setw(w) &lt;&lt; &#34;&#34; &lt;&lt; border_right &lt;&lt; &#34;\n&#34;; } std::cout &lt;&lt; std::setfill(border_bottom) &lt;&lt; std::setw(w&#43;2) &lt;&lt; &#34;&#34; &lt;&lt; &#34;\n&#34;; }  Comment faire un appel proche de draw_rect(4,3, fill=&#39;@&#39;)  ?" />
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -30,7 +33,7 @@
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen" rel="home">
+          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -163,7 +166,7 @@
 	
 
 </aside>
-<section class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
+<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
   
 <article class="post">
   <header class="post__header clearfix">
@@ -342,12 +345,12 @@
 
   
 
-</section>
+</main>
 </div>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen. <span class="footer__copyright-credits">
+       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

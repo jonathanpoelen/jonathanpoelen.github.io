@@ -19,6 +19,9 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css">
 <link rel="shortcut icon" href="/favicon.ico" />
+<meta name="description" content="Actuellement en pleine écriture d&rsquo;une fonction match (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de std::forward utilisée à chaque appel de fonction. J&rsquo;en compte 21 pour un total de 6 niveaux d&rsquo;imbrications. Autant dire qu&rsquo;oublier de le mettre est plutôt facile.
+C&rsquo;est d&rsquo;ailleurs la raison de ce billet, puisque bien sûr, j&rsquo;en ai oubliés.
+Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence." />
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -30,7 +33,7 @@
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen" rel="home">
+          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -163,7 +166,7 @@
 	
 
 </aside>
-<section class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
+<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
   
 <article class="post">
   <header class="post__header clearfix">
@@ -287,12 +290,12 @@
 
   
 
-</section>
+</main>
 </div>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen. <span class="footer__copyright-credits">
+       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
