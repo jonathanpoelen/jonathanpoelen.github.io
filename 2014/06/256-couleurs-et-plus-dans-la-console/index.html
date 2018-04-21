@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>256 couleurs et plus dans la console</title>
 
-<meta name="generator" content="Hugo 0.37" />
+<meta name="generator" content="Hugo 0.38.2" />
 
 
 
@@ -425,19 +425,19 @@ En fait, il s&rsquo;avère qu&rsquo;en rajoutant extended dans la recherche &laq
 <p>C&rsquo;est un mode étendue, certains vieux terminaux limitent à 88 couleurs, mais la plupart en supportent 256. Il s&rsquo;utilise avec le triplet suivant:</p>
 
 <ul>
-<li>Texte: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="m">38</span><span class="p">;</span><span class="m">5</span><span class="p">;</span><span class="si">${</span><span class="nv">X</span><span class="si">}</span></code></span></li>
-<li>Fond: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="m">48</span><span class="p">;</span><span class="m">5</span><span class="p">;</span><span class="si">${</span><span class="nv">X</span><span class="si">}</span></code></span></li>
+<li>Texte: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="m">38</span><span class="p">;</span><span class="m">5</span><span class="p">;</span><span class="si">${</span><span class="nv">x</span><span class="si">}</span></code></span></li>
+<li>Fond: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="m">48</span><span class="p">;</span><span class="m">5</span><span class="p">;</span><span class="si">${</span><span class="nv">x</span><span class="si">}</span></code></span></li>
 </ul>
 
-<p>Dont <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">X</span><span class="si">}</span></code></span> est à remplacer par un nombre allant de 0 à 255 inclus.</p>
+<p>Dont <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">x</span><span class="si">}</span></code></span> est à remplacer par un nombre allant de 0 à 255 inclus.</p>
 
 <h2 id="truecolor">TrueColor</h2>
 
 <p>Il est possible d&rsquo;utiliser le classique RGB quand le terminal le permet. Beaucoup d&rsquo;interfaces consoles ne le prennent pas bien en charge ou ne le détectent pas. Pour la seconde catégorie, il faut généralement activer une option.</p>
 
 <ul>
-<li>Texte: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="m">38</span><span class="p">;</span><span class="m">2</span><span class="p">;</span><span class="si">${</span><span class="nv">r</span><span class="si">}${</span><span class="nv">g</span><span class="si">}${</span><span class="nv">b</span><span class="si">}</span></code></span></li>
-<li>Fond: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="m">48</span><span class="p">;</span><span class="m">2</span><span class="p">;</span><span class="si">${</span><span class="nv">r</span><span class="si">}${</span><span class="nv">g</span><span class="si">}${</span><span class="nv">b</span><span class="si">}</span></code></span></li>
+<li>Texte: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="m">38</span><span class="p">;</span><span class="m">2</span><span class="p">;</span><span class="si">${</span><span class="nv">r</span><span class="si">}</span><span class="p">;</span><span class="si">${</span><span class="nv">g</span><span class="si">}</span><span class="p">;</span><span class="si">${</span><span class="nv">b</span><span class="si">}</span></code></span></li>
+<li>Fond: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="m">48</span><span class="p">;</span><span class="m">2</span><span class="p">;</span><span class="si">${</span><span class="nv">r</span><span class="si">}</span><span class="p">;</span><span class="si">${</span><span class="nv">g</span><span class="si">}</span><span class="p">;</span><span class="si">${</span><span class="nv">b</span><span class="si">}</span></code></span></li>
 </ul>
 
 <p>Dont <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">r</span><span class="si">}</span></code></span>, <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">g</span><span class="si">}</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">b</span><span class="si">}</span></code></span> sont à remplacer par un nombre allant de 0 à 255 inclus.</p>

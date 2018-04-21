@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valeur, référence ou pointeur ? (1/2)</title>
 
-<meta name="generator" content="Hugo 0.37" />
+<meta name="generator" content="Hugo 0.38.2" />
 
 
 
@@ -255,10 +255,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 <span class="p">}</span>
 </code></pre></div>
 <p>Supposons que BigInt fasse de l&rsquo;allocation dynamique pour représenter les nombres. Avec ce code:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">BigInt</span> 
-<span class="nf">n1</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">BigInt</span> <span class="nf">n1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="n">BigInt</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">BigInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">n1</span><span class="p">;</span>
 </code></pre></div>
 <p>Il y a 3 allocations:</p>
@@ -301,17 +298,11 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 </code></pre></div>
 <p>Le code suivant fait 2 allocations (comme avec les références constantes)</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
-<span class="n">A</span> 
-<span class="nf">a</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-
-<span class="p">;</span>
+<span class="n">A</span> <span class="nf">a</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
 </code></pre></div>
 <p>Alors que celui-ci qu&rsquo;une seule</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
-<span class="n">A</span> 
-<span class="nf">a</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="p">;</span>
+<span class="n">A</span> <span class="nf">a</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
 <span class="c1">// c.size() == 0;
 </span><span class="c1"></span></code></pre></div>
 <p>Et ce dernier aussi</p>
@@ -393,20 +384,13 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 <span class="k">struct</span> <span class="n">Validate</span>
 <span class="p">{</span>
   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">;</span>
-  <span class="kt">void</span> 
-<span class="nf">display</span><span class="p">()</span>
- <span class="k">const</span> 
-<span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">display</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
 <span class="p">};</span>
 
-<span class="n">Validate</span> 
-<span class="nf">f</span><span class="p">()</span>
+<span class="n">Validate</span> <span class="nf">f</span><span class="p">()</span>
+<span class="p">{</span> <span class="k">return</span> <span class="p">{</span><span class="s">&#34;plop&#34;</span><span class="p">};</span> <span class="p">}</span>
 
-<span class="p">{</span> <span class="k">return</span> <span class="p">{</span><span class="sa"></span><span class="s">&#34;plop&#34;</span><span class="p">};</span> <span class="p">}</span>
-
-<span class="kt">int</span> 
-<span class="nf">main</span><span class="p">()</span>
-
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="n">Validate</span> <span class="n">x</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span>
   <span class="n">x</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parcourir les arguments d&#39;une fonction variadique</title>
 
-<meta name="generator" content="Hugo 0.37" />
+<meta name="generator" content="Hugo 0.38.2" />
 
 
 
@@ -222,35 +222,33 @@ Quelque chose dans ce goût-là:
 <p>Quelque chose dans ce goût-là:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span>
-<span class="kt">void</span> 
-<span class="nf">f1</span><span class="p">()</span>
-
+<span class="kt">void</span> <span class="nf">f1</span><span class="p">()</span>
 <span class="p">{}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
   <span class="n">f1</span><span class="p">(</span><span class="n">others</span><span class="p">...);</span>
 <span class="p">}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;, &#34;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span><span class="p">;</span>
   <span class="n">f2</span><span class="p">(</span><span class="n">others</span><span class="p">...);</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
 <span class="p">{</span>
-  <span class="n">f1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;plop&#34;</span><span class="p">);</span>
-  <span class="n">f2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="sa"></span><span class="s">&#34;plop&#34;</span><span class="p">);</span>
+  <span class="n">f1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="s">&#34;plop&#34;</span><span class="p">);</span>
+  <span class="n">f2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="s">&#34;plop&#34;</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Ce qui affiche:</p>
@@ -291,15 +289,15 @@ plop
 <span class="k">template</span><span class="o">&lt;</span><span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="n">UNPACK</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+  <span class="n">UNPACK</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span><span class="p">;</span>
-  <span class="n">UNPACK</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;, &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">others</span><span class="p">);</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+  <span class="n">UNPACK</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">others</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Ce qui simplifie considérablement l&rsquo;écriture :).</p>

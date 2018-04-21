@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tableau dans un std::vector</title>
 
-<meta name="generator" content="Hugo 0.37" />
+<meta name="generator" content="Hugo 0.38.2" />
 
 
 
@@ -253,22 +253,16 @@ La manière la plus facile pour éliminer ces erreurs de compilation est de mett
   <span class="k">struct</span> <span class="n">rebind</span>
   <span class="p">{</span> <span class="k">typedef</span> <span class="n">array_allocator</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span> <span class="n">other</span><span class="p">;</span> <span class="p">};</span>
 
-  <span class="kt">void</span> 
-<span class="nf">construct</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)</span>
-<span class="p">[</span><span class="n">N</span><span class="p">],</span> <span class="k">const</span> <span class="n">T</span><span class="p">(</span><span class="o">&amp;</span><span class="n">val</span><span class="p">)[</span><span class="n">N</span><span class="p">])</span>
-  
-<span class="p">{</span>
+  <span class="kt">void</span> <span class="nf">construct</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">N</span><span class="p">],</span> <span class="k">const</span> <span class="n">T</span><span class="p">(</span><span class="o">&amp;</span><span class="n">val</span><span class="p">)[</span><span class="n">N</span><span class="p">])</span>
+  <span class="p">{</span>
     <span class="n">value_allocator</span> <span class="n">alloc</span><span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">alloc</span><span class="p">.</span><span class="n">construct</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">n</span><span class="p">],</span> <span class="n">val</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
     <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="kt">void</span> 
-<span class="nf">destroy</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)</span>
-<span class="p">[</span><span class="n">N</span><span class="p">])</span>
-  
-<span class="p">{</span>
+  <span class="kt">void</span> <span class="nf">destroy</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">N</span><span class="p">])</span>
+  <span class="p">{</span>
     <span class="n">value_allocator</span> <span class="n">alloc</span><span class="p">;</span>
     <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
       <span class="n">alloc</span><span class="p">.</span><span class="n">destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">n</span><span class="p">]);</span>

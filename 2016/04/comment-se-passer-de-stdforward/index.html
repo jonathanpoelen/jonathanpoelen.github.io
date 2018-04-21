@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comment se passer de std::forward</title>
 
-<meta name="generator" content="Hugo 0.37" />
+<meta name="generator" content="Hugo 0.38.2" />
 
 
 
@@ -202,6 +202,7 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
 
   </header>
   <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 1 ans. Les informations y figurant peuvent être dépassées.</p>
     <p>Actuellement en pleine écriture d&rsquo;une fonction <code>match</code> (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de <code>std::forward</code> utilisée à chaque appel de fonction. J&rsquo;en compte 21 pour un total de 6 niveaux d&rsquo;imbrications. Autant dire qu&rsquo;oublier de le mettre est plutôt facile.</p>
 
 <p>C&rsquo;est d&rsquo;ailleurs la raison de ce billet, puisque bien sûr, j&rsquo;en ai oubliés.</p>
@@ -226,8 +227,8 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
 
 <span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;&amp;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="c1">// dernier niveau d&#39;imbrication avant l&#39;appel de la vrai fonction
 </span><span class="c1">// note: le coup d&#39;une copie est nulle pour le type forwarder

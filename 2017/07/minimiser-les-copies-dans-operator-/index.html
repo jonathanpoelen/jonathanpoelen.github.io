@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minimiser les copies dans operator&#43;</title>
 
-<meta name="generator" content="Hugo 0.37" />
+<meta name="generator" content="Hugo 0.38.2" />
 
 
 
@@ -281,33 +281,31 @@ Pour rigoler un peu, on ajoute une petite contrainte qui est &laquo;&nbsp;l&rsqu
 
 <p>Ainsi, si dans l&rsquo;expresssion <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 </code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">b</span>
-</code></span> une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__PRETTY_FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="sc">&#39;\n&#39;</span>
+</code></span> une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__PRETTY_FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span>
 </code></span> dans les implémentations et le test qui suit.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Rhs</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">test</span><span class="p">()</span>
 <span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;Matrix &#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_const</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span><span class="p">{}</span> <span class="o">?</span> <span class="sa"></span><span class="s">&#34;const&#34;</span> <span class="o">:</span> <span class="sa"></span><span class="s">&#34;     &#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34; a; &#34;</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;Matrix &#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_const</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span><span class="p">{}</span> <span class="o">?</span> <span class="sa"></span><span class="s">&#34;const&#34;</span> <span class="o">:</span> <span class="sa"></span><span class="s">&#34;     &#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34; b;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Matrix &#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_const</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span><span class="p">{}</span> <span class="o">?</span> <span class="s">&#34;const&#34;</span> <span class="o">:</span> <span class="s">&#34;     &#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; a; &#34;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Matrix &#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_const</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span><span class="p">{}</span> <span class="o">?</span> <span class="s">&#34;const&#34;</span> <span class="o">:</span> <span class="s">&#34;     &#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; b;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
 
   <span class="n">Lhs</span> <span class="n">a</span><span class="p">;</span>
   <span class="n">Rhs</span> <span class="n">b</span><span class="p">;</span>
 
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">left</span><span class="p">;</span>
-  
-<span class="cp">#define C(a,b) std::cout &lt;&lt; std::setw(13) &lt;&lt; #a &lt;&lt; &#34;+ &#34; &lt;&lt; std::setw(15) &lt;&lt; #b; a+b
+  <span class="cp">#define C(a,b) std::cout &lt;&lt; std::setw(13) &lt;&lt; #a &lt;&lt; &#34;+ &#34; &lt;&lt; std::setw(15) &lt;&lt; #b; a+b
 </span><span class="cp"></span>  <span class="n">C</span><span class="p">(</span><span class="n">a</span><span class="p">,</span>            <span class="n">b</span><span class="p">);</span>
   <span class="n">C</span><span class="p">(</span><span class="n">a</span><span class="p">,</span>            <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
   <span class="n">C</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">b</span><span class="p">);</span>
   <span class="n">C</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
-  
-<span class="cp">#undef C
+  <span class="cp">#undef C
 </span><span class="cp"></span><span class="p">}</span>
 
 <span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
 <span class="p">{</span>
-  <span class="n">test</span><span class="o">&lt;</span>      <span class="n">Matrix</span><span class="p">,</span>       <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
-  <span class="n">test</span><span class="o">&lt;</span>      <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
-  <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span>       <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="n">test</span><span class="o">&lt;</span>      <span class="n">Matrix</span><span class="p">,</span>       <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="n">test</span><span class="o">&lt;</span>      <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span>       <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
   <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>

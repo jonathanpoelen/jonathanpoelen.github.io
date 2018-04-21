@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Utilisation de swap et des fonctions utilitaires en général</title>
 
-<meta name="generator" content="Hugo 0.37" />
+<meta name="generator" content="Hugo 0.38.2" />
 
 
 
@@ -229,11 +229,8 @@ Toutes ces fonctions citées sont disponibles en C&#43;&#43;11. La seule fonctio
 </span><span class="cp"></span>
 <span class="k">namespace</span> <span class="n">my</span> <span class="p">{</span>
   <span class="k">struct</span> <span class="n">A</span><span class="p">{};</span>
-  <span class="kt">void</span> 
-<span class="nf">swap</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">A</span><span class="o">&amp;</span><span class="p">)</span>
-
-  
-<span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;ok</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">A</span><span class="o">&amp;</span><span class="p">)</span>
+  <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;ok</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
@@ -245,9 +242,7 @@ Toutes ces fonctions citées sont disponibles en C&#43;&#43;11. La seule fonctio
 <p>N&rsquo;affiche rien&hellip; :/.</p>
 
 <p>Par contre ce qui suit affiche &laquo;&nbsp;ok&nbsp;&raquo;.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> 
-<span class="nf">main</span><span class="p">()</span>
-
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
   <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
@@ -256,9 +251,7 @@ Toutes ces fonctions citées sont disponibles en C&#43;&#43;11. La seule fonctio
 <p>Comme une fonction <code>swap</code> prenant des <code>my::A</code> existe, elle est utilisée. Cela est possible car la fonction <code>swap</code> fait partie du namespace <code>my</code> et que les variables <code>a</code> et <code>b</code> sont des instances d&rsquo;une classe du même namespace.</p>
 
 <p>Alors que ceci ne compile pas.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> 
-<span class="nf">main</span><span class="p">()</span>
-
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
   <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
@@ -272,9 +265,7 @@ Il faudrait que <code>std::swap</code> soit utilisé si aucun <code>swap</code> 
 
 <p>Pour ce, on &laquo;&nbsp;déplace&nbsp;&raquo; <code>std::swap</code> dans le scope courant avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">using</span>
 </code></span> et grâce l&rsquo;<a href="http://en.cppreference.com/w/cpp/language/adl">ADL (Argument-dependent lookup)</a>, le compilateur appellera la bonne fonction.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> 
-<span class="nf">main</span><span class="p">()</span>
-
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
   <span class="p">{</span>
@@ -316,11 +307,8 @@ Il faudrait que <code>std::swap</code> soit utilisé si aucun <code>swap</code> 
 </span><span class="cp"></span>
 <span class="k">namespace</span> <span class="n">my</span> <span class="p">{</span>
   <span class="k">struct</span> <span class="n">A</span><span class="p">{};</span>
-  <span class="kt">void</span> 
-<span class="nf">swap</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">A</span><span class="o">&amp;</span><span class="p">)</span>
-
-  
-<span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sa"></span><span class="s">&#34;ok</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">A</span><span class="o">&amp;</span><span class="p">)</span>
+  <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;ok</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
 <span class="p">}</span>
 
 
