@@ -77,17 +77,17 @@ Blanc         | 97    | 107
 
 C'est un mode étendue, certains vieux terminaux limitent à 88 couleurs, mais la plupart en supportent 256. Il s'utilise avec le triplet suivant:
 
-- Texte: {{<hi sh "38;5;${X}"/>}}
-- Fond: {{<hi sh "48;5;${X}"/>}}
+- Texte: {{<hi sh "38;5;${x}"/>}}
+- Fond: {{<hi sh "48;5;${x}"/>}}
 
-Dont {{<hi sh "${X}"/>}} est à remplacer par un nombre allant de 0 à 255 inclus.
+Dont {{<hi sh "${x}"/>}} est à remplacer par un nombre allant de 0 à 255 inclus.
 
 ## TrueColor
 
 Il est possible d'utiliser le classique RGB quand le terminal le permet. Beaucoup d'interfaces consoles ne le prennent pas bien en charge ou ne le détectent pas. Pour la seconde catégorie, il faut généralement activer une option.
 
-- Texte: {{<hi sh "38;2;${r}${g}${b}"/>}}
-- Fond: {{<hi sh "48;2;${r}${g}${b}"/>}}
+- Texte: {{<hi sh "38;2;${r};${g};${b}"/>}}
+- Fond: {{<hi sh "48;2;${r};${g};${b}"/>}}
 
 Dont {{<hi sh "${r}"/>}}, {{<hi sh "${g}"/>}} et {{<hi sh "${b}"/>}} sont à remplacer par un nombre allant de 0 à 255 inclus.
 
