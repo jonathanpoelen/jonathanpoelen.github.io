@@ -1954,6 +1954,7 @@ input[type=submit]
   text-decoration: underline;
 }
 
+
 .post__content h2::before,
 .post__content h3::before,
 .post__content h4::before,
@@ -1968,6 +1969,11 @@ input[type=submit]
 .post__content h4::before { content: "### "; }
 .post__content h5::before { content: "#### "; }
 .post__content h6::before { content: "##### "; }
+
+
+.headline-hash {
+  text-decoration: none;
+}
 
 .post__content ul {
   list-style: none;

@@ -40,7 +40,7 @@
     {{- if lt .Lastmod (now.AddDate -2 0 0) }}
       <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de {{ sub now.Year ( add .Lastmod.Year 1 )}} ans. Les informations y figurant peuvent être dépassées.</p>
     {{- end }}
-    {{ .Content }}
+    {{ .Content | replaceRE "(<h[23456] id=\"([^\"]+)\">[^<]+</h[23456]>)" "<a class=\"headline-hash\" href=\"#${2}\">${1}</a>" | safeHTML }}
   </div>
   <footer class="post__footer">
     {{ partial "post_meta_footer.html" . }}
