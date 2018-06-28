@@ -16,7 +16,7 @@
       {{- end }}
       {{- if eq $paginator.TotalNumberOfElements 0 }}
       <div class="warning">
-        <i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true"></i>
+        <i class="fas fa-exclamation-triangle fa-5x" aria-hidden="true"></i>
         <h3 class="warning__headline">You don't have any posts yet!</h3>
         <p class="warning__text">As posts are added in {{ replaceRE ",([^,]*)$" " and $1" (delimit (apply $postSections "printf" "content/%s" ".") ", ") }} folder{{ if gt (len $postSections) 1 }}s{{ end }}, they'll appear here.</p>
       </div>

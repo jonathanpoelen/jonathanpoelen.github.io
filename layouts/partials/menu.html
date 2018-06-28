@@ -12,14 +12,14 @@
     {{- end }}
     {{- with .Site.Params.GithubUser }}
     <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/{{ . }}">
-      <i class="fa fa-github" aria-hidden="true"></i> Github
+      <i class="fab fa-github" aria-hidden="true"></i> Github
     </a></li>
     {{- end }}
     <li class="menu__item {{if eq .Type "archives"}}menu__item--active{{end}}"><a class="menu__link" title="Archives" href="/archives">
-      <i class="fa fa-archive" aria-hidden="true"></i> Archives</a>
+      <i class="fas fa-archive" aria-hidden="true"></i> Archives</a>
     </li>
     <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
-      <i class="fa fa-rss" aria-hidden="true"></i> RSS</a>
+      <i class="fas fa-rss" aria-hidden="true"></i> RSS</a>
     </li>
   </ul>
 </nav>

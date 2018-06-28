@@ -10,9 +10,13 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+	/* font: inherit; */
 	vertical-align: baseline;
 }
+
+/*code {
+	font: inherit;
+}*/
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -218,7 +222,7 @@ small {
   font-size: 0.75rem;
 }
 
-.inlinecode, p > code {
+.inlinecode, /*p > code, li > code, */pre > code {
   margin: 0px;
   padding: 0px;
   display: inline;
@@ -229,7 +233,7 @@ small {
 code {
   border: .05em solid #fadbf4;
   display: inline-block;
-  padding: 0 .3em;
+  padding: 0 .25em;
   border-radius: .4em;
   font-size: .9em;
 }

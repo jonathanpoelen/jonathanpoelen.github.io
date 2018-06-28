@@ -3,12 +3,12 @@
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="{{ urlize .Title }}"><span>
       {{- with .Prev }}
-        <a href="{{- if $.isSinglePage }}{{ .Permalink }}{{- else }}#{{- urlize .Title }}{{- end }}"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: {{ .Title }}"></i></a>
+        <a href="{{- if $.isSinglePage }}{{ .Permalink }}{{- else }}#{{- urlize .Title }}{{- end }}"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: {{ .Title }}"></i></a>
       {{- else }}
         &nbsp;
       {{- end }}
       {{- with .Next }}
-        <a href="{{- if $.isSinglePage }}{{ .Permalink }}{{- else }}#{{- urlize .Title }}{{- end }}"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: {{ .Title }}"></i></a>
+        <a href="{{- if $.isSinglePage }}{{ .Permalink }}{{- else }}#{{- urlize .Title }}{{- end }}"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: {{ .Title }}"></i></a>
       {{- end }}
     </span></div>
     <h1 class="post__title"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>

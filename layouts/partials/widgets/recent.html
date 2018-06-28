@@ -2,7 +2,7 @@
 {{- $recent_articles_num := (.Site.Params.widgets.recent_articles_num | default 10) }}
 {{- $posts := where .Site.RegularPages "Section" "in" (.Site.Params.postSections | default (slice "post")) }}
 <div class="widget-recent widget" id="main-menu">
-  <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
       {{- range first $recent_articles_num $posts }}
@@ -15,7 +15,7 @@
   </div>
 </div>
 <div class="widget-recent widget">
-  <h4 class="widget__title"><i class="fa fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
   <div class="widget__content">
     <ul class="widget__list">
       {{- range first $recent_articles_num (where (sort $posts "Lastmod" "desc") "Lastmod" "ne" nil) }}

@@ -9,15 +9,15 @@
 {{ if .Site.Params.opengraph }}{{ template "_internal/opengraph.html" . }}{{ end }}
 <!--<link rel="dns-prefetch" href="//fonts.googleapis.com" />-->
 <!--<link rel="dns-prefetch" href="//fonts.gstatic.com" />-->
-{{ if .RSSLink }}<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }} Feed" href="{{ .RSSLink }}">{{ end }}
+{{ if .RSSLink }}<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }} Feed" href="{{ .RSSLink }}" />{{ end }}
 <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700" type="text/css" media="all" />-->
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="{{ "css/style.css" | relURL }}" />
 <!--<link rel="stylesheet" type="text/css" media="all" href="{{ "font-awesome/css/font-awesome.min.css" | relURL }}" />-->
-<link rel="stylesheet" type="text/css" media="all" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <!--<script type="text/javascript" src="{{ "js/scripts.js" | relURL }}"></script>-->
-<link rel="alternate stylesheet" title="Night theme" href="{{ "css/night.css" | relURL }}">
+<link rel="alternate stylesheet" title="Night theme" href="{{ "css/night.css" | relURL }}" />
 <link rel="shortcut icon" href="{{ "favicon.ico" | relURL }}" />
 <meta name="description" content="{{- if .Params.description}}{{.Params.description}}
 {{- else if .Summary}}{{.Summary}}
