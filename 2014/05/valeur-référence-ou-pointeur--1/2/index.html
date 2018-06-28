@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valeur, référence ou pointeur ? (1/2)</title>
 
-<meta name="generator" content="Hugo 0.38.2" />
+<meta name="generator" content="Hugo 0.40.3" />
 
 
 
 
 
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 
-<link rel="alternate stylesheet" title="Night theme" href="/css/night.css">
+<link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
 <meta name="description" content="Quand utiliser une variable par valeur, référence ou pointeur ?
  Telle fut la question qui m&rsquo;a été posée :p.
@@ -42,13 +42,13 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
         <nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
   <ul class="menu__list">
     <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
-      <i class="fa fa-github" aria-hidden="true"></i> Github
+      <i class="fab fa-github" aria-hidden="true"></i> Github
     </a></li>
     <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
-      <i class="fa fa-archive" aria-hidden="true"></i> Archives</a>
+      <i class="fas fa-archive" aria-hidden="true"></i> Archives</a>
     </li>
     <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
-      <i class="fa fa-rss" aria-hidden="true"></i> RSS</a>
+      <i class="fas fa-rss" aria-hidden="true"></i> RSS</a>
     </li>
   </ul>
 </nav>
@@ -73,7 +73,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 
 	
 <div class="widget-recent widget" id="main-menu">
-  <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
@@ -86,7 +86,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
   </div>
 </div>
 <div class="widget-recent widget">
-  <h4 class="widget__title"><i class="fa fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2015/09/if-constexpr-avant-c--17/">
@@ -100,13 +100,13 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 
 	
 <div class="widget-categories widget">
-  <h4 class="widget__title"><i class="fa fa-folder-o" aria-hidden="true"></i> Catégories</h4>
+  <h4 class="widget__title"><i class="fas fa-folder-o" aria-hidden="true"></i> Catégories</h4>
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (18)</a>
@@ -114,7 +114,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/script-shell">Script-Shell (6)</a>
@@ -122,7 +122,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilité-Web">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/accessibilit%c3%a9-web">Accessibilité-Web (2)</a>
@@ -130,7 +130,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
@@ -138,7 +138,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/make">Make (1)</a>
@@ -146,7 +146,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
@@ -154,7 +154,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/zsh">Zsh (1)</a>
@@ -172,8 +172,8 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 <article class="post">
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2"><span>
-        <a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: Valeur, référence ou pointeur ? (2/2)"></i></a>
-        <a href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: Parcourir les arguments d&#39;une fonction variadique"></i></a>
+        <a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Valeur, référence ou pointeur ? (2/2)"></i></a>
+        <a href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Parcourir les arguments d&#39;une fonction variadique"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/">Valeur, référence ou pointeur ? (1/2)</a></h1>
     <div class="post__title-nextprev-text sr-only">
@@ -182,7 +182,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
     </div>
     
 <p class="post__meta meta">
-    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
     <time class="post__meta-date" datetime="2014-05-22T09:51:53">22 mai 2014
 </time>
     
@@ -191,13 +191,13 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 
   
 
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
 ;
 
 
-  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>8 minutes ;
-  <a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#cb482643e61989560b2b661ad7a5d670-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>8 minutes ;
+  <a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#cb482643e61989560b2b661ad7a5d670-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
 </p>
 
 
@@ -235,7 +235,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 
 <p>Je réponds ici à la première, la seconde fera l&rsquo;objet d&rsquo;un autre article.</p>
 
-<h2 id="valeur-ou-référence-constante">Valeur ou référence constante ?</h2>
+<a class="headline-hash" href="#valeur-ou-référence-constante"><h2 id="valeur-ou-référence-constante">Valeur ou référence constante ?</h2></a>
 
 <p>Le choix se justifie en majorité par un besoin d&rsquo;optimisation. Une prise par valeur induit forcément une copie, cette dernière pouvant être extrêmement coûteuse. Par exemple, la copie d&rsquo;un <code>std::vector</code> ne se fait pas en un claquement de doigt, il y a tout un attirail derrière: allouer un espace mémoire et copier tous les éléments du vecteur précédent qui peuvent eux-mêmes faire des opérations complexes.</p>
 
@@ -275,7 +275,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 </code></pre></div>
 <p>Car il y a <a href="http://en.cppreference.com/w/cpp/language/copy_elision">copy elision</a> (c&rsquo;est le même principe que la RVO mais pour les paramètres). (Voir aussi <a href="http://cpp.developpez.com/actu/53711/Operateur-d-affectation-copie-implicite-ou-explicite/">ici et la réponse de Flob90</a>.</p>
 
-<h2 id="mais-ça-c-était-avant">Mais ça c&rsquo;était avant&hellip;</h2>
+<a class="headline-hash" href="#mais-ça-c-était-avant"><h2 id="mais-ça-c-était-avant">Mais ça c&rsquo;était avant&hellip;</h2></a>
 
 <p>Maintenant qu&rsquo;il y a la <a href="http://h-deb.clg.qc.ca/Sujets/Divers--cplusplus/Mouvement.html">sémantique de déplacement</a>, les copies sont préférées quand une fonction recevant le paramètre va, quoi qu&rsquo;il arrive, le copier dans une variable membre. Premièrement parce que l&rsquo;utilisateur pourra faire un <code>std::move</code> de sa variable pour s&rsquo;en &laquo;&nbsp;débarrasser&nbsp;&raquo; car il n&rsquo;en a plus besoin. Deuxièmement parce que la fonction a besoin d&rsquo;une copie et le compilateur le fera pour nous.</p>
 
@@ -311,7 +311,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 </span><span class="c1"></span></code></pre></div>
 <p>Mais si le type ne possède pas de constructeur de déplacement, celui de copie sera utilisé et alors une référence constante est probablement mieux.</p>
 
-<h2 id="quand-la-copie-se-fait-sous-condition">Quand la copie se fait sous condition</h2>
+<a class="headline-hash" href="#quand-la-copie-se-fait-sous-condition"><h2 id="quand-la-copie-se-fait-sous-condition">Quand la copie se fait sous condition</h2></a>
 
 <p>Il existe des paramètres pouvant être copiés, mais pas toujours. Dans ce cas, bien que la référence constante reste une bonne solution, une version prenant aussi une temporaire (rvalue ici) est probablement mieux. Mais si les types ne sont pas abstraits (comprendre full template) alors il faudra faire 2 versions: une avec rvalue et une avec constref. Ce qui se traduit, quand le code est un peu long, par l&rsquo;ajout d&rsquo;une fonction de prédicat ou une version template privée appelé par les 2 autres.</p>
 
@@ -348,7 +348,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
   <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
 <span class="p">};</span>
 </code></pre></div>
-<h2 id="prise-d-objet-non-copiable-sous-condition">Prise d&rsquo;objet non-copiable sous condition</h2>
+<a class="headline-hash" href="#prise-d-objet-non-copiable-sous-condition"><h2 id="prise-d-objet-non-copiable-sous-condition">Prise d&rsquo;objet non-copiable sous condition</h2></a>
 
 <p>Par exemple, donner la propriété d&rsquo;un <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr">std::unique_ptr</a> à une classe selon certains prérequis décidés par une fonction. Contrainte supplémentaire, l&rsquo;objet n&rsquo;est pas copiable.</p>
 
@@ -361,7 +361,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 
 <p>Au final, bien qu&rsquo;une référence fonctionne, seule une rvalue est pratique à l&rsquo;usage. Seulement, aucunes de ces méthodes n&rsquo;indiquent une prise partielle, seule la documentation nous le dira. Ceci pourrait par contre être une convention d&rsquo;écriture: si une ressource non copiable est prise par rvalue, alors la fonction est libre de se l&rsquo;approprier quand certaines conditions internes sont remplies.</p>
 
-<h2 id="quand-les-opérations-ne-sont-pas-connues">Quand les opérations ne sont pas connues</h2>
+<a class="headline-hash" href="#quand-les-opérations-ne-sont-pas-connues"><h2 id="quand-les-opérations-ne-sont-pas-connues">Quand les opérations ne sont pas connues</h2></a>
 
 <p>Reste la dernière situation: les templates. Les règles sont les mêmes qu&rsquo;avant mais si le rôle du paramètre n&rsquo;est pas défini (comprendre la fonction ne fait rien d&rsquo;autre qu&rsquo;envoyer le paramètre à une autre fonction ou que le qualifier importe peu) les paramètres sont à prendre par référence universelle (<code>T&amp;&amp;</code> pour les template). À ce moment, toutes les utilisations de cette variable devraient se faire par l&rsquo;intermédiaire de <a href="http://en.cppreference.com/w/cpp/utility/forward">std::forward</a>, même lorsqu&rsquo;une fonction membre est utilisées (la faute au <a href="http://en.cppreference.com/w/cpp/language/member_functions#const-.2C_volatile-.2C_and_ref-qualified_member_functions">qualificateur de référence sur fonction membre</a>.</p>
 
@@ -369,7 +369,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 
 <p>Cependant, certains objets de par leur concept seront pris par valeur. Comme les itérateurs pour la bonne raison que leurs états changent dans l&rsquo;execution de la fonction. On peut toutefois prendre l&rsquo;itérateur de fin par référence constante s&rsquo;il n&rsquo;est pas modifié.</p>
 
-<h2 id="pas-de-référence-constante-pour-les-observers">Pas de référence constante pour les observers</h2>
+<a class="headline-hash" href="#pas-de-référence-constante-pour-les-observers"><h2 id="pas-de-référence-constante-pour-les-observers">Pas de référence constante pour les observers</h2></a>
 
 <p>Bien que cela sorte du cadre de la question d&rsquo;origine, il ne faut pas prendre par référence constante une valeur à observer.</p>
 
@@ -406,7 +406,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
 
 <p>Ou, peut-être mieux, faire un objet <code>observable</code> tout pareil que <code>std::reference_wrapper</code>, mais avec constructeur explicite. L&rsquo;intérêt d&rsquo;utiliser l&rsquo;un des 2 objets cités et de focaliser l&rsquo;utilisateur sur l&rsquo;aspect &laquo;&nbsp;j&rsquo;ai besoin que cette variable vive au moins aussi longtemps que moi&nbsp;&raquo;.</p>
 
-<h2 id="résumé">Résumé</h2>
+<a class="headline-hash" href="#résumé"><h2 id="résumé">Résumé</h2></a>
 
 <ul>
 <li>Valeur pour les types fondamentaux (int, double, etc), ceux modifiés sans que l&rsquo;utilisateur n&rsquo;ai besoin de le savoir (ex: itérateurs ou premier paramètre de l&rsquo;opérateur &lsquo;+&rsquo;) ou les foncteur sans états (prédicats, comparateurs, &hellip;).</li>
@@ -429,17 +429,17 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
  ;
   
 
-  <br/><a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+  <br/><a href="https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
 </p>
 <p class="post__meta meta share" id="cb482643e61989560b2b661ad7a5d670-share">
   
   Partager Par
-  <a title="Partager par email" href="mailto:?subject=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f&amp;title=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f&amp;name=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+  <a title="Partager par email" href="mailto:?subject=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f&amp;title=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2%2f&amp;name=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
@@ -471,7 +471,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:" />
     </p>
   </footer>
 </div>
-<a id="backtop" href="#avoidance-link"><i class="fa fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
+<a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
 
 
 </body>

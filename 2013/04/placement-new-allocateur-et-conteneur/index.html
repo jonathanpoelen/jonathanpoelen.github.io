@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Placement new, allocateur et conteneur</title>
 
-<meta name="generator" content="Hugo 0.38.2" />
+<meta name="generator" content="Hugo 0.40.3" />
 
 
 
 
 
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 
-<link rel="alternate stylesheet" title="Night theme" href="/css/night.css">
+<link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
 <meta name="description" content="new  est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de malloc(), &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.
 Mais new  fait une troisième chose: il lance une exception std::bad_alloc si l&rsquo;espace mémoire est insuffisant.
@@ -41,13 +41,13 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
         <nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
   <ul class="menu__list">
     <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
-      <i class="fa fa-github" aria-hidden="true"></i> Github
+      <i class="fab fa-github" aria-hidden="true"></i> Github
     </a></li>
     <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
-      <i class="fa fa-archive" aria-hidden="true"></i> Archives</a>
+      <i class="fas fa-archive" aria-hidden="true"></i> Archives</a>
     </li>
     <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
-      <i class="fa fa-rss" aria-hidden="true"></i> RSS</a>
+      <i class="fas fa-rss" aria-hidden="true"></i> RSS</a>
     </li>
   </ul>
 </nav>
@@ -72,7 +72,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 
 	
 <div class="widget-recent widget" id="main-menu">
-  <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
@@ -85,7 +85,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
   </div>
 </div>
 <div class="widget-recent widget">
-  <h4 class="widget__title"><i class="fa fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2015/09/if-constexpr-avant-c--17/">
@@ -99,13 +99,13 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 
 	
 <div class="widget-categories widget">
-  <h4 class="widget__title"><i class="fa fa-folder-o" aria-hidden="true"></i> Catégories</h4>
+  <h4 class="widget__title"><i class="fas fa-folder-o" aria-hidden="true"></i> Catégories</h4>
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (18)</a>
@@ -113,7 +113,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/script-shell">Script-Shell (6)</a>
@@ -121,7 +121,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilité-Web">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/accessibilit%c3%a9-web">Accessibilité-Web (2)</a>
@@ -129,7 +129,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
@@ -137,7 +137,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/make">Make (1)</a>
@@ -145,7 +145,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
@@ -153,7 +153,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/zsh">Zsh (1)</a>
@@ -171,8 +171,8 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 <article class="post">
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="placement-new-allocateur-et-conteneur"><span>
-        <a href="https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: Référence constante sur référence"></i></a>
-        <a href="https://jonathanpoelen.github.io/2013/03/ne-pas-emp%C3%AAcher-la-nrvo/"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: Ne pas empêcher la NRVO"></i></a>
+        <a href="https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Référence constante sur référence"></i></a>
+        <a href="https://jonathanpoelen.github.io/2013/03/ne-pas-emp%C3%AAcher-la-nrvo/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Ne pas empêcher la NRVO"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/">Placement new, allocateur et conteneur</a></h1>
     <div class="post__title-nextprev-text sr-only">
@@ -181,7 +181,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
     </div>
     
 <p class="post__meta meta">
-    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
     <time class="post__meta-date" datetime="2013-04-22T22:17:22">22 avril 2013
 </time>
     
@@ -190,13 +190,13 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 
   
 
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
 ;
 
 
-  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>5 minutes ;
-  <a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#cd274394e663297dc1b6eed4f38f0550-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>5 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#cd274394e663297dc1b6eed4f38f0550-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
 </p>
 
 
@@ -231,7 +231,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 </code></pre></div>
 <p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparement.</p>
 
-<h2 id="allouer-de-la-mémoire">Allouer de la mémoire</h2>
+<a class="headline-hash" href="#allouer-de-la-mémoire"><h2 id="allouer-de-la-mémoire">Allouer de la mémoire</h2></a>
 
 <p>Comme on veut juste réserver un espace mémoire, <code>malloc()</code> peut suffire, mais prenons les bonnes habitudes, utilisons la fonction <a href="http://en.cppreference.com/w/cpp/memory/new/operator_new">::operator new()</a> !</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">));</span>
@@ -241,7 +241,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 </code></pre></div>
 <p>Maintenant qu&rsquo;on a un joli espace mémoire tout fraîchement alloué, construisons l&rsquo;objet.</p>
 
-<h2 id="placement-new">Placement new</h2>
+<a class="headline-hash" href="#placement-new"><h2 id="placement-new">Placement new</h2></a>
 
 <p>Le placement new permet d&rsquo;appeler le constructeur d&rsquo;un objet sur une zone mémoire prédéfinie.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="o">/</span><span class="n">params</span><span class="err">…</span><span class="o">/</span><span class="p">);</span>
@@ -251,7 +251,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 
 <p>Et maintenant que c&rsquo;est construit, on détruit :D</p>
 
-<h2 id="destruction">Destruction</h2>
+<a class="headline-hash" href="#destruction"><h2 id="destruction">Destruction</h2></a>
 
 <p>Un appel explicite au destructeur et le tour est joué.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">machin</span><span class="o">-&gt;~</span><span class="n">Machin</span><span class="p">();</span>
@@ -262,7 +262,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 
 <p>Il ne reste plus qu&rsquo;à libérer la mémoire.</p>
 
-<h2 id="libération-de-la-mémoire">Libération de la mémoire</h2>
+<a class="headline-hash" href="#libération-de-la-mémoire"><h2 id="libération-de-la-mémoire">Libération de la mémoire</h2></a>
 
 <p>De la même manière qu&rsquo;il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span>
 </code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span><span class="p">[]</span>
@@ -272,7 +272,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 </code></span>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span> <span class="p">(</span><span class="n">p</span><span class="p">);</span>
 </code></pre></div>
-<h2 id="allocation-de-tableau">Allocation de tableau</h2>
+<a class="headline-hash" href="#allocation-de-tableau"><h2 id="allocation-de-tableau">Allocation de tableau</h2></a>
 
 <p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[]</span>
 </code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">[]</span>
@@ -280,7 +280,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[](</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span> <span class="c1">// identique que la version sans crochet
 </span><span class="c1"></span><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="cm">/*{params...}*/</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="surcharge-de-new-et-delete">Surcharge de new et delete</h2>
+<a class="headline-hash" href="#surcharge-de-new-et-delete"><h2 id="surcharge-de-new-et-delete">Surcharge de new et delete</h2></a>
 
 <p>Toutes les formes de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
 </code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span>
@@ -305,21 +305,21 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 
 <span class="k">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="n">A</span><span class="p">;</span> <span class="c1">// affiche &#34;new A 1 2 A(0)&#34;
 </span><span class="c1"></span></code></pre></div>
-<h2 id="l-alignement-mémoire">L&rsquo;alignement mémoire</h2>
+<a class="headline-hash" href="#l-alignement-mémoire"><h2 id="l-alignement-mémoire">L&rsquo;alignement mémoire</h2></a>
 
 <p>L&rsquo;alignement mémoire est une histoire à part entière, je n&rsquo;en parle donc pas plus que ça :p.</p>
 
 <p>Toutefois, renseignez-vous dessus, des variables non alignées peuvent faire chuter les performances et planter certaines architectures de processeur.
 Présent dans boost et la dernière norme du C++, il existe <a href="http://en.cppreference.com/w/cpp/types/aligned_storage">aligned_storage</a> et co pour aider.</p>
 
-<h2 id="allocateurs-de-la-sl">Allocateurs de la SL</h2>
+<a class="headline-hash" href="#allocateurs-de-la-sl"><h2 id="allocateurs-de-la-sl">Allocateurs de la SL</h2></a>
 
 <p>Les allocateurs sont des objets qui s&rsquo;occupent de faire tout ce qui a été dit auparavant à travers des fonctions comme <code>allocate</code>/<code>desallocate</code>, <code>construct</code>/<code>destroy</code>, etc, mais sans faire de surcharge. En fait, tous les conteneurs dynamiques de la stl utilisent un <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a> comme allocateur par défaut paramétrable à travers le dernier type template du conteneur.</p>
 
 <p>Depuis C++11, il existe <a href="http://en.cppreference.com/w/cpp/memory/allocator_traits">std::allocator_traits</a> qui simplifie grandement la création d&rsquo;un allocateur en rendant la plupart des fonctions optionnelles.
 Et à partir de C++17 un <a href="http://en.cppreference.com/w/cpp/header/memory_resource">allocateur polymorphique</a> voit le jour avec quelques gestionnaires de mémoire.</p>
 
-<h2 id="allocateurs-et-conteneurs">Allocateurs et conteneurs</h2>
+<a class="headline-hash" href="#allocateurs-et-conteneurs"><h2 id="allocateurs-et-conteneurs">Allocateurs et conteneurs</h2></a>
 
 <p>Utiliser un allocateur personnalisé permet d&rsquo;avoir un contrôle plus fin de la mémoire pour répondre plus efficacement au besoin et augmenter les performances.</p>
 
@@ -348,17 +348,17 @@ Cependant, comme les conteneurs retournent une copie de leur allocateur, il sera
  ;
   
 
-  <br/><a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+  <br/><a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
 </p>
 <p class="post__meta meta share" id="cd274394e663297dc1b6eed4f38f0550-share">
   
   Partager Par
-  <a title="Partager par email" href="mailto:?subject=placement-new-allocateur-et-conteneur&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f&amp;title=placement-new-allocateur-et-conteneur" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f&amp;name=placement-new-allocateur-et-conteneur" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+  <a title="Partager par email" href="mailto:?subject=placement-new-allocateur-et-conteneur&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f&amp;title=placement-new-allocateur-et-conteneur" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f&amp;name=placement-new-allocateur-et-conteneur" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
@@ -390,7 +390,7 @@ Cependant, comme les conteneurs retournent une copie de leur allocateur, il sera
     </p>
   </footer>
 </div>
-<a id="backtop" href="#avoidance-link"><i class="fa fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
+<a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
 
 
 </body>

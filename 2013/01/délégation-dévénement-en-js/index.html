@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Délégation d&#39;événement en js</title>
 
-<meta name="generator" content="Hugo 0.38.2" />
+<meta name="generator" content="Hugo 0.40.3" />
 
 
 
 
 
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 
-<link rel="alternate stylesheet" title="Night theme" href="/css/night.css">
+<link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
 <meta name="description" content="En règle générale les événements sont attachés à l&rsquo;élément qui va le traiter.
 Par exemple en javascript, un menu (ul) contenant 10 entrées (li) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.
@@ -41,13 +41,13 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
         <nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
   <ul class="menu__list">
     <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
-      <i class="fa fa-github" aria-hidden="true"></i> Github
+      <i class="fab fa-github" aria-hidden="true"></i> Github
     </a></li>
     <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
-      <i class="fa fa-archive" aria-hidden="true"></i> Archives</a>
+      <i class="fas fa-archive" aria-hidden="true"></i> Archives</a>
     </li>
     <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
-      <i class="fa fa-rss" aria-hidden="true"></i> RSS</a>
+      <i class="fas fa-rss" aria-hidden="true"></i> RSS</a>
     </li>
   </ul>
 </nav>
@@ -72,7 +72,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
 
 	
 <div class="widget-recent widget" id="main-menu">
-  <h4 class="widget__title"><i class="fa fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
@@ -85,7 +85,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
   </div>
 </div>
 <div class="widget-recent widget">
-  <h4 class="widget__title"><i class="fa fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2015/09/if-constexpr-avant-c--17/">
@@ -99,13 +99,13 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
 
 	
 <div class="widget-categories widget">
-  <h4 class="widget__title"><i class="fa fa-folder-o" aria-hidden="true"></i> Catégories</h4>
+  <h4 class="widget__title"><i class="fas fa-folder-o" aria-hidden="true"></i> Catégories</h4>
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (18)</a>
@@ -113,7 +113,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/script-shell">Script-Shell (6)</a>
@@ -121,7 +121,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilité-Web">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/accessibilit%c3%a9-web">Accessibilité-Web (2)</a>
@@ -129,7 +129,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
@@ -137,7 +137,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/make">Make (1)</a>
@@ -145,7 +145,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
@@ -153,7 +153,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
           &nbsp;
-          <i class="fa fa-rss" aria-hidden="true"></i>
+          <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/zsh">Zsh (1)</a>
@@ -171,8 +171,8 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
 <article class="post">
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js"><span>
-        <a href="https://jonathanpoelen.github.io/2013/02/diff%C3%A9rence-entre----et-/"><i class="fa fa-caret-square-o-up" aria-hidden="true" title="Article précédent: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;"></i></a>
-        <a href="https://jonathanpoelen.github.io/2012/12/la-vis-cach%C3%A9e-de-getopt/"><i class="fa fa-caret-square-o-down" aria-hidden="true" title="Article suivant: La vis cachée de getopt"></i></a>
+        <a href="https://jonathanpoelen.github.io/2013/02/diff%C3%A9rence-entre----et-/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;"></i></a>
+        <a href="https://jonathanpoelen.github.io/2012/12/la-vis-cach%C3%A9e-de-getopt/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: La vis cachée de getopt"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/01/d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js/">Délégation d&#39;événement en js</a></h1>
     <div class="post__title-nextprev-text sr-only">
@@ -181,7 +181,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
     </div>
     
 <p class="post__meta meta">
-    <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
     <time class="post__meta-date" datetime="2013-01-18T15:16:12">18 janvier 2013
 </time>
     
@@ -190,13 +190,13 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
 
   
 
-<a class="meta-categories__link" href="/categories/javascript" rel="category"><i class="fa fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>javascript</a>
+<a class="meta-categories__link" href="/categories/javascript" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>javascript</a>
 ;
 
 
-  <i class="fa fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>1 minutes ;
-  <a href="https://jonathanpoelen.github.io/2013/01/d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fa fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#e4d3ff51fdb65f7633fd73a0ba75fd9c-share"><i class="fa fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>1 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/01/d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#e4d3ff51fdb65f7633fd73a0ba75fd9c-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
 </p>
 
 
@@ -224,17 +224,17 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
  ;
   
 
-  <br/><a href="https://jonathanpoelen.github.io/2013/01/d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js/"><i class="fa fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+  <br/><a href="https://jonathanpoelen.github.io/2013/01/d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
 </p>
 <p class="post__meta meta share" id="e4d3ff51fdb65f7633fd73a0ba75fd9c-share">
   
   Partager Par
-  <a title="Partager par email" href="mailto:?subject=d%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f01%2fd%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js%2f"><i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f01%2fd%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js%2f&amp;title=d%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js" rel="noopener noreferrer"><i class="fa fa-linkedin-square fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f01%2fd%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js%2f" rel="noopener noreferrer"><i class="fa fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f01%2fd%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js%2f" rel="noopener noreferrer"><i class="fa fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f01%2fd%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js%2f" rel="noopener noreferrer"><i class="fa fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f01%2fd%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js%2f&amp;name=d%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js" rel="noopener noreferrer"><i class="fa fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+  <a title="Partager par email" href="mailto:?subject=d%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f01%2fd%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f01%2fd%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js%2f&amp;title=d%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f01%2fd%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f01%2fd%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f01%2fd%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f01%2fd%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js%2f&amp;name=d%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
@@ -266,7 +266,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
     </p>
   </footer>
 </div>
-<a id="backtop" href="#avoidance-link"><i class="fa fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
+<a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
 
 
 </body>
