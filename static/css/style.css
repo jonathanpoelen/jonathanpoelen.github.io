@@ -409,19 +409,19 @@ select {
 
 /*** Comments ***/
 #gh-comments {
-  margin: 1em;
+  margin: 0;
+  border-top: 1px dotted #c4c4c4;
 }
-/*#gh-comments > h1 {
- * text-align: center;
- * margin: 1em;
- } **/
 
-/*#gh-comments-list {
- }**/
+#gh-comments > h1,
+#gh-comments > p {
+  padding: .5em 1em 0 1em;
+}
 
-#gh-comments-list > a, #gh-comments > a {
+#gh-comments-list > a,
+#gh-comments > a {
   padding: 1em;
-  margin: .5em 0em;
+  margin: .5em 1em;
   display: block;
 }
 

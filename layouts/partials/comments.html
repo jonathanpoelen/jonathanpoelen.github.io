@@ -1,12 +1,10 @@
-<!--https://github.com/dwilliamson/donw.io/blob/master/public/post/github-comments/index.html-->
-{{- if $.Params.ghcommentid }}
 <section id="gh-comments">
   <h1>Commentaires</h1>
+{{- if $.Params.ghcommentid }}
+<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues/{{ $.Params.ghcommentid }}">les issues de github</a>.
   <article id="gh-comments-list"></article>
-  <a href="#" id="gh-load-comments" class="btn" onclick="DoGithubComments({{ $.Params.ghcommentid }}); return false">Charger plus de commentaires</a>
+  <a href="#" id="gh-load-comments" class="btn" onclick="DoGithubComments({{ $.Params.ghcommentid }}); return false">Charger les commentaires</a>
 </section>
-
-<!--<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
 <script type="text/javascript" src="{{ "js/github-comment.js" | relURL }}"></script>
 <script type="text/javascript">
 if (document.URL.split('#')[1] === 'gh-comments')
@@ -14,4 +12,10 @@ if (document.URL.split('#')[1] === 'gh-comments')
   DoGithubComments({{ $.Params.ghcommentid }});
 }
 </script>
+{{- else }}
+<p>Les commentaires ne sont pas encore ouverts.</p>
+<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues">les issues de github</a> et aucun n'est associée au billet.
+Vous pouvez faire votre commentaire dans une issue qui a comme titre celui du billet. Je
+me chargerai de les associer.</p>
 {{- end }}
+</section>
