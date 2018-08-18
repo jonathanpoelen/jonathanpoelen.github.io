@@ -181,6 +181,7 @@ pre {
   white-space: -o-pre-wrap;
   white-space: -moz-pre-wrap;
   white-space: -webkit-pre-wrap;
+  font-feature-settings: "liga" 0;
 }
 
 blockquote {
@@ -1886,11 +1887,15 @@ blockquote { border-color: #ca8244; }
 .post__content a:visited,
 .list__content a:visited,
 .post-nav__link:visited,
-.p404 a:visited
+.p404 a:visited,
+.widget-recent a:visited
 { color: #c790e0 }
 
-.widget-recent a:visited { color: #c790e0 }
-.widget-recent a:hover:visited, .widget-recent a:focus:visited { color: #e649a6 }
+.widget-recent a:hover:visited,
+.widget-recent a:focus:visited,
+.post-nav__link:visited:hover,
+.post-nav__link:visited:focus
+{ color: #e649a6; }
 
 
 a:hover,
