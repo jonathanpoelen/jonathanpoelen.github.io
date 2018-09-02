@@ -74,7 +74,7 @@ Matrix operator+(Matrix const& lhs, Matrix&& rhs)
 
 Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.
 
-Ainsi, si dans l'expresssion {{<hi cpp "a + b"/>}}, {{<hi cpp "b"/>}} une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un {{<hi cpp "std::cout << __PRETTY_FUNCTION__ << '\n'"/>}} dans les implémentations et le test qui suit.
+Ainsi, si dans l'expression {{<hi cpp "a + b"/>}}, {{<hi cpp "b"/>}} une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un {{<hi cpp "std::cout << __PRETTY_FUNCTION__ << '\n'"/>}} dans les implémentations et le test qui suit.
 
 ```cpp
 template<class Lhs, class Rhs>
@@ -152,12 +152,12 @@ Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à 
 template<class MatrixLhs, class MatrixRhs>
 std::enable_if_t<
   std::is_same<std::decay_t<MatrixLhs>, Matrix>::value &&
-  std::is_same<std::decay_t<MatrixRhs>, Matrix>::value
+  std::is_same<std::decay_t<MatrixRhs>, Matrix>::value,
   Matrix>
 operator+(MatrixLhs&& lhs, MatrixRhs&& rhs);
 ```
 
-Dans la réalité, l'addition d'une matrice fonctionne aussi sur des entiers (cf: {{<hi cpp "int + Matrix"/>}}, {{<hi cpp "Matrix + int"/>}}). Le filtre sera alors beaucoup plus compliqué puisqu'il faut qu'au moins une des opérandes soit un type `Matrix` et que les paramètres soient des types compatibles (en prenant en compte la préscence des références et des `const`). La condition devient alors quelque chose comme:
+Dans la réalité, l'addition d'une matrice fonctionne aussi sur des entiers (cf: {{<hi cpp "int + Matrix"/>}}, {{<hi cpp "Matrix + int"/>}}). Le filtre sera alors beaucoup plus compliqué puisqu'il faut qu'au moins une des opérandes soit un type `Matrix` et que les paramètres soient des types compatibles (en prenant en compte la présence des références et des `const`). La condition devient alors quelque chose comme:
 
 ```cpp
 is_matrix_operand<Lhs> &&
@@ -165,7 +165,7 @@ is_matrix_operand<Rhs> &&
 (is_matrix<Lhs> || is_matrix<Rhs>)
 ```
 
-Il devient alors très facile d'ajouter un nouveau type à prendre en compte, comme par exemple un contenaire de la SL, un tableau C, un autre type matriciel d'une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.
+Il devient alors très facile d'ajouter un nouveau type à prendre en compte, comme par exemple un conteneur de la SL, un tableau C, un autre type matriciel d'une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.
 
 Il est également envisageable de faire des prototypes par catégorie de variable: Sequence et Matrix, Integer et Matrix.
 
@@ -234,7 +234,7 @@ Matrix operator +(Lhs&& lhs, Rhs&& rhs)
 
 Le code mérite quelques explications. Pour commencer, parlons de `rvalue_reference` qui est un palliatif pour une optimisation au niveau de {{<hi cpp "return"/>}}. Au niveau du retour, si `NewLhs` est une rvalue, il faut utiliser {{<hi cpp "std::move"/>}}, sauf que l'utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un {{<hi cpp "if (std::is_rvalue_reference<NewLhs>{}) return std::move(lhs);"/>}} avant {{<hi cpp "return new_lhs"/>}} l'optimisation n'est pas faite. Cela fonctionne néanmoins avec {{<hi cpp "if constexpr"/>}} de c++17. Le but de `rvalue_reference`  est finalement de rendre automatique un retour par rvalue grâce à l'opérateur de cast interne.
 
-Concernant ce curieux enchaînement de cast, celui-ci s'explique par la difficulté de contrôler le type retourner par une ternaire. Une ternaire sur deux variables de même type va retourner une référence (une variable est toujours une lvalue). La référence sera considérée constante si une des deux valeurs est une référence constante. Du coup, on vire le const pour ensuite construire les types `NewLhs` et `NewRhs`.
+Concernant ce curieux enchaînement de cast, celui-ci s'explique par la difficulté de contrôler le type retourné par une ternaire. Une ternaire sur deux variables de même type va retourner une référence (une variable est toujours une lvalue). La référence sera considérée constante si une des deux valeurs est une référence constante. Du coup, on vire le const pour ensuite construire les types `NewLhs` et `NewRhs`.
 
 Ici, le constructeur de la matrice (quand `NewLhs = Matrix`) va recevoir un type non const. À moins qu'un constructeur existe pour les références non const, cela ne cause pas de problème. On peut très bien ajouter un {{<hi cpp "std::conditional"/>}} pour forcer le const.
 
@@ -245,7 +245,7 @@ Les casts présents fonctionnent bien parce que `lhs` et `rhs` sont tous deux du
 
 ## N'écrivez pas operator+ vous-même, c'est trop compliqué&nbsp;!
 
-Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est allourdi, la lisibilité réduite. Il y a moyen d'implémenter la plupart des opérateurs en quelques lignes pour le même résultat.
+Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est alourdi, la lisibilité réduite. Il y a moyen d'implémenter la plupart des opérateurs en quelques lignes pour le même résultat.
 
 De plus, l'implémentation des opérateurs peuvent varier. Par exemple, pas de commutativité. Ses variantes sont difficiles à détecter dans une grande masse de code, il devient facile de faire une erreur aussi bien à l'écriture qu'à la lecture.
 
