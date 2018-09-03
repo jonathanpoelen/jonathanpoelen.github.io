@@ -38,7 +38,7 @@ Notre version minimale de variant va contenir:
 - Une fonction `visit` (en membre, pour des raisons de simplification).
 
 {{%info%}}
-  L'implémentation qui va suivre se veut simple et surtout naïf. De ce fait, elle est totalement inefficace et montre l'exemple à ne pas suivre.
+  L'implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l'exemple à ne pas suivre.
   Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l'*idéal* du variant.
 {{%/info%}}
 
