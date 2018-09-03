@@ -798,6 +798,23 @@ select {
 	background: #e64946;
 }*/
 
+.InfoBox, .WarningBox {
+  margin: 1em .5em;
+  padding: .2em 1em;
+  border: 1px solid #888;
+  border-radius: .5em;
+}
+.InfoBox>p, .WarningBox>p {
+  margin: 0;
+  padding: 0;
+}
+.InfoBox-title, .WarningBox-title {
+  display: block;
+  padding: 0;
+  margin: 0;
+  margin: .5em;
+}
+
 /*** TableOfContents ***/
 
 #toc {
