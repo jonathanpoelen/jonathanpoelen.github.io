@@ -44,7 +44,7 @@ Il n&amp;rsquo;y a pas de comportement commun, les traitements se feront en fonc
 &lt;li&gt;Une fonction &lt;code&gt;visit&lt;/code&gt; (en membre, pour des raisons de simplification).&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&#34;InfoBox&#34;&gt;&lt;p&gt;&lt;strong class=&#34;InfoBox-title&#34;&gt;Info :&lt;/strong&gt; &lt;p&gt;L&amp;rsquo;implémentation qui va suivre se veut simple et surtout naïf. De ce fait, elle est totalement inefficace et montre l&amp;rsquo;exemple à ne pas suivre.
+&lt;div class=&#34;InfoBox&#34;&gt;&lt;p&gt;&lt;strong class=&#34;InfoBox-title&#34;&gt;Info :&lt;/strong&gt; &lt;p&gt;L&amp;rsquo;implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l&amp;rsquo;exemple à ne pas suivre.
   Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l&amp;rsquo;&lt;em&gt;idéal&lt;/em&gt; du variant.&lt;/p&gt;
 &lt;/p&gt;&lt;/div&gt;
 
