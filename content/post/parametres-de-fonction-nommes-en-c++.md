@@ -35,7 +35,7 @@ Comment faire un appel proche de {{<hi cpp "draw_rect(4,3, fill='@')"/>}} ?
 
 ## Création d'un paramètre nommé
 
-La première étape consiste à créer un type par paramètre optionnel. Comme je n'ai pas envie de me compliquer la vie, la syntaxe {{<hi cpp "fill='@'"/>}} qui demande plus de code sera remplacée par un simple appel de constructeur {{<hi cpp "fill{'@'}"/>}}.
+La première étape consiste à créer un type par paramètre optionnel. Comme je n'ai pas envie de me compliquer la vie, la syntaxe {{<hi cpp "fill='@'"/>}} qui demande plus de code à cause d'une surcharge de {{<hi cpp "operator="/>}} sera remplacée par un simple appel de constructeur {{<hi cpp "fill{'@'}"/>}}.
 
 La définition des types devient alors véritablement simpliste:
 
@@ -91,7 +91,7 @@ draw_rect(w, h
 );
 ```
 
-Pour les plus attentifs (il m'a fallu 2 jours pour le réaliser…), rien n'empêche d'envoyer des paramètres inutiles. On peut l'empêcher grâce à un {{<hi cpp "static_assert"/>}} avec une condition style
+Pour les plus attentifs (il m'a fallu 2 jours pour le réaliser…), rien n'empêche d'envoyer des paramètres inutiles. On peut l'empêcher grâce à un {{<hi cpp "static_assert"/>}} avec une condition qui ressemble à
 
 ```cpp
 sizeof...(Ts) == std::is_convertible_t<border_top>()

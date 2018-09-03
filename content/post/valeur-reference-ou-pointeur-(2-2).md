@@ -24,7 +24,7 @@ Mais on me dit dans l'oreillette qu'il faut argumenter... Alors c'est parti.
 
 Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.
 
-À contrario, les pointeurs peuvent changer la variable référencée ou ne pointer sur aucune variable ([nullptr](http://en.cppreference.com/w/cpp/types/nullptr_t).
+À contrario, les pointeurs peuvent changer la variable référencée ou ne pointer sur aucune variable ([nullptr](http://en.cppreference.com/w/cpp/types/nullptr_t)).
 
 Une référence est l'équivalent d'un pointeur constant non-nul (avec une syntaxe d'utilisation plus simple: pas besoin de déréférencer).
 De leurs restrictions, celles-ci ne peuvent pas toujours correspondre au besoin ; les pointeurs sont alors envisageables.
@@ -52,7 +52,7 @@ Pour exemple, un pointeur non-nul mais qu'on détruira. Le non-nul amène aux r�
 On peut néanmoins sortir quelques règles:
 
 - Si le pointeur n'est pas nul et que l'appelé ne gère pas la durée de vie: `std::reference_wrapper` qui permet de changer la référence utilisée.
-- Si l'appelé contrôle la durée de vie: pointeurs intelligents (`std::unique_ptr` en priorité, std::shared_ptr, ...).
+- Si l'appelé contrôle la durée de vie: pointeurs intelligents (`std::unique_ptr` en priorité, `std::shared_ptr`, ...).
 - Si le pointeur peut être nul et que l'appelé ne gère pas la durée de vie alors un pointeur est "justifié". En interne du moins, pour l'extérieur un `non_owner_ptr` ou un `observer_ptr` sera plus parlant. Si le pointeur peut être invalidé pendant l'exécution alors `std::weak_ptr` ou autres est à envisager.
 - Tout ce qui est tableau est indiqué dans les signatures des objets wrapper (`unique_ptr<T[]>`) ou/et grâce à un attribut de taille. De plus, s'il faut soit des tableaux, soit une valeur alors toujours préférer le type commun: tableau (les valeurs deviennent des tableaux de taille 1). Les tableaux dynamiques sont, quant à eux, plus faciles à utiliser avec `std::vector`.
 
