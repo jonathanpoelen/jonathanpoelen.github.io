@@ -152,4 +152,4 @@ Bien que le variant actuel soit incomplet, il est utilisable et proche des impl�
 
 Les prochains articles seront davantage accès sur la méta-programmation et indirectement reliés avec certains aspects du variant présenté ici.
 
-Les sources sont diponible sur {{<urlhi "cpp_variant" "github">}}.
+Les sources sont disponibles sur {{<urlhi "cpp_variant" "github">}}.
