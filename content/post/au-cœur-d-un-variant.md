@@ -8,7 +8,7 @@ categories: [ "c++" ]
 #project_url: ""
 #slug: "a-site-page"
 #toc: false
-draft: true
+draft: false
 ghcommentid: 0
 ---
 
