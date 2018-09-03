@@ -1,12 +1,12 @@
 {{- if .Site.Params.post_navigation }}
 {{- if or (.PrevInSection) (.NextInSection) }}
-<nav class="post-nav row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-  <div class="post-nav__item post-nav__item--prev col-1-2">
+<nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--prev">
   {{- if .PrevInSection }}
     <a class="post-nav__link" href="{{.PrevInSection.RelPermalink}}" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">{{.PrevInSection.Title}}</span></a>
   {{- end }}
   </div>
-  <div class="post-nav__item post-nav__item--next col-1-2">
+  <div class="post-nav__item post-nav__item--next">
   {{- if .NextInSection }}
     <a class="post-nav__link" href="{{.NextInSection.RelPermalink}}" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">{{.NextInSection.Title}}</span></a>
   {{- end }}
