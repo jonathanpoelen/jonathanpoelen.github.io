@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paramètres de fonction nommés en C&#43;&#43;</title>
 
-<meta name="generator" content="Hugo 0.40.3" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 
@@ -75,12 +75,12 @@ void draw_rect( unsigned w, unsigned h , char border_top = &#39;-&#39;, char bor
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/09/au-c%C5%93ur-dun-variant/">Au cœur d&#39;un variant</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
       <li class="widget__item"><a class="widget__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">26 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">27 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -108,7 +108,7 @@ void draw_rect( unsigned w, unsigned h , char border_top = &#39;-&#39;, char bor
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (18)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (19)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -212,7 +212,7 @@ void draw_rect( unsigned w, unsigned h , char border_top = &#39;-&#39;, char bor
 </ul></nav>
         </div></aside>
       <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 2 ans. Les informations y figurant peuvent être dépassées.</p>
-    
+      
 
 <p>Cet article est la démonstration de l&rsquo;article précédent. La problématique présentée est la suivante: &laquo;&nbsp;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&nbsp;&raquo;</p>
 
@@ -236,7 +236,8 @@ void draw_rect( unsigned w, unsigned h , char border_top = &#39;-&#39;, char bor
 <a class="headline-hash" href="#création-d-un-paramètre-nommé"><h2 id="création-d-un-paramètre-nommé">Création d&rsquo;un paramètre nommé</h2></a>
 
 <p>La première étape consiste à créer un type par paramètre optionnel. Comme je n&rsquo;ai pas envie de me compliquer la vie, la syntaxe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">fill</span><span class="o">=</span><span class="sc">&#39;@&#39;</span>
-</code></span> qui demande plus de code sera remplacée par un simple appel de constructeur <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">fill</span><span class="p">{</span><span class="sc">&#39;@&#39;</span><span class="p">}</span>
+</code></span> qui demande plus de code à cause d&rsquo;une surcharge de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">=</span>
+</code></span> sera remplacée par un simple appel de constructeur <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">fill</span><span class="p">{</span><span class="sc">&#39;@&#39;</span><span class="p">}</span>
 </code></span>.</p>
 
 <p>La définition des types devient alors véritablement simpliste:</p>
@@ -256,7 +257,7 @@ void draw_rect( unsigned w, unsigned h , char border_top = &#39;-&#39;, char bor
 <p>On pourrait faire toutes les surcharges possibles, il n&rsquo;y a &laquo;&nbsp;que&nbsp;&raquo; plus d&rsquo;une centaine de possibilités après tout&hellip; Solution rejetée, évidemment ;).</p>
 
 <p>Une template variadique fera l&rsquo;affaire.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">class</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">draw_rect</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">w</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">h</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span> <span class="n">params</span><span class="p">);</span>
 </code></pre></div>
 <p>Il reste maintenant à associer chaque type de <code>params</code> avec le paramètre de notre premier prototype de draw_rect.</p>
@@ -282,13 +283,13 @@ void draw_rect( unsigned w, unsigned h , char border_top = &#39;-&#39;, char bor
 <span class="p">);</span>
 </code></pre></div>
 <p>Pour les plus attentifs (il m&rsquo;a fallu 2 jours pour le réaliser…), rien n&rsquo;empêche d&rsquo;envoyer des paramètres inutiles. On peut l&rsquo;empêcher grâce à un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">static_assert</span>
-</code></span> avec une condition style</p>
+</code></span> avec une condition qui ressemble à</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">is_convertible_t</span><span class="o">&lt;</span><span class="n">border_top</span><span class="o">&gt;</span><span class="p">()</span>
                <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span><span class="o">&lt;</span><span class="n">border_bottom</span><span class="o">&gt;</span><span class="p">()</span>
                <span class="o">+</span> <span class="cm">/*etc*/</span>
 </code></pre></div>
 <p>Dans l&rsquo;histoire, bien que largement surmontable, getval est la fonction la plus compliquée. Si Pack est convertible en <code>T</code> alors <code>Get::get()</code> est utilisé, sinon <code>Default::get()</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Pack</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Pack</span><span class="o">&gt;</span>
 <span class="kt">char</span> <span class="n">getval</span><span class="p">(</span><span class="n">Pack</span><span class="o">&amp;</span> <span class="n">pack</span><span class="p">,</span> <span class="kt">char</span> <span class="n">default_</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">struct</span> <span class="n">Get</span>     <span class="p">{</span> <span class="k">static</span> <span class="kt">char</span> <span class="n">get</span><span class="p">(</span><span class="n">T</span> <span class="n">item</span><span class="p">,</span> <span class="kt">char</span>        <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">item</span><span class="p">.</span><span class="n">value</span><span class="p">;</span> <span class="p">}</span> <span class="p">};</span>
   <span class="k">struct</span> <span class="n">Default</span> <span class="p">{</span> <span class="k">static</span> <span class="kt">char</span> <span class="n">get</span><span class="p">(</span><span class="n">Pack</span><span class="o">&amp;</span><span class="p">,</span> <span class="kt">char</span> <span class="n">default_</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">default_</span><span class="p">;</span>   <span class="p">}</span> <span class="p">};</span>
@@ -331,16 +332,22 @@ void draw_rect( unsigned w, unsigned h , char border_top = &#39;-&#39;, char bor
 
   
   
-<nav class="post-nav row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-  <div class="post-nav__item post-nav__item--prev col-1-2">
+<nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--prev">
     <a class="post-nav__link" href="/2015/07/impl%C3%A9mentation-dun-magasin-de-type/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Implémentation d&#39;un magasin de type</span></a>
   </div>
-  <div class="post-nav__item post-nav__item--next col-1-2">
+  <div class="post-nav__item post-nav__item--next">
     <a class="post-nav__link" href="/2015/09/if-constexpr-avant-c--17/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">if constexpr avant C&#43;&#43;17</span></a>
   </div>
 </nav>
 
-  
+  <section id="gh-comments">
+  <h1>Commentaires</h1>
+<p>Les commentaires ne sont pas encore ouverts.</p>
+<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues">les issues de github</a> et aucun n'est associée au billet.
+Vous pouvez faire votre commentaire dans une issue qui a comme titre celui du billet. Je
+me chargerai de les associer.</p>
+</section>
 
 </main>
 </div>
@@ -356,7 +363,6 @@ void draw_rect( unsigned w, unsigned h , char border_top = &#39;-&#39;, char bor
   </footer>
 </div>
 <a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
-
 
 </body>
 </html>

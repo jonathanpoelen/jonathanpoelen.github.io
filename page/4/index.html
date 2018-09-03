@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rendre accessible le chargement de lien avec AJAX</title>
+<title>Jonathan Poelen&#39;s Blog</title>
 
 <meta name="generator" content="Hugo 0.46" />
 
 
 
-
+<link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="https://jonathanpoelen.github.io/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
@@ -19,8 +19,7 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<meta name="description" content="Le but d&rsquo;un site chargeant ces pages avec AJAX est double:
- Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées). Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins.  Toutefois, si mal fait, des problèmes apparaissent au niveau de l&rsquo;historique qui n&rsquo;est plus utilisable." />
+<meta name="description" content="Le blog de Jonathan Poelen. Mon petit mémo sur tout ce qui touche à la programmation =)" />
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -55,6 +54,7 @@
       </div>
     </header>
     <div class="wrapper clearfix">
+
 
 <aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
 	
@@ -165,16 +165,17 @@
 	
 
 </aside>
-<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
-  
+
+  <main class="main-content list content" role="main" id="main-content">
+        
 <article class="post">
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="rendre-accessible-le-chargement-de-lien-avec-ajax"><span>
-        <a href="https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Sed tout puissant"></i></a>
+        <a href="#sed-tout-puissant"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Sed tout puissant"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/">Rendre accessible le chargement de lien avec AJAX</a></h1>
     <div class="post__title-nextprev-text sr-only">
-        <a href="https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/">Article suivant: Sed tout puissant</a><br/>
+        <a href="#sed-tout-puissant">Article suivant: Sed tout puissant</a><br/>
     </div>
     
 <p class="post__meta meta">
@@ -253,25 +254,20 @@
   </footer>
 </article>
 
-  
-  
-<nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-  <div class="post-nav__item post-nav__item--prev">
-  </div>
-  <div class="post-nav__item post-nav__item--next">
-    <a class="post-nav__link" href="/2012/06/sed-tout-puissant/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">Sed tout puissant</span></a>
-  </div>
-</nav>
 
-  <section id="gh-comments">
-  <h1>Commentaires</h1>
-<p>Les commentaires ne sont pas encore ouverts.</p>
-<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues">les issues de github</a> et aucun n'est associée au billet.
-Vous pouvez faire votre commentaire dans une issue qui a comme titre celui du billet. Je
-me chargerai de les associer.</p>
-</section>
+    
+      
+<div class="pagination clearfix">
+  <a class="pagination__item pagination__item--prev" href="/page/3/">◀</a>
+  <a class="pagination__item" href="/">1</a>
+  <a class="pagination__item" href="/page/2/">2</a>
+  <a class="pagination__item" href="/page/3/">3</a>
+  <span class="pagination__item pagination__item--current">4/4</span>
+</div>
 
-</main>
+
+  </main>
+
 </div>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
@@ -288,4 +284,5 @@ me chargerai de les associer.</p>
 
 </body>
 </html>
+
 

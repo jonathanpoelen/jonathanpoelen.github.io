@@ -1,15 +1,26 @@
 //BEGIN mp_index_of
-#include <kvasir/mpl/mpl.hpp>
+#include <type_traits>
 
-namespace mpl = kvasir::mpl;
+namespace detail
+{
+  template<class T, class... Ts>
+  struct count_items_to_right_of;
+
+  template<class T, class U, class... Us>
+  struct count_items_to_right_of<T, U, Us...>
+  : count_items_to_right_of<T, Us...>
+  {};
+
+  template<class T, class... Us>
+  struct count_items_to_right_of<T, T, Us...>
+  : std::integral_constant<std::size_t, sizeof...(Us)>
+  {};
+}
 
 template<class T, class... Ts>
-using mp_index_of = mpl::uint_<
-  sizeof...(Ts) -
-  mpl::call<
-    mpl::find_if<mpl::same_as<T>, mpl::size<>>,
-    Ts...
-  >::value
+using mp_index_of = std::integral_constant<
+  std::size_t,
+  sizeof...(Ts) - detail::count_items_to_right_of<T, Ts...>::value - 1
 >;
 //END mp_index_of
 

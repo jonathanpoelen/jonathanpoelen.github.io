@@ -3,99 +3,102 @@
 // use of ajax vs getJSON for headers use to get markdown (body vs body_htmml)
 // todo: pages, configure issue url, open in new window?
 
-var DoGithubComments = (function(){
-  function ParseLinkHeader(link)
+let DoGithubComments = (function(){
+  let createComment = function(comment)
   {
-    var entries = link.split(",")
-    var links = {}
-    for (var i in entries)
-    {
-      var entry = entries[i]
-      var link = {}
-      link.name = entry.match(/rel=\"([^\"]*)/)[1]
-      link.url = entry.match(/<([^>]*)/)[1]
-      link.page = entry.match(/page=(\d+).*$/)[1]
-      links[link.name] = link
-    }
-    return links
+     let d = new Date(comment.created_at)
+     let t = ''
+
+     t += "<div class='gh-comment'>"
+     t += "<div class='gh-comment-header'><img src='" + comment.user.avatar_url + "' width='24px'>"
+     t += "<a class='gh-comment-user' href='" + comment.user.html_url + "'>" + comment.user.login + "</a>"
+     t += " posté à <time datetime=" + d.getUTCFullYear()
+     t += (d.getUTCMonth()<9?'-0':'-')+(d.getUTCMonth()+1)
+     t += (d.getUTCDate()<=9?'-0':'-')+d.getUTCDate()
+     t += (d.getUTCHours()<=9?' 0':' ')+d.getUTCHours()
+     t += +(d.getUTCMinutes()<=9?' 0':' ')+d.getUTCMinutes()
+     t += '">' + d.toUTCString() + "</time>"
+     t += "</div><div class='gh-comment-content'>"
+     t += comment.body_html
+     t += "</div></div>"
+
+     return t
   }
 
-  var elist = document.getElementById("gh-comments-list")
-  var ecomments = document.getElementById("gh-load-comments")
-  var repo_name = "jonathanpoelen/jonathanpoelen.io"
-  var api_url = "https://api.github.com/repos/" + repo_name
+  const elist = document.getElementById("gh-comments-list")
+  const ecomments = document.getElementById("gh-load-comments")
 
-  return function (comment_id, page_id)
-  {
-    if (page_id === undefined)
-      page_id = 1
-
-    //var api_issue_url = api_url + "/issues/" + comment_id
-    var api_comments_url = api_url + "/issues/" + comment_id + "/comments" + "?page=" + page_id
-    var url = "https://github.com/" + repo_name + "/issues/" + comment_id
-    var btncomment = "<a href='" + url + "#new_comment_field' rel='nofollow' class='btn'>Poster un commentaire sur Github</a>"
-
-    var req = new XMLHttpRequest()
+  let XHR = function(url, act) {
+    let req = new XMLHttpRequest()
     req.onerror = function(event) {
       elist.innerHTML = '<p>Erreur de chargement. ' + btncomment + '</p>'
     }
     req.onload = function(event) {
       if (this.status === 200) {
-        var json = JSON.parse(event.currentTarget.response)
-        var t = btncomment
-        if (json.lenght) {
-          var comment, d
-          for (var i in json)
-          {
-            comment = json[i]
-            d = new Date(comment.created_at)
-
-            t += "<div class='gh-comment'>"
-            t += "<div class='gh-comment-header'><img src='" + comment.user.avatar_url + "' width='24px'>"
-            t += "<a class='gh-comment-user' href='" + comment.user.html_url + "'>" + comment.user.login + "</a>"
-            t += " posté à <time datetime=" + d.getUTCFullYear()
-            t += (d.getUTCMonth()<9?'-0':'-')+(d.getUTCMonth()+1)
-            t += (d.getUTCDate()<=9?'-0':'-')+d.getUTCDate()
-            t += (d.getUTCHours()<=9?' 0':' ')+d.getUTCHours()
-            t += +(d.getUTCMinutes()<=9?' 0':' ')+d.getUTCMinutes()
-            t += '">' + d.toUTCString() + "</time>"
-            t += "</div><div class='gh-comment-content'>"
-            t += comment.body_html
-            t += "</div></div>"
-          }
-        }
-        else {
-          t += "<div class='gh-comment'>Aucun commentaire pour le moment.</div>"
-        }
-
-        t += btncomment
-
-        elist.innerHTML += t
-
-        // Setup comments button if there are more pages to display
-        console.log(req)
-        console.log(req.getResponseHeader("link"))
-        var links = ParseLinkHeader(req.getResponseHeader('link') || '')
-        if ("next" in links)
-        {
-          ecomments.onclick = function(e) {
-            DoGithubComments(comment_id, page_id + 1)
-            //return false
-            e.preventDefault()
-          }
-          ecomments.style = 'display: visible'
-        }
-        else
-        {
-          ecomments.style = 'display: none'
-        }
-      } else {
+        act(JSON.parse(event.currentTarget.response))
+      }
+      else {
         elist.innerHTML = "<p>Les commentaires ne sont pas encore ouverts.</p>"
         ecomments.style = 'display: none'
       }
     }
-    req.open('get', api_comments_url, true)
+    req.open('get', url, true)
     req.setRequestHeader('accept', 'application/vnd.github.v3.html+json')
     req.send(null)
+  }
+
+  const per_page = 20
+  const api_issue_url = "https://api.github.com/repos/jonathanpoelen/jonathanpoelen.github.io/issues/"
+  const htlm_issue_url = "https://github.com/jonathanpoelen/jonathanpoelen.io/issues/"
+
+  return function (issue_id)
+  {
+    const url = htlm_issue_url + issue_id
+    const btncomment = "<a href='" + url + "#new_comment_field' rel='nofollow' class='btn'>Poster un commentaire sur Github</a>"
+
+    XHR(api_issue_url + issue_id, function(json) {
+      const baseurl = api_issue_url + issue_id + "/comments?per_page=" + per_page + "&page="
+      const nb_comment = json.comments
+      let page = 0
+
+      if (json.user.id !== 1436727) {
+        elist.innerHTML += createComment(json) + btncomment
+      }
+
+console.log(nb_comment)
+
+      if (nb_comment > 1) {
+        let openComments
+        let extraMessage = ''
+        openComments = function(){
+          ++page
+          XHR(baseurl + page, function(json){
+            elist.innerHTML += json.reduce(function(s, comment){
+              return s + createComment(comment)
+            }, '') + btncomment + extraMessage
+            ecomments.innerHTML = "Charger plus de commentaires (encore " + (nb_comment - ((page - 1) * per_page + json.length)) + ")"
+          })
+
+          if (page * per_page >= nb_comment) {
+            ecomments.style = 'display: none'
+            extraMessage = '<p>Fin des commentaires</p>'
+          }
+        }
+
+        openComments()
+
+        ecomments.onclick = function(e) {
+          openComments()
+          e.preventDefault()
+        }
+      }
+      else {
+        if (json.user.id === 1436727) {
+          elist.innerHTML += "<div class='gh-comment'>Aucun commentaire pour le moment.</div>"
+          ecomments.style = 'display: none'
+        }
+        elist.innerHTML += btncomment
+      }
+    })
   }
 })()

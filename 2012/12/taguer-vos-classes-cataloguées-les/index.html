@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Taguer vos classes, cataloguées-les</title>
 
-<meta name="generator" content="Hugo 0.40.3" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 
@@ -75,12 +75,12 @@ Première implémentation La fonction std::advance() permet d&rsquo;incrémenter
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/09/au-c%C5%93ur-dun-variant/">Au cœur d&#39;un variant</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
       <li class="widget__item"><a class="widget__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">26 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">27 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -108,7 +108,7 @@ Première implémentation La fonction std::advance() permet d&rsquo;incrémenter
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (18)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (19)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -213,7 +213,7 @@ Première implémentation La fonction std::advance() permet d&rsquo;incrémenter
 </ul></nav>
         </div></aside>
       <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 5 ans. Les informations y figurant peuvent être dépassées.</p>
-    
+      
 
 <p>Le C++ a l&rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &laquo;&nbsp;tags&nbsp;&raquo;.</p>
 
@@ -222,7 +222,7 @@ Première implémentation La fonction std::advance() permet d&rsquo;incrémenter
 <a class="headline-hash" href="#première-implémentation"><h2 id="première-implémentation">Première implémentation</h2></a>
 
 <p>La fonction <code>std::advance()</code> permet d&rsquo;incrémenter un itérateur de <code>N</code> éléments (ou décrémenter si <code>N</code> est négatif). D&rsquo;après cette description, un premier algorithme peut être émis:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Distance</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
@@ -252,40 +252,40 @@ Première implémentation La fonction std::advance() permet d&rsquo;incrémenter
 <p>Pour récupérer le type contenu dans un itérateur il faut passer par <code>std::iterator_traits&lt;&gt;</code>, cela permet de fonctionner même avec un type scalaire comme le pointeur qui ne possède pas de type interne.</p>
 
 <p>Le tag d&rsquo;un pointeur étant <code>std::random_access_iterator_tag</code> voici une implémentation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">It</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">It</span><span class="o">&gt;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">It</span><span class="o">&gt;::</span><span class="n">iterator_category</span>
 <span class="n">iterator_category</span><span class="p">(</span><span class="k">const</span> <span class="n">It</span><span class="o">&amp;</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">return</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">It</span><span class="o">&gt;::</span><span class="n">iterator_category</span><span class="p">();</span>
 <span class="p">}</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">RandomIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">RandomIt</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Distance</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">RandomIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">random_access_iterator_tag</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">it</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Distance</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">advance</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">iterator_category</span><span class="p">(</span><span class="n">it</span><span class="p">));</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Bien sûr, on change aussi le prototype de la précédente implémentation.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Tag</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">);</span>
 </code></pre></div>
 <a class="headline-hash" href="#problème-avec-forwarditerator"><h2 id="problème-avec-forwarditerator">Problème avec ForwardIterator</h2></a>
 
 <p>Toutefois un problème persiste, lorsqu&rsquo;un ForwardIterator est utilisé, il n&rsquo;y a pas d&rsquo;opération de décrémentation, et la compilation ne se fait pas. Il faut de nouveau changer notre première implémentation pour qu&rsquo;elle ne fonctionne qu&rsquo;avec <code>bidirectional_iterator_tag</code> et une implémentation généraliste qui fait une incrémentation.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Tag</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">)</span>
     <span class="o">++</span><span class="n">it</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Distance</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">bidirectional_iterator_tag</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
@@ -328,16 +328,22 @@ Première implémentation La fonction std::advance() permet d&rsquo;incrémenter
 
   
   
-<nav class="post-nav row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-  <div class="post-nav__item post-nav__item--prev col-1-2">
+<nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--prev">
     <a class="post-nav__link" href="/2012/10/zsh-et-le-danger-des-modificateurs/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Zsh et le danger des modificateurs</span></a>
   </div>
-  <div class="post-nav__item post-nav__item--next col-1-2">
+  <div class="post-nav__item post-nav__item--next">
     <a class="post-nav__link" href="/2012/12/la-vis-cach%C3%A9e-de-getopt/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">La vis cachée de getopt</span></a>
   </div>
 </nav>
 
-  
+  <section id="gh-comments">
+  <h1>Commentaires</h1>
+<p>Les commentaires ne sont pas encore ouverts.</p>
+<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues">les issues de github</a> et aucun n'est associée au billet.
+Vous pouvez faire votre commentaire dans une issue qui a comme titre celui du billet. Je
+me chargerai de les associer.</p>
+</section>
 
 </main>
 </div>
@@ -353,7 +359,6 @@ Première implémentation La fonction std::advance() permet d&rsquo;incrémenter
   </footer>
 </div>
 <a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
-
 
 </body>
 </html>

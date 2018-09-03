@@ -98,7 +98,7 @@ html {
   max-width: 100%;
 }*/
 
-.post__content, .post-nav, #gh-comments {
+.post__content, #gh-comments {
   /* background: green; */
   /* max-width: 100%; */
   max-width: 70%;
@@ -181,6 +181,7 @@ pre {
   white-space: -o-pre-wrap;
   white-space: -moz-pre-wrap;
   white-space: -webkit-pre-wrap;
+  font-feature-settings: "liga" 0;
 }
 
 blockquote {
@@ -408,19 +409,19 @@ select {
 
 /*** Comments ***/
 #gh-comments {
-  margin: 1em;
+  margin: 0;
+  border-top: 1px dotted #c4c4c4;
 }
-/*#gh-comments > h1 {
- * text-align: center;
- * margin: 1em;
- } **/
 
-/*#gh-comments-list {
- }**/
+#gh-comments > h1,
+#gh-comments > p {
+  padding: .5em 1em 0 1em;
+}
 
-#gh-comments-list > a, #gh-comments > a {
+#gh-comments-list > a,
+#gh-comments > a {
   padding: 1em;
-  margin: .5em 0em;
+  margin: .5em 1em;
   display: block;
 }
 
@@ -797,6 +798,23 @@ select {
 	background: #e64946;
 }*/
 
+.InfoBox, .WarningBox {
+  margin: 1em .5em;
+  padding: .2em 1em;
+  border: 1px solid #888;
+  border-radius: .5em;
+}
+.InfoBox>p, .WarningBox>p {
+  margin: 0;
+  padding: 0;
+}
+.InfoBox-title, .WarningBox-title {
+  display: block;
+  padding: 0;
+  margin: 0;
+  margin: .5em;
+}
+
 /*** TableOfContents ***/
 
 #toc {
@@ -1036,17 +1054,20 @@ select {
   display: block;
 }
 
-.post-nav__item {
+/*.post-nav__item {
   width:50%;
-}
-
-.post-nav__item--next {
-	/* float: right; */
-	text-align: right;
-}
-
-/*.post-nav__item--previous {
 }*/
+.post-nav__item--prev {
+  width:35%
+}
+.post-nav__item--next {
+  width:65%;
+  text-align: right;
+}
+.post-nav__item--next .post-nav__link {
+  padding-right: 48%;
+}
+
 
 /*** Footer ***/
 .footer {
@@ -1372,6 +1393,14 @@ textarea {
   .post__footer .post__meta,
   .highlightwrap, .highlight, .post__content > pre {
     max-width: 100%;
+  }
+
+  .post-nav__item--prev,
+  .post-nav__item--next {
+    width:50%
+  }
+  .post-nav__item--next .post-nav__link {
+     padding-right: 25px;
   }
 }
 
@@ -1886,11 +1915,15 @@ blockquote { border-color: #ca8244; }
 .post__content a:visited,
 .list__content a:visited,
 .post-nav__link:visited,
-.p404 a:visited
+.p404 a:visited,
+.widget-recent a:visited
 { color: #c790e0 }
 
-.widget-recent a:visited { color: #c790e0 }
-.widget-recent a:hover:visited, .widget-recent a:focus:visited { color: #e649a6 }
+.widget-recent a:hover:visited,
+.widget-recent a:focus:visited,
+.post-nav__link:visited:hover,
+.post-nav__link:visited:focus
+{ color: #e649a6; }
 
 
 a:hover,

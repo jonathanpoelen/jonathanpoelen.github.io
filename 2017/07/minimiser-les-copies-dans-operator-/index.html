@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minimiser les copies dans operator&#43;</title>
 
-<meta name="generator" content="Hugo 0.40.3" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 
@@ -75,12 +75,12 @@ Pour rigoler un peu, on ajoute une petite contrainte qui est &laquo;&nbsp;l&rsqu
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/09/au-c%C5%93ur-dun-variant/">Au cœur d&#39;un variant</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
       <li class="widget__item"><a class="widget__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">26 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">27 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -108,7 +108,7 @@ Pour rigoler un peu, on ajoute une petite contrainte qui est &laquo;&nbsp;l&rsqu
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (18)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (19)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -210,7 +210,7 @@ Pour rigoler un peu, on ajoute une petite contrainte qui est &laquo;&nbsp;l&rsqu
 <li><a href="#n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp">N&rsquo;écrivez pas operator+ vous-même, c&rsquo;est trop compliqué&nbsp;!</a></li>
 </ul></nav>
         </div></aside>
-    
+      
 
 <p>Je vais me baser sur un classique: une classe de matrice contenant un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>
 </code></span>. Cette classe va implémenter 2 opérateurs mathématiques: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">+</span>
@@ -279,11 +279,11 @@ Pour rigoler un peu, on ajoute une petite contrainte qui est &laquo;&nbsp;l&rsqu
 </code></pre></div>
 <p>Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.</p>
 
-<p>Ainsi, si dans l&rsquo;expresssion <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<p>Ainsi, si dans l&rsquo;expression <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 </code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">b</span>
 </code></span> une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__PRETTY_FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span>
 </code></span> dans les implémentations et le test qui suit.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Rhs</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Rhs</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">test</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Matrix &#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_const</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span><span class="p">{}</span> <span class="o">?</span> <span class="s">&#34;const&#34;</span> <span class="o">:</span> <span class="s">&#34;     &#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; a; &#34;</span><span class="p">;</span>
@@ -352,21 +352,21 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
 <p>Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">enable_if</span>
 </code></span>. Ce qui donne:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">MatrixLhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">MatrixRhs</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">MatrixLhs</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">MatrixRhs</span><span class="o">&gt;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixLhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixRhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixRhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
   <span class="n">Matrix</span><span class="o">&gt;</span>
 <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">MatrixLhs</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">MatrixRhs</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
 </code></pre></div>
 <p>Dans la réalité, l&rsquo;addition d&rsquo;une matrice fonctionne aussi sur des entiers (cf: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">+</span> <span class="n">Matrix</span>
 </code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="o">+</span> <span class="kt">int</span>
-</code></span>). Le filtre sera alors beaucoup plus compliqué puisqu&rsquo;il faut qu&rsquo;au moins une des opérandes soit un type <code>Matrix</code> et que les paramètres soient des types compatibles (en prenant en compte la préscence des références et des <code>const</code>). La condition devient alors quelque chose comme:</p>
+</code></span>). Le filtre sera alors beaucoup plus compliqué puisqu&rsquo;il faut qu&rsquo;au moins une des opérandes soit un type <code>Matrix</code> et que les paramètres soient des types compatibles (en prenant en compte la présence des références et des <code>const</code>). La condition devient alors quelque chose comme:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
 <span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
 <span class="p">(</span><span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">||</span> <span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span><span class="p">)</span>
 </code></pre></div>
-<p>Il devient alors très facile d&rsquo;ajouter un nouveau type à prendre en compte, comme par exemple un contenaire de la SL, un tableau C, un autre type matriciel d&rsquo;une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.</p>
+<p>Il devient alors très facile d&rsquo;ajouter un nouveau type à prendre en compte, comme par exemple un conteneur de la SL, un tableau C, un autre type matriciel d&rsquo;une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.</p>
 
 <p>Il est également envisageable de faire des prototypes par catégorie de variable: Sequence et Matrix, Integer et Matrix.</p>
 
@@ -431,7 +431,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 </table>
 
 <p>Et l&rsquo;implémentation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="n">rvalue_wrapper</span>
 <span class="p">{</span>
   <span class="n">T</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">;</span>
@@ -440,19 +440,19 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
   <span class="p">{</span> <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="p">}</span>
 <span class="p">};</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">unwrap</span><span class="p">(</span><span class="n">rvalue_wrapper</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">)</span> <span class="k">noexcept</span>
 <span class="p">{</span>
   <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">unwrap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="k">noexcept</span>
 <span class="p">{</span>
   <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Rhs</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Rhs</span><span class="o">&gt;</span>
 <span class="n">Matrix</span> <span class="k">operator</span> <span class="o">+</span><span class="p">(</span><span class="n">Lhs</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Rhs</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">using</span> <span class="n">NewLhs</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional_t</span><span class="o">&lt;</span>
@@ -484,7 +484,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 </code></span> l&rsquo;optimisation n&rsquo;est pas faite. Cela fonctionne néanmoins avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span>
 </code></span> de c++17. Le but de <code>rvalue_reference</code>  est finalement de rendre automatique un retour par rvalue grâce à l&rsquo;opérateur de cast interne.</p>
 
-<p>Concernant ce curieux enchaînement de cast, celui-ci s&rsquo;explique par la difficulté de contrôler le type retourner par une ternaire. Une ternaire sur deux variables de même type va retourner une référence (une variable est toujours une lvalue). La référence sera considérée constante si une des deux valeurs est une référence constante. Du coup, on vire le const pour ensuite construire les types <code>NewLhs</code> et <code>NewRhs</code>.</p>
+<p>Concernant ce curieux enchaînement de cast, celui-ci s&rsquo;explique par la difficulté de contrôler le type retourné par une ternaire. Une ternaire sur deux variables de même type va retourner une référence (une variable est toujours une lvalue). La référence sera considérée constante si une des deux valeurs est une référence constante. Du coup, on vire le const pour ensuite construire les types <code>NewLhs</code> et <code>NewRhs</code>.</p>
 
 <p>Ici, le constructeur de la matrice (quand <code>NewLhs = Matrix</code>) va recevoir un type non const. À moins qu&rsquo;un constructeur existe pour les références non const, cela ne cause pas de problème. On peut très bien ajouter un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">conditional</span>
 </code></span> pour forcer le const.</p>
@@ -499,7 +499,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
 <a class="headline-hash" href="#n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp"><h2 id="n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp">N&rsquo;écrivez pas operator+ vous-même, c&rsquo;est trop compliqué&nbsp;!</h2></a>
 
-<p>Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est allourdi, la lisibilité réduite. Il y a moyen d&rsquo;implémenter la plupart des opérateurs en quelques lignes pour le même résultat.</p>
+<p>Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est alourdi, la lisibilité réduite. Il y a moyen d&rsquo;implémenter la plupart des opérateurs en quelques lignes pour le même résultat.</p>
 
 <p>De plus, l&rsquo;implémentation des opérateurs peuvent varier. Par exemple, pas de commutativité. Ses variantes sont difficiles à détecter dans une grande masse de code, il devient facile de faire une erreur aussi bien à l&rsquo;écriture qu&rsquo;à la lecture.</p>
 
@@ -539,23 +539,21 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
   
   
-<nav class="post-nav row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-  <div class="post-nav__item post-nav__item--prev col-1-2">
+<nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--prev">
     <a class="post-nav__link" href="/2016/04/comment-se-passer-de-stdforward/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Comment se passer de std::forward</span></a>
   </div>
-  <div class="post-nav__item post-nav__item--next col-1-2">
+  <div class="post-nav__item post-nav__item--next">
     <a class="post-nav__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">De Blogspot à Hugo, il a changé de peau</span></a>
   </div>
 </nav>
 
-  
-<section id="gh-comments">
+  <section id="gh-comments">
   <h1>Commentaires</h1>
+<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues/1">les issues de github</a>.
   <article id="gh-comments-list"></article>
-  <a href="#" id="gh-load-comments" class="btn" onclick="DoGithubComments( 1 ); return false">Charger plus de commentaires</a>
+  <a href="#" id="gh-load-comments" class="btn" onclick="DoGithubComments( 1 ); return false">Charger les commentaires</a>
 </section>
-
-
 <script type="text/javascript" src="/js/github-comment.js"></script>
 <script type="text/javascript">
 if (document.URL.split('#')[1] === 'gh-comments')
@@ -563,6 +561,7 @@ if (document.URL.split('#')[1] === 'gh-comments')
   DoGithubComments( 1 );
 }
 </script>
+</section>
 
 </main>
 </div>
@@ -578,7 +577,6 @@ if (document.URL.split('#')[1] === 'gh-comments')
   </footer>
 </div>
 <a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
-
 
 </body>
 </html>

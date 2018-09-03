@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comment se passer de std::forward</title>
 
-<meta name="generator" content="Hugo 0.40.3" />
+<meta name="generator" content="Hugo 0.46" />
 
 
 
@@ -75,12 +75,12 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/09/au-c%C5%93ur-dun-variant/">Au cœur d&#39;un variant</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
       <li class="widget__item"><a class="widget__link" href="/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">26 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">27 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -108,7 +108,7 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (18)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (19)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -203,21 +203,21 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
   </header>
   <div class="post__content">
       <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 1 ans. Les informations y figurant peuvent être dépassées.</p>
-    <p>Actuellement en pleine écriture d&rsquo;une fonction <code>match</code> (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de <code>std::forward</code> utilisée à chaque appel de fonction. J&rsquo;en compte 21 pour un total de 6 niveaux d&rsquo;imbrications. Autant dire qu&rsquo;oublier de le mettre est plutôt facile.</p>
+      <p>Actuellement en pleine écriture d&rsquo;une fonction <code>match</code> (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de <code>std::forward</code> utilisée à chaque appel de fonction. J&rsquo;en compte 21 pour un total de 6 niveaux d&rsquo;imbrications. Autant dire qu&rsquo;oublier de le mettre est plutôt facile.</p>
 
 <p>C&rsquo;est d&rsquo;ailleurs la raison de ce billet, puisque bien sûr, j&rsquo;en ai oubliés.</p>
 
 <p>Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence. Comme l&rsquo;objet créé a pleinement connaissance du type de variable qu&rsquo;il contient et que traverser une chaîne de fonctions ne fait pas disparaître cette information, il n&rsquo;y a plus besoin de std::forward. Le dernier maillon peut alors extraire une lvalue ou une rvalue via &ndash;par exemple&ndash; une fonction <code>get()</code>.</p>
 
 <p>Pour illustrer, voilà ce que cela donne:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="n">forwarder</span>
 <span class="p">{</span>
   <span class="n">T</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span>
   <span class="n">T</span> <span class="o">&amp;&amp;</span> <span class="n">get</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
 <span class="p">};</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="n">forwarder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span>
 <span class="p">{</span>
   <span class="n">T</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span>
@@ -227,18 +227,18 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
 
 <span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="c1">// dernier niveau d&#39;imbrication avant l&#39;appel de la vrai fonction
 </span><span class="c1">// note: le coup d&#39;une copie est nulle pour le type forwarder
-</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">get</span><span class="p">());</span> <span class="p">}</span>
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">get</span><span class="p">());</span> <span class="p">}</span>
 
 <span class="c1">// pas besoin de std::forward
-</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">f1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">f1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
 
 <span class="c1">// premier maillon, création du contexte
-</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">f2</span><span class="p">(</span><span class="n">forwarder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{</span><span class="n">x</span><span class="p">});</span> <span class="p">}</span>
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">f2</span><span class="p">(</span><span class="n">forwarder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{</span><span class="n">x</span><span class="p">});</span> <span class="p">}</span>
 
 <span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
 <span class="p">{</span>
@@ -280,16 +280,22 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
 
   
   
-<nav class="post-nav row clearfix" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
-  <div class="post-nav__item post-nav__item--prev col-1-2">
+<nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--prev">
     <a class="post-nav__link" href="/2015/09/if-constexpr-avant-c--17/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">if constexpr avant C&#43;&#43;17</span></a>
   </div>
-  <div class="post-nav__item post-nav__item--next col-1-2">
+  <div class="post-nav__item post-nav__item--next">
     <a class="post-nav__link" href="/2017/07/minimiser-les-copies-dans-operator-/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">Minimiser les copies dans operator&#43;</span></a>
   </div>
 </nav>
 
-  
+  <section id="gh-comments">
+  <h1>Commentaires</h1>
+<p>Les commentaires ne sont pas encore ouverts.</p>
+<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues">les issues de github</a> et aucun n'est associée au billet.
+Vous pouvez faire votre commentaire dans une issue qui a comme titre celui du billet. Je
+me chargerai de les associer.</p>
+</section>
 
 </main>
 </div>
@@ -305,7 +311,6 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
   </footer>
 </div>
 <a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
-
 
 </body>
 </html>

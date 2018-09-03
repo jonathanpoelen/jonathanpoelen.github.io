@@ -8,10 +8,20 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Tue, 13 Feb 2018 03:00:28 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 02 Sep 2018 14:45:55 +0200</lastBuildDate>
     
 	<atom:link href="https://jonathanpoelen.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Au cœur d&#39;un variant</title>
+      <link>https://jonathanpoelen.github.io/2018/09/au-c%C5%93ur-dun-variant/</link>
+      <pubDate>Sun, 02 Sep 2018 14:45:55 +0200</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2018/09/au-c%C5%93ur-dun-variant/</guid>
+      <description>Cet article va être consacré à la réalisation d&amp;rsquo;une classe variant comme on peut la trouver dans la stl, boost et autres. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&amp;rsquo;exécution. Je vais faire un petit tour de ce que j&amp;rsquo;ai pu voir et comment les implémenter.
+Rappel sur ce qu&amp;rsquo;est un variant Un variant est une union sécurisée comme on peut le trouver dans les langages fonctionnels.</description>
+    </item>
     
     <item>
       <title>Faites parler votre compilateur</title>
@@ -98,7 +108,7 @@ Appeler T::sort si possible, sinon std::sort(begin(T), end(T)) L&amp;rsquo;exemp
       <description>Un petit article pour parler d&amp;rsquo;optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par std::unique_ptr.
 Implémentation naïve de std::unique_ptr Pour rappel, std::unique_ptr prend 2 paramètres template: T et Deleter (qui par défaut égal std::default_delete&amp;lt;T&amp;gt;).
 Naïvement, l&amp;rsquo;implémentation serait:
-template&amp;lt;T, Deleter = std::default_delete&amp;lt;T&amp;gt;&amp;gt; class my_unique_ptr { T* m_pointer; Deleter m_deleter; // … };  Rien d&amp;rsquo;extraordinaire.
+template&amp;lt;T, Deleter = std::default_delete&amp;lt;T&amp;gt;&amp;gt; classmy_unique_ptr { T* m_pointer; Deleter m_deleter; // … };  Rien d&amp;rsquo;extraordinaire.
 Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 octet.</description>
     </item>
     
@@ -136,7 +146,7 @@ Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:</description>
       <description>À l&amp;rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
 Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.
 Quelque chose dans ce goût-là:
-#include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;class T, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;... others) { std::cout &amp;lt;&amp;lt; first &amp;lt;&amp;lt; &amp;#39;\n&amp;#39;; f1(others...); } template&amp;lt;class T&amp;gt; void f2(const T&amp;amp; first) { std::cout &amp;lt;&amp;lt; first &amp;lt;&amp;lt; &amp;#39;\n&amp;#39;; } template&amp;lt;class T, class.</description>
+#include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;classT, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;... others) { std::cout &amp;lt;&amp;lt; first &amp;lt;&amp;lt; &amp;#39;\n&amp;#39;; f1(others...); } template&amp;lt;classT&amp;gt; void f2(const T&amp;amp; first) { std::cout &amp;lt;&amp;lt; first &amp;lt;&amp;lt; &amp;#39;\n&amp;#39;; } template&amp;lt;classT, class.</description>
     </item>
     
     <item>
