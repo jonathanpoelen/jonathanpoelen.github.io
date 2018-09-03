@@ -1,6 +1,33 @@
-#include <memory>
+//BEGIN mp_index_of
+#include <type_traits>
 
-//BEGIN prototype
+namespace detail
+{
+  template<class T, class... Ts>
+  struct count_items_to_right_of;
+
+  template<class T, class U, class... Us>
+  struct count_items_to_right_of<T, U, Us...>
+  : count_items_to_right_of<T, Us...>
+  {};
+
+  template<class T, class... Us>
+  struct count_items_to_right_of<T, T, Us...>
+  : std::integral_constant<std::size_t, sizeof...(Us)>
+  {};
+}
+
+template<class T, class... Ts>
+using mp_index_of = std::integral_constant<
+  std::size_t,
+  sizeof...(Ts) - detail::count_items_to_right_of<T, Ts...>::value - 1
+>;
+//END mp_index_of
+
+
+#include <memory>
+#include <cassert>
+
 namespace detail
 {
   struct VariantBase
@@ -32,13 +59,9 @@ public:
 
 private:
   std::unique_ptr<detail::VariantBase> impl_;
+  std::size_t type_index_ = sizeof...(Ts);
 };
-//END prototype
 
-
-#include <cassert>
-
-//BEGIN impl
 namespace detail
 {
   template<class T>
@@ -65,21 +88,25 @@ namespace detail
   }
 }
 
+//BEGIN impl
 template<class... Ts>
 Variant<Ts...>::Variant(Variant const& other)
 : impl_(other.impl_->clone())
+, type_index_(other.type_index_)
 {}
 
 template<class... Ts>
 template<class T>
 Variant<Ts...>::Variant(T&& x)
 : impl_(detail::make_variant_impl(std::forward<T>(x)))
+, type_index_(mp_index_of<std::decay_t<T>, Ts...>::value)
 {}
 
 template<class... Ts>
 Variant<Ts...>& Variant<Ts...>::operator=(Variant const& other)
 {
   impl_ = other.impl_ ? other.impl_->clone() : nullptr;
+  type_index_ = other.type_index_;
   return *this;
 }
 
@@ -88,6 +115,7 @@ template<class T>
 Variant<Ts...>& Variant<Ts...>::operator=(T&& x)
 {
   impl_ = detail::make_variant_impl(std::forward<T>(x));
+  type_index_ = mp_index_of<std::decay_t<T>, Ts...>::value;
   return *this;
 }
 //END impl
@@ -99,9 +127,10 @@ auto Variant<Ts...>::visit(F&& f)
 {
   assert(impl_);
   auto visit_impl = [&](auto rec, auto* t, auto*... ts){
-    using Impl = detail::VariantImpl<std::decay_t<decltype(*t)>>;
+    using T = std::decay_t<decltype(*t)>;
+    using Impl = detail::VariantImpl<std::decay_t<T>>;
     if constexpr (sizeof...(ts)) {
-      return dynamic_cast<Impl*>(impl_.get())
+      return type_index_ == mp_index_of<T, Ts...>::value
         ? f(static_cast<Impl*>(impl_.get())->value_)
         : rec(rec, ts...);
     }
