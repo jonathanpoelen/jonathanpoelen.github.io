@@ -43,7 +43,7 @@ Notre version minimale de variant va contenir:
 {{%/info%}}
 
 Comme le type change en cours de route, nous allons utiliser en interne une classe de base qui pour chaque dérivée va contenir le type réel.
-Grâce à cela, le type stocker pourra être supprimé et un nouveau type pourra y être enregistré.
+Grâce à cela, le type stocké pourra être supprimé et un nouveau type pourra y être enregistré.
 Cette classe de base pourra aussi servir à implémenter l'opérateur de copie via une fonction `clone`.
 
 {{<fhi "cpp_variant/variant1.cpp" prototype>}}
@@ -145,11 +145,11 @@ Il y a aussi une condition dans `operator=` pour choisir entre la fonction `copy
 Bien que le variant actuel soit incomplet, il est utilisable et proche des implémentations actuelles. Mais il y a plusieurs petits détails qui ne sont pas approfondis ici:
 
 - l'optimisation sur type_index,
-- les différents moyens de remplacer une vtable (ici je n'utilise que le if/else récursive),
+- les différents moyens de remplacer une vtable (ici je n'utilise que le if/else récursif),
 - le coût d'utilisation d'un objet en fonction de sa nature (par exemple: le compilateur dévirtualise-t-il les fonctions virtuelles venant d'un membre de variant ?)
 - les unions récursives
 - et bien d'autres
 
-Les prochains articles seront davantage accès sur la méta-programmation et indirectement reliés avec certains aspects du variant présenté ici.
+Les prochains articles seront davantage accés sur la méta-programmation et indirectement reliés avec certains aspects du variant présentés ici.
 
 Les sources sont disponibles sur {{<urlhi "cpp_variant" "github">}}.
