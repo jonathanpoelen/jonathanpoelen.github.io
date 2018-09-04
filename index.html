@@ -234,7 +234,7 @@ Il n&rsquo;y a pas de comportement commun, les traitements se feront en fonction
 
 
 <p>Comme le type change en cours de route, nous allons utiliser en interne une classe de base qui pour chaque dérivée va contenir le type réel.
-Grâce à cela, le type stocker pourra être supprimé et un nouveau type pourra y être enregistré.
+Grâce à cela, le type stocké pourra être supprimé et un nouveau type pourra y être enregistré.
 Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de copie via une fonction <code>clone</code>.</p>
 
 
@@ -606,13 +606,13 @@ Le code final est plutôt gros alors je ne mets <a href="https://github.com/jona
 
 <ul>
 <li>l&rsquo;optimisation sur type_index,</li>
-<li>les différents moyens de remplacer une vtable (ici je n&rsquo;utilise que le if/else récursive),</li>
+<li>les différents moyens de remplacer une vtable (ici je n&rsquo;utilise que le if/else récursif),</li>
 <li>le coût d&rsquo;utilisation d&rsquo;un objet en fonction de sa nature (par exemple: le compilateur dévirtualise-t-il les fonctions virtuelles venant d&rsquo;un membre de variant ?)</li>
 <li>les unions récursives</li>
 <li>et bien d&rsquo;autres</li>
 </ul>
 
-<p>Les prochains articles seront davantage accès sur la méta-programmation et indirectement reliés avec certains aspects du variant présenté ici.</p>
+<p>Les prochains articles seront davantage accés sur la méta-programmation et indirectement reliés avec certains aspects du variant présentés ici.</p>
 
 <p>Les sources sont disponibles sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/master/src/cpp_variant">github</a>
 .</p>
