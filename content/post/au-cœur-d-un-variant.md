@@ -130,7 +130,7 @@ Pour initialiser l'objet avec une valeur, la version avec `std::aligned_union` d
 {{<fhi "cpp_variant/variant3.cpp" ctor_VariadicUnion >}}
 
 Puis on adapte les fonctions de `Variant`.
-Le code final est plutôt gros alors je ne mets {{<urlhi "cpp_variant/variant3.cpp" "que le lien">}}.
+Le code final est plutôt gros alors je ne mets {{<urlhi "cpp_variant/variant3.cpp#L157" "que le lien">}}.
 
 Pour éviter une condition particulière dans le code, l'union possède un membre supplémentaire: `Uninit`, utilisé par `init`, `copy` et `destroy` pour représenter un variant sans valeur.
 
@@ -150,6 +150,6 @@ Bien que le variant actuel soit incomplet, il est utilisable et proche des impl�
 - les unions récursives
 - et bien d'autres
 
-Les prochains articles seront davantage accés sur la méta-programmation et indirectement reliés avec certains aspects du variant présentés ici.
+Les prochains articles seront davantage axés sur la méta-programmation et indirectement reliés avec certains aspects du variant présentés ici.
 
 Les sources sont disponibles sur {{<urlhi "cpp_variant" "github">}}.
