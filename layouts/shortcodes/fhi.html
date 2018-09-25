@@ -1,4 +1,4 @@
-{{- $content := .Get 0 | printf "src/%s" | readFile }}
+{{- $content := .Get 0 | printf "resources/%s" | readFile }}
 {{- $re := printf "BEGIN %s\\b(.|\n)*END %s\\b" (.Get 1) (.Get 1) }}
 {{- $bloc := index (findRE $re $content 1) 0  }}
 {{- $lines := split $bloc "\n"  }}
