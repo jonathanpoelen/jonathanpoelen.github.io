@@ -1350,6 +1350,10 @@ textarea {
     max-width: 100%;
   }
 
+  .chroma {
+    display: block;
+  }
+
   .post-nav__item--prev,
   .post-nav__item--next {
     width:50%
@@ -1365,10 +1369,16 @@ textarea {
     display: block;
   }
 
-  .content, .sidebar, .main-content {
+  .content, .sidebar, .main-content,
+  .highlight, .chroma, /*.post__content >*/ pre {
     float: none;
     width: 100%;
     margin: 0;
+  }
+
+  .chroma, /*.post__content >*/ pre {
+    padding: .7rem;
+    width: calc(100% - 1.4rem - 2px);
   }
   
   #avoidance-link {
