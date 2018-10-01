@@ -20,7 +20,7 @@
 <link rel="alternate stylesheet" title="Night theme" href="{{ "css/night.css" | relURL }}" />
 <link rel="shortcut icon" href="{{ "favicon.ico" | relURL }}" />
 <meta name="description" content="{{- if .Params.description}}{{.Params.description}}
-{{- else if .Summary}}{{.Summary}}
+{{- else if .Summary}}{{index (findRE "[^\n]*" .Summary 1) 0}}
 {{- else}}{{.Site.Params.Title}}.{{ with .Site.Params.subtitle }} {{.}}{{ end }}
 {{- end}}" />
 {{ template "_internal/google_analytics_async.html" . }}
