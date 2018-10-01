@@ -125,25 +125,6 @@ table {
   /* display:inline-block; */
 }
 
-.highlightwrap, .highlight, .post__content > pre {
-  max-width: 156%;
-  min-width: 100%;
-  display:inline-block;
-}
-
-.post__content > pre {
-  /* margin-right: 0px; */
-  padding-right: 0px;
-}
-
-/*.container {
-  background: blue
-}
-
-.header {
-  background: purple
-}*/
-
 
 /*** Typography ***/
 body {
@@ -239,7 +220,7 @@ code {
   font-size: .9em;
 }
 
-pre code {
+pre > code {
   background: none;
   border: none;
 }
@@ -248,7 +229,7 @@ pre {
   font-size: .95em;
 }
 
-pre code {
+pre > code {
   font-size: 1em;
 }
 
@@ -1169,51 +1150,25 @@ th {
 	font-weight: bold;
 }
 
+
 /*** Pygmentize ***/
-.highlightwrap, .highlight {
+.highlight {
+  width: 145%;
   overflow-x: auto;
-  /* margin-bottom: 20px; */
-  /* margin-bottom: 1.25rem; */
 }
 
-/* .highlightwrap:focus, .highlightwrap:hover { */
-/* } */
-
-.highlighttable {
-  margin: 0;
-  border: 0;
-  padding: 0;
+.chroma {
+  display: inline-block;
+  min-width: 67%;
 }
 
-.highlighttable td {
-  border: 0;
-  padding: 0;
-  vertical-align: top;
-}
-
-.highlighttable td:first-child {
-  width: 1px; /* smallest possible column */
-}
-
-.highlighttable td:first-child pre {
-  padding-right: 0;
-}
-
-.highlighttable .highlight pre {
-  padding-left: .6em;
-}
-
-.highlighttable pre {
-  padding: 10px 5px;
-  margin: 0;
-  border: 0;
-}
-
-.post__content pre {
+/* here, pre is .choma*/
+pre {
   overflow-x: auto;
   white-space: pre;
   hyphens: none;
 }
+
 
 /*** Forms ***/
 input {
@@ -1292,7 +1247,7 @@ textarea {
 .widget-search__form {
 	display: block;
 	margin: 0 auto;
-  padding: 6% 6% 0 6%;
+  padding: 0.5em 6% 1em 6%;
 }
 
 .widget-search__form .widget-search__field {
@@ -1303,7 +1258,8 @@ textarea {
 
 /*** Widgets ***/
 .widget {
-	margin-bottom: 25px;
+	margin-bottom: 1em;
+	padding-top: .5em;
 	overflow: hidden;
 }
 
@@ -1312,7 +1268,6 @@ textarea {
 }
 
 .widget__title {
-	position: relative;
 	font-size: 16px;
 	font-size: 1rem;
 	padding-bottom: 5px;
@@ -1391,8 +1346,12 @@ textarea {
   .post__content, .post-nav, #gh-comments,
   .post__header /*.post__meta*/,
   .post__footer .post__meta,
-  .highlightwrap, .highlight, .post__content > pre {
+  .highlight, .chroma, /*.post__content >*/ pre {
     max-width: 100%;
+  }
+
+  .chroma {
+    display: block;
   }
 
   .post-nav__item--prev,
@@ -1410,10 +1369,16 @@ textarea {
     display: block;
   }
 
-  .content, .sidebar, .main-content {
+  .content, .sidebar, .main-content,
+  .highlight, .chroma, /*.post__content >*/ pre {
     float: none;
     width: 100%;
     margin: 0;
+  }
+
+  .chroma, /*.post__content >*/ pre {
+    padding: .7rem;
+    width: calc(100% - 1.4rem - 2px);
   }
   
   #avoidance-link {
@@ -1422,7 +1387,7 @@ textarea {
     height:inherit
   }
 
-  .post__content > pre {
+  /*.post__content >*/ pre {
     margin-right: 0px;
     padding-right: 0;
   }
@@ -1647,10 +1612,8 @@ body, html { background: #252525; color: #000; }
 .disclaimer { border-color: #ddddf9; background: #ddddf2; }
 /* pre { background: #f5f5f5; border-color: #c4c4c4; } */
 pre { background: #3a3a3a; border-color: #c4c4c4; }
-.highlighttable pre { border-color: #555; }
-.highlighttable td:first-child pre { background: #444; }
 .linenodiv code { color: #888 }
-pre code { color: #c5c8c6 }
+pre > code { color: #c5c8c6 }
 .inlinecode, code { background-color: #f9f9f9; border-color: #fadbf4; border: none; }
 kbd { background: #f5f5f5; border-color: #e64946; }
 blockquote { color: #666; border-color: #e64946; }
@@ -1776,7 +1739,7 @@ table, td, th
 }
 
 
-/* pre code::before {
+/* pre > code::before {
   content: attr(data-lang);
   color: #eee;
   padding-bottom: .4em;
@@ -1880,8 +1843,10 @@ body, html { background: #252525; color: #dedfda; }
 .warning, .disclaimer, .old_article { color: #000; }
 .warning, .old_article { border-color: #f9dddd; background: #c99; }
 .disclaimer { border-color: #ddddf9; background: #99d; }
-.main-content, .wrapper { background: #252525; }
-.sidebar { background: #2e2f2c; }
+/* .sidebar { background: #2e2f2c; } */
+.widget { background: #2e2f2c; }
+.widget li:last-child { border-bottom-color: #2e2f2c; }
+.main-content, .wrapper, .sidebar { background: #252525; }
 blockquote { color: #ccc; }
 cite { color: #ccc; }
 tr:nth-child(even) { background-color: #090909; }
@@ -1890,7 +1855,7 @@ th { background-color: #333; }
 input, textarea { background: #252525; }
 input[type=submit]:hover, input[type=submit]:focus { background: #2a2a2a; }
 pre { background: #2e2e2e; border-color: #999; }
-pre code { color: #d0d0d0 }
+pre > code { color: #d0d0d0 }
 .inlinecode, code { background-color: #3a3a3a; border-color: #000; color: #e0e1dc }
 table, td, th { border-color: #999; }
 a { color: #dedfda; }
