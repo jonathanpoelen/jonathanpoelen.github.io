@@ -1,7 +1,7 @@
 ---
 title: "comparaison de différentes implémentations de mp_index_of"
 #description: ""
-date: 2018-01-10T18:28:21+02:00
+date: 2018-10-01T18:28:21+02:00
 #lastmod: 2018-09-05T01:28:21+02:00
 #slug: "a-site-page"
 #toc: false
