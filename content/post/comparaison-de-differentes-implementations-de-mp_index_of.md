@@ -8,7 +8,7 @@ date: 2018-01-10T18:28:21+02:00
 #tags: [ "méta-programmation" ]
 aliases: []
 categories: [ "c++" ]
-draft: true
+draft: false
 ghcommentid: 0
 ---
 
