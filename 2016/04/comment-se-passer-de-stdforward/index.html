@@ -4,10 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comment se passer de std::forward</title>
-
 <meta name="generator" content="Hugo 0.48" />
-
-
 
 
 
@@ -19,7 +16,19 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<meta name="description" content="Actuellement en pleine écriture d&amp;rsquo;une fonction match (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de std::forward utilisée à chaque appel de fonction. J&amp;rsquo;en compte 21 pour un total de 6 niveaux d&amp;rsquo;imbrications. Autant dire qu&amp;rsquo;oublier de le mettre est plutôt facile." />
+<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:title" content="Comment se passer de std::forward">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2016/04/comment-se-passer-de-stdforward/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2016/04/comment-se-passer-de-stdforward/">
+<meta property="twitter:title" content="Comment se passer de std::forward">
+<meta name="description" content="Actuellement en pleine écriture d&rsquo;une fonction match (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de std::forward utilisée à chaque appel de fonction. J&rsquo;en compte 21 pour un total de 6 niveaux d&rsquo;imbrications. Autant dire qu&rsquo;oublier de le mettre est plutôt facile.
+C&rsquo;est d&rsquo;ailleurs la raison de ce billet, puisque bien sûr, j&rsquo;en ai oubliés.
+Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence.">
+<meta property="twitter:description" content="Actuellement en pleine écriture d&rsquo;une fonction match (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de std::forward utilisée à chaque appel de fonction. J&rsquo;en compte 21 pour un total de 6 niveaux d&rsquo;imbrications. Autant dire qu&rsquo;oublier de le mettre est plutôt facile.
+C&rsquo;est d&rsquo;ailleurs la raison de ce billet, puisque bien sûr, j&rsquo;en ai oubliés.
+Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">

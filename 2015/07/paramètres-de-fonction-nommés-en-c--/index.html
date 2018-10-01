@@ -4,10 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paramètres de fonction nommés en C&#43;&#43;</title>
-
 <meta name="generator" content="Hugo 0.48" />
-
-
 
 
 
@@ -19,7 +16,19 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<meta name="description" content="Cet article est la démonstration de l&amp;rsquo;article précédent. La problématique présentée est la suivante: &amp;laquo;&amp;nbsp;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&amp;nbsp;&amp;raquo;" />
+<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:title" content="Paramètres de fonction nommés en C&#43;&#43;">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2015/07/param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c--/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2015/07/param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c--/">
+<meta property="twitter:title" content="Paramètres de fonction nommés en C&#43;&#43;">
+<meta name="description" content="Cet article est la démonstration de l&rsquo;article précédent. La problématique présentée est la suivante: &laquo;&nbsp;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&nbsp;&raquo;
+La fonction de référence sera la suivante:
+void draw_rect( unsigned w, unsigned h , char border_top = &#39;-&#39;, char border_bottom = &#39;-&#39; , char border_left = &#39;&lt;&#39;, char border_right = &#39;&gt;&#39; , char fill = &#39;#&#39; ) { std::cout &lt;&lt; std::setfill(border_top) &lt;&lt; std::setw(w&#43;2) &lt;&lt; &#34;&#34; &lt;&lt; &#34;\n&#34;; while (h--) { std::cout &lt;&lt; border_left &lt;&lt; std::setfill(fill) &lt;&lt; std::setw(w) &lt;&lt; &#34;&#34; &lt;&lt; border_right &lt;&lt; &#34;\n&#34;; } std::cout &lt;&lt; std::setfill(border_bottom) &lt;&lt; std::setw(w&#43;2) &lt;&lt; &#34;&#34; &lt;&lt; &#34;\n&#34;; }  Comment faire un appel proche de draw_rect(4,3, fill=&#39;@&#39;)  ?">
+<meta property="twitter:description" content="Cet article est la démonstration de l&rsquo;article précédent. La problématique présentée est la suivante: &laquo;&nbsp;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&nbsp;&raquo;
+La fonction de référence sera la suivante:
+void draw_rect( unsigned w, unsigned h , char border_top = &#39;-&#39;, char border_bottom = &#39;-&#39; , char border_left = &#39;&lt;&#39;, char border_right = &#39;&gt;&#39; , char fill = &#39;#&#39; ) { std::cout &lt;&lt; std::setfill(border_top) &lt;&lt; std::setw(w&#43;2) &lt;&lt; &#34;&#34; &lt;&lt; &#34;\n&#34;; while (h--) { std::cout &lt;&lt; border_left &lt;&lt; std::setfill(fill) &lt;&lt; std::setw(w) &lt;&lt; &#34;&#34; &lt;&lt; border_right &lt;&lt; &#34;\n&#34;; } std::cout &lt;&lt; std::setfill(border_bottom) &lt;&lt; std::setw(w&#43;2) &lt;&lt; &#34;&#34; &lt;&lt; &#34;\n&#34;; }  Comment faire un appel proche de draw_rect(4,3, fill=&#39;@&#39;)  ?">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">

@@ -4,10 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Optimisation de script bash en limitant l&#39;ouverture de processus</title>
-
 <meta name="generator" content="Hugo 0.48" />
-
-
 
 
 
@@ -19,7 +16,17 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<meta name="description" content="Une des choses qui prend du temps dans l&amp;rsquo;exécution d&amp;rsquo;un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés." />
+<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:title" content="Optimisation de script bash en limitant l&#39;ouverture de processus">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/">
+<meta property="twitter:title" content="Optimisation de script bash en limitant l&#39;ouverture de processus">
+<meta name="description" content="Une des choses qui prend du temps dans l&rsquo;exécution d&rsquo;un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés.
+Le meilleur moyen d&rsquo;accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme. En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&rsquo;entrée standard et retourne un résultat ; un peu comme bc. C&rsquo;est là que les coprocessus viennent à la rescousse :).">
+<meta property="twitter:description" content="Une des choses qui prend du temps dans l&rsquo;exécution d&rsquo;un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés.
+Le meilleur moyen d&rsquo;accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme. En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&rsquo;entrée standard et retourne un résultat ; un peu comme bc. C&rsquo;est là que les coprocessus viennent à la rescousse :).">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">

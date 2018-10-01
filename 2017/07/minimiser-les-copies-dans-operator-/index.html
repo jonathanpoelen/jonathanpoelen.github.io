@@ -4,10 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minimiser les copies dans operator&#43;</title>
-
 <meta name="generator" content="Hugo 0.48" />
-
-
 
 
 
@@ -19,7 +16,19 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<meta name="description" content="Je vais me baser sur un classique: une classe de matrice contenant un std::vector&amp;lt;int&amp;gt; . Cette classe va implémenter 2 opérateurs mathématiques: &#43;  et &#43;= . Le premier en fonction libre, le second en fonction membre." />
+<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:title" content="Minimiser les copies dans operator&#43;">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/">
+<meta property="twitter:title" content="Minimiser les copies dans operator&#43;">
+<meta name="description" content="Je vais me baser sur un classique: une classe de matrice contenant un std::vector&lt;int&gt; . Cette classe va implémenter 2 opérateurs mathématiques: &#43;  et &#43;= . Le premier en fonction libre, le second en fonction membre.
+Pour rigoler un peu, on ajoute une petite contrainte qui est &laquo;&nbsp;l&rsquo;efficacité&nbsp;&raquo;. Petit mot qui englobe un peu tout et n&rsquo;importe quoi tel que la performance en mémoire et en temps.
+À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc.">
+<meta property="twitter:description" content="Je vais me baser sur un classique: une classe de matrice contenant un std::vector&lt;int&gt; . Cette classe va implémenter 2 opérateurs mathématiques: &#43;  et &#43;= . Le premier en fonction libre, le second en fonction membre.
+Pour rigoler un peu, on ajoute une petite contrainte qui est &laquo;&nbsp;l&rsquo;efficacité&nbsp;&raquo;. Petit mot qui englobe un peu tout et n&rsquo;importe quoi tel que la performance en mémoire et en temps.
+À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
