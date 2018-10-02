@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Accessibilite Web on Jonathan Poelen&#39;s Blog</title>
+    <link>https://jonathanpoelen.github.io/categories/accessibilite-web/</link>
+    <description>Recent content in Accessibilite Web on Jonathan Poelen&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-FR</language>
+    <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
+    <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
+    <lastBuildDate>Tue, 02 Jan 2018 14:18:22 +0200</lastBuildDate>
+    
+	<atom:link href="https://jonathanpoelen.github.io/categories/accessibilite-web/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ma vision de l&#39;accessibilité appliquée pour ce blog</title>
+      <link>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/</link>
+      <pubDate>Tue, 02 Jan 2018 14:18:22 +0200</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/</guid>
+      <description>Pour changer de la programmation logicielle, je vais parler de l&amp;rsquo;accessibilité d&amp;rsquo;un site et des petits détails exaspérants que je rencontre sur la toile. Je pense qu&amp;rsquo;une bonne partie parle à chacun, généralement on fait avec, simplement parce qu&amp;rsquo;il n&amp;rsquo;y a pas d&amp;rsquo;autre choix, mais c&amp;rsquo;est toujours frustrant de tomber dessus.
+Pour le blog, j&amp;rsquo;ai passé pas mal de temps sur un template déjà existant en touchant finalement un peu à toutes les parties CSS et HTML.</description>
+    </item>
+    
+    <item>
+      <title>Rendre accessible le chargement de lien avec AJAX</title>
+      <link>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</link>
+      <pubDate>Sat, 31 Dec 2011 12:05:43 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</guid>
+      <description>Le but d&amp;rsquo;un site chargeant ces pages avec AJAX est double:
+ Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées). Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins.  Toutefois, si mal fait, des problèmes apparaissent au niveau de l&amp;rsquo;historique qui n&amp;rsquo;est plus utilisable.</description>
+    </item>
+    
+  </channel>
+</rss>

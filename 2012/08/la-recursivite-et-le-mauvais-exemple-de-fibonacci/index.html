@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La récursivité et le mauvais exemple de Fibonacci</title>
+<meta name="generator" content="Hugo 0.48" />
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
+
+<link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
+
+<link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:title" content="La récursivité et le mauvais exemple de Fibonacci">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/">
+<meta property="twitter:title" content="La récursivité et le mauvais exemple de Fibonacci">
+<meta name="description" content="Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:
+ Coder la suite de Fibonacci en récursive et en itérative.
+ Mais partout où j&rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&rsquo;on peut trouver.
+//itérative long long fib(unsigned n) { if (n == 0) return n; long long a = 0, b = 1, tmp; while (--n) { tmp = a &#43; b; a = b; b = tmp; } return b; } // récursive long long fib_r(unsigned n) { if (0 == n || 1 == n) return n; return fib_r(n-1) &#43; fib_r(n-2); } Sauf que cet algorithme récursif est pourri.">
+<meta property="twitter:description" content="Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:
+ Coder la suite de Fibonacci en récursive et en itérative.
+ Mais partout où j&rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&rsquo;on peut trouver.
+//itérative long long fib(unsigned n) { if (n == 0) return n; long long a = 0, b = 1, tmp; while (--n) { tmp = a &#43; b; a = b; b = tmp; } return b; } // récursive long long fib_r(unsigned n) { if (0 == n || 1 == n) return n; return fib_r(n-1) &#43; fib_r(n-2); } Sauf que cet algorithme récursif est pourri.">
+
+</head>
+<body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+  <div id="avoidance-link">
+    <a class="evitement" href="#main-content" title="Aller au contenu">Aller au contenu</a>
+    <a class="evitement" href="#main-menu" title="Aller au menu">Aller au menu</a>
+  </div>
+  <div class="container container-outer">
+    <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+      <div class="container-inner">
+        <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+            <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
+            <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
+          </a>
+        </div>
+        <nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <ul class="menu__list">
+    <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
+      <i class="fab fa-github" aria-hidden="true"></i> Github
+    </a></li>
+    <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
+      <i class="fas fa-archive" aria-hidden="true"></i> Archives</a>
+    </li>
+    <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
+      <i class="fas fa-rss" aria-hidden="true"></i> RSS</a>
+    </li>
+  </ul>
+</nav>
+
+
+      </div>
+    </header>
+    <div class="wrapper clearfix">
+
+<aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="widget-search widget">
+  <form class="widget-search__form" role="search" method="get" action="//google.com/search">
+    <label>
+      <span class="screen-reader-text">Search for:</span>
+      <input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+    </label>
+    <input class="widget-search__submit" type="submit" value="Search">
+    <input type="hidden" name="sitesearch" value="https://jonathanpoelen.github.io/" />
+  </form>
+</div>
+
+	
+<div class="widget-recent widget" id="main-menu">
+  <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/">comparaison de différentes implémentations de mp_index_of</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/09/au-coeur-dun-variant/">Au cœur d&#39;un variant</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
+      
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">28 autres…</a></li>
+    </ul>
+  </div>
+</div>
+<div class="widget-recent widget">
+  <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2015/09/if-constexpr-avant-cpp17/">
+        <time datetime="2018-03-04T23:14:38">04/03/2018</time>
+        -- if constexpr avant C&#43;&#43;17
+      </a></li>
+
+    </ul>
+  </div>
+</div>
+
+	
+<div class="widget-categories widget">
+  <h4 class="widget__title"><i class="fas fa-folder-o" aria-hidden="true"></i> Catégories</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (20)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/script-shell">Script-Shell (6)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilite-Web">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/accessibilite-web">Accessibilite-Web (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/make">Make (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/zsh">Zsh (1)</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+	
+	
+
+</aside>
+<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
+  
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci"><span>
+        <a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Zsh et le danger des modificateurs"></i></a>
+        <a href="https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Sed tout puissant"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/">La récursivité et le mauvais exemple de Fibonacci</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/">Article suivant: Zsh et le danger des modificateurs</a><br/>
+        <a href="https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/">Article précédent: Sed tout puissant</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2012-08-16T02:22:24">16 août 2012
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
+  <a href="https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#81f6b692f8535682b22f181e3f5d30da-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 5 ans. Les informations y figurant peuvent être dépassées.</p>
+      <p>Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:</p>
+
+<blockquote>
+<p>Coder la <a href="https://fr.wikipedia.org/wiki/Suite_de_Fibonacci">suite de Fibonacci</a> en récursive et en itérative.</p>
+</blockquote>
+
+<p>Mais partout où j&rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&rsquo;on peut trouver.</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">//itérative
+</span><span class="c1"></span><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+  <span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tmp</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="o">--</span><span class="n">n</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// récursive
+</span><span class="c1"></span><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">n</span> <span class="o">||</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">fib_r</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib_r</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+<p>Sauf que cet algorithme récursif est pourri. Il recalcule sans cesse <code>fib-1</code> et <code>fib-2</code> et fait monter la pile d&rsquo;appel <strong>jusqu&rsquo;à explosion</strong> là où l&rsquo;algorithme itératif additionne une variable.</p>
+
+<p>Pour avoir un algorithme récursif équivalent à celui itératif, il faut garder le même comportement. C&rsquo;est à dire garder <code>a</code> et <code>b</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r_impl</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">r</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">rp</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">fib_r_impl</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="n">rp</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">fib_r_impl</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+<p>Cet algo est strictement identique au premier car applique la <a href="http://fr.wikipedia.org/wiki/R%C3%A9cursion_terminale">récursion terminale</a>. Ainsi, le code généré par un compilateur (avec les options d&rsquo;optimisation) donnera un binaire identique (ou très proche). Des langages comme OCaml ou Haskel optimisent la pile quand il y a une récursion terminale.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2012-08-16T02:22:24">16 août 2012
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="81f6b692f8535682b22f181e3f5d30da-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=la-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f08%2fla-recursivite-et-le-mauvais-exemple-de-fibonacci%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f08%2fla-recursivite-et-le-mauvais-exemple-de-fibonacci%2f&amp;title=la-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f08%2fla-recursivite-et-le-mauvais-exemple-de-fibonacci%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f08%2fla-recursivite-et-le-mauvais-exemple-de-fibonacci%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f08%2fla-recursivite-et-le-mauvais-exemple-de-fibonacci%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f08%2fla-recursivite-et-le-mauvais-exemple-de-fibonacci%2f&amp;name=la-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+  
+  
+<nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--prev">
+    <a class="post-nav__link" href="/2012/06/sed-tout-puissant/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Sed tout puissant</span></a>
+  </div>
+  <div class="post-nav__item post-nav__item--next">
+    <a class="post-nav__link" href="/2012/10/zsh-et-le-danger-des-modificateurs/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">Zsh et le danger des modificateurs</span></a>
+  </div>
+</nav>
+
+  <section id="gh-comments">
+  <h1>Commentaires</h1>
+<p>Les commentaires ne sont pas encore ouverts.</p>
+<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues">les issues de github</a> et aucun n'est associée au billet.
+Vous pouvez faire votre commentaire dans une issue qui a comme titre celui du billet. Je
+me chargerai de les associer.</p>
+</section>
+
+</main>
+</div>
+  <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+    <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
+    <p class="footer__copyright">
+       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+      Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
+      et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
+      Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
+      </span>
+    </p>
+  </footer>
+</div>
+<a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
+
+</body>
+</html>
+

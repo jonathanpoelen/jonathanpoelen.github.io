@@ -15,10 +15,10 @@
     
     <item>
       <title>Sqlite, reconstruire la bdd pour l&#39;alléger</title>
-      <link>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lall%C3%A9ger/</link>
+      <link>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/</link>
       <pubDate>Mon, 04 Mar 2013 23:36:14 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lall%C3%A9ger/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/</guid>
       <description>Il existe sur les bases de données SQLite une commande pour réduire la fragmentation des tables et optimiser l&amp;rsquo;espace disque. J&amp;rsquo;ai nommé: VACUUM.
 Cette commande reconstruit la bdd pour éliminer les lignes vides et réorganise les index (plus de détails dans la doc en lien).
 Comme certains logiciels se servent de sqlite comme BDD, il peut être intéressant d&amp;rsquo;utiliser cette commande de temps en temps. La première fois que je l&amp;rsquo;ai fait pour firefox (fichier ~/.</description>

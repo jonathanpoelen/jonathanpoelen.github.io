@@ -15,10 +15,10 @@
     
     <item>
       <title>comparaison de différentes implémentations de mp_index_of</title>
-      <link>https://jonathanpoelen.github.io/2018/10/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of/</link>
+      <link>https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/</link>
       <pubDate>Mon, 01 Oct 2018 18:28:21 +0200</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2018/10/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of/</guid>
+      <guid>https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/</guid>
       <description>Dans l&amp;rsquo;article précédent sur les variants, j&amp;rsquo;ai fait une implémentation un peu spéciale de index_of. Je vais présenter une quinzaine d&amp;rsquo;implémentations possibles et le coût de chacune sur le compilateur.
 Info : L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &amp;laquo;&amp;nbsp;classique&amp;nbsp;&amp;raquo; a les mêmes conséquences.
  Avant-propos Toutes les implémentations de mp_index_of&amp;lt;T, Ts...&amp;gt; retournent un std::integral_constant&amp;lt;int, i&amp;gt; correspondant à l&amp;rsquo;indice de T dans Ts ou -1 si T n&amp;rsquo;existe pas.</description>
@@ -26,10 +26,10 @@ Info : L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici 
     
     <item>
       <title>Au cœur d&#39;un variant</title>
-      <link>https://jonathanpoelen.github.io/2018/09/au-c%C5%93ur-dun-variant/</link>
+      <link>https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/</link>
       <pubDate>Sun, 02 Sep 2018 14:45:55 +0200</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2018/09/au-c%C5%93ur-dun-variant/</guid>
+      <guid>https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/</guid>
       <description>Cet article va être consacré à la réalisation d&amp;rsquo;une classe variant comme on peut la trouver dans la stl, boost et autres. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&amp;rsquo;exécution. Je vais faire un petit tour de ce que j&amp;rsquo;ai pu voir et comment les implémenter.
 Rappel sur ce qu&amp;rsquo;est un variant Un variant est une union sécurisée comme on peut le trouver dans les langages fonctionnels.</description>
     </item>
@@ -46,31 +46,20 @@ Du côté de Clang, il y a un -Weverything qui active absolument tous les warnin
     
     <item>
       <title>Ma vision de l&#39;accessibilité appliquée pour ce blog</title>
-      <link>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/</link>
+      <link>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/</link>
       <pubDate>Tue, 02 Jan 2018 14:18:22 +0200</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/</guid>
+      <guid>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/</guid>
       <description>Pour changer de la programmation logicielle, je vais parler de l&amp;rsquo;accessibilité d&amp;rsquo;un site et des petits détails exaspérants que je rencontre sur la toile. Je pense qu&amp;rsquo;une bonne partie parle à chacun, généralement on fait avec, simplement parce qu&amp;rsquo;il n&amp;rsquo;y a pas d&amp;rsquo;autre choix, mais c&amp;rsquo;est toujours frustrant de tomber dessus.
 Pour le blog, j&amp;rsquo;ai passé pas mal de temps sur un template déjà existant en touchant finalement un peu à toutes les parties CSS et HTML.</description>
     </item>
     
     <item>
-      <title>comparaison de différentes implémentations de mp_index_of1</title>
-      <link>https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/</link>
-      <pubDate>Mon, 01 Jan 2018 18:28:21 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/</guid>
-      <description>Dans l&amp;rsquo;article précédent sur les variants, j&amp;rsquo;ai fait une implémentation un peu spéciale de index_of. Je vais présenter une quinzaine d&amp;rsquo;implémentations possibles et le coût de chacune sur le compilateur.
-Info : L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &amp;laquo;&amp;nbsp;classique&amp;nbsp;&amp;raquo; a les mêmes conséquences.
- Avant-propos Toutes les implémentations de mp_index_of&amp;lt;T, Ts...&amp;gt; retournent un std::integral_constant&amp;lt;int, i&amp;gt; correspondant à l&amp;rsquo;indice de T dans Ts ou -1 si T n&amp;rsquo;existe pas.</description>
-    </item>
-    
-    <item>
       <title>De Blogspot à Hugo, il a changé de peau</title>
-      <link>https://jonathanpoelen.github.io/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/</link>
+      <link>https://jonathanpoelen.github.io/2017/07/de-blogspot-a-hugo-il-a-change-de-peau/</link>
       <pubDate>Sat, 29 Jul 2017 16:03:53 +0200</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/</guid>
+      <guid>https://jonathanpoelen.github.io/2017/07/de-blogspot-a-hugo-il-a-change-de-peau/</guid>
       <description>Il y a 2 ans je me suis dit :
  Au prochain article, j&amp;rsquo;essaye un autre système de blog !
  Et depuis 2 ans, plus rien&amp;hellip; Je n&amp;rsquo;ai pas parcouru le web à la recherche de la solution idéale, loin de là, je n&amp;rsquo;avais juste pas d&amp;rsquo;idée d&amp;rsquo;article.
@@ -101,10 +90,10 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
     
     <item>
       <title>if constexpr avant C&#43;&#43;17</title>
-      <link>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-c--17/</link>
+      <link>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/</link>
       <pubDate>Mon, 21 Sep 2015 00:33:38 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-c--17/</guid>
+      <guid>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/</guid>
       <description>Le but de if constexpr  est d&amp;rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&amp;rsquo;a pas l&amp;rsquo;obligation de pouvoir être compilé.
 Plutôt étrange, n&amp;rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.
 Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières:
@@ -113,10 +102,10 @@ Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières
     
     <item>
       <title>Paramètres de fonction nommés en C&#43;&#43;</title>
-      <link>https://jonathanpoelen.github.io/2015/07/param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c--/</link>
+      <link>https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/</link>
       <pubDate>Tue, 28 Jul 2015 00:43:22 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2015/07/param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c--/</guid>
+      <guid>https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/</guid>
       <description>Cet article est la démonstration de l&amp;rsquo;article précédent. La problématique présentée est la suivante: &amp;laquo;&amp;nbsp;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&amp;nbsp;&amp;raquo;
 La fonction de référence sera la suivante:
 void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, char border_bottom = &amp;#39;-&amp;#39; , char border_left = &amp;#39;&amp;lt;&amp;#39;, char border_right = &amp;#39;&amp;gt;&amp;#39; , char fill = &amp;#39;#&amp;#39; ) { std::cout &amp;lt;&amp;lt; std::setfill(border_top) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; while (h--) { std::cout &amp;lt;&amp;lt; border_left &amp;lt;&amp;lt; std::setfill(fill) &amp;lt;&amp;lt; std::setw(w) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; border_right &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } std::cout &amp;lt;&amp;lt; std::setfill(border_bottom) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; }  Comment faire un appel proche de draw_rect(4,3, fill=&amp;#39;@&amp;#39;)  ?</description>
@@ -124,10 +113,10 @@ void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, 
     
     <item>
       <title>Implémentation d&#39;un magasin de type</title>
-      <link>https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/</link>
+      <link>https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/</link>
       <pubDate>Thu, 02 Jul 2015 01:49:41 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/</guid>
+      <guid>https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/</guid>
       <description>Ce que j&amp;rsquo;appelle ici un magasin de type n&amp;rsquo;est autre qu&amp;rsquo;un std::tuple où les types ne sont présents qu&amp;rsquo;une seule fois. Une espèce de set version tuple en somme.
 Je me suis servi de ce type de structure à 2 reprises.
 Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&amp;rsquo;étais en C++11 et que dans cette norme std::get&amp;lt;Type&amp;gt;() n&amp;rsquo;existe pas.</description>
@@ -135,20 +124,20 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
     
     <item>
       <title>Appel conditionnel de fonction selon la validité d&#39;une expression</title>
-      <link>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validit%C3%A9-dune-expression/</link>
+      <link>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/</link>
       <pubDate>Sun, 30 Nov 2014 19:17:52 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validit%C3%A9-dune-expression/</guid>
+      <guid>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/</guid>
       <description>L&amp;rsquo;approche suivante consiste à vérifier qu&amp;rsquo;une fonction (membre ou statique) est appelable dans le but de l&amp;rsquo;utiliser, ou, à défaut, fournir implémentation générique. De manière plus générale, la méthode présentée ici s&amp;rsquo;applique à toutes expressions.
 Appeler T::sort si possible, sinon std::sort(begin(T), end(T)) L&amp;rsquo;exemple va se faire sur la classe std::list qui n&amp;rsquo;est pas triable avec std::sort, mais possède une fonction membre sort(). Ainsi que sur std::vector qui, inversement, n&amp;rsquo;a pas de fonction membre sort(), mais fonctionne avec std::sort.</description>
     </item>
     
     <item>
       <title>Réduire l&#39;empreinte mémoire d&#39;une agglomération de types</title>
-      <link>https://jonathanpoelen.github.io/2014/06/r%C3%A9duire-lempreinte-m%C3%A9moire-dune-agglom%C3%A9ration-de-types/</link>
+      <link>https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/</link>
       <pubDate>Sat, 28 Jun 2014 14:10:11 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2014/06/r%C3%A9duire-lempreinte-m%C3%A9moire-dune-agglom%C3%A9ration-de-types/</guid>
+      <guid>https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/</guid>
       <description>Un petit article pour parler d&amp;rsquo;optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par std::unique_ptr.
 Implémentation naïve de std::unique_ptr Pour rappel, std::unique_ptr prend 2 paramètres template: T et Deleter (qui par défaut égal std::default_delete&amp;lt;T&amp;gt;).
 Naïvement, l&amp;rsquo;implémentation serait:
@@ -168,10 +157,10 @@ En fait, il s&amp;rsquo;avère qu&amp;rsquo;en rajoutant extended dans la recher
     
     <item>
       <title>Valeur, référence ou pointeur ? (2/2)</title>
-      <link>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/</link>
+      <link>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/</link>
       <pubDate>Sat, 31 May 2014 21:18:10 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/</guid>
+      <guid>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/</guid>
       <description>Dans le précédent billet, j&amp;rsquo;opposai les paramètres par références constantes à ceux par valeurs.
 Sans plus attendre entamons la seconde question.
 Référence ou pointeur ? Si je dois faire court je dirai: pointeur jamais ; référence quand possible. Sans autre forme de procès :D
@@ -181,10 +170,10 @@ Les références possèdent un contrat beaucoup plus fort que les pointeurs: ell
     
     <item>
       <title>Valeur, référence ou pointeur ? (1/2)</title>
-      <link>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/</link>
+      <link>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/</link>
       <pubDate>Thu, 22 May 2014 09:51:53 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/</guid>
+      <guid>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/</guid>
       <description>Quand utiliser une variable par valeur, référence ou pointeur ?
  Telle fut la question qui m&amp;rsquo;a été posée :p.
 Comme je ne suis pas entièrement satisfait de la réponse que j&amp;rsquo;ai donné, je fais un article. Pour tout dire, la réponse n&amp;rsquo;est pas aussi triviale que l&amp;rsquo;on pourrait le croire depuis l&amp;rsquo;arrivée du C++11 et la sémantique de déplacement.
@@ -217,20 +206,20 @@ La manière la plus facile pour éliminer ces erreurs de compilation est de mett
     
     <item>
       <title>Utilisation de swap et des fonctions utilitaires en général</title>
-      <link>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral/</link>
+      <link>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/</link>
       <pubDate>Sat, 20 Jul 2013 11:18:49 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/</guid>
       <description>Une fonction utilitaire est une fonction libre qui n&amp;rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
 Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilitaire qui me vient à l&amp;rsquo;esprit en C++03 est std::swap (fonction qui échange le contenu de 2 variables). Pour info, l&amp;rsquo;en-tête de std::swap est passé de &amp;lt;algorithm&amp;gt; en C++03 à &amp;lt;utility&amp;gt; en C++11.</description>
     </item>
     
     <item>
       <title>make sans Makefile, utilisation des règles implicites</title>
-      <link>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-r%C3%A8gles-implicites/</link>
+      <link>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/</link>
       <pubDate>Wed, 26 Jun 2013 11:05:28 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-r%C3%A8gles-implicites/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/</guid>
       <description>La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile &amp;laquo;&amp;nbsp;par défaut&amp;nbsp;&amp;raquo; avec plein de règles. Celui-ci est visible en tapant make -pf /dev/null dans un terminal.
 Rien qu&amp;rsquo;avec ça, on peut compiler des fichiers C, C++, archive, latex, etc. Il y a de quoi faire en fait.
 Par exemple, je crée un fichier C nommé test.c:
@@ -249,10 +238,10 @@ Le meilleur moyen d&amp;rsquo;accélérer un script est de passer par les builti
     
     <item>
       <title>Référence constante sur référence</title>
-      <link>https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/</link>
+      <link>https://jonathanpoelen.github.io/2013/05/reference-constante-sur-reference/</link>
       <pubDate>Mon, 13 May 2013 03:18:42 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/05/reference-constante-sur-reference/</guid>
       <description>Une petite note sur les références et le qualificatif const  en commençant par un exemple :).
 using reference = int&amp;amp;; int i = 0; reference const r = i; r = 3;  Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de r. En fait, ajouter const  sur une référence ne fait rien car cela ne s&amp;rsquo;applique pas sur le référé qui reste un int&amp;amp; .</description>
     </item>
@@ -270,10 +259,10 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
     
     <item>
       <title>Ne pas empêcher la NRVO</title>
-      <link>https://jonathanpoelen.github.io/2013/03/ne-pas-emp%C3%AAcher-la-nrvo/</link>
+      <link>https://jonathanpoelen.github.io/2013/03/ne-pas-empecher-la-nrvo/</link>
       <pubDate>Sun, 17 Mar 2013 17:12:57 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/03/ne-pas-emp%C3%AAcher-la-nrvo/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/03/ne-pas-empecher-la-nrvo/</guid>
       <description>La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la FAQ C++ developpez.com.
 Cependant, ces optimisations ne s&amp;rsquo;appliquent que sur une variable de type T sans référence. Ce qui veut dire qu&amp;rsquo;une référence ne sera pas optimisée.
 iterator operator+(const iterator&amp;amp; other, int n) { return iterator(other) += n; // pas de RVO }  Alors qu&amp;rsquo;une décomposition de la fonction active la NRVO.</description>
@@ -281,10 +270,10 @@ iterator operator+(const iterator&amp;amp; other, int n) { return iterator(other
     
     <item>
       <title>Sqlite, reconstruire la bdd pour l&#39;alléger</title>
-      <link>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lall%C3%A9ger/</link>
+      <link>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/</link>
       <pubDate>Mon, 04 Mar 2013 23:36:14 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lall%C3%A9ger/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/</guid>
       <description>Il existe sur les bases de données SQLite une commande pour réduire la fragmentation des tables et optimiser l&amp;rsquo;espace disque. J&amp;rsquo;ai nommé: VACUUM.
 Cette commande reconstruit la bdd pour éliminer les lignes vides et réorganise les index (plus de détails dans la doc en lien).
 Comme certains logiciels se servent de sqlite comme BDD, il peut être intéressant d&amp;rsquo;utiliser cette commande de temps en temps. La première fois que je l&amp;rsquo;ai fait pour firefox (fichier ~/.</description>
@@ -292,20 +281,20 @@ Comme certains logiciels se servent de sqlite comme BDD, il peut être intéress
     
     <item>
       <title>Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;</title>
-      <link>https://jonathanpoelen.github.io/2013/02/diff%C3%A9rence-entre----et-/</link>
+      <link>https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/</link>
       <pubDate>Sun, 17 Feb 2013 10:42:27 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/02/diff%C3%A9rence-entre----et-/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/</guid>
       <description>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées argv dans pas mal d&amp;rsquo;autres langages): $* et $@.
  $* est une variable ce qu&amp;rsquo;il y a de plus normale et ne diffère pas d&amp;rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&amp;rsquo;y reviens après). $@ est une variable au comportement différent entre les shells basés sur sh (bash, dash, &amp;hellip;) et les autres (ksh, zsh).</description>
     </item>
     
     <item>
       <title>Délégation d&#39;événement en js</title>
-      <link>https://jonathanpoelen.github.io/2013/01/d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js/</link>
+      <link>https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/</link>
       <pubDate>Fri, 18 Jan 2013 15:16:12 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/01/d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/</guid>
       <description>En règle générale les événements sont attachés à l&amp;rsquo;élément qui va le traiter.
 Par exemple en javascript, un menu (ul) contenant 10 entrées (li) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.
 Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&amp;rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</description>
@@ -313,10 +302,10 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
     
     <item>
       <title>La vis cachée de getopt</title>
-      <link>https://jonathanpoelen.github.io/2012/12/la-vis-cach%C3%A9e-de-getopt/</link>
+      <link>https://jonathanpoelen.github.io/2012/12/la-vis-cachee-de-getopt/</link>
       <pubDate>Tue, 25 Dec 2012 12:58:55 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2012/12/la-vis-cach%C3%A9e-de-getopt/</guid>
+      <guid>https://jonathanpoelen.github.io/2012/12/la-vis-cachee-de-getopt/</guid>
       <description>Voici une petite information très mal connue et peu utilisée du getopt de la lib C et de la commande shell. Ainsi que Boost.Program_options. Parce que boost c&amp;rsquo;est bien :p.
 Les noms des options longues n&amp;rsquo;ont pas besoin d&amp;rsquo;être écrites entièrement.
 function parsecmd() { getopt -o &amp;#39;&amp;#39; --long \  option-longue,option-encore-plus-longue,une-autre-option: \  -n &amp;#39;example&amp;#39; -- &amp;#34;$@&amp;#34; } parsecmd --option-l --u plop bidule Donne
@@ -325,10 +314,10 @@ function parsecmd() { getopt -o &amp;#39;&amp;#39; --long \  option-longue,optio
     
     <item>
       <title>Taguer vos classes, cataloguées-les</title>
-      <link>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-catalogu%C3%A9es-les/</link>
+      <link>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/</link>
       <pubDate>Thu, 20 Dec 2012 01:22:50 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-catalogu%C3%A9es-les/</guid>
+      <guid>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/</guid>
       <description>Le C++ a l&amp;rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &amp;laquo;&amp;nbsp;tags&amp;nbsp;&amp;raquo;.
 Comme exemple je vais utiliser les tags présents dans les itérateurs de la stl et une implémentation de la fonction std::advance().
 Première implémentation La fonction std::advance() permet d&amp;rsquo;incrémenter un itérateur de N éléments (ou décrémenter si N est négatif). D&amp;rsquo;après cette description, un premier algorithme peut être émis:</description>
@@ -346,10 +335,10 @@ Une variable $GTK_MODULES est définie et contient tous les modules gtk séparé
     
     <item>
       <title>La récursivité et le mauvais exemple de Fibonacci</title>
-      <link>https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/</link>
+      <link>https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/</link>
       <pubDate>Thu, 16 Aug 2012 02:22:24 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/</guid>
+      <guid>https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/</guid>
       <description>Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:
  Coder la suite de Fibonacci en récursive et en itérative.
  Mais partout où j&amp;rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&amp;rsquo;on peut trouver.

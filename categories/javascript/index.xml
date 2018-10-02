@@ -15,10 +15,10 @@
     
     <item>
       <title>Délégation d&#39;événement en js</title>
-      <link>https://jonathanpoelen.github.io/2013/01/d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js/</link>
+      <link>https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/</link>
       <pubDate>Fri, 18 Jan 2013 15:16:12 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/01/d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/</guid>
       <description>En règle générale les événements sont attachés à l&amp;rsquo;élément qui va le traiter.
 Par exemple en javascript, un menu (ul) contenant 10 entrées (li) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.
 Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&amp;rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</description>

@@ -15,10 +15,10 @@
     
     <item>
       <title>comparaison de différentes implémentations de mp_index_of</title>
-      <link>https://jonathanpoelen.github.io/2018/10/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of/</link>
+      <link>https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/</link>
       <pubDate>Mon, 01 Oct 2018 18:28:21 +0200</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2018/10/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of/</guid>
+      <guid>https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/</guid>
       <description>Dans l&amp;rsquo;article précédent sur les variants, j&amp;rsquo;ai fait une implémentation un peu spéciale de index_of. Je vais présenter une quinzaine d&amp;rsquo;implémentations possibles et le coût de chacune sur le compilateur.
 Info : L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &amp;laquo;&amp;nbsp;classique&amp;nbsp;&amp;raquo; a les mêmes conséquences.
  Avant-propos Toutes les implémentations de mp_index_of&amp;lt;T, Ts...&amp;gt; retournent un std::integral_constant&amp;lt;int, i&amp;gt; correspondant à l&amp;rsquo;indice de T dans Ts ou -1 si T n&amp;rsquo;existe pas.</description>
@@ -26,10 +26,10 @@ Info : L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici 
     
     <item>
       <title>Au cœur d&#39;un variant</title>
-      <link>https://jonathanpoelen.github.io/2018/09/au-c%C5%93ur-dun-variant/</link>
+      <link>https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/</link>
       <pubDate>Sun, 02 Sep 2018 14:45:55 +0200</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2018/09/au-c%C5%93ur-dun-variant/</guid>
+      <guid>https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/</guid>
       <description>Cet article va être consacré à la réalisation d&amp;rsquo;une classe variant comme on peut la trouver dans la stl, boost et autres. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&amp;rsquo;exécution. Je vais faire un petit tour de ce que j&amp;rsquo;ai pu voir et comment les implémenter.
 Rappel sur ce qu&amp;rsquo;est un variant Un variant est une union sécurisée comme on peut le trouver dans les langages fonctionnels.</description>
     </item>
@@ -42,17 +42,6 @@ Rappel sur ce qu&amp;rsquo;est un variant Un variant est une union sécurisée c
       <guid>https://jonathanpoelen.github.io/2018/02/faites-parler-votre-compilateur/</guid>
       <description>En C++, notre meilleur ami est le compilateur. Encore faut-il bien le configurer pour qu&amp;rsquo;il nous crache un maximum d&amp;rsquo;avertissements en pleine poire. Hélas, il s&amp;rsquo;avère que les options dépendent grandement du compilateur et de la version.
 Du côté de Clang, il y a un -Weverything qui active absolument tous les warnings &amp;ndash; dont certains que je qualifie de douteux &amp;ndash;, alors que pour Gcc, -Wall et -Wextra n&amp;rsquo;activent pas tout.</description>
-    </item>
-    
-    <item>
-      <title>comparaison de différentes implémentations de mp_index_of1</title>
-      <link>https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/</link>
-      <pubDate>Mon, 01 Jan 2018 18:28:21 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/</guid>
-      <description>Dans l&amp;rsquo;article précédent sur les variants, j&amp;rsquo;ai fait une implémentation un peu spéciale de index_of. Je vais présenter une quinzaine d&amp;rsquo;implémentations possibles et le coût de chacune sur le compilateur.
-Info : L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &amp;laquo;&amp;nbsp;classique&amp;nbsp;&amp;raquo; a les mêmes conséquences.
- Avant-propos Toutes les implémentations de mp_index_of&amp;lt;T, Ts...&amp;gt; retournent un std::integral_constant&amp;lt;int, i&amp;gt; correspondant à l&amp;rsquo;indice de T dans Ts ou -1 si T n&amp;rsquo;existe pas.</description>
     </item>
     
     <item>
@@ -79,10 +68,10 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
     
     <item>
       <title>if constexpr avant C&#43;&#43;17</title>
-      <link>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-c--17/</link>
+      <link>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/</link>
       <pubDate>Mon, 21 Sep 2015 00:33:38 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-c--17/</guid>
+      <guid>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/</guid>
       <description>Le but de if constexpr  est d&amp;rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&amp;rsquo;a pas l&amp;rsquo;obligation de pouvoir être compilé.
 Plutôt étrange, n&amp;rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.
 Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières:
@@ -91,10 +80,10 @@ Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières
     
     <item>
       <title>Paramètres de fonction nommés en C&#43;&#43;</title>
-      <link>https://jonathanpoelen.github.io/2015/07/param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c--/</link>
+      <link>https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/</link>
       <pubDate>Tue, 28 Jul 2015 00:43:22 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2015/07/param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c--/</guid>
+      <guid>https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/</guid>
       <description>Cet article est la démonstration de l&amp;rsquo;article précédent. La problématique présentée est la suivante: &amp;laquo;&amp;nbsp;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&amp;nbsp;&amp;raquo;
 La fonction de référence sera la suivante:
 void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, char border_bottom = &amp;#39;-&amp;#39; , char border_left = &amp;#39;&amp;lt;&amp;#39;, char border_right = &amp;#39;&amp;gt;&amp;#39; , char fill = &amp;#39;#&amp;#39; ) { std::cout &amp;lt;&amp;lt; std::setfill(border_top) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; while (h--) { std::cout &amp;lt;&amp;lt; border_left &amp;lt;&amp;lt; std::setfill(fill) &amp;lt;&amp;lt; std::setw(w) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; border_right &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } std::cout &amp;lt;&amp;lt; std::setfill(border_bottom) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; }  Comment faire un appel proche de draw_rect(4,3, fill=&amp;#39;@&amp;#39;)  ?</description>
@@ -102,10 +91,10 @@ void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, 
     
     <item>
       <title>Implémentation d&#39;un magasin de type</title>
-      <link>https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/</link>
+      <link>https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/</link>
       <pubDate>Thu, 02 Jul 2015 01:49:41 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/</guid>
+      <guid>https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/</guid>
       <description>Ce que j&amp;rsquo;appelle ici un magasin de type n&amp;rsquo;est autre qu&amp;rsquo;un std::tuple où les types ne sont présents qu&amp;rsquo;une seule fois. Une espèce de set version tuple en somme.
 Je me suis servi de ce type de structure à 2 reprises.
 Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&amp;rsquo;étais en C++11 et que dans cette norme std::get&amp;lt;Type&amp;gt;() n&amp;rsquo;existe pas.</description>
@@ -113,20 +102,20 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
     
     <item>
       <title>Appel conditionnel de fonction selon la validité d&#39;une expression</title>
-      <link>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validit%C3%A9-dune-expression/</link>
+      <link>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/</link>
       <pubDate>Sun, 30 Nov 2014 19:17:52 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validit%C3%A9-dune-expression/</guid>
+      <guid>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/</guid>
       <description>L&amp;rsquo;approche suivante consiste à vérifier qu&amp;rsquo;une fonction (membre ou statique) est appelable dans le but de l&amp;rsquo;utiliser, ou, à défaut, fournir implémentation générique. De manière plus générale, la méthode présentée ici s&amp;rsquo;applique à toutes expressions.
 Appeler T::sort si possible, sinon std::sort(begin(T), end(T)) L&amp;rsquo;exemple va se faire sur la classe std::list qui n&amp;rsquo;est pas triable avec std::sort, mais possède une fonction membre sort(). Ainsi que sur std::vector qui, inversement, n&amp;rsquo;a pas de fonction membre sort(), mais fonctionne avec std::sort.</description>
     </item>
     
     <item>
       <title>Réduire l&#39;empreinte mémoire d&#39;une agglomération de types</title>
-      <link>https://jonathanpoelen.github.io/2014/06/r%C3%A9duire-lempreinte-m%C3%A9moire-dune-agglom%C3%A9ration-de-types/</link>
+      <link>https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/</link>
       <pubDate>Sat, 28 Jun 2014 14:10:11 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2014/06/r%C3%A9duire-lempreinte-m%C3%A9moire-dune-agglom%C3%A9ration-de-types/</guid>
+      <guid>https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/</guid>
       <description>Un petit article pour parler d&amp;rsquo;optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par std::unique_ptr.
 Implémentation naïve de std::unique_ptr Pour rappel, std::unique_ptr prend 2 paramètres template: T et Deleter (qui par défaut égal std::default_delete&amp;lt;T&amp;gt;).
 Naïvement, l&amp;rsquo;implémentation serait:
@@ -136,10 +125,10 @@ Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 oct
     
     <item>
       <title>Valeur, référence ou pointeur ? (2/2)</title>
-      <link>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/</link>
+      <link>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/</link>
       <pubDate>Sat, 31 May 2014 21:18:10 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/</guid>
+      <guid>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/</guid>
       <description>Dans le précédent billet, j&amp;rsquo;opposai les paramètres par références constantes à ceux par valeurs.
 Sans plus attendre entamons la seconde question.
 Référence ou pointeur ? Si je dois faire court je dirai: pointeur jamais ; référence quand possible. Sans autre forme de procès :D
@@ -149,10 +138,10 @@ Les références possèdent un contrat beaucoup plus fort que les pointeurs: ell
     
     <item>
       <title>Valeur, référence ou pointeur ? (1/2)</title>
-      <link>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/</link>
+      <link>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/</link>
       <pubDate>Thu, 22 May 2014 09:51:53 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/</guid>
+      <guid>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/</guid>
       <description>Quand utiliser une variable par valeur, référence ou pointeur ?
  Telle fut la question qui m&amp;rsquo;a été posée :p.
 Comme je ne suis pas entièrement satisfait de la réponse que j&amp;rsquo;ai donné, je fais un article. Pour tout dire, la réponse n&amp;rsquo;est pas aussi triviale que l&amp;rsquo;on pourrait le croire depuis l&amp;rsquo;arrivée du C++11 et la sémantique de déplacement.
@@ -185,20 +174,20 @@ La manière la plus facile pour éliminer ces erreurs de compilation est de mett
     
     <item>
       <title>Utilisation de swap et des fonctions utilitaires en général</title>
-      <link>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral/</link>
+      <link>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/</link>
       <pubDate>Sat, 20 Jul 2013 11:18:49 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/</guid>
       <description>Une fonction utilitaire est une fonction libre qui n&amp;rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
 Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilitaire qui me vient à l&amp;rsquo;esprit en C++03 est std::swap (fonction qui échange le contenu de 2 variables). Pour info, l&amp;rsquo;en-tête de std::swap est passé de &amp;lt;algorithm&amp;gt; en C++03 à &amp;lt;utility&amp;gt; en C++11.</description>
     </item>
     
     <item>
       <title>Référence constante sur référence</title>
-      <link>https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/</link>
+      <link>https://jonathanpoelen.github.io/2013/05/reference-constante-sur-reference/</link>
       <pubDate>Mon, 13 May 2013 03:18:42 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/05/reference-constante-sur-reference/</guid>
       <description>Une petite note sur les références et le qualificatif const  en commençant par un exemple :).
 using reference = int&amp;amp;; int i = 0; reference const r = i; r = 3;  Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de r. En fait, ajouter const  sur une référence ne fait rien car cela ne s&amp;rsquo;applique pas sur le référé qui reste un int&amp;amp; .</description>
     </item>
@@ -216,10 +205,10 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
     
     <item>
       <title>Ne pas empêcher la NRVO</title>
-      <link>https://jonathanpoelen.github.io/2013/03/ne-pas-emp%C3%AAcher-la-nrvo/</link>
+      <link>https://jonathanpoelen.github.io/2013/03/ne-pas-empecher-la-nrvo/</link>
       <pubDate>Sun, 17 Mar 2013 17:12:57 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/03/ne-pas-emp%C3%AAcher-la-nrvo/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/03/ne-pas-empecher-la-nrvo/</guid>
       <description>La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la FAQ C++ developpez.com.
 Cependant, ces optimisations ne s&amp;rsquo;appliquent que sur une variable de type T sans référence. Ce qui veut dire qu&amp;rsquo;une référence ne sera pas optimisée.
 iterator operator+(const iterator&amp;amp; other, int n) { return iterator(other) += n; // pas de RVO }  Alors qu&amp;rsquo;une décomposition de la fonction active la NRVO.</description>
@@ -227,10 +216,10 @@ iterator operator+(const iterator&amp;amp; other, int n) { return iterator(other
     
     <item>
       <title>Taguer vos classes, cataloguées-les</title>
-      <link>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-catalogu%C3%A9es-les/</link>
+      <link>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/</link>
       <pubDate>Thu, 20 Dec 2012 01:22:50 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-catalogu%C3%A9es-les/</guid>
+      <guid>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/</guid>
       <description>Le C++ a l&amp;rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &amp;laquo;&amp;nbsp;tags&amp;nbsp;&amp;raquo;.
 Comme exemple je vais utiliser les tags présents dans les itérateurs de la stl et une implémentation de la fonction std::advance().
 Première implémentation La fonction std::advance() permet d&amp;rsquo;incrémenter un itérateur de N éléments (ou décrémenter si N est négatif). D&amp;rsquo;après cette description, un premier algorithme peut être émis:</description>
@@ -238,10 +227,10 @@ Première implémentation La fonction std::advance() permet d&amp;rsquo;incréme
     
     <item>
       <title>La récursivité et le mauvais exemple de Fibonacci</title>
-      <link>https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/</link>
+      <link>https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/</link>
       <pubDate>Thu, 16 Aug 2012 02:22:24 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/</guid>
+      <guid>https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/</guid>
       <description>Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:
  Coder la suite de Fibonacci en récursive et en itérative.
  Mais partout où j&amp;rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&amp;rsquo;on peut trouver.

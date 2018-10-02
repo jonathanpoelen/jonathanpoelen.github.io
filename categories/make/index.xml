@@ -15,10 +15,10 @@
     
     <item>
       <title>make sans Makefile, utilisation des règles implicites</title>
-      <link>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-r%C3%A8gles-implicites/</link>
+      <link>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/</link>
       <pubDate>Wed, 26 Jun 2013 11:05:28 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-r%C3%A8gles-implicites/</guid>
+      <guid>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/</guid>
       <description>La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile &amp;laquo;&amp;nbsp;par défaut&amp;nbsp;&amp;raquo; avec plein de règles. Celui-ci est visible en tapant make -pf /dev/null dans un terminal.
 Rien qu&amp;rsquo;avec ça, on peut compiler des fichiers C, C++, archive, latex, etc. Il y a de quoi faire en fait.
 Par exemple, je crée un fichier C nommé test.c:

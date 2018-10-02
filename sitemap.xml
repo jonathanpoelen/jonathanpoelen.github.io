@@ -3,12 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2018/10/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of/</loc>
+    <loc>https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/</loc>
     <lastmod>2018-10-01T18:28:21+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2018/09/au-c%C5%93ur-dun-variant/</loc>
+    <loc>https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/</loc>
     <lastmod>2018-09-02T14:45:55+02:00</lastmod>
   </url>
   
@@ -18,17 +18,12 @@
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/</loc>
+    <loc>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/</loc>
     <lastmod>2018-01-02T14:18:22+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/</loc>
-    <lastmod>2018-01-01T18:28:21+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jonathanpoelen.github.io/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/</loc>
+    <loc>https://jonathanpoelen.github.io/2017/07/de-blogspot-a-hugo-il-a-change-de-peau/</loc>
     <lastmod>2017-07-29T16:03:53+02:00</lastmod>
   </url>
   
@@ -48,27 +43,27 @@
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-c--17/</loc>
+    <loc>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/</loc>
     <lastmod>2018-03-04T23:14:38+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2015/07/param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c--/</loc>
+    <loc>https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/</loc>
     <lastmod>2015-07-28T00:43:22+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/</loc>
+    <loc>https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/</loc>
     <lastmod>2015-07-02T01:49:41+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validit%C3%A9-dune-expression/</loc>
+    <loc>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/</loc>
     <lastmod>2014-11-30T19:17:52+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2014/06/r%C3%A9duire-lempreinte-m%C3%A9moire-dune-agglom%C3%A9ration-de-types/</loc>
+    <loc>https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/</loc>
     <lastmod>2014-06-28T14:10:11+01:00</lastmod>
   </url>
   
@@ -78,12 +73,12 @@
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2/</loc>
+    <loc>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/</loc>
     <lastmod>2014-05-31T21:18:10+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2014/05/valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2/</loc>
+    <loc>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/</loc>
     <lastmod>2014-05-22T09:51:53+01:00</lastmod>
   </url>
   
@@ -98,12 +93,12 @@
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-g%C3%A9n%C3%A9ral/</loc>
+    <loc>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/</loc>
     <lastmod>2013-07-20T11:18:49+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-r%C3%A8gles-implicites/</loc>
+    <loc>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/</loc>
     <lastmod>2013-06-26T11:05:28+01:00</lastmod>
   </url>
   
@@ -113,7 +108,7 @@
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/</loc>
+    <loc>https://jonathanpoelen.github.io/2013/05/reference-constante-sur-reference/</loc>
     <lastmod>2013-05-13T03:18:42+01:00</lastmod>
   </url>
   
@@ -123,32 +118,32 @@
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2013/03/ne-pas-emp%C3%AAcher-la-nrvo/</loc>
+    <loc>https://jonathanpoelen.github.io/2013/03/ne-pas-empecher-la-nrvo/</loc>
     <lastmod>2013-03-17T17:12:57+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lall%C3%A9ger/</loc>
+    <loc>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/</loc>
     <lastmod>2013-03-04T23:36:14+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2013/02/diff%C3%A9rence-entre----et-/</loc>
+    <loc>https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/</loc>
     <lastmod>2013-02-17T10:42:27+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2013/01/d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js/</loc>
+    <loc>https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/</loc>
     <lastmod>2013-01-18T15:16:12+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2012/12/la-vis-cach%C3%A9e-de-getopt/</loc>
+    <loc>https://jonathanpoelen.github.io/2012/12/la-vis-cachee-de-getopt/</loc>
     <lastmod>2012-12-25T12:58:55+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-catalogu%C3%A9es-les/</loc>
+    <loc>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/</loc>
     <lastmod>2012-12-20T01:22:50+01:00</lastmod>
   </url>
   
@@ -158,7 +153,7 @@
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/</loc>
+    <loc>https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/</loc>
     <lastmod>2012-08-16T02:22:24+01:00</lastmod>
   </url>
   
@@ -173,7 +168,7 @@
   </url>
   
   <url>
-    <loc>https://jonathanpoelen.github.io/categories/accessibilit%C3%A9-web/</loc>
+    <loc>https://jonathanpoelen.github.io/categories/accessibilite-web/</loc>
     <lastmod>2018-01-02T14:18:22+02:00</lastmod>
     <priority>0</priority>
   </url>
