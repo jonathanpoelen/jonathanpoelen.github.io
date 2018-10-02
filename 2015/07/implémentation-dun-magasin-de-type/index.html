@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Implémentation d&#39;un magasin de type</title>
 <meta name="generator" content="Hugo 0.48" />
 
@@ -16,29 +16,20 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
-    <meta property="og:site_name" content="SirLynixVanFrietjes&#x27; Blog" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Pinaillage - En C++, le const, à gauche ou à droite ?" />
-    <meta property="og:description" content="Un avis sur la fameuse question &quot;faut-il mettre le mot-clé const à gauche ou à droite du type en C++&quot; ?" />
-    <meta property="og:url" content="https://jonathanpoelen.github.io/2018/10/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of/" />
-    <meta property="article:published_time" content="2018-06-02T11:03:54.000Z" />
-    <meta property="article:modified_time" content="2018-06-07T13:15:35.000Z" />
-    <meta property="article:tag" content="c++" />
-    <meta property="article:tag" content="c++ moderne" />
-    <meta property="article:tag" content="programmation" />
-    
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Pinaillage - En C++, le const, à gauche ou à droite ?" />
-    <meta name="twitter:description" content="Un avis sur la fameuse question &quot;faut-il mettre le mot-clé const à gauche ou à droite du type en C++&quot; ?" />
-    <meta name="twitter:url" content="https://jonathanpoelen.github.io/2018/10/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of/" />
-    <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="Sir Lynix Van Frietjes" />
-    <meta name="twitter:label2" content="Filed under" />
-    <meta name="twitter:data2" content="c++, c++ moderne, programmation" />
-    <meta name="twitter:site" content="@sirlynix" />
-    <meta name="twitter:creator" content="@SirLynix" />
-    <meta property="og:image:width" content="1280" />
-    <meta property="og:image:height" content="1440" />
+<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:title" content="Implémentation d&#39;un magasin de type">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/">
+<meta property="twitter:title" content="Implémentation d&#39;un magasin de type">
+<meta name="description" content="Ce que j&rsquo;appelle ici un magasin de type n&rsquo;est autre qu&rsquo;un std::tuple où les types ne sont présents qu&rsquo;une seule fois. Une espèce de set version tuple en somme.
+Je me suis servi de ce type de structure à 2 reprises.
+Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&rsquo;étais en C&#43;&#43;11 et que dans cette norme std::get&lt;Type&gt;() n&rsquo;existe pas.">
+<meta property="twitter:description" content="Ce que j&rsquo;appelle ici un magasin de type n&rsquo;est autre qu&rsquo;un std::tuple où les types ne sont présents qu&rsquo;une seule fois. Une espèce de set version tuple en somme.
+Je me suis servi de ce type de structure à 2 reprises.
+Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&rsquo;étais en C&#43;&#43;11 et que dans cette norme std::get&lt;Type&gt;() n&rsquo;existe pas.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">

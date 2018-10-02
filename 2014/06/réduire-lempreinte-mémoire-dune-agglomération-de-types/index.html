@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Réduire l&#39;empreinte mémoire d&#39;une agglomération de types</title>
 <meta name="generator" content="Hugo 0.48" />
 
@@ -16,29 +16,24 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
-    <meta property="og:site_name" content="SirLynixVanFrietjes&#x27; Blog" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Pinaillage - En C++, le const, à gauche ou à droite ?" />
-    <meta property="og:description" content="Un avis sur la fameuse question &quot;faut-il mettre le mot-clé const à gauche ou à droite du type en C++&quot; ?" />
-    <meta property="og:url" content="https://jonathanpoelen.github.io/2018/10/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of/" />
-    <meta property="article:published_time" content="2018-06-02T11:03:54.000Z" />
-    <meta property="article:modified_time" content="2018-06-07T13:15:35.000Z" />
-    <meta property="article:tag" content="c++" />
-    <meta property="article:tag" content="c++ moderne" />
-    <meta property="article:tag" content="programmation" />
-    
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Pinaillage - En C++, le const, à gauche ou à droite ?" />
-    <meta name="twitter:description" content="Un avis sur la fameuse question &quot;faut-il mettre le mot-clé const à gauche ou à droite du type en C++&quot; ?" />
-    <meta name="twitter:url" content="https://jonathanpoelen.github.io/2018/10/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of/" />
-    <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="Sir Lynix Van Frietjes" />
-    <meta name="twitter:label2" content="Filed under" />
-    <meta name="twitter:data2" content="c++, c++ moderne, programmation" />
-    <meta name="twitter:site" content="@sirlynix" />
-    <meta name="twitter:creator" content="@SirLynix" />
-    <meta property="og:image:width" content="1280" />
-    <meta property="og:image:height" content="1440" />
+<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:title" content="Réduire l&#39;empreinte mémoire d&#39;une agglomération de types">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2014/06/r%C3%A9duire-lempreinte-m%C3%A9moire-dune-agglom%C3%A9ration-de-types/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2014/06/r%C3%A9duire-lempreinte-m%C3%A9moire-dune-agglom%C3%A9ration-de-types/">
+<meta property="twitter:title" content="Réduire l&#39;empreinte mémoire d&#39;une agglomération de types">
+<meta name="description" content="Un petit article pour parler d&rsquo;optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par std::unique_ptr.
+Implémentation naïve de std::unique_ptr Pour rappel, std::unique_ptr prend 2 paramètres template: T et Deleter (qui par défaut égal std::default_delete&lt;T&gt;).
+Naïvement, l&rsquo;implémentation serait:
+template&lt;T, Deleter = std::default_delete&lt;T&gt;&gt; classmy_unique_ptr { T* m_pointer; Deleter m_deleter; // … };  Rien d&rsquo;extraordinaire.
+Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 octet.">
+<meta property="twitter:description" content="Un petit article pour parler d&rsquo;optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par std::unique_ptr.
+Implémentation naïve de std::unique_ptr Pour rappel, std::unique_ptr prend 2 paramètres template: T et Deleter (qui par défaut égal std::default_delete&lt;T&gt;).
+Naïvement, l&rsquo;implémentation serait:
+template&lt;T, Deleter = std::default_delete&lt;T&gt;&gt; classmy_unique_ptr { T* m_pointer; Deleter m_deleter; // … };  Rien d&rsquo;extraordinaire.
+Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 octet.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">

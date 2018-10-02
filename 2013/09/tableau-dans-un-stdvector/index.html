@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tableau dans un std::vector</title>
 <meta name="generator" content="Hugo 0.48" />
 
@@ -16,29 +16,22 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
-    <meta property="og:site_name" content="SirLynixVanFrietjes&#x27; Blog" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Pinaillage - En C++, le const, à gauche ou à droite ?" />
-    <meta property="og:description" content="Un avis sur la fameuse question &quot;faut-il mettre le mot-clé const à gauche ou à droite du type en C++&quot; ?" />
-    <meta property="og:url" content="https://jonathanpoelen.github.io/2018/10/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of/" />
-    <meta property="article:published_time" content="2018-06-02T11:03:54.000Z" />
-    <meta property="article:modified_time" content="2018-06-07T13:15:35.000Z" />
-    <meta property="article:tag" content="c++" />
-    <meta property="article:tag" content="c++ moderne" />
-    <meta property="article:tag" content="programmation" />
-    
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Pinaillage - En C++, le const, à gauche ou à droite ?" />
-    <meta name="twitter:description" content="Un avis sur la fameuse question &quot;faut-il mettre le mot-clé const à gauche ou à droite du type en C++&quot; ?" />
-    <meta name="twitter:url" content="https://jonathanpoelen.github.io/2018/10/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of/" />
-    <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="Sir Lynix Van Frietjes" />
-    <meta name="twitter:label2" content="Filed under" />
-    <meta name="twitter:data2" content="c++, c++ moderne, programmation" />
-    <meta name="twitter:site" content="@sirlynix" />
-    <meta name="twitter:creator" content="@SirLynix" />
-    <meta property="og:image:width" content="1280" />
-    <meta property="og:image:height" content="1440" />
+<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:title" content="Tableau dans un std::vector">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/">
+<meta property="twitter:title" content="Tableau dans un std::vector">
+<meta name="description" content="Prenons le type suivant: std::vector&lt;int[4]&gt; . Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&rsquo;est vrai !
+Ajoutons maintenant un élément à notre vector avec push_back.
+std::vector&lt;int[2]&gt; v; int a[2]{}; v.push_back(a);  Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.
+La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau.">
+<meta property="twitter:description" content="Prenons le type suivant: std::vector&lt;int[4]&gt; . Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&rsquo;est vrai !
+Ajoutons maintenant un élément à notre vector avec push_back.
+std::vector&lt;int[2]&gt; v; int a[2]{}; v.push_back(a);  Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.
+La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
