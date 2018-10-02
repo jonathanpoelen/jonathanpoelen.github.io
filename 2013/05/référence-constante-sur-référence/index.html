@@ -16,37 +16,31 @@
 
 <link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
-<meta property="og:title" content="Référence constante sur référence">
-<meta property="og:url" content="https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/">
-<meta property="og:language" content="fr-FR">
-    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
-    <meta name="DC.publisher" lang="fr" content="Zeste de Savoir" />
+    <meta property="og:site_name" content="SirLynixVanFrietjes&#x27; Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Pinaillage - En C++, le const, à gauche ou à droite ?" />
+    <meta property="og:description" content="Un avis sur la fameuse question &quot;faut-il mettre le mot-clé const à gauche ou à droite du type en C++&quot; ?" />
+    <meta property="og:url" content="https://sirlynixvanfrietjes.be/2018/06/02/pinaillage-c-le-const-a-gauche-ou-a-droite/" />
+    <meta property="og:image" content="https://sirlynixvanfrietjes.be/content/images/2018/06/BibleCpp-1.png" />
+    <meta property="article:published_time" content="2018-06-02T11:03:54.000Z" />
+    <meta property="article:modified_time" content="2018-06-07T13:15:35.000Z" />
+    <meta property="article:tag" content="c++" />
+    <meta property="article:tag" content="c++ moderne" />
+    <meta property="article:tag" content="programmation" />
     
-    <meta name="DC.creator" content="Akulen" />
-    
-    <meta name="DC.creator" content="informaticienzero" />
-    
-    <meta name="DC.creator" content="mehdidou99" />
-    
-    <meta name="DC.type" content="text" />
-    <meta name="DC.title" content="La programmation en C++ moderne" />
-    <meta name="DC.abstract" content="La programmation en C++ moderne – Apprenez la programmation de zéro jusqu&#39;à l&#39;infini !" />
-    <meta name="DC.subject" lang="fr" content="Programmation et algorithmique – c++ ; c++17" />
-    <meta name="DC.description" lang="fr" content="Apprenez la programmation de zéro jusqu&#39;à l&#39;infini !" />
-    <meta name="DC.date" content="2018/08/31" />
-    <meta name="DC.format" content="text/html" />
-    
-    <meta name="DC.language" content="fr" />
-    <meta name="DC.rights" content="Licence CC BY" />
-<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
-<meta property="twitter:card" content="summary">
-<meta property="twitter:url" content="https://jonathanpoelen.github.io/2013/05/r%C3%A9f%C3%A9rence-constante-sur-r%C3%A9f%C3%A9rence/">
-<meta property="twitter:title" content="Référence constante sur référence">
-<meta name="description" content="Une petite note sur les références et le qualificatif const  en commençant par un exemple :).
-using reference = int&amp;; int i = 0; reference const r = i; r = 3;  Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de r. En fait, ajouter const  sur une référence ne fait rien car cela ne s&rsquo;applique pas sur le référé qui reste un int&amp; .">
-<meta property="twitter:description" content="Une petite note sur les références et le qualificatif const  en commençant par un exemple :).
-using reference = int&amp;; int i = 0; reference const r = i; r = 3;  Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de r. En fait, ajouter const  sur une référence ne fait rien car cela ne s&rsquo;applique pas sur le référé qui reste un int&amp; .">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pinaillage - En C++, le const, à gauche ou à droite ?" />
+    <meta name="twitter:description" content="Un avis sur la fameuse question &quot;faut-il mettre le mot-clé const à gauche ou à droite du type en C++&quot; ?" />
+    <meta name="twitter:url" content="https://sirlynixvanfrietjes.be/2018/06/02/pinaillage-c-le-const-a-gauche-ou-a-droite/" />
+    <meta name="twitter:image" content="https://sirlynixvanfrietjes.be/content/images/2018/06/BibleCpp-1.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Sir Lynix Van Frietjes" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="c++, c++ moderne, programmation" />
+    <meta name="twitter:site" content="@sirlynix" />
+    <meta name="twitter:creator" content="@SirLynix" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="1440" />
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -80,30 +74,6 @@ using reference = int&amp;; int i = 0; reference const r = i; r = 3;  Contrairem
 
       </div>
     </header>
-<article class="content-wrapper" 
-    itemscope itemtype="http://schema.org/Article"
->
-        <header>
-            
-    
-        <span class="license" itemprop="license">
-            Licence CC BY
-        </span>
-    
-
-    <h1 class="illu" itemprop="name">
-        
-            <img src="/media/galleries/1938/b5e097e0-d9a1-442e-bd92-b728c877e60a.png.60x60_q95_crop.png" alt="" itemprop="thumbnailUrl">
-        
-        La programmation en C++ moderne
-    </h1>
-
-    
-        <h2 class="subtitle" itemprop="description">
-            Apprenez la programmation de zéro jusqu&#39;à l&#39;infini !
-        </h2>
-</header>
-</article>
     <div class="wrapper clearfix">
 
 <aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
