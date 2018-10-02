@@ -85,7 +85,7 @@
       <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">28 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">29 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -113,7 +113,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (20)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (21)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -173,6 +173,104 @@
 </aside>
 
   <main class="main-content list content" role="main" id="main-content">
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="optimisation-de-script-bash-en-limitant-louverture-de-processus"><span>
+        <a href="#make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: make sans Makefile, utilisation des règles implicites"></i></a>
+        <a href="#r%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Référence constante sur référence"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/">Optimisation de script bash en limitant l&#39;ouverture de processus</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites">Article suivant: make sans Makefile, utilisation des règles implicites</a><br/>
+        <a href="#r%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence">Article précédent: Référence constante sur référence</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2013-05-29T00:23:12">29 mai 2013
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/script-shell" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>script-shell</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#8755af74d081efd37462f60d10d897fd-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
+      <p>Une des choses qui prend du temps dans l&rsquo;exécution d&rsquo;un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés.</p>
+
+<p>Le meilleur moyen d&rsquo;accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme.
+En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&rsquo;entrée standard et retourne un résultat ; un peu comme <code>bc</code>.
+C&rsquo;est là que les coprocessus viennent à la rescousse :).</p>
+
+<p>Un coprocessus est un sous-shell exécuté de façon asynchrone et fournissant les tubes d&rsquo;entrée/sortie. Ceux-ci sont accessibles via <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$COPROC</span><span class="o">[</span><span class="m">1</span><span class="o">]</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$COPROC</span><span class="o">[</span><span class="m">2</span><span class="o">]</span></code></span>.</p>
+
+<p>Du coup, avec <code>bc</code>, la méthode est d&rsquo;écrire dans un tube et lire dans l&rsquo;autre. Comme la lecture est bloquante, le script va attendre que <code>bc</code> retourne le résultat.</p>
+
+<p>Et voilà ! L&rsquo;ouverture d&rsquo;un programme est remplacé par une lecture/écriture.</p>
+
+<p>Pour exemple, un petit programme qui lit un fichier contenant des opérations mathématiques et les affichent suivies du résultat.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">: file&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">1</span>
+
+<span class="c1">#coprocessus de bc avec la sortie d&#39;erreur redirigée vers la sortie standard
+</span><span class="c1"></span>coproc bc <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span>
+
+<span class="k">while</span> <span class="nb">read</span> l<span class="p">;</span> <span class="k">do</span>
+  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> &gt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># écrire dans le processus
+</span><span class="c1"></span>  <span class="nb">read</span> result &lt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[0]</span><span class="si">}</span> <span class="c1"># réception du résultat
+</span><span class="c1"></span>  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2"> = </span><span class="nv">$result</span><span class="s2">&#34;</span>
+<span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span></code></pre></div>
+<p>Sans <code>coproc</code>, la boucle est plus simple, mais un processus sera ouvert pour chaque ligne du fichier, ce qui est particulièrement coûteux.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">while</span> <span class="nb">read</span> l<span class="p">;</span> <span class="k">do</span>
+  <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2"> = &#34;</span>
+  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> <span class="p">|</span> bc
+<span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span></code></pre></div>
+<p>À tester avec par exemple un fichier de calcul comme celui-ci:</p>
+
+<div class="highlight"><pre class="chroma"><code>2+3
+2+3*9
+23*9
+23s*9
+3*9
+</code></pre></div>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2013-05-29T00:23:12">29 mai 2013
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/script-shell" rel="category">script-shell</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="8755af74d081efd37462f60d10d897fd-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=optimisation-de-script-bash-en-limitant-louverture-de-processus&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2foptimisation-de-script-bash-en-limitant-louverture-de-processus%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2foptimisation-de-script-bash-en-limitant-louverture-de-processus%2f&amp;title=optimisation-de-script-bash-en-limitant-louverture-de-processus" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2foptimisation-de-script-bash-en-limitant-louverture-de-processus%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2foptimisation-de-script-bash-en-limitant-louverture-de-processus%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2foptimisation-de-script-bash-en-limitant-louverture-de-processus%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f05%2foptimisation-de-script-bash-en-limitant-louverture-de-processus%2f&amp;name=optimisation-de-script-bash-en-limitant-louverture-de-processus" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
         
 <article class="post">
   <header class="post__header clearfix">
@@ -1136,111 +1234,6 @@ Simple, entourer la variable d&rsquo;accolades:</p>
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
   <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f&amp;name=zsh-et-le-danger-des-modificateurs" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci"><span>
-        <a href="#zsh-et-le-danger-des-modificateurs"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Zsh et le danger des modificateurs"></i></a>
-        <a href="#sed-tout-puissant"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Sed tout puissant"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/">La récursivité et le mauvais exemple de Fibonacci</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#zsh-et-le-danger-des-modificateurs">Article suivant: Zsh et le danger des modificateurs</a><br/>
-        <a href="#sed-tout-puissant">Article précédent: Sed tout puissant</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2012-08-16T02:22:24">16 août 2012
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
-  <a href="https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#81f6b692f8535682b22f181e3f5d30da-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-</p>
-
-
-  </header>
-  <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 5 ans. Les informations y figurant peuvent être dépassées.</p>
-      <p>Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:</p>
-
-<blockquote>
-<p>Coder la <a href="https://fr.wikipedia.org/wiki/Suite_de_Fibonacci">suite de Fibonacci</a> en récursive et en itérative.</p>
-</blockquote>
-
-<p>Mais partout où j&rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&rsquo;on peut trouver.</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">//itérative
-</span><span class="c1"></span><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
-  <span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tmp</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="o">--</span><span class="n">n</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c1">// récursive
-</span><span class="c1"></span><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">n</span> <span class="o">||</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">fib_r</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib_r</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
-<p>Sauf que cet algorithme récursif est pourri. Il recalcule sans cesse <code>fib-1</code> et <code>fib-2</code> et fait monter la pile d&rsquo;appel <strong>jusqu&rsquo;à explosion</strong> là où l&rsquo;algorithme itératif additionne une variable.</p>
-
-<p>Pour avoir un algorithme récursif équivalent à celui itératif, il faut garder le même comportement. C&rsquo;est à dire garder <code>a</code> et <code>b</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r_impl</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">r</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">rp</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">fib_r_impl</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="n">rp</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="n">fib_r_impl</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
-<p>Cet algo est strictement identique au premier car applique la <a href="http://fr.wikipedia.org/wiki/R%C3%A9cursion_terminale">récursion terminale</a>. Ainsi, le code généré par un compilateur (avec les options d&rsquo;optimisation) donnera un binaire identique (ou très proche). Des langages comme OCaml ou Haskel optimisent la pile quand il y a une récursion terminale.</p>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2012-08-16T02:22:24">16 août 2012
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
- ;
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2012/08/la-r%C3%A9cursivit%C3%A9-et-le-mauvais-exemple-de-fibonacci/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="81f6b692f8535682b22f181e3f5d30da-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=la-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f08%2fla-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f08%2fla-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci%2f&amp;title=la-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f08%2fla-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f08%2fla-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f08%2fla-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f08%2fla-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci%2f&amp;name=la-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>

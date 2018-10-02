@@ -85,7 +85,7 @@
       <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">28 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">29 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -113,7 +113,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (20)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (21)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -1398,12 +1398,12 @@ Du coup, pour chaque nouvelle version, il y a un nombre plus ou moins important 
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog"><span>
         <a href="#faites-parler-votre-compilateur"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Faites parler votre compilateur"></i></a>
-        <a href="#de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: De Blogspot à Hugo, il a changé de peau"></i></a>
+        <a href="#comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: comparaison de différentes implémentations de mp_index_of1"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></h1>
     <div class="post__title-nextprev-text sr-only">
         <a href="#faites-parler-votre-compilateur">Article suivant: Faites parler votre compilateur</a><br/>
-        <a href="#de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau">Article précédent: De Blogspot à Hugo, il a changé de peau</a><br/>
+        <a href="#comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1">Article précédent: comparaison de différentes implémentations de mp_index_of1</a><br/>
     </div>
     
 <p class="post__meta meta">
@@ -1720,13 +1720,688 @@ Et comme la page d&rsquo;accueil contient plusieurs articles, la taille du scrol
         
 <article class="post">
   <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau"><span>
+    <div class="post__title-nextprev" id="comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1"><span>
         <a href="#ma-vision-de-laccessibilit%25C3%25A9-appliqu%25C3%25A9e-pour-ce-blog"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Ma vision de l&#39;accessibilité appliquée pour ce blog"></i></a>
+        <a href="#de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: De Blogspot à Hugo, il a changé de peau"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/">comparaison de différentes implémentations de mp_index_of1</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#ma-vision-de-laccessibilit%25C3%25A9-appliqu%25C3%25A9e-pour-ce-blog">Article suivant: Ma vision de l&#39;accessibilité appliquée pour ce blog</a><br/>
+        <a href="#de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau">Article précédent: De Blogspot à Hugo, il a changé de peau</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2018-01-01T18:28:21">01 janvier 2018
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>18 minutes ;
+  <a href="https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#34f054737f80072fea2d78193d543e78-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      
+
+<p>Dans l&rsquo;article précédent sur les variants, j&rsquo;ai fait une implémentation un peu spéciale de <code>index_of</code>. Je vais présenter une quinzaine d&rsquo;implémentations possibles et le coût de chacune sur le compilateur.</p>
+
+<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> L&rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &laquo;&nbsp;classique&nbsp;&raquo; a les mêmes conséquences.</p></div>
+
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/#avant-propos"><h2 id="avant-propos">Avant-propos</h2></a>
+
+<p>Toutes les implémentations de <code>mp_index_of&lt;T, Ts...&gt;</code> retournent un <code>std::integral_constant&lt;int, i&gt;</code> correspondant à l&rsquo;indice de <code>T</code> dans <code>Ts</code> ou <code>-1</code> si <code>T</code> n&rsquo;existe pas.</p>
+
+<p>Clang possède des outils tel que <a href="http://plc.inf.elte.hu/templight/">templight</a>, mais il n&rsquo;y a pas d&rsquo;équivalent pour Gcc. Par conséquent, les tests sont faits avec <code>/usr/bin/time --format=&quot;%E %M&quot;</code> qui ressort le temps et la mémoire maximum utilisée par un programme.</p>
+
+<p>Au niveau des options de compilation, <code>-fsyntax-only</code> permet de vérifier la validité d&rsquo;un code sans générer de fichier de sortie. <code>-std=c++17</code> est présent pour utiliser les plies, mais tous les algorithmes n&rsquo;en ont pas besoin. <code>-ftemplate-depth=n</code> et <code>-fconstexpr-depth=n</code> appliquent une profondeur limite dans la récursivité appliquée respectivement aux templates et aux fonctions constexpr. <code>-w</code> supprime tous les avertissements (tels que des macros non utilisés) pour éviter que des sorties inopportunes influencent la mesure.</p>
+
+<p>Il y a 2 formes de test:</p>
+
+<ul>
+<li>ceux sur des listes contenant 2 types nommés <code>x</code> et <code>_</code> et</li>
+<li>ceux sur des suites <code>i&lt;n&gt;</code> avec <code>n</code> un entier et <code>x</code>.</li>
+</ul>
+
+<p>Pour chaque test, <code>T</code> représente <code>x</code> et il peut être présent ou non dans <code>Ts</code>.</p>
+
+<p>les valeurs de <code>Ts</code> sont présentées dans les légendes sous forme abrégée:</p>
+
+<ul>
+<li><code>[x*500]</code>: une liste de 500 <code>x</code>.</li>
+<li><code>[_*250, x, _*249]</code>: une liste de 250 <code>_</code>, suivit de <code>x</code> et d&rsquo;une liste de <code>249</code> <code>_</code>.</li>
+<li><code>[i{0..40}*150]</code>: uns suite de 150 <code>i0</code>, une autre de 150 <code>i1</code> et ainsi de suite jusqu&rsquo;à <code>i40</code>.</li>
+<li><code>[i0..i{0..140}]</code>: une suite <code>[i0..i0]</code>, puis [i0..i1], etc jusqu&rsquo;à <code>[i0..i140]</code>.</li>
+<li><code>[i{0..n},x,i{n-(n..0)..n}];n=100</code>: les suites <code>[i{0..100},x,i{100..100}]</code>,  <code>[i{1..100},x,i{99..100}]</code>, etc</li>
+</ul>
+
+<p>Les sources se trouvent sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/master/resources/mp_index_of">github</a>
+ dans un même fichier cpp. Chacune des implémentations possède son propre namespace et des macros activent individuellement chaque test. <!--TODO dossier des graphes + zip/tar.gz--></p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/#relation-temps-de-compilation-et-mémoire"><h2 id="relation-temps-de-compilation-et-mémoire">Relation temps de compilation et mémoire</h2></a>
+
+<p>Dans du code utilisant la méta-programmation, le temps de compilation suit la même courbe que la mémoire. Plus une compilation est lente, plus la mémoire utilisée augmente allant jusqu&rsquo;à saturation.</p>
+
+<p>Et la mémoire est fortement liée au nombre de types instanciés par le compilateur. Ici, il ne faut pas voir une instance comme une variable, mais comme la première création d&rsquo;un type. Par exemple, <code>index_of&lt;int, int&gt;</code> est une instance de type (ou d&rsquo;alias), <code>index_of&lt;int, int, int&gt;</code> une seconde instance, <code>index_of&lt;int, float&gt;</code> une troisième, etc. Chaque type construit s&rsquo;ajoute dans la mémoire du compilateur et l&rsquo;ensemble utilise de plus en plus de place. C&rsquo;est ainsi que le compilateur implémente naturellement la <a href="https://fr.wikipedia.org/wiki/M%C3%A9mo%C3%AFsation">mémoïsation</a> pour les templates.</p>
+
+<p>Pour réduire le temps de compilation, il faut donc réduire le nombre de type instancié.</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/#la-récursivité"><h2 id="la-récursivité">La récursivité</h2></a>
+
+<p>La première chose qu&rsquo;on apprend avec les variadiques, c&rsquo;est que les boucles se font avec de la récursivité en enlevant un par un les éléments. C&rsquo;est une forme très facile à écrire et à comprendre, mais qui crée beaucoup de types intermédiaires à l&rsquo;intérieur du compilateur.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_ternary</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nl">_index_of</span> <span class="p">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">First</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">First</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">First</span><span class="o">&gt;</span>
+    <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
+  <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
+    <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Une implémentation avec ternaire récursive comme on peut la trouver dans le fichier variant de libstdc++. Elle souffre d&rsquo;un léger problème: il y a autant d&rsquo;instance de <code>_index_of</code> que d&rsquo;élément dans la liste, même si <code>T</code> se trouve en première position.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_indexed</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nl">_index_of</span> <span class="p">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">First</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="n">i</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">First</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="n">i</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">i</span><span class="o">&gt;</span> <span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>L&rsquo;indice courant se trouve en paramètre template et la récursion s&rsquo;arrête dès que <code>T</code> est trouvé. Seulement, l&rsquo;ajout de l&rsquo;indice en paramètre va dégrader la mémoïsation en créant plus de types que nécessaire.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nl">_index_of</span> <span class="p">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">1</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">First</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">First</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">1</span><span class="o">+</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span> <span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
+  <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
+    <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Un mélange des 2 implémentations précédentes sans les inconvénients. En réalité, c&rsquo;est la forme la plus communément écrite.</p>
+
+<!-- ./gen_graphs.py compiler=g++ algo=recursive,recursive_indexed,recursive_ternary legend='~[];~all;~[_*1400];~[_*700, x*700];~n*' -- rec_gcc -->
+
+<p><img src="/post/mp_index_of/rec_gcc_time.png" alt="duré de compilation avec gcc de 3 implémentations récursives" /></p>
+
+<p>Sans surprise, sur les 3 premiers tests, la version avec ternaire est à peu près stable quelle que soit la position de <code>x</code>, même s&rsquo;il semble qu&rsquo;évaluer la ternaire ralentisse un peu la compilation lorsque <code>x</code> se situe vers la fin.
+Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code>x</code> est au début pour rattraper progressivement la version ternaire. Sans que je sache l&rsquo;expliquer, la version avec index explose le compteur pour le test 3.</p>
+
+<p>Comme la courbe de progression pour la version récursive classique n&rsquo;est pas linéaire, je déduis que le nombre d&rsquo;éléments dans un pack d&rsquo;argument influence le temps de compilation. Il y a ±600ms de différence pour parcourir les 700 premiers <code>_</code> contre seulement ±220ms pour les 700 restant. Cela peut se comprendre assez facilement, plus il y a de types dans la template, plus la création d&rsquo;un identifiant au sein du compilateur va prendre du temps.</p>
+
+<p>Le test 5 met clairement à défaut la version avec indice, car la mémoïsation ne s&rsquo;applique pas ici. Avec la version ternaire et récursive, lorsque le compilateur calcule la position d&rsquo;une liste de la forme <code>[0,1,2,3]</code>, il l&rsquo;a aussi fait pour <code>[1,2,3]</code>, <code>[2,3]</code> et <code>[3]</code> ce qui permet d&rsquo;être très rapide lorsqu&rsquo;il tombe sur des valeurs déjà évaluées. Or, la version avec indice ajoute un élément qui empêche cela: <code>&lt;0, [0,1,2,3]&gt;</code> se déroule en <code>&lt;1, [1,2,3]&gt;</code>, <code>&lt;2, [2,3]&gt;</code> et <code>&lt;3, [3]&gt;</code> alors que <code>&lt;0, [0,1,2]&gt;</code> se déroule en <code>&lt;1, [1,2]&gt;</code> et <code>&lt;2, [2]&gt;</code>. Les suites sont différentes, le compilateur crée donc beaucoup plus de types intermédiaires ce qui ralentit la compilation.</p>
+
+<p>Dans l&rsquo;ensemble, l&rsquo;algorithme avec index est à éviter, car il montre qu&rsquo;une mauvaise mémoïsation ralentit fortement l&rsquo;évaluation de template. Il faut également éviter la version ternaire au profil d&rsquo;une implémentation qui stoppe la récursivité pour ne pas faire de calcul inutile. Finalement, l&rsquo;algorithme de récursion classique est plus rapide dans tous les cas.</p>
+
+<p>Ce qui est vrai pour Gcc, ne l&rsquo;est pas forcément pour Clang comme le montre le graphique ci-dessous.</p>
+
+<!-- ./gen_graphs.py compiler=g++ algo=recursive,recursive_indexed,recursive_ternary legend='~[];~all;~[_*1200];~[_*600, x*600];~n*' -- rec_clang -->
+
+<p><img src="/post/mp_index_of/rec_clang_time.png" alt="duré de compilation avec clang de 3 implémentations récursives" /></p>
+
+<p>Premier constat, le test 3 n&rsquo;a pas de pic inexplicable pour l&rsquo;algorithme avec indice. Et, bien que la version récursive classique soit toujours plus rapide que celle avec ternaire, il est amusant de constater que l&rsquo;implémentation avec indice supplante de peu la version classique. Sauf bien sûr lorsque la mémoïsation est mise à défaut comme dans le test 5.</p>
+
+<p>Si on compare le temps de compilation entre Clang et Gcc, il s&rsquo;avère que Gcc est un peu plus rapide que son concurrent alors même que les premiers tests se font sur une liste de 1200 éléments contre 1400. De mon expérience, c&rsquo;est presque toujours le cas avec des templates récursives sur de &laquo;&nbsp;grands&nbsp;&raquo; ensembles.</p>
+
+<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> La limite de 1200 est dûe à une limitation de Clang qui ne peut pas dépasser 1293 niveaux de profondeur sans crasher (en tout cas chez moi probablement à cause d&rsquo;un dépassement de pile).</p></div>
+
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/#profiter-davantage-de-mémoïsation"><h2 id="profiter-davantage-de-mémoïsation">Profiter davantage de mémoïsation</h2></a>
+
+<p>Il est possible d&rsquo;augmenter la mémoïsation en réduisant les types dans la liste en une suite de valeur <code>true</code>/<code>false</code>. La mémoïsation est alors beaucoup plus efficace, mais la comparaison se fait sur chaque élément de la liste. Heureusement, dans un code normal, la probabilité de tomber sur la même instance de <code>std::is_same&lt;T, U&gt;</code> est très grande ce qui rend cette solution encore plus efficace.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool</span>
+<span class="p">{</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">recursive</span><span class="o">::</span><span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>L&rsquo;utilisation de <code>typename std::is_same&lt;T, Ts&gt;::type</code> au lieu de simplement <code>std::is_same&lt;T, Ts&gt;</code> permet de restreindre les types à <code>std::false_type</code> et <code>std::true_type</code>.</p>
+
+<p>On peut aussi faire la comparaison avec un <code>detail::_index_of</code> spécialement dédié à la recherche d&rsquo;un <code>std::true_type</code>.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool2</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">, </span><span class="nc">class</span><span class="p">...</span> <span class="n">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nl">_index_of</span>
+  <span class="p">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">1</span><span class="o">+</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">Rest</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span>
+  <span class="p">{};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span> <span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
+  <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...,</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
+    <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...,</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Et une autre version qui travaille sur des valeurs plutôt que des types pour vérifier si cela a une influence.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool3</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">,</span> <span class="kt">bool</span><span class="p">...</span> <span class="n">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nl">_index_of</span>
+  <span class="p">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">1</span><span class="o">+</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">Rest</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span>
+  <span class="p">{};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">...</span> <span class="n">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">true</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span> <span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
+  <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">...,</span> <span class="nb">true</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
+    <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">...,</span> <span class="nb">true</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<!-- ./gen_graphs.py compiler=g++ algo=recursive,recursive_bool\? legend='~[];~all;~[_*1400];~[_*700, x*700];~n*' -- rec_bool_gcc -->
+
+<p><img src="/post/mp_index_of/rec_bool_gcc_time.png" alt="comparaison de temps de 3 implémentations qui font une transformation en booléan" /></p>
+
+<p>Là où la version récursive était rapide, la transformation en une liste de booléan l&rsquo;est tout autant. Le bénéfice devient évident sur une grande variété de listes (test 4) et des listes homogènes (test 6) où le temps de compilation est réduit par 3.</p>
+
+<p>L&rsquo;algorithme <code>recursive_bool2</code> spécialisé dans la recherche d&rsquo;un <code>std::true_type</code> permet de grappiller encore quelques millisecondes principalement grâce à une spécialisation de template en moins.</p>
+
+<p>À contrario, la version 3 qui manipule des booléens plutôt que des types est lente. Manipuler des types serait donc plus rapide que manipuler des valeurs dans les spécialisations. Le même comportement est présent dans Clang, même s&rsquo;il est moins prononcé.</p>
+
+<!-- ./gen_graphs.py compiler=clang++ algo=recursive,recursive_bool\? legend='~[];~all;~[_*1200];~[_*600, x*600];~n*' -- rec_bool_clang -->
+
+<p><img src="/post/mp_index_of/rec_bool_clang_time.png" alt="comparaison de temps de 3 implémentations qui font une transformation en booléan" /></p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/#récursivité-par-bloc"><h2 id="récursivité-par-bloc">Récursivité par bloc</h2></a>
+
+<p>La récursivité possède un défaut qui n&rsquo;est pas forcément un problème dans le code de tous les jours: le niveau de récursion est limité par le compilateur. Gcc s&rsquo;arrête à une profondeur de 900, Clang à 1024 et si je ne me trompe pas, la limite est de 500 pour MSVC. Bien sûr, cela est configurable. C&rsquo;est d&rsquo;ailleurs ce qui a été fait pour générer les premiers graphiques même si comme dit précédemment, Clang crashe lorsqu&rsquo;on dépasse 1293.</p>
+
+<p>Une technique employée pour dépasser artificiellement cette limite est de prendre plusieurs valeurs par niveau de récursivité. Cela réduit la profondeur de récursion et le nombre de types instanciés. S&rsquo;il y a moins de types instanciés, la compilation devrait également être plus rapide.</p>
+
+<p>Le code devient malheureusement beaucoup plus verbeux et compliqué:</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">pack8</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span> <span class="n">Ok</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span>
+           <span class="k">class</span><span class="err"> </span><span class="nc">U0</span> <span class="o">=</span> <span class="n">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U1</span> <span class="o">=</span> <span class="n">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U2</span> <span class="o">=</span> <span class="n">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U3</span> <span class="o">=</span> <span class="n">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U4</span> <span class="o">=</span> <span class="n">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U5</span> <span class="o">=</span> <span class="n">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U6</span> <span class="o">=</span> <span class="n">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U7</span> <span class="o">=</span> <span class="n">T</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nl">_index_of</span>
+  <span class="p">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U0</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span>
+                                 <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U1</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span>
+                                 <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U2</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span>
+                                 <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U3</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">3</span> <span class="o">:</span>
+                                 <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U4</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">4</span> <span class="o">:</span>
+                                 <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U5</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">5</span> <span class="o">:</span>
+                                 <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U6</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">6</span> <span class="o">:</span>
+                                 <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U7</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">7</span> <span class="o">:</span> <span class="mi">8</span><span class="p">)</span>
+    <span class="o">+</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U0</span><span class="o">&gt;</span> <span class="o">||</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U1</span><span class="o">&gt;</span> <span class="o">||</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U2</span><span class="o">&gt;</span> <span class="o">||</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U3</span><span class="o">&gt;</span> <span class="o">||</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U4</span><span class="o">&gt;</span> <span class="o">||</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U5</span><span class="o">&gt;</span> <span class="o">||</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U6</span><span class="o">&gt;</span> <span class="o">||</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U7</span><span class="o">&gt;</span>
+    <span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U0</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U1</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U2</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U3</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U4</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U5</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U6</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U7</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">true</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">U0</span><span class="p">,</span> <span class="n">U1</span><span class="p">,</span> <span class="n">U2</span><span class="p">,</span> <span class="n">U3</span><span class="p">,</span> <span class="n">U4</span><span class="p">,</span> <span class="n">U5</span><span class="p">,</span> <span class="n">U6</span><span class="p">,</span> <span class="n">U7</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U0</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U1</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U2</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U3</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U4</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U5</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U6</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U7</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">U0</span><span class="p">,</span> <span class="n">U1</span><span class="p">,</span> <span class="n">U2</span><span class="p">,</span> <span class="n">U3</span><span class="p">,</span> <span class="n">U4</span><span class="p">,</span> <span class="n">U5</span><span class="p">,</span> <span class="n">U6</span><span class="p">,</span> <span class="n">U7</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U0</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span>
+                                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U1</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span>
+                                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U2</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span>
+                                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U3</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">3</span> <span class="o">:</span>
+                                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U4</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">4</span> <span class="o">:</span>
+                                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U5</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">5</span> <span class="o">:</span>
+                                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U6</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">6</span> <span class="o">:</span>
+                                <span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U7</span><span class="o">&gt;</span> <span class="o">?</span> <span class="mi">7</span> <span class="o">:</span> <span class="mi">8</span><span class="o">&gt;</span> <span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
+  <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
+    <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Et L&rsquo;équivalent qui fait une transformation en liste de booléen avant:</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">pack8_bool</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">Ok</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="p">;</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">,</span>
+           <span class="k">class</span><span class="err"> </span><span class="nc">U0</span> <span class="o">=</span> <span class="n">Ok</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U1</span> <span class="o">=</span> <span class="n">Ok</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U2</span> <span class="o">=</span> <span class="n">Ok</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U3</span> <span class="o">=</span> <span class="n">Ok</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U4</span> <span class="o">=</span> <span class="n">Ok</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U5</span> <span class="o">=</span> <span class="n">Ok</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U6</span> <span class="o">=</span> <span class="n">Ok</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U7</span> <span class="o">=</span> <span class="n">Ok</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nl">_index_of</span>
+  <span class="p">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="p">(</span><span class="n">U0</span><span class="o">::</span><span class="n">value</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span>
+                                 <span class="n">U1</span><span class="o">::</span><span class="n">value</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span>
+                                 <span class="n">U2</span><span class="o">::</span><span class="n">value</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span>
+                                 <span class="n">U3</span><span class="o">::</span><span class="n">value</span> <span class="o">?</span> <span class="mi">3</span> <span class="o">:</span>
+                                 <span class="n">U4</span><span class="o">::</span><span class="n">value</span> <span class="o">?</span> <span class="mi">4</span> <span class="o">:</span>
+                                 <span class="n">U5</span><span class="o">::</span><span class="n">value</span> <span class="o">?</span> <span class="mi">5</span> <span class="o">:</span>
+                                 <span class="n">U6</span><span class="o">::</span><span class="n">value</span> <span class="o">?</span> <span class="mi">6</span> <span class="o">:</span>
+                                 <span class="n">U7</span><span class="o">::</span><span class="n">value</span> <span class="o">?</span> <span class="mi">7</span> <span class="o">:</span> <span class="mi">8</span><span class="p">)</span>
+    <span class="o">+</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="n">U0</span><span class="o">::</span><span class="n">value</span> <span class="o">||</span>
+                <span class="n">U1</span><span class="o">::</span><span class="n">value</span> <span class="o">||</span>
+                <span class="n">U2</span><span class="o">::</span><span class="n">value</span> <span class="o">||</span>
+                <span class="n">U3</span><span class="o">::</span><span class="n">value</span> <span class="o">||</span>
+                <span class="n">U4</span><span class="o">::</span><span class="n">value</span> <span class="o">||</span>
+                <span class="n">U5</span><span class="o">::</span><span class="n">value</span> <span class="o">||</span>
+                <span class="n">U6</span><span class="o">::</span><span class="n">value</span> <span class="o">||</span>
+                <span class="n">U7</span><span class="o">::</span><span class="n">value</span>
+    <span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">U0</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U1</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U2</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U3</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U4</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U5</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U6</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U7</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Rest</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">true</span><span class="p">,</span> <span class="n">U0</span><span class="p">,</span> <span class="n">U1</span><span class="p">,</span> <span class="n">U2</span><span class="p">,</span> <span class="n">U3</span><span class="p">,</span> <span class="n">U4</span><span class="p">,</span> <span class="n">U5</span><span class="p">,</span> <span class="n">U6</span><span class="p">,</span> <span class="n">U7</span><span class="p">,</span> <span class="n">Rest</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="o">&gt;</span> <span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
+  <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
+    <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<!-- ./gen_graphs.py compiler=g++ algo=recursive_bool2,pack8,pack8_bool legend='~[];~all;~[_*1400];~[_*700, x*700];~n*' -- pack8_gcc -->
+
+<p><img src="/post/mp_index_of/pack8_gcc_time.png" alt="duré de compilation avec gcc pour un algo récursive par pack de 8" /></p>
+
+<p>Même lorsque la position de <code>x</code> est éloignée (test 2 et 3), les <code>pack8</code> sont efficaces. Si on prend la différence entre le test 1 et 2, et 2 et 3, il y a plus ou moins un facteur 8.</p>
+
+<p>Comme c&rsquo;était le cas lorsqu&rsquo;on comparaît l&rsquo;algorithme <code>recursive</code> avec <code>recursive_bool</code>, <code>pack8_bool</code> est plus rapide que <code>pack8</code> lorsque le nombre de listes différentes augmente (test 5 et 7).</p>
+
+<p>Le test 6 profite déjà d&rsquo;une mémoïsation optimale pour les 3 implémentations, même si <code>pack8_bool</code> est un chouia plus lent que les autres ici.</p>
+
+<p>Toutefois, la suprématie de <code>pack8_bool</code> par rapport à <code>pack8</code> est beaucoup plus ténue avec Clang.</p>
+
+<!-- ./gen_graphs.py compiler=clang++ algo=recursive_bool2,pack8,pack8_bool legend='~[];~all;~[_*1200];~[_*600, x*600];~n*' -- pack8_clang -->
+
+<p><img src="/post/mp_index_of/pack8_clang_time.png" alt="duré de compilation avec gcc pour un algo récursive par pack de 8" /></p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/#penser-différemment"><h2 id="penser-différemment">Penser différemment</h2></a>
+
+<p>Plutôt qu&rsquo;avoir un <code>index_of</code> le plus rapide possible, il est possible de combiner d&rsquo;autres algorithmes pour arriver au même résultat. Il y a un double avantage dans le cadre d&rsquo;une bibliothèque de méta-programmation:</p>
+
+<ul>
+<li>Implémenter un nouvel algorithme efficace est plus facile, car les optimisations telles que celles utilisées par <code>pack8</code> sont déportées sur ceux avec une réelle implémentation.</li>
+<li>Un nombre restreint d&rsquo;algorithmes est plus souvent utilisé ce qui augmente la mémoïsation.</li>
+</ul>
+
+<p>Ainsi, <code>index_of</code> peut se faire en combinant <code>std::make_index_sequence</code>, <code>join</code>, <code>front</code> et éventuellement <code>tranform</code>. On peut aussi le faire avec <code>foldl</code>/<code>foldr</code>.</p>
+
+<p>Pour le faire avec <code>join</code>, on construit une liste d&rsquo;indices de la taille de <code>Ts</code> qui est ensuite transformée en <code>list&lt;i&gt;</code> lorsque le type est identique à <code>T</code> et en <code>list&lt;&gt;</code> dans le cas contraire. Puis, on fusionne toutes les listes en une seule avec un <code>int&lt;-1&gt;</code> ajouté en fin. Le premier élément de cette liste correspond au résultat de <code>index_of</code>.</p>
+
+<p>Il serait préférable de ne pas ajouter <code>-1</code>, mais ajouter une valeur dans la liste puis faire un post traitement. Cela augmente les collisions de type et par conséquent la mémoïsation. Mais restons simple !</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">by_indices</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">...</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">list</span><span class="p">;</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">L</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">front</span><span class="p">;</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">front</span><span class="o">&lt;</span><span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&gt;</span>
+  <span class="p">{</span>
+    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+           <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+           <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+           <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+           <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+           <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+           <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+           <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="k">class</span><span class="err"> = </span><span class="nc">list</span><span class="o">&lt;&gt;</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">Ls</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_join</span><span class="p">;</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">_0</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_1</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_2</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_3</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_4</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_5</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_6</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_7</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_8</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_9</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_10</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_11</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_12</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_13</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_14</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_15</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_16</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_17</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_18</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_19</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_20</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_21</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_22</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_23</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_24</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_25</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_26</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_27</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_28</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_29</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_30</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_31</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_32</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_33</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_34</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_35</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_36</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_37</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_38</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_39</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_40</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_41</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_42</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_43</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_44</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_45</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_46</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_47</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_48</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_49</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_50</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_51</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_52</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_53</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_54</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_55</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_56</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_57</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_58</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_59</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_60</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_61</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_62</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_63</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_join</span><span class="o">&lt;</span><span class="n">list</span><span class="o">&lt;</span><span class="n">_0</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_1</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_2</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_3</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_4</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_5</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_6</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_7</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_8</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_9</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_10</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_11</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_12</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_13</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_14</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_15</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_16</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_17</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_18</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_19</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_20</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_21</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_22</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_23</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_24</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_25</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_26</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_27</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_28</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_29</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_30</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_31</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_32</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_33</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_34</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_35</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_36</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_37</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_38</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_39</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_40</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_41</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_42</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_43</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_44</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_45</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_46</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_47</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_48</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_49</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_50</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_51</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_52</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_53</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_54</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_55</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_56</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_57</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_58</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_59</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_60</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_61</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_62</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_63</span><span class="p">...</span><span class="o">&gt;&gt;</span>
+  <span class="p">{</span>
+    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_0</span><span class="p">...,</span> <span class="n">_1</span><span class="p">...,</span> <span class="n">_2</span><span class="p">...,</span> <span class="n">_3</span><span class="p">...,</span> <span class="n">_4</span><span class="p">...,</span> <span class="n">_5</span><span class="p">...,</span> <span class="n">_6</span><span class="p">...,</span> <span class="n">_7</span><span class="p">...,</span>
+                      <span class="n">_8</span><span class="p">...,</span> <span class="n">_9</span><span class="p">...,</span> <span class="n">_10</span><span class="p">...,</span> <span class="n">_11</span><span class="p">...,</span> <span class="n">_12</span><span class="p">...,</span> <span class="n">_13</span><span class="p">...,</span> <span class="n">_14</span><span class="p">...,</span> <span class="n">_15</span><span class="p">...,</span>
+                      <span class="n">_16</span><span class="p">...,</span> <span class="n">_17</span><span class="p">...,</span> <span class="n">_18</span><span class="p">...,</span> <span class="n">_19</span><span class="p">...,</span> <span class="n">_20</span><span class="p">...,</span> <span class="n">_21</span><span class="p">...,</span> <span class="n">_22</span><span class="p">...,</span> <span class="n">_23</span><span class="p">...,</span>
+                      <span class="n">_24</span><span class="p">...,</span> <span class="n">_25</span><span class="p">...,</span> <span class="n">_26</span><span class="p">...,</span> <span class="n">_27</span><span class="p">...,</span> <span class="n">_28</span><span class="p">...,</span> <span class="n">_29</span><span class="p">...,</span> <span class="n">_30</span><span class="p">...,</span> <span class="n">_31</span><span class="p">...,</span>
+                      <span class="n">_32</span><span class="p">...,</span> <span class="n">_33</span><span class="p">...,</span> <span class="n">_34</span><span class="p">...,</span> <span class="n">_35</span><span class="p">...,</span> <span class="n">_36</span><span class="p">...,</span> <span class="n">_37</span><span class="p">...,</span> <span class="n">_38</span><span class="p">...,</span> <span class="n">_39</span><span class="p">...,</span>
+                      <span class="n">_40</span><span class="p">...,</span> <span class="n">_41</span><span class="p">...,</span> <span class="n">_42</span><span class="p">...,</span> <span class="n">_43</span><span class="p">...,</span> <span class="n">_44</span><span class="p">...,</span> <span class="n">_45</span><span class="p">...,</span> <span class="n">_46</span><span class="p">...,</span> <span class="n">_47</span><span class="p">...,</span>
+                      <span class="n">_48</span><span class="p">...,</span> <span class="n">_49</span><span class="p">...,</span> <span class="n">_50</span><span class="p">...,</span> <span class="n">_51</span><span class="p">...,</span> <span class="n">_52</span><span class="p">...,</span> <span class="n">_53</span><span class="p">...,</span> <span class="n">_54</span><span class="p">...,</span> <span class="n">_55</span><span class="p">...,</span>
+                      <span class="n">_56</span><span class="p">...,</span> <span class="n">_57</span><span class="p">...,</span> <span class="n">_58</span><span class="p">...,</span> <span class="n">_59</span><span class="p">...,</span> <span class="n">_60</span><span class="p">...,</span> <span class="n">_61</span><span class="p">...,</span> <span class="n">_62</span><span class="p">...,</span> <span class="n">_63</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">_0</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_1</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_2</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_3</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_4</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_5</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_6</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_7</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_8</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_9</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_10</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_11</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_12</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_13</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_14</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_15</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_16</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_17</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_18</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_19</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_20</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_21</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_22</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_23</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_24</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_25</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_26</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_27</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_28</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_29</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_30</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_31</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_32</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_33</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_34</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_35</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_36</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_37</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_38</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_39</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_40</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_41</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_42</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_43</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_44</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_45</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_46</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_47</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_48</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_49</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_50</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_51</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_52</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_53</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_54</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_55</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">_56</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_57</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_58</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_59</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_60</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_61</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_62</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">_63</span><span class="p">,</span>
+           <span class="k">class</span><span class="err">... </span><span class="nc">Ls</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_join</span><span class="o">&lt;</span><span class="n">list</span><span class="o">&lt;</span><span class="n">_0</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_1</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_2</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_3</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_4</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_5</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_6</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_7</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_8</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_9</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_10</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_11</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_12</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_13</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_14</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_15</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_16</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_17</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_18</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_19</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_20</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_21</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_22</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_23</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_24</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_25</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_26</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_27</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_28</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_29</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_30</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_31</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_32</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_33</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_34</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_35</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_36</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_37</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_38</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_39</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_40</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_41</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_42</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_43</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_44</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_45</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_46</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_47</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_48</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_49</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_50</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_51</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_52</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_53</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_54</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_55</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">list</span><span class="o">&lt;</span><span class="n">_56</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_57</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_58</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_59</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_60</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_61</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_62</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">_63</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span>
+               <span class="n">Ls</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">_join</span><span class="o">&lt;</span><span class="n">list</span><span class="o">&lt;</span><span class="n">_0</span><span class="p">...,</span> <span class="n">_1</span><span class="p">...,</span> <span class="n">_2</span><span class="p">...,</span> <span class="n">_3</span><span class="p">...,</span> <span class="n">_4</span><span class="p">...,</span> <span class="n">_5</span><span class="p">...,</span> <span class="n">_6</span><span class="p">...,</span> <span class="n">_7</span><span class="p">...,</span>
+               <span class="n">_8</span><span class="p">...,</span> <span class="n">_9</span><span class="p">...,</span> <span class="n">_10</span><span class="p">...,</span> <span class="n">_11</span><span class="p">...,</span> <span class="n">_12</span><span class="p">...,</span> <span class="n">_13</span><span class="p">...,</span> <span class="n">_14</span><span class="p">...,</span> <span class="n">_15</span><span class="p">...,</span>
+               <span class="n">_16</span><span class="p">...,</span> <span class="n">_17</span><span class="p">...,</span> <span class="n">_18</span><span class="p">...,</span> <span class="n">_19</span><span class="p">...,</span> <span class="n">_20</span><span class="p">...,</span> <span class="n">_21</span><span class="p">...,</span> <span class="n">_22</span><span class="p">...,</span> <span class="n">_23</span><span class="p">...,</span>
+               <span class="n">_24</span><span class="p">...,</span> <span class="n">_25</span><span class="p">...,</span> <span class="n">_26</span><span class="p">...,</span> <span class="n">_27</span><span class="p">...,</span> <span class="n">_28</span><span class="p">...,</span> <span class="n">_29</span><span class="p">...,</span> <span class="n">_30</span><span class="p">...,</span> <span class="n">_31</span><span class="p">...,</span>
+               <span class="n">_32</span><span class="p">...,</span> <span class="n">_33</span><span class="p">...,</span> <span class="n">_34</span><span class="p">...,</span> <span class="n">_35</span><span class="p">...,</span> <span class="n">_36</span><span class="p">...,</span> <span class="n">_37</span><span class="p">...,</span> <span class="n">_38</span><span class="p">...,</span> <span class="n">_39</span><span class="p">...,</span>
+               <span class="n">_40</span><span class="p">...,</span> <span class="n">_41</span><span class="p">...,</span> <span class="n">_42</span><span class="p">...,</span> <span class="n">_43</span><span class="p">...,</span> <span class="n">_44</span><span class="p">...,</span> <span class="n">_45</span><span class="p">...,</span> <span class="n">_46</span><span class="p">...,</span> <span class="n">_47</span><span class="p">...,</span>
+               <span class="n">_48</span><span class="p">...,</span> <span class="n">_49</span><span class="p">...,</span> <span class="n">_50</span><span class="p">...,</span> <span class="n">_51</span><span class="p">...,</span> <span class="n">_52</span><span class="p">...,</span> <span class="n">_53</span><span class="p">...,</span> <span class="n">_54</span><span class="p">...,</span> <span class="n">_55</span><span class="p">...,</span>
+               <span class="n">_56</span><span class="p">...,</span> <span class="n">_57</span><span class="p">...,</span> <span class="n">_58</span><span class="p">...,</span> <span class="n">_59</span><span class="p">...,</span> <span class="n">_60</span><span class="p">...,</span> <span class="n">_61</span><span class="p">...,</span> <span class="n">_62</span><span class="p">...,</span> <span class="n">_63</span><span class="p">...</span>
+          <span class="o">&gt;</span><span class="p">,</span> <span class="n">Ls</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">Ints</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_find_index</span><span class="p">;</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">if_</span>
+  <span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U</span><span class="o">&gt;</span>
+    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">U</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;&gt;</span>
+  <span class="k">struct</span> <span class="n">if_</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="o">&gt;</span>
+  <span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U</span><span class="o">&gt;</span>
+    <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">...</span> <span class="n">Ints</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Is</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">_find_index</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">integer_sequence</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="n">Ints</span><span class="p">...</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Is</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">front</span><span class="o">&lt;</span>
+      <span class="k">typename</span> <span class="n">_join</span><span class="o">&lt;</span>
+        <span class="k">typename</span> <span class="n">if_</span><span class="o">&lt;</span><span class="n">Is</span><span class="o">&gt;::</span><span class="k">template</span> <span class="n">type</span><span class="o">&lt;</span>
+          <span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">(</span><span class="n">Ints</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+          <span class="n">list</span><span class="o">&lt;&gt;</span>
+        <span class="o">&gt;</span><span class="p">...,</span>
+        <span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">&gt;&gt;</span>
+      <span class="o">&gt;::</span><span class="n">type</span>
+    <span class="o">&gt;</span> <span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">detail</span><span class="o">::</span><span class="n">_find_index</span><span class="o">&lt;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Wooa, cette monstruosité. Il faut être complètement barge pour écrire cette horreur. C&rsquo;est pourtant une chose que l&rsquo;on trouve dans <a href="https://github.com/brunocodutra/metal/blob/master/include/metal/list/join.hpp#L51">Metal</a>, <a href="https://github.com/edouarda/brigand/blob/master/include/brigand/sequences/append.hpp#L29">Brigand</a>, <a href="https://github.com/boostorg/mp11/blob/develop/include/boost/mp11/detail/mp_append.hpp#L48">Cpp11</a> ou <a href="https://github.com/boostorg/hana/blob/master/include/boost/hana/detail/variadic/foldl1.hpp#L23">Boost.Hana</a>. La palme d&rsquo;or revient à <a href="https://github.com/kvasir-io/mpl/blob/development/src/kvasir/mpl/sequence/join.hpp#L14">Kvasir.Mpl</a> avec une template de 1025 éléments variadiques.</p>
+
+<!-- ./gen_graphs.py compiler=g++ algo=recursive,pack8_bool,by_indices legend='~[];~all;~[_*1400];~[_*700, x*700]' -- by_indices -->
+
+<p><img src="/post/mp_index_of/by_indices_time.png" alt="comparaison de temps avec gcc de pack8 et une qui utilise d'autres algorithmes" /></p>
+
+<p>C&rsquo;est étonnamment efficace. Pas autant que <code>pack8_bool</code>, mais globalement plus qu&rsquo;une récursion classique. Dans un projet, <code>join</code> et <code>front</code> seront utilisés ailleurs et à travers d&rsquo;autres algorithmes ce qui, toujours grâce à la mémoïsation, réduit le coût total.</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/#fonction-constexpr"><h2 id="fonction-constexpr">Fonction constexpr</h2></a>
+
+<p>Depuis C++14, il est possible d&rsquo;avoir des conditions et des boucles dans les fonctions. On peut alors écrire <code>index_of</code> presque comme on écrirait n&rsquo;importe quelle fonction impérative.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">loop</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">...</span> <span class="n">xs</span><span class="o">&gt;</span>
+  <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">_index_of</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="kt">bool</span> <span class="n">matches</span><span class="p">[]{</span><span class="n">xs</span><span class="p">...,</span> <span class="nb">false</span><span class="p">};</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">xs</span><span class="p">);</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">matches</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kt">int</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
+    <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span><span class="p">()</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Les booléens sont en paramètre template. C&rsquo;est dommage, parce que cela limite les transferts de paramètre depuis une autre fonction. Il vaut mieux mettre les valeurs en paramètre de fonction comme on le fait d&rsquo;habitude.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">loop2</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">_index_of</span><span class="p">(</span><span class="n">T</span><span class="p">...</span> <span class="n">xs</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">bool</span> <span class="n">matches</span><span class="p">[]{</span><span class="n">xs</span><span class="p">...,</span> <span class="nb">false</span><span class="p">};</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">xs</span><span class="p">);</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">matches</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kt">int</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
+    <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;</span><span class="p">...)</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>C&rsquo;est beau, c&rsquo;est simple, c&rsquo;est élégant.</p>
+
+<!-- ./gen_graphs.py compiler=g++ algo=pack8_bool,loop\? legend='~[];~all;~[_*1400];~[_*700, x*700];~n*' -- func -->
+
+<p><img src="/post/mp_index_of/func_time.png" alt="comparaison de temps de pack8_bool et une fonction constexpr" /></p>
+
+<p>C&rsquo;est fou, mais dans l&rsquo;ensemble on y gagne encore. Néanmoins, la version qui prend les valeurs en paramètre est légèrement plus lente.</p>
+
+<p>J&rsquo;ai aussi essayé avec des fonctions récursives, mais c&rsquo;est une vraie catastrophe. Premièrement, c&rsquo;est extrêmement lent. Deuxièmement, la profondeur de récursion est encore plus basse qu&rsquo;avec les templates: 512 pour Gcc (900 avec templates) et 800 pour Clang (1024 avec template). Mais surtout, une profondeur trop grande fait rapidement planter Clang.</p>
+
+<p>En réalité, le coût d&rsquo;appel de fonction est supérieur à celui d&rsquo;une instanciation de classe. Mais si la fonction n&rsquo;est pas récursive, alors le coût peut être amorti par rapport à une implémentation récursive, comme ici.</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/#fold-expression"><h2 id="fold-expression">Fold expression</h2></a>
+
+<p>En C++17 arrive les fold expressions. Plus besoin de boucle explicite ou de fonction récursive pour dérouler des valeurs. Seulement, avec <code>index_of</code>, il faut jouer d&rsquo;ingéniosité pour stopper le fold tout en ayant un compteur qui s&rsquo;incrémente. La manière la plus simple est de mettre plusieurs instructions séparées par des <code>,</code>. La dernière valeur de cette &laquo;&nbsp;liste&nbsp;&raquo; sera celle utilisée pour vérifier si <code>T</code> égale <code>Ts</code>.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">fold</span>
+<span class="p">{</span>
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span><span class="p">...</span> <span class="n">xs</span><span class="o">&gt;</span>
+  <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">_index_of</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)((((</span><span class="kt">void</span><span class="p">)</span><span class="o">++</span><span class="n">i</span><span class="p">,</span> <span class="o">!</span><span class="n">xs</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">...)</span> <span class="o">&amp;&amp;</span> <span class="o">++</span><span class="n">i</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="kt">int</span><span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">xs</span><span class="p">))</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">i</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span><span class="p">()</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>Le code est beaucoup plus concis, mais aussi beaucoup plus obscur. Il faut dire que <code>index_of</code> n&rsquo;est pas le meilleur algorithme pour représenter la beauté des folds ;).</p>
+
+<!-- ./gen_graphs.py compiler=g++ algo=loop2,fold legend='~[];~all;~[_*1400];~[_*700, x*700]' -- fold_gcc -->
+
+<p><img src="/post/mp_index_of/fold_gcc_time.png" alt="comparaison de temps avec gcc d'une fonction constexpr et un fold" /></p>
+
+<p>Le résultat est très similaire à une boucle manuelle. Clang donne la même chose, mais les versions précédentes de Gcc sont extrêmement lentes avec les fold.</p>
+
+<!-- ./gen_graphs.py compiler=g++-7 algo=loop2,fold legend='~[];~all;~[_*1400];~[_*700, x*700]' -- fold_clang -->
+
+<p><img src="/post/mp_index_of/fold_clang_time.png" alt="comparaison de temps avec clang d'une fonction constexpr et un fold" /></p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/#pour-terminer"><h2 id="pour-terminer">Pour terminer</h2></a>
+
+<p>On peut retenir de ces différents tests que</p>
+
+<ul>
+<li>le nombre de spécialisations a un coût,</li>
+<li>le temps de compilation est quadratique au nombre de paramètre variadique,</li>
+<li>il faut limiter la récursion et le nombre de types instanciés,</li>
+<li>les algorithmes doivent profiter de la mémoïsation,</li>
+<li>spécialiser des valeurs est plus lent que spécialiser des types,</li>
+<li>les fold expressions sont très efficaces,</li>
+<li>une fonction constexpr est lente à instancier, mais l&rsquo;utilisation de boucle peut compenser ce défaut.</li>
+</ul>
+
+<p>Il n&rsquo;y a pas eu de test sur l&rsquo;affirmation qui va suivre, mais d&rsquo;expérience, je sais que les alias sont plus rapides qu&rsquo;une instanciation de classe, mais aussi plus cryptique au niveau des erreurs.</p>
+
+<p>Si vous voulez des graphiques qui comparent 2 compilateurs, le générateur de graphe et les résultats de compilation se trouvent dans <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/master/resources/mp_index_of">le dépôt</a>
+.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2018-01-01T18:28:21">01 janvier 2018
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2018/01/comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of1/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="34f054737f80072fea2d78193d543e78-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f01%2fcomparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f01%2fcomparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1%2f&amp;title=comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f01%2fcomparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f01%2fcomparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f01%2fcomparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f01%2fcomparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1%2f&amp;name=comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau"><span>
+        <a href="#comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: comparaison de différentes implémentations de mp_index_of1"></i></a>
         <a href="#minimiser-les-copies-dans-operator%2b"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Minimiser les copies dans operator&#43;"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2017/07/de-blogspot-%C3%A0-hugo-il-a-chang%C3%A9-de-peau/">De Blogspot à Hugo, il a changé de peau</a></h1>
     <div class="post__title-nextprev-text sr-only">
-        <a href="#ma-vision-de-laccessibilit%25C3%25A9-appliqu%25C3%25A9e-pour-ce-blog">Article suivant: Ma vision de l&#39;accessibilité appliquée pour ce blog</a><br/>
+        <a href="#comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of1">Article suivant: comparaison de différentes implémentations de mp_index_of1</a><br/>
         <a href="#minimiser-les-copies-dans-operator%2b">Article précédent: Minimiser les copies dans operator&#43;</a><br/>
     </div>
     
@@ -2602,135 +3277,6 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparam%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c--%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparam%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c--%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
   <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparam%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c--%2f&amp;name=param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="impl%C3%A9mentation-dun-magasin-de-type"><span>
-        <a href="#param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Paramètres de fonction nommés en C&#43;&#43;"></i></a>
-        <a href="#appel-conditionnel-de-fonction-selon-la-validit%25C3%25A9-dune-expression"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Appel conditionnel de fonction selon la validité d&#39;une expression"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/">Implémentation d&#39;un magasin de type</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b">Article suivant: Paramètres de fonction nommés en C&#43;&#43;</a><br/>
-        <a href="#appel-conditionnel-de-fonction-selon-la-validit%25C3%25A9-dune-expression">Article précédent: Appel conditionnel de fonction selon la validité d&#39;une expression</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2015-07-02T01:49:41">02 juillet 2015
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
-  <a href="https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#5a75c359eb88565795e71f25aa06a13b-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-</p>
-
-
-  </header>
-  <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 2 ans. Les informations y figurant peuvent être dépassées.</p>
-      
-
-<p>Ce que j&rsquo;appelle ici un magasin de type n&rsquo;est autre qu&rsquo;un <code>std::tuple</code> où les types ne sont présents qu&rsquo;une seule fois. Une espèce de set version tuple en somme.</p>
-
-<p>Je me suis servi de ce type de structure à 2 reprises.</p>
-
-<p>Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de <code>std::tuple</code>. Il faut dire aussi que j&rsquo;étais en C++11 et que dans cette norme <code>std::get&lt;Type&gt;()</code> n&rsquo;existe pas.</p>
-
-<p>L&rsquo;autre fois dans une fonction variadique qui distribue les valeurs vers différentes fonctions. Le but étant de ne pas se soucier de l&rsquo;ordre des paramètres, certains étant optionnels.</p>
-
-<p><code>std::tuple</code> fait plutôt bien le boulot, mais possède un énorme inconvénient pour ce cas de figure: aucune erreur de compilation si un type est présent 2 fois (et c&rsquo;est normal pour un tuple).</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/#planter-la-compilation-quand-un-type-est-en-doublon"><h2 id="planter-la-compilation-quand-un-type-est-en-doublon">Planter la compilation quand un type est en doublon</h2></a>
-
-<p>Le C++ dispose déjà d&rsquo;un mécanisme interne qui vérifie et hurle au scandale si un type doublon existe. J&rsquo;ai nommé l&rsquo;<strong>héritage</strong>.</p>
-
-<p>Seulement, un héritage direct n&rsquo;est pas possible avec les types scalaires, il faut un intermédiaire.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="n">item</span> <span class="p">{</span> <span class="n">T</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nl">typeset</span> <span class="p">:</span> <span class="n">item</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span> <span class="p">{};</span>
-</code></pre></div>
-<p>Avec cette implémentation, des petits malins pourraient faire de la pseudo-duplication de type en y ajoutant des qualificeurs, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&gt;</span>
-</code></span> par exemple.</p>
-
-<p>On peut être tolérant ou devenir un tyran sans pitié en empêchant cela.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="nl">tyrannical_typeset_impl</span> <span class="p">:</span> <span class="n">typeset</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">typeset</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">using</span> <span class="n">tyrannical_typeset</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">tyrannical_typeset_impl</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-</code></pre></div>
-<p>Le typeset tyrannique est construit en 2 étapes, car un alias direct sur un typeset épuré ne permet pas de garder les qualificatifs.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/#piocher-dans-le-magasin"><h2 id="piocher-dans-le-magasin">Piocher dans le magasin</h2></a>
-
-<p>Piquer un élément du typeset est une affaire de cast. Un simple <code>static_cast</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
-
-<span class="k">static_cast</span><span class="o">&lt;</span><span class="n">item</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;&gt;</span><span class="p">(</span><span class="n">my_typeset</span><span class="p">).</span><span class="n">x</span><span class="p">;</span>
-</code></pre></div>
-<p>En mettant des opérateurs de cast dans la classe item, plus besoin de préciser cette dernière avec le <code>static_cast</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="n">item</span> <span class="p">{</span>
-  <span class="k">explicit</span> <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;</span> <span class="p">()</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
-  <span class="k">explicit</span> <span class="k">operator</span> <span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
-<span class="k">private</span><span class="o">:</span>
-  <span class="n">T</span> <span class="n">x_</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
-<span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">my_typeset</span><span class="p">);</span>
-</code></pre></div>
-<p>Petit bémol toutefois, cela ne permet pas d&rsquo;enlever l&rsquo;ambiguïté pour un type qui diffère uniquement par son qualificatif.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">volatile</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
-
-<span class="c1">// ‘typeset&lt;int, volatile int&gt;’ to ‘volatile int&amp;’ is ambiguous
-</span><span class="c1"></span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span> <span class="k">volatile</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">my_typeset</span><span class="p">);</span>
-</code></pre></div>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/#ce-qu-il-manque"><h2 id="ce-qu-il-manque">Ce qu&rsquo;il manque</h2></a>
-
-<ul>
-<li>Les constructeurs, évidemment.</li>
-<li>Une fonction <code>get&lt;Type&gt;()</code> pour un parallèle avec la STL.</li>
-<li>Une fonction pour boucler sur chaque item (<code>for_each</code> ?).</li>
-<li>Et sûrement d&rsquo;autres.</li>
-</ul>
-
-<p>J&rsquo;ai mis tout ça dans un repo au nom provisoire <a href="https://github.com/jonathanpoelen/falcon.store">falcon.store</a>.</p>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2015-07-02T01:49:41">02 juillet 2015
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
- ;
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2015/07/impl%C3%A9mentation-dun-magasin-de-type/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="5a75c359eb88565795e71f25aa06a13b-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=impl%25C3%25A9mentation-dun-magasin-de-type&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fimpl%25C3%25A9mentation-dun-magasin-de-type%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fimpl%25C3%25A9mentation-dun-magasin-de-type%2f&amp;title=impl%25C3%25A9mentation-dun-magasin-de-type" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fimpl%25C3%25A9mentation-dun-magasin-de-type%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fimpl%25C3%25A9mentation-dun-magasin-de-type%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fimpl%25C3%25A9mentation-dun-magasin-de-type%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fimpl%25C3%25A9mentation-dun-magasin-de-type%2f&amp;name=impl%25C3%25A9mentation-dun-magasin-de-type" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
