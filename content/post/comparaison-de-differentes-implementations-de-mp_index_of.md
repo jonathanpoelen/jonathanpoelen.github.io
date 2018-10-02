@@ -1,5 +1,5 @@
 ---
-title: "comparaison de différentes implémentations de mp_index_of"
+title: "Comparaison de différentes implémentations de mp_index_of"
 slug: "comparaison-de-differentes-implementations-de-mp_index_of"
 #description: ""
 date: 2018-10-01T18:28:21+02:00
