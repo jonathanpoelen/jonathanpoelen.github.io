@@ -1,5 +1,6 @@
 ---
 title: "Sqlite, reconstruire la bdd pour l'alléger"
+slug: "sqlite-reconstruire-la-bdd-pour-lalleger"
 #description: ""
 date: 2013-03-04T23:36:14+01:00
 #lastmod: 2018-02-13T03:02:14+01:00

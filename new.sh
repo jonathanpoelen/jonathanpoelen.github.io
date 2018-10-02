@@ -38,6 +38,7 @@ hugo new post/"$title"$ext >/dev/null
 
 if [ "$oldpath" != "$newpath" ] ; then
   mv "$oldpath" "$newpath"
+  sed 's/^#slug:.*/slug: "'"$filename"'"/' -i -- "$newpath"
 fi
 
 echo "$newpath"

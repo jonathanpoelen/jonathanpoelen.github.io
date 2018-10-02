@@ -1,9 +1,9 @@
 ---
 title: "La récursivité et le mauvais exemple de Fibonacci"
+slug: "la-recursivite-et-le-mauvais-exemple-de-fibonacci"
 #description: ""
 date: 2012-08-16T02:22:24+01:00
 #lastmod: 2018-02-13T02:14:17+01:00
-#slug: "a-site-page"
 #toc: false
 #tags: [ ]
 aliases: []

@@ -3,7 +3,7 @@ title: "Différence entre $@, $*, \"$@\" et \"$*\""
 #description: ""
 date: 2013-02-17T10:42:27+01:00
 #lastmod: 2018-02-13T02:55:27+01:00
-#slug: "a-site-page"
+slug: "difference-entre-variables-speciales"
 #toc: false
 #tags: [ ]
 aliases: []

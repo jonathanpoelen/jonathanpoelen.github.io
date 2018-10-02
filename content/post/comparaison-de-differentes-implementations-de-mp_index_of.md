@@ -1,15 +1,16 @@
 ---
 title: "comparaison de différentes implémentations de mp_index_of"
+slug: "comparaison-de-differentes-implementations-de-mp_index_of"
 #description: ""
 date: 2018-10-01T18:28:21+02:00
 #lastmod: 2018-09-05T01:28:21+02:00
-#slug: "a-site-page"
 #toc: false
 #tags: [ "méta-programmation" ]
 aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+image: "post/mp_index_of/image.png"
 ---
 
 Dans l'article précédent sur les variants, j'ai fait une implémentation un peu spéciale de `index_of`. Je vais présenter une quinzaine d'implémentations possibles et le coût de chacune sur le compilateur.

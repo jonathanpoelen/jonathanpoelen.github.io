@@ -1,9 +1,9 @@
 ---
 title: "Référence constante sur référence"
+slug: "reference-constante-sur-reference"
 #description: ""
 date: 2013-05-13T03:18:42+01:00
 #lastmod: 2013-05-15T20:00:42+01:00
-#slug: "a-site-page"
 #toc: false
 #tags: [ ]
 aliases: []

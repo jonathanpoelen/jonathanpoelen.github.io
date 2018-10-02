@@ -1,10 +1,11 @@
 ---
 title: "Ma vision de l'accessibilité appliquée pour ce blog"
+slug: "ma-vision-de-laccessibilite-appliquee-pour-ce-blog"
 #description: ""
 date: 2018-01-02T14:18:22+02:00
 #lastmod: 2017-08-07T02:18:22+02:00
 #tags: [ ]
-categories: ["Accessibilité web"]
+categories: ["accessibilite-web"]
 #project_url: ""
 #slug: "a-site-page"
 #toc: false

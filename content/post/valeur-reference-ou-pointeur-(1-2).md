@@ -1,5 +1,6 @@
 ---
 title: "Valeur, référence ou pointeur ? (1/2)"
+slug: "valeur-reference-ou-pointeur-1-sur-2"
 #description: ""
 date: 2014-05-22T09:51:53+01:00
 #lastmod: 2018-02-13T03:23:53+01:00

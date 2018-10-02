@@ -1,5 +1,6 @@
 ---
 title: "Réduire l'empreinte mémoire d'une agglomération de types"
+slug: "reduire-lempreinte-memoire-dune-agglomeration-de-types"
 #description: ""
 date: 2014-06-28T14:10:11+01:00
 #lastmod: 2018-02-13T03:37:11+01:00

@@ -1,9 +1,9 @@
 ---
 title: "Taguer vos classes, cataloguées-les"
+slug: "taguer-vos-classes-cataloguees-les"
 #description: ""
 date: 2012-12-20T01:22:50+01:00
 #lastmod: 2018-02-13T02:44:50+01:00
-#slug: "a-site-page"
 #toc: false
 #tags: [ ]
 aliases: []

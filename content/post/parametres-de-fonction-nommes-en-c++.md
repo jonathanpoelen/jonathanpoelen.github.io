@@ -1,5 +1,6 @@
 ---
 title: "Paramètres de fonction nommés en C++"
+slug: "parametres-de-fonction-nommes-en-cpp"
 #description: ""
 date: 2015-07-28T00:43:22+01:00
 #lastmod: 2018-02-13T03:41:22+01:00

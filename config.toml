@@ -49,7 +49,7 @@ pygmentsstyle = "emacs"
   taglist = true
 
 [permalinks]
-  post = "/:year/:month/:title/"
+  post = "/:year/:month/:slug/"
 
 [blackfriday]
   angledQuotes = true

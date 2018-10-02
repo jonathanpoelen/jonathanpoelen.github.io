@@ -1,5 +1,6 @@
 ---
 title: "Appel conditionnel de fonction selon la validité d'une expression"
+slug: "appel-conditionnel-de-fonction-selon-la-validite-dune-expression"
 #description: ""
 date: 2014-11-30T19:17:52+01:00
 #lastmod: 2018-02-13T03:38:52+01:00

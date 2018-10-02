@@ -1,9 +1,9 @@
 ---
 title: "Ne pas empêcher la NRVO"
+slug: "ne-pas-empecher-la-nrvo"
 #description: ""
 date: 2013-03-17T17:12:57+01:00
 #lastmod: 2018-02-13T03:20:57+01:00
-#slug: "a-site-page"
 #toc: false
 #tags: [ ]
 aliases: []

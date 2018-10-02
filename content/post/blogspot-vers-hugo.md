@@ -1,5 +1,6 @@
 ---
 title: "De Blogspot à Hugo, il a changé de peau"
+slug: "de-blogspot-a-hugo-il-a-change-de-peau"
 #description: ""
 date: 2017-07-29T16:03:53+02:00
 #lastmod: 2017-07-29T16:03:53+02:00

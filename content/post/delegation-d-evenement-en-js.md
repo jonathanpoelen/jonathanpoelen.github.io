@@ -1,5 +1,6 @@
 ---
 title: "Délégation d'événement en js"
+slug: "delegation-devenement-en-js"
 #description: ""
 date: 2013-01-18T15:16:12+01:00
 #lastmod: 2018-02-13T02:53:12+01:00

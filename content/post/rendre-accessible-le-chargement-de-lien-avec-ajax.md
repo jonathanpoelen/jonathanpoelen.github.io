@@ -7,7 +7,7 @@ date: 2011-12-31T12:05:43+01:00
 #toc: false
 #tags: [ ]
 aliases: []
-categories: [ "accessibilité-web", "javascript" ]
+categories: [ "accessibilite-web", "javascript" ]
 draft: false
 ghcommentid: 0
 ---

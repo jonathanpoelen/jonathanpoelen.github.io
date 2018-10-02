@@ -1,9 +1,9 @@
 ---
 title: "La vis cachée de getopt"
+slug: "la-vis-cachee-de-getopt"
 #description: ""
 date: 2012-12-25T12:58:55+01:00
 #lastmod: 2018-02-13T02:45:55+01:00
-#slug: "a-site-page"
 #toc: false
 #tags: [ ]
 aliases: []

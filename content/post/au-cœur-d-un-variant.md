@@ -1,5 +1,6 @@
 ---
 title: "Au cœur d'un variant"
+slug: "au-coeur-dun-variant"
 #description: ""
 date: 2018-09-02T14:45:55+02:00
 #lastmod: 2017-08-08T00:45:55+02:00

@@ -1,9 +1,9 @@
 ---
 title: "Utilisation de swap et des fonctions utilitaires en général"
+slug: "utilisation-de-swap-et-des-fonctions-utilitaires-en-general"
 #description: ""
 date: 2013-07-20T11:18:49+01:00
 #lastmod: 2018-02-13T03:11:49+01:00
-#slug: "a-site-page"
 #toc: false
 #tags: [ ]
 aliases: []

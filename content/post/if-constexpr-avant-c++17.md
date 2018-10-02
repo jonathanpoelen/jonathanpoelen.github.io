@@ -3,7 +3,7 @@ title: "if constexpr avant C++17"
 #description: ""
 date: 2015-09-21T00:33:38+01:00
 lastmod: 2018-03-04T23:14:38+01:00
-#slug: "a-site-page"
+slug: "if-constexpr-avant-cpp17"
 #toc: false
 #tags: [ ]
 aliases: []

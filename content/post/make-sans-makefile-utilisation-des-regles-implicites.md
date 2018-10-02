@@ -1,9 +1,9 @@
 ---
 title: "make sans Makefile, utilisation des règles implicites"
+slug: "make-sans-makefile-utilisation-des-regles-implicites"
 #description: ""
 date: 2013-06-26T11:05:28+01:00
 #lastmod: 2018-02-13T03:36:19+01:00
-#slug: "a-site-page"
 #toc: false
 #tags: [ ]
 aliases: []

@@ -1,5 +1,6 @@
 ---
 title: "Implémentation d'un magasin de type"
+slug: "implementation-dun-magasin-de-type"
 #description: ""
 date: 2015-07-02T01:49:41+01:00
 #lastmod: 2018-02-13T03:40:41+01:00
