@@ -13,11 +13,9 @@
 <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700" type="text/css" media="all" />-->
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="{{ "css/style.css" | relURL }}" />
-<!--<link rel="stylesheet" type="text/css" media="all" href="{{ "font-awesome/css/font-awesome.min.css" | relURL }}" />-->
+{{ $style := resources.Get "css/style.css" | minify | fingerprint }}
+<link rel="stylesheet" type="text/css" media="all" href="{{ $style.Permalink }}">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
-<!--<script type="text/javascript" src="{{ "js/scripts.js" | relURL }}"></script>-->
-<link rel="alternate stylesheet" title="Night theme" href="{{ "css/night.css" | relURL }}" />
 <link rel="shortcut icon" href="{{ "favicon.ico" | relURL }}" />
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:title" content="{{ .Title }}">

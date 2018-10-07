@@ -13,6 +13,8 @@ pygmentsstyle = "emacs"
 
 #SectionPagesMenu = "main"
 
+theme = ["my"]
+
 [taxonomies]
   category = "categories"
   tag = "tags"

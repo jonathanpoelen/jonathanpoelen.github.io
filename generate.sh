@@ -5,4 +5,5 @@
 cd "$(dirname "$0")"
 
 #export PATH="$PWD:$PATH"
-exec hugo "$@" --theme=mainroad --i18n-warnings
+exec hugo "$@" --i18n-warnings
+#exec hugo "$@" --theme=mainroad --i18n-warnings
