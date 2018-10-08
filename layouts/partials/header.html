@@ -16,7 +16,11 @@
 {{ $style := resources.Get "css/style.css" | minify | fingerprint }}
 <link rel="stylesheet" type="text/css" media="all" href="{{ $style.Permalink }}">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
-<link rel="shortcut icon" href="{{ "favicon.ico" | relURL }}" />
+<link rel="shortcut icon" href="{{ "favicon.jpg" | relURL }}"/>
+<link rel="icon" sizes="32x32" href="{{ "favicon-32.jpg" | relURL }}" type="image/jpeg">
+<link rel="icon" sizes="64x64" href="{{ "favicon-64.jpg" | relURL }}" type="image/jpeg">
+<link rel="icon" sizes="96x96" href="{{ "favicon-96.jpg" | relURL }}" type="image/jpeg"> 
+<link rel="icon" sizes="128x128" href="{{ "favicon-128.jpg" | relURL }}" type="image/jpeg">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:title" content="{{ .Title }}">
 {{- $baseURL := (replaceRE "/$" "" .Site.BaseURL) }}
