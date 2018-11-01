@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/</loc>
+    <lastmod>2018-11-01T20:42:09+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/</loc>
     <lastmod>2018-10-01T18:28:21+02:00</lastmod>
   </url>
@@ -175,7 +180,7 @@
   
   <url>
     <loc>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</loc>
-    <lastmod>2018-10-01T18:28:21+02:00</lastmod>
+    <lastmod>2018-11-01T20:42:09+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -193,7 +198,7 @@
   
   <url>
     <loc>https://jonathanpoelen.github.io/</loc>
-    <lastmod>2018-10-01T18:28:21+02:00</lastmod>
+    <lastmod>2018-11-01T20:42:09+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -205,7 +210,7 @@
   
   <url>
     <loc>https://jonathanpoelen.github.io/post/</loc>
-    <lastmod>2018-10-01T18:28:21+02:00</lastmod>
+    <lastmod>2018-11-01T20:42:09+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -213,10 +218,6 @@
     <loc>https://jonathanpoelen.github.io/categories/script-shell/</loc>
     <lastmod>2014-06-09T00:35:19+01:00</lastmod>
     <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jonathanpoelen.github.io/1/01/simuler-une-vtable-sans-fonction-virtuelle/</loc>
   </url>
   
   <url>

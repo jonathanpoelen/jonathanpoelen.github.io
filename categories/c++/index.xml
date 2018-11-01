@@ -8,10 +8,20 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Mon, 01 Oct 2018 18:28:21 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 01 Nov 2018 20:42:09 +0200</lastBuildDate>
     
 	<atom:link href="https://jonathanpoelen.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Simuler une vtable sans fonction virtuelle</title>
+      <link>https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/</link>
+      <pubDate>Thu, 01 Nov 2018 20:42:09 +0200</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/</guid>
+      <description>La vtable est le mécanisme interne utilisé par C++ pour implémenter les fonctions virtuelles. Lorsqu&amp;rsquo;une classe possède une fonction virtuelle, un pointeur sur la vtable (virtual table) est automatiquement réservé par le compilateur. Cette table contient des pointeurs de fonction sur l&amp;rsquo;ensemble des fonctions virtuelles de la classe et chaque classe dérivée possède sa propre vtable.
+Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessous, l&amp;rsquo;utilisation de obj-&amp;gt;foo(/*params.</description>
+    </item>
     
     <item>
       <title>Comparaison de différentes implémentations de mp_index_of</title>
@@ -236,16 +246,6 @@ Première implémentation La fonction std::advance() permet d&amp;rsquo;incréme
  Coder la suite de Fibonacci en récursive et en itérative.
  Mais partout où j&amp;rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&amp;rsquo;on peut trouver.
 //itérative long long fib(unsigned n) { if (n == 0) return n; long long a = 0, b = 1, tmp; while (--n) { tmp = a + b; a = b; b = tmp; } return b; } // récursive long long fib_r(unsigned n) { if (0 == n || 1 == n) return n; return fib_r(n-1) + fib_r(n-2); } Sauf que cet algorithme récursif est pourri.</description>
-    </item>
-    
-    <item>
-      <title>Simuler une vtable sans fonction virtuelle</title>
-      <link>https://jonathanpoelen.github.io/1/01/simuler-une-vtable-sans-fonction-virtuelle/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/1/01/simuler-une-vtable-sans-fonction-virtuelle/</guid>
-      <description>La vtable est le mécanisme interne utilisé par C++ pour implémenter les fonctions virtuelles. Lorsqu&amp;rsquo;une classe possède une fonction virtuelle, un pointeur sur la vtable (virtual table) est automatiquement réservé par le compilateur. Cette table contient des pointeurs de fonction sur l&amp;rsquo;ensemble des fonctions virtuelles de la classe et chaque classe dérivée possède sa propre vtable.
-Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessous, l&amp;rsquo;utilisation de obj-&amp;gt;foo(/*params.</description>
     </item>
     
   </channel>

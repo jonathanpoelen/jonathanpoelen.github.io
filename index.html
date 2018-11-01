@@ -82,10 +82,10 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/">Comparaison de différentes implémentations de mp_index_of</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/09/au-coeur-dun-variant/">Au cœur d&#39;un variant</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">29 autres…</a></li>
     </ul>
@@ -178,12 +178,228 @@
         
 <article class="post">
   <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of"><span>
+    <div class="post__title-nextprev" id="simuler-une-vtable-sans-fonction-virtuelle"><span>
         &nbsp;
+        <a href="#comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Comparaison de différentes implémentations de mp_index_of"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of">Article précédent: Comparaison de différentes implémentations de mp_index_of</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2018-11-01T20:42:09">01 novembre 2018
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>5 minutes ;
+  <a href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#442b3694da91a9866c991b248ee3f410-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      
+
+<p>La <code>vtable</code> est le mécanisme interne utilisé par C++ pour implémenter les fonctions virtuelles. Lorsqu&rsquo;une classe possède une fonction virtuelle, un pointeur sur la <code>vtable</code> (virtual table) est automatiquement réservé par le compilateur. Cette table contient des pointeurs de fonction sur l&rsquo;ensemble des fonctions virtuelles de la classe et chaque classe dérivée possède sa propre <code>vtable</code>.</p>
+
+<p>Pour une classe de base implémentant une fonction <code>foo</code> virtuelle comme ci-dessous, l&rsquo;utilisation de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">obj</span><span class="o">-&gt;</span><span class="n">foo</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">)</span>
+</code></span> va être remplacé par quelque chose proche de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">cast</span><span class="o">&lt;</span><span class="n">FunctionType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">__vtable</span><span class="p">[</span><span class="mi">0</span><span class="p">])(</span><span class="n">obj</span><span class="cm">/*, params...*/</span><span class="p">)</span>
+</code></span>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">Base</span>
+<span class="p">{</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">foo</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>Chaque classe dérivée qui ajoute des fonctions virtuelles réserve des cases supplémentaires dans son tableau. Le compilateur se basant sur les types utilisés pour garantir la validité des indices.</p>
+
+<p>Ce fonctionnement est très économique : un pointeur pour chaque instance d&rsquo;une classe et une vtable en lecture seule par classe. C&rsquo;est également très facile d&rsquo;ajouter de nouvelles tables, y compris dynamiquement par le chargement de bibliothèque. Mais il y a aussi des inconvénients comme une fragmentation mémoire au niveau de la position des tables et un double déréférencement pour accéder au pointeur de fonction.</p>
+
+<p>Pour la suite on se base sur une interface avec une fonction draw: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">const</span>
+</code></span> et 2 objets ce qu&rsquo;il a de plus classique: <code>Rect</code> et <code>Circle</code>.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-hpp" data-lang="hpp"><span class="k">struct</span> <span class="n">Rect</span>
+<span class="p">{</span>
+  <span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span> <span class="k">const</span>
+  <span class="p">{</span>
+    <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Rect</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">Circle</span>
+<span class="p">{</span>
+  <span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span> <span class="k">const</span>
+  <span class="p">{</span>
+    <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Circle</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/#une-vtable-à-la-mano"><h2 id="une-vtable-à-la-mano">Une vtable à la mano</h2></a>
+
+<p>Notre vtable va contenir des pointeurs de fonction. Le type commun d&rsquo;une majorité de pointeurs est <code>void*</code>. Sauf que les pointeurs de fonction sont une exception, il n&rsquo;est pas légal de les transformer en <code>void*</code> &ndash; même si en interne le compilateur peut se le permettre pour sa vtable. Par contre, on peut récupérer l&rsquo;adresse du pointeur de fonction pour avoir un pointeur de pointeur de fonction. Cela fait beaucoup de pointeurs et d&rsquo;indirections alors le tableau sera remplacé par un tuple, car finalement on connait exactement les types de fonction que contient la vtable.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">using</span> <span class="n">draw_func_type</span> <span class="o">=</span> <span class="kt">void</span><span class="p">(</span><span class="kt">void</span> <span class="k">const</span><span class="o">*</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">);</span>
+
+<span class="k">using</span> <span class="n">drawable_vtable</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">draw_func_type</span> <span class="k">const</span><span class="o">*&gt;</span><span class="p">;</span>
+</code></pre></div>
+
+
+<p>Maintenant qu&rsquo;on a un type pour la vtable, il faut pouvoir la construire à partir de n&rsquo;importe quel type qui pourrait supporter cette interface.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="k">auto</span> <span class="n">draw_func_ptr</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">void</span> <span class="k">const</span><span class="o">*</span> <span class="n">base</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span> <span class="k">const</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">base</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">(</span><span class="n">out</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="n">drawable_vtable</span> <span class="n">drawable_vtable_for</span><span class="p">{</span>
+  <span class="n">draw_func_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<p>Grâce à ses variables inline, on peut construire notre tableau très facilement. Il ne reste plus qu&rsquo;à faire un petit wrapper pour utiliser <code>Rect</code> et <code>Circle</code> indistinctement.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">Drawable</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="n">Drawable</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
+  <span class="o">:</span> <span class="n">obj</span><span class="p">(</span><span class="o">&amp;</span><span class="n">x</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">vtable</span><span class="p">(</span><span class="n">drawable_vtable_for</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
+  <span class="p">{}</span>
+
+  <span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span> <span class="k">const</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">vtable</span><span class="p">)(</span><span class="n">obj</span><span class="p">,</span> <span class="n">out</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="kt">void</span><span class="o">*</span> <span class="n">obj</span><span class="p">;</span>
+  <span class="n">drawable_vtable</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">vtable</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<p><code>Drawable</code> pourrait contenir directement <code>Rect</code> ou <code>Circle</code> plutôt qu&rsquo;avoir un <code>void*</code>, mais pour supporter n&rsquo;importe quel type et être optimisé, il est préférable d&rsquo;utiliser <a href="https://akrzemi1.wordpress.com/2014/04/14/common-optimizations/">SBO (Small Buffer Optimization)</a> Dans une optique de simplification, la classe n&rsquo;accepte que des références et garde un pointeur. On peut la considérer comme une vue polymorphique.</p>
+
+<p>Une petite démonstration de la chose:</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">draw</span><span class="p">(</span><span class="n">Drawable</span> <span class="n">drawable</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">drawable</span><span class="p">.</span><span class="n">draw</span><span class="p">(</span><span class="n">out</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Rect</span> <span class="n">rect</span><span class="p">;</span>
+  <span class="n">Circle</span> <span class="n">circle</span><span class="p">;</span>
+
+  <span class="n">draw</span><span class="p">(</span><span class="n">rect</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">);</span> <span class="c1">// affiche Rect
+</span><span class="c1"></span>  <span class="n">draw</span><span class="p">(</span><span class="n">circle</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">);</span> <span class="c1">// affiche Circle
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
+
+
+<p>C&rsquo;est tout :).</p>
+
+<p>Il est possible de rendre plus simple la déclaration de la classe <code>Drawable</code> avec des macros pour supprimer <sup>2</sup>&frasl;<sub>3</sub> du code, mais je passe mon tour.</p>
+
+<p>Par contre, il y a peut-être moyen d&rsquo;avoir mieux pour la vtable.</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/#une-vtable-par-type-vs-une-vtable-par-instance"><h2 id="une-vtable-par-type-vs-une-vtable-par-instance">Une vtable par type vs une vtable par instance</h2></a>
+
+<p>Notre <code>Drawable</code> contient une référence sur la vtable qui est elle-même un tableau de 1 pointeur de fonction. Autant jeter la vtable et avoir directement le pointeur de fonction comme membre. C&rsquo;est plus direct et le code est plus court.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">Drawable</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="n">Drawable</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
+  <span class="o">:</span> <span class="n">obj</span><span class="p">(</span><span class="o">&amp;</span><span class="n">x</span><span class="p">)</span>
+  <span class="p">,</span> <span class="n">draw_func</span><span class="p">(</span><span class="n">draw_func_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
+  <span class="p">{}</span>
+
+  <span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span> <span class="k">const</span>
+  <span class="p">{</span>
+    <span class="n">draw_func</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">out</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="kt">void</span><span class="o">*</span> <span class="n">obj</span><span class="p">;</span>
+  <span class="n">draw_func_type</span><span class="o">*</span> <span class="n">draw_func</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<p>Pour une classe qui ne possède qu&rsquo;une fonction polymorphique, le pointeur de fonction en membre est un peu plus efficace qu&rsquo;une vtable en évitant une indirection. <code>std::function</code> utilise le même principe en interne en plus de prendre l&rsquo;ownership de l&rsquo;objet. Prendre l&rsquo;ownership implique de mettre l&rsquo;objet en membre, si l&rsquo;objet prend trop de place, comme une lambda avec une grosse capture, alors elle déborde du tempo interne et une allocation dynamique est généralement effectuée. Pour un comportement plus proche des exemples ci-dessus qui prennent une référence sur les données, il existe <a href="https://github.com/Naios/function2#small-functor-optimization">fn2::function_view</a>.</p>
+
+<p>Par contre, pour chaque fonction polymorphique, la classe doit contenir un pointeur de fonction ce qui augmente sa taille. Si cet objet est mis dans un vector, alors il y aura beaucoup de pointeurs similaires entre les valeurs et une vtable peut réduire drastiquement la mémoire allouée par le vecteur.</p>
+
+<p>Il y a un dernier point qui n&rsquo;est pas visible avec les exemples du dessus : le comportement peut être dynamiquement modifié. C&rsquo;est-à-dire qu&rsquo;une instance peut décider de modifier le comportement d&rsquo;une de ses fonctions en la remplaçant (taper dans <code>draw_func</code>) sans avoir de variable d&rsquo;état. La fonction en cours d&rsquo;exécution représentant l&rsquo;état courant. C&rsquo;est un aspect de la <a href="https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_prototype">programmation orientée prototype</a>.</p>
+
+<p>Bien sûr, avec une vtable, modifier un des pointeurs impacte tous les objets y faisant référence.</p>
+
+<p>Après, rien n&rsquo;empêche d&rsquo;avoir un comportement hybride, une vtable pour les fonctions communes, peu utilisées ou &laquo;&nbsp;lentes&nbsp;&raquo;, et un membre pour les fonctions polymorphiques qui doivent etre &laquo;&nbsp;rapides&nbsp;&raquo; d&rsquo;accès ou qui changent en court de route. Des projets tels <a href="https://github.com/ldionne/dyno">dyno</a> permettent cela.</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/#la-méthode-du-gros-switch"><h2 id="la-méthode-du-gros-switch">La méthode du gros switch</h2></a>
+
+<p>C&rsquo;est une méthode très bourrin et pas très adapté au C++. Elle consiste à connaître l&rsquo;ensemble des types utilisés pour une interface et de les associer à la fonction. Plus de vtable, plus d&rsquo;indirection, mais à la place un saut à base de switch. Le compilateur pourrait plus facilement inliner le code, mais on perd la posibilité de charger dynamiquement des bibliothèques.</p>
+
+<p>Le problème, c&rsquo;est qu&rsquo;il faut centraliser manuellement toutes les instances au même endroit pour faire notre table de saut, car il n&rsquo;existe aucun moyen de récupérer &ndash; par exemple &ndash; toutes les instances d&rsquo;un trait <code>is_drawable</code>. Si le compilateur ne nous aide pas, cette solution n&rsquo;est pas facile à maintenir. On peut néanmoins passer par un générateur de source qui sélectionnerait à la manière d&rsquo;un <code>clang-query</code> tous les types pour générer complètement le corps de la fonction <code>Drawable::draw</code>.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2018-11-01T20:42:09">01 novembre 2018
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="442b3694da91a9866c991b248ee3f410-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=simuler-une-vtable-sans-fonction-virtuelle&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fsimuler-une-vtable-sans-fonction-virtuelle%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fsimuler-une-vtable-sans-fonction-virtuelle%2f&amp;title=simuler-une-vtable-sans-fonction-virtuelle" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fsimuler-une-vtable-sans-fonction-virtuelle%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fsimuler-une-vtable-sans-fonction-virtuelle%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fsimuler-une-vtable-sans-fonction-virtuelle%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fsimuler-une-vtable-sans-fonction-virtuelle%2f&amp;name=simuler-une-vtable-sans-fonction-virtuelle" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="comparaison-de-diff%C3%A9rentes-impl%C3%A9mentations-de-mp_index_of"><span>
+        <a href="#simuler-une-vtable-sans-fonction-virtuelle"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Simuler une vtable sans fonction virtuelle"></i></a>
         <a href="#au-c%25C5%2593ur-dun-variant"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Au cœur d&#39;un variant"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/">Comparaison de différentes implémentations de mp_index_of</a></h1>
     <div class="post__title-nextprev-text sr-only">
+        <a href="#simuler-une-vtable-sans-fonction-virtuelle">Article suivant: Simuler une vtable sans fonction virtuelle</a><br/>
         <a href="#au-c%25C5%2593ur-dun-variant">Article précédent: Au cœur d&#39;un variant</a><br/>
     </div>
     
@@ -2602,134 +2818,6 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
   <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f&amp;name=param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="impl%C3%A9mentation-dun-magasin-de-type"><span>
-        <a href="#param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Paramètres de fonction nommés en C&#43;&#43;"></i></a>
-        <a href="#appel-conditionnel-de-fonction-selon-la-validit%25C3%25A9-dune-expression"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Appel conditionnel de fonction selon la validité d&#39;une expression"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/">Implémentation d&#39;un magasin de type</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b">Article suivant: Paramètres de fonction nommés en C&#43;&#43;</a><br/>
-        <a href="#appel-conditionnel-de-fonction-selon-la-validit%25C3%25A9-dune-expression">Article précédent: Appel conditionnel de fonction selon la validité d&#39;une expression</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2015-07-02T01:49:41">02 juillet 2015
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
-  <a href="https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#5a75c359eb88565795e71f25aa06a13b-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-</p>
-
-
-  </header>
-  <div class="post__content">
-      
-
-<p>Ce que j&rsquo;appelle ici un magasin de type n&rsquo;est autre qu&rsquo;un <code>std::tuple</code> où les types ne sont présents qu&rsquo;une seule fois. Une espèce de set version tuple en somme.</p>
-
-<p>Je me suis servi de ce type de structure à 2 reprises.</p>
-
-<p>Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de <code>std::tuple</code>. Il faut dire aussi que j&rsquo;étais en C++11 et que dans cette norme <code>std::get&lt;Type&gt;()</code> n&rsquo;existe pas.</p>
-
-<p>L&rsquo;autre fois dans une fonction variadique qui distribue les valeurs vers différentes fonctions. Le but étant de ne pas se soucier de l&rsquo;ordre des paramètres, certains étant optionnels.</p>
-
-<p><code>std::tuple</code> fait plutôt bien le boulot, mais possède un énorme inconvénient pour ce cas de figure: aucune erreur de compilation si un type est présent 2 fois (et c&rsquo;est normal pour un tuple).</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/#planter-la-compilation-quand-un-type-est-en-doublon"><h2 id="planter-la-compilation-quand-un-type-est-en-doublon">Planter la compilation quand un type est en doublon</h2></a>
-
-<p>Le C++ dispose déjà d&rsquo;un mécanisme interne qui vérifie et hurle au scandale si un type doublon existe. J&rsquo;ai nommé l&rsquo;<strong>héritage</strong>.</p>
-
-<p>Seulement, un héritage direct n&rsquo;est pas possible avec les types scalaires, il faut un intermédiaire.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="n">item</span> <span class="p">{</span> <span class="n">T</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nl">typeset</span> <span class="p">:</span> <span class="n">item</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span> <span class="p">{};</span>
-</code></pre></div>
-<p>Avec cette implémentation, des petits malins pourraient faire de la pseudo-duplication de type en y ajoutant des qualificeurs, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&gt;</span>
-</code></span> par exemple.</p>
-
-<p>On peut être tolérant ou devenir un tyran sans pitié en empêchant cela.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="nl">tyrannical_typeset_impl</span> <span class="p">:</span> <span class="n">typeset</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">typeset</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">using</span> <span class="n">tyrannical_typeset</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">tyrannical_typeset_impl</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-</code></pre></div>
-<p>Le typeset tyrannique est construit en 2 étapes, car un alias direct sur un typeset épuré ne permet pas de garder les qualificatifs.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/#piocher-dans-le-magasin"><h2 id="piocher-dans-le-magasin">Piocher dans le magasin</h2></a>
-
-<p>Piquer un élément du typeset est une affaire de cast. Un simple <code>static_cast</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
-
-<span class="k">static_cast</span><span class="o">&lt;</span><span class="n">item</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;&gt;</span><span class="p">(</span><span class="n">my_typeset</span><span class="p">).</span><span class="n">x</span><span class="p">;</span>
-</code></pre></div>
-<p>En mettant des opérateurs de cast dans la classe item, plus besoin de préciser cette dernière avec le <code>static_cast</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="n">item</span> <span class="p">{</span>
-  <span class="k">explicit</span> <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;</span> <span class="p">()</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
-  <span class="k">explicit</span> <span class="k">operator</span> <span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
-<span class="k">private</span><span class="o">:</span>
-  <span class="n">T</span> <span class="n">x_</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
-<span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">my_typeset</span><span class="p">);</span>
-</code></pre></div>
-<p>Petit bémol toutefois, cela ne permet pas d&rsquo;enlever l&rsquo;ambiguïté pour un type qui diffère uniquement par son qualificatif.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">volatile</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
-
-<span class="c1">// ‘typeset&lt;int, volatile int&gt;’ to ‘volatile int&amp;’ is ambiguous
-</span><span class="c1"></span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span> <span class="k">volatile</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">my_typeset</span><span class="p">);</span>
-</code></pre></div>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/#ce-qu-il-manque"><h2 id="ce-qu-il-manque">Ce qu&rsquo;il manque</h2></a>
-
-<ul>
-<li>Les constructeurs, évidemment.</li>
-<li>Une fonction <code>get&lt;Type&gt;()</code> pour un parallèle avec la STL.</li>
-<li>Une fonction pour boucler sur chaque item (<code>for_each</code> ?).</li>
-<li>Et sûrement d&rsquo;autres.</li>
-</ul>
-
-<p>J&rsquo;ai mis tout ça dans un repo au nom provisoire <a href="https://github.com/jonathanpoelen/falcon.store">falcon.store</a>.</p>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2015-07-02T01:49:41">02 juillet 2015
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
- ;
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="5a75c359eb88565795e71f25aa06a13b-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=impl%25C3%25A9mentation-dun-magasin-de-type&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fimplementation-dun-magasin-de-type%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fimplementation-dun-magasin-de-type%2f&amp;title=impl%25C3%25A9mentation-dun-magasin-de-type" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fimplementation-dun-magasin-de-type%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fimplementation-dun-magasin-de-type%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fimplementation-dun-magasin-de-type%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fimplementation-dun-magasin-de-type%2f&amp;name=impl%25C3%25A9mentation-dun-magasin-de-type" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
