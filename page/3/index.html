@@ -4,18 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jonathan Poelen&#39;s Blog</title>
-<meta name="generator" content="Hugo 0.48" />
+<meta name="generator" content="Hugo 0.49.2" />
 
 <link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="https://jonathanpoelen.github.io/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="/css/style.css" />
 
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.3c02a78911c3760225d46e7ddf6b93a11eabdcc2aed86bcff4e16784af863336.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
-
-<link rel="alternate stylesheet" title="Night theme" href="/css/night.css" />
-<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="shortcut icon" href="/favicon.jpg"/>
+<link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
+<link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
+<link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
+<link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
 <meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
 <meta property="og:title" content="Jonathan Poelen&#39;s Blog">
 <meta property="og:url" content="https://jonathanpoelen.github.io/">
@@ -65,13 +67,13 @@
 <aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
 	
 <div class="widget-search widget">
-  <form class="widget-search__form" role="search" method="get" action="//google.com/search">
+  <form class="widget-search__form" role="search" method="get" action="https://duckduckgo.com">
     <label>
       <span class="screen-reader-text">Search for:</span>
       <input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
     </label>
     <input class="widget-search__submit" type="submit" value="Search">
-    <input type="hidden" name="sitesearch" value="https://jonathanpoelen.github.io/" />
+    <input type="hidden" name="sites" value="https://jonathanpoelen.github.io/" />
   </form>
 </div>
 
@@ -85,7 +87,7 @@
       <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">28 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">29 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -113,7 +115,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (20)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (21)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -208,7 +210,6 @@
 
   </header>
   <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
       <p>Une petite note sur les références et le qualificatif <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
 </code></span> en commençant par un exemple :).</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">using</span> <span class="n">reference</span> <span class="o">=</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">;</span>
@@ -290,7 +291,6 @@ Le type de <code>r</code> est donc bien une référence sur un entier non-consta
 
   </header>
   <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
       
 
 <p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
@@ -473,7 +473,6 @@ Cependant, comme les conteneurs retournent une copie de leur allocateur, il sera
 
   </header>
   <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
       <p>La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la <a href="https://cpp.developpez.com/faq/cpp/?page=Optimisation#Qu-est-ce-que-la-RVO">FAQ C++ developpez.com</a>.</p>
 
 <p>Cependant, ces optimisations ne s&rsquo;appliquent que sur une variable de type <code>T</code> <strong>sans référence</strong>. Ce qui veut dire qu&rsquo;une référence ne sera pas optimisée.</p>
@@ -551,7 +550,6 @@ Cependant, comme les conteneurs retournent une copie de leur allocateur, il sera
 
   </header>
   <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
       <p>Il existe sur les bases de données SQLite une commande pour réduire la fragmentation des tables et optimiser l&rsquo;espace disque.
 J&rsquo;ai nommé: <a href="http://sqlite.org/lang_vacuum.html">VACUUM</a>.</p>
 
@@ -640,7 +638,6 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 
   </header>
   <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
       
 
 <p>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées <code>argv</code> dans pas mal d&rsquo;autres langages): <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span>.</p>
@@ -783,7 +780,6 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 
   </header>
   <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 4 ans. Les informations y figurant peuvent être dépassées.</p>
       <p>En règle générale les événements sont attachés à l&rsquo;élément qui va le traiter.</p>
 
 <p>Par exemple en javascript, un menu (<code>ul</code>) contenant 10 entrées (<code>li</code>) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.</p>
@@ -856,7 +852,6 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 
   </header>
   <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 5 ans. Les informations y figurant peuvent être dépassées.</p>
       <p>Voici une petite information très mal connue et peu utilisée du <code>getopt</code> de la lib C et de la commande shell. Ainsi que <code>Boost.Program_options</code>. Parce que boost c&rsquo;est bien :p.</p>
 
 <p>Les noms des options longues n&rsquo;ont pas besoin d&rsquo;être écrites entièrement.</p>
@@ -936,7 +931,6 @@ parsecmd --option-l --u plop bidule</code></pre></div>
 
   </header>
   <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 5 ans. Les informations y figurant peuvent être dépassées.</p>
       
 
 <p>Le C++ a l&rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &laquo;&nbsp;tags&nbsp;&raquo;.</p>
@@ -1085,7 +1079,6 @@ parsecmd --option-l --u plop bidule</code></pre></div>
 
   </header>
   <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 5 ans. Les informations y figurant peuvent être dépassées.</p>
       <p>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&rsquo;interpréteur utilisé. J&rsquo;ai eu le coup une fois lorsqu&rsquo;il fallait charger le module <code>canberra-gtk</code> pour les programmes java.</p>
 
 <p>Une variable <code>$GTK_MODULES</code> est définie et contient tous les modules gtk séparés par des deux points (<code>:</code>).
@@ -1176,7 +1169,6 @@ Simple, entourer la variable d&rsquo;accolades:</p>
 
   </header>
   <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 5 ans. Les informations y figurant peuvent être dépassées.</p>
       <p>Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:</p>
 
 <blockquote>

@@ -187,9 +187,10 @@ Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:</description>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</guid>
       <description>À l&amp;rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
-Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.
+Info : Ce qui suit n&amp;rsquo;est plus d&amp;rsquo;actualité depuis C++17 et les expressions fold.
+ Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.
 Quelque chose dans ce goût-là:
-#include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;classT, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;... others) { std::cout &amp;lt;&amp;lt; first &amp;lt;&amp;lt; &amp;#39;\n&amp;#39;; f1(others...); } template&amp;lt;classT&amp;gt; void f2(const T&amp;amp; first) { std::cout &amp;lt;&amp;lt; first &amp;lt;&amp;lt; &amp;#39;\n&amp;#39;; } template&amp;lt;classT, class.</description>
+#include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;classT, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;.</description>
     </item>
     
     <item>
@@ -363,6 +364,16 @@ Pour ce faire, il suffit d&amp;rsquo;un identifiant, un petit label, une informa
       <guid>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</guid>
       <description>Le but d&amp;rsquo;un site chargeant ces pages avec AJAX est double:
  Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées). Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins.  Toutefois, si mal fait, des problèmes apparaissent au niveau de l&amp;rsquo;historique qui n&amp;rsquo;est plus utilisable.</description>
+    </item>
+    
+    <item>
+      <title>Simuler une vtable sans fonction virtuelle</title>
+      <link>https://jonathanpoelen.github.io/1/01/simuler-une-vtable-sans-fonction-virtuelle/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/1/01/simuler-une-vtable-sans-fonction-virtuelle/</guid>
+      <description>La vtable est le mécanisme interne utilisé par C++ pour implémenter les fonctions virtuelles. Lorsqu&amp;rsquo;une classe possède une fonction virtuelle, un pointeur sur la vtable (virtual table) est automatiquement réservé par le compilateur. Cette table contient des pointeurs de fonction sur l&amp;rsquo;ensemble des fonctions virtuelles de la classe et chaque classe dérivée possède sa propre vtable.
+Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessous, l&amp;rsquo;utilisation de obj-&amp;gt;foo(/*params.</description>
     </item>
     
   </channel>
