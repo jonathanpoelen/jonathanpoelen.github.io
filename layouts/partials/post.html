@@ -37,7 +37,8 @@
         </div></aside>
       {{- end }}
     {{- end }}
-    {{- if lt .Lastmod (now.AddDate -2 0 0) }}
+    {{- $expire := index .Params "expire" | default (add .Lastmod.Year 3) | int }}
+    {{- if lt (.Lastmod.AddDate (int (sub $expire .Lastmod.Year)) 0 0) now }}
       <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de {{ sub now.Year ( add .Lastmod.Year 1 )}} ans. Les informations y figurant peuvent être dépassées.</p>
     {{- end }}
     {{- if $.isSinglePage }}

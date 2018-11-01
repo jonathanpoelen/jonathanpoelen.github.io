@@ -1,5 +1,6 @@
 ---
 title: "{{ .TranslationBaseName }}"
+#thumbnail: ""
 #description: ""
 date: {{ .Date }}
 #lastmod: {{ .Date }}
@@ -10,4 +11,5 @@ aliases: []
 categories: [ "c++" ]
 draft: true
 ghcommentid: 0
+# expire: 2028
 ---
