@@ -1,0 +1,3 @@
+{{<fhi "simu_vtable/e1.cpp" main>}}
+{{<urlhi "mp_index_of" "name">}}
+{{%info%}}{{%/info%}}
