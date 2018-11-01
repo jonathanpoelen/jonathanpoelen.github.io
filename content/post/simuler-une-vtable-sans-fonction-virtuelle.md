@@ -1,7 +1,7 @@
 ---
 title: "Simuler une vtable sans fonction virtuelle"
 #description: ""
-date: 2018-11-1T20:42:09+02:00
+date: 2018-11-01T20:42:09+02:00
 #lastmod: 2018-10-19T20:42:09+02:00
 slug: "simuler-une-vtable-sans-fonction-virtuelle"
 #toc: false
