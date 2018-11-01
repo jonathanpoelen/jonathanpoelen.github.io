@@ -11,6 +11,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2038
 ---
 
 > Quand utiliser une variable par valeur, référence ou pointeur ?

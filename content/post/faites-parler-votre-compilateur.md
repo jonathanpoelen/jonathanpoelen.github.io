@@ -10,6 +10,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2048
 ---
 
 En C++, notre meilleur ami est le compilateur. Encore faut-il bien le configurer pour qu'il nous crache un maximum d'avertissements en pleine poire.

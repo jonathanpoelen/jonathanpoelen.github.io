@@ -10,6 +10,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2035
 ---
 
 Le but de {{<hi cpp "if constexpr"/>}} est d'interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n'a pas l'obligation de pouvoir être compilé.

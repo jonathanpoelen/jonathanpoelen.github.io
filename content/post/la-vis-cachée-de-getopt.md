@@ -10,6 +10,7 @@ aliases: []
 categories: [ "script shell" ]
 draft: false
 ghcommentid: 0
+expire: 2048
 ---
 
 Voici une petite information très mal connue et peu utilisée du `getopt` de la lib C et de la commande shell. Ainsi que `Boost.Program_options`. Parce que boost c'est bien :p.

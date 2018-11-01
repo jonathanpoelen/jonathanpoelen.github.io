@@ -10,6 +10,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2038
 ---
 
 Le C++ a l'avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des "tags".

@@ -10,6 +10,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2048
 ---
 
 Une petite note sur les références et le qualificatif {{<hi cpp "const"/>}} en commençant par un exemple :).

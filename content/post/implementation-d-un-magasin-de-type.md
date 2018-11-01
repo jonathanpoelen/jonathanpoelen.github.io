@@ -11,6 +11,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2035
 ---
 
 Ce que j'appelle ici un magasin de type n'est autre qu'un `std::tuple` où les types ne sont présents qu'une seule fois. Une espèce de set version tuple en somme.

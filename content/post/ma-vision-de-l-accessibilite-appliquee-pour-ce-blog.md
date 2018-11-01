@@ -11,6 +11,7 @@ categories: ["accessibilite-web"]
 #toc: false
 draft: false
 ghcommentid: 0
+expire: 2128
 ---
 
 Pour changer de la programmation logicielle, je vais parler de l'accessibilité d'un site et des petits détails exaspérants que je rencontre sur la toile. Je pense qu'une bonne partie parle à chacun, généralement on fait avec, simplement parce qu'il n'y a pas d'autre choix, mais c'est toujours frustrant de tomber dessus.

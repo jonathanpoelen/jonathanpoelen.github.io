@@ -11,6 +11,7 @@ categories: [ "c++" ]
 #toc: false
 draft: false
 ghcommentid: 0
+expire: 2028
 ---
 
 Cet article va être consacré à la réalisation d'une classe variant comme on peut la trouver dans la [stl](http://en.cppreference.com/w/cpp/utility/variant), [boost](http://en.cppreference.com/w/cpp/utility/variant) et [autres](https://github.com/mapbox/variant). Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l'exécution. Je vais faire un petit tour de ce que j'ai pu voir et comment les implémenter.

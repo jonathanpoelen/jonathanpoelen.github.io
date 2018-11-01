@@ -10,6 +10,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2038
 ---
 
 Actuellement en pleine écriture d'une fonction `match` (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de `std::forward` utilisée à chaque appel de fonction. J'en compte 21 pour un total de 6 niveaux d'imbrications. Autant dire qu'oublier de le mettre est plutôt facile.

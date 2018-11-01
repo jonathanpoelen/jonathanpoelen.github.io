@@ -10,6 +10,7 @@ aliases: []
 categories: [ "script-shell" ]
 draft: false
 ghcommentid: 0
+expire: 2048
 ---
 
 Une des choses qui prend du temps dans l'exécution d'un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés.

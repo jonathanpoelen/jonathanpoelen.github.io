@@ -11,6 +11,8 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2028
+expire: 2048
 ---
 
 Cet article est la démonstration de l'article précédent. La problématique présentée est la suivante: "Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?"

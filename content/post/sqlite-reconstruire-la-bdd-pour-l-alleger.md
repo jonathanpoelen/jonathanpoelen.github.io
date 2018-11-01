@@ -11,6 +11,7 @@ aliases: []
 categories: [ "SQLite" ]
 draft: false
 ghcommentid: 0
+expire: 2038
 ---
 
 Il existe sur les bases de données SQLite une commande pour réduire la fragmentation des tables et optimiser l'espace disque.

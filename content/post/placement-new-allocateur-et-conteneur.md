@@ -10,6 +10,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2038
 ---
 
 {{<hi cpp "new"/>}} est généralement utilisé pour allouer un bloc mémoire et -- où il diffère de `malloc()`, -- appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.

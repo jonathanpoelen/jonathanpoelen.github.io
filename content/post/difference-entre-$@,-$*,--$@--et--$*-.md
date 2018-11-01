@@ -10,6 +10,7 @@ aliases: []
 categories: [ "script-shell" ]
 draft: false
 ghcommentid: 0
+expire: 2058
 ---
 
 Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées `argv` dans pas mal d'autres langages): {{<hi sh "$*"/>}} et {{<hi sh "$@"/>}}.

@@ -11,6 +11,7 @@ categories: [ "c++" ]
 draft: false
 ghcommentid: 0
 image: "post/mp_index_of/image.png"
+expire: 2028
 ---
 
 Dans l'article précédent sur les variants, j'ai fait une implémentation un peu spéciale de `index_of`. Je vais présenter une quinzaine d'implémentations possibles et le coût de chacune sur le compilateur.

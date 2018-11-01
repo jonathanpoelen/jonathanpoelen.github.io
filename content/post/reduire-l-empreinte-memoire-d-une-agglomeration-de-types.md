@@ -11,6 +11,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2048
 ---
 
 Un petit article pour parler d'optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par [std::unique_ptr](http://en.cppreference.com/w/cpp/memory/unique_ptr).

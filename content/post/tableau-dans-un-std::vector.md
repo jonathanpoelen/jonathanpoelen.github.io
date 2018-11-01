@@ -10,6 +10,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2038
 ---
 
 Prenons le type suivant: {{<hi cpp "std::vector<int[4]>"/>}}. Qui peut se justifier. À priori, cela ne cause aucun problème ; et c'est vrai !

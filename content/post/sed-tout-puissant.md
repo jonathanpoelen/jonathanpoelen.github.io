@@ -10,6 +10,7 @@ aliases: []
 categories: [ "script shell" ]
 draft: false
 ghcommentid: 0
+expire: 2038
 ---
 
 Il y a 3 semaines environ je cherchais le moyen d'utiliser la commande sed avec une regex sur plusieurs lignes. Je voulais transformer tous les `/\+\n\s+""/` en rien du tout (oui, les supprimer…). Sauf que comme tel, ça ne fonctionne pas, `sed` comme beaucoup de commandes unix fonctionne par ligne. Après de lourdes et pompeuses recherches d'au moins 7 secondes montre en main, je suis tombé sur la solution.

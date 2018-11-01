@@ -10,6 +10,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2048
 ---
 
 La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la [FAQ C++ developpez.com](https://cpp.developpez.com/faq/cpp/?page=Optimisation#Qu-est-ce-que-la-RVO).

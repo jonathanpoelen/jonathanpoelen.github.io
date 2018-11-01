@@ -11,6 +11,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2028
 ---
 
 L'approche suivante consiste à vérifier qu'une fonction (membre ou statique) est appelable dans le but de l'utiliser, ou, à défaut, fournir implémentation générique. De manière plus générale, la méthode présentée ici s'applique à toutes expressions.

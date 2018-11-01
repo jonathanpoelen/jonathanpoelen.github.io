@@ -11,6 +11,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2038
 ---
 
 Dans le [précédent billet]({{<ref "valeur-reference-ou-pointeur-(1-2).md">}}), j'opposai les paramètres par références constantes à ceux par valeurs.

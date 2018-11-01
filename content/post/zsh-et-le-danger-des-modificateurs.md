@@ -10,6 +10,7 @@ aliases: []
 categories: [ "script-shell", "zsh" ]
 draft: false
 ghcommentid: 0
+expire: 2048
 ---
 
 Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l'interpréteur utilisé. J'ai eu le coup une fois lorsqu'il fallait charger le module `canberra-gtk` pour les programmes java.

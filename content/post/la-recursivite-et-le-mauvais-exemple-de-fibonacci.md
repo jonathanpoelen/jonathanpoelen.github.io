@@ -10,6 +10,7 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2058
 ---
 
 Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:

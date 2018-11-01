@@ -5,6 +5,7 @@ draft: false
 #tags: [ "c++" ]
 categories: [ "c++" ]
 ghcommentid: 1
+expire: 2048
 ---
 
 Je vais me baser sur un classique: une classe de matrice contenant un {{<hi cpp "std::vector<int>"/>}}. Cette classe va implémenter 2 opérateurs mathématiques: {{<hi cpp "+"/>}} et {{<hi cpp "+="/>}}. Le premier en fonction libre, le second en fonction membre.

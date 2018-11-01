@@ -10,6 +10,7 @@ aliases: []
 categories: [ "script-shell" ]
 draft: false
 ghcommentid: 0
+expire: 2044
 ---
 
 À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j'ai récemment appris l'existence de 256 couleurs dans la console en tombant sur <a href="http://dotshare.it/dots/100/">un screen</a> un peu trop coloré. Ce qui m'a dirigé sur un <a href="https://github.com/trapd00r/LS_COLORS">dépôt contenant un $LS_COLORS</a> particulièrement fourni.

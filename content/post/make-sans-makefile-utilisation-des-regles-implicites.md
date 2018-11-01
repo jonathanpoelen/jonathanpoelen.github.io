@@ -10,6 +10,7 @@ aliases: []
 categories: [ "make" ]
 draft: false
 ghcommentid: 0
+expire: 2048
 ---
 
 La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile "par défaut" avec plein de règles. Celui-ci est visible en tapant `make -pf /dev/null` dans un terminal.

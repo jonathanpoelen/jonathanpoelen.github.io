@@ -11,6 +11,7 @@ aliases: []
 categories: [ "javascript" ]
 draft: false
 ghcommentid: 0
+expire: 2028
 ---
 
 En règle générale les événements sont attachés à l'élément qui va le traiter.

@@ -10,6 +10,7 @@ aliases: []
 categories: [ "accessibilite-web", "javascript" ]
 draft: false
 ghcommentid: 0
+expire: 2020
 ---
 
 Le but d'un site chargeant ces pages avec AJAX est double:

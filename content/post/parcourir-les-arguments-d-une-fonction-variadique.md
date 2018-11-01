@@ -10,9 +10,12 @@ aliases: []
 categories: [ "c++" ]
 draft: false
 ghcommentid: 0
+expire: 2028
 ---
 
 À l'approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
+
+{{%info%}}Ce qui suit n'est plus d'actualité depuis C++17 et les [expressions fold](https://en.cppreference.com/w/cpp/language/fold).{{%/info%}}
 
 ## Fonction récursive
 
