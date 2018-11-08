@@ -98,7 +98,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;h1 id=&#34;c-est-beau-c-est-propre&#34;&gt;C&amp;rsquo;est beau, c&amp;rsquo;est propre&lt;/h1&gt;
+&lt;h2 id=&#34;c-est-beau-c-est-propre&#34;&gt;C&amp;rsquo;est beau, c&amp;rsquo;est propre&lt;/h2&gt;
 
 &lt;p&gt;Il y a quelques jours, après mon petit passage quotidien dans libstdc++ et en regardant &lt;code&gt;std::decay&lt;/code&gt;, je me suis dit &lt;del&gt;c&amp;rsquo;est beau, c&amp;rsquo;est propre&lt;/del&gt; qu&amp;rsquo;il faudrait comparer avec une implémentation qui utilise les concepts de kvasir.&lt;/p&gt;
 
