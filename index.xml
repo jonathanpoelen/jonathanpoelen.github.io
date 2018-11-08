@@ -220,7 +220,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;L&amp;rsquo;ensemble des sources se trouvent sur &lt;a href=&#34;https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/master/resources/metafunc_continuation/decay.cpp&#34;&gt;github&lt;/a&gt;
+&lt;p&gt;L&amp;rsquo;ensemble des sources se trouvent sur &lt;a href=&#34;https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/metafunc_continuation/decay.cpp&#34;&gt;github&lt;/a&gt;
 .&lt;/p&gt;
 </description>
     </item>
@@ -430,7 +430,7 @@
 &lt;li&gt;&lt;code&gt;[i{0..n},x,i{n-(n..0)..n}];n=100&lt;/code&gt;: les suites &lt;code&gt;[i{0..100},x,i{100..100}]&lt;/code&gt;,  &lt;code&gt;[i{1..100},x,i{99..100}]&lt;/code&gt;, etc&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Les sources se trouvent sur &lt;a href=&#34;https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/master/resources/mp_index_of&#34;&gt;github&lt;/a&gt;
+&lt;p&gt;Les sources se trouvent sur &lt;a href=&#34;https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/mp_index_of&#34;&gt;github&lt;/a&gt;
  dans un même fichier cpp. Chacune des implémentations possède son propre namespace et des macros activent individuellement chaque test. &lt;!--TODO dossier des graphes + zip/tar.gz--&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;relation-temps-de-compilation-et-mémoire&#34;&gt;Relation temps de compilation et mémoire&lt;/h2&gt;
@@ -1009,7 +1009,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque &lt;c
 
 &lt;p&gt;Il n&amp;rsquo;y a pas eu de test sur l&amp;rsquo;affirmation qui va suivre, mais d&amp;rsquo;expérience, je sais que les alias sont plus rapides qu&amp;rsquo;une instanciation de classe, mais aussi plus cryptique au niveau des erreurs.&lt;/p&gt;
 
-&lt;p&gt;Si vous voulez des graphiques qui comparent 2 compilateurs, le générateur de graphe et les résultats de compilation se trouvent dans &lt;a href=&#34;https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/master/resources/mp_index_of&#34;&gt;le dépôt&lt;/a&gt;
+&lt;p&gt;Si vous voulez des graphiques qui comparent 2 compilateurs, le générateur de graphe et les résultats de compilation se trouvent dans &lt;a href=&#34;https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/mp_index_of&#34;&gt;le dépôt&lt;/a&gt;
 .&lt;/p&gt;
 </description>
     </item>
@@ -1407,7 +1407,7 @@ Comme notre variant ne contient &amp;ndash;normalement&amp;ndash; qu&amp;rsquo;u
 
 
 &lt;p&gt;Puis on adapte les fonctions de &lt;code&gt;Variant&lt;/code&gt;.
-Le code final est plutôt gros alors je ne mets &lt;a href=&#34;https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/master/resources/cpp_variant/variant3.cpp#l157&#34;&gt;que le lien&lt;/a&gt;
+Le code final est plutôt gros alors je ne mets &lt;a href=&#34;https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/cpp_variant/variant3.cpp#l157&#34;&gt;que le lien&lt;/a&gt;
 .&lt;/p&gt;
 
 &lt;p&gt;Pour éviter une condition particulière dans le code, l&amp;rsquo;union possède un membre supplémentaire: &lt;code&gt;Uninit&lt;/code&gt;, utilisé par &lt;code&gt;init&lt;/code&gt;, &lt;code&gt;copy&lt;/code&gt; et &lt;code&gt;destroy&lt;/code&gt; pour représenter un variant sans valeur.&lt;/p&gt;
@@ -1433,7 +1433,7 @@ Le code final est plutôt gros alors je ne mets &lt;a href=&#34;https://github.c
 
 &lt;p&gt;Les prochains articles seront davantage axés sur la méta-programmation et indirectement reliés avec certains aspects du variant présentés ici.&lt;/p&gt;
 
-&lt;p&gt;Les sources sont disponibles sur &lt;a href=&#34;https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/master/resources/cpp_variant&#34;&gt;github&lt;/a&gt;
+&lt;p&gt;Les sources sont disponibles sur &lt;a href=&#34;https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/cpp_variant&#34;&gt;github&lt;/a&gt;
 .&lt;/p&gt;
 </description>
     </item>
