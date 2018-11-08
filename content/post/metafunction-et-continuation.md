@@ -29,7 +29,7 @@ Dans des algorithmes du type transformation l'impact sur la lecture du code est 
 ```cpp
 transform<lambda<next, lambda<times, _1, _2>>, L1, L2>
 // vs
-call<transform<times<next<>, /*C=identity*/>, L1, L2>
+call<transform<times<next<>, /*C=listify*/>, L1, L2>
 ```
 
 Qui se traduit par la construction d'une nouvelle liste avec la formule `(x*y)+1`.
@@ -39,7 +39,7 @@ Ce code met bien en évidence un autre aspect des continuations: la lecture du c
 ```cpp
 transform<lambda<next, lambda<times, _1, _2>>, L1, L2>
  /* 1 */       /* 3 */       /* 2 */
-call<transform<times<next<>, /*C=identity*/>, L1, L2>
+call<transform<times<next<>, /*C=listify*/>, L1, L2>
       /* 1 *//* 2 *//* 3 */      /* 4 */
 ```
 
