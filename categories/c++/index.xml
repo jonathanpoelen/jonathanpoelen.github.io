@@ -8,10 +8,20 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Thu, 01 Nov 2018 20:42:09 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 08 Nov 2018 18:56:13 +0100</lastBuildDate>
     
 	<atom:link href="https://jonathanpoelen.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Méta-function et continuation</title>
+      <link>https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/</link>
+      <pubDate>Thu, 08 Nov 2018 18:56:13 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/</guid>
+      <description>J&amp;rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&amp;rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &amp;ndash;parce que cela va bien de paire,&amp;ndash; l&amp;rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&amp;lt;Ts...&amp;gt;).
+Continuation Chaque algorithme dispose d&amp;rsquo;un paramètre qui décrit l&amp;rsquo;étape suivante du traitement, c&amp;rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&amp;rsquo;opérateur |.</description>
+    </item>
     
     <item>
       <title>Simuler une vtable sans fonction virtuelle</title>

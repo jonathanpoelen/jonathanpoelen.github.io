@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jonathan Poelen&#39;s Blog</title>
-<meta name="generator" content="Hugo 0.49.2" />
+<meta name="generator" content="Hugo 0.50" />
 
 <link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="https://jonathanpoelen.github.io/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.3c02a78911c3760225d46e7ddf6b93a11eabdcc2aed86bcff4e16784af863336.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.78d675238305d53afafcf4dcc8fcae057b79e7ac460f84fe54c59332646dff9c.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -82,12 +82,12 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-function-et-continuation/">Méta-function et continuation</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/">Comparaison de différentes implémentations de mp_index_of</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/09/au-coeur-dun-variant/">Au cœur d&#39;un variant</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">29 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">30 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -95,10 +95,6 @@
   <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
   <div class="widget__content">
     <ul class="widget__list">
-      <li class="widget__item"><a class="widget__link" href="/2015/09/if-constexpr-avant-cpp17/">
-        <time datetime="2018-03-04T23:14:38">04/03/2018</time>
-        -- if constexpr avant C&#43;&#43;17
-      </a></li>
 
     </ul>
   </div>
@@ -115,7 +111,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (21)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (22)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -175,6 +171,96 @@
 </aside>
 
   <main class="main-content list content" role="main" id="main-content">
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="zsh-et-le-danger-des-modificateurs"><span>
+        <a href="#taguer-vos-classes-catalogu%25C3%25A9es-les"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Taguer vos classes, cataloguées-les"></i></a>
+        <a href="#la-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: La récursivité et le mauvais exemple de Fibonacci"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/">Zsh et le danger des modificateurs</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#taguer-vos-classes-catalogu%25C3%25A9es-les">Article suivant: Taguer vos classes, cataloguées-les</a><br/>
+        <a href="#la-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci">Article précédent: La récursivité et le mauvais exemple de Fibonacci</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2012-10-14T19:46:36">14 octobre 2012
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/script-shell" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>script-shell</a>, <a class="meta-categories__link" href="/categories/zsh" rel="category">zsh</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
+  <a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#9822b10c1e712637f7ec91dc443129e0-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&rsquo;interpréteur utilisé. J&rsquo;ai eu le coup une fois lorsqu&rsquo;il fallait charger le module <code>canberra-gtk</code> pour les programmes java.</p>
+
+<p>Une variable <code>$GTK_MODULES</code> est définie et contient tous les modules gtk séparés par des deux points (<code>:</code>).
+Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-gtk-module</code>. Les fautifs ? <code>52libcanberra-gtk-module_add-to-gtk-modules</code> et <code>52libcanberra-gtk3-module_add-to-gtk-modules</code> Avec un contenu identique:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+    <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;canberra-gtk-module&#34;</span>
+<span class="k">else</span>
+    <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">:canberra-gtk-module&#34;</span>
+<span class="k">fi</span>
+
+<span class="nb">export</span> GTK_MODULES</code></pre></div>
+<p>Et là, paf ! C&rsquo;est le drame. <code>$GTK_MODULES</code> = <code>canberra-gtk-moduleanberra-gtk-module</code>, naturellement :D.</p>
+
+<p>Vous venez d&rsquo;assister à l&rsquo;effet du modificateur <code>c</code> (dans <code>:c</code>) qui ajoute le chemin de l&rsquo;executable présent dans <code>$GTK_MODULES</code>. Comme <code>canberra-gtk-module</code> n&rsquo;est pas un executable, rien n&rsquo;est fait, mais <code>:c</code> disparaît. Avec l&rsquo;auto-complétion on peut voir qu&rsquo;il y en a une petite quinzaine de disponibles, de quoi tomber plusieurs fois dans le piège.</p>
+
+<p>Les modificateurs existent aussi dans bash, mais ils sont moins nombreux et ne s&rsquo;utilisent qu&rsquo;avec l&rsquo;historique (paragraphe <code>HISTORY EXPANSION</code> du manuel).</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> unfichier.txt
+<span class="nb">echo</span> !:1:r</code></pre></div>
+<p>Résultat :</p>
+
+<div class="highlight"><pre class="chroma"><code>unfichier.txt
+unfichier
+</code></pre></div>
+
+<p>Quasiment jamais utilisé en fait.</p>
+
+<p>Mais voilà, zsh les généralise aussi aux variables ce qui engendre une erreur dans <code>GTK_MODULES</code>.</p>
+
+<p>Alors comment faire ?
+Simple, entourer la variable d&rsquo;accolades:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GTK_MODULES</span><span class="si">}</span><span class="s2">:canberra-gtk-module&#34;</span></code></pre></div>
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2012-10-14T19:46:36">14 octobre 2012
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/script-shell" rel="category">script-shell</a>, <a class="meta-categories__link" href="/categories/zsh" rel="category">zsh</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="9822b10c1e712637f7ec91dc443129e0-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=zsh-et-le-danger-des-modificateurs&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f&amp;title=zsh-et-le-danger-des-modificateurs" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f&amp;name=zsh-et-le-danger-des-modificateurs" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
         
 <article class="post">
   <header class="post__header clearfix">

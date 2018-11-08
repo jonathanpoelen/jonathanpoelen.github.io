@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jonathan Poelen&#39;s Blog</title>
-<meta name="generator" content="Hugo 0.49.2" />
+<meta name="generator" content="Hugo 0.50" />
 
 <link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="https://jonathanpoelen.github.io/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.3c02a78911c3760225d46e7ddf6b93a11eabdcc2aed86bcff4e16784af863336.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.78d675238305d53afafcf4dcc8fcae057b79e7ac460f84fe54c59332646dff9c.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -82,12 +82,12 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-function-et-continuation/">Méta-function et continuation</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/">Comparaison de différentes implémentations de mp_index_of</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/09/au-coeur-dun-variant/">Au cœur d&#39;un variant</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">29 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">30 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -95,10 +95,6 @@
   <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
   <div class="widget__content">
     <ul class="widget__list">
-      <li class="widget__item"><a class="widget__link" href="/2015/09/if-constexpr-avant-cpp17/">
-        <time datetime="2018-03-04T23:14:38">04/03/2018</time>
-        -- if constexpr avant C&#43;&#43;17
-      </a></li>
 
     </ul>
   </div>
@@ -115,7 +111,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (21)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (22)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -175,6 +171,129 @@
 </aside>
 
   <main class="main-content list content" role="main" id="main-content">
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="make-sans-makefile-utilisation-des-r%C3%A8gles-implicites"><span>
+        <a href="#utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Utilisation de swap et des fonctions utilitaires en général"></i></a>
+        <a href="#optimisation-de-script-bash-en-limitant-louverture-de-processus"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Optimisation de script bash en limitant l&#39;ouverture de processus"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/">make sans Makefile, utilisation des règles implicites</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral">Article suivant: Utilisation de swap et des fonctions utilitaires en général</a><br/>
+        <a href="#optimisation-de-script-bash-en-limitant-louverture-de-processus">Article précédent: Optimisation de script bash en limitant l&#39;ouverture de processus</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2013-06-26T11:05:28">26 juin 2013
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/make" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>make</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#f7c1a48984972b3b767b07b4c471902c-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p>La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile &laquo;&nbsp;par défaut&nbsp;&raquo; avec plein de règles. Celui-ci est visible en tapant <code>make -pf /dev/null</code> dans un terminal.</p>
+
+<p>Rien qu&rsquo;avec ça, on peut compiler des fichiers C, C++, archive, latex, etc. Il y a de quoi faire en fait.</p>
+
+<p>Par exemple, je crée un fichier C nommé <code>test.c</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">ac</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">av</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">ac</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+<p>Que je compile avec <code>make test</code> pour créer l&rsquo;exécutable <code>test</code>.
+Mais si on veut avoir des fichiers objets, il faut le demander explicitement: <code>make test.o test</code>.</p>
+
+<p>Maintenant, on remplace <code>test.c</code> par <code>test.cpp</code> et on inclut <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
+</code></span>.</p>
+
+<p>La compilation se fait encore avec <code>make test</code> ou <code>make test.o test</code> pour avoir les fichiers objets.</p>
+
+<p>Ah ! En fait non, le second ne fonctionne pas.
+<code>test.o</code> est compilé avec <code>cc</code>, et comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
+</code></span> est linké avec une lib, l&rsquo;implémentation du constructeur <a href="http://en.cppreference.com/w/cpp/io/ios_base/Init">std::ios_base::Init</a> n&rsquo;est pas trouvée. L&rsquo;idéal serait d&rsquo;utiliser <code>g++</code> ou un autre compilateur C++ pour avoir les chemins de bibliothèque convenablement configurés.</p>
+
+<p>Si ce n&rsquo;est qu&rsquo;une question de compilateur, changeons-le !</p>
+
+<p>Tout d&rsquo;abord, la règle de compilation d&rsquo;un <code>.o</code> vers un exécutable:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;%: %.o&#39;</span> -A3</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">%</span><span class="o">:</span> %.<span class="n">o</span>
+<span class="c">#  commands to execute (built-in):
+</span><span class="c"></span>        <span class="k">$(</span>LINK.o<span class="k">)</span> $^ <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+</code></pre></div>
+<p>Cela utilise pour compiler la variable <code>LINK.o</code>. Soit, qu&rsquo;est sa valeur ?</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> g <span class="s1">&#39;LINK.o =&#39;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">LINK.o</span> <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+</code></pre></div>
+<p>Qui fait référence à <code>CC</code>. On s&rsquo;approche, vérifions:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> g <span class="s1">&#39;CC =&#39;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">CC</span> <span class="o">=</span> cc
+</code></pre></div>
+<p>Bingo \o/. Il suffit donc de changer la valeur de <code>CC</code>.</p>
+
+<p>On recommence avec <code>make CC=g++ test.o test</code> et ça fonctionne :).</p>
+
+<p>Cette petite excursion permet mine de rien de découvrir pas mal de variables. Au passage, il est plus intéressant de les utiliser que d&rsquo;en recréer des nouvelles. Idem dans les règles de dépendances. S&rsquo;il faut les personnaliser, autant garder les mêmes commandes à exécuter.</p>
+
+<p>Par exemple, pour compiler un <code>.cpp</code> en <code>.o</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">%.o</span><span class="o">:</span> %.<span class="n">cpp</span>
+<span class="c">#  commands to execute (built-in):
+</span><span class="c"></span>        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
+</code></pre></div>
+<p>Généralement les sources sont également dépendantes de fichier d&rsquo;en-tête. Si on fait une règle qui prend en compte cela, autant garder la même commande:
+(petite parenthèse pour dire que gcc possède l&rsquo;option <code>-MM</code> pour lister les dépendances entre les fichiers.)</p>
+<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">bidule.o</span><span class="o">:</span> <span class="n">bidule</span>.<span class="n">cpp</span> <span class="n">bidule</span>.<span class="n">h</span> <span class="n">machin</span>.<span class="n">h</span>
+        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
+</code></pre></div>
+<p>Ainsi, quand <code>CXXFLAGS</code> sera modifié, la règle le prendra en compte car</p>
+<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">COMPILE.cpp</span> <span class="o">=</span> COMPILE.cc
+</code></pre></div>
+<p>Et</p>
+<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">COMPILE.cc</span> <span class="o">=</span> <span class="k">$(</span>CXX<span class="k">)</span> <span class="k">$(</span>CXXFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
+</code></pre></div>
+<p>À noter que la variable <code>CPPFLAGS</code> fait référence à la commande <code>cpp</code> (ou option <code>-E</code> de gcc) et concerne le <a href="http://fr.wikipedia.org/wiki/Pr%C3%A9processeur_C">C-preprocessor</a>.</p>
+
+<p>Bien sûr, la technique du Makefile seul a des limites. Par exemple, s&rsquo;il y a plusieurs fichiers C, je peux créer tous les fichiers objets avec <code>make *.o</code>, mais l&rsquo;exécutable ne sera dépendant que d&rsquo;un fichier. Au final les règles par défaut ne permettront pas de créer l&rsquo;exécutable, il faudra faire <code>gcc *.o</code> ou un Makefile avec au minimum <code>a.out: *.o</code>.</p>
+
+<p>Voilà, ce fut un petit post pour découvrir l&rsquo;existence des règles implicites et des variables prédéfinies :).</p>
+
+<p><a href="http://www.gnu.org/software/make/manual/make.html">Manual de make</a></p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2013-06-26T11:05:28">26 juin 2013
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/make" rel="category">make</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="f7c1a48984972b3b767b07b4c471902c-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-regles-implicites%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-regles-implicites%2f&amp;title=make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-regles-implicites%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-regles-implicites%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-regles-implicites%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-regles-implicites%2f&amp;name=make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
         
 <article class="post">
   <header class="post__header clearfix">
@@ -617,12 +736,12 @@ Cependant, comme les conteneurs retournent une copie de leur allocateur, il sera
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="sqlite-reconstruire-la-bdd-pour-lall%C3%A9ger"><span>
         <a href="#ne-pas-emp%25C3%25AAcher-la-nrvo"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Ne pas empêcher la NRVO"></i></a>
-        <a href="#diff%25C3%25A9rence-entre----et-"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;"></i></a>
+        <a href="#diff%25C3%25A9rence-entre-et"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/">Sqlite, reconstruire la bdd pour l&#39;alléger</a></h1>
     <div class="post__title-nextprev-text sr-only">
         <a href="#ne-pas-emp%25C3%25AAcher-la-nrvo">Article suivant: Ne pas empêcher la NRVO</a><br/>
-        <a href="#diff%25C3%25A9rence-entre----et-">Article précédent: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;</a><br/>
+        <a href="#diff%25C3%25A9rence-entre-et">Article précédent: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;</a><br/>
     </div>
     
 <p class="post__meta meta">
@@ -703,7 +822,7 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
         
 <article class="post">
   <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="diff%C3%A9rence-entre----et-"><span>
+    <div class="post__title-nextprev" id="diff%C3%A9rence-entre-et"><span>
         <a href="#sqlite-reconstruire-la-bdd-pour-lall%25C3%25A9ger"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Sqlite, reconstruire la bdd pour l&#39;alléger"></i></a>
         <a href="#d%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Délégation d&#39;événement en js"></i></a>
     </span></div>
@@ -831,12 +950,12 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 <p class="post__meta meta share" id="8a748c2097cc6e626a4bac010e5693ed-share">
   
   Partager Par
-  <a title="Partager par email" href="mailto:?subject=diff%25C3%25A9rence-entre----et-&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f&amp;title=diff%25C3%25A9rence-entre----et-" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager par email" href="mailto:?subject=diff%25C3%25A9rence-entre-et&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f&amp;title=diff%25C3%25A9rence-entre-et" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
   <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f&amp;name=diff%25C3%25A9rence-entre----et-" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f&amp;name=diff%25C3%25A9rence-entre-et" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
@@ -846,12 +965,12 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 <article class="post">
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js"><span>
-        <a href="#diff%25C3%25A9rence-entre----et-"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;"></i></a>
+        <a href="#diff%25C3%25A9rence-entre-et"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;"></i></a>
         <a href="#la-vis-cach%25C3%25A9e-de-getopt"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: La vis cachée de getopt"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/">Délégation d&#39;événement en js</a></h1>
     <div class="post__title-nextprev-text sr-only">
-        <a href="#diff%25C3%25A9rence-entre----et-">Article suivant: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;</a><br/>
+        <a href="#diff%25C3%25A9rence-entre-et">Article suivant: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;</a><br/>
         <a href="#la-vis-cach%25C3%25A9e-de-getopt">Article précédent: La vis cachée de getopt</a><br/>
     </div>
     
@@ -1136,96 +1255,6 @@ parsecmd --option-l --u plop bidule</code></pre></div>
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f12%2ftaguer-vos-classes-cataloguees-les%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f12%2ftaguer-vos-classes-cataloguees-les%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
   <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f12%2ftaguer-vos-classes-cataloguees-les%2f&amp;name=taguer-vos-classes-catalogu%25C3%25A9es-les" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="zsh-et-le-danger-des-modificateurs"><span>
-        <a href="#taguer-vos-classes-catalogu%25C3%25A9es-les"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Taguer vos classes, cataloguées-les"></i></a>
-        <a href="#la-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: La récursivité et le mauvais exemple de Fibonacci"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/">Zsh et le danger des modificateurs</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#taguer-vos-classes-catalogu%25C3%25A9es-les">Article suivant: Taguer vos classes, cataloguées-les</a><br/>
-        <a href="#la-r%25C3%25A9cursivit%25C3%25A9-et-le-mauvais-exemple-de-fibonacci">Article précédent: La récursivité et le mauvais exemple de Fibonacci</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2012-10-14T19:46:36">14 octobre 2012
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/script-shell" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>script-shell</a>, <a class="meta-categories__link" href="/categories/zsh" rel="category">zsh</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
-  <a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#9822b10c1e712637f7ec91dc443129e0-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-</p>
-
-
-  </header>
-  <div class="post__content">
-      <p>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&rsquo;interpréteur utilisé. J&rsquo;ai eu le coup une fois lorsqu&rsquo;il fallait charger le module <code>canberra-gtk</code> pour les programmes java.</p>
-
-<p>Une variable <code>$GTK_MODULES</code> est définie et contient tous les modules gtk séparés par des deux points (<code>:</code>).
-Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-gtk-module</code>. Les fautifs ? <code>52libcanberra-gtk-module_add-to-gtk-modules</code> et <code>52libcanberra-gtk3-module_add-to-gtk-modules</code> Avec un contenu identique:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-    <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;canberra-gtk-module&#34;</span>
-<span class="k">else</span>
-    <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">:canberra-gtk-module&#34;</span>
-<span class="k">fi</span>
-
-<span class="nb">export</span> GTK_MODULES</code></pre></div>
-<p>Et là, paf ! C&rsquo;est le drame. <code>$GTK_MODULES</code> = <code>canberra-gtk-moduleanberra-gtk-module</code>, naturellement :D.</p>
-
-<p>Vous venez d&rsquo;assister à l&rsquo;effet du modificateur <code>c</code> (dans <code>:c</code>) qui ajoute le chemin de l&rsquo;executable présent dans <code>$GTK_MODULES</code>. Comme <code>canberra-gtk-module</code> n&rsquo;est pas un executable, rien n&rsquo;est fait, mais <code>:c</code> disparaît. Avec l&rsquo;auto-complétion on peut voir qu&rsquo;il y en a une petite quinzaine de disponibles, de quoi tomber plusieurs fois dans le piège.</p>
-
-<p>Les modificateurs existent aussi dans bash, mais ils sont moins nombreux et ne s&rsquo;utilisent qu&rsquo;avec l&rsquo;historique (paragraphe <code>HISTORY EXPANSION</code> du manuel).</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> unfichier.txt
-<span class="nb">echo</span> !:1:r</code></pre></div>
-<p>Résultat :</p>
-
-<div class="highlight"><pre class="chroma"><code>unfichier.txt
-unfichier
-</code></pre></div>
-
-<p>Quasiment jamais utilisé en fait.</p>
-
-<p>Mais voilà, zsh les généralise aussi aux variables ce qui engendre une erreur dans <code>GTK_MODULES</code>.</p>
-
-<p>Alors comment faire ?
-Simple, entourer la variable d&rsquo;accolades:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GTK_MODULES</span><span class="si">}</span><span class="s2">:canberra-gtk-module&#34;</span></code></pre></div>
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2012-10-14T19:46:36">14 octobre 2012
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/script-shell" rel="category">script-shell</a>, <a class="meta-categories__link" href="/categories/zsh" rel="category">zsh</a>
- ;
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="9822b10c1e712637f7ec91dc443129e0-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=zsh-et-le-danger-des-modificateurs&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f&amp;title=zsh-et-le-danger-des-modificateurs" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f&amp;name=zsh-et-le-danger-des-modificateurs" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>

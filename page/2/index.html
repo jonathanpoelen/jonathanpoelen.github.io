@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jonathan Poelen&#39;s Blog</title>
-<meta name="generator" content="Hugo 0.49.2" />
+<meta name="generator" content="Hugo 0.50" />
 
 <link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="https://jonathanpoelen.github.io/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.3c02a78911c3760225d46e7ddf6b93a11eabdcc2aed86bcff4e16784af863336.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.78d675238305d53afafcf4dcc8fcae057b79e7ac460f84fe54c59332646dff9c.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -82,12 +82,12 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-function-et-continuation/">Méta-function et continuation</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/">Comparaison de différentes implémentations de mp_index_of</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/09/au-coeur-dun-variant/">Au cœur d&#39;un variant</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">29 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">30 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -95,10 +95,6 @@
   <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
   <div class="widget__content">
     <ul class="widget__list">
-      <li class="widget__item"><a class="widget__link" href="/2015/09/if-constexpr-avant-cpp17/">
-        <time datetime="2018-03-04T23:14:38">04/03/2018</time>
-        -- if constexpr avant C&#43;&#43;17
-      </a></li>
 
     </ul>
   </div>
@@ -115,7 +111,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (21)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (22)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -175,6 +171,159 @@
 </aside>
 
   <main class="main-content list content" role="main" id="main-content">
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c&#43;&#43;"><span>
+        <a href="#if-constexpr-avant-c%2b%2b17"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: if constexpr avant C&#43;&#43;17"></i></a>
+        <a href="#impl%25C3%25A9mentation-dun-magasin-de-type"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Implémentation d&#39;un magasin de type"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/">Paramètres de fonction nommés en C&#43;&#43;</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#if-constexpr-avant-c%2b%2b17">Article suivant: if constexpr avant C&#43;&#43;17</a><br/>
+        <a href="#impl%25C3%25A9mentation-dun-magasin-de-type">Article précédent: Implémentation d&#39;un magasin de type</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2015-07-28T00:43:22">28 juillet 2015
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
+  <a href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#8df7f8d0192d9f86d50bcccdaace39c9-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      
+
+<p>Cet article est la démonstration de l&rsquo;article précédent. La problématique présentée est la suivante: &laquo;&nbsp;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&nbsp;&raquo;</p>
+
+<p>La fonction de référence sera la suivante:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">draw_rect</span><span class="p">(</span>
+  <span class="kt">unsigned</span> <span class="n">w</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">h</span>
+<span class="p">,</span> <span class="kt">char</span> <span class="n">border_top</span> <span class="o">=</span> <span class="sc">&#39;-&#39;</span><span class="p">,</span> <span class="kt">char</span> <span class="n">border_bottom</span> <span class="o">=</span> <span class="sc">&#39;-&#39;</span>
+<span class="p">,</span> <span class="kt">char</span> <span class="n">border_left</span> <span class="o">=</span> <span class="sc">&#39;&lt;&#39;</span><span class="p">,</span> <span class="kt">char</span> <span class="n">border_right</span> <span class="o">=</span> <span class="sc">&#39;&gt;&#39;</span>
+<span class="p">,</span> <span class="kt">char</span> <span class="n">fill</span> <span class="o">=</span> <span class="sc">&#39;#&#39;</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="n">border_top</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">h</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">border_left</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="n">fill</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">border_right</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="n">border_bottom</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Comment faire un appel proche de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">draw_rect</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="sc">&#39;@&#39;</span><span class="p">)</span>
+</code></span> ?</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/#création-d-un-paramètre-nommé"><h2 id="création-d-un-paramètre-nommé">Création d&rsquo;un paramètre nommé</h2></a>
+
+<p>La première étape consiste à créer un type par paramètre optionnel. Comme je n&rsquo;ai pas envie de me compliquer la vie, la syntaxe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">fill</span><span class="o">=</span><span class="sc">&#39;@&#39;</span>
+</code></span> qui demande plus de code à cause d&rsquo;une surcharge de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">=</span>
+</code></span> sera remplacée par un simple appel de constructeur <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">fill</span><span class="p">{</span><span class="sc">&#39;@&#39;</span><span class="p">}</span>
+</code></span>.</p>
+
+<p>La définition des types devient alors véritablement simpliste:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">border_top</span> <span class="p">{</span> <span class="kt">char</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
+<span class="k">struct</span> <span class="n">border_bottom</span> <span class="p">{</span> <span class="kt">char</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
+<span class="k">struct</span> <span class="n">border_left</span> <span class="p">{</span> <span class="kt">char</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">border_right</span> <span class="p">{</span> <span class="kt">char</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
+<span class="k">struct</span> <span class="n">fill</span> <span class="p">{</span> <span class="kt">char</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
+</code></pre></div>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/#adapter-draw-rect"><h2 id="adapter-draw-rect">Adapter draw_rect</h2></a>
+
+<p>Au lieu d&rsquo;adapter <code>draw_rect</code>, je vais passer par une surcharge, ceci n&rsquo;impactera pas le résultat.</p>
+
+<p>La nouvelle fonction doit pouvoir prendre les nouveaux types, mais pas forcément tous et de préférence dans un ordre indéfini.</p>
+
+<p>On pourrait faire toutes les surcharges possibles, il n&rsquo;y a &laquo;&nbsp;que&nbsp;&raquo; plus d&rsquo;une centaine de possibilités après tout&hellip; Solution rejetée, évidemment ;).</p>
+
+<p>Une template variadique fera l&rsquo;affaire.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">draw_rect</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">w</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">h</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span> <span class="n">params</span><span class="p">);</span>
+</code></pre></div>
+<p>Il reste maintenant à associer chaque type de <code>params</code> avec le paramètre de notre premier prototype de draw_rect.</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/#distribution-des-paramètres"><h2 id="distribution-des-paramètres">Distribution des paramètres</h2></a>
+
+<p>C&rsquo;est là qu&rsquo;intervient le magasin de type de l&rsquo;article précédant (toujours pas trouvé de meilleur nom).</p>
+
+<p>Le principe est simple, toutes les valeurs de params sont regroupées sous une même enseigne appelé ici &laquo;&nbsp;pack&nbsp;&raquo;. On vérifie si le pack est convertible en un type voulu et dans le cas contraire, on utilise une valeur par défaut.</p>
+
+<p>Notre pack ressemble à ça:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nl">Pack</span> <span class="p">:</span> <span class="n">Ts</span><span class="p">...</span> <span class="p">{</span>
+  <span class="n">Pack</span><span class="p">(</span><span class="n">Ts</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="o">:</span> <span class="n">Ts</span><span class="p">(</span><span class="n">args</span><span class="p">)...</span> <span class="p">{}</span>
+<span class="p">}</span> <span class="n">pack</span><span class="p">{</span><span class="n">params</span><span class="p">...};</span>
+</code></pre></div>
+<p>Et la distribution des paramètres se fait ainsi:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">draw_rect</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span>
+<span class="p">,</span> <span class="n">getval</span><span class="o">&lt;</span><span class="n">border_top</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="sc">&#39;-&#39;</span><span class="p">)</span>
+<span class="p">,</span> <span class="n">getval</span><span class="o">&lt;</span><span class="n">border_bottom</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="sc">&#39;-&#39;</span><span class="p">)</span>
+<span class="p">,</span> <span class="n">getval</span><span class="o">&lt;</span><span class="n">border_left</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="sc">&#39;&lt;&#39;</span><span class="p">)</span>
+<span class="p">,</span> <span class="n">getval</span><span class="o">&lt;</span><span class="n">border_right</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="sc">&#39;&gt;&#39;</span><span class="p">)</span>
+<span class="p">,</span> <span class="n">getval</span><span class="o">&lt;</span><span class="n">fill</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="sc">&#39;#&#39;</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>Pour les plus attentifs (il m&rsquo;a fallu 2 jours pour le réaliser…), rien n&rsquo;empêche d&rsquo;envoyer des paramètres inutiles. On peut l&rsquo;empêcher grâce à un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">static_assert</span>
+</code></span> avec une condition qui ressemble à</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">is_convertible_t</span><span class="o">&lt;</span><span class="n">border_top</span><span class="o">&gt;</span><span class="p">()</span>
+               <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span><span class="o">&lt;</span><span class="n">border_bottom</span><span class="o">&gt;</span><span class="p">()</span>
+               <span class="o">+</span> <span class="cm">/*etc*/</span>
+</code></pre></div>
+<p>Dans l&rsquo;histoire, bien que largement surmontable, getval est la fonction la plus compliquée. Si Pack est convertible en <code>T</code> alors <code>Get::get()</code> est utilisé, sinon <code>Default::get()</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Pack</span><span class="o">&gt;</span>
+<span class="kt">char</span> <span class="n">getval</span><span class="p">(</span><span class="n">Pack</span><span class="o">&amp;</span> <span class="n">pack</span><span class="p">,</span> <span class="kt">char</span> <span class="n">default_</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="n">Get</span>     <span class="p">{</span> <span class="k">static</span> <span class="kt">char</span> <span class="n">get</span><span class="p">(</span><span class="n">T</span> <span class="n">item</span><span class="p">,</span> <span class="kt">char</span>        <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">item</span><span class="p">.</span><span class="n">value</span><span class="p">;</span> <span class="p">}</span> <span class="p">};</span>
+  <span class="k">struct</span> <span class="n">Default</span> <span class="p">{</span> <span class="k">static</span> <span class="kt">char</span> <span class="n">get</span><span class="p">(</span><span class="n">Pack</span><span class="o">&amp;</span><span class="p">,</span> <span class="kt">char</span> <span class="n">default_</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">default_</span><span class="p">;</span>   <span class="p">}</span> <span class="p">};</span>
+  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span><span class="o">&lt;</span><span class="n">Pack</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="n">Get</span><span class="p">,</span> <span class="n">Default</span><span class="o">&gt;::</span><span class="n">type</span>
+  <span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="n">default_</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/#aller-plus-loin"><h2 id="aller-plus-loin">Aller plus loin</h2></a>
+
+<p>Les choses se compliquent quand on veut récupérer un type partiel. Un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">basic_fill</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+</code></span> par exemple. Actuellement, rien n&rsquo;existe dans le standard et il faudra jouer avec les paramètres template template et un <a href="https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/">appel conditionnel de fonction selon la validité d&rsquo;une expression</a>.</p>
+
+<p>Pour compléter la solution, il faudrait aussi prendre en compte les références et ajouter des contraintes sur le paramètre.</p>
+
+<p>Pour continuer dans la voie des paramètres nommés, il existe <code>Boost.Parameters</code> et des variantes plus modernes telles que <a href="https://github.com/odinthenerd/parameter2">parameter2</a>.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2015-07-28T00:43:22">28 juillet 2015
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="8df7f8d0192d9f86d50bcccdaace39c9-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f&amp;title=param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f&amp;name=param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
         
 <article class="post">
   <header class="post__header clearfix">
@@ -603,12 +752,12 @@ Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standar
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="256-couleurs-et-plus-dans-la-console"><span>
         <a href="#r%25C3%25A9duire-lempreinte-m%25C3%25A9moire-dune-agglom%25C3%25A9ration-de-types"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Réduire l&#39;empreinte mémoire d&#39;une agglomération de types"></i></a>
-        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Valeur, référence ou pointeur ? (2/2)"></i></a>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Valeur, référence ou pointeur ? (2/2)"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/">256 couleurs et plus dans la console</a></h1>
     <div class="post__title-nextprev-text sr-only">
         <a href="#r%25C3%25A9duire-lempreinte-m%25C3%25A9moire-dune-agglom%25C3%25A9ration-de-types">Article suivant: Réduire l&#39;empreinte mémoire d&#39;une agglomération de types</a><br/>
-        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2">Article précédent: Valeur, référence ou pointeur ? (2/2)</a><br/>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2">Article précédent: Valeur, référence ou pointeur ? (2/2)</a><br/>
     </div>
     
 <p class="post__meta meta">
@@ -903,14 +1052,14 @@ Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standar
         
 <article class="post">
   <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="valeur-r%C3%A9f%C3%A9rence-ou-pointeur--2/2"><span>
+    <div class="post__title-nextprev" id="valeur-r%C3%A9f%C3%A9rence-ou-pointeur-2/2"><span>
         <a href="#256-couleurs-et-plus-dans-la-console"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: 256 couleurs et plus dans la console"></i></a>
-        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Valeur, référence ou pointeur ? (1/2)"></i></a>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-1%2f2"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Valeur, référence ou pointeur ? (1/2)"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/">Valeur, référence ou pointeur ? (2/2)</a></h1>
     <div class="post__title-nextprev-text sr-only">
         <a href="#256-couleurs-et-plus-dans-la-console">Article suivant: 256 couleurs et plus dans la console</a><br/>
-        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2">Article précédent: Valeur, référence ou pointeur ? (1/2)</a><br/>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-1%2f2">Article précédent: Valeur, référence ou pointeur ? (1/2)</a><br/>
     </div>
     
 <p class="post__meta meta">
@@ -1003,12 +1152,12 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 <p class="post__meta meta share" id="10ed39526a7913e7e5ec22dcf3e6f161-share">
   
   Partager Par
-  <a title="Partager par email" href="mailto:?subject=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f&amp;title=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager par email" href="mailto:?subject=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f&amp;title=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
   <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f&amp;name=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f&amp;name=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
@@ -1017,13 +1166,13 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
         
 <article class="post">
   <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="valeur-r%C3%A9f%C3%A9rence-ou-pointeur--1/2"><span>
-        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Valeur, référence ou pointeur ? (2/2)"></i></a>
+    <div class="post__title-nextprev" id="valeur-r%C3%A9f%C3%A9rence-ou-pointeur-1/2"><span>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Valeur, référence ou pointeur ? (2/2)"></i></a>
         <a href="#parcourir-les-arguments-dune-fonction-variadique"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Parcourir les arguments d&#39;une fonction variadique"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/">Valeur, référence ou pointeur ? (1/2)</a></h1>
     <div class="post__title-nextprev-text sr-only">
-        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--2%2f2">Article suivant: Valeur, référence ou pointeur ? (2/2)</a><br/>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2">Article suivant: Valeur, référence ou pointeur ? (2/2)</a><br/>
         <a href="#parcourir-les-arguments-dune-fonction-variadique">Article précédent: Parcourir les arguments d&#39;une fonction variadique</a><br/>
     </div>
     
@@ -1267,12 +1416,12 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 <p class="post__meta meta share" id="cb482643e61989560b2b661ad7a5d670-share">
   
   Partager Par
-  <a title="Partager par email" href="mailto:?subject=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-1-sur-2%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-1-sur-2%2f&amp;title=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager par email" href="mailto:?subject=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-1%2f2&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-1-sur-2%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-1-sur-2%2f&amp;title=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-1%2f2" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
   <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-1-sur-2%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-1-sur-2%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-1-sur-2%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-1-sur-2%2f&amp;name=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-1-sur-2%2f&amp;name=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-1%2f2" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
@@ -1282,12 +1431,12 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 <article class="post">
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="parcourir-les-arguments-dune-fonction-variadique"><span>
-        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Valeur, référence ou pointeur ? (1/2)"></i></a>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-1%2f2"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Valeur, référence ou pointeur ? (1/2)"></i></a>
         <a href="#tableau-dans-un-stdvector"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Tableau dans un std::vector"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/">Parcourir les arguments d&#39;une fonction variadique</a></h1>
     <div class="post__title-nextprev-text sr-only">
-        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur--1%2f2">Article suivant: Valeur, référence ou pointeur ? (1/2)</a><br/>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-1%2f2">Article suivant: Valeur, référence ou pointeur ? (1/2)</a><br/>
         <a href="#tableau-dans-un-stdvector">Article précédent: Tableau dans un std::vector</a><br/>
     </div>
     
@@ -1752,129 +1901,6 @@ Il faudrait que <code>std::swap</code> soit utilisé si aucun <code>swap</code> 
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f07%2futilisation-de-swap-et-des-fonctions-utilitaires-en-general%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f07%2futilisation-de-swap-et-des-fonctions-utilitaires-en-general%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
   <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f07%2futilisation-de-swap-et-des-fonctions-utilitaires-en-general%2f&amp;name=utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="make-sans-makefile-utilisation-des-r%C3%A8gles-implicites"><span>
-        <a href="#utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Utilisation de swap et des fonctions utilitaires en général"></i></a>
-        <a href="#optimisation-de-script-bash-en-limitant-louverture-de-processus"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Optimisation de script bash en limitant l&#39;ouverture de processus"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/">make sans Makefile, utilisation des règles implicites</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral">Article suivant: Utilisation de swap et des fonctions utilitaires en général</a><br/>
-        <a href="#optimisation-de-script-bash-en-limitant-louverture-de-processus">Article précédent: Optimisation de script bash en limitant l&#39;ouverture de processus</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2013-06-26T11:05:28">26 juin 2013
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/make" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>make</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
-  <a href="https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#f7c1a48984972b3b767b07b4c471902c-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-</p>
-
-
-  </header>
-  <div class="post__content">
-      <p>La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile &laquo;&nbsp;par défaut&nbsp;&raquo; avec plein de règles. Celui-ci est visible en tapant <code>make -pf /dev/null</code> dans un terminal.</p>
-
-<p>Rien qu&rsquo;avec ça, on peut compiler des fichiers C, C++, archive, latex, etc. Il y a de quoi faire en fait.</p>
-
-<p>Par exemple, je crée un fichier C nommé <code>test.c</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">ac</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">av</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="n">ac</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
-<p>Que je compile avec <code>make test</code> pour créer l&rsquo;exécutable <code>test</code>.
-Mais si on veut avoir des fichiers objets, il faut le demander explicitement: <code>make test.o test</code>.</p>
-
-<p>Maintenant, on remplace <code>test.c</code> par <code>test.cpp</code> et on inclut <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
-</code></span>.</p>
-
-<p>La compilation se fait encore avec <code>make test</code> ou <code>make test.o test</code> pour avoir les fichiers objets.</p>
-
-<p>Ah ! En fait non, le second ne fonctionne pas.
-<code>test.o</code> est compilé avec <code>cc</code>, et comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
-</code></span> est linké avec une lib, l&rsquo;implémentation du constructeur <a href="http://en.cppreference.com/w/cpp/io/ios_base/Init">std::ios_base::Init</a> n&rsquo;est pas trouvée. L&rsquo;idéal serait d&rsquo;utiliser <code>g++</code> ou un autre compilateur C++ pour avoir les chemins de bibliothèque convenablement configurés.</p>
-
-<p>Si ce n&rsquo;est qu&rsquo;une question de compilateur, changeons-le !</p>
-
-<p>Tout d&rsquo;abord, la règle de compilation d&rsquo;un <code>.o</code> vers un exécutable:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;%: %.o&#39;</span> -A3</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">%</span><span class="o">:</span> %.<span class="n">o</span>
-<span class="c">#  commands to execute (built-in):
-</span><span class="c"></span>        <span class="k">$(</span>LINK.o<span class="k">)</span> $^ <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
-</code></pre></div>
-<p>Cela utilise pour compiler la variable <code>LINK.o</code>. Soit, qu&rsquo;est sa valeur ?</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> g <span class="s1">&#39;LINK.o =&#39;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">LINK.o</span> <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
-</code></pre></div>
-<p>Qui fait référence à <code>CC</code>. On s&rsquo;approche, vérifions:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> g <span class="s1">&#39;CC =&#39;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">CC</span> <span class="o">=</span> cc
-</code></pre></div>
-<p>Bingo \o/. Il suffit donc de changer la valeur de <code>CC</code>.</p>
-
-<p>On recommence avec <code>make CC=g++ test.o test</code> et ça fonctionne :).</p>
-
-<p>Cette petite excursion permet mine de rien de découvrir pas mal de variables. Au passage, il est plus intéressant de les utiliser que d&rsquo;en recréer des nouvelles. Idem dans les règles de dépendances. S&rsquo;il faut les personnaliser, autant garder les mêmes commandes à exécuter.</p>
-
-<p>Par exemple, pour compiler un <code>.cpp</code> en <code>.o</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">%.o</span><span class="o">:</span> %.<span class="n">cpp</span>
-<span class="c">#  commands to execute (built-in):
-</span><span class="c"></span>        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
-</code></pre></div>
-<p>Généralement les sources sont également dépendantes de fichier d&rsquo;en-tête. Si on fait une règle qui prend en compte cela, autant garder la même commande:
-(petite parenthèse pour dire que gcc possède l&rsquo;option <code>-MM</code> pour lister les dépendances entre les fichiers.)</p>
-<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">bidule.o</span><span class="o">:</span> <span class="n">bidule</span>.<span class="n">cpp</span> <span class="n">bidule</span>.<span class="n">h</span> <span class="n">machin</span>.<span class="n">h</span>
-        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
-</code></pre></div>
-<p>Ainsi, quand <code>CXXFLAGS</code> sera modifié, la règle le prendra en compte car</p>
-<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">COMPILE.cpp</span> <span class="o">=</span> COMPILE.cc
-</code></pre></div>
-<p>Et</p>
-<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">COMPILE.cc</span> <span class="o">=</span> <span class="k">$(</span>CXX<span class="k">)</span> <span class="k">$(</span>CXXFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
-</code></pre></div>
-<p>À noter que la variable <code>CPPFLAGS</code> fait référence à la commande <code>cpp</code> (ou option <code>-E</code> de gcc) et concerne le <a href="http://fr.wikipedia.org/wiki/Pr%C3%A9processeur_C">C-preprocessor</a>.</p>
-
-<p>Bien sûr, la technique du Makefile seul a des limites. Par exemple, s&rsquo;il y a plusieurs fichiers C, je peux créer tous les fichiers objets avec <code>make *.o</code>, mais l&rsquo;exécutable ne sera dépendant que d&rsquo;un fichier. Au final les règles par défaut ne permettront pas de créer l&rsquo;exécutable, il faudra faire <code>gcc *.o</code> ou un Makefile avec au minimum <code>a.out: *.o</code>.</p>
-
-<p>Voilà, ce fut un petit post pour découvrir l&rsquo;existence des règles implicites et des variables prédéfinies :).</p>
-
-<p><a href="http://www.gnu.org/software/make/manual/make.html">Manual de make</a></p>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2013-06-26T11:05:28">26 juin 2013
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/make" rel="category">make</a>
- ;
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="f7c1a48984972b3b767b07b4c471902c-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-regles-implicites%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-regles-implicites%2f&amp;title=make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-regles-implicites%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-regles-implicites%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-regles-implicites%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f06%2fmake-sans-makefile-utilisation-des-regles-implicites%2f&amp;name=make-sans-makefile-utilisation-des-r%25C3%25A8gles-implicites" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>

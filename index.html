@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jonathan Poelen&#39;s Blog</title>
-<meta name="generator" content="Hugo 0.49.2" />
+<meta name="generator" content="Hugo 0.50" />
 
 <link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="https://jonathanpoelen.github.io/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.3c02a78911c3760225d46e7ddf6b93a11eabdcc2aed86bcff4e16784af863336.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.78d675238305d53afafcf4dcc8fcae057b79e7ac460f84fe54c59332646dff9c.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -82,12 +82,12 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-function-et-continuation/">Méta-function et continuation</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/">Comparaison de différentes implémentations de mp_index_of</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/09/au-coeur-dun-variant/">Au cœur d&#39;un variant</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/02/faites-parler-votre-compilateur/">Faites parler votre compilateur</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">29 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">30 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -95,10 +95,6 @@
   <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
   <div class="widget__content">
     <ul class="widget__list">
-      <li class="widget__item"><a class="widget__link" href="/2015/09/if-constexpr-avant-cpp17/">
-        <time datetime="2018-03-04T23:14:38">04/03/2018</time>
-        -- if constexpr avant C&#43;&#43;17
-      </a></li>
 
     </ul>
   </div>
@@ -115,7 +111,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (21)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (22)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -178,12 +174,277 @@
         
 <article class="post">
   <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="simuler-une-vtable-sans-fonction-virtuelle"><span>
+    <div class="post__title-nextprev" id="m%C3%A9ta-function-et-continuation"><span>
         &nbsp;
+        <a href="#simuler-une-vtable-sans-fonction-virtuelle"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Simuler une vtable sans fonction virtuelle"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/">Méta-function et continuation</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#simuler-une-vtable-sans-fonction-virtuelle">Article précédent: Simuler une vtable sans fonction virtuelle</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2018-11-08T18:56:13">08 novembre 2018
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>4 minutes ;
+  <a href="https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#c02325acf4c9cbb757454bfd7c056e30-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      
+
+<p>J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est <a href="https://github.com/kvasir-io/mpl">Kvasir.Mpl</a>. Son originalité réside dans le support des <a href="https://fr.wikipedia.org/wiki/Continuation">continuations</a> et &ndash;parce que cela va bien de paire,&ndash; l&rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (<code>list&lt;Ts...&gt;</code>).</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/#continuation"><h2 id="continuation">Continuation</h2></a>
+
+<p>Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo;étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme <a href="https://github.com/ericniebler/range-v3">rangev3</a>, les continuations se font avec l&rsquo;opérateur <code>|</code>. Par exemple <code>grep x | wc -l</code> ou <code>filter(is_odd) | take(6)</code>. Il n&rsquo;est pas possible d&rsquo;utiliser <code>|</code> avec des templates alors la continuation est un paramètre ajouté à l&rsquo;algorithme. En chaînant les continuations, on construit un nouvel algorithme qui s&rsquo;utilise avec <code>call&lt;algo, xs...&gt;</code>.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// `C` pour continuation
+</span><span class="c1"></span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">C</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">add_const</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">C</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">add_lvalue_reference</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">C</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">add_const_lvalue_reference</span> <span class="o">=</span> <span class="n">add_const</span><span class="o">&lt;</span><span class="n">add_lvalue_reference</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;&gt;</span><span class="p">;</span> <span class="c1">// un chaînage
+</span><span class="c1"></span></code></pre></div>
+
+
+<p>Les continuations limitent drastiquement le recours aux &laquo;&nbsp;lambdas&nbsp;&raquo;. Dans d&rsquo;autres bibliothèques du genre, <code>add_const_lvalue_reference</code> s&rsquo;écrirait <code>lambda&lt;add_lvalue_reference, lambda&lt;add_const, _&gt;&gt;</code> ce qui est beaucoup moins glamour.</p>
+
+<p>Dans des algorithmes du type transformation l&rsquo;impact sur la lecture du code est immédiat:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">transform</span><span class="o">&lt;</span><span class="n">lambda</span><span class="o">&lt;</span><span class="n">next</span><span class="p">,</span> <span class="n">lambda</span><span class="o">&lt;</span><span class="n">times</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
+<span class="c1">// vs
+</span><span class="c1"></span><span class="n">call</span><span class="o">&lt;</span><span class="n">transform</span><span class="o">&lt;</span><span class="n">times</span><span class="o">&lt;</span><span class="n">next</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="cm">/*C=identity*/</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
+</code></pre></div>
+<p>Qui se traduit par la construction d&rsquo;une nouvelle liste avec la formule <code>(x*y)+1</code>.</p>
+
+<p>Ce code met bien en évidence un autre aspect des continuations: la lecture du code se fait de gauche à droite alors que les lambdas se lisent de droite à gauche et oblige le lecteur à faire des allers/retours pour suivre le flux de code.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">transform</span><span class="o">&lt;</span><span class="n">lambda</span><span class="o">&lt;</span><span class="n">next</span><span class="p">,</span> <span class="n">lambda</span><span class="o">&lt;</span><span class="n">times</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
+ <span class="cm">/* 1 */</span>       <span class="cm">/* 3 */</span>       <span class="cm">/* 2 */</span>
+<span class="n">call</span><span class="o">&lt;</span><span class="n">transform</span><span class="o">&lt;</span><span class="n">times</span><span class="o">&lt;</span><span class="n">next</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="cm">/*C=identity*/</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
+      <span class="cm">/* 1 *//* 2 *//* 3 */</span>      <span class="cm">/* 4 */</span>
+</code></pre></div>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/#méta-fonction"><h2 id="méta-fonction">Méta-fonction</h2></a>
+
+<p>Au niveau de kvasir, une méta-fonction est un type qui possède un membre template nommé <code>f</code>. Tous les algorithmes de kvasir sont des méta-fonctions et l&rsquo;appel se fait avec <code>call&lt;metafunc, param1, param2,...&gt;</code>. Si on complète <code>add_const</code> et <code>add_lvalue_reference</code> plus haut, cela donne:</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">F</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">call</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">F</span><span class="o">::</span><span class="k">template</span> <span class="n">f</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">C</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">add_const</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span> <span class="n">T</span> <span class="k">const</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">C</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">add_lvalue_reference</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<p>Il ne reste qu&rsquo;une dernière étape, la continuation finale lorsqu&rsquo;il n&rsquo;y a plus rien à faire. Les plus utilisés sont au nombre de 2 et servent de valeur par défaut à l&rsquo;ensemble des algorithmes, j&rsquo;ai nommé <code>identity</code> et <code>listify</code>.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">identity</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">...</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="err"> </span><span class="nc">list</span> <span class="p">{};</span>
+
+<span class="k">struct</span> <span class="n">listify</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<h1 id="c-est-beau-c-est-propre">C&rsquo;est beau, c&rsquo;est propre</h1>
+
+<p>Il y a quelques jours, après mon petit passage quotidien dans libstdc++ et en regardant <code>std::decay</code>, je me suis dit <del>c&rsquo;est beau, c&rsquo;est propre</del> qu&rsquo;il faudrait comparer avec une implémentation qui utilise les concepts de kvasir.</p>
+
+<p>Voici en l&rsquo;état la version fournie avec gcc-8.2:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// Decay trait for arrays and functions, used for perfect forwarding
+</span><span class="c1">// in make_pair, make_tuple, etc.
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">_Up</span><span class="p">,</span>
+     <span class="kt">bool</span> <span class="n">_IsArray</span> <span class="o">=</span> <span class="n">is_array</span><span class="o">&lt;</span><span class="n">_Up</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+     <span class="kt">bool</span> <span class="n">_IsFunction</span> <span class="o">=</span> <span class="n">is_function</span><span class="o">&lt;</span><span class="n">_Up</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">__decay_selector</span><span class="p">;</span>
+
+<span class="c1">// NB: DR 705.
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">_Up</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">__decay_selector</span><span class="o">&lt;</span><span class="n">_Up</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">false</span><span class="o">&gt;</span>
+  <span class="p">{</span> <span class="k">typedef</span> <span class="k">typename</span> <span class="n">remove_cv</span><span class="o">&lt;</span><span class="n">_Up</span><span class="o">&gt;::</span><span class="n">type</span> <span class="n">__type</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">_Up</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">__decay_selector</span><span class="o">&lt;</span><span class="n">_Up</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">false</span><span class="o">&gt;</span>
+  <span class="p">{</span> <span class="k">typedef</span> <span class="k">typename</span> <span class="n">remove_extent</span><span class="o">&lt;</span><span class="n">_Up</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">*</span> <span class="n">__type</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">_Up</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">__decay_selector</span><span class="o">&lt;</span><span class="n">_Up</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">true</span><span class="o">&gt;</span>
+  <span class="p">{</span> <span class="k">typedef</span> <span class="k">typename</span> <span class="n">add_pointer</span><span class="o">&lt;</span><span class="n">_Up</span><span class="o">&gt;::</span><span class="n">type</span> <span class="n">__type</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="c1">/// decay
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">_Tp</span><span class="o">&gt;</span>
+  <span class="k">class</span><span class="err"> </span><span class="nc">decay</span>
+  <span class="p">{</span>
+    <span class="k">typedef</span> <span class="k">typename</span> <span class="n">remove_reference</span><span class="o">&lt;</span><span class="n">_Tp</span><span class="o">&gt;::</span><span class="n">type</span> <span class="n">__remove_type</span><span class="p">;</span>
+
+  <span class="k">public</span><span class="o">:</span>
+    <span class="k">typedef</span> <span class="k">typename</span> <span class="n">__decay_selector</span><span class="o">&lt;</span><span class="n">__remove_type</span><span class="o">&gt;::</span><span class="n">__type</span> <span class="n">type</span><span class="p">;</span>
+  <span class="p">};</span>
+</code></pre></div>
+<p>En réalité, ce qui m&rsquo;a particulièrement tiqué se situe dans la déclaration de <code>__decay_selector</code>: <code>is_array</code> et <code>is_function</code> sont toujours évaluées avec <code>_Up</code> et il faut écrire plusieurs spécialisations.</p>
+
+<p>L&rsquo;idée du sélecteur est un bon concept et se remplace facilement par une suite de conditions:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// ce que fait plus ou moins libc++ de llvm
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">__decay_selector</span> <span class="o">=</span> <span class="n">conditional</span><span class="o">&lt;</span>
+  <span class="n">is_array_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">remove_extent_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;*</span><span class="p">,</span>
+  <span class="n">conditional_t</span><span class="o">&lt;</span>
+    <span class="n">is_function_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">add_pointer_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+  <span class="o">&gt;</span>
+<span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la stl ne le permettent pas sans ajouter des intermédiaires.</p>
+
+<p>Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, <code>remove_extent&lt;T&gt;</code> ne sera pas instancié lorsque <code>is_array_v&lt;T&gt;</code> est faux ce qui rend les continuations très facilement composables.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">decay</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span>
+    <span class="n">if_</span><span class="o">&lt;</span>
+      <span class="n">cfl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_array</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_extent</span><span class="p">,</span> <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">add_pointer</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+      <span class="n">if_</span><span class="o">&lt;</span>
+        <span class="n">cfl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_function</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="n">cfe</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">add_pointer_impl</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv</span><span class="o">&gt;</span>
+      <span class="o">&gt;</span>
+    <span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+  <span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<p>Avec l&rsquo;implémentation de <code>if_</code>:</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span> <span class="n">B</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">conditional</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">P</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">TC</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">FC</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">if_</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span><span class="n">call</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">conditional</span><span class="o">&lt;</span><span class="n">call</span><span class="o">&lt;</span><span class="n">P</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">TC</span><span class="p">,</span> <span class="n">FC</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">...</span><span class="o">&gt;</span> <span class="k">class</span><span class="err"> </span><span class="nc">F</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">C</span> <span class="o">=</span> <span class="n">identity</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">cfl</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span> <span class="n">F</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">...</span><span class="o">&gt;</span> <span class="k">class</span><span class="err"> </span><span class="nc">F</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">C</span> <span class="o">=</span> <span class="n">identity</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">cfe</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span> <span class="k">typename</span> <span class="n">F</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span> <span class="n">B</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">conditional</span>
+  <span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;&gt;</span>
+  <span class="k">struct</span> <span class="n">conditional</span><span class="o">&lt;</span><span class="nb">false</span><span class="o">&gt;</span>
+  <span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">U</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>L&rsquo;ensemble des sources se trouvent sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/master/resources/metafunc_continuation/decay.cpp">github</a>
+.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2018-11-08T18:56:13">08 novembre 2018
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="c02325acf4c9cbb757454bfd7c056e30-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=m%25C3%25A9ta-function-et-continuation&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fmeta-function-et-continuation%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fmeta-function-et-continuation%2f&amp;title=m%25C3%25A9ta-function-et-continuation" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fmeta-function-et-continuation%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fmeta-function-et-continuation%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fmeta-function-et-continuation%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fmeta-function-et-continuation%2f&amp;name=m%25C3%25A9ta-function-et-continuation" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="simuler-une-vtable-sans-fonction-virtuelle"><span>
+        <a href="#m%25C3%25A9ta-function-et-continuation"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Méta-function et continuation"></i></a>
         <a href="#comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Comparaison de différentes implémentations de mp_index_of"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></h1>
     <div class="post__title-nextprev-text sr-only">
+        <a href="#m%25C3%25A9ta-function-et-continuation">Article suivant: Méta-function et continuation</a><br/>
         <a href="#comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of">Article précédent: Comparaison de différentes implémentations de mp_index_of</a><br/>
     </div>
     
@@ -2665,159 +2926,6 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f09%2fif-constexpr-avant-cpp17%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f09%2fif-constexpr-avant-cpp17%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
   <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f09%2fif-constexpr-avant-cpp17%2f&amp;name=if-constexpr-avant-c%2b%2b17" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="param%C3%A8tres-de-fonction-nomm%C3%A9s-en-c&#43;&#43;"><span>
-        <a href="#if-constexpr-avant-c%2b%2b17"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: if constexpr avant C&#43;&#43;17"></i></a>
-        <a href="#impl%25C3%25A9mentation-dun-magasin-de-type"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Implémentation d&#39;un magasin de type"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/">Paramètres de fonction nommés en C&#43;&#43;</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#if-constexpr-avant-c%2b%2b17">Article suivant: if constexpr avant C&#43;&#43;17</a><br/>
-        <a href="#impl%25C3%25A9mentation-dun-magasin-de-type">Article précédent: Implémentation d&#39;un magasin de type</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2015-07-28T00:43:22">28 juillet 2015
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
-  <a href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#8df7f8d0192d9f86d50bcccdaace39c9-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-</p>
-
-
-  </header>
-  <div class="post__content">
-      
-
-<p>Cet article est la démonstration de l&rsquo;article précédent. La problématique présentée est la suivante: &laquo;&nbsp;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&nbsp;&raquo;</p>
-
-<p>La fonction de référence sera la suivante:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">draw_rect</span><span class="p">(</span>
-  <span class="kt">unsigned</span> <span class="n">w</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">h</span>
-<span class="p">,</span> <span class="kt">char</span> <span class="n">border_top</span> <span class="o">=</span> <span class="sc">&#39;-&#39;</span><span class="p">,</span> <span class="kt">char</span> <span class="n">border_bottom</span> <span class="o">=</span> <span class="sc">&#39;-&#39;</span>
-<span class="p">,</span> <span class="kt">char</span> <span class="n">border_left</span> <span class="o">=</span> <span class="sc">&#39;&lt;&#39;</span><span class="p">,</span> <span class="kt">char</span> <span class="n">border_right</span> <span class="o">=</span> <span class="sc">&#39;&gt;&#39;</span>
-<span class="p">,</span> <span class="kt">char</span> <span class="n">fill</span> <span class="o">=</span> <span class="sc">&#39;#&#39;</span>
-<span class="p">)</span> <span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="n">border_top</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">h</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">border_left</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="n">fill</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">border_right</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="n">border_bottom</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Comment faire un appel proche de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">draw_rect</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="sc">&#39;@&#39;</span><span class="p">)</span>
-</code></span> ?</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/#création-d-un-paramètre-nommé"><h2 id="création-d-un-paramètre-nommé">Création d&rsquo;un paramètre nommé</h2></a>
-
-<p>La première étape consiste à créer un type par paramètre optionnel. Comme je n&rsquo;ai pas envie de me compliquer la vie, la syntaxe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">fill</span><span class="o">=</span><span class="sc">&#39;@&#39;</span>
-</code></span> qui demande plus de code à cause d&rsquo;une surcharge de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">=</span>
-</code></span> sera remplacée par un simple appel de constructeur <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">fill</span><span class="p">{</span><span class="sc">&#39;@&#39;</span><span class="p">}</span>
-</code></span>.</p>
-
-<p>La définition des types devient alors véritablement simpliste:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">border_top</span> <span class="p">{</span> <span class="kt">char</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
-<span class="k">struct</span> <span class="n">border_bottom</span> <span class="p">{</span> <span class="kt">char</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
-<span class="k">struct</span> <span class="n">border_left</span> <span class="p">{</span> <span class="kt">char</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
-
-<span class="k">struct</span> <span class="n">border_right</span> <span class="p">{</span> <span class="kt">char</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
-<span class="k">struct</span> <span class="n">fill</span> <span class="p">{</span> <span class="kt">char</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
-</code></pre></div>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/#adapter-draw-rect"><h2 id="adapter-draw-rect">Adapter draw_rect</h2></a>
-
-<p>Au lieu d&rsquo;adapter <code>draw_rect</code>, je vais passer par une surcharge, ceci n&rsquo;impactera pas le résultat.</p>
-
-<p>La nouvelle fonction doit pouvoir prendre les nouveaux types, mais pas forcément tous et de préférence dans un ordre indéfini.</p>
-
-<p>On pourrait faire toutes les surcharges possibles, il n&rsquo;y a &laquo;&nbsp;que&nbsp;&raquo; plus d&rsquo;une centaine de possibilités après tout&hellip; Solution rejetée, évidemment ;).</p>
-
-<p>Une template variadique fera l&rsquo;affaire.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">draw_rect</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">w</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">h</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span> <span class="n">params</span><span class="p">);</span>
-</code></pre></div>
-<p>Il reste maintenant à associer chaque type de <code>params</code> avec le paramètre de notre premier prototype de draw_rect.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/#distribution-des-paramètres"><h2 id="distribution-des-paramètres">Distribution des paramètres</h2></a>
-
-<p>C&rsquo;est là qu&rsquo;intervient le magasin de type de l&rsquo;article précédant (toujours pas trouvé de meilleur nom).</p>
-
-<p>Le principe est simple, toutes les valeurs de params sont regroupées sous une même enseigne appelé ici &laquo;&nbsp;pack&nbsp;&raquo;. On vérifie si le pack est convertible en un type voulu et dans le cas contraire, on utilise une valeur par défaut.</p>
-
-<p>Notre pack ressemble à ça:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nl">Pack</span> <span class="p">:</span> <span class="n">Ts</span><span class="p">...</span> <span class="p">{</span>
-  <span class="n">Pack</span><span class="p">(</span><span class="n">Ts</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="o">:</span> <span class="n">Ts</span><span class="p">(</span><span class="n">args</span><span class="p">)...</span> <span class="p">{}</span>
-<span class="p">}</span> <span class="n">pack</span><span class="p">{</span><span class="n">params</span><span class="p">...};</span>
-</code></pre></div>
-<p>Et la distribution des paramètres se fait ainsi:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">draw_rect</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">h</span>
-<span class="p">,</span> <span class="n">getval</span><span class="o">&lt;</span><span class="n">border_top</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="sc">&#39;-&#39;</span><span class="p">)</span>
-<span class="p">,</span> <span class="n">getval</span><span class="o">&lt;</span><span class="n">border_bottom</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="sc">&#39;-&#39;</span><span class="p">)</span>
-<span class="p">,</span> <span class="n">getval</span><span class="o">&lt;</span><span class="n">border_left</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="sc">&#39;&lt;&#39;</span><span class="p">)</span>
-<span class="p">,</span> <span class="n">getval</span><span class="o">&lt;</span><span class="n">border_right</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="sc">&#39;&gt;&#39;</span><span class="p">)</span>
-<span class="p">,</span> <span class="n">getval</span><span class="o">&lt;</span><span class="n">fill</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="sc">&#39;#&#39;</span><span class="p">)</span>
-<span class="p">);</span>
-</code></pre></div>
-<p>Pour les plus attentifs (il m&rsquo;a fallu 2 jours pour le réaliser…), rien n&rsquo;empêche d&rsquo;envoyer des paramètres inutiles. On peut l&rsquo;empêcher grâce à un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">static_assert</span>
-</code></span> avec une condition qui ressemble à</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">is_convertible_t</span><span class="o">&lt;</span><span class="n">border_top</span><span class="o">&gt;</span><span class="p">()</span>
-               <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span><span class="o">&lt;</span><span class="n">border_bottom</span><span class="o">&gt;</span><span class="p">()</span>
-               <span class="o">+</span> <span class="cm">/*etc*/</span>
-</code></pre></div>
-<p>Dans l&rsquo;histoire, bien que largement surmontable, getval est la fonction la plus compliquée. Si Pack est convertible en <code>T</code> alors <code>Get::get()</code> est utilisé, sinon <code>Default::get()</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Pack</span><span class="o">&gt;</span>
-<span class="kt">char</span> <span class="n">getval</span><span class="p">(</span><span class="n">Pack</span><span class="o">&amp;</span> <span class="n">pack</span><span class="p">,</span> <span class="kt">char</span> <span class="n">default_</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">struct</span> <span class="n">Get</span>     <span class="p">{</span> <span class="k">static</span> <span class="kt">char</span> <span class="n">get</span><span class="p">(</span><span class="n">T</span> <span class="n">item</span><span class="p">,</span> <span class="kt">char</span>        <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">item</span><span class="p">.</span><span class="n">value</span><span class="p">;</span> <span class="p">}</span> <span class="p">};</span>
-  <span class="k">struct</span> <span class="n">Default</span> <span class="p">{</span> <span class="k">static</span> <span class="kt">char</span> <span class="n">get</span><span class="p">(</span><span class="n">Pack</span><span class="o">&amp;</span><span class="p">,</span> <span class="kt">char</span> <span class="n">default_</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">default_</span><span class="p">;</span>   <span class="p">}</span> <span class="p">};</span>
-  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span><span class="o">&lt;</span><span class="n">Pack</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="n">Get</span><span class="p">,</span> <span class="n">Default</span><span class="o">&gt;::</span><span class="n">type</span>
-  <span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="n">default_</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/#aller-plus-loin"><h2 id="aller-plus-loin">Aller plus loin</h2></a>
-
-<p>Les choses se compliquent quand on veut récupérer un type partiel. Un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">basic_fill</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
-</code></span> par exemple. Actuellement, rien n&rsquo;existe dans le standard et il faudra jouer avec les paramètres template template et un <a href="https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/">appel conditionnel de fonction selon la validité d&rsquo;une expression</a>.</p>
-
-<p>Pour compléter la solution, il faudrait aussi prendre en compte les références et ajouter des contraintes sur le paramètre.</p>
-
-<p>Pour continuer dans la voie des paramètres nommés, il existe <code>Boost.Parameters</code> et des variantes plus modernes telles que <a href="https://github.com/odinthenerd/parameter2">parameter2</a>.</p>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2015-07-28T00:43:22">28 juillet 2015
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
- ;
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="8df7f8d0192d9f86d50bcccdaace39c9-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f&amp;title=param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f07%2fparametres-de-fonction-nommes-en-cpp%2f&amp;name=param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
