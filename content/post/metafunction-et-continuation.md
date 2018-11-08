@@ -53,7 +53,7 @@ Il ne reste qu'une dernière étape, la continuation finale lorsqu'il n'y a plus
 
 {{<fhi "metafunc_continuation/decay.cpp" "f_term">}}
 
-# C'est beau, c'est propre
+## C'est beau, c'est propre
 
 Il y a quelques jours, après mon petit passage quotidien dans libstdc++ et en regardant `std::decay`, je me suis dit ~~c'est beau, c'est propre~~ qu'il faudrait comparer avec une implémentation qui utilise les concepts de kvasir.
 
