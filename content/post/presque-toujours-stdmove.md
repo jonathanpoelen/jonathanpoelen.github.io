@@ -66,5 +66,5 @@ T bar() {
 
 Au final, les seuls moments où `std::move` devrait être utilisé, sont
 
-- Pour transférer un type référence (lvalue ou rvalue) qui force la variable en une expression rvalue.
-- Pour transmettre un type plein (sans référence) à une autre fonction.
+- Pour transférer une variable de type référence (lvalue ou rvalue) en la forçant en rvalue.
+- Pour passer une variable de type plein (sans référence) à une autre fonction.
