@@ -24,6 +24,7 @@ filename="${filename//è/e}"
 filename="${filename//ê/e}"
 filename="${filename//à/a}"
 filename="${filename//ù/u}"
+filename="${filename//:/}"
 
 base=content/post
 oldpath="$base/$title"$ext
