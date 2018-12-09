@@ -64,8 +64,8 @@
 &lt;p&gt;Au final, les seuls moments où &lt;code&gt;std::move&lt;/code&gt; devrait être utilisé, sont&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Pour transférer un type référence (lvalue ou rvalue) qui force la variable en une expression rvalue.&lt;/li&gt;
-&lt;li&gt;Pour transmettre un type plein (sans référence) à une autre fonction.&lt;/li&gt;
+&lt;li&gt;Pour transférer une variable de type référence (lvalue ou rvalue) en la forçant en rvalue.&lt;/li&gt;
+&lt;li&gt;Pour passer une variable de type plein (sans référence) à une autre fonction.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;footnotes&#34;&gt;
 
