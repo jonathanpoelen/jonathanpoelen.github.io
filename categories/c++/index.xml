@@ -8,10 +8,20 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Thu, 08 Nov 2018 18:56:13 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 09 Dec 2018 13:11:29 +0100</lastBuildDate>
     
 	<atom:link href="https://jonathanpoelen.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Presque toujours std::move</title>
+      <link>https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/</link>
+      <pubDate>Sun, 09 Dec 2018 13:11:29 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/</guid>
+      <description>Le principe de std::move est de &amp;laquo;&amp;nbsp;déplacer1&amp;nbsp;&amp;raquo; un objet qui n&amp;rsquo;est plus utilisé dans l&amp;rsquo;objective de décharger la responsabilité dans une autre variable ou d&amp;rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
+Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&amp;rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&amp;rsquo;en priver ?</description>
+    </item>
     
     <item>
       <title>Méta-function et continuation</title>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jonathan Poelen&#39;s Blog</title>
-<meta name="generator" content="Hugo 0.50" />
+<meta name="generator" content="Hugo 0.52" />
 
 <link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="https://jonathanpoelen.github.io/index.xml" />
 
@@ -82,12 +82,12 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/11/meta-function-et-continuation/">Méta-function et continuation</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/">Comparaison de différentes implémentations de mp_index_of</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/09/au-coeur-dun-variant/">Au cœur d&#39;un variant</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">30 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">31 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -111,7 +111,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (22)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (23)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -174,12 +174,131 @@
         
 <article class="post">
   <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="m%C3%A9ta-function-et-continuation"><span>
+    <div class="post__title-nextprev" id="presque-toujours-stdmove"><span>
         &nbsp;
+        <a href="#m%25C3%25A9ta-function-et-continuation"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Méta-function et continuation"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#m%25C3%25A9ta-function-et-continuation">Article précédent: Méta-function et continuation</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2018-12-09T13:11:29">09 décembre 2018
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
+  <a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#f5c829c4a296c3dc8dd76923c74b4885-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      
+
+<p>Le principe de <code>std::move</code> est de &laquo;&nbsp;déplacer<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objective de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.</p>
+
+<p>Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?</p>
+
+<p><em>Rire sarcastique.</em></p>
+
+<p>Parce qu&rsquo;il est possible de &laquo;&nbsp;déplacer&nbsp;&raquo; les valeurs sans passer le constructeur !</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/#du-déplacement-sans-std-move"><h2 id="du-déplacement-sans-std-move">Du &laquo;&nbsp;déplacement&nbsp;&raquo; sans std::move</h2></a>
+
+<p>C&rsquo;est fort du roquefort ! Pas de constructeur, pas de <code>std::move</code>, mais un objet qui se déplace quand même. On croirait faire de la magie !</p>
+
+<p><code>std::move</code> va forcer l&rsquo;appel à un constructeur de déplacement alors que le compilateur a les moyens &ndash; et même l&rsquo;obligation &ndash; de le faire pour nous. Ou mieux, bypasser tous les constructeurs et mettre la valeur directement là où il faut. On parle d&rsquo;<a href="https://en.cppreference.com/w/cpp/language/copy_elision">élision par copie</a> ou de (N)RVO (Named Return Value Optimization). Sauf que <code>std::move</code> bloque ces optimisations.</p>
+
+<p>Dans le cas de l&rsquo;élision de copie, le compilateur construit directement les paramètres de type T (un type sans référence) lorsqu&rsquo;on utilise un temporaire.</p>
+
+<p>Avec <code>void foo(T)</code>, il faut faire <code>foo(T{...})</code> et non pas <code>foo(std::move(T({...})</code>. Comme on ne fait pas <code>T x = std::move(T{...})</code>, mais <code>T x = T{...}</code> (on peut faire <code>T x{}</code>, c&rsquo;est pour l&rsquo;exemple)</p>
+
+<p>Les temporaires peuvent aussi exister depuis l&rsquo;appel à une fonction qui retourne <code>T</code>.</p>
+
+<p>Avec <code>T bar()</code>, il faut faire <code>foo(bar())</code>, et non pas <code>foo(std::move(bar())</code>.</p>
+
+<p>La (N)RVO est une optimisation qui fonctionne sur le même principe au niveau de la valeur de retour.</p>
+
+<p>On n&rsquo;écrit pas <code>T bar() { return std::move(T{...}); }</code>, mais <code>T bar() { return T{...}; }</code>.</p>
+
+<p>Le compilateur possède aussi un comportement spécial pour la variable locale retournée: celle-ci doit être déplacée si possible. Et si possible, on optimise avec une élision.</p>
+
+<p>On écrit</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
+  <span class="c1">// ...
+</span><span class="c1"></span>  <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>À la place de</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
+  <span class="c1">// ...
+</span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Au final, les seuls moments où <code>std::move</code> devrait être utilisé, sont</p>
+
+<ul>
+<li>Pour transférer un type référence (lvalue ou rvalue) qui force la variable en une expression rvalue.</li>
+<li>Pour transmettre un type plein (sans référence) à une autre fonction.</li>
+</ul>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">std::move n&rsquo;est qu&rsquo;un <code>static_cast&lt;T&amp;&amp;&gt;</code>
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2018-12-09T13:11:29">09 décembre 2018
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="f5c829c4a296c3dc8dd76923c74b4885-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=presque-toujours-stdmove&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f12%2fpresque-toujours-stdmove%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f12%2fpresque-toujours-stdmove%2f&amp;title=presque-toujours-stdmove" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f12%2fpresque-toujours-stdmove%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f12%2fpresque-toujours-stdmove%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f12%2fpresque-toujours-stdmove%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f12%2fpresque-toujours-stdmove%2f&amp;name=presque-toujours-stdmove" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="m%C3%A9ta-function-et-continuation"><span>
+        <a href="#presque-toujours-stdmove"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Presque toujours std::move"></i></a>
         <a href="#simuler-une-vtable-sans-fonction-virtuelle"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Simuler une vtable sans fonction virtuelle"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/">Méta-function et continuation</a></h1>
     <div class="post__title-nextprev-text sr-only">
+        <a href="#presque-toujours-stdmove">Article suivant: Presque toujours std::move</a><br/>
         <a href="#simuler-une-vtable-sans-fonction-virtuelle">Article précédent: Simuler une vtable sans fonction virtuelle</a><br/>
     </div>
     
@@ -2773,159 +2892,6 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2016%2f04%2fcomment-se-passer-de-stdforward%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2016%2f04%2fcomment-se-passer-de-stdforward%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
   <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2016%2f04%2fcomment-se-passer-de-stdforward%2f&amp;name=comment-se-passer-de-stdforward" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="if-constexpr-avant-c&#43;&#43;17"><span>
-        <a href="#comment-se-passer-de-stdforward"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Comment se passer de std::forward"></i></a>
-        <a href="#param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Paramètres de fonction nommés en C&#43;&#43;"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/">if constexpr avant C&#43;&#43;17</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#comment-se-passer-de-stdforward">Article suivant: Comment se passer de std::forward</a><br/>
-        <a href="#param%25C3%25A8tres-de-fonction-nomm%25C3%25A9s-en-c%2b%2b">Article précédent: Paramètres de fonction nommés en C&#43;&#43;</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2015-09-21T00:33:38">21 septembre 2015
-</time>
-    
-    (Dernière Modification le <time class="post__meta-lastmod" datetime="2018-03-04T23:14:38">04 mars 2018
-)</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
-  <a href="https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#175a62cf1a99f97cb9cb3cff7e36971f-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-</p>
-
-
-  </header>
-  <div class="post__content">
-      
-
-<p>Le but de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span>
-</code></span> est d&rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&rsquo;a pas l&rsquo;obligation de pouvoir être compilé.</p>
-
-<p>Plutôt étrange, n&rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.</p>
-
-<p>Prenons comme exemple une fonction <code>invoke</code> qui s&rsquo;utilise de 3 manières:</p>
-
-<ul>
-<li>foncteur + paramètres</li>
-<li>fonction membre + objet + paramètres</li>
-<li>fonction membre + pointeur d&rsquo;objet + paramètres</li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// x et y sont des std::string
-</span><span class="c1"></span><span class="n">invoke</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">equal_to</span><span class="o">&lt;&gt;</span><span class="p">{},</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// foncteur
-</span><span class="c1"></span><span class="n">invoke</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">size</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// fonction membre et référence
-</span><span class="c1"></span><span class="n">invoke</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">size</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// fonction membre et pointeur
-</span><span class="c1"></span></code></pre></div>
-<p>En C++17, tout peut se faire en une seule fonction, alors qu&rsquo;avant C++17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec <code>std::enable_if</code>.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/#implémentation-avec-if-constexpr"><h2 id="implémentation-avec-if-constexpr">Implémentation avec if constexpr</h2></a>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">F</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
-<span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="n">invoke</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_member_function_pointer</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;&gt;::</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="k">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_pointer</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;::</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-&gt;*</span><span class="n">f</span><span class="p">)(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">).</span><span class="o">*</span><span class="n">f</span><span class="p">)(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="k">else</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">)(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">F</span><span class="o">&gt;</span>
-<span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="n">invoke</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">)();</span>
-<span class="p">}</span>
-</code></pre></div>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/#simulation-de-if-constexpr-en-pre-c-17"><h2 id="simulation-de-if-constexpr-en-pre-c-17">Simulation de if constexpr en pre-C++17</h2></a>
-
-<p>L&rsquo;atout principal de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span>
-</code></span> ici est de n&rsquo;évaluer le code qu&rsquo;au besoin. Il faut donc un moyen de court-circuiter le flux de code. Le plus simple consiste à faire 2 fonctions, une avec un paramètre de type <code>std::true_type</code>, l&rsquo;autre avec un <code>std::false_type</code> qui représente le résultat de la condition et 2 paramètres: <code>If</code> et <code>Else</code>.</p>
-
-<p>Aussi, pour que les foncteurs <code>If</code> et <code>Else</code> soient évalués au dernier moment, ils devront prendre et utiliser un paramètre générique (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">auto</span>
-</code></span>). Sinon le compilateur va vérifier le code au moment de l&rsquo;instanciation de la lambda plutôt qu&rsquo;au moment de son utilisation.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">Identity</span>
-<span class="p">{</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
-  <span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="k">operator</span><span class="p">()(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="k">const</span> <span class="k">noexcept</span>
-  <span class="p">{</span> <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">If</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Else</span> <span class="o">=</span> <span class="kt">int</span><span class="o">&gt;</span>
-<span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="n">if_constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span> <span class="n">cond</span><span class="p">,</span> <span class="n">If</span> <span class="n">f</span><span class="p">,</span> <span class="n">Else</span> <span class="o">=</span> <span class="p">{})</span>
-<span class="p">{</span> <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">Identity</span><span class="p">{});</span> <span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">If</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Else</span><span class="o">&gt;</span>
-<span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="n">if_constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">false_type</span> <span class="n">cond</span><span class="p">,</span> <span class="n">If</span><span class="p">,</span> <span class="n">Else</span> <span class="n">f</span><span class="p">)</span>
-<span class="p">{</span> <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">Identity</span><span class="p">{});</span> <span class="p">}</span>
-
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">F</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
-<span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="n">invoke</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="n">if_constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_member_function_pointer</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;&gt;</span><span class="p">{},</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">auto</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">if_constexpr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_pointer</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">{},</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">auto</span> <span class="n">_</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">-&gt;*</span><span class="n">f</span><span class="p">)(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
-    <span class="p">},</span> <span class="cm">/* else */</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">auto</span> <span class="n">_</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)).</span><span class="o">*</span><span class="n">f</span><span class="p">)(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
-    <span class="p">});</span>
-  <span class="p">},</span> <span class="cm">/* else */</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">auto</span> <span class="n">_</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">_</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">))(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
-  <span class="p">});</span>
-<span class="p">}</span>
-</code></pre></div>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/#limitation"><h2 id="limitation">Limitation</h2></a>
-
-<p>Cette version ne supporte pas <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">else</span>
-</code></span>, demande d&rsquo;utiliser <code>_</code> &laquo;&nbsp;là où il faut&nbsp;&raquo; et est syntaxiquement plus lourde.
-Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonction qui ne propage pas l&rsquo;usage de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">break</span>
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">continue</span>
-</code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">return</span>
-</code></span>.</p>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2015-09-21T00:33:38">21 septembre 2015
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
- ;
-  
-<br />(Dernière Modification le <time class="post__meta-lastmod" datetime="2018-03-04T23:14:38">04 mars 2018
-)</time>
-  <br/><a href="https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="175a62cf1a99f97cb9cb3cff7e36971f-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=if-constexpr-avant-c%2b%2b17&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f09%2fif-constexpr-avant-cpp17%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f09%2fif-constexpr-avant-cpp17%2f&amp;title=if-constexpr-avant-c%2b%2b17" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f09%2fif-constexpr-avant-cpp17%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f09%2fif-constexpr-avant-cpp17%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f09%2fif-constexpr-avant-cpp17%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2015%2f09%2fif-constexpr-avant-cpp17%2f&amp;name=if-constexpr-avant-c%2b%2b17" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>

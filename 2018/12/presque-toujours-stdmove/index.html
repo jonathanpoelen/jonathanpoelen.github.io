@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zsh et le danger des modificateurs</title>
+<title>Presque toujours std::move</title>
 <meta name="generator" content="Hugo 0.52" />
 
 
@@ -19,17 +19,17 @@
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
 <meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
-<meta property="og:title" content="Zsh et le danger des modificateurs">
-<meta property="og:url" content="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/">
+<meta property="og:title" content="Presque toujours std::move">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/">
 <meta property="og:language" content="fr-FR">
 <meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
 <meta property="twitter:card" content="summary">
-<meta property="twitter:url" content="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/">
-<meta property="twitter:title" content="Zsh et le danger des modificateurs">
-<meta name="description" content="Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&rsquo;interpréteur utilisé. J&rsquo;ai eu le coup une fois lorsqu&rsquo;il fallait charger le module canberra-gtk pour les programmes java.
-Une variable $GTK_MODULES est définie et contient tous les modules gtk séparés par des deux points (:). Visiblement, j&rsquo;ai 2 modules gtk.">
-<meta property="twitter:description" content="Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&rsquo;interpréteur utilisé. J&rsquo;ai eu le coup une fois lorsqu&rsquo;il fallait charger le module canberra-gtk pour les programmes java.
-Une variable $GTK_MODULES est définie et contient tous les modules gtk séparés par des deux points (:). Visiblement, j&rsquo;ai 2 modules gtk.">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/">
+<meta property="twitter:title" content="Presque toujours std::move">
+<meta name="description" content="Le principe de std::move est de &laquo;&nbsp;déplacer1&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objective de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
+Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?">
+<meta property="twitter:description" content="Le principe de std::move est de &laquo;&nbsp;déplacer1&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objective de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
+Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -174,19 +174,18 @@ Une variable $GTK_MODULES est définie et contient tous les modules gtk séparé
   
 <article class="post">
   <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="zsh-et-le-danger-des-modificateurs"><span>
-        <a href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Taguer vos classes, cataloguées-les"></i></a>
-        <a href="https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: La récursivité et le mauvais exemple de Fibonacci"></i></a>
+    <div class="post__title-nextprev" id="presque-toujours-stdmove"><span>
+        &nbsp;
+        <a href="https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Méta-function et continuation"></i></a>
     </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/">Zsh et le danger des modificateurs</a></h1>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></h1>
     <div class="post__title-nextprev-text sr-only">
-        <a href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/">Article suivant: Taguer vos classes, cataloguées-les</a><br/>
-        <a href="https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/">Article précédent: La récursivité et le mauvais exemple de Fibonacci</a><br/>
+        <a href="https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/">Article précédent: Méta-function et continuation</a><br/>
     </div>
     
 <p class="post__meta meta">
     <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2012-10-14T19:46:36">14 octobre 2012
+    <time class="post__meta-date" datetime="2018-12-09T13:11:29">09 décembre 2018
 </time>
     
     ;
@@ -194,68 +193,103 @@ Une variable $GTK_MODULES est définie et contient tous les modules gtk séparé
 
   
 
-<a class="meta-categories__link" href="/categories/script-shell" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>script-shell</a>, <a class="meta-categories__link" href="/categories/zsh" rel="category">zsh</a>
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
 ;
 
 
   <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
-  <a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#9822b10c1e712637f7ec91dc443129e0-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  <a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#f5c829c4a296c3dc8dd76923c74b4885-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
 </p>
 
 
   </header>
   <div class="post__content">
-      <p>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&rsquo;interpréteur utilisé. J&rsquo;ai eu le coup une fois lorsqu&rsquo;il fallait charger le module <code>canberra-gtk</code> pour les programmes java.</p>
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
+<ul>
+<li><a href="#du-déplacement-sans-std-move">Du &laquo;&nbsp;déplacement&nbsp;&raquo; sans std::move</a></li>
+</ul></nav>
+        </div></aside>
+      
 
-<p>Une variable <code>$GTK_MODULES</code> est définie et contient tous les modules gtk séparés par des deux points (<code>:</code>).
-Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-gtk-module</code>. Les fautifs ? <code>52libcanberra-gtk-module_add-to-gtk-modules</code> et <code>52libcanberra-gtk3-module_add-to-gtk-modules</code> Avec un contenu identique:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-    <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;canberra-gtk-module&#34;</span>
-<span class="k">else</span>
-    <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">:canberra-gtk-module&#34;</span>
-<span class="k">fi</span>
+<p>Le principe de <code>std::move</code> est de &laquo;&nbsp;déplacer<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objective de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.</p>
 
-<span class="nb">export</span> GTK_MODULES</code></pre></div>
-<p>Et là, paf ! C&rsquo;est le drame. <code>$GTK_MODULES</code> = <code>canberra-gtk-moduleanberra-gtk-module</code>, naturellement :D.</p>
+<p>Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?</p>
 
-<p>Vous venez d&rsquo;assister à l&rsquo;effet du modificateur <code>c</code> (dans <code>:c</code>) qui ajoute le chemin de l&rsquo;executable présent dans <code>$GTK_MODULES</code>. Comme <code>canberra-gtk-module</code> n&rsquo;est pas un executable, rien n&rsquo;est fait, mais <code>:c</code> disparaît. Avec l&rsquo;auto-complétion on peut voir qu&rsquo;il y en a une petite quinzaine de disponibles, de quoi tomber plusieurs fois dans le piège.</p>
+<p><em>Rire sarcastique.</em></p>
 
-<p>Les modificateurs existent aussi dans bash, mais ils sont moins nombreux et ne s&rsquo;utilisent qu&rsquo;avec l&rsquo;historique (paragraphe <code>HISTORY EXPANSION</code> du manuel).</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> unfichier.txt
-<span class="nb">echo</span> !:1:r</code></pre></div>
-<p>Résultat :</p>
+<p>Parce qu&rsquo;il est possible de &laquo;&nbsp;déplacer&nbsp;&raquo; les valeurs sans passer le constructeur !</p>
 
-<div class="highlight"><pre class="chroma"><code>unfichier.txt
-unfichier
+<a class="headline-hash" href="#du-déplacement-sans-std-move"><h2 id="du-déplacement-sans-std-move">Du &laquo;&nbsp;déplacement&nbsp;&raquo; sans std::move</h2></a>
+
+<p>C&rsquo;est fort du roquefort ! Pas de constructeur, pas de <code>std::move</code>, mais un objet qui se déplace quand même. On croirait faire de la magie !</p>
+
+<p><code>std::move</code> va forcer l&rsquo;appel à un constructeur de déplacement alors que le compilateur a les moyens &ndash; et même l&rsquo;obligation &ndash; de le faire pour nous. Ou mieux, bypasser tous les constructeurs et mettre la valeur directement là où il faut. On parle d&rsquo;<a href="https://en.cppreference.com/w/cpp/language/copy_elision">élision par copie</a> ou de (N)RVO (Named Return Value Optimization). Sauf que <code>std::move</code> bloque ces optimisations.</p>
+
+<p>Dans le cas de l&rsquo;élision de copie, le compilateur construit directement les paramètres de type T (un type sans référence) lorsqu&rsquo;on utilise un temporaire.</p>
+
+<p>Avec <code>void foo(T)</code>, il faut faire <code>foo(T{...})</code> et non pas <code>foo(std::move(T({...})</code>. Comme on ne fait pas <code>T x = std::move(T{...})</code>, mais <code>T x = T{...}</code> (on peut faire <code>T x{}</code>, c&rsquo;est pour l&rsquo;exemple)</p>
+
+<p>Les temporaires peuvent aussi exister depuis l&rsquo;appel à une fonction qui retourne <code>T</code>.</p>
+
+<p>Avec <code>T bar()</code>, il faut faire <code>foo(bar())</code>, et non pas <code>foo(std::move(bar())</code>.</p>
+
+<p>La (N)RVO est une optimisation qui fonctionne sur le même principe au niveau de la valeur de retour.</p>
+
+<p>On n&rsquo;écrit pas <code>T bar() { return std::move(T{...}); }</code>, mais <code>T bar() { return T{...}; }</code>.</p>
+
+<p>Le compilateur possède aussi un comportement spécial pour la variable locale retournée: celle-ci doit être déplacée si possible. Et si possible, on optimise avec une élision.</p>
+
+<p>On écrit</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
+  <span class="c1">// ...
+</span><span class="c1"></span>  <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
+<p>À la place de</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
+  <span class="c1">// ...
+</span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Au final, les seuls moments où <code>std::move</code> devrait être utilisé, sont</p>
 
-<p>Quasiment jamais utilisé en fait.</p>
+<ul>
+<li>Pour transférer un type référence (lvalue ou rvalue) qui force la variable en une expression rvalue.</li>
+<li>Pour transmettre un type plein (sans référence) à une autre fonction.</li>
+</ul>
+<div class="footnotes">
 
-<p>Mais voilà, zsh les généralise aussi aux variables ce qui engendre une erreur dans <code>GTK_MODULES</code>.</p>
+<hr />
 
-<p>Alors comment faire ?
-Simple, entourer la variable d&rsquo;accolades:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GTK_MODULES</span><span class="si">}</span><span class="s2">:canberra-gtk-module&#34;</span></code></pre></div>
+<ol>
+<li id="fn:1">std::move n&rsquo;est qu&rsquo;un <code>static_cast&lt;T&amp;&amp;&gt;</code>
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
   </div>
   <footer class="post__footer">
     <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2012-10-14T19:46:36">14 octobre 2012
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/script-shell" rel="category">script-shell</a>, <a class="meta-categories__link" href="/categories/zsh" rel="category">zsh</a>
+  Le <time class="post__meta-date" datetime="2018-12-09T13:11:29">09 décembre 2018
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
  ;
   
 
-  <br/><a href="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+  <br/><a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
 </p>
-<p class="post__meta meta share" id="9822b10c1e712637f7ec91dc443129e0-share">
+<p class="post__meta meta share" id="f5c829c4a296c3dc8dd76923c74b4885-share">
   
   Partager Par
-  <a title="Partager par email" href="mailto:?subject=zsh-et-le-danger-des-modificateurs&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f&amp;title=zsh-et-le-danger-des-modificateurs" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2012%2f10%2fzsh-et-le-danger-des-modificateurs%2f&amp;name=zsh-et-le-danger-des-modificateurs" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+  <a title="Partager par email" href="mailto:?subject=presque-toujours-stdmove&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f12%2fpresque-toujours-stdmove%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f12%2fpresque-toujours-stdmove%2f&amp;title=presque-toujours-stdmove" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f12%2fpresque-toujours-stdmove%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f12%2fpresque-toujours-stdmove%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f12%2fpresque-toujours-stdmove%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f12%2fpresque-toujours-stdmove%2f&amp;name=presque-toujours-stdmove" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
@@ -265,10 +299,9 @@ Simple, entourer la variable d&rsquo;accolades:</p>
   
 <nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
   <div class="post-nav__item post-nav__item--prev">
-    <a class="post-nav__link" href="/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">La récursivité et le mauvais exemple de Fibonacci</span></a>
+    <a class="post-nav__link" href="/2018/11/meta-function-et-continuation/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Méta-function et continuation</span></a>
   </div>
   <div class="post-nav__item post-nav__item--next">
-    <a class="post-nav__link" href="/2012/12/taguer-vos-classes-cataloguees-les/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">Taguer vos classes, cataloguées-les</span></a>
   </div>
 </nav>
 
