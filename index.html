@@ -207,7 +207,7 @@
   <div class="post__content">
       
 
-<p>Le principe de <code>std::move</code> est de &laquo;&nbsp;déplacer<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objective de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.</p>
+<p>Le principe de <code>std::move</code> est de &laquo;&nbsp;déplacer<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objectif de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.</p>
 
 <p>Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?</p>
 
@@ -227,7 +227,7 @@
 
 <p>Les temporaires peuvent aussi exister depuis l&rsquo;appel à une fonction qui retourne <code>T</code>.</p>
 
-<p>Avec <code>T bar()</code>, il faut faire <code>foo(bar())</code>, et non pas <code>foo(std::move(bar())</code>.</p>
+<p>Avec <code>T bar()</code>, il faut faire <code>foo(bar())</code>, et non pas <code>foo(std::move(bar()))</code>.</p>
 
 <p>La (N)RVO est une optimisation qui fonctionne sur le même principe au niveau de la valeur de retour.</p>
 

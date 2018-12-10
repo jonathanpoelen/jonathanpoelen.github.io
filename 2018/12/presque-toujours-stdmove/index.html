@@ -26,9 +26,9 @@
 <meta property="twitter:card" content="summary">
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/">
 <meta property="twitter:title" content="Presque toujours std::move">
-<meta name="description" content="Le principe de std::move est de &laquo;&nbsp;déplacer1&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objective de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
+<meta name="description" content="Le principe de std::move est de &laquo;&nbsp;déplacer1&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objectif de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
 Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?">
-<meta property="twitter:description" content="Le principe de std::move est de &laquo;&nbsp;déplacer1&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objective de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
+<meta property="twitter:description" content="Le principe de std::move est de &laquo;&nbsp;déplacer1&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objectif de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
 Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?">
 
 </head>
@@ -213,7 +213,7 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
         </div></aside>
       
 
-<p>Le principe de <code>std::move</code> est de &laquo;&nbsp;déplacer<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objective de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.</p>
+<p>Le principe de <code>std::move</code> est de &laquo;&nbsp;déplacer<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objectif de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.</p>
 
 <p>Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?</p>
 
@@ -233,7 +233,7 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
 
 <p>Les temporaires peuvent aussi exister depuis l&rsquo;appel à une fonction qui retourne <code>T</code>.</p>
 
-<p>Avec <code>T bar()</code>, il faut faire <code>foo(bar())</code>, et non pas <code>foo(std::move(bar())</code>.</p>
+<p>Avec <code>T bar()</code>, il faut faire <code>foo(bar())</code>, et non pas <code>foo(std::move(bar()))</code>.</p>
 
 <p>La (N)RVO est une optimisation qui fonctionne sur le même principe au niveau de la valeur de retour.</p>
 

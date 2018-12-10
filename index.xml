@@ -19,7 +19,7 @@
       <guid>https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/</guid>
       <description>
 
-&lt;p&gt;Le principe de &lt;code&gt;std::move&lt;/code&gt; est de &amp;laquo;&amp;nbsp;déplacer&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&amp;nbsp;&amp;raquo; un objet qui n&amp;rsquo;est plus utilisé dans l&amp;rsquo;objective de décharger la responsabilité dans une autre variable ou d&amp;rsquo;utiliser le constructeur de déplacement à la place de celui de copie.&lt;/p&gt;
+&lt;p&gt;Le principe de &lt;code&gt;std::move&lt;/code&gt; est de &amp;laquo;&amp;nbsp;déplacer&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&amp;nbsp;&amp;raquo; un objet qui n&amp;rsquo;est plus utilisé dans l&amp;rsquo;objectif de décharger la responsabilité dans une autre variable ou d&amp;rsquo;utiliser le constructeur de déplacement à la place de celui de copie.&lt;/p&gt;
 
 &lt;p&gt;Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&amp;rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&amp;rsquo;en priver ?&lt;/p&gt;
 
@@ -39,7 +39,7 @@
 
 &lt;p&gt;Les temporaires peuvent aussi exister depuis l&amp;rsquo;appel à une fonction qui retourne &lt;code&gt;T&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Avec &lt;code&gt;T bar()&lt;/code&gt;, il faut faire &lt;code&gt;foo(bar())&lt;/code&gt;, et non pas &lt;code&gt;foo(std::move(bar())&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Avec &lt;code&gt;T bar()&lt;/code&gt;, il faut faire &lt;code&gt;foo(bar())&lt;/code&gt;, et non pas &lt;code&gt;foo(std::move(bar()))&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;La (N)RVO est une optimisation qui fonctionne sur le même principe au niveau de la valeur de retour.&lt;/p&gt;
 
