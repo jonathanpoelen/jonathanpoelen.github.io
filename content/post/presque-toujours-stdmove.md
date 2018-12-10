@@ -14,7 +14,7 @@ ghcommentid: 0
 expire: 2028
 ---
 
-Le principe de `std::move` est de "déplacer[^1]" un objet qui n'est plus utilisé dans l'objective de décharger la responsabilité dans une autre variable ou d'utiliser le constructeur de déplacement à la place de celui de copie.
+Le principe de `std::move` est de "déplacer[^1]" un objet qui n'est plus utilisé dans l'objectif de décharger la responsabilité dans une autre variable ou d'utiliser le constructeur de déplacement à la place de celui de copie.
 
 [^1]: std::move n'est qu'un `static_cast<T&&>`
 
@@ -36,7 +36,7 @@ Avec `void foo(T)`, il faut faire `foo(T{...})` et non pas `foo(std::move(T({...
 
 Les temporaires peuvent aussi exister depuis l'appel à une fonction qui retourne `T`.
 
-Avec `T bar()`, il faut faire `foo(bar())`, et non pas `foo(std::move(bar())`.
+Avec `T bar()`, il faut faire `foo(bar())`, et non pas `foo(std::move(bar()))`.
 
 La (N)RVO est une optimisation qui fonctionne sur le même principe au niveau de la valeur de retour.
 
