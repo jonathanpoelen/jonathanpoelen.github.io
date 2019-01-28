@@ -1,5 +1,5 @@
 ---
-title: "grep, sed, awk, sort... Non ! Zsh"
+title: "Grep, sed, awk, sort... Non ! Zsh"
 #thumbnail: ""
 #description: ""
 date: 2019-01-28T22:45:03+01:00
