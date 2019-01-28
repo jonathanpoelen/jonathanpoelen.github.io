@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/</loc>
+    <lastmod>2019-01-28T22:45:03+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/</loc>
     <lastmod>2018-12-09T13:11:29+01:00</lastmod>
   </url>
@@ -208,7 +213,7 @@
   
   <url>
     <loc>https://jonathanpoelen.github.io/</loc>
-    <lastmod>2018-12-09T13:11:29+01:00</lastmod>
+    <lastmod>2019-01-28T22:45:03+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -220,13 +225,19 @@
   
   <url>
     <loc>https://jonathanpoelen.github.io/post/</loc>
-    <lastmod>2018-12-09T13:11:29+01:00</lastmod>
+    <lastmod>2019-01-28T22:45:03+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jonathanpoelen.github.io/categories/script-shell/</loc>
     <lastmod>2014-06-09T00:35:19+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jonathanpoelen.github.io/categories/shell/</loc>
+    <lastmod>2019-01-28T22:45:03+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -243,7 +254,7 @@
   
   <url>
     <loc>https://jonathanpoelen.github.io/categories/zsh/</loc>
-    <lastmod>2012-10-14T19:46:36+01:00</lastmod>
+    <lastmod>2019-01-28T22:45:03+01:00</lastmod>
     <priority>0</priority>
   </url>
   

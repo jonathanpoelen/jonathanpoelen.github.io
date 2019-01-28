@@ -59,6 +59,15 @@
     </item>
     
     <item>
+      <title>Shell</title>
+      <link>https://jonathanpoelen.github.io/categories/shell/</link>
+      <pubDate>Mon, 28 Jan 2019 22:45:03 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/categories/shell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Sqlite</title>
       <link>https://jonathanpoelen.github.io/categories/sqlite/</link>
       <pubDate>Mon, 04 Mar 2013 23:36:14 +0100</pubDate>
@@ -70,7 +79,7 @@
     <item>
       <title>Zsh</title>
       <link>https://jonathanpoelen.github.io/categories/zsh/</link>
-      <pubDate>Sun, 14 Oct 2012 19:46:36 +0100</pubDate>
+      <pubDate>Mon, 28 Jan 2019 22:45:03 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/categories/zsh/</guid>
       <description></description>

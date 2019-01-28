@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Zsh on Jonathan Poelen&#39;s Blog</title>
-    <link>https://jonathanpoelen.github.io/categories/zsh/</link>
-    <description>Recent content in Zsh on Jonathan Poelen&#39;s Blog</description>
+    <title>Shell on Jonathan Poelen&#39;s Blog</title>
+    <link>https://jonathanpoelen.github.io/categories/shell/</link>
+    <description>Recent content in Shell on Jonathan Poelen&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
     <lastBuildDate>Mon, 28 Jan 2019 22:45:03 +0100</lastBuildDate>
     
-	<atom:link href="https://jonathanpoelen.github.io/categories/zsh/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jonathanpoelen.github.io/categories/shell/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -21,16 +21,6 @@
       <guid>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/</guid>
       <description>Depuis plusieurs années maintenant, j&amp;rsquo;utilise Zsh comme shell par défaut. Et par la force des choses, il m&amp;rsquo;arrive de taper des commandes zsh, de faire des boucles zsh, de penser zsh. Bref, de coder en zsh. Bien que le langage a des inconvénients, il possède de nombreuses fonctionnalités qui recouvrent celles de certains utilitaires Unix.
 Les gros avantage d&amp;rsquo;utiliser zsh plutôt que les commandes Unix sont au nombre de 3:</description>
-    </item>
-    
-    <item>
-      <title>Zsh et le danger des modificateurs</title>
-      <link>https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/</link>
-      <pubDate>Sun, 14 Oct 2012 19:46:36 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/</guid>
-      <description>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&amp;rsquo;interpréteur utilisé. J&amp;rsquo;ai eu le coup une fois lorsqu&amp;rsquo;il fallait charger le module canberra-gtk pour les programmes java.
-Une variable $GTK_MODULES est définie et contient tous les modules gtk séparés par des deux points (:). Visiblement, j&amp;rsquo;ai 2 modules gtk.</description>
     </item>
     
   </channel>

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>grep, sed, awk, sort... Non ! Zsh</title>
+<meta name="generator" content="Hugo 0.53" />
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
+
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.45ee239dece7b254e05290f1efc66e1c5639e4de2556397e3915d9f4af662696.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
+<link rel="shortcut icon" href="/favicon.jpg"/>
+<link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
+<link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
+<link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
+<link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
+<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:title" content="grep, sed, awk, sort... Non ! Zsh">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/">
+<meta property="twitter:title" content="grep, sed, awk, sort... Non ! Zsh">
+<meta name="description" content="Depuis plusieurs années maintenant, j&rsquo;utilise Zsh comme shell par défaut. Et par la force des choses, il m&rsquo;arrive de taper des commandes zsh, de faire des boucles zsh, de penser zsh. Bref, de coder en zsh. Bien que le langage a des inconvénients, il possède de nombreuses fonctionnalités qui recouvrent celles de certains utilitaires Unix.
+Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au nombre de 3:">
+<meta property="twitter:description" content="Depuis plusieurs années maintenant, j&rsquo;utilise Zsh comme shell par défaut. Et par la force des choses, il m&rsquo;arrive de taper des commandes zsh, de faire des boucles zsh, de penser zsh. Bref, de coder en zsh. Bien que le langage a des inconvénients, il possède de nombreuses fonctionnalités qui recouvrent celles de certains utilitaires Unix.
+Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au nombre de 3:">
+
+</head>
+<body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+  <div id="avoidance-link">
+    <a class="evitement" href="#main-content" title="Aller au contenu">Aller au contenu</a>
+    <a class="evitement" href="#main-menu" title="Aller au menu">Aller au menu</a>
+  </div>
+  <div class="container container-outer">
+    <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+      <div class="container-inner">
+        <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+            <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
+            <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
+          </a>
+        </div>
+        <nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <ul class="menu__list">
+    <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
+      <i class="fab fa-github" aria-hidden="true"></i> Github
+    </a></li>
+    <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
+      <i class="fas fa-archive" aria-hidden="true"></i> Archives</a>
+    </li>
+    <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
+      <i class="fas fa-rss" aria-hidden="true"></i> RSS</a>
+    </li>
+  </ul>
+</nav>
+
+
+      </div>
+    </header>
+    <div class="wrapper clearfix">
+
+<aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="widget-search widget">
+  <form class="widget-search__form" role="search" method="get" action="https://duckduckgo.com">
+    <label>
+      <span class="screen-reader-text">Search for:</span>
+      <input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+    </label>
+    <input class="widget-search__submit" type="submit" value="Search">
+    <input type="hidden" name="sites" value="https://jonathanpoelen.github.io/" />
+  </form>
+</div>
+
+	
+<div class="widget-recent widget" id="main-menu">
+  <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">grep, sed, awk, sort... Non ! Zsh</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-function-et-continuation/">Méta-function et continuation</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
+      
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">32 autres…</a></li>
+    </ul>
+  </div>
+</div>
+<div class="widget-recent widget">
+  <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+
+    </ul>
+  </div>
+</div>
+
+	
+<div class="widget-categories widget">
+  <h4 class="widget__title"><i class="fas fa-folder-o" aria-hidden="true"></i> Catégories</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (23)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/script-shell">Script-Shell (6)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilite-Web">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/accessibilite-web">Accessibilite-Web (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/zsh">Zsh (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/make">Make (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Shell">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/shell">Shell (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+	
+	
+
+</aside>
+<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
+  
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="grep-sed-awk-sort...-non-zsh"><span>
+        &nbsp;
+        <a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Presque toujours std::move"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/">grep, sed, awk, sort... Non ! Zsh</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/">Article précédent: Presque toujours std::move</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2019-01-28T22:45:03">28 janvier 2019
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/zsh" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>zsh</a>, <a class="meta-categories__link" href="/categories/shell" rel="category">shell</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>5 minutes ;
+  <a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#ffdfc9a9c9da44f723144c5e62cea7d4-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
+<ul>
+<li><a href="#syntaxe-de-base">Syntaxe de base</a>
+<ul>
+<li><a href="#lire-un-fichier">Lire un fichier</a></li>
+<li><a href="#glob-et-glob-étendu">Glob et glob étendu</a></li>
+</ul></li>
+<li><a href="#équivalent-des-commandes-unix">Équivalent des commandes *Unix</a>
+<ul>
+<li><a href="#grep">grep</a></li>
+<li><a href="#agrep">agrep</a></li>
+<li><a href="#sed">sed</a></li>
+<li><a href="#head">head</a></li>
+<li><a href="#awk">awk</a></li>
+<li><a href="#find">find</a></li>
+<li><a href="#sort">sort</a></li>
+<li><a href="#manipulation-de-chemin">Manipulation de chemin</a></li>
+<li><a href="#cut">cut</a></li>
+<li><a href="#printf">printf</a></li>
+</ul></li>
+</ul></nav>
+        </div></aside>
+      
+
+<p>Depuis plusieurs années maintenant, j&rsquo;utilise Zsh comme shell par défaut. Et par la force des choses, il m&rsquo;arrive de taper des commandes zsh, de faire des boucles zsh, de penser zsh. Bref, de coder en zsh. Bien que le langage a des inconvénients, il possède de nombreuses fonctionnalités qui recouvrent celles de certains utilitaires Unix.</p>
+
+<p>Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au nombre de 3:</p>
+
+<ul>
+<li>Pas de post traitement pour mettre le résultat d&rsquo;une commande dans une variable.</li>
+<li>Beaucoup plus rapide que lancer une commande. La création de process prend du temps et se ressent dans une boucle.</li>
+<li>Écrire en 3 lettres ce qu&rsquo;on peut faire en 32. C&rsquo;est-à-dire frimer ;).</li>
+</ul>
+
+<p>Il y a aussi des inconvénients:</p>
+
+<ul>
+<li>Moins lisible, surtout lorsque l&rsquo;on remplace une suite de pipe comme <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">aaa <span class="p">|</span> bbb <span class="p">|</span> ccc</code></span>. Mais on peut simplifier avec des variables intermédiaires.</li>
+<li>Peut-être plus lent lorsqu&rsquo;il y a beaucoup de texte à manipuler. En gros, faire un grep d&rsquo;un fichier de 1000 lignes est plus lent qu&rsquo;avec zsh, mais plus rapide si le fichier fait 100000 lignes, car zsh ne travaille pas par flux.</li>
+</ul>
+
+<a class="headline-hash" href="#syntaxe-de-base"><h2 id="syntaxe-de-base">Syntaxe de base</h2></a>
+
+<p>Le <code>man</code> de zsh fait plus de 5 fois celui de bash. Le manuel est tellement gros qu&rsquo;il est divisé en 16 parties + un <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">man zshall</code></span> pour les afficher tous. Difficile de tout mettre en 1 article alors je me contente de certaines parties de <code>zshexpn</code> (zsh expansion and substitution). Parmi celles utilisées ici il y a les options d&rsquo;expansion de paramètres (<span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(@)x</span><span class="si">}</span></code></span>) et les modificateurs (<span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">x</span><span class="p">:</span><span class="nv">h</span><span class="si">}</span></code></span> ou <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$x</span>:h</code></span>). Il existe un pdf compilant les options et syntaxe de zsh: <a href="http://www.bash2zsh.com/zsh_refcard/refcard.pdf">http://www.bash2zsh.com/zsh_refcard/refcard.pdf</a>.</p>
+
+<a class="headline-hash" href="#lire-un-fichier"><h3 id="lire-un-fichier">Lire un fichier</h3></a>
+
+<p>Voici comment les zsh peuvent lire un fichier et mettre chaque ligne dans un tableau grâce aux extensions de paramètres:</p>
+<div class="highlight"><pre class="chroma"><code class="language-zsh" data-lang="zsh"><span class="nv">contents</span><span class="o">=</span><span class="k">$(</span>&lt;file<span class="k">)</span> <span class="c1"># lire un fichier</span>
+<span class="nv">contents</span><span class="o">=</span><span class="k">$(</span>&lt;file1 &lt;file2<span class="k">)</span> <span class="c1"># lire 2 fichiers</span>
+<span class="nv">contents</span><span class="o">=</span><span class="k">$(</span>&lt;file <span class="p">;</span> ls<span class="k">)</span> <span class="c1"># lire un fichier et le retour de commande `ls`</span>
+
+<span class="nv">lines</span><span class="o">=(</span> <span class="si">${</span><span class="p">(f)contents</span><span class="si">}</span> <span class="o">)</span> <span class="c1"># tableau sans ligne vide</span>
+<span class="nv">lines</span><span class="o">=(</span> <span class="si">${</span><span class="p">(s:</span><span class="se">\n</span><span class="p">:)contents</span><span class="si">}</span> <span class="o">)</span> <span class="c1"># équivalent</span>
+<span class="nv">lines</span><span class="o">=(</span> <span class="s2">&#34;</span><span class="si">${</span><span class="p">(@f)contents</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">)</span> <span class="c1"># tableau avec toutes les lignes (il faut les quotes et @)</span>
+
+<span class="nv">lines</span><span class="o">=(</span> <span class="si">${</span><span class="p">(f)</span><span class="k">$(</span>&lt;file<span class="k">)</span><span class="si">}</span> <span class="o">)</span> <span class="c1"># forme condensée du premier cas</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="p">(j:</span><span class="se">\n</span><span class="p">:)lines</span><span class="si">}</span> <span class="c1"># concatène les lignes avec \n</span>
+<span class="c1"># ou</span>
+<span class="nb">echo</span> <span class="si">${</span><span class="p">(F)lines</span><span class="si">}</span>
+
+<span class="c1"># affiche chaque ligne d&#39;un fichier dans des crochets</span>
+<span class="nb">echo</span> <span class="s2">&#34;[</span><span class="si">${</span><span class="p">(j:]</span><span class="se">\n</span><span class="p">[:)</span><span class="s2">&#34;</span><span class="si">${</span><span class="p">(@f)</span><span class="k">$(</span>&lt;file<span class="k">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="si">}</span><span class="s2">]&#34;</span></code></pre></div>
+<p>Il y a encore de nombreux paramètres qui peuvent être trouvés dans le manuel ou via l&rsquo;auto-complétion de zsh. Aussi, pour simplifier les exemples qui suivront, j&rsquo;utiliserai directement les variables <code>contents</code> et <code>lines</code>.</p>
+
+<a class="headline-hash" href="#glob-et-glob-étendu"><h3 id="glob-et-glob-étendu">Glob et glob étendu</h3></a>
+
+<p>L&rsquo;une des grandes forces de zsh réside dans le globbing. Il ne se restreint pas qu&rsquo;à la recherche de fichier, mais peut aussi s&rsquo;appliquer sur les éléments d&rsquo;un tableau ou des chaînes pour filtrer ou transformer. En plus de <code>*</code> et <code>?</code>, zsh comprend <code>[...]</code>, <code>[^...]</code> et <code>&lt;x-y&gt;</code> pour un nombre entre <code>x</code> et <code>y</code> inclu (<code>&lt;-&gt;</code> pour n&rsquo;importe quel digit).</p>
+
+<p>Avec le glob étendu (<code>setopt extendedglob</code>) on possède alors un équivalent des regex:</p>
+
+<ul>
+<li><code>x#</code> 0 ou plus de <code>x</code></li>
+<li><code>x##</code> 1 ou plus de <code>x</code></li>
+<li><code>x~y</code> exclut <code>y</code> de <code>x</code></li>
+<li><code>^x</code> tous sauf <code>x</code></li>
+<li><code>(#s)</code> début (équivalent de <code>^</code> des regex)</li>
+<li><code>(#e)</code> fin (équivalent de <code>$</code> des regex)</li>
+</ul>
+
+<p>Ainsi que la syntaxe ksh si activée</p>
+
+<table>
+<thead>
+<tr>
+<th>ksh-like</th>
+<th>glob operators</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">@<span class="o">(</span>...<span class="o">)</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">(</span>...<span class="o">)</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">*<span class="o">(</span>...<span class="o">)</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">(</span>...<span class="o">)</span>#</code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">+<span class="o">(</span>...<span class="o">)</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">(</span>...<span class="o">)</span><span class="c1">##</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">?<span class="o">(</span>...<span class="o">)</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">(</span><span class="p">|</span>...<span class="o">)</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">!<span class="o">(</span>...<span class="o">)</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">(</span>^<span class="o">(</span>...<span class="o">))</span></code></span></td>
+</tr>
+</tbody>
+</table>
+
+<a class="headline-hash" href="#équivalent-des-commandes-unix"><h2 id="équivalent-des-commandes-unix">Équivalent des commandes *Unix</h2></a>
+
+<p>Maintenant que la petite introduction syntaxique est faite, on peut s&rsquo;attaquer au remplacement des commandes systèmes. Bien sûr, toutes les options d&rsquo;une commande ne peuvent pas être simulées facilement avec zsh, mais je présente ici l&rsquo;essentiel. Je précise que les commandes bash ont implicitement <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">&lt;&lt;&lt;</span><span class="nv">$contents</span></code></span> comme flux de lecture et que le résultat des commandes zsh est fait avec un <code>echo</code>.</p>
+
+<p>Je conseille aussi le petit <a href="https://github.com/zdharma/Zsh-100-Commits-Club/blob/master/Zsh-Native-Scripting-Handbook.adoc">Zsh Native Scripting Guide</a>.</p>
+
+<a class="headline-hash" href="#grep"><h3 id="grep">grep</h3></a>
+
+<table>
+<thead>
+<tr>
+<th>bash</th>
+<th>zsh</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">grep <span class="s1">&#39;Alligator&#39;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(M)lines:#*Alligator*</span><span class="si">}</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">grep -v <span class="s1">&#39;Alligator&#39;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">:#*Alligator*</span><span class="si">}</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">grep <span class="s1">&#39;^Alligator .* Alligator$&#39;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(M)lines:#Alligator * Alligator</span><span class="si">}</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">grep -i <span class="s1">&#39;alligator&#39;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(M)lines:#(#i)*alligator*</span><span class="si">}</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">grep -m1 <span class="s1">&#39;aligator&#39;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">[(r)*aligator*]</span><span class="si">}</span></code></span></td>
+</tr>
+</tbody>
+</table>
+
+<p><code>(#i)</code> n&rsquo;est utilisable qu&rsquo;avec <code>setopt extendedglob</code> et peut s&rsquo;appliquer sur un groupe seulement de caractère (i.e. <code>((#i)a)lbator</code>). Il existe l&rsquo;option inverse: <code>#I</code>. Ainsi que <code>#l</code> qui fait une recherche insensible à la case pour les lettres minuscules du pattern, et en majuscule pour celles en majuscule dans le pattern.</p>
+
+<a class="headline-hash" href="#agrep"><h3 id="agrep">agrep</h3></a>
+
+<p><code>agrep</code> pour &laquo;&nbsp;approximate grep&nbsp;&raquo;. C&rsquo;est un <code>grep</code> qui autorise une marge d&rsquo;erreur dans la recherche. Zsh possède une option de glob qui fait à peu près la même chose: <code>(#a3)</code> pour une recherche avec 3 erreurs.</p>
+
+<table>
+<thead>
+<tr>
+<th>bash</th>
+<th>zsh</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">agrep -3 <span class="s1">&#39;alligator&#39;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(M)lines:#*((#a3)alligator)*</span><span class="si">}</span></code></span></td>
+</tr>
+</tbody>
+</table>
+
+<a class="headline-hash" href="#sed"><h3 id="sed">sed</h3></a>
+
+<table>
+<thead>
+<tr>
+<th>bash</th>
+<th>zsh</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed <span class="s1">&#39;3,6!d&#39;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$lines</span><span class="o">[</span><span class="m">3</span>,5<span class="o">]</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed s/aligator/crocodil/</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">contents</span><span class="p">/aligator/crocodil</span><span class="si">}</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed s/aligator/crocodil/g</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">contents</span><span class="p">//aligator/crocodil</span><span class="si">}</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed <span class="s1">&#39;s/^aligator\*$/_/&#39;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">:</span><span class="nv">s</span><span class="p">%aligator*%_</span><span class="si">}</span></code></span> ou <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">/(#s)aligator</span><span class="se">\*</span><span class="p">(#e)/_</span><span class="si">}</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed <span class="s1">&#39;s/^\w\+$/[&amp;]/&#39;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">:/(#m)[[:</span><span class="nv">alnum</span><span class="p">:]]##/[</span><span class="nv">$MATCH</span><span class="p">]</span><span class="si">}</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed -E <span class="s1">&#39;s/^(\w+) = (\w+)$/\2 = \1/&#39;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">:/(#b)([[:</span><span class="nv">alnum</span><span class="p">:]]##) = ([[:</span><span class="nv">alnum</span><span class="p">:]]##)/</span><span class="nv">$match</span><span class="p">[2] = </span><span class="nv">$match</span><span class="p">[1]</span><span class="si">}</span></code></span></td>
+</tr>
+</tbody>
+</table>
+
+<a class="headline-hash" href="#head"><h3 id="head">head</h3></a>
+
+<table>
+<thead>
+<tr>
+<th>bash</th>
+<th>zsh</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">head -n3</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$lines</span><span class="o">[</span><span class="m">1</span>,3<span class="o">]</span></code></span></td>
+</tr>
+</tbody>
+</table>
+
+<a class="headline-hash" href="#awk"><h3 id="awk">awk</h3></a>
+
+<p>Pour celui-là, l&rsquo;entrée sera le texte ci-dessous. Le programme va coloriser le préfixe.</p>
+
+<div class="highlight"><pre class="chroma"><code>info: un alligator dort sur le balcon
+avertissement: l'alligator se réveille
+erreur: l'alligator attaque
+note: penser à investir dans une porte plus solide
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>awk</th>
+<th>zsh</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-awk" data-lang="awk"><span class="nb">BEGIN</span> <span class="p">{</span>
+  <span class="nx">colors</span><span class="p">[</span><span class="s2">&#34;erreur:&#34;</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;31&#34;</span>
+  <span class="nx">colors</span><span class="p">[</span><span class="s2">&#34;avertissement:&#34;</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;33&#34;</span>
+  <span class="nx">colors</span><span class="p">[</span><span class="s2">&#34;info:&#34;</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;35&#34;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="nx">k</span> <span class="o">in</span> <span class="nx">colors</span><span class="p">)</span>
+    <span class="nx">colorized</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;\033[&#34;</span> <span class="nx">colors</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="s2">&#34;m&#34;</span> <span class="nx">k</span> <span class="s2">&#34;\033[0m&#34;</span>
+<span class="p">}</span>
+<span class="p">{</span>
+  <span class="nx">s</span><span class="o">=</span><span class="nx">colorized</span><span class="p">[</span><span class="o">$</span><span class="mi">1</span><span class="p">]</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kr">print</span> <span class="nx">s</span> <span class="kr">substr</span><span class="p">(</span><span class="o">$</span><span class="mi">0</span><span class="p">,</span> <span class="kr">length</span><span class="p">(</span><span class="o">$</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+    <span class="kr">print</span> <span class="o">$</span><span class="mi">0</span>
+<span class="p">}</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nb">declare</span> -A <span class="nv">colors</span><span class="o">=(</span>erreur: <span class="m">31</span> avertissement: <span class="m">33</span> info: <span class="m">35</span><span class="o">)</span>
+<span class="nb">declare</span> -A colorized
+<span class="k">for</span> k in <span class="si">${</span><span class="p">(k)colors</span><span class="si">}</span> <span class="p">;</span>
+  <span class="nv">colorized</span><span class="o">+=(</span><span class="nv">$k</span> <span class="s2">&#34;\033[</span><span class="nv">$colors</span><span class="s2">[</span><span class="nv">$k</span><span class="s2">]m</span><span class="nv">$k</span><span class="s2">\033[0m&#34;</span><span class="o">)</span>
+
+<span class="nb">echo</span> <span class="si">${</span><span class="p">(F)lines/(#m)(#s)[a-z]##:/</span><span class="si">${</span><span class="nv">colorized</span><span class="p">[</span><span class="nv">$MATCH</span><span class="p">]</span><span class="k">:-</span><span class="nv">$MATCH</span><span class="si">}}</span></code></span></td>
+</tr>
+</tbody>
+</table>
+
+<a class="headline-hash" href="#find"><h3 id="find">find</h3></a>
+
+<table>
+<thead>
+<tr>
+<th>bash</th>
+<th>zsh</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -name <span class="s1">&#39;*aligator*&#39;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*aligator*</code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -name <span class="s1">&#39;*aligator*&#39;</span> -a -not <span class="s1">&#39;*crocodile*&#39;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*aligator*~*crocodile*</code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -type d</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*<span class="o">(</span>/<span class="o">)</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -type l</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*<span class="o">(</span>@<span class="o">)</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -atime <span class="m">3</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*<span class="o">(</span>a3<span class="o">)</span></code></span></td>
+</tr>
+</tbody>
+</table>
+
+<p>Bon, vous l&rsquo;aurez compris, zsh permet de nombreux filtres dans la recherche de fichier. Il peut trier la recherche par date, nom, groupe, etc ou même via une fonction personnalisée.</p>
+
+<a class="headline-hash" href="#sort"><h3 id="sort">sort</h3></a>
+
+<table>
+<thead>
+<tr>
+<th>bash</th>
+<th>zsh</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sort</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(o)lines</span><span class="si">}</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sort -n</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(on)lines</span><span class="si">}</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sort -rn</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(On)lines</span><span class="si">}</span></code></span></td>
+</tr>
+</tbody>
+</table>
+
+<a class="headline-hash" href="#manipulation-de-chemin"><h3 id="manipulation-de-chemin">Manipulation de chemin</h3></a>
+
+<table>
+<thead>
+<tr>
+<th>bash</th>
+<th>zsh</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">dirname <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">&#34;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$0</span>:h</code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">basename <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">&#34;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$0</span>:t</code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">realpath <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">&#34;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$0</span>:P</code></span></td>
+</tr>
+</tbody>
+</table>
+
+<p>Il y en a évidemment d&rsquo;autres.</p>
+
+<a class="headline-hash" href="#cut"><h3 id="cut">cut</h3></a>
+
+<table>
+<thead>
+<tr>
+<th>bash</th>
+<th>zsh</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">cut -d: -f2,1</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">/(#m)*/</span><span class="k">$((</span><span class="o">)</span> <span class="o">{</span> <span class="nb">echo</span> <span class="nv">$2</span>:<span class="nv">$1</span> <span class="o">}</span> <span class="si">${</span><span class="p">(s:</span><span class="nv">b</span><span class="p">:)MATCH</span><span class="si">}</span><span class="o">)}</span></code></span></td>
+</tr>
+</tbody>
+</table>
+
+<p>Mais une boucle serait mieux ici.</p>
+
+<a class="headline-hash" href="#printf"><h3 id="printf">printf</h3></a>
+
+<table>
+<thead>
+<tr>
+<th>bash</th>
+<th>zsh</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nb">printf</span> <span class="s1">&#39;%04d&#39;</span> <span class="m">42</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nb">echo</span> <span class="si">${</span><span class="p">(l:</span><span class="nv">4</span><span class="p">::</span><span class="nv">0</span><span class="p">:)</span><span class="si">${</span><span class="k">:-</span><span class="nv">42</span><span class="si">}}</span></code></span> ou <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nb">echo</span> <span class="si">${</span><span class="p">(l:</span><span class="nv">4</span><span class="p">::</span><span class="nv">0</span><span class="p">:)</span><span class="nv">$n</span><span class="si">}</span></code></span></td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2019-01-28T22:45:03">28 janvier 2019
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/zsh" rel="category">zsh</a>, <a class="meta-categories__link" href="/categories/shell" rel="category">shell</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="ffdfc9a9c9da44f723144c5e62cea7d4-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=grep-sed-awk-sort...-non-zsh&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f01%2fgrep-sed-awk-sort...-non-zsh%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f01%2fgrep-sed-awk-sort...-non-zsh%2f&amp;title=grep-sed-awk-sort...-non-zsh" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f01%2fgrep-sed-awk-sort...-non-zsh%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f01%2fgrep-sed-awk-sort...-non-zsh%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f01%2fgrep-sed-awk-sort...-non-zsh%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f01%2fgrep-sed-awk-sort...-non-zsh%2f&amp;name=grep-sed-awk-sort...-non-zsh" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+  
+  
+<nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--prev">
+    <a class="post-nav__link" href="/2018/12/presque-toujours-stdmove/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Presque toujours std::move</span></a>
+  </div>
+  <div class="post-nav__item post-nav__item--next">
+  </div>
+</nav>
+
+  <section id="gh-comments">
+  <h1>Commentaires</h1>
+<p>Les commentaires ne sont pas encore ouverts.</p>
+<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues">les issues de github</a> et aucun n'est associée au billet.
+Vous pouvez faire votre commentaire dans une issue qui a comme titre celui du billet. Je
+me chargerai de les associer.</p>
+</section>
+
+</main>
+</div>
+  <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+    <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
+    <p class="footer__copyright">
+       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+      Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
+      et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
+      Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
+      </span>
+    </p>
+  </footer>
+</div>
+<a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
+
+</body>
+</html>
+

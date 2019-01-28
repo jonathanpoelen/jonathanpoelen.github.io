@@ -8,8 +8,421 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Sun, 09 Dec 2018 13:11:29 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 28 Jan 2019 22:45:03 +0100</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>grep, sed, awk, sort... Non ! Zsh</title>
+      <link>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/</link>
+      <pubDate>Mon, 28 Jan 2019 22:45:03 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/</guid>
+      <description>
+
+&lt;p&gt;Depuis plusieurs années maintenant, j&amp;rsquo;utilise Zsh comme shell par défaut. Et par la force des choses, il m&amp;rsquo;arrive de taper des commandes zsh, de faire des boucles zsh, de penser zsh. Bref, de coder en zsh. Bien que le langage a des inconvénients, il possède de nombreuses fonctionnalités qui recouvrent celles de certains utilitaires Unix.&lt;/p&gt;
+
+&lt;p&gt;Les gros avantage d&amp;rsquo;utiliser zsh plutôt que les commandes Unix sont au nombre de 3:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Pas de post traitement pour mettre le résultat d&amp;rsquo;une commande dans une variable.&lt;/li&gt;
+&lt;li&gt;Beaucoup plus rapide que lancer une commande. La création de process prend du temps et se ressent dans une boucle.&lt;/li&gt;
+&lt;li&gt;Écrire en 3 lettres ce qu&amp;rsquo;on peut faire en 32. C&amp;rsquo;est-à-dire frimer ;).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Il y a aussi des inconvénients:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Moins lisible, surtout lorsque l&amp;rsquo;on remplace une suite de pipe comme &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;aaa &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; bbb &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; ccc&lt;/code&gt;&lt;/span&gt;. Mais on peut simplifier avec des variables intermédiaires.&lt;/li&gt;
+&lt;li&gt;Peut-être plus lent lorsqu&amp;rsquo;il y a beaucoup de texte à manipuler. En gros, faire un grep d&amp;rsquo;un fichier de 1000 lignes est plus lent qu&amp;rsquo;avec zsh, mais plus rapide si le fichier fait 100000 lignes, car zsh ne travaille pas par flux.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;syntaxe-de-base&#34;&gt;Syntaxe de base&lt;/h2&gt;
+
+&lt;p&gt;Le &lt;code&gt;man&lt;/code&gt; de zsh fait plus de 5 fois celui de bash. Le manuel est tellement gros qu&amp;rsquo;il est divisé en 16 parties + un &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;man zshall&lt;/code&gt;&lt;/span&gt; pour les afficher tous. Difficile de tout mettre en 1 article alors je me contente de certaines parties de &lt;code&gt;zshexpn&lt;/code&gt; (zsh expansion and substitution). Parmi celles utilisées ici il y a les options d&amp;rsquo;expansion de paramètres (&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(@)x&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;) et les modificateurs (&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; ou &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$x&lt;/span&gt;:h&lt;/code&gt;&lt;/span&gt;). Il existe un pdf compilant les options et syntaxe de zsh: &lt;a href=&#34;http://www.bash2zsh.com/zsh_refcard/refcard.pdf&#34;&gt;http://www.bash2zsh.com/zsh_refcard/refcard.pdf&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;lire-un-fichier&#34;&gt;Lire un fichier&lt;/h3&gt;
+
+&lt;p&gt;Voici comment les zsh peuvent lire un fichier et mettre chaque ligne dans un tableau grâce aux extensions de paramètres:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&amp;lt;file&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# lire un fichier&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&amp;lt;file1 &amp;lt;file2&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# lire 2 fichiers&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&amp;lt;file &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; ls&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# lire un fichier et le retour de commande `ls`&lt;/span&gt;
+
+&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=(&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(f)contents&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# tableau sans ligne vide&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=(&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(s:&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)contents&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# équivalent&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=(&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(@f)contents&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# tableau avec toutes les lignes (il faut les quotes et @)&lt;/span&gt;
+
+&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=(&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(f)&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&amp;lt;file&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# forme condensée du premier cas&lt;/span&gt;
+
+&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(j:&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)lines&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# concatène les lignes avec \n&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# ou&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(F)lines&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# affiche chaque ligne d&amp;#39;un fichier dans des crochets&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;[&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(j:]&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[:)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(@f)&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&amp;lt;file&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;]&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Il y a encore de nombreux paramètres qui peuvent être trouvés dans le manuel ou via l&amp;rsquo;auto-complétion de zsh. Aussi, pour simplifier les exemples qui suivront, j&amp;rsquo;utiliserai directement les variables &lt;code&gt;contents&lt;/code&gt; et &lt;code&gt;lines&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;glob-et-glob-étendu&#34;&gt;Glob et glob étendu&lt;/h3&gt;
+
+&lt;p&gt;L&amp;rsquo;une des grandes forces de zsh réside dans le globbing. Il ne se restreint pas qu&amp;rsquo;à la recherche de fichier, mais peut aussi s&amp;rsquo;appliquer sur les éléments d&amp;rsquo;un tableau ou des chaînes pour filtrer ou transformer. En plus de &lt;code&gt;*&lt;/code&gt; et &lt;code&gt;?&lt;/code&gt;, zsh comprend &lt;code&gt;[...]&lt;/code&gt;, &lt;code&gt;[^...]&lt;/code&gt; et &lt;code&gt;&amp;lt;x-y&amp;gt;&lt;/code&gt; pour un nombre entre &lt;code&gt;x&lt;/code&gt; et &lt;code&gt;y&lt;/code&gt; inclu (&lt;code&gt;&amp;lt;-&amp;gt;&lt;/code&gt; pour n&amp;rsquo;importe quel digit).&lt;/p&gt;
+
+&lt;p&gt;Avec le glob étendu (&lt;code&gt;setopt extendedglob&lt;/code&gt;) on possède alors un équivalent des regex:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;x#&lt;/code&gt; 0 ou plus de &lt;code&gt;x&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;x##&lt;/code&gt; 1 ou plus de &lt;code&gt;x&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;x~y&lt;/code&gt; exclut &lt;code&gt;y&lt;/code&gt; de &lt;code&gt;x&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;^x&lt;/code&gt; tous sauf &lt;code&gt;x&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;(#s)&lt;/code&gt; début (équivalent de &lt;code&gt;^&lt;/code&gt; des regex)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;(#e)&lt;/code&gt; fin (équivalent de &lt;code&gt;$&lt;/code&gt; des regex)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ainsi que la syntaxe ksh si activée&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;ksh-like&lt;/th&gt;
+&lt;th&gt;glob operators&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;@&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;*&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;#&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;+&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;##&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;?&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;!&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;^&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;équivalent-des-commandes-unix&#34;&gt;Équivalent des commandes *Unix&lt;/h2&gt;
+
+&lt;p&gt;Maintenant que la petite introduction syntaxique est faite, on peut s&amp;rsquo;attaquer au remplacement des commandes systèmes. Bien sûr, toutes les options d&amp;rsquo;une commande ne peuvent pas être simulées facilement avec zsh, mais je présente ici l&amp;rsquo;essentiel. Je précise que les commandes bash ont implicitement &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$contents&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; comme flux de lecture et que le résultat des commandes zsh est fait avec un &lt;code&gt;echo&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Je conseille aussi le petit &lt;a href=&#34;https://github.com/zdharma/Zsh-100-Commits-Club/blob/master/Zsh-Native-Scripting-Handbook.adoc&#34;&gt;Zsh Native Scripting Guide&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;grep&#34;&gt;grep&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;bash&lt;/th&gt;
+&lt;th&gt;zsh&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;grep &lt;span class=&#34;s1&#34;&gt;&amp;#39;Alligator&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(M)lines:#*Alligator*&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;grep -v &lt;span class=&#34;s1&#34;&gt;&amp;#39;Alligator&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:#*Alligator*&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;grep &lt;span class=&#34;s1&#34;&gt;&amp;#39;^Alligator .* Alligator$&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(M)lines:#Alligator * Alligator&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;grep -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;alligator&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(M)lines:#(#i)*alligator*&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;grep -m1 &lt;span class=&#34;s1&#34;&gt;&amp;#39;aligator&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[(r)*aligator*]&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;code&gt;(#i)&lt;/code&gt; n&amp;rsquo;est utilisable qu&amp;rsquo;avec &lt;code&gt;setopt extendedglob&lt;/code&gt; et peut s&amp;rsquo;appliquer sur un groupe seulement de caractère (i.e. &lt;code&gt;((#i)a)lbator&lt;/code&gt;). Il existe l&amp;rsquo;option inverse: &lt;code&gt;#I&lt;/code&gt;. Ainsi que &lt;code&gt;#l&lt;/code&gt; qui fait une recherche insensible à la case pour les lettres minuscules du pattern, et en majuscule pour celles en majuscule dans le pattern.&lt;/p&gt;
+
+&lt;h3 id=&#34;agrep&#34;&gt;agrep&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;agrep&lt;/code&gt; pour &amp;laquo;&amp;nbsp;approximate grep&amp;nbsp;&amp;raquo;. C&amp;rsquo;est un &lt;code&gt;grep&lt;/code&gt; qui autorise une marge d&amp;rsquo;erreur dans la recherche. Zsh possède une option de glob qui fait à peu près la même chose: &lt;code&gt;(#a3)&lt;/code&gt; pour une recherche avec 3 erreurs.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;bash&lt;/th&gt;
+&lt;th&gt;zsh&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;agrep -3 &lt;span class=&#34;s1&#34;&gt;&amp;#39;alligator&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(M)lines:#*((#a3)alligator)*&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;sed&#34;&gt;sed&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;bash&lt;/th&gt;
+&lt;th&gt;zsh&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sed &lt;span class=&#34;s1&#34;&gt;&amp;#39;3,6!d&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$lines&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;,5&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sed s/aligator/crocodil/&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/aligator/crocodil&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sed s/aligator/crocodil/g&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;//aligator/crocodil&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sed &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/^aligator\*$/_/&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;%aligator*%_&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; ou &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/(#s)aligator&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(#e)/_&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sed &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/^\w\+$/[&amp;amp;]/&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:/(#m)[[:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;alnum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:]]##/[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$MATCH&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sed -E &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/^(\w+) = (\w+)$/\2 = \1/&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:/(#b)([[:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;alnum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:]]##) = ([[:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;alnum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:]]##)/&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[2] = &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[1]&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;head&#34;&gt;head&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;bash&lt;/th&gt;
+&lt;th&gt;zsh&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;head -n3&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$lines&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;,3&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;awk&#34;&gt;awk&lt;/h3&gt;
+
+&lt;p&gt;Pour celui-là, l&amp;rsquo;entrée sera le texte ci-dessous. Le programme va coloriser le préfixe.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;info: un alligator dort sur le balcon
+avertissement: l&#39;alligator se réveille
+erreur: l&#39;alligator attaque
+note: penser à investir dans une porte plus solide
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;awk&lt;/th&gt;
+&lt;th&gt;zsh&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-awk&#34; data-lang=&#34;awk&#34;&gt;&lt;span class=&#34;nb&#34;&gt;BEGIN&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;colors&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;erreur:&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;31&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;colors&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;avertissement:&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;33&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;colors&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;info:&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;35&amp;#34;&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;colors&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;colorized&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;\033[&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;colors&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;m&amp;#34;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;\033[0m&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;colorized&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kr&#34;&gt;print&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;substr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+    &lt;span class=&#34;kr&#34;&gt;print&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nb&#34;&gt;declare&lt;/span&gt; -A &lt;span class=&#34;nv&#34;&gt;colors&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=(&lt;/span&gt;erreur: &lt;span class=&#34;m&#34;&gt;31&lt;/span&gt; avertissement: &lt;span class=&#34;m&#34;&gt;33&lt;/span&gt; info: &lt;span class=&#34;m&#34;&gt;35&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;declare&lt;/span&gt; -A colorized
+&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; k in &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(k)colors&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;nv&#34;&gt;colorized&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+=(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$k&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;\033[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$colors&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$k&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;]m&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$k&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;\033[0m&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(F)lines/(#m)(#s)[a-z]##:/&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;colorized&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$MATCH&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;:-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$MATCH&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;find&#34;&gt;find&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;bash&lt;/th&gt;
+&lt;th&gt;zsh&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;find -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*aligator*&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;**/*aligator*&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;find -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*aligator*&amp;#39;&lt;/span&gt; -a -not &lt;span class=&#34;s1&#34;&gt;&amp;#39;*crocodile*&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;**/*aligator*~*crocodile*&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;find -type d&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;**/*&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;/&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;find -type l&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;**/*&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;@&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;find -atime &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;**/*&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;a3&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Bon, vous l&amp;rsquo;aurez compris, zsh permet de nombreux filtres dans la recherche de fichier. Il peut trier la recherche par date, nom, groupe, etc ou même via une fonction personnalisée.&lt;/p&gt;
+
+&lt;h3 id=&#34;sort&#34;&gt;sort&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;bash&lt;/th&gt;
+&lt;th&gt;zsh&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sort&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(o)lines&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sort -n&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(on)lines&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sort -rn&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(On)lines&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;manipulation-de-chemin&#34;&gt;Manipulation de chemin&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;bash&lt;/th&gt;
+&lt;th&gt;zsh&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;dirname &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;:h&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;basename &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;:t&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;realpath &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;:P&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Il y en a évidemment d&amp;rsquo;autres.&lt;/p&gt;
+
+&lt;h3 id=&#34;cut&#34;&gt;cut&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;bash&lt;/th&gt;
+&lt;th&gt;zsh&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;cut -d: -f2,1&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/(#m)*/&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$((&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$2&lt;/span&gt;:&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(s:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)MATCH&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Mais une boucle serait mieux ici.&lt;/p&gt;
+
+&lt;h3 id=&#34;printf&#34;&gt;printf&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;bash&lt;/th&gt;
+&lt;th&gt;zsh&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nb&#34;&gt;printf&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;%04d&amp;#39;&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;42&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(l:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;:-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;42&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; ou &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(l:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$n&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
     
     <item>
       <title>Presque toujours std::move</title>
@@ -2626,80 +3039,6 @@ Mais la véritable limitation réside dans l&amp;rsquo;appel même d&amp;rsquo;u
 &lt;/code&gt;&lt;/span&gt; qui prend en second paramètre template le type de retour (&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;
 &lt;/code&gt;&lt;/span&gt; par défaut). Quant à &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;declval&lt;/span&gt;
 &lt;/code&gt;&lt;/span&gt;, c&amp;rsquo;est le même principe que &lt;a href=&#34;http://en.cppreference.com/w/cpp/utility/declval&#34;&gt;celui de la SL&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Réduire l&#39;empreinte mémoire d&#39;une agglomération de types</title>
-      <link>https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/</link>
-      <pubDate>Sat, 28 Jun 2014 14:10:11 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/</guid>
-      <description>
-
-&lt;p&gt;Un petit article pour parler d&amp;rsquo;optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par &lt;a href=&#34;http://en.cppreference.com/w/cpp/memory/unique_ptr&#34;&gt;std::unique_ptr&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;implémentation-naïve-de-std-unique-ptr&#34;&gt;Implémentation naïve de std::unique_ptr&lt;/h2&gt;
-
-&lt;p&gt;Pour rappel, &lt;code&gt;std::unique_ptr&lt;/code&gt; prend 2 paramètres template: &lt;code&gt;T&lt;/code&gt; et &lt;code&gt;Deleter&lt;/code&gt; (qui par défaut égal &lt;code&gt;std::default_delete&amp;lt;T&amp;gt;&lt;/code&gt;).&lt;/p&gt;
-
-&lt;p&gt;Naïvement, l&amp;rsquo;implémentation serait:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Deleter&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;default_delete&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;my_unique_ptr&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;m_pointer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;Deleter&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;m_deleter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;c1&#34;&gt;// …
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Rien d&amp;rsquo;extraordinaire.&lt;/p&gt;
-
-&lt;p&gt;Cependant, même si &lt;code&gt;Deleter&lt;/code&gt; est une classe sans attribut, sa taille est de 1 octet.&lt;/p&gt;
-
-&lt;p&gt;À partir d&amp;rsquo;ici je considère que &lt;code&gt;Deleter&lt;/code&gt; est toujours la valeur par défaut, ce qui donne:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; == 8&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Deleter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; == 1&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;my_unique_ptr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; == 16&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unique_ptr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; == 8&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Ouille, méchant padding, alors que seuls 8 octets sont vraiment utilisés.&lt;/p&gt;
-
-&lt;h2 id=&#34;comment-fait-la-stl-pour-supprimer-8-octets&#34;&gt;Comment fait la stl pour &amp;laquo;&amp;nbsp;supprimer&amp;nbsp;&amp;raquo; 8 octets ?&lt;/h2&gt;
-
-&lt;p&gt;La bibliohèque standard utilise une optimisation surnommée &lt;a href=&#34;http://en.cppreference.com/w/cpp/language/ebo&#34;&gt;Empty Base Class Optimization (EBCO)&lt;/a&gt;.
-Concrètement, cela se traduit par une classe interne qui contient le pointeur et hérite de &lt;code&gt;Deleter&lt;/code&gt;. Les attributs de la classe dérivée vont se mettre après ceux de &lt;code&gt;Deleter&lt;/code&gt;, et s&amp;rsquo;il n&amp;rsquo;en a pas, ils se positionnent au début de la classe. Grâce à cette astuce, l&amp;rsquo;adresse du premier membre de la classe (ici, le pointeur) se confond avec celle de la classe englobante et parente, éliminant ainsi l&amp;rsquo;espace occupé par &lt;code&gt;Deleter&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Deleter&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;default_delete&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;my_unique_ptr&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;internal&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Deleter&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pointeur&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;m_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;c1&#34;&gt;// ...
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;my_unique_ptr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; == 8&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Mieux, non ?&lt;/p&gt;
-
-&lt;h2 id=&#34;et-si-l-héritage-n-est-pas-possible&#34;&gt;Et si l&amp;rsquo;héritage n&amp;rsquo;est pas possible ?&lt;/h2&gt;
-
-&lt;p&gt;Si le Deleter est une référence ou une classe &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;final&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt;, l&amp;rsquo;héritage ne fonctionne pas. Il faut se rabattre sur la première forme (celle naïve).
-Avec des traits et un code plus ou moins volumineux, cela est &amp;laquo;&amp;nbsp;facile&amp;nbsp;&amp;raquo;.
-Il faut cependant noter que &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_final&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; n&amp;rsquo;apparaît qu&amp;rsquo;à partir de C++14 et son implémentation n&amp;rsquo;est pas possible en pure C++.
-Il faut à la place utiliser &lt;code&gt;__is_final&lt;/code&gt; qui n&amp;rsquo;est pas standard.&lt;/p&gt;
-
-&lt;p&gt;Toutefois, la stl possède un conteneur générique qui utilise l&amp;rsquo;EBO si possible: &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tuple&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt;. Ce qui permet de s&amp;rsquo;affranchir de ces difficultés tout en optimisant l&amp;rsquo;espace mémoire à condition de mettre les types dans l&amp;rsquo;ordre croissant d&amp;rsquo;alignement pour réduire le padding entre les membres lorsqu&amp;rsquo;il y en a plus de 2.&lt;/p&gt;
 </description>
     </item>
     

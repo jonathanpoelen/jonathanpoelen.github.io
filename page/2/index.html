@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jonathan Poelen&#39;s Blog</title>
-<meta name="generator" content="Hugo 0.52" />
+<meta name="generator" content="Hugo 0.53" />
 
 <link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="https://jonathanpoelen.github.io/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.78d675238305d53afafcf4dcc8fcae057b79e7ac460f84fe54c59332646dff9c.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.45ee239dece7b254e05290f1efc66e1c5639e4de2556397e3915d9f4af662696.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -82,12 +82,12 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/11/meta-function-et-continuation/">Méta-function et continuation</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/">Comparaison de différentes implémentations de mp_index_of</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">31 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">32 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -138,6 +138,14 @@
         <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
       </li>
       <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/zsh">Zsh (2)</a>
+      </li>
+      <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
           &nbsp;
           <i class="fas fa-rss" aria-hidden="true"></i>
@@ -146,20 +154,20 @@
         <a class="widget__link" href="/categories/make">Make (1)</a>
       </li>
       <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Shell">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/shell">Shell (1)</a>
+      </li>
+      <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
           &nbsp;
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
         <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
-      </li>
-      <li class="widget__item">
-        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
-          &nbsp;
-          <i class="fas fa-rss" aria-hidden="true"></i>
-          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
-        </a>
-        <a class="widget__link" href="/categories/zsh">Zsh (1)</a>
       </li>
     </ul>
   </div>
@@ -171,6 +179,116 @@
 </aside>
 
   <main class="main-content list content" role="main" id="main-content">
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="comment-se-passer-de-stdforward"><span>
+        <a href="#minimiser-les-copies-dans-operator%2b"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Minimiser les copies dans operator&#43;"></i></a>
+        <a href="#if-constexpr-avant-c%2b%2b17"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: if constexpr avant C&#43;&#43;17"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2016/04/comment-se-passer-de-stdforward/">Comment se passer de std::forward</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#minimiser-les-copies-dans-operator%2b">Article suivant: Minimiser les copies dans operator&#43;</a><br/>
+        <a href="#if-constexpr-avant-c%2b%2b17">Article précédent: if constexpr avant C&#43;&#43;17</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2016-04-04T23:09:41">04 avril 2016
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
+  <a href="https://jonathanpoelen.github.io/2016/04/comment-se-passer-de-stdforward/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#64a9e9e9a60f3f1292d58a124d15d682-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p>Actuellement en pleine écriture d&rsquo;une fonction <code>match</code> (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de <code>std::forward</code> utilisée à chaque appel de fonction. J&rsquo;en compte 21 pour un total de 6 niveaux d&rsquo;imbrications. Autant dire qu&rsquo;oublier de le mettre est plutôt facile.</p>
+
+<p>C&rsquo;est d&rsquo;ailleurs la raison de ce billet, puisque bien sûr, j&rsquo;en ai oubliés.</p>
+
+<p>Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence. Comme l&rsquo;objet créé a pleinement connaissance du type de variable qu&rsquo;il contient et que traverser une chaîne de fonctions ne fait pas disparaître cette information, il n&rsquo;y a plus besoin de std::forward. Le dernier maillon peut alors extraire une lvalue ou une rvalue via &ndash;par exemple&ndash; une fonction <code>get()</code>.</p>
+
+<p>Pour illustrer, voilà ce que cela donne:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">forwarder</span>
+<span class="p">{</span>
+  <span class="n">T</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span>
+  <span class="n">T</span> <span class="o">&amp;&amp;</span> <span class="n">get</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">forwarder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span>
+<span class="p">{</span>
+  <span class="n">T</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span>
+  <span class="n">T</span> <span class="o">&amp;</span> <span class="n">get</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">};</span>
+
+
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="c1">// dernier niveau d&#39;imbrication avant l&#39;appel de la vrai fonction
+</span><span class="c1">// note: le coup d&#39;une copie est nulle pour le type forwarder
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">get</span><span class="p">());</span> <span class="p">}</span>
+
+<span class="c1">// pas besoin de std::forward
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">f1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="c1">// premier maillon, création du contexte
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">f2</span><span class="p">(</span><span class="n">forwarder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{</span><span class="n">x</span><span class="p">});</span> <span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="k">const</span> <span class="n">ci</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+  <span class="n">foo</span><span class="p">(</span><span class="n">i</span><span class="p">);</span> <span class="c1">// &amp;
+</span><span class="c1"></span>  <span class="n">foo</span><span class="p">(</span><span class="n">ci</span><span class="p">);</span> <span class="c1">// &amp;
+</span><span class="c1"></span>  <span class="n">foo</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">// &amp;&amp;
+</span><span class="c1"></span>  <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">i</span><span class="p">));</span> <span class="c1">// &amp;&amp;
+</span><span class="c1"></span>  <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">ci</span><span class="p">));</span> <span class="c1">// &amp;&amp;
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
+<p>Avec 2 fonctions d&rsquo;accès par référence en plus, <code>ref</code> et <code>cref</code> pour la version constante, on possède une petite classe qui simplifie pas mal la vie.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2016-04-04T23:09:41">04 avril 2016
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2016/04/comment-se-passer-de-stdforward/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="64a9e9e9a60f3f1292d58a124d15d682-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=comment-se-passer-de-stdforward&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2016%2f04%2fcomment-se-passer-de-stdforward%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2016%2f04%2fcomment-se-passer-de-stdforward%2f&amp;title=comment-se-passer-de-stdforward" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2016%2f04%2fcomment-se-passer-de-stdforward%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2016%2f04%2fcomment-se-passer-de-stdforward%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2016%2f04%2fcomment-se-passer-de-stdforward%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2016%2f04%2fcomment-se-passer-de-stdforward%2f&amp;name=comment-se-passer-de-stdforward" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
         
 <article class="post">
   <header class="post__header clearfix">
@@ -1730,140 +1848,6 @@ plop
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f12%2fparcourir-les-arguments-dune-fonction-variadique%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f12%2fparcourir-les-arguments-dune-fonction-variadique%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
   <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f12%2fparcourir-les-arguments-dune-fonction-variadique%2f&amp;name=parcourir-les-arguments-dune-fonction-variadique" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="tableau-dans-un-stdvector"><span>
-        <a href="#parcourir-les-arguments-dune-fonction-variadique"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Parcourir les arguments d&#39;une fonction variadique"></i></a>
-        <a href="#utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Utilisation de swap et des fonctions utilitaires en général"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/">Tableau dans un std::vector</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#parcourir-les-arguments-dune-fonction-variadique">Article suivant: Parcourir les arguments d&#39;une fonction variadique</a><br/>
-        <a href="#utilisation-de-swap-et-des-fonctions-utilitaires-en-g%25C3%25A9n%25C3%25A9ral">Article précédent: Utilisation de swap et des fonctions utilitaires en général</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2013-09-18T20:09:51">18 septembre 2013
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
-  <a href="https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#e10801262ecfe2aed9405f7d36c4d734-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-</p>
-
-
-  </header>
-  <div class="post__content">
-      <p>Prenons le type suivant: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">&gt;</span>
-</code></span>. Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&rsquo;est vrai !</p>
-
-<p>Ajoutons maintenant un élément à notre vector avec <code>push_back</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]{};</span>
-<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-</code></pre></div>
-<p>Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.</p>
-
-<p>La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau. Écrire ce wrapper n&rsquo;est pas très compliqué et Oh joie, Oh bonheur, il existe <a href="http://en.cppreference.com/w/cpp/container/array">std::array</a>.</p>
-
-<p>Mais si l&rsquo;on tient vraiment à notre tableau (pour d&rsquo;obscures raisons sataniques :D) il est toujours possible de modifier le comportement du vector pour qu&rsquo;il comprenne les tableaux. Ceci à travers l&rsquo;allocateur, le second paramètre template d&rsquo;un vector ; celui jamais utilisé, toujours oublié <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">là_ici</span><span class="o">&gt;</span>
-</code></span>.</p>
-
-<p>La technique consiste à remplacer l&rsquo;allocateur par une version spécialisée pour les tableaux. Le plus simple est d&rsquo;hériter d&rsquo;un <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a> et de redéfinir les 2 méthodes problématiques: <a href="http://en.cppreference.com/w/cpp/memory/allocator/construct">construct</a> et <a href="http://en.cppreference.com/w/cpp/memory/allocator/destroy">destroy</a>. On peut aussi utiliser une spécialisation de template.</p>
-
-<p>Et ne surtout pas oublier <code>rebind</code> qui permet de recréer l&rsquo;allocateur avec un type interne différent. C&rsquo;est utilisé par les conteneurs :).</p>
-
-<p>(Un <a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/">précédent article</a> permet de comprendre les mécanismes utilisés par un allocateur.)</p>
-
-<p>L&rsquo;implémentation de <code>construct</code> et <code>destroy</code> est vraiment bateau, il suffit d&rsquo;appeler le constructeur ou le destructeur pour chaque élément du tableau.</p>
-
-<p>Mais pour faire au minimum bien les choses et supporter l&rsquo;allocation de tableau de tableau (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
-</code></span>) on utilise <code>array_allocator::construct/destroy</code> si les cellules sont des tableaux (appel récursif) ou <code>std::allocator::construct/destroy</code> dans le cas contraire.</p>
-
-<p>À noter que la récursivité peut être éliminée en utilisant les propriétés d&rsquo;alignement des tableaux (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
-</code></span> -&gt; <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span>
-</code></span>).</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="k">class</span><span class="err"> </span><span class="nc">array_allocator</span><span class="p">;</span>
-
-<span class="c1">//c&#39;est juste pour les tableaux
-</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
-<span class="k">class</span><span class="err"> </span><span class="nc">array_allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
-<span class="o">:</span> <span class="k">public</span>  <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-  <span class="k">using</span> <span class="n">value_allocator</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional</span><span class="o">&lt;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">is_array</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-    <span class="n">array_allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
-  <span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-
-<span class="k">public</span><span class="o">:</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">U</span><span class="o">&gt;</span>
-  <span class="k">struct</span> <span class="n">rebind</span>
-  <span class="p">{</span> <span class="k">typedef</span> <span class="n">array_allocator</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span> <span class="n">other</span><span class="p">;</span> <span class="p">};</span>
-
-  <span class="kt">void</span> <span class="nf">construct</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">N</span><span class="p">],</span> <span class="k">const</span> <span class="n">T</span><span class="p">(</span><span class="o">&amp;</span><span class="n">val</span><span class="p">)[</span><span class="n">N</span><span class="p">])</span>
-  <span class="p">{</span>
-    <span class="n">value_allocator</span> <span class="n">alloc</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">alloc</span><span class="p">.</span><span class="n">construct</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">n</span><span class="p">],</span> <span class="n">val</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="kt">void</span> <span class="nf">destroy</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">N</span><span class="p">])</span>
-  <span class="p">{</span>
-    <span class="n">value_allocator</span> <span class="n">alloc</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">alloc</span><span class="p">.</span><span class="n">destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">n</span><span class="p">]);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-<p>Dans l&rsquo;idéal, il faudrait un <code>construct</code> avec un nombre variable d&rsquo;arguments ce qui permet d&rsquo;utiliser <code>emplace_back</code>.
-Toutefois, cette version est fonctionnelle avec <code>push_back</code> :).</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">array_allocator</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
-<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">});</span>
-</code></pre></div>
-<p>(La bibliothèque <a href="https://github.com/jonathanpoelen/falcon">falcon</a> (dont je suis le seul développeur actuellement :p) dispose d&rsquo;un allocateur de ce style: <a href="https://github.com/jonathanpoelen/falcon/blob/master/falcon/memory/generic_allocator.hpp">generic_allocator</a>. Comme son nom l&rsquo;indique, l&rsquo;allocateur couvre un spectre un peu plus large et gère en plus des types POD.)</p>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2013-09-18T20:09:51">18 septembre 2013
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
- ;
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="e10801262ecfe2aed9405f7d36c4d734-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=tableau-dans-un-stdvector&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f09%2ftableau-dans-un-stdvector%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f09%2ftableau-dans-un-stdvector%2f&amp;title=tableau-dans-un-stdvector" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f09%2ftableau-dans-un-stdvector%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f09%2ftableau-dans-un-stdvector%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f09%2ftableau-dans-un-stdvector%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f09%2ftableau-dans-un-stdvector%2f&amp;name=tableau-dans-un-stdvector" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
