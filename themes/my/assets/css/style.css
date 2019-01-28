@@ -117,13 +117,9 @@ html {
   padding-bottom: 0.25em;
 }
 
-table {
-  /* width: 100%; */
+/*table {
   margin:auto
-  /* max-width: 200%; */
-  /* min-width: 100%; */
-  /* display:inline-block; */
-}
+}*/
 
 
 /*** Typography ***/
@@ -826,10 +822,14 @@ select {
 
 #TableOfContents ul {
   margin: 0;
-  margin-left: 5px;
+  margin-left: 1em;
   list-style-position: inside;
   list-style-type: disc;
   text-align: left;
+}
+#TableOfContents > ul {
+  margin-left: 5px;
+  list-style-type: square;
 }
 
 #TableOfContents a {
@@ -1144,6 +1144,7 @@ td, th {
 	padding: 5px 10px;
 	border-right: 1px solid #c4c4c4;
 	border-bottom: 1px solid #c4c4c4;
+    vertical-align: top;
 }
 
 th {
