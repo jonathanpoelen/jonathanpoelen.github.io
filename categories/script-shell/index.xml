@@ -8,10 +8,20 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Mon, 09 Jun 2014 00:35:19 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 28 Jan 2019 22:45:03 +0100</lastBuildDate>
     
 	<atom:link href="https://jonathanpoelen.github.io/categories/script-shell/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Grep, sed, awk, sort... Non ! Zsh</title>
+      <link>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/</link>
+      <pubDate>Mon, 28 Jan 2019 22:45:03 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/</guid>
+      <description>Depuis plusieurs années maintenant, j&amp;rsquo;utilise Zsh comme shell par défaut. Et par la force des choses, il m&amp;rsquo;arrive de taper des commandes zsh, de faire des boucles zsh, de penser zsh. Bref, de coder en zsh. Bien que le langage a des inconvénients, il possède de nombreuses fonctionnalités qui recouvrent celles de certains utilitaires Unix.
+Les gros avantage d&amp;rsquo;utiliser zsh plutôt que les commandes Unix sont au nombre de 3:</description>
+    </item>
     
     <item>
       <title>256 couleurs et plus dans la console</title>
