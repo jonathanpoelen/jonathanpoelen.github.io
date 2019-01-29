@@ -8,7 +8,7 @@ slug: "grep-sed-awk-sort...-non-!-zsh"
 #toc: false
 #tags: [ ]
 aliases: []
-categories: [ "zsh", "shell" ]
+categories: [ "zsh", "script shell" ]
 draft: false
 ghcommentid: 0
 expire: 2028
