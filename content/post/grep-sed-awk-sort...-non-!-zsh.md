@@ -117,8 +117,8 @@ bash | zsh
 bash | zsh
 -----|----
 {{<hi zsh "sed '3,6!d'"/>}} | {{<hi zsh "$lines[3,5]"/>}}
-{{<hi zsh "sed s/aligator/crocodil/"/>}}  | {{<hi zsh "${contents/aligator/crocodil}"/>}}
-{{<hi zsh "sed s/aligator/crocodil/g"/>}} | {{<hi zsh "${contents//aligator/crocodil}"/>}}
+{{<hi zsh "sed s/aligator/crocodile/"/>}}  | {{<hi zsh "${contents/aligator/crocodile}"/>}}
+{{<hi zsh "sed s/aligator/crocodile/g"/>}} | {{<hi zsh "${contents//aligator/crocodile}"/>}}
 {{<hi zsh "sed 's/^aligator\*$/_/'"/>}}   | {{<hi zsh "${lines:s%aligator*%_}"/>}} ou {{<hi zsh "${lines/(#s)aligator\*(#e)/_}"/>}}
 {{<hi zsh "sed 's/^\w\+$/[&]/'"/>}} | {{<hi zsh "${lines:/(#m)[[:alnum:]]##/[$MATCH]}"/>}}
 {{<hi zsh "sed -E 's/^(\w+) = (\w+)$/\2 = \1/'"/>}} | {{<hi zsh "${lines:/(#b)([[:alnum:]]##) = ([[:alnum:]]##)/$match[2] = $match[1]}"/>}}
