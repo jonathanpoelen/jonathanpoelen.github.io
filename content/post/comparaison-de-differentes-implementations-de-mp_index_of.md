@@ -212,7 +212,7 @@ Le code est beaucoup plus concis, mais aussi beaucoup plus obscur. Il faut dire 
 Le résultat est très similaire à une boucle manuelle. Clang donne la même chose, mais les versions précédentes de Gcc sont extrêmement lentes avec les fold.
 
 <!-- ./gen_graphs.py compiler=g++-7 algo=loop2,fold legend='~[];~all;~[_*1400];~[_*700, x*700]' -- fold_clang -->
-![comparaison de temps avec clang d'une fonction constexpr et un fold](/post/mp_index_of/fold_clang_time.png)
+![comparaison de temps avec clang d'une fonction constexpr et un fold](/post/mp_index_of/fold_gcc_7_time.png)
 
 
 ## Pour terminer
