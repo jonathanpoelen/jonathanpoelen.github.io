@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Placement new, allocateur et conteneur</title>
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.54.0" />
 
 
 
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.45ee239dece7b254e05290f1efc66e1c5639e4de2556397e3915d9f4af662696.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.f80423400b1dc13ff78e6177bd3484519fea73c870120ec96a8d3b3da975e535.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -249,9 +249,9 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 <a class="headline-hash" href="#placement-new"><h2 id="placement-new">Placement new</h2></a>
 
 <p>Le placement new permet d&rsquo;appeler le constructeur d&rsquo;un objet sur une zone mémoire prédéfinie.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="o">/</span><span class="n">params</span><span class="err">…</span><span class="o">/</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params…*/</span><span class="p">);</span>
 <span class="c1">// machin == p (même zone mémoire)
-</span><span class="c1"></span></code></pre></div>
+</span></code></pre></div>
 <p>Mais attention aux fuites mémoire si le constructeur de <code>Machin</code> lance une exception.</p>
 
 <p>Et maintenant que c&rsquo;est construit, on détruit :D</p>
@@ -309,7 +309,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 <span class="p">};</span>
 
 <span class="k">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="n">A</span><span class="p">;</span> <span class="c1">// affiche &#34;new A 1 2 A(0)&#34;
-</span><span class="c1"></span></code></pre></div>
+</span></code></pre></div>
 <a class="headline-hash" href="#l-alignement-mémoire"><h2 id="l-alignement-mémoire">L&rsquo;alignement mémoire</h2></a>
 
 <p>L&rsquo;alignement mémoire est une histoire à part entière, je n&rsquo;en parle donc pas plus que ça :p.</p>

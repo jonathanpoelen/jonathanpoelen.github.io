@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jonathan Poelen&#39;s Blog</title>
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.54.0" />
 
 <link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="https://jonathanpoelen.github.io/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.45ee239dece7b254e05290f1efc66e1c5639e4de2556397e3915d9f4af662696.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.f80423400b1dc13ff78e6177bd3484519fea73c870120ec96a8d3b3da975e535.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -337,7 +337,7 @@
 </span><span class="c1"></span><span class="n">invoke</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">equal_to</span><span class="o">&lt;&gt;</span><span class="p">{},</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// foncteur
 </span><span class="c1"></span><span class="n">invoke</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">size</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// fonction membre et référence
 </span><span class="c1"></span><span class="n">invoke</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">size</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// fonction membre et pointeur
-</span><span class="c1"></span></code></pre></div>
+</span></code></pre></div>
 <p>En C++17, tout peut se faire en une seule fonction, alors qu&rsquo;avant C++17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec <code>std::enable_if</code>.</p>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/#implémentation-avec-if-constexpr"><h2 id="implémentation-avec-if-constexpr">Implémentation avec if constexpr</h2></a>
@@ -820,7 +820,7 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
 </code></pre></div>
 <p>Résultats:</p>
 
-<div class="highlight"><pre class="chroma"><code>2 4 6
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>2 4 6
 2 4 6
 </code></pre></div>
 
@@ -1549,11 +1549,11 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
 <span class="n">A</span> <span class="nf">a</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
 <span class="c1">// c.size() == 0;
-</span><span class="c1"></span></code></pre></div>
+</span></code></pre></div>
 <p>Et ce dernier aussi</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="p">(</span><span class="n">vector_int_t</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">});</span>
 <span class="c1">// ou A({1 ,2});
-</span><span class="c1"></span></code></pre></div>
+</span></code></pre></div>
 <p>Mais si le type ne possède pas de constructeur de déplacement, celui de copie sera utilisé et alors une référence constante est probablement mieux.</p>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/#quand-la-copie-se-fait-sous-condition"><h2 id="quand-la-copie-se-fait-sous-condition">Quand la copie se fait sous condition</h2></a>
@@ -1770,7 +1770,7 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 </code></pre></div>
 <p>Ce qui affiche:</p>
 
-<div class="highlight"><pre class="chroma"><code>2.4
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>2.4
 plop
 1, 2.4, plop
 </code></pre></div>

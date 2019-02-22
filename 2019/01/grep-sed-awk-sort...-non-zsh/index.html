@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grep, sed, awk, sort... Non ! Zsh</title>
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.54.0" />
 
 
 
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.45ee239dece7b254e05290f1efc66e1c5639e4de2556397e3915d9f4af662696.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.f80423400b1dc13ff78e6177bd3484519fea73c870120ec96a8d3b3da975e535.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -456,7 +456,7 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 
 <p>Pour celui-là, l&rsquo;entrée sera le texte ci-dessous. Le programme va coloriser le préfixe.</p>
 
-<div class="highlight"><pre class="chroma"><code>info: un alligator dort sur le balcon
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>info: un alligator dort sur le balcon
 avertissement: l'alligator se réveille
 erreur: l'alligator attaque
 note: penser à investir dans une porte plus solide
@@ -481,9 +481,8 @@ note: penser à investir dans une porte plus solide
 <span class="p">}</span>
 <span class="p">{</span>
   <span class="nx">s</span><span class="o">=</span><span class="nx">colorized</span><span class="p">[</span><span class="o">$</span><span class="mi">1</span><span class="p">]</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">s</span><span class="p">)</span>
     <span class="kr">print</span> <span class="nx">s</span> <span class="kr">substr</span><span class="p">(</span><span class="o">$</span><span class="mi">0</span><span class="p">,</span> <span class="kr">length</span><span class="p">(</span><span class="o">$</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-  <span class="p">}</span>
   <span class="k">else</span>
     <span class="kr">print</span> <span class="o">$</span><span class="mi">0</span>
 <span class="p">}</span></code></span></td>
@@ -521,6 +520,11 @@ note: penser à investir dans une porte plus solide
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -type d</code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*<span class="o">(</span>/<span class="o">)</span></code></span></td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -not -type d</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*<span class="o">(</span>^/<span class="o">)</span></code></span></td>
 </tr>
 
 <tr>

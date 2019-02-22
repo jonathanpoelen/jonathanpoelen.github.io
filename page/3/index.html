@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jonathan Poelen&#39;s Blog</title>
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.54.0" />
 
 <link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="https://jonathanpoelen.github.io/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.45ee239dece7b254e05290f1efc66e1c5639e4de2556397e3915d9f4af662696.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.f80423400b1dc13ff78e6177bd3484519fea73c870120ec96a8d3b3da975e535.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -684,7 +684,7 @@ coproc bc <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m
 <span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span></code></pre></div>
 <p>À tester avec par exemple un fichier de calcul comme celui-ci:</p>
 
-<div class="highlight"><pre class="chroma"><code>2+3
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>2+3
 2+3*9
 23*9
 23s*9
@@ -858,9 +858,9 @@ Le type de <code>r</code> est donc bien une référence sur un entier non-consta
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#placement-new"><h2 id="placement-new">Placement new</h2></a>
 
 <p>Le placement new permet d&rsquo;appeler le constructeur d&rsquo;un objet sur une zone mémoire prédéfinie.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="o">/</span><span class="n">params</span><span class="err">…</span><span class="o">/</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params…*/</span><span class="p">);</span>
 <span class="c1">// machin == p (même zone mémoire)
-</span><span class="c1"></span></code></pre></div>
+</span></code></pre></div>
 <p>Mais attention aux fuites mémoire si le constructeur de <code>Machin</code> lance une exception.</p>
 
 <p>Et maintenant que c&rsquo;est construit, on détruit :D</p>
@@ -918,7 +918,7 @@ Le type de <code>r</code> est donc bien une référence sur un entier non-consta
 <span class="p">};</span>
 
 <span class="k">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="n">A</span><span class="p">;</span> <span class="c1">// affiche &#34;new A 1 2 A(0)&#34;
-</span><span class="c1"></span></code></pre></div>
+</span></code></pre></div>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#l-alignement-mémoire"><h2 id="l-alignement-mémoire">L&rsquo;alignement mémoire</h2></a>
 
 <p>L&rsquo;alignement mémoire est une histoire à part entière, je n&rsquo;en parle donc pas plus que ça :p.</p>
@@ -1194,7 +1194,7 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 <span class="k">for</span> v in <span class="nv">$a</span> <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
 <span class="k">done</span></code></pre></div>
-<div class="highlight"><pre class="chroma"><code>&gt; a
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>&gt; a
 &gt; b
 &gt; c
 </code></pre></div>
@@ -1213,7 +1213,7 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 <span class="k">for</span> v in XXX <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
 <span class="k">done</span></code></pre></div>
-<p>Le code ci-dessus est utilisé avec <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">./test.s <span class="s1">&#39;a b&#39;</span> c<span class="sb">`</span></code></span> et pour lequel <code>XXX</code> est remplacé par une des 4 variables précédemment citées.</p>
+<p>Le code ci-dessus est utilisé avec <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">./test.s <span class="s1">&#39;a b&#39;</span> c</code></span> et pour lequel <code>XXX</code> est remplacé par une des 4 variables précédemment citées.</p>
 
 <table>
 <thead>
