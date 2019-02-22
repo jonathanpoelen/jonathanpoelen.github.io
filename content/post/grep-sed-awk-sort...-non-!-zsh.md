@@ -153,9 +153,8 @@ awk | zsh
 }
 {
   s=colorized[$1]
-  if (s) {
+  if (s)
     print s substr($0, length($1)+1)
-  }
   else
     print $0
 }{{</hi>}} | {{<hi zsh>}}declare -A colors=(erreur: 31 avertissement: 33 info: 35)
@@ -172,6 +171,7 @@ bash | zsh
 {{<hi zsh "find -name '*aligator*'"/>}} | {{<hi zsh "**/*aligator*"/>}}
 {{<hi zsh "find -name '*aligator*' -a -not '*crocodile*'"/>}} | {{<hi zsh "**/*aligator*~*crocodile*"/>}}
 {{<hi zsh "find -type d"/>}} | {{<hi zsh "**/*(/)"/>}}
+{{<hi zsh "find -not -type d"/>}} | {{<hi zsh "**/*(^/)"/>}}
 {{<hi zsh "find -type l"/>}} | {{<hi zsh "**/*(@)"/>}}
 {{<hi zsh "find -atime 3"/>}} | {{<hi zsh "**/*(a3)"/>}}
 
