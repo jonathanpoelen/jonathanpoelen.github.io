@@ -52,7 +52,7 @@ for v in XXX ; do
 done
 ```
 
-Le code ci-dessus est utilisé avec {{<hi sh "./test.s 'a b' c`"/>}} et pour lequel `XXX` est remplacé par une des 4 variables précédemment citées.
+Le code ci-dessus est utilisé avec {{<hi sh "./test.s 'a b' c"/>}} et pour lequel `XXX` est remplacé par une des 4 variables précédemment citées.
 
 XXX                   | bash        | ksh         | zsh
 ----------------------|-------------|-------------|-------------

@@ -47,7 +47,7 @@ Maintenant qu'on a un joli espace mémoire tout fraîchement alloué, construiso
 Le placement new permet d'appeler le constructeur d'un objet sur une zone mémoire prédéfinie.
 
 ```cpp
-Machin* machin = new (p) Machin(/params…/);
+Machin* machin = new (p) Machin(/*params…*/);
 // machin == p (même zone mémoire)
 ```
 
