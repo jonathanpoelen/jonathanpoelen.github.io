@@ -216,15 +216,10 @@
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="n">forwarder</span>
 <span class="p">{</span>
-  <span class="n">T</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span>
+  <span class="c1">// reference collapsing:
+</span><span class="c1"></span>  <span class="c1">// https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing
+</span><span class="c1"></span>  <span class="n">T</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span>
   <span class="n">T</span> <span class="o">&amp;&amp;</span> <span class="n">get</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="n">forwarder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&gt;</span>
-<span class="p">{</span>
-  <span class="n">T</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span>
-  <span class="n">T</span> <span class="o">&amp;</span> <span class="n">get</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
 <span class="p">};</span>
 
 
