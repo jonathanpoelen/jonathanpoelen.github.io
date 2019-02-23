@@ -25,15 +25,10 @@ Pour illustrer, voilà ce que cela donne:
 template<class T>
 struct forwarder
 {
+  // reference collapsing:
+  // https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing
   T & x;
   T && get() const { return static_cast<T&&>(x); }
-};
-
-template<class T>
-struct forwarder<T&>
-{
-  T & x;
-  T & get() const { return x; }
 };
 
 
