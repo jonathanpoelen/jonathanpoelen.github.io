@@ -108,4 +108,4 @@ void f2(const T& first, const Args&... others)
 
 Ce qui simplifie considérablement l'écriture :).
 
-Évidemment, cette macro se trouve depuis dans falcon: [CPP1X_UNPACK](https://github.com/jonathanpoelen/falcon/blob/master/falcon/c%2B%2B1x/unpack.hpp).
+Évidemment, cette macro se trouve depuis dans falcon: [falcon.cxx](https://github.com/jonathanpoelen/falcon.cxx).
