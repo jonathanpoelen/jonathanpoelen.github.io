@@ -35,12 +35,12 @@ Le `man` de zsh fait plus de 5 fois celui de bash. Le manuel est tellement gros 
 
 ### Lire un fichier
 
-Voici comment les zsh peuvent lire un fichier et mettre chaque ligne dans un tableau grâce aux extensions de paramètres:
+Voici comment les scripts zsh peuvent lire un fichier et mettre chaque ligne dans un tableau grâce aux extensions de paramètres:
 
 ```zsh
 contents=$(<file) # lire un fichier
 contents=$(<file1 <file2) # lire 2 fichiers
-contents=$(<file ; ls) # lire un fichier et le retour de commande `ls`
+contents=$(<file ; ls) # lire un fichier et le retour de la commande `ls`
 
 lines=( ${(f)contents} ) # tableau sans ligne vide
 lines=( ${(s:\n:)contents} ) # équivalent
@@ -185,7 +185,9 @@ bash | zsh
 {{<hi zsh "sort"/>}} | {{<hi zsh "${(o)lines}"/>}}
 {{<hi zsh "sort -n"/>}} | {{<hi zsh "${(on)lines}"/>}}
 {{<hi zsh "sort -rn"/>}} | {{<hi zsh "${(On)lines}"/>}}
+{{<hi zsh "sort -u"/>}} | {{<hi zsh "${(uo)lines}"/>}}
 
+À noter que {{<hi zsh "${(u)lines}"/>}} élimine les doublons sans trier le tableau.
 
 ### Manipulation de chemin
 
