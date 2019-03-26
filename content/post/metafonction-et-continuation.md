@@ -1,10 +1,10 @@
 ---
-title: "Méta-function et continuation"
+title: "Méta-fonction et continuation"
 #thumbnail: ""
 #description: ""
 date: 2018-11-08T18:56:13+01:00
 #lastmod: 2018-11-05T21:56:13+01:00
-slug: "meta-function-et-continuation"
+slug: "meta-fonction-et-continuation"
 #toc: false
 #tags: [ ]
 aliases: []
