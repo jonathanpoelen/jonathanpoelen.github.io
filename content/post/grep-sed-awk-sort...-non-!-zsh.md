@@ -48,12 +48,13 @@ lines=( "${(@f)contents}" ) # tableau avec toutes les lignes (il faut les quotes
 
 lines=( ${(f)$(<file)} ) # forme condensée du premier cas
 
-echo ${(j:\n:)lines} # concatène les lignes avec \n
+# -E permet de désactiver l'interpréation des séquences d'échappement (ex. \e)
+echo -E ${(j:\n:)lines} # concatène les lignes avec \n
 # ou
-echo ${(F)lines}
+echo -E ${(F)lines}
 
 # affiche chaque ligne d'un fichier dans des crochets
-echo "[${(j:]\n[:)"${(@f)$(<file)}"}]"
+echo -E "[${(j:]\n[:)"${(@f)$(<file)}"}]"
 ```
 
 Il y a encore de nombreux paramètres qui peuvent être trouvés dans le manuel ou via l'auto-complétion de zsh. Aussi, pour simplifier les exemples qui suivront, j'utiliserai directement les variables `contents` et `lines`.
@@ -85,7 +86,7 @@ ksh-like | glob operators
 
 ## Équivalent des commandes \*Unix
 
-Maintenant que la petite introduction syntaxique est faite, on peut s'attaquer au remplacement des commandes systèmes. Bien sûr, toutes les options d'une commande ne peuvent pas être simulées facilement avec zsh, mais je présente ici l'essentiel. Je précise que les commandes bash ont implicitement {{<hi zsh "<<<$contents"/>}} comme flux de lecture et que le résultat des commandes zsh est fait avec un `echo`.
+Maintenant que la petite introduction syntaxique est faite, on peut s'attaquer au remplacement des commandes systèmes. Bien sûr, toutes les options d'une commande ne peuvent pas être simulées facilement avec zsh, mais je présente ici l'essentiel. Je précise que les commandes bash ont implicitement {{<hi zsh "<<<$contents"/>}} comme flux de lecture et que le résultat des commandes zsh est fait avec un `echo -E`.
 
 Je conseille aussi le petit [Zsh Native Scripting Guide](https://github.com/zdharma/Zsh-100-Commits-Club/blob/master/Zsh-Native-Scripting-Handbook.adoc).
 
@@ -162,7 +163,7 @@ declare -A colorized
 for k in ${(k)colors} ;
   colorized+=($k "\033[$colors[$k]m$k\033[0m")
 
-echo ${(F)lines/(#m)(#s)[a-z]##:/${colorized[$MATCH]:-$MATCH}}{{</hi>}}
+echo -E ${(F)lines/(#m)(#s)[a-z]##:/${colorized[$MATCH]:-$MATCH}}{{</hi>}}
 
 ### find
 
@@ -204,7 +205,7 @@ Il y en a évidemment d'autres.
 
 bash | zsh
 -----|----
-{{<hi zsh "cut -d: -f2,1"/>}} | {{<hi zsh "${lines/(#m)*/$(() { echo $2:$1 } ${(s:b:)MATCH})}"/>}}
+{{<hi zsh "cut -d: -f2,1"/>}} | {{<hi zsh "${lines/(#m)*/$(() { echo -E $2:$1 } ${(s:b:)MATCH})}"/>}}
 
 Mais une boucle serait mieux ici.
 
@@ -213,4 +214,4 @@ Mais une boucle serait mieux ici.
 
 bash | zsh
 -----|----
-{{<hi zsh "printf '%04d' 42"/>}} | {{<hi zsh "echo ${(l:4::0:)${:-42}}"/>}} ou {{<hi zsh "echo ${(l:4::0:)$n}"/>}}
+{{<hi zsh "printf '%04d' 42"/>}} | {{<hi zsh "echo -E ${(l:4::0:)${:-42}}"/>}} ou {{<hi zsh "echo -E ${(l:4::0:)$n}"/>}}
