@@ -27,12 +27,12 @@
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/">
 <meta property="twitter:title" content="Parcourir les arguments d&#39;une fonction variadique">
 <meta name="description" content="À l&rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
-Info : Ce qui suit n&rsquo;est plus d&rsquo;actualité depuis C&#43;&#43;17 et les expressions fold.
+Info : Ce qui suit n&rsquo;est plus d&rsquo;actualité depuis C&#43;&#43;17 et les fold expressions.
  Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&rsquo;à plus d&rsquo;argument ou jusqu&rsquo;à un nombre défini, généralement 1.
 Quelque chose dans ce goût-là:
 #include &lt;iostream&gt; void f1() {} template&lt;classT, class... Args&gt; void f1(const T&amp; first, const Args&amp;.">
 <meta property="twitter:description" content="À l&rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
-Info : Ce qui suit n&rsquo;est plus d&rsquo;actualité depuis C&#43;&#43;17 et les expressions fold.
+Info : Ce qui suit n&rsquo;est plus d&rsquo;actualité depuis C&#43;&#43;17 et les fold expressions.
  Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&rsquo;à plus d&rsquo;argument ou jusqu&rsquo;à un nombre défini, généralement 1.
 Quelque chose dans ce goût-là:
 #include &lt;iostream&gt; void f1() {} template&lt;classT, class... Args&gt; void f1(const T&amp; first, const Args&amp;.">
@@ -89,12 +89,12 @@ Quelque chose dans ce goût-là:
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-function-et-continuation/">Méta-function et continuation</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">32 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">33 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -102,6 +102,10 @@ Quelque chose dans ce goût-là:
   <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2013/12/parcourir-les-arguments-dune-fonction-variadique/" title="Ajout du chapitre « Fold expression et C&#43;&#43;17 »">
+        <time datetime="2019-03-23T03:23:06">23/03/2019</time>
+        -- Parcourir les arguments d&#39;une fonction variadique
+      </a></li>
 
     </ul>
   </div>
@@ -118,7 +122,7 @@ Quelque chose dans ce goût-là:
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (23)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -195,6 +199,7 @@ Quelque chose dans ce goût-là:
     <time class="post__meta-date" datetime="2013-12-22T10:03:06">22 décembre 2013
 </time>
     
+    
     ;
   
 
@@ -204,9 +209,13 @@ Quelque chose dans ce goût-là:
 ;
 
 
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
   <a href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
   <a href="#0881f74fb66a84dee026002282b8e65d-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+<br/><span>Dernière modification le <time class="post__meta-lastmod" datetime="2019-03-23T03:23:06">23 mars 2019
+</time>: Ajout du chapitre « Fold expression et C&#43;&#43;17 »</span>
+
 </p>
 
 
@@ -217,13 +226,14 @@ Quelque chose dans ce goût-là:
 <ul>
 <li><a href="#fonction-récursive">Fonction récursive</a></li>
 <li><a href="#sans-récursivité">Sans récursivité</a></li>
+<li><a href="#fold-expression-et-c-17">Fold expression et C++17</a></li>
 </ul></nav>
         </div></aside>
       
 
 <p>À l&rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.</p>
 
-<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> Ce qui suit n&rsquo;est plus d&rsquo;actualité depuis C++17 et les <a href="https://en.cppreference.com/w/cpp/language/fold">expressions fold</a>.</p></div>
+<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> Ce qui suit n&rsquo;est plus d&rsquo;actualité depuis C++17 et les <a href="https://en.cppreference.com/w/cpp/language/fold">fold expressions</a>.</p></div>
 
 
 <a class="headline-hash" href="#fonction-récursive"><h2 id="fonction-récursive">Fonction récursive</h2></a>
@@ -264,7 +274,8 @@ Quelque chose dans ce goût-là:
 </code></pre></div>
 <p>Ce qui affiche:</p>
 
-<div class="highlight-nocode"><pre class="chroma-nocode"><code>2.4
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>1
+2.4
 plop
 1, 2.4, plop
 </code></pre></div>
@@ -290,14 +301,7 @@ plop
 </ul>
 
 <p>Avec cette macro les 2 fonctions précédentes deviennent:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;initializer_list&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="cp">#define UNPACK(...)                   \
-</span><span class="cp"></span>  <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="o">::</span><span class="n">std</span><span class="o">::</span><span class="n">initializer_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{</span> \
-    <span class="p">(</span><span class="kt">void</span><span class="p">((</span><span class="n">__VA_ARGS__</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)...</span>       \
-  <span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">UNPACK</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
@@ -313,8 +317,30 @@ plop
 </code></pre></div>
 <p>Ce qui simplifie considérablement l&rsquo;écriture :).</p>
 
-<p>Évidemment, cette macro se trouve depuis dans falcon: <a href="https://github.com/jonathanpoelen/falcon/blob/master/falcon/c%2B%2B1x/unpack.hpp">CPP1X_UNPACK</a>.</p>
+<p>Évidemment, cette macro se trouve depuis dans falcon: <a href="https://github.com/jonathanpoelen/falcon.cxx">falcon.cxx</a>.</p>
 
+<a class="headline-hash" href="#fold-expression-et-c-17"><h2 id="fold-expression-et-c-17">Fold expression et C++17</h2></a>
+
+<p>Depuis C++17, le langage introduit les <a href="https://en.cppreference.com/w/cpp/language/fold">fold expressions</a> qui ne font pas moins que la macro précédente. Elles font même un peu plus, mais je vous laisse consulter la doc pour en prendre connaissance.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="p">((</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">),</span> <span class="p">...);</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span><span class="p">;</span>
+  <span class="p">((</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">others</span><span class="p">),</span> <span class="p">...);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>La structure du code est très proche du précédent, il n&rsquo;y a que la macro qui est remplacée par une paire de parenthèse et <code>, ...</code>.</p>
+
+<p>Par contre, il ne faut pas oublier que pour certain type, l&rsquo;opérateur <code>,</code> peut être surchargé et engendrer des comportements indésirables. La solution consiste &ndash; comme précédemment &ndash; à entourer l&rsquo;expression de <code>void</code>. Comme cela devient un peu moche, on recycle la macro <code>UNPACK</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#define UNPACK(...) (void((__VA_ARGS__)), ...)
+</span></code></pre></div>
   </div>
   <footer class="post__footer">
     <p class="post__meta meta">
@@ -322,6 +348,10 @@ plop
 </time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
  ;
   
+
+  
+<br/><span>Dernière modification le <time class="post__meta-lastmod" datetime="2019-03-23T03:23:06">23 mars 2019
+</time>: Ajout du chapitre « Fold expression et C&#43;&#43;17 »</span>
 
   <br/><a href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
 </p>

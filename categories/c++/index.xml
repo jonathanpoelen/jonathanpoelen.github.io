@@ -8,10 +8,20 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Sun, 09 Dec 2018 13:11:29 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 29 Mar 2019 17:28:19 +0100</lastBuildDate>
     
 	<atom:link href="https://jonathanpoelen.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>std::array, oui, mais pourquoi ?</title>
+      <link>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</link>
+      <pubDate>Fri, 29 Mar 2019 17:28:19 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</guid>
+      <description>Depuis C++11, un nouveau type de tableau fait son apparition: std::array. S&amp;rsquo;il est là, ce n&amp;rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.
+Les tableaux C se convertissent en pointeur trop facilement Le tableau C à l&amp;rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&amp;rsquo;a aucun sens.</description>
+    </item>
     
     <item>
       <title>Presque toujours std::move</title>
@@ -24,11 +34,11 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
     </item>
     
     <item>
-      <title>Méta-function et continuation</title>
-      <link>https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/</link>
+      <title>Méta-fonction et continuation</title>
+      <link>https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/</link>
       <pubDate>Thu, 08 Nov 2018 18:56:13 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/</guid>
+      <guid>https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/</guid>
       <description>J&amp;rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&amp;rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &amp;ndash;parce que cela va bien de paire,&amp;ndash; l&amp;rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&amp;lt;Ts...&amp;gt;).
 Continuation Chaque algorithme dispose d&amp;rsquo;un paramètre qui décrit l&amp;rsquo;étape suivante du traitement, c&amp;rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&amp;rsquo;opérateur |.</description>
     </item>
@@ -185,7 +195,7 @@ Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:</description>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</guid>
       <description>À l&amp;rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
-Info : Ce qui suit n&amp;rsquo;est plus d&amp;rsquo;actualité depuis C++17 et les expressions fold.
+Info : Ce qui suit n&amp;rsquo;est plus d&amp;rsquo;actualité depuis C++17 et les fold expressions.
  Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.
 Quelque chose dans ce goût-là:
 #include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;classT, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;.</description>

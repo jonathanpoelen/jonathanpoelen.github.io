@@ -8,8 +8,110 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Mon, 28 Jan 2019 22:45:03 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 29 Mar 2019 17:28:19 +0100</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>std::array, oui, mais pourquoi ?</title>
+      <link>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</link>
+      <pubDate>Fri, 29 Mar 2019 17:28:19 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</guid>
+      <description>
+
+&lt;p&gt;Depuis C++11, un nouveau type de tableau fait son apparition: &lt;code&gt;std::array&lt;/code&gt;. S&amp;rsquo;il est là, ce n&amp;rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.&lt;/p&gt;
+
+&lt;h2 id=&#34;les-tableaux-c-se-convertissent-en-pointeur-trop-facilement&#34;&gt;Les tableaux C se convertissent en pointeur trop facilement&lt;/h2&gt;
+
+&lt;p&gt;Le tableau C à l&amp;rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&amp;rsquo;a aucun sens. Mais puisque les tableaux sont convertis silencieusement en pointeur, le compilateur l&amp;rsquo;accepte sans broncher.&lt;/p&gt;
+
+&lt;p&gt;Le seul pseudo-avantage est l&amp;rsquo;arithmétique des pointeurs qui permet de manipuler un tableau presque comme un pointeur &amp;ndash; à la différence que l&amp;rsquo;incrémentation et la décrémentation ne sont pas possibles.&lt;/p&gt;
+
+&lt;p&gt;Ainsi, on pourra écrire &lt;code&gt;auto* p = a + i&lt;/code&gt; plutôt que &lt;code&gt;auto* p = &amp;amp;a[i]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ou encore &lt;code&gt;&amp;amp;i[a]&lt;/code&gt; (i.e. &lt;code&gt;&amp;amp;2[a]&lt;/code&gt;), forme uniquement valide avec des tableaux ou des pointeurs. Tant qu&amp;rsquo;à hériter du C, prenons le meilleur&amp;hellip; :D&lt;/p&gt;
+
+&lt;h2 id=&#34;votre-prototype-de-fonction-ment&#34;&gt;Votre prototype de fonction ment&lt;/h2&gt;
+
+&lt;p&gt;Voici une fonction tout à fait banale qui affiche les valeurs d&amp;rsquo;un tableau:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Fonction qui ne compile pas, car &lt;code&gt;array&lt;/code&gt; n&amp;rsquo;est pas un tableau, mais un pointeur. Et un pointeur ne fonctionne pas avec les boucles sur intervalle. Gcc indique l&amp;rsquo;erreur en affichant le prototype tel qu&amp;rsquo;il devrait être lu: &amp;laquo;&amp;nbsp;dans la fonction &lt;code&gt;void print(const int*)&lt;/code&gt;&amp;nbsp;&amp;raquo;. Clang va même jusqu&amp;rsquo;à dire qu&amp;rsquo;un paramètre de type &lt;code&gt;int[3]&lt;/code&gt; est considéré comme un pointeur. La conversion en pointeur se propage même à ce niveau.&lt;/p&gt;
+
+&lt;p&gt;Ce qui veut dire qu&amp;rsquo;écrire un prototype qui prend un tableau de 3 &lt;code&gt;int&lt;/code&gt; est un mensonge. Le compilateur ne fera aucune vérification sur la taille du tableau passé en paramètre. Pour lui, que l&amp;rsquo;argument soit un tableau de 1, 2, 3 ou plus d&amp;rsquo;éléments, c&amp;rsquo;est pareil: un pointeur. Par conséquent, les 4 prototypes suivants sont strictement identiques:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]);&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]);&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[]);&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Bien sûr, il est possible d&amp;rsquo;avoir un vrai tableau en paramètre avec l&amp;rsquo;aide des références et d&amp;rsquo;une syntaxe alambiquée:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// bienvenue dans le monde merveilleux de C++
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;À ce moment, le compilateur considère &lt;code&gt;array&lt;/code&gt; comme étant un tableau de 3 entiers constants et la boucle précédente pourra fonctionner. Si l&amp;rsquo;utilisateur met un tableau de moins ou de plus de 3 éléments, le compilateur va gentiment l&amp;rsquo;envoyer bouler.&lt;/p&gt;
+
+&lt;h2 id=&#34;un-tableau-c-n-est-pas-copiable&#34;&gt;Un tableau C n&amp;rsquo;est pas copiable&lt;/h2&gt;
+
+&lt;p&gt;Le tableau est le seul type du C qui ne supporte ni la copie, ni l&amp;rsquo;affectation, ce qui le rend inutilisable dans n&amp;rsquo;importe quel conteneur de la stl tel que &lt;code&gt;std::vector&lt;/code&gt;. Il n&amp;rsquo;est pas non plus possible de construire un tableau directement dans l&amp;rsquo;appel d&amp;rsquo;une fonction (sauf en C99 avec un cast: &lt;code&gt;foo((int[]){1,2})&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Par contre, une structure qui contient un tableau est aussi bien copiable qu&amp;rsquo;affectable. Manipuler un tableau directement impose plusieurs contraintes complètement loufoques, mais mettez le tout dans une boîte et tout est permis. Ce qui m&amp;rsquo;amène à &lt;code&gt;std::array&lt;/code&gt;, car il fait justement office de boîte.&lt;/p&gt;
+
+&lt;h2 id=&#34;std-array-un-conteneur-comme-les-autres&#34;&gt;Std::array, un conteneur comme les autres&lt;/h2&gt;
+
+&lt;p&gt;Le gros avantage de &lt;code&gt;std::array&lt;/code&gt; est son interface commune avec les autres conteneurs:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;size()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;empty()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;begin()&lt;/code&gt;/&lt;code&gt;end()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;data()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ainsi que quelques membres utilitaires comme &lt;code&gt;fill()&lt;/code&gt;, &lt;code&gt;front()&lt;/code&gt;, &lt;code&gt;back()&lt;/code&gt; et la panoplie de type comme &lt;code&gt;value_type&lt;/code&gt;, &lt;code&gt;reference&lt;/code&gt;, etc qu&amp;rsquo;on s&amp;rsquo;attend à voir.&lt;/p&gt;
+
+&lt;p&gt;Si je prends le cas de &lt;code&gt;size()&lt;/code&gt;, la version tableau C est beaucoup plus compliquée: &lt;code&gt;sizeof(array)/sizeof(array[0])&lt;/code&gt;, Mais aussi dangereuse, car le comportement sera totalement imprévisible si, suite à un refactoring, notre tableau est remplacé par &lt;code&gt;std::vector&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;La manière intelligente de faire consiste en une fonction libre &lt;code&gt;size(T(&amp;amp;)[N])&lt;/code&gt; qui s&amp;rsquo;occupe de cela pour nous. Si le type change, alors la fonction ne correspond plus et des erreurs apparaissent. Au passage, C++17 introduit &lt;code&gt;std::size(cont)&lt;/code&gt;, &lt;code&gt;std::empty(cont)&lt;/code&gt; et &lt;code&gt;std::data(cont)&lt;/code&gt; valident pour tous les conteneurs, y compris les tableaux. Voici &lt;a href=&#34;https://linuxfr.org/news/cpp17-libere-size-data-et-empty&#34;&gt;un article de Lmghs&lt;/a&gt; sur le sujet et les raisons de ce choix.&lt;/p&gt;
+
+&lt;h2 id=&#34;un-tableau-de-0-élément&#34;&gt;Un tableau de 0 élément&lt;/h2&gt;
+
+&lt;p&gt;Dans certaines circonstances, on peut vouloir un tableau de 0 élément. Cela fonctionne très bien avec &lt;code&gt;std::array&lt;/code&gt; contrairement au tableau C qui doit utiliser une extension du compilateur pour le supporter (c&amp;rsquo;est interdit par le standard). Pour pallier à ce problème, la taille du tableau est généralement forcée à 1, mais d&amp;rsquo;autres complications surviennent dès que les types ne sont pas trivialement constructibles.&lt;/p&gt;
+
+&lt;h2 id=&#34;std-array-est-un-tuple&#34;&gt;Std::array est un tuple&lt;/h2&gt;
+
+&lt;p&gt;Propriété anecdotique, les fonctions et classes associées au tuple sont disponibles pour &lt;code&gt;std::array&lt;/code&gt;. Cela permet par exemple de jouer avec &lt;code&gt;std::apply&lt;/code&gt; pour transformer un &lt;code&gt;std::array&lt;/code&gt; en un pack variadique.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;apply&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([](&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;auto&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;xs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;xs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;...;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Dans la pratique, il n&amp;rsquo;y a pas d&amp;rsquo;inconvénient à le faire sur un tableau C ici, mais le standard ne le prévoit pas.&lt;/p&gt;
+
+&lt;h2 id=&#34;déduction-de-taille-vs-taille-explicite&#34;&gt;Déduction de taille VS taille explicite&lt;/h2&gt;
+
+&lt;p&gt;Un gros avantage du tableau C se situe sur la déclaration de la taille au moment de l&amp;rsquo;initialisation: le compilateur peut la déduire. Alors qu&amp;rsquo;avec &lt;code&gt;std::array&lt;/code&gt; il faut la mettre en paramètre template au risque d&amp;rsquo;y mettre une valeur trop grande (une valeur trop petite donne une erreur).&lt;/p&gt;
+
+&lt;p&gt;Sauf que depuis C++17, les &lt;a href=&#34;https://en.cppreference.com/w/cpp/language/class_template_argument_deduction&#34;&gt;guides de déduction&lt;/a&gt; rendent optionnels les paramètres template. Ce n&amp;rsquo;est pas un strict équivalent puisque le type est aussi deduit, mais c&amp;rsquo;est généralement ce qu&amp;rsquo;on veut car tous les éléments doivent être du même type&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. Dans le pire des cas, on peut se tourner vers quelque chose comme &lt;code&gt;std::make_array&amp;lt;T&amp;gt;(xs...)&lt;/code&gt; (en TS) qui permet de spécifier le type du tableau sans indiquer explicitement la taille.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]{&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[]{&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// taille implicite
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// taille et type implicites
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a5&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;make_array&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// taille implicite
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;On notera que &lt;code&gt;auto a[] {1,2,3}&lt;/code&gt; n&amp;rsquo;est pas autorisé.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Grep, sed, awk, sort... Non ! Zsh</title>
@@ -42,10 +144,10 @@
 
 &lt;h3 id=&#34;lire-un-fichier&#34;&gt;Lire un fichier&lt;/h3&gt;
 
-&lt;p&gt;Voici comment les zsh peuvent lire un fichier et mettre chaque ligne dans un tableau grâce aux extensions de paramètres:&lt;/p&gt;
+&lt;p&gt;Voici comment les scripts zsh peuvent lire un fichier et mettre chaque ligne dans un tableau grâce aux extensions de paramètres:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&amp;lt;file&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# lire un fichier&lt;/span&gt;
 &lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&amp;lt;file1 &amp;lt;file2&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# lire 2 fichiers&lt;/span&gt;
-&lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&amp;lt;file &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; ls&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# lire un fichier et le retour de commande `ls`&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&amp;lt;file &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; ls&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# lire un fichier et le retour de la commande `ls`&lt;/span&gt;
 
 &lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=(&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(f)contents&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# tableau sans ligne vide&lt;/span&gt;
 &lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=(&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(s:&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)contents&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# équivalent&lt;/span&gt;
@@ -53,12 +155,13 @@
 
 &lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=(&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(f)&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&amp;lt;file&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# forme condensée du premier cas&lt;/span&gt;
 
-&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(j:&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)lines&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# concatène les lignes avec \n&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# -E permet de désactiver l&amp;#39;interpréation des séquences d&amp;#39;échappement (ex. \e)&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -E &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(j:&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)lines&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# concatène les lignes avec \n&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;# ou&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(F)lines&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -E &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(F)lines&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;
 
 &lt;span class=&#34;c1&#34;&gt;# affiche chaque ligne d&amp;#39;un fichier dans des crochets&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;[&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(j:]&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[:)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(@f)&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&amp;lt;file&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;]&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -E &lt;span class=&#34;s2&#34;&gt;&amp;#34;[&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(j:]&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[:)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(@f)&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&amp;lt;file&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;]&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Il y a encore de nombreux paramètres qui peuvent être trouvés dans le manuel ou via l&amp;rsquo;auto-complétion de zsh. Aussi, pour simplifier les exemples qui suivront, j&amp;rsquo;utiliserai directement les variables &lt;code&gt;contents&lt;/code&gt; et &lt;code&gt;lines&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h3 id=&#34;glob-et-glob-étendu&#34;&gt;Glob et glob étendu&lt;/h3&gt;
@@ -116,7 +219,7 @@
 
 &lt;h2 id=&#34;équivalent-des-commandes-unix&#34;&gt;Équivalent des commandes *Unix&lt;/h2&gt;
 
-&lt;p&gt;Maintenant que la petite introduction syntaxique est faite, on peut s&amp;rsquo;attaquer au remplacement des commandes systèmes. Bien sûr, toutes les options d&amp;rsquo;une commande ne peuvent pas être simulées facilement avec zsh, mais je présente ici l&amp;rsquo;essentiel. Je précise que les commandes bash ont implicitement &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$contents&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; comme flux de lecture et que le résultat des commandes zsh est fait avec un &lt;code&gt;echo&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Maintenant que la petite introduction syntaxique est faite, on peut s&amp;rsquo;attaquer au remplacement des commandes systèmes. Bien sûr, toutes les options d&amp;rsquo;une commande ne peuvent pas être simulées facilement avec zsh, mais je présente ici l&amp;rsquo;essentiel. Je précise que les commandes bash ont implicitement &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$contents&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; comme flux de lecture et que le résultat des commandes zsh est fait avec un &lt;code&gt;echo -E&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Je conseille aussi le petit &lt;a href=&#34;https://github.com/zdharma/Zsh-100-Commits-Club/blob/master/Zsh-Native-Scripting-Handbook.adoc&#34;&gt;Zsh Native Scripting Guide&lt;/a&gt;.&lt;/p&gt;
 
@@ -152,8 +255,8 @@
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;grep -m1 &lt;span class=&#34;s1&#34;&gt;&amp;#39;aligator&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[(r)*aligator*]&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;grep -m1 &lt;span class=&#34;s1&#34;&gt;&amp;#39;alligator&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[(r)*alligator*]&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -197,18 +300,18 @@
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sed s/aligator/crocodile/&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/aligator/crocodile&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sed s/alligator/crocodile/&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/alligator/crocodile&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sed s/aligator/crocodile/g&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;//aligator/crocodile&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sed s/alligator/crocodile/g&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;contents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;//alligator/crocodile&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sed &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/^aligator\*$/_/&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;%aligator*%_&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; ou &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/(#s)aligator&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(#e)/_&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sed &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/^alligator\*$/_/&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;%alligator*%_&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; ou &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/(#s)alligator&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(#e)/_&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
@@ -280,7 +383,7 @@ note: penser à investir dans une porte plus solide
 &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; k in &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(k)colors&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
   &lt;span class=&#34;nv&#34;&gt;colorized&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+=(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$k&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;\033[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$colors&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$k&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;]m&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$k&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;\033[0m&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
 
-&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(F)lines/(#m)(#s)[a-z]##:/&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;colorized&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$MATCH&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;:-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$MATCH&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -E &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(F)lines/(#m)(#s)[a-z]##:/&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;colorized&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$MATCH&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;:-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$MATCH&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -297,13 +400,13 @@ note: penser à investir dans une porte plus solide
 
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;find -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*aligator*&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;**/*aligator*&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;find -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*alligator*&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;**/*alligator*&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;find -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*aligator*&amp;#39;&lt;/span&gt; -a -not &lt;span class=&#34;s1&#34;&gt;&amp;#39;*crocodile*&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;**/*aligator*~*crocodile*&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;find -name &lt;span class=&#34;s1&#34;&gt;&amp;#39;*alligator*&amp;#39;&lt;/span&gt; -a -not &lt;span class=&#34;s1&#34;&gt;&amp;#39;*crocodile*&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;**/*alligator*~*crocodile*&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
@@ -355,8 +458,15 @@ note: penser à investir dans une porte plus solide
 &lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sort -rn&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
 &lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(On)lines&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
 &lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;sort -u&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(uo)lines&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+
+&lt;p&gt;À noter que &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(u)lines&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; élimine les doublons sans trier le tableau.&lt;/p&gt;
 
 &lt;h3 id=&#34;manipulation-de-chemin&#34;&gt;Manipulation de chemin&lt;/h3&gt;
 
@@ -401,7 +511,7 @@ note: penser à investir dans une porte plus solide
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;cut -d: -f2,1&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/(#m)*/&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$((&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$2&lt;/span&gt;:&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(s:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)MATCH&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;lines&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/(#m)*/&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$((&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;E &lt;span class=&#34;nv&#34;&gt;$2&lt;/span&gt;:&lt;span class=&#34;nv&#34;&gt;$1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(s:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)MATCH&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -421,7 +531,7 @@ note: penser à investir dans une porte plus solide
 &lt;tbody&gt;
 &lt;tr&gt;
 &lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nb&#34;&gt;printf&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;%04d&amp;#39;&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;42&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(l:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;:-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;42&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; ou &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(l:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$n&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -E &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(l:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;:-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;42&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt; ou &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-zsh&#34; data-lang=&#34;zsh&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; -E &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(l:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:)&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$n&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/span&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -497,11 +607,11 @@ note: penser à investir dans une porte plus solide
     </item>
     
     <item>
-      <title>Méta-function et continuation</title>
-      <link>https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/</link>
+      <title>Méta-fonction et continuation</title>
+      <link>https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/</link>
       <pubDate>Thu, 08 Nov 2018 18:56:13 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/</guid>
+      <guid>https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/</guid>
       <description>
 
 &lt;p&gt;J&amp;rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&amp;rsquo;apprécie particulièrement est &lt;a href=&#34;https://github.com/kvasir-io/mpl&#34;&gt;Kvasir.Mpl&lt;/a&gt;. Son originalité réside dans le support des &lt;a href=&#34;https://fr.wikipedia.org/wiki/Continuation&#34;&gt;continuations&lt;/a&gt; et &amp;ndash;parce que cela va bien de paire,&amp;ndash; l&amp;rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (&lt;code&gt;list&amp;lt;Ts...&amp;gt;&lt;/code&gt;).&lt;/p&gt;
@@ -2919,125 +3029,6 @@ Mais la véritable limitation réside dans l&amp;rsquo;appel même d&amp;rsquo;u
 &lt;/ul&gt;
 
 &lt;p&gt;J&amp;rsquo;ai mis tout ça dans un repo au nom provisoire &lt;a href=&#34;https://github.com/jonathanpoelen/falcon.store&#34;&gt;falcon.store&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Appel conditionnel de fonction selon la validité d&#39;une expression</title>
-      <link>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/</link>
-      <pubDate>Sun, 30 Nov 2014 19:17:52 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/</guid>
-      <description>
-
-&lt;p&gt;L&amp;rsquo;approche suivante consiste à vérifier qu&amp;rsquo;une fonction (membre ou statique) est appelable dans le but de l&amp;rsquo;utiliser, ou, à défaut, fournir implémentation générique. De manière plus générale, la méthode présentée ici s&amp;rsquo;applique à toutes expressions.&lt;/p&gt;
-
-&lt;h2 id=&#34;appeler-t-sort-si-possible-sinon-std-sort-begin-t-end-t&#34;&gt;Appeler T::sort si possible, sinon std::sort(begin(T), end(T))&lt;/h2&gt;
-
-&lt;p&gt;L&amp;rsquo;exemple va se faire sur la classe &lt;code&gt;std::list&lt;/code&gt; qui n&amp;rsquo;est pas triable avec &lt;code&gt;std::sort&lt;/code&gt;, mais possède une fonction membre &lt;code&gt;sort()&lt;/code&gt;. Ainsi que sur &lt;code&gt;std::vector&lt;/code&gt; qui, inversement, n&amp;rsquo;a pas de fonction membre &lt;code&gt;sort()&lt;/code&gt;, mais fonctionne avec &lt;code&gt;std::sort&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;La méthode est simple et consiste à créer 2 fonctions: une pour vérifier si une expression est valide (ici &lt;code&gt;x.sort()&lt;/code&gt;) et une autre en cas d&amp;rsquo;échec.&lt;/p&gt;
-
-&lt;p&gt;Seulement, qui dit 2 fonctions dit 2 prototypes. Leur prototype doit être légèrement différent mais compatible avec les mêmes valeurs d&amp;rsquo;entrée pour appeler la seconde si la première échoue (principe du &lt;a href=&#34;http://en.cppreference.com/w/cpp/language/sfinae&#34;&gt;SFINAE&lt;/a&gt;).&lt;/p&gt;
-
-&lt;p&gt;Pour vérifier l&amp;rsquo;expression, seuls 2 mots clef existent: &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; et &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;decltype&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt;. Cette procédure est donc possible avant C++11, même si &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; requière un peu d&amp;rsquo;enrobage.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;algorithm&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;//avec decltype
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;auto&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dispatch_sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;decltype&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()))&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// force decltype au type void
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dispatch_sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;begin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;end&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;begin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;end&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Cont&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Cont&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dispatch_sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;La fonction &lt;code&gt;sort&lt;/code&gt; appel &lt;code&gt;dispatch_sort&lt;/code&gt; avec un &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; (la valeur n&amp;rsquo;importe pas, seul le type compte). Comme la seule différence des 2 fonctions &lt;code&gt;dispatch_sort&lt;/code&gt; est le premier paramètre, le prototype avec un &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; correspond parfaitement.&lt;/p&gt;
-
-&lt;p&gt;Si une fonction membre &lt;code&gt;sort&lt;/code&gt; existe, alors l&amp;rsquo;expression dans &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;decltype&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; est valide et la fonction appelé. Dans le cas contraire, le compilateur cherche une fonction avec des paramètres pouvant être compatibles. Le &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; pouvant être converti en &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt;, le compilateur se rabat sur le second prototype qui fait appel à &lt;code&gt;std::sort&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Le point clef étant de mettre toutes les informations dans le prototype. J&amp;rsquo;aurais par exemple pu mettre &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;decltype&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; dans un paramètre initialisé avec une valeur par défaut (&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;decltype&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;xxx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt;, mais il faudra probablement ajouter &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;remove_reference&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; car un pointeur sur une référence n&amp;rsquo;est pas permis).&lt;/p&gt;
-
-&lt;h2 id=&#34;programme-de-test&#34;&gt;Programme de test&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;vector&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;list&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
-&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vector&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;   &lt;span class=&#34;n&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
-
-  &lt;span class=&#34;n&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-
-  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;auto&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sc&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sc&#34;&gt;&amp;#39;\n&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;auto&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;sc&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Résultats:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;2 4 6
-2 4 6
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;implémentation-avec-sizeof-pre-c-11&#34;&gt;implémentation avec sizeof (pre-C++11)&lt;/h2&gt;
-
-&lt;p&gt;J&amp;rsquo;ai indiqué qu&amp;rsquo;il été possible d&amp;rsquo;utiliser &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; à la place de &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;decltype&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt;. Voici comment:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;size_t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dispatch_result_type&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;declval&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&#34;k&#34;&gt;typename&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dispatch_result_type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;declval&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()),&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;dispatch_sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Container&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Le &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; de &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;xxx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; peut dérouter mais est requis si l&amp;rsquo;expression &lt;code&gt;xxx&lt;/code&gt; retourne &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt;. Comme &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; n&amp;rsquo;est pas vraiment un type, il ne fonctionne pas avec &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; et il faut donc lui fournir autre chose. Il faut bien comprendre qu&amp;rsquo;ici &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;xxx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; est &lt;strong&gt;une seule&lt;/strong&gt; expression et non pas 2 paramètres.&lt;/p&gt;
-
-&lt;p&gt;Bien que très peu probable, si j&amp;rsquo;ai mis &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;yyy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt;, c&amp;rsquo;est pour prévenir la surcharge de l&amp;rsquo;opérator &amp;lsquo;&lt;code&gt;,&lt;/code&gt;&amp;rsquo; sur le type de retour retourné par &lt;code&gt;yyy&lt;/code&gt; (car cet opérateur peut lui-même retourner un &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt;).&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; ne donne pas l&amp;rsquo;information sur le type de retour mais une valeur, il est couplé à &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;dispatch_result_type&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; qui prend en second paramètre template le type de retour (&lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt; par défaut). Quant à &lt;span class=&#34;inlinecode highlight&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;declval&lt;/span&gt;
-&lt;/code&gt;&lt;/span&gt;, c&amp;rsquo;est le même principe que &lt;a href=&#34;http://en.cppreference.com/w/cpp/utility/declval&#34;&gt;celui de la SL&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     

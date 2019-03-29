@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Méta-fonction et continuation</title>
+<meta name="generator" content="Hugo 0.54.0" />
+
+
+
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
+
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
+<link rel="shortcut icon" href="/favicon.jpg"/>
+<link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
+<link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
+<link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
+<link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
+<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:title" content="Méta-fonction et continuation">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/">
+<meta property="twitter:title" content="Méta-fonction et continuation">
+<meta name="description" content="J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &ndash;parce que cela va bien de paire,&ndash; l&rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&lt;Ts...&gt;).
+Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo;étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&rsquo;opérateur |.">
+<meta property="twitter:description" content="J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &ndash;parce que cela va bien de paire,&ndash; l&rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&lt;Ts...&gt;).
+Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo;étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&rsquo;opérateur |.">
+
+</head>
+<body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+  <div id="avoidance-link">
+    <a class="evitement" href="#main-content" title="Aller au contenu">Aller au contenu</a>
+    <a class="evitement" href="#main-menu" title="Aller au menu">Aller au menu</a>
+  </div>
+  <div class="container container-outer">
+    <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+      <div class="container-inner">
+        <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+            <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
+            <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
+          </a>
+        </div>
+        <nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <ul class="menu__list">
+    <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
+      <i class="fab fa-github" aria-hidden="true"></i> Github
+    </a></li>
+    <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
+      <i class="fas fa-archive" aria-hidden="true"></i> Archives</a>
+    </li>
+    <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
+      <i class="fas fa-rss" aria-hidden="true"></i> RSS</a>
+    </li>
+  </ul>
+</nav>
+
+
+      </div>
+    </header>
+    <div class="wrapper clearfix">
+
+<aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="widget-search widget">
+  <form class="widget-search__form" role="search" method="get" action="https://duckduckgo.com">
+    <label>
+      <span class="screen-reader-text">Search for:</span>
+      <input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+    </label>
+    <input class="widget-search__submit" type="submit" value="Search">
+    <input type="hidden" name="sites" value="https://jonathanpoelen.github.io/" />
+  </form>
+</div>
+
+	
+<div class="widget-recent widget" id="main-menu">
+  <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
+      
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">33 autres…</a></li>
+    </ul>
+  </div>
+</div>
+<div class="widget-recent widget">
+  <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2013/12/parcourir-les-arguments-dune-fonction-variadique/" title="Ajout du chapitre « Fold expression et C&#43;&#43;17 »">
+        <time datetime="2019-03-23T03:23:06">23/03/2019</time>
+        -- Parcourir les arguments d&#39;une fonction variadique
+      </a></li>
+
+    </ul>
+  </div>
+</div>
+
+	
+<div class="widget-categories widget">
+  <h4 class="widget__title"><i class="fas fa-folder-o" aria-hidden="true"></i> Catégories</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/script-shell">Script-Shell (7)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilite-Web">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/accessibilite-web">Accessibilite-Web (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/zsh">Zsh (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/make">Make (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+	
+	
+
+</aside>
+<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
+  
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="m%C3%A9ta-fonction-et-continuation"><span>
+        <a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Presque toujours std::move"></i></a>
+        <a href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Simuler une vtable sans fonction virtuelle"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/">Article suivant: Presque toujours std::move</a><br/>
+        <a href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Article précédent: Simuler une vtable sans fonction virtuelle</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2018-11-08T18:56:13">08 novembre 2018
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>4 minutes ;
+  <a href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#f973cbc536ee57ce86d89c62a7c4c20f-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
+</p>
+
+
+  </header>
+  <div class="post__content">
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
+<ul>
+<li><a href="#continuation">Continuation</a></li>
+<li><a href="#méta-fonction">Méta-fonction</a></li>
+<li><a href="#c-est-beau-c-est-propre">C&rsquo;est beau, c&rsquo;est propre</a></li>
+</ul></nav>
+        </div></aside>
+      
+
+<p>J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est <a href="https://github.com/kvasir-io/mpl">Kvasir.Mpl</a>. Son originalité réside dans le support des <a href="https://fr.wikipedia.org/wiki/Continuation">continuations</a> et &ndash;parce que cela va bien de paire,&ndash; l&rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (<code>list&lt;Ts...&gt;</code>).</p>
+
+<a class="headline-hash" href="#continuation"><h2 id="continuation">Continuation</h2></a>
+
+<p>Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo;étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme <a href="https://github.com/ericniebler/range-v3">rangev3</a>, les continuations se font avec l&rsquo;opérateur <code>|</code>. Par exemple <code>grep x | wc -l</code> ou <code>filter(is_odd) | take(6)</code>. Il n&rsquo;est pas possible d&rsquo;utiliser <code>|</code> avec des templates alors la continuation est un paramètre ajouté à l&rsquo;algorithme. En chaînant les continuations, on construit un nouvel algorithme qui s&rsquo;utilise avec <code>call&lt;algo, xs...&gt;</code>.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// `C` pour continuation
+</span><span class="c1"></span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">C</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">add_const</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">C</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">add_lvalue_reference</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">C</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">add_const_lvalue_reference</span> <span class="o">=</span> <span class="n">add_const</span><span class="o">&lt;</span><span class="n">add_lvalue_reference</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;&gt;</span><span class="p">;</span> <span class="c1">// un chaînage
+</span></code></pre></div>
+
+
+<p>Les continuations limitent drastiquement le recours aux &laquo;&nbsp;lambdas&nbsp;&raquo;. Dans d&rsquo;autres bibliothèques du genre, <code>add_const_lvalue_reference</code> s&rsquo;écrirait <code>lambda&lt;add_lvalue_reference, lambda&lt;add_const, _&gt;&gt;</code> ce qui est beaucoup moins glamour.</p>
+
+<p>Dans des algorithmes du type transformation l&rsquo;impact sur la lecture du code est immédiat:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">transform</span><span class="o">&lt;</span><span class="n">lambda</span><span class="o">&lt;</span><span class="n">next</span><span class="p">,</span> <span class="n">lambda</span><span class="o">&lt;</span><span class="n">times</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
+<span class="c1">// vs
+</span><span class="c1"></span><span class="n">call</span><span class="o">&lt;</span><span class="n">transform</span><span class="o">&lt;</span><span class="n">times</span><span class="o">&lt;</span><span class="n">next</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="cm">/*C=listify*/</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
+</code></pre></div>
+<p>Qui se traduit par la construction d&rsquo;une nouvelle liste avec la formule <code>(x*y)+1</code>.</p>
+
+<p>Ce code met bien en évidence un autre aspect des continuations: la lecture du code se fait de gauche à droite alors que les lambdas se lisent de droite à gauche et oblige le lecteur à faire des allers/retours pour suivre le flux de code.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">transform</span><span class="o">&lt;</span><span class="n">lambda</span><span class="o">&lt;</span><span class="n">next</span><span class="p">,</span> <span class="n">lambda</span><span class="o">&lt;</span><span class="n">times</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
+ <span class="cm">/* 1 */</span>       <span class="cm">/* 3 */</span>       <span class="cm">/* 2 */</span>
+<span class="n">call</span><span class="o">&lt;</span><span class="n">transform</span><span class="o">&lt;</span><span class="n">times</span><span class="o">&lt;</span><span class="n">next</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="cm">/*C=listify*/</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
+      <span class="cm">/* 1 *//* 2 *//* 3 */</span>      <span class="cm">/* 4 */</span>
+</code></pre></div>
+<a class="headline-hash" href="#méta-fonction"><h2 id="méta-fonction">Méta-fonction</h2></a>
+
+<p>Au niveau de kvasir, une méta-fonction est un type qui possède un membre template nommé <code>f</code>. Tous les algorithmes de kvasir sont des méta-fonctions et l&rsquo;appel se fait avec <code>call&lt;metafunc, param1, param2,...&gt;</code>. Si on complète <code>add_const</code> et <code>add_lvalue_reference</code> plus haut, cela donne:</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">F</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">call</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">F</span><span class="o">::</span><span class="k">template</span> <span class="n">f</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">C</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">add_const</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span> <span class="n">T</span> <span class="k">const</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">C</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">add_lvalue_reference</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<p>Il ne reste qu&rsquo;une dernière étape, la continuation finale lorsqu&rsquo;il n&rsquo;y a plus rien à faire. Les plus utilisés sont au nombre de 2 et servent de valeur par défaut à l&rsquo;ensemble des algorithmes, j&rsquo;ai nommé <code>identity</code> et <code>listify</code>.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">identity</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">...</span><span class="o">&gt;</span>
+<span class="k">class</span><span class="err"> </span><span class="nc">list</span> <span class="p">{};</span>
+
+<span class="k">struct</span> <span class="n">listify</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<a class="headline-hash" href="#c-est-beau-c-est-propre"><h2 id="c-est-beau-c-est-propre">C&rsquo;est beau, c&rsquo;est propre</h2></a>
+
+<p>Il y a quelques jours, après mon petit passage quotidien dans libstdc++ et en regardant <code>std::decay</code>, je me suis dit <del>c&rsquo;est beau, c&rsquo;est propre</del> qu&rsquo;il faudrait comparer avec une implémentation qui utilise les concepts de kvasir.</p>
+
+<p>Voici en l&rsquo;état la version fournie avec gcc-8.2:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// Decay trait for arrays and functions, used for perfect forwarding
+</span><span class="c1">// in make_pair, make_tuple, etc.
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">_Up</span><span class="p">,</span>
+     <span class="kt">bool</span> <span class="n">_IsArray</span> <span class="o">=</span> <span class="n">is_array</span><span class="o">&lt;</span><span class="n">_Up</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+     <span class="kt">bool</span> <span class="n">_IsFunction</span> <span class="o">=</span> <span class="n">is_function</span><span class="o">&lt;</span><span class="n">_Up</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">__decay_selector</span><span class="p">;</span>
+
+<span class="c1">// NB: DR 705.
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">_Up</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">__decay_selector</span><span class="o">&lt;</span><span class="n">_Up</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">false</span><span class="o">&gt;</span>
+  <span class="p">{</span> <span class="k">typedef</span> <span class="k">typename</span> <span class="n">remove_cv</span><span class="o">&lt;</span><span class="n">_Up</span><span class="o">&gt;::</span><span class="n">type</span> <span class="n">__type</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">_Up</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">__decay_selector</span><span class="o">&lt;</span><span class="n">_Up</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">false</span><span class="o">&gt;</span>
+  <span class="p">{</span> <span class="k">typedef</span> <span class="k">typename</span> <span class="n">remove_extent</span><span class="o">&lt;</span><span class="n">_Up</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">*</span> <span class="n">__type</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">_Up</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">__decay_selector</span><span class="o">&lt;</span><span class="n">_Up</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="nb">true</span><span class="o">&gt;</span>
+  <span class="p">{</span> <span class="k">typedef</span> <span class="k">typename</span> <span class="n">add_pointer</span><span class="o">&lt;</span><span class="n">_Up</span><span class="o">&gt;::</span><span class="n">type</span> <span class="n">__type</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="c1">/// decay
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">_Tp</span><span class="o">&gt;</span>
+  <span class="k">class</span><span class="err"> </span><span class="nc">decay</span>
+  <span class="p">{</span>
+    <span class="k">typedef</span> <span class="k">typename</span> <span class="n">remove_reference</span><span class="o">&lt;</span><span class="n">_Tp</span><span class="o">&gt;::</span><span class="n">type</span> <span class="n">__remove_type</span><span class="p">;</span>
+
+  <span class="k">public</span><span class="o">:</span>
+    <span class="k">typedef</span> <span class="k">typename</span> <span class="n">__decay_selector</span><span class="o">&lt;</span><span class="n">__remove_type</span><span class="o">&gt;::</span><span class="n">__type</span> <span class="n">type</span><span class="p">;</span>
+  <span class="p">};</span>
+</code></pre></div>
+<p>En réalité, ce qui m&rsquo;a particulièrement tiqué se situe dans la déclaration de <code>__decay_selector</code>: <code>is_array</code> et <code>is_function</code> sont toujours évaluées avec <code>_Up</code> et il faut écrire plusieurs spécialisations.</p>
+
+<p>L&rsquo;idée du sélecteur est un bon concept et se remplace facilement par une suite de conditions:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// ce que fait plus ou moins libc++ de llvm
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">__decay_selector</span> <span class="o">=</span> <span class="n">conditional</span><span class="o">&lt;</span>
+  <span class="n">is_array_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">remove_extent_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;*</span><span class="p">,</span>
+  <span class="n">conditional_t</span><span class="o">&lt;</span>
+    <span class="n">is_function_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">add_pointer_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+  <span class="o">&gt;</span>
+<span class="o">&gt;</span><span class="p">;</span>
+</code></pre></div>
+<p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la stl ne le permettent pas sans ajouter des intermédiaires.</p>
+
+<p>Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, <code>remove_extent&lt;T&gt;</code> ne sera pas instancié lorsque <code>is_array_v&lt;T&gt;</code> est faux ce qui rend les continuations très facilement composables.</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">decay</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span>
+    <span class="n">if_</span><span class="o">&lt;</span>
+      <span class="n">cfl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_array</span><span class="o">&gt;</span><span class="p">,</span>
+      <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_extent</span><span class="p">,</span> <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">add_pointer</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+      <span class="n">if_</span><span class="o">&lt;</span>
+        <span class="n">cfl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_function</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="n">cfe</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">add_pointer_impl</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv</span><span class="o">&gt;</span>
+      <span class="o">&gt;</span>
+    <span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+  <span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+
+<p>Avec l&rsquo;implémentation de <code>if_</code>:</p>
+
+
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span> <span class="n">B</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">conditional</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">P</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">TC</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">FC</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">if_</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span><span class="n">call</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">conditional</span><span class="o">&lt;</span><span class="n">call</span><span class="o">&lt;</span><span class="n">P</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">TC</span><span class="p">,</span> <span class="n">FC</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">...</span><span class="o">&gt;</span> <span class="k">class</span><span class="err"> </span><span class="nc">F</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">C</span> <span class="o">=</span> <span class="n">identity</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">cfl</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span> <span class="n">F</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">...</span><span class="o">&gt;</span> <span class="k">class</span><span class="err"> </span><span class="nc">F</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">C</span> <span class="o">=</span> <span class="n">identity</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">cfe</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span> <span class="k">typename</span> <span class="n">F</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span> <span class="n">B</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="n">conditional</span>
+  <span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;&gt;</span>
+  <span class="k">struct</span> <span class="n">conditional</span><span class="o">&lt;</span><span class="nb">false</span><span class="o">&gt;</span>
+  <span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">U</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>L&rsquo;ensemble des sources se trouvent sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/metafunc_continuation/decay.cpp">github</a>
+.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2018-11-08T18:56:13">08 novembre 2018
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="f973cbc536ee57ce86d89c62a7c4c20f-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=m%25C3%25A9ta-fonction-et-continuation&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fmeta-fonction-et-continuation%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fmeta-fonction-et-continuation%2f&amp;title=m%25C3%25A9ta-fonction-et-continuation" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fmeta-fonction-et-continuation%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fmeta-fonction-et-continuation%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fmeta-fonction-et-continuation%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f11%2fmeta-fonction-et-continuation%2f&amp;name=m%25C3%25A9ta-fonction-et-continuation" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+  
+  
+<nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--prev">
+    <a class="post-nav__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Simuler une vtable sans fonction virtuelle</span></a>
+  </div>
+  <div class="post-nav__item post-nav__item--next">
+    <a class="post-nav__link" href="/2018/12/presque-toujours-stdmove/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">Presque toujours std::move</span></a>
+  </div>
+</nav>
+
+  <section id="gh-comments">
+  <h1>Commentaires</h1>
+<p>Les commentaires ne sont pas encore ouverts.</p>
+<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues">les issues de github</a> et aucun n'est associée au billet.
+Vous pouvez faire votre commentaire dans une issue qui a comme titre celui du billet. Je
+me chargerai de les associer.</p>
+</section>
+
+</main>
+</div>
+  <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+    <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
+    <p class="footer__copyright">
+       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+      Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
+      et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
+      Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
+      </span>
+    </p>
+  </footer>
+</div>
+<a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
+
+</body>
+</html>
+

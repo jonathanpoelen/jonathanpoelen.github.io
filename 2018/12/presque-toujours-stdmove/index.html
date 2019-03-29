@@ -83,12 +83,12 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-function-et-continuation/">Méta-function et continuation</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">32 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">33 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -96,6 +96,10 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
   <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2013/12/parcourir-les-arguments-dune-fonction-variadique/" title="Ajout du chapitre « Fold expression et C&#43;&#43;17 »">
+        <time datetime="2019-03-23T03:23:06">23/03/2019</time>
+        -- Parcourir les arguments d&#39;une fonction variadique
+      </a></li>
 
     </ul>
   </div>
@@ -112,7 +116,7 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (23)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -176,12 +180,12 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="presque-toujours-stdmove"><span>
         <a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Grep, sed, awk, sort... Non ! Zsh"></i></a>
-        <a href="https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Méta-function et continuation"></i></a>
+        <a href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Méta-fonction et continuation"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></h1>
     <div class="post__title-nextprev-text sr-only">
         <a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/">Article suivant: Grep, sed, awk, sort... Non ! Zsh</a><br/>
-        <a href="https://jonathanpoelen.github.io/2018/11/meta-function-et-continuation/">Article précédent: Méta-function et continuation</a><br/>
+        <a href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/">Article précédent: Méta-fonction et continuation</a><br/>
     </div>
     
 <p class="post__meta meta">
@@ -201,6 +205,8 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
   <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
   <a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
   <a href="#f5c829c4a296c3dc8dd76923c74b4885-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
 </p>
 
 
@@ -280,6 +286,8 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
  ;
   
 
+  
+
   <br/><a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
 </p>
 <p class="post__meta meta share" id="f5c829c4a296c3dc8dd76923c74b4885-share">
@@ -300,7 +308,7 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
   
 <nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
   <div class="post-nav__item post-nav__item--prev">
-    <a class="post-nav__link" href="/2018/11/meta-function-et-continuation/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Méta-function et continuation</span></a>
+    <a class="post-nav__link" href="/2018/11/meta-fonction-et-continuation/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Méta-fonction et continuation</span></a>
   </div>
   <div class="post-nav__item post-nav__item--next">
     <a class="post-nav__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">Grep, sed, awk, sort... Non ! Zsh</span></a>
