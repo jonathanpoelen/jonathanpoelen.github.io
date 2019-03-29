@@ -99,7 +99,7 @@ bash | zsh
 {{<hi zsh "grep -v 'Alligator'"/>}} | {{<hi zsh "${lines:#*Alligator*}"/>}}
 {{<hi zsh "grep '^Alligator .* Alligator$'"/>}} | {{<hi zsh "${(M)lines:#Alligator * Alligator}"/>}}
 {{<hi zsh "grep -i 'alligator'"/>}} | {{<hi zsh "${(M)lines:#(#i)*alligator*}"/>}}
-{{<hi zsh "grep -m1 'aligator'"/>}} | {{<hi zsh "${lines[(r)*aligator*]}"/>}}
+{{<hi zsh "grep -m1 'alligator'"/>}} | {{<hi zsh "${lines[(r)*alligator*]}"/>}}
 
 `(#i)` n'est utilisable qu'avec `setopt extendedglob` et peut s'appliquer sur un groupe seulement de caractère (i.e. `((#i)a)lbator`). Il existe l'option inverse: `#I`. Ainsi que `#l` qui fait une recherche insensible à la case pour les lettres minuscules du pattern, et en majuscule pour celles en majuscule dans le pattern.
 
@@ -118,9 +118,9 @@ bash | zsh
 bash | zsh
 -----|----
 {{<hi zsh "sed '3,6!d'"/>}} | {{<hi zsh "$lines[3,5]"/>}}
-{{<hi zsh "sed s/aligator/crocodile/"/>}}  | {{<hi zsh "${contents/aligator/crocodile}"/>}}
-{{<hi zsh "sed s/aligator/crocodile/g"/>}} | {{<hi zsh "${contents//aligator/crocodile}"/>}}
-{{<hi zsh "sed 's/^aligator\*$/_/'"/>}}   | {{<hi zsh "${lines:s%aligator*%_}"/>}} ou {{<hi zsh "${lines/(#s)aligator\*(#e)/_}"/>}}
+{{<hi zsh "sed s/alligator/crocodile/"/>}}  | {{<hi zsh "${contents/alligator/crocodile}"/>}}
+{{<hi zsh "sed s/alligator/crocodile/g"/>}} | {{<hi zsh "${contents//alligator/crocodile}"/>}}
+{{<hi zsh "sed 's/^alligator\*$/_/'"/>}}   | {{<hi zsh "${lines:s%alligator*%_}"/>}} ou {{<hi zsh "${lines/(#s)alligator\*(#e)/_}"/>}}
 {{<hi zsh "sed 's/^\w\+$/[&]/'"/>}} | {{<hi zsh "${lines:/(#m)[[:alnum:]]##/[$MATCH]}"/>}}
 {{<hi zsh "sed -E 's/^(\w+) = (\w+)$/\2 = \1/'"/>}} | {{<hi zsh "${lines:/(#b)([[:alnum:]]##) = ([[:alnum:]]##)/$match[2] = $match[1]}"/>}}
 
@@ -169,8 +169,8 @@ echo -E ${(F)lines/(#m)(#s)[a-z]##:/${colorized[$MATCH]:-$MATCH}}{{</hi>}}
 
 bash | zsh
 -----|----
-{{<hi zsh "find -name '*aligator*'"/>}} | {{<hi zsh "**/*aligator*"/>}}
-{{<hi zsh "find -name '*aligator*' -a -not '*crocodile*'"/>}} | {{<hi zsh "**/*aligator*~*crocodile*"/>}}
+{{<hi zsh "find -name '*alligator*'"/>}} | {{<hi zsh "**/*alligator*"/>}}
+{{<hi zsh "find -name '*alligator*' -a -not '*crocodile*'"/>}} | {{<hi zsh "**/*alligator*~*crocodile*"/>}}
 {{<hi zsh "find -type d"/>}} | {{<hi zsh "**/*(/)"/>}}
 {{<hi zsh "find -not -type d"/>}} | {{<hi zsh "**/*(^/)"/>}}
 {{<hi zsh "find -type l"/>}} | {{<hi zsh "**/*(@)"/>}}
