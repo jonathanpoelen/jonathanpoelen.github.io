@@ -945,7 +945,7 @@ note: penser à investir dans une porte plus solide
   <span class="o">&gt;</span>
 <span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
-<p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la stl ne le permettent pas sans ajouter des intermédiaires.</p>
+<p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.</p>
 
 <p>Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, <code>remove_extent&lt;T&gt;</code> ne sera pas instancié lorsque <code>is_array_v&lt;T&gt;</code> est faux ce qui rend les continuations très facilement composables.</p>
 
@@ -1984,7 +1984,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
   <div class="post__content">
       
 
-<p>Cet article va être consacré à la réalisation d&rsquo;une classe variant comme on peut la trouver dans la <a href="http://en.cppreference.com/w/cpp/utility/variant">stl</a>, <a href="http://en.cppreference.com/w/cpp/utility/variant">boost</a> et <a href="https://github.com/mapbox/variant">autres</a>. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&rsquo;exécution. Je vais faire un petit tour de ce que j&rsquo;ai pu voir et comment les implémenter.</p>
+<p>Cet article va être consacré à la réalisation d&rsquo;une classe variant comme on peut la trouver dans la <a href="http://en.cppreference.com/w/cpp/utility/variant">STL</a>, <a href="http://en.cppreference.com/w/cpp/utility/variant">boost</a> et <a href="https://github.com/mapbox/variant">autres</a>. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&rsquo;exécution. Je vais faire un petit tour de ce que j&rsquo;ai pu voir et comment les implémenter.</p>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#rappel-sur-ce-qu-est-un-variant"><h2 id="rappel-sur-ce-qu-est-un-variant">Rappel sur ce qu&rsquo;est un variant</h2></a>
 

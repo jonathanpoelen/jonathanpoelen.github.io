@@ -360,7 +360,7 @@ Toutefois, cette version est fonctionnelle avec <code>push_back</code> :).</p>
 
 <p>Il arrive qu&rsquo;un jour ou l&rsquo;autre on veuille faire une surcharge de <code>swap</code> pour un objet particulier. À ce moment 2 choix s&rsquo;offrent: en faire une fonction libre dans le namespace où se trouve la classe ou dans le namespace <code>std</code>. Évidemment, le meilleur choix est le premier.</p>
 
-<p>Et là, pour toutes les personnes qui ont en horreur le <code>using namespace std</code> ou travaillant dans les .h, un problème va se poser. Comme <code>swap</code> se trouve dans le namespace de la stl, il est logique de faire <code>std::swap(...)</code>. Mais à ce moment, la fonction <code>swap</code> spécialisée dans le namespace de la classe n&rsquo;est pas utilisée&hellip;</p>
+<p>Et là, pour toutes les personnes qui ont en horreur le <code>using namespace std</code> ou travaillant dans les .h, un problème va se poser. Comme <code>swap</code> se trouve dans le namespace de la STL, il est logique de faire <code>std::swap(...)</code>. Mais à ce moment, la fonction <code>swap</code> spécialisée dans le namespace de la classe n&rsquo;est pas utilisée&hellip;</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp">#if __cplusplus &gt;= 201103L
 </span><span class="cp"># include &lt;utility&gt;
@@ -398,7 +398,7 @@ Toutefois, cette version est fonctionnelle avec <code>push_back</code> :).</p>
   <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Donc, d&rsquo;un côté on a un <code>swap</code> générique dans la stl et de l&rsquo;autre un <code>swap</code> spécialisé dans <code>my</code>.
+<p>Donc, d&rsquo;un côté on a un <code>swap</code> générique dans la STL et de l&rsquo;autre un <code>swap</code> spécialisé dans <code>my</code>.
 Et surtout, 2 syntaxes différentes.</p>
 
 <p>Dans un contexte générique (typiquement des templates) et de maintient de code, 2 formes, ce n&rsquo;est pas acceptable.
@@ -896,7 +896,7 @@ Le type de <code>r</code> est donc bien une référence sur un entier non-consta
 <p>Un appel explicite au destructeur et le tour est joué.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">machin</span><span class="o">-&gt;~</span><span class="n">Machin</span><span class="p">();</span>
 </code></pre></div>
-<p>Étape inutile pour les types scalaires. De toute façon ils n&rsquo;ont pas de destructeur. En C++17, la stl contient <a href="http://en.cppreference.com/w/cpp/memory/destroy_at">std::destroy_at</a>.</p>
+<p>Étape inutile pour les types scalaires. De toute façon ils n&rsquo;ont pas de destructeur. En C++17, la STL contient <a href="http://en.cppreference.com/w/cpp/memory/destroy_at">std::destroy_at</a>.</p>
 
 <p>Évidemment, si <code>machin</code> possède un destructeur virtuel et est en réalité une classe fille, alors c&rsquo;est le destructeur de la classe dérivée qui est appelé.</p>
 
@@ -954,7 +954,7 @@ Présent dans boost et la dernière norme du C++, il existe <a href="http://en.c
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allocateurs-de-la-sl"><h2 id="allocateurs-de-la-sl">Allocateurs de la SL</h2></a>
 
-<p>Les allocateurs sont des objets qui s&rsquo;occupent de faire tout ce qui a été dit auparavant à travers des fonctions comme <code>allocate</code>/<code>desallocate</code>, <code>construct</code>/<code>destroy</code>, etc, mais sans faire de surcharge. En fait, tous les conteneurs dynamiques de la stl utilisent un <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a> comme allocateur par défaut paramétrable à travers le dernier type template du conteneur.</p>
+<p>Les allocateurs sont des objets qui s&rsquo;occupent de faire tout ce qui a été dit auparavant à travers des fonctions comme <code>allocate</code>/<code>desallocate</code>, <code>construct</code>/<code>destroy</code>, etc, mais sans faire de surcharge. En fait, tous les conteneurs dynamiques de la STL utilisent un <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a> comme allocateur par défaut paramétrable à travers le dernier type template du conteneur.</p>
 
 <p>Depuis C++11, il existe <a href="http://en.cppreference.com/w/cpp/memory/allocator_traits">std::allocator_traits</a> qui simplifie grandement la création d&rsquo;un allocateur en rendant la plupart des fonctions optionnelles.
 Et à partir de C++17 un <a href="http://en.cppreference.com/w/cpp/header/memory_resource">allocateur polymorphique</a> voit le jour avec quelques gestionnaires de mémoire.</p>

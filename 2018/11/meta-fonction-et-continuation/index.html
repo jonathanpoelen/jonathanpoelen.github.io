@@ -351,7 +351,7 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo
   <span class="o">&gt;</span>
 <span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
-<p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la stl ne le permettent pas sans ajouter des intermédiaires.</p>
+<p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.</p>
 
 <p>Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, <code>remove_extent&lt;T&gt;</code> ne sera pas instancié lorsque <code>is_array_v&lt;T&gt;</code> est faux ce qui rend les continuations très facilement composables.</p>
 

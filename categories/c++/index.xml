@@ -60,7 +60,7 @@ Info : L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici 
       <pubDate>Sun, 02 Sep 2018 14:45:55 +0200</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/</guid>
-      <description>Cet article va être consacré à la réalisation d&amp;rsquo;une classe variant comme on peut la trouver dans la stl, boost et autres. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&amp;rsquo;exécution. Je vais faire un petit tour de ce que j&amp;rsquo;ai pu voir et comment les implémenter.
+      <description>Cet article va être consacré à la réalisation d&amp;rsquo;une classe variant comme on peut la trouver dans la STL, boost et autres. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&amp;rsquo;exécution. Je vais faire un petit tour de ce que j&amp;rsquo;ai pu voir et comment les implémenter.
 Rappel sur ce qu&amp;rsquo;est un variant Un variant est une union sécurisée comme on peut le trouver dans les langages fonctionnels.</description>
     </item>
     
@@ -252,7 +252,7 @@ iterator operator+(const iterator&amp;amp; other, int n) { return iterator(other
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/</guid>
       <description>Le C++ a l&amp;rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &amp;laquo;&amp;nbsp;tags&amp;nbsp;&amp;raquo;.
-Comme exemple je vais utiliser les tags présents dans les itérateurs de la stl et une implémentation de la fonction std::advance().
+Comme exemple je vais utiliser les tags présents dans les itérateurs de la STL et une implémentation de la fonction std::advance().
 Première implémentation La fonction std::advance() permet d&amp;rsquo;incrémenter un itérateur de N éléments (ou décrémenter si N est négatif). D&amp;rsquo;après cette description, un premier algorithme peut être émis:</description>
     </item>
     

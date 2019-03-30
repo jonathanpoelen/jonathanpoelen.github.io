@@ -27,9 +27,9 @@
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/1/01/">
 <meta property="twitter:title" content="">
 <meta name="description" content="^&mdash; title: &laquo;&nbsp;std::array, oui, mais pourquoi ?&nbsp;&raquo; #thumbnail: &laquo;&nbsp;&nbsp;&raquo; #description: &laquo;&nbsp;&nbsp;&raquo; date: 2019-03-29T17:28:19&#43;01:00 #lastmod: 2019-03-29T17:28:19&#43;01:00 slug: &laquo;&nbsp;stdarray-oui-mais-pourquoi-&nbsp;&raquo; #toc: false #tags: [ ] aliases: [] categories: [ &laquo;&nbsp;c&#43;&#43;&nbsp;&raquo; ] draft: false ghcommentid: 0
-expire: 2028 Depuis C&#43;&#43;11, un nouveau type de tableau fait son apparition: std::array. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.">
+expire: 2028 Depuis C&#43;&#43;11, un nouveau type de tableau fait son apparition: std::array. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la STL est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.">
 <meta property="twitter:description" content="^&mdash; title: &laquo;&nbsp;std::array, oui, mais pourquoi ?&nbsp;&raquo; #thumbnail: &laquo;&nbsp;&nbsp;&raquo; #description: &laquo;&nbsp;&nbsp;&raquo; date: 2019-03-29T17:28:19&#43;01:00 #lastmod: 2019-03-29T17:28:19&#43;01:00 slug: &laquo;&nbsp;stdarray-oui-mais-pourquoi-&nbsp;&raquo; #toc: false #tags: [ ] aliases: [] categories: [ &laquo;&nbsp;c&#43;&#43;&nbsp;&raquo; ] draft: false ghcommentid: 0
-expire: 2028 Depuis C&#43;&#43;11, un nouveau type de tableau fait son apparition: std::array. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.">
+expire: 2028 Depuis C&#43;&#43;11, un nouveau type de tableau fait son apparition: std::array. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la STL est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -221,11 +221,11 @@ ghcommentid: 0</p>
 
 <a class="headline-hash" href="#expire-2028"><h2 id="expire-2028">expire: 2028</h2></a>
 
-<p>Depuis C++11, un nouveau type de tableau fait son apparition: <code>std::array</code>. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.</p>
+<p>Depuis C++11, un nouveau type de tableau fait son apparition: <code>std::array</code>. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la STL est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.</p>
 
 <a class="headline-hash" href="#les-tableaux-c-se-convertissent-en-pointeur-trop-facilement"><h2 id="les-tableaux-c-se-convertissent-en-pointeur-trop-facilement">Les tableaux C se convertissent en pointeur trop facilement</h2></a>
 
-<p>Le tableau C a l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens. Mais puisque les tableaux sont convertis silencieusement en pointeur, le compilateur l&rsquo;accepte sans broncher.</p>
+<p>Le tableau C a l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens. Mais puisque les tableaux se dégradent en pointeur, le compilateur l&rsquo;accepte sans broncher.</p>
 
 <p>Le seul pseudo-avantage est l&rsquo;arithmétique des pointeurs qui permet de manipuler un tableau presque comme un pointeur &ndash; à la différence que l&rsquo;incrémentation et la décrémentation ne sont pas possibles.</p>
 
@@ -259,7 +259,7 @@ ghcommentid: 0</p>
 
 <a class="headline-hash" href="#un-tableau-c-n-est-pas-copiable"><h2 id="un-tableau-c-n-est-pas-copiable">Un tableau C n&rsquo;est pas copiable</h2></a>
 
-<p>Le tableau est le seul type du C qui ne supporte ni la copie, ni l&rsquo;affectation, ce qui le rend inutilisable dans n&rsquo;importe quel conteneur de la stl tel que <code>std::vector</code>. Il n&rsquo;est pas non plus possible de construire un tableau directement dans l&rsquo;appel d&rsquo;une fonction (sauf en C99 avec un cast: <code>foo((int[]){1,2})</code>).</p>
+<p>Le tableau est le seul type du C qui ne supporte ni la copie, ni l&rsquo;affectation, ce qui le rend inutilisable dans n&rsquo;importe quel conteneur de la STL tel que <code>std::vector</code>. Il n&rsquo;est pas non plus possible de construire un tableau directement dans l&rsquo;appel d&rsquo;une fonction (sauf en C99 avec un cast: <code>foo((int[]){1,2})</code>).</p>
 
 <p>Par contre, une structure qui contient un tableau est aussi bien copiable qu&rsquo;affectable. Manipuler un tableau directement impose plusieurs contraintes complètement loufoques, mais mettez le tout dans une boîte et tout est permis. Ce qui m&rsquo;amène à <code>std::array</code>, car il fait justement office de boîte.</p>
 

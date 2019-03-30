@@ -299,7 +299,7 @@ parsecmd --option-l --u plop bidule</code></pre></div>
 
 <p>Le C++ a l&rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &laquo;&nbsp;tags&nbsp;&raquo;.</p>
 
-<p>Comme exemple je vais utiliser les <a href="http://en.cppreference.com/w/cpp/iterator">tags présents dans les itérateurs de la stl</a> et une implémentation de la fonction <a href="http://en.cppreference.com/w/cpp/iterator/advance">std::advance()</a>.</p>
+<p>Comme exemple je vais utiliser les <a href="http://en.cppreference.com/w/cpp/iterator">tags présents dans les itérateurs de la STL</a> et une implémentation de la fonction <a href="http://en.cppreference.com/w/cpp/iterator/advance">std::advance()</a>.</p>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#première-implémentation"><h2 id="première-implémentation">Première implémentation</h2></a>
 
@@ -833,11 +833,11 @@ ghcommentid: 0</p>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/1/01/#expire-2028"><h2 id="expire-2028">expire: 2028</h2></a>
 
-<p>Depuis C++11, un nouveau type de tableau fait son apparition: <code>std::array</code>. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.</p>
+<p>Depuis C++11, un nouveau type de tableau fait son apparition: <code>std::array</code>. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la STL est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.</p>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/1/01/#les-tableaux-c-se-convertissent-en-pointeur-trop-facilement"><h2 id="les-tableaux-c-se-convertissent-en-pointeur-trop-facilement">Les tableaux C se convertissent en pointeur trop facilement</h2></a>
 
-<p>Le tableau C a l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens. Mais puisque les tableaux sont convertis silencieusement en pointeur, le compilateur l&rsquo;accepte sans broncher.</p>
+<p>Le tableau C a l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens. Mais puisque les tableaux se dégradent en pointeur, le compilateur l&rsquo;accepte sans broncher.</p>
 
 <p>Le seul pseudo-avantage est l&rsquo;arithmétique des pointeurs qui permet de manipuler un tableau presque comme un pointeur &ndash; à la différence que l&rsquo;incrémentation et la décrémentation ne sont pas possibles.</p>
 
@@ -871,7 +871,7 @@ ghcommentid: 0</p>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/1/01/#un-tableau-c-n-est-pas-copiable"><h2 id="un-tableau-c-n-est-pas-copiable">Un tableau C n&rsquo;est pas copiable</h2></a>
 
-<p>Le tableau est le seul type du C qui ne supporte ni la copie, ni l&rsquo;affectation, ce qui le rend inutilisable dans n&rsquo;importe quel conteneur de la stl tel que <code>std::vector</code>. Il n&rsquo;est pas non plus possible de construire un tableau directement dans l&rsquo;appel d&rsquo;une fonction (sauf en C99 avec un cast: <code>foo((int[]){1,2})</code>).</p>
+<p>Le tableau est le seul type du C qui ne supporte ni la copie, ni l&rsquo;affectation, ce qui le rend inutilisable dans n&rsquo;importe quel conteneur de la STL tel que <code>std::vector</code>. Il n&rsquo;est pas non plus possible de construire un tableau directement dans l&rsquo;appel d&rsquo;une fonction (sauf en C99 avec un cast: <code>foo((int[]){1,2})</code>).</p>
 
 <p>Par contre, une structure qui contient un tableau est aussi bien copiable qu&rsquo;affectable. Manipuler un tableau directement impose plusieurs contraintes complètement loufoques, mais mettez le tout dans une boîte et tout est permis. Ce qui m&rsquo;amène à <code>std::array</code>, car il fait justement office de boîte.</p>
 

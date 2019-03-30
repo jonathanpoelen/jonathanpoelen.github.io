@@ -222,7 +222,7 @@ Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 oct
           <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
 <ul>
 <li><a href="#implémentation-naïve-de-std-unique-ptr">Implémentation naïve de std::unique_ptr</a></li>
-<li><a href="#comment-fait-la-stl-pour-supprimer-8-octets">Comment fait la stl pour &laquo;&nbsp;supprimer&nbsp;&raquo; 8 octets ?</a></li>
+<li><a href="#comment-fait-la-stl-pour-supprimer-8-octets">Comment fait la STL pour &laquo;&nbsp;supprimer&nbsp;&raquo; 8 octets ?</a></li>
 <li><a href="#et-si-l-héritage-n-est-pas-possible">Et si l&rsquo;héritage n&rsquo;est pas possible ?</a></li>
 </ul></nav>
         </div></aside>
@@ -261,7 +261,7 @@ Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 oct
 
 <p>Ouille, méchant padding, alors que seuls 8 octets sont vraiment utilisés.</p>
 
-<a class="headline-hash" href="#comment-fait-la-stl-pour-supprimer-8-octets"><h2 id="comment-fait-la-stl-pour-supprimer-8-octets">Comment fait la stl pour &laquo;&nbsp;supprimer&nbsp;&raquo; 8 octets ?</h2></a>
+<a class="headline-hash" href="#comment-fait-la-stl-pour-supprimer-8-octets"><h2 id="comment-fait-la-stl-pour-supprimer-8-octets">Comment fait la STL pour &laquo;&nbsp;supprimer&nbsp;&raquo; 8 octets ?</h2></a>
 
 <p>La bibliohèque standard utilise une optimisation surnommée <a href="http://en.cppreference.com/w/cpp/language/ebo">Empty Base Class Optimization (EBCO)</a>.
 Concrètement, cela se traduit par une classe interne qui contient le pointeur et hérite de <code>Deleter</code>. Les attributs de la classe dérivée vont se mettre après ceux de <code>Deleter</code>, et s&rsquo;il n&rsquo;en a pas, ils se positionnent au début de la classe. Grâce à cette astuce, l&rsquo;adresse du premier membre de la classe (ici, le pointeur) se confond avec celle de la classe englobante et parente, éliminant ainsi l&rsquo;espace occupé par <code>Deleter</code>.</p>
@@ -289,7 +289,7 @@ Il faut cependant noter que <span class="inlinecode highlight"><code class="lang
 </code></span> n&rsquo;apparaît qu&rsquo;à partir de C++14 et son implémentation n&rsquo;est pas possible en pure C++.
 Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standard.</p>
 
-<p>Toutefois, la stl possède un conteneur générique qui utilise l&rsquo;EBO si possible: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span>
+<p>Toutefois, la STL possède un conteneur générique qui utilise l&rsquo;EBO si possible: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span>
 </code></span>. Ce qui permet de s&rsquo;affranchir de ces difficultés tout en optimisant l&rsquo;espace mémoire à condition de mettre les types dans l&rsquo;ordre croissant d&rsquo;alignement pour réduire le padding entre les membres lorsqu&rsquo;il y en a plus de 2.</p>
 
   </div>
