@@ -1,4 +1,4 @@
----
+^---
 title: "std::array, oui, mais pourquoi ?"
 #thumbnail: ""
 #description: ""
@@ -19,7 +19,7 @@ Depuis C++11, un nouveau type de tableau fait son apparition: `std::array`. S'il
 
 ## Les tableaux C se convertissent en pointeur trop facilement
 
-Le tableau C à l'alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n'a aucun sens. Mais puisque les tableaux sont convertis silencieusement en pointeur, le compilateur l'accepte sans broncher.
+Le tableau C a l'alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n'a aucun sens. Mais puisque les tableaux sont convertis silencieusement en pointeur, le compilateur l'accepte sans broncher.
 
 Le seul pseudo-avantage est l'arithmétique des pointeurs qui permet de manipuler un tableau presque comme un pointeur -- à la différence que l'incrémentation et la décrémentation ne sont pas possibles.
 
@@ -82,7 +82,7 @@ Ainsi que quelques membres utilitaires comme `fill()`, `front()`, `back()` et la
 
 Si je prends le cas de `size()`, la version tableau C est beaucoup plus compliquée: `sizeof(array)/sizeof(array[0])`, Mais aussi dangereuse, car le comportement sera totalement imprévisible si, suite à un refactoring, notre tableau est remplacé par `std::vector`.
 
-La manière intelligente de faire consiste en une fonction libre `size(T(&)[N])` qui s'occupe de cela pour nous. Si le type change, alors la fonction ne correspond plus et des erreurs apparaissent. Au passage, C++17 introduit `std::size(cont)`, `std::empty(cont)` et `std::data(cont)` valident pour tous les conteneurs, y compris les tableaux. Voici [un article de Lmghs](https://linuxfr.org/news/cpp17-libere-size-data-et-empty) sur le sujet et les raisons de ce choix.
+La manière intelligente de faire consiste en une fonction libre `size(T(&)[N])` qui s'occupe de cela pour nous. Si le type change, alors la fonction ne correspond plus et des erreurs apparaissent. Au passage, C++17 introduit `std::size(cont)`, `std::empty(cont)` et `std::data(cont)` valides pour tous les conteneurs, y compris les tableaux. Voici [un article de Lmghs](https://linuxfr.org/news/cpp17-libere-size-data-et-empty) sur le sujet et les raisons de ce choix.
 
 
 ## Un tableau de 0 élément
@@ -106,7 +106,7 @@ Dans la pratique, il n'y a pas d'inconvénient à le faire sur un tableau C ici,
 
 Un gros avantage du tableau C se situe sur la déclaration de la taille au moment de l'initialisation: le compilateur peut la déduire. Alors qu'avec `std::array` il faut la mettre en paramètre template au risque d'y mettre une valeur trop grande (une valeur trop petite donne une erreur).
 
-Sauf que depuis C++17, les [guides de déduction](https://en.cppreference.com/w/cpp/language/class_template_argument_deduction) rendent optionnels les paramètres template. Ce n'est pas un strict équivalent puisque le type est aussi deduit, mais c'est généralement ce qu'on veut car tous les éléments doivent être du même type[^1]. Dans le pire des cas, on peut se tourner vers quelque chose comme `std::make_array<T>(xs...)` (en TS) qui permet de spécifier le type du tableau sans indiquer explicitement la taille.
+Sauf que depuis C++17, les [guides de déduction](https://en.cppreference.com/w/cpp/language/class_template_argument_deduction) rendent optionnels les paramètres template. Ce n'est pas un strict équivalent puisque le type est aussi déduit, mais c'est généralement ce qu'on veut car tous les éléments doivent être du même type[^1]. Dans le pire des cas, on peut se tourner vers quelque chose comme `std::make_array<T>(xs...)` (en TS) qui permet de spécifier le type du tableau sans indiquer explicitement la taille.
 
 ```cpp
 int a1[3]{1,2,3}

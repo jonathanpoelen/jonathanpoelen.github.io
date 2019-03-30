@@ -119,4 +119,4 @@ Avec l'implémentation de `if_`:
 
 {{<fhi "metafunc_continuation/decay.cpp" "if">}}
 
-L'ensemble des sources se trouvent sur {{<urlhi "metafunc_continuation/decay.cpp" "github">}}.
+L'ensemble des sources se trouve sur {{<urlhi "metafunc_continuation/decay.cpp" "github">}}.
