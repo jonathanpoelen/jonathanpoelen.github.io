@@ -8,20 +8,10 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Fri, 29 Mar 2019 17:28:19 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 09 Dec 2018 13:11:29 +0100</lastBuildDate>
     
 	<atom:link href="https://jonathanpoelen.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>std::array, oui, mais pourquoi ?</title>
-      <link>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</link>
-      <pubDate>Fri, 29 Mar 2019 17:28:19 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</guid>
-      <description>Depuis C++11, un nouveau type de tableau fait son apparition: std::array. S&amp;rsquo;il est là, ce n&amp;rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.
-Les tableaux C se convertissent en pointeur trop facilement Le tableau C à l&amp;rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&amp;rsquo;a aucun sens.</description>
-    </item>
     
     <item>
       <title>Presque toujours std::move</title>

@@ -8,20 +8,10 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Fri, 29 Mar 2019 17:28:19 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 28 Jan 2019 22:45:03 +0100</lastBuildDate>
     
 	<atom:link href="https://jonathanpoelen.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>std::array, oui, mais pourquoi ?</title>
-      <link>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</link>
-      <pubDate>Fri, 29 Mar 2019 17:28:19 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</guid>
-      <description>Depuis C++11, un nouveau type de tableau fait son apparition: std::array. S&amp;rsquo;il est là, ce n&amp;rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.
-Les tableaux C se convertissent en pointeur trop facilement Le tableau C à l&amp;rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&amp;rsquo;a aucun sens.</description>
-    </item>
     
     <item>
       <title>Grep, sed, awk, sort... Non ! Zsh</title>
@@ -414,6 +404,16 @@ Pour ce faire, il suffit d&amp;rsquo;un identifiant, un petit label, une informa
       <guid>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</guid>
       <description>Le but d&amp;rsquo;un site chargeant ces pages avec AJAX est double:
  Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées). Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins.  Toutefois, si mal fait, des problèmes apparaissent au niveau de l&amp;rsquo;historique qui n&amp;rsquo;est plus utilisable.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://jonathanpoelen.github.io/1/01/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/1/01/</guid>
+      <description>^&amp;mdash; title: &amp;laquo;&amp;nbsp;std::array, oui, mais pourquoi ?&amp;nbsp;&amp;raquo; #thumbnail: &amp;laquo;&amp;nbsp;&amp;nbsp;&amp;raquo; #description: &amp;laquo;&amp;nbsp;&amp;nbsp;&amp;raquo; date: 2019-03-29T17:28:19+01:00 #lastmod: 2019-03-29T17:28:19+01:00 slug: &amp;laquo;&amp;nbsp;stdarray-oui-mais-pourquoi-&amp;nbsp;&amp;raquo; #toc: false #tags: [ ] aliases: [] categories: [ &amp;laquo;&amp;nbsp;c++&amp;nbsp;&amp;raquo; ] draft: false ghcommentid: 0
+expire: 2028 Depuis C++11, un nouveau type de tableau fait son apparition: std::array. S&amp;rsquo;il est là, ce n&amp;rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.</description>
     </item>
     
   </channel>

@@ -82,10 +82,10 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
-      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">33 autres…</a></li>
     </ul>
@@ -115,7 +115,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (23)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -178,169 +178,12 @@
         
 <article class="post">
   <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="stdarray-oui-mais-pourquoi"><span>
-        &nbsp;
-        <a href="#grep-sed-awk-sort...-non-zsh"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Grep, sed, awk, sort... Non ! Zsh"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#grep-sed-awk-sort...-non-zsh">Article précédent: Grep, sed, awk, sort... Non ! Zsh</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2019-03-29T17:28:19">29 mars 2019
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>5 minutes ;
-  <a href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#8f57f6c0a6a13d37f24c60e9a5993627-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-  
-
-</p>
-
-
-  </header>
-  <div class="post__content">
-      
-
-<p>Depuis C++11, un nouveau type de tableau fait son apparition: <code>std::array</code>. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#les-tableaux-c-se-convertissent-en-pointeur-trop-facilement"><h2 id="les-tableaux-c-se-convertissent-en-pointeur-trop-facilement">Les tableaux C se convertissent en pointeur trop facilement</h2></a>
-
-<p>Le tableau C à l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens. Mais puisque les tableaux sont convertis silencieusement en pointeur, le compilateur l&rsquo;accepte sans broncher.</p>
-
-<p>Le seul pseudo-avantage est l&rsquo;arithmétique des pointeurs qui permet de manipuler un tableau presque comme un pointeur &ndash; à la différence que l&rsquo;incrémentation et la décrémentation ne sont pas possibles.</p>
-
-<p>Ainsi, on pourra écrire <code>auto* p = a + i</code> plutôt que <code>auto* p = &amp;a[i]</code>.</p>
-
-<p>Ou encore <code>&amp;i[a]</code> (i.e. <code>&amp;2[a]</code>), forme uniquement valide avec des tableaux ou des pointeurs. Tant qu&rsquo;à hériter du C, prenons le meilleur&hellip; :D</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#votre-prototype-de-fonction-ment"><h2 id="votre-prototype-de-fonction-ment">Votre prototype de fonction ment</h2></a>
-
-<p>Voici une fonction tout à fait banale qui affiche les valeurs d&rsquo;un tableau:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="p">{</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="nl">i</span> <span class="p">:</span> <span class="n">array</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Fonction qui ne compile pas, car <code>array</code> n&rsquo;est pas un tableau, mais un pointeur. Et un pointeur ne fonctionne pas avec les boucles sur intervalle. Gcc indique l&rsquo;erreur en affichant le prototype tel qu&rsquo;il devrait être lu: &laquo;&nbsp;dans la fonction <code>void print(const int*)</code>&nbsp;&raquo;. Clang va même jusqu&rsquo;à dire qu&rsquo;un paramètre de type <code>int[3]</code> est considéré comme un pointeur. La conversion en pointeur se propage même à ce niveau.</p>
-
-<p>Ce qui veut dire qu&rsquo;écrire un prototype qui prend un tableau de 3 <code>int</code> est un mensonge. Le compilateur ne fera aucune vérification sur la taille du tableau passé en paramètre. Pour lui, que l&rsquo;argument soit un tableau de 1, 2, 3 ou plus d&rsquo;éléments, c&rsquo;est pareil: un pointeur. Par conséquent, les 4 prototypes suivants sont strictement identiques:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
-<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
-<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[]);</span>
-<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span><span class="o">*</span> <span class="n">array</span><span class="p">);</span>
-</code></pre></div>
-<p>Bien sûr, il est possible d&rsquo;avoir un vrai tableau en paramètre avec l&rsquo;aide des références et d&rsquo;une syntaxe alambiquée:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">array</span><span class="p">)[</span><span class="mi">3</span><span class="p">]);</span> <span class="c1">// bienvenue dans le monde merveilleux de C++
-</span></code></pre></div>
-<p>À ce moment, le compilateur considère <code>array</code> comme étant un tableau de 3 entiers constants et la boucle précédente pourra fonctionner. Si l&rsquo;utilisateur met un tableau de moins ou de plus de 3 éléments, le compilateur va gentiment l&rsquo;envoyer bouler.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#un-tableau-c-n-est-pas-copiable"><h2 id="un-tableau-c-n-est-pas-copiable">Un tableau C n&rsquo;est pas copiable</h2></a>
-
-<p>Le tableau est le seul type du C qui ne supporte ni la copie, ni l&rsquo;affectation, ce qui le rend inutilisable dans n&rsquo;importe quel conteneur de la stl tel que <code>std::vector</code>. Il n&rsquo;est pas non plus possible de construire un tableau directement dans l&rsquo;appel d&rsquo;une fonction (sauf en C99 avec un cast: <code>foo((int[]){1,2})</code>).</p>
-
-<p>Par contre, une structure qui contient un tableau est aussi bien copiable qu&rsquo;affectable. Manipuler un tableau directement impose plusieurs contraintes complètement loufoques, mais mettez le tout dans une boîte et tout est permis. Ce qui m&rsquo;amène à <code>std::array</code>, car il fait justement office de boîte.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#std-array-un-conteneur-comme-les-autres"><h2 id="std-array-un-conteneur-comme-les-autres">Std::array, un conteneur comme les autres</h2></a>
-
-<p>Le gros avantage de <code>std::array</code> est son interface commune avec les autres conteneurs:</p>
-
-<ul>
-<li><code>size()</code></li>
-<li><code>empty()</code></li>
-<li><code>begin()</code>/<code>end()</code></li>
-<li><code>data()</code></li>
-</ul>
-
-<p>Ainsi que quelques membres utilitaires comme <code>fill()</code>, <code>front()</code>, <code>back()</code> et la panoplie de type comme <code>value_type</code>, <code>reference</code>, etc qu&rsquo;on s&rsquo;attend à voir.</p>
-
-<p>Si je prends le cas de <code>size()</code>, la version tableau C est beaucoup plus compliquée: <code>sizeof(array)/sizeof(array[0])</code>, Mais aussi dangereuse, car le comportement sera totalement imprévisible si, suite à un refactoring, notre tableau est remplacé par <code>std::vector</code>.</p>
-
-<p>La manière intelligente de faire consiste en une fonction libre <code>size(T(&amp;)[N])</code> qui s&rsquo;occupe de cela pour nous. Si le type change, alors la fonction ne correspond plus et des erreurs apparaissent. Au passage, C++17 introduit <code>std::size(cont)</code>, <code>std::empty(cont)</code> et <code>std::data(cont)</code> valident pour tous les conteneurs, y compris les tableaux. Voici <a href="https://linuxfr.org/news/cpp17-libere-size-data-et-empty">un article de Lmghs</a> sur le sujet et les raisons de ce choix.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#un-tableau-de-0-élément"><h2 id="un-tableau-de-0-élément">Un tableau de 0 élément</h2></a>
-
-<p>Dans certaines circonstances, on peut vouloir un tableau de 0 élément. Cela fonctionne très bien avec <code>std::array</code> contrairement au tableau C qui doit utiliser une extension du compilateur pour le supporter (c&rsquo;est interdit par le standard). Pour pallier à ce problème, la taille du tableau est généralement forcée à 1, mais d&rsquo;autres complications surviennent dès que les types ne sont pas trivialement constructibles.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#std-array-est-un-tuple"><h2 id="std-array-est-un-tuple">Std::array est un tuple</h2></a>
-
-<p>Propriété anecdotique, les fonctions et classes associées au tuple sont disponibles pour <code>std::array</code>. Cela permet par exemple de jouer avec <code>std::apply</code> pour transformer un <code>std::array</code> en un pack variadique.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
-<span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">apply</span><span class="p">([](</span><span class="k">auto</span><span class="p">...</span> <span class="n">xs</span><span class="p">){</span> <span class="k">return</span> <span class="n">xs</span> <span class="o">+</span> <span class="p">...;</span> <span class="p">},</span> <span class="n">a</span><span class="p">);</span>
-</code></pre></div>
-<p>Dans la pratique, il n&rsquo;y a pas d&rsquo;inconvénient à le faire sur un tableau C ici, mais le standard ne le prévoit pas.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#déduction-de-taille-vs-taille-explicite"><h2 id="déduction-de-taille-vs-taille-explicite">Déduction de taille VS taille explicite</h2></a>
-
-<p>Un gros avantage du tableau C se situe sur la déclaration de la taille au moment de l&rsquo;initialisation: le compilateur peut la déduire. Alors qu&rsquo;avec <code>std::array</code> il faut la mettre en paramètre template au risque d&rsquo;y mettre une valeur trop grande (une valeur trop petite donne une erreur).</p>
-
-<p>Sauf que depuis C++17, les <a href="https://en.cppreference.com/w/cpp/language/class_template_argument_deduction">guides de déduction</a> rendent optionnels les paramètres template. Ce n&rsquo;est pas un strict équivalent puisque le type est aussi deduit, mais c&rsquo;est généralement ce qu&rsquo;on veut car tous les éléments doivent être du même type<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>. Dans le pire des cas, on peut se tourner vers quelque chose comme <code>std::make_array&lt;T&gt;(xs...)</code> (en TS) qui permet de spécifier le type du tableau sans indiquer explicitement la taille.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">a1</span><span class="p">[</span><span class="mi">3</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
-<span class="kt">int</span> <span class="n">a2</span><span class="p">[]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span> <span class="c1">// taille implicite
-</span><span class="c1"></span>
-<span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">a3</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
-<span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">a4</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span> <span class="c1">// taille et type implicites
-</span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">a5</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span> <span class="c1">// taille implicite
-</span></code></pre></div><div class="footnotes">
-
-<hr />
-
-<ol>
-<li id="fn:1">On notera que <code>auto a[] {1,2,3}</code> n&rsquo;est pas autorisé.
- <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
-</ol>
-</div>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2019-03-29T17:28:19">29 mars 2019
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
- ;
-  
-
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="8f57f6c0a6a13d37f24c60e9a5993627-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=stdarray-oui-mais-pourquoi&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f03%2fstdarray-oui-mais-pourquoi%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f03%2fstdarray-oui-mais-pourquoi%2f&amp;title=stdarray-oui-mais-pourquoi" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f03%2fstdarray-oui-mais-pourquoi%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f03%2fstdarray-oui-mais-pourquoi%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f03%2fstdarray-oui-mais-pourquoi%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f03%2fstdarray-oui-mais-pourquoi%2f&amp;name=stdarray-oui-mais-pourquoi" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
-        
-<article class="post">
-  <header class="post__header clearfix">
     <div class="post__title-nextprev" id="grep-sed-awk-sort...-non-zsh"><span>
-        <a href="#stdarray-oui-mais-pourquoi"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: std::array, oui, mais pourquoi ?"></i></a>
+        &nbsp;
         <a href="#presque-toujours-stdmove"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Presque toujours std::move"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></h1>
     <div class="post__title-nextprev-text sr-only">
-        <a href="#stdarray-oui-mais-pourquoi">Article suivant: std::array, oui, mais pourquoi ?</a><br/>
         <a href="#presque-toujours-stdmove">Article précédent: Presque toujours std::move</a><br/>
     </div>
     
@@ -1174,7 +1017,7 @@ note: penser à investir dans une porte plus solide
 </code></pre></div>
 
 
-<p>L&rsquo;ensemble des sources se trouvent sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/metafunc_continuation/decay.cpp">github</a>
+<p>L&rsquo;ensemble des sources se trouve sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/metafunc_continuation/decay.cpp">github</a>
 .</p>
 
   </div>
@@ -3093,6 +2936,372 @@ Et comme la page d&rsquo;accueil contient plusieurs articles, la taille du scrol
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fde-blogspot-a-hugo-il-a-change-de-peau%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fde-blogspot-a-hugo-il-a-change-de-peau%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
   <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fde-blogspot-a-hugo-il-a-change-de-peau%2f&amp;name=de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="minimiser-les-copies-dans-operator&#43;"><span>
+        <a href="#de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: De Blogspot à Hugo, il a changé de peau"></i></a>
+        <a href="#comment-se-passer-de-stdforward"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Comment se passer de std::forward"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau">Article suivant: De Blogspot à Hugo, il a changé de peau</a><br/>
+        <a href="#comment-se-passer-de-stdforward">Article précédent: Comment se passer de std::forward</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2017-07-05T22:02:11">05 juillet 2017
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>9 minutes ;
+  <a href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#gh-comments" onclick="DoGithubComments( 1 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#8d66709af0c9e47357d2fae8b9c175bd-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
+</p>
+
+
+  </header>
+  <div class="post__content">
+      
+
+<p>Je vais me baser sur un classique: une classe de matrice contenant un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>
+</code></span>. Cette classe va implémenter 2 opérateurs mathématiques: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">+</span>
+</code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">+=</span>
+</code></span>. Le premier en fonction libre, le second en fonction membre.</p>
+
+<p>Pour rigoler un peu, on ajoute une petite contrainte qui est &laquo;&nbsp;l&rsquo;efficacité&nbsp;&raquo;. Petit mot qui englobe un peu tout et n&rsquo;importe quoi tel que la performance en mémoire et en temps.</p>
+
+<p>À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc. Des bibliothèques comme uBLAS, Eigen, Blitz implémentent une tripotée de choses. Ici, on va uniquement s&rsquo;intéresser à la manière d&rsquo;implémenter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span>
+</code></span> pour recycler les variables temporaires dans le but d&rsquo;avoir le moins d&rsquo;allocations possibles dûes aux copies.</p>
+
+<p>Grosso-modo, des rvalues à droite, des rvalues à gauche, des rvalues partout et pour finir, pas de rvalue.</p>
+
+<p>En réalité, il y a plusieurs approches possibles que je mets ici en opposition sans qu&rsquo;elles le soient réellement.</p>
+
+<ol>
+<li>une surcharge pour tous les prototypes possibles.</li>
+<li>un opérator unique pour les gouverner tous.</li>
+</ol>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#plein-de-surcharges-de-operator"><h2 id="plein-de-surcharges-de-operator">Plein de surcharges de operator+</h2></a>
+
+<p>Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">noexcept</span>
+</code></span> sur de tels prototypes.</p>
+
+<p>Voici ce que donne l&rsquo;implémentation:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">Matrix</span> <span class="n">ret</span> <span class="p">{</span><span class="n">lhs</span><span class="p">};</span>
+  <span class="n">ret</span> <span class="o">+=</span> <span class="n">rhs</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">ret</span><span class="p">;</span> <span class="c1">// et non pas return `ret += rhs`, ce qui empêcherait la NRVO.
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">lhs</span> <span class="o">+=</span> <span class="n">rhs</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lhs</span><span class="p">);</span> <span class="c1">// ne pas oublier std::move, sinon il y a aura copie en sortie
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">rhs</span> <span class="o">+=</span> <span class="n">lhs</span><span class="p">;</span> <span class="c1">// commutativité: x+y = y+x
+</span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">rhs</span> <span class="o">+=</span> <span class="n">lhs</span><span class="p">;</span> <span class="c1">// éventuellement `rhs += std::move(lhs)`
+</span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Petite note sur la dernière implémentation. Utiliser <code>rhs</code> comme valeur de retour permet de gagner un <code>mov</code> (asm). <a href="https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(j:1,source:'%23include+%3Cutility%3E%0A%23include+%3Cvector%3E%0A%0Astruct+Matrix%0A%7B%0A++++++std::vector%3Cint%3E+v%3B%0A++++++Matrix%26+operator+%2B%3D(Matrix+const%26)+%3B%0A%7D%3B%0A%0AMatrix+operator%2B+(Matrix+%26%26+lhs,+Matrix+const+%26+rhs)%0A%7B%0A++++std::move(lhs)+%2B%3D+rhs%3B%0A++++//+ne+pas+oublier+std::move,+sinon+il+y+a+aura+copie+en+sortie+puisque+que+lhs+est+une+r%C3%A9f%C3%A9rence%0A++++return+std::move(lhs)%3B%0A%7D%0A%0AMatrix+operator+%2B+(Matrix+const+%26+lhs,+Matrix+%26%26+rhs)%0A%7B%0A++++std::move(rhs)+%2B%3D+lhs%3B+//+commutativit%C3%A9:+x%2By+%3D+y%2Bx%0A++++return+std::move(rhs)%3B%0A%7D%0A'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:31.812073713509285,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g71,filters:(b:'0',commentOnly:'0',directives:'0',intel:'0'),options:'-O3+-std%3Dc%2B%2B14+-fverbose-asm+',source:1),l:'5',n:'0',o:'x86-64+gcc+7.1+(Editor+%231,+Compiler+%231)',t:'0')),k:34.07627444894807,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g71,filters:(b:'0',commentOnly:'0',directives:'0',intel:'0'),options:'+-std%3Dc%2B%2B14+-O3+-fverbose-asm+',source:1),l:'5',n:'0',o:'x86-64+gcc+7.1+(Editor+%231,+Compiler+%232)',t:'0')),k:34.11165183754265,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4">ici</a>.</p>
+
+<p>Bon, c&rsquo;est bien joli, mais on peut quasiment faire la même avec seulement 2 prototypes. Seulement, pour une raison que j&rsquo;ignore, ni clang, ni gcc n&rsquo;applique la RVO correctement. Le constructeur de déplacement est systèmatiquement utilisé.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">lhs</span> <span class="o">+=</span> <span class="n">rhs</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">lhs</span><span class="p">;</span> <span class="c1">// pas de RVO ???
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">rhs</span> <span class="o">+=</span> <span class="n">lhs</span><span class="p">;</span> <span class="c1">// commutativité: x+y = y+x
+</span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.</p>
+
+<p>Ainsi, si dans l&rsquo;expression <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">b</span>
+</code></span> une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__PRETTY_FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span>
+</code></span> dans les implémentations et le test qui suit.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Rhs</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">test</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Matrix &#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_const</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span><span class="p">{}</span> <span class="o">?</span> <span class="s">&#34;const&#34;</span> <span class="o">:</span> <span class="s">&#34;     &#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; a; &#34;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Matrix &#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_const</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span><span class="p">{}</span> <span class="o">?</span> <span class="s">&#34;const&#34;</span> <span class="o">:</span> <span class="s">&#34;     &#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; b;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
+
+  <span class="n">Lhs</span> <span class="n">a</span><span class="p">;</span>
+  <span class="n">Rhs</span> <span class="n">b</span><span class="p">;</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">left</span><span class="p">;</span>
+  <span class="cp">#define C(a,b) std::cout &lt;&lt; std::setw(13) &lt;&lt; #a &lt;&lt; &#34;+ &#34; &lt;&lt; std::setw(15) &lt;&lt; #b; a+b
+</span><span class="cp"></span>  <span class="n">C</span><span class="p">(</span><span class="n">a</span><span class="p">,</span>            <span class="n">b</span><span class="p">);</span>
+  <span class="n">C</span><span class="p">(</span><span class="n">a</span><span class="p">,</span>            <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
+  <span class="n">C</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">b</span><span class="p">);</span>
+  <span class="n">C</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
+  <span class="cp">#undef C
+</span><span class="cp"></span><span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">test</span><span class="o">&lt;</span>      <span class="n">Matrix</span><span class="p">,</span>       <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="n">test</span><span class="o">&lt;</span>      <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span>       <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Résultat:</p>
+
+<pre><code>Matrix       a; Matrix       b;
+
+a            + b              Matrix operator+(Matrix, const Matrix&amp;)
+a            + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
+std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
+std::move(a) + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
+
+
+Matrix       a; Matrix const b;
+
+a            + b              Matrix operator+(Matrix, const Matrix&amp;)
+a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
+std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
+std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
+
+
+Matrix const a; Matrix       b;
+
+a            + b              Matrix operator+(Matrix, const Matrix&amp;)
+a            + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
+std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
+std::move(a) + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
+
+
+Matrix const a; Matrix const b;
+
+a            + b              Matrix operator+(Matrix, const Matrix&amp;)
+a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
+std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
+std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
+</code></pre>
+
+<p>Si on y tient vraiment, on peut ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">)</span>
+</code></span>. Mais comme dit précédemment le besoin est très faible.</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#un-prototype-multi-fonction"><h2 id="un-prototype-multi-fonction">Un prototype multi-fonction</h2></a>
+
+<p>Une autre solution pour la surcharge d&rsquo;opérateur est de ne faire qu&rsquo;un seul et unique prototype template qui s&rsquo;active en présence d&rsquo;un certain type. Ce n&rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.</p>
+
+<p>Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">enable_if</span>
+</code></span>. Ce qui donne:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">MatrixLhs</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">MatrixRhs</span><span class="o">&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixLhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixRhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+  <span class="n">Matrix</span><span class="o">&gt;</span>
+<span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">MatrixLhs</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">MatrixRhs</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
+</code></pre></div>
+<p>Dans la réalité, l&rsquo;addition d&rsquo;une matrice fonctionne aussi sur des entiers (cf: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">+</span> <span class="n">Matrix</span>
+</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="o">+</span> <span class="kt">int</span>
+</code></span>). Le filtre sera alors beaucoup plus compliqué puisqu&rsquo;il faut qu&rsquo;au moins une des opérandes soit un type <code>Matrix</code> et que les paramètres soient des types compatibles (en prenant en compte la présence des références et des <code>const</code>). La condition devient alors quelque chose comme:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
+<span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
+<span class="p">(</span><span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">||</span> <span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div>
+<p>Il devient alors très facile d&rsquo;ajouter un nouveau type à prendre en compte, comme par exemple un conteneur de la SL, un tableau C, un autre type matriciel d&rsquo;une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.</p>
+
+<p>Il est également envisageable de faire des prototypes par catégorie de variable: Sequence et Matrix, Integer et Matrix.</p>
+
+<p>Revenons-en à notre <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span>
+</code></span> et son implémentation. Celle-ci va être plus compliqué car elle doit être équivalente aux 4 implémentations du début ; sachant que la première possède une variable et les opérandes sont inversés dans la troisième et la quatrième.</p>
+
+<p>Une solution possible est de mettre 2 valeurs intermédiaires qui représentent l&rsquo;opérande de gauche et l&rsquo;opérande de droite et dont le type s&rsquo;adapte en fonction des types en entrée.</p>
+
+<p>Ci-dessous un tableau récapitulatif des types et valeurs de nos 2 nouvelles variables <code>Lhs</code> et <code>Rhs</code>. Les <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
+</code></span> sont supprimés car seule la référence importe.</p>
+
+<table>
+<thead>
+<tr>
+<th>Prototype</th>
+<th>NewLhs</th>
+<th>NewRhs</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
+</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
+</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span>   
+</code></span> = lhs</td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
+</code></span> = rhs</td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
+</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
+</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
+</code></span> = lhs</td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
+</code></span> = rhs</td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
+</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
+</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
+</code></span> = rhs</td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
+</code></span> = lhs</td>
+</tr>
+
+<tr>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
+</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
+</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
+</code></span> = rhs</td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
+</code></span> = lhs</td>
+</tr>
+</tbody>
+</table>
+
+<p>Et l&rsquo;implémentation:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">rvalue_wrapper</span>
+<span class="p">{</span>
+  <span class="n">T</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">;</span>
+
+  <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;&amp;</span> <span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span>
+  <span class="p">{</span> <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">unwrap</span><span class="p">(</span><span class="n">rvalue_wrapper</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">)</span> <span class="k">noexcept</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">unwrap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="k">noexcept</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Rhs</span><span class="o">&gt;</span>
+<span class="n">Matrix</span> <span class="k">operator</span> <span class="o">+</span><span class="p">(</span><span class="n">Lhs</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Rhs</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">NewLhs</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional_t</span><span class="o">&lt;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+    <span class="n">Matrix</span><span class="p">,</span>
+    <span class="n">rvalue_wrapper</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+
+  <span class="k">using</span> <span class="n">NewRhs</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional_t</span><span class="o">&lt;</span>
+    <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
+    <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+    <span class="n">Matrix</span><span class="o">&amp;</span><span class="p">,</span>
+    <span class="n">Matrix</span><span class="o">&amp;&amp;&gt;</span><span class="p">;</span>
+
+  <span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">swap_arg</span> <span class="o">=</span> <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
+
+  <span class="n">NewLhs</span> <span class="n">new_lhs</span><span class="p">{</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">swap_arg</span> <span class="o">?</span> <span class="nl">rhs</span> <span class="p">:</span> <span class="n">lhs</span><span class="p">)};</span>
+  <span class="n">NewRhs</span> <span class="n">new_rhs</span><span class="p">{</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NewRhs</span><span class="o">&gt;</span><span class="p">(</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">swap_arg</span> <span class="o">?</span> <span class="nl">lhs</span> <span class="p">:</span> <span class="n">rhs</span><span class="p">))};</span>
+
+  <span class="n">unwrap</span><span class="p">(</span><span class="n">new_lhs</span><span class="p">)</span> <span class="o">+=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NewRhs</span><span class="o">&gt;</span><span class="p">(</span><span class="n">new_rhs</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="n">new_lhs</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Le code mérite quelques explications. Pour commencer, parlons de <code>rvalue_reference</code> qui est un palliatif pour une optimisation au niveau de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">return</span>
+</code></span>. Au niveau du retour, si <code>NewLhs</code> est une rvalue, il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">move</span>
+</code></span>, sauf que l&rsquo;utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_rvalue_reference</span><span class="o">&lt;</span><span class="n">NewLhs</span><span class="o">&gt;</span><span class="p">{})</span> <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lhs</span><span class="p">);</span>
+</code></span> avant <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">return</span> <span class="n">new_lhs</span>
+</code></span> l&rsquo;optimisation n&rsquo;est pas faite. Cela fonctionne néanmoins avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span>
+</code></span> de c++17. Le but de <code>rvalue_reference</code>  est finalement de rendre automatique un retour par rvalue grâce à l&rsquo;opérateur de cast interne.</p>
+
+<p>Concernant ce curieux enchaînement de cast, celui-ci s&rsquo;explique par la difficulté de contrôler le type retourné par une ternaire. Une ternaire sur deux variables de même type va retourner une référence (une variable est toujours une lvalue). La référence sera considérée constante si une des deux valeurs est une référence constante. Du coup, on vire le const pour ensuite construire les types <code>NewLhs</code> et <code>NewRhs</code>.</p>
+
+<p>Ici, le constructeur de la matrice (quand <code>NewLhs = Matrix</code>) va recevoir un type non const. À moins qu&rsquo;un constructeur existe pour les références non const, cela ne cause pas de problème. On peut très bien ajouter un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">conditional</span>
+</code></span> pour forcer le const.</p>
+
+<p>En première impression <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NewRhs</span><span class="o">&gt;</span>
+</code></span> pourrait être optionnel, mais celui-ci permet de forcer la rvalue pour construire NewRhs. Une lvalue (le retour de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&amp;&gt;</span>
+</code></span>) ne pouvant être affectée à une rvalue sans cela.</p>
+
+<p>Les casts présents fonctionnent bien parce que <code>lhs</code> et <code>rhs</code> sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">falcon</span><span class="o">::</span><span class="n">cif</span>
+</code></span> ou <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">boost</span><span class="o">::</span><span class="n">hana</span><span class="o">::</span><span class="n">if_</span>
+</code></span>. Plusieurs de mes articles en parlent.</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp"><h2 id="n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp">N&rsquo;écrivez pas operator+ vous-même, c&rsquo;est trop compliqué&nbsp;!</h2></a>
+
+<p>Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est alourdi, la lisibilité réduite. Il y a moyen d&rsquo;implémenter la plupart des opérateurs en quelques lignes pour le même résultat.</p>
+
+<p>De plus, l&rsquo;implémentation des opérateurs peuvent varier. Par exemple, pas de commutativité. Ses variantes sont difficiles à détecter dans une grande masse de code, il devient facile de faire une erreur aussi bien à l&rsquo;écriture qu&rsquo;à la lecture.</p>
+
+<p>Autre point, les types des opérandes peuvent être nombreux, faire tous les prototypes necessaires vous vaudra des heures de souffrances :).</p>
+
+<p>Du coup, comment faire ? Une solution facile est d&rsquo;utiliser une macro pour implémenter les opérateurs voulus. C&rsquo;est simple et rapide, mais l&rsquo;utiliser avec des types template est un peu délicat. Cela reste néanmoins la solution la plus simple.</p>
+
+<p>Une autre manière passe par du CRTP pour que la classe de base implémente les opérateurs voulus sous forme de fonction amie. C&rsquo;est la solution de <a href="http://www.boost.org/doc/libs/1_64_0/libs/utility/operators.htm">boost/operators.hpp</a>. Malheureusement, elle ne prend pas en compte les optimisations possibles sur les rvalues écrits dans cet article. Il faut la ré-écrire.</p>
+
+<p>La dernière solution consiste à se servir des traits pour activer ou non certains prototypes comme dans le chapitre précédent. Une mise en oeuvre poussée peut être extrêmement extensible et s&rsquo;adapte très facilement aux catégories de valeur (séquence, intégrale), mais c&rsquo;est un poil complexe à mettre en place. Je ne connais pas de bibliothèque qui le fasse.</p>
+
+<p>Au final, il n&rsquo;existe actuellement pas d&rsquo;outil satisfaisant pour générer les opérateurs alors qu&rsquo;il est presque aussi rapide d&rsquo;écrire une lib ou des macros pour le faire. Le temps perdu sera largement compensé par le nombre d&rsquo;opérateurs à implémenter par la suite. Avec un peu de jugeote, il est même possible de mutualiser l&rsquo;écriture des opérateurs <code>@=</code>. Pensez-y la prochaine fois qu&rsquo;il faudra écrire des opérateurs ;).</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2017-07-05T22:02:11">05 juillet 2017
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="8d66709af0c9e47357d2fae8b9c175bd-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=minimiser-les-copies-dans-operator%2b&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fminimiser-les-copies-dans-operator-%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fminimiser-les-copies-dans-operator-%2f&amp;title=minimiser-les-copies-dans-operator%2b" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fminimiser-les-copies-dans-operator-%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fminimiser-les-copies-dans-operator-%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fminimiser-les-copies-dans-operator-%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fminimiser-les-copies-dans-operator-%2f&amp;name=minimiser-les-copies-dans-operator%2b" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
