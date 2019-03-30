@@ -15,7 +15,7 @@ expire: 2038
 
 Le C++ a l'avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des "tags".
 
-Comme exemple je vais utiliser les [tags présents dans les itérateurs de la stl](http://en.cppreference.com/w/cpp/iterator) et une implémentation de la fonction [std::advance()](http://en.cppreference.com/w/cpp/iterator/advance).
+Comme exemple je vais utiliser les [tags présents dans les itérateurs de la STL](http://en.cppreference.com/w/cpp/iterator) et une implémentation de la fonction [std::advance()](http://en.cppreference.com/w/cpp/iterator/advance).
 
 ## Première implémentation
 

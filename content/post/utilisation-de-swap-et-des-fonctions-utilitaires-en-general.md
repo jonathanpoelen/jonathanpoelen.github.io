@@ -21,7 +21,7 @@ Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilit
 
 Il arrive qu'un jour ou l'autre on veuille faire une surcharge de `swap` pour un objet particulier. À ce moment 2 choix s'offrent: en faire une fonction libre dans le namespace où se trouve la classe ou dans le namespace `std`. Évidemment, le meilleur choix est le premier.
 
-Et là, pour toutes les personnes qui ont en horreur le `using namespace std` ou travaillant dans les .h, un problème va se poser. Comme `swap` se trouve dans le namespace de la stl, il est logique de faire `std::swap(...)`. Mais à ce moment, la fonction `swap` spécialisée dans le namespace de la classe n'est pas utilisée...
+Et là, pour toutes les personnes qui ont en horreur le `using namespace std` ou travaillant dans les .h, un problème va se poser. Comme `swap` se trouve dans le namespace de la STL, il est logique de faire `std::swap(...)`. Mais à ce moment, la fonction `swap` spécialisée dans le namespace de la classe n'est pas utilisée...
 
 ```cpp
 #include <iostream>
@@ -68,7 +68,7 @@ int main()
 }
 ```
 
-Donc, d'un côté on a un `swap` générique dans la stl et de l'autre un `swap` spécialisé dans `my`.
+Donc, d'un côté on a un `swap` générique dans la STL et de l'autre un `swap` spécialisé dans `my`.
 Et surtout, 2 syntaxes différentes.
 
 Dans un contexte générique (typiquement des templates) et de maintient de code, 2 formes, ce n'est pas acceptable.

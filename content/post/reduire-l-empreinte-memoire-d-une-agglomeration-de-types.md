@@ -44,7 +44,7 @@ Cependant, même si `Deleter` est une classe sans attribut, sa taille est de 1 o
 
 Ouille, méchant padding, alors que seuls 8 octets sont vraiment utilisés.
 
-## Comment fait la stl pour "supprimer" 8 octets ?
+## Comment fait la STL pour "supprimer" 8 octets ?
 
 La bibliohèque standard utilise une optimisation surnommée [Empty Base Class Optimization (EBCO)](http://en.cppreference.com/w/cpp/language/ebo).
 Concrètement, cela se traduit par une classe interne qui contient le pointeur et hérite de `Deleter`. Les attributs de la classe dérivée vont se mettre après ceux de `Deleter`, et s'il n'en a pas, ils se positionnent au début de la classe. Grâce à cette astuce, l'adresse du premier membre de la classe (ici, le pointeur) se confond avec celle de la classe englobante et parente, éliminant ainsi l'espace occupé par `Deleter`.
@@ -70,4 +70,4 @@ Avec des traits et un code plus ou moins volumineux, cela est "facile".
 Il faut cependant noter que {{<hi cpp "std::is_final"/>}} n'apparaît qu'à partir de C++14 et son implémentation n'est pas possible en pure C++.
 Il faut à la place utiliser `__is_final` qui n'est pas standard.
 
-Toutefois, la stl possède un conteneur générique qui utilise l'EBO si possible: {{<hi cpp "std::tuple"/>}}. Ce qui permet de s'affranchir de ces difficultés tout en optimisant l'espace mémoire à condition de mettre les types dans l'ordre croissant d'alignement pour réduire le padding entre les membres lorsqu'il y en a plus de 2.
+Toutefois, la STL possède un conteneur générique qui utilise l'EBO si possible: {{<hi cpp "std::tuple"/>}}. Ce qui permet de s'affranchir de ces difficultés tout en optimisant l'espace mémoire à condition de mettre les types dans l'ordre croissant d'alignement pour réduire le padding entre les membres lorsqu'il y en a plus de 2.

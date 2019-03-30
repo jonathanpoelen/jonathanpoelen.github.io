@@ -14,7 +14,7 @@ ghcommentid: 0
 expire: 2028
 ---
 
-Depuis C++11, un nouveau type de tableau fait son apparition: `std::array`. S'il est là, ce n'est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.
+Depuis C++11, un nouveau type de tableau fait son apparition: `std::array`. S'il est là, ce n'est pas uniquement parce que la STL est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.
 
 
 ## Les tableaux C se convertissent en pointeur trop facilement
@@ -64,7 +64,7 @@ void print(int const (&array)[3]); // bienvenue dans le monde merveilleux de C++
 
 ## Un tableau C n'est pas copiable
 
-Le tableau est le seul type du C qui ne supporte ni la copie, ni l'affectation, ce qui le rend inutilisable dans n'importe quel conteneur de la stl tel que `std::vector`. Il n'est pas non plus possible de construire un tableau directement dans l'appel d'une fonction (sauf en C99 avec un cast: `foo((int[]){1,2})`).
+Le tableau est le seul type du C qui ne supporte ni la copie, ni l'affectation, ce qui le rend inutilisable dans n'importe quel conteneur de la STL tel que `std::vector`. Il n'est pas non plus possible de construire un tableau directement dans l'appel d'une fonction (sauf en C99 avec un cast: `foo((int[]){1,2})`).
 
 Par contre, une structure qui contient un tableau est aussi bien copiable qu'affectable. Manipuler un tableau directement impose plusieurs contraintes complètement loufoques, mais mettez le tout dans une boîte et tout est permis. Ce qui m'amène à `std::array`, car il fait justement office de boîte.
 

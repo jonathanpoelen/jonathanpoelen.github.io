@@ -63,7 +63,7 @@ Un appel explicite au destructeur et le tour est joué.
 machin->~Machin();
 ```
 
-Étape inutile pour les types scalaires. De toute façon ils n'ont pas de destructeur. En C++17, la stl contient [std::destroy_at](http://en.cppreference.com/w/cpp/memory/destroy_at).
+Étape inutile pour les types scalaires. De toute façon ils n'ont pas de destructeur. En C++17, la STL contient [std::destroy_at](http://en.cppreference.com/w/cpp/memory/destroy_at).
 
 Évidemment, si `machin` possède un destructeur virtuel et est en réalité une classe fille, alors c'est le destructeur de la classe dérivée qui est appelé.
 
@@ -120,7 +120,7 @@ Présent dans boost et la dernière norme du C++, il existe [aligned_storage](ht
 
 ## Allocateurs de la SL
 
-Les allocateurs sont des objets qui s'occupent de faire tout ce qui a été dit auparavant à travers des fonctions comme `allocate`/`desallocate`, `construct`/`destroy`, etc, mais sans faire de surcharge. En fait, tous les conteneurs dynamiques de la stl utilisent un [std::allocator](http://en.cppreference.com/w/cpp/memory/allocator) comme allocateur par défaut paramétrable à travers le dernier type template du conteneur.
+Les allocateurs sont des objets qui s'occupent de faire tout ce qui a été dit auparavant à travers des fonctions comme `allocate`/`desallocate`, `construct`/`destroy`, etc, mais sans faire de surcharge. En fait, tous les conteneurs dynamiques de la STL utilisent un [std::allocator](http://en.cppreference.com/w/cpp/memory/allocator) comme allocateur par défaut paramétrable à travers le dernier type template du conteneur.
 
 Depuis C++11, il existe [std::allocator_traits](http://en.cppreference.com/w/cpp/memory/allocator_traits) qui simplifie grandement la création d'un allocateur en rendant la plupart des fonctions optionnelles.
 Et à partir de C++17 un [allocateur polymorphique](http://en.cppreference.com/w/cpp/header/memory_resource) voit le jour avec quelques gestionnaires de mémoire.

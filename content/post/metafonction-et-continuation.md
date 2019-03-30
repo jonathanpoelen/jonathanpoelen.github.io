@@ -109,7 +109,7 @@ using __decay_selector = conditional<
 >;
 ```
 
-Qui engendre son lot de problèmes: en plus des 2 traits précédents, `remove_extent`, `add_pointer` et `remove_cv` sont toujours déclarés avec `T`. Cela ne pose pas de réel problème ici -- à part le temps de compilation--, malheureusement, dans certaines situations les branches ne doivent s'évaluer qu'en fonction du prédicat et les traits de la stl ne le permettent pas sans ajouter des intermédiaires.
+Qui engendre son lot de problèmes: en plus des 2 traits précédents, `remove_extent`, `add_pointer` et `remove_cv` sont toujours déclarés avec `T`. Cela ne pose pas de réel problème ici -- à part le temps de compilation--, malheureusement, dans certaines situations les branches ne doivent s'évaluer qu'en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.
 
 Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, `remove_extent<T>` ne sera pas instancié lorsque `is_array_v<T>` est faux ce qui rend les continuations très facilement composables.
 
