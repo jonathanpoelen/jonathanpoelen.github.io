@@ -19,7 +19,7 @@ Depuis C++11, un nouveau type de tableau fait son apparition: `std::array`. S'il
 
 ## Les tableaux C se convertissent en pointeur trop facilement
 
-Le tableau C a l'alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n'a aucun sens. Mais puisque les tableaux sont convertis silencieusement en pointeur, le compilateur l'accepte sans broncher.
+Le tableau C a l'alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n'a aucun sens. Mais puisque les tableaux se dégradent en pointeur, le compilateur l'accepte sans broncher.
 
 Le seul pseudo-avantage est l'arithmétique des pointeurs qui permet de manipuler un tableau presque comme un pointeur -- à la différence que l'incrémentation et la décrémentation ne sont pas possibles.
 
