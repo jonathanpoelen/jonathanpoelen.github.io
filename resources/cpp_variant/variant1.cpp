@@ -101,9 +101,8 @@ auto Variant<Ts...>::visit(F&& f)
   auto visit_impl = [&](auto rec, auto* t, auto*... ts){
     using Impl = detail::VariantImpl<std::decay_t<decltype(*t)>>;
     if constexpr (sizeof...(ts)) {
-      return dynamic_cast<Impl*>(impl_.get())
-        ? f(static_cast<Impl*>(impl_.get())->value_)
-        : rec(rec, ts...);
+      auto* impl = dynamic_cast<Impl*>(impl_.get());
+      return impl ? f(impl->value_) : rec(rec, ts...);
     }
     else {
       (void)rec;

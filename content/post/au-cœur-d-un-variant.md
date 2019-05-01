@@ -146,7 +146,7 @@ Il y a aussi une condition dans `operator=` pour choisir entre la fonction `copy
 
 Bien que le variant actuel soit incomplet, il est utilisable et proche des implémentations actuelles. Mais il y a plusieurs petits détails qui ne sont pas approfondis ici:
 
-- l'optimisation sur type_index,
+- l'optimisation sur la taille de `type_index`,
 - les différents moyens de remplacer une vtable (ici je n'utilise que le if/else récursif),
 - le coût d'utilisation d'un objet en fonction de sa nature (par exemple: le compilateur dévirtualise-t-il les fonctions virtuelles venant d'un membre de variant ?)
 - les unions récursives

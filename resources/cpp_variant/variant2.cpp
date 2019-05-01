@@ -92,21 +92,21 @@ namespace detail
 template<class... Ts>
 Variant<Ts...>::Variant(Variant const& other)
 : impl_(other.impl_->clone())
-, type_index_(other.type_index_)
+, type_index_(other.type_index_) // ici
 {}
 
 template<class... Ts>
 template<class T>
 Variant<Ts...>::Variant(T&& x)
 : impl_(detail::make_variant_impl(std::forward<T>(x)))
-, type_index_(mp_index_of<std::decay_t<T>, Ts...>::value)
+, type_index_(mp_index_of<std::decay_t<T>, Ts...>::value) // là
 {}
 
 template<class... Ts>
 Variant<Ts...>& Variant<Ts...>::operator=(Variant const& other)
 {
   impl_ = other.impl_ ? other.impl_->clone() : nullptr;
-  type_index_ = other.type_index_;
+  type_index_ = other.type_index_; // ici aussi
   return *this;
 }
 
@@ -115,7 +115,7 @@ template<class T>
 Variant<Ts...>& Variant<Ts...>::operator=(T&& x)
 {
   impl_ = detail::make_variant_impl(std::forward<T>(x));
-  type_index_ = mp_index_of<std::decay_t<T>, Ts...>::value;
+  type_index_ = mp_index_of<std::decay_t<T>, Ts...>::value; // et là
   return *this;
 }
 //END impl
@@ -130,6 +130,7 @@ auto Variant<Ts...>::visit(F&& f)
     using T = std::decay_t<decltype(*t)>;
     using Impl = detail::VariantImpl<std::decay_t<T>>;
     if constexpr (sizeof...(ts)) {
+      // plus de dynamic_cast, mais une comparaison d'entier + static_cast
       return type_index_ == mp_index_of<T, Ts...>::value
         ? f(static_cast<Impl*>(impl_.get())->value_)
         : rec(rec, ts...);
