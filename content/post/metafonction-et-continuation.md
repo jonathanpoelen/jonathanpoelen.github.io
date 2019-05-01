@@ -115,7 +115,7 @@ Mais les continuations changent tout puisque les méta-fonctions ne sont évalu�
 
 {{<fhi "metafunc_continuation/decay.cpp" "decay">}}
 
-Avec l'implémentation de `if_`:
+Avec l'implémentation de `if_`, `cfl` et `cfe`:
 
 {{<fhi "metafunc_continuation/decay.cpp" "if">}}
 

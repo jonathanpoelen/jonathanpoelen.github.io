@@ -99,8 +99,7 @@ namespace detail
 
 namespace detail
 {
-  // std::add_pointer est beaucoup plus complexe,
-  // cette implémentation est plus appropriée pour des benchs ;)
+  // std::add_pointer est beaucoup plus complexe que simplement `type = T*`
   template<class T>
   struct add_pointer_impl
   {
@@ -115,10 +114,10 @@ struct decay
   using type = call<
     if_<
       cfl<std::is_array>,
-      cfe<std::remove_extent, cfe<std::add_pointer>>,
+      cfe<std::remove_extent, cfe<detail::add_pointer_impl>>,
       if_<
         cfl<std::is_function>,
-        cfe<detail::add_pointer_impl>,
+        cfe<std::add_pointer>,
         cfe<std::remove_cv>
       >
     >,
@@ -133,21 +132,21 @@ using decay_t = typename decay<T>::type;
 
 template<class T> struct t{};
 
-void test()
+inline void test()
 {
-  #define test(type) /*t<std::decay_t<type>>{} = t<decay_t<type>>{}*/
-  test(int);
-  test(int&);
-  test(int&&);
+  #define TEST(type) t<std::decay_t<type>>{} = t<decay_t<type>>{}
+  TEST(int);
+  TEST(int&);
+  TEST(int&&);
 
-  test(int const);
-  test(int const&);
-  test(int const&&);
+  TEST(int const);
+  TEST(int const&);
+  TEST(int const&&);
 
-  test(int[2]);
-  test(int(&)[2]);
+  TEST(int[2]);
+  TEST(int(&)[2]);
 
-  test(int(void));
+  TEST(int(void));
 }
 
 // /usr/bin/time --format="%Es - %MK" g++ -std=c++14 a.cpp -fsyntax-only -DNAMESPACE=stdcond -DTO_TYPE='I[2]' -DCOUNT=600
