@@ -39,7 +39,7 @@ les valeurs de `Ts` sont présentées dans les légendes sous forme abrégée:
 - `[x*500]`: une liste de 500 `x`.
 - `[_*250, x, _*249]`: une liste de 250 `_`, suivit de `x` et d'une liste de `249` `_`.
 - `[i{0..40}*150]`: uns suite de 150 `i0`, une autre de 150 `i1` et ainsi de suite jusqu'à `i40`.
-- `[i0..i{0..140}]`: une suite `[i0..i0]`, puis [i0..i1], etc jusqu'à `[i0..i140]`.
+- `[i0..i{0..140}]`: une suite `[i0..i0]`, puis `[i0..i1]`, etc jusqu'à `[i0..i140]`.
 - `[i{0..n},x,i{n-(n..0)..n}];n=100`: les suites `[i{0..100},x,i{100..100}]`,  `[i{1..100},x,i{99..100}]`, etc
 
 Les sources se trouvent sur {{<urlhi "mp_index_of" "github">}} dans un même fichier cpp. Chacune des implémentations possède son propre namespace et des macros activent individuellement chaque test. <!--TODO dossier des graphes + zip/tar.gz-->

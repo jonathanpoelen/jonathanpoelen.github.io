@@ -40,7 +40,7 @@ Le résultat est 3 lignes pour 1 paramètre, la chaîne `'a b c'` contenant des 
 Maintenant il reste {{<hi sh "\"$*\""/>}} et {{<hi sh "\"$@\""/>}} qui ne diffère pas entre les shells.
 
 - {{<hi sh "\"$*\""/>}} correspond à une seule chaîne, tout est géré en un seul bloc.
-- {{<hi sh "\"$@\""/>}} représente les paramètres réels. C'est identique à {{<hi sh "\"$@\""/>}} avec ksh et zsh.
+- {{<hi sh "\"$@\""/>}} représente les paramètres réels. C'est identique à {{<hi sh "$@"/>}} avec ksh et zsh.
 
 
 ## Démonstration

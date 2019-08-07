@@ -22,14 +22,14 @@ Chaque algorithme dispose d'un paramètre qui décrit l'étape suivante du trait
 
 {{<fhi "metafunc_continuation/decay.cpp" "proto add_const/lvalue">}}
 
-Les continuations limitent drastiquement le recours aux "lambdas". Dans d'autres bibliothèques du genre, `add_const_lvalue_reference` s'écrirait `lambda<add_lvalue_reference, lambda<add_const, _>>` ce qui est beaucoup moins glamour.
+Les continuations limitent drastiquement le recours aux "lambdas". Dans d'autres bibliothèques du genre, `add_const_lvalue_reference` s'écrirait `lambda<add_lvalue_reference, lambda<add_const, _>>` ce qui, il faut l'avouer, beaucoup moins glamour.
 
-Dans des algorithmes du type transformation l'impact sur la lecture du code est immédiat:
+Dans des algorithmes du type transformation, l'impact sur la lecture du code est immédiat:
 
 ```cpp
 transform<lambda<next, lambda<times, _1, _2>>, L1, L2>
 // vs
-call<transform<times<next<>, /*C=listify*/>, L1, L2>
+call<transform<times<next<>/*, C=listify*/>, L1, L2>
 ```
 
 Qui se traduit par la construction d'une nouvelle liste avec la formule `(x*y)+1`.
@@ -39,7 +39,7 @@ Ce code met bien en évidence un autre aspect des continuations: la lecture du c
 ```cpp
 transform<lambda<next, lambda<times, _1, _2>>, L1, L2>
  /* 1 */       /* 3 */       /* 2 */
-call<transform<times<next<>, /*C=listify*/>, L1, L2>
+call<transform<times<next<>/*, C=listify*/>, L1, L2>
       /* 1 *//* 2 *//* 3 */      /* 4 */
 ```
 
@@ -109,13 +109,13 @@ using __decay_selector = conditional<
 >;
 ```
 
-Qui engendre son lot de problèmes: en plus des 2 traits précédents, `remove_extent`, `add_pointer` et `remove_cv` sont toujours déclarés avec `T`. Cela ne pose pas de réel problème ici -- à part le temps de compilation--, malheureusement, dans certaines situations les branches ne doivent s'évaluer qu'en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.
+Qui engendre son lot de problèmes: en plus des 2 traits précédents, `remove_extent`, `add_pointer` et `remove_cv` sont toujours déclarés avec `T`. Cela ne pose pas de réel problème ici -- à part le temps de compilation--, malheureusement, dans certaines situations, les branches ne doivent s'évaluer qu'en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.
 
 Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, `remove_extent<T>` ne sera pas instancié lorsque `is_array_v<T>` est faux ce qui rend les continuations très facilement composables.
 
 {{<fhi "metafunc_continuation/decay.cpp" "decay">}}
 
-Avec l'implémentation de `if_`, `cfl` et `cfe`:
+Avec l'implémentation de `if_`, `cfl` (continuation from a lazy metafunction) et `cfe` (continuation from a eager metafunction):
 
 {{<fhi "metafunc_continuation/decay.cpp" "if">}}
 
