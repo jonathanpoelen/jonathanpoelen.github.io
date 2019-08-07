@@ -3,13 +3,49 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jonathanpoelen.github.io/categories/</loc>
+    <lastmod>2019-03-23T03:23:06+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/</loc>
     <lastmod>2019-01-28T22:45:03+01:00</lastmod>
   </url>
   
   <url>
+    <loc>https://jonathanpoelen.github.io/</loc>
+    <lastmod>2019-03-23T03:23:06+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jonathanpoelen.github.io/post/</loc>
+    <lastmod>2019-03-23T03:23:06+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jonathanpoelen.github.io/categories/script-shell/</loc>
+    <lastmod>2019-01-28T22:45:03+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jonathanpoelen.github.io/categories/zsh/</loc>
+    <lastmod>2019-01-28T22:45:03+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/</loc>
     <lastmod>2018-12-09T13:11:29+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</loc>
+    <lastmod>2019-03-23T03:23:06+01:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -40,6 +76,12 @@
   <url>
     <loc>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/</loc>
     <lastmod>2018-01-02T14:18:22+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jonathanpoelen.github.io/categories/accessibilite-web/</loc>
+    <lastmod>2018-01-02T14:18:22+02:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -118,6 +160,12 @@
   </url>
   
   <url>
+    <loc>https://jonathanpoelen.github.io/categories/make/</loc>
+    <lastmod>2013-06-26T11:05:28+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/</loc>
     <lastmod>2013-06-26T11:05:28+01:00</lastmod>
   </url>
@@ -143,6 +191,12 @@
   </url>
   
   <url>
+    <loc>https://jonathanpoelen.github.io/categories/sqlite/</loc>
+    <lastmod>2013-03-04T23:36:14+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/</loc>
     <lastmod>2013-03-04T23:36:14+01:00</lastmod>
   </url>
@@ -155,6 +209,12 @@
   <url>
     <loc>https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/</loc>
     <lastmod>2013-01-18T15:16:12+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jonathanpoelen.github.io/categories/javascript/</loc>
+    <lastmod>2013-01-18T15:16:12+01:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -189,70 +249,11 @@
   
   <url>
     <loc>https://jonathanpoelen.github.io/1/01/</loc>
-  </url>
-  
-  <url>
-    <loc>https://jonathanpoelen.github.io/categories/accessibilite-web/</loc>
-    <lastmod>2018-01-02T14:18:22+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</loc>
-    <lastmod>2018-12-09T13:11:29+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jonathanpoelen.github.io/categories/</loc>
-    <lastmod>2018-01-02T14:18:22+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jonathanpoelen.github.io/categories/javascript/</loc>
-    <lastmod>2013-01-18T15:16:12+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jonathanpoelen.github.io/</loc>
-    <lastmod>2019-01-28T22:45:03+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jonathanpoelen.github.io/categories/make/</loc>
-    <lastmod>2013-06-26T11:05:28+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jonathanpoelen.github.io/post/</loc>
-    <lastmod>2019-01-28T22:45:03+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jonathanpoelen.github.io/categories/script-shell/</loc>
-    <lastmod>2019-01-28T22:45:03+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jonathanpoelen.github.io/categories/sqlite/</loc>
-    <lastmod>2013-03-04T23:36:14+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jonathanpoelen.github.io/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jonathanpoelen.github.io/categories/zsh/</loc>
-    <lastmod>2019-01-28T22:45:03+01:00</lastmod>
     <priority>0</priority>
   </url>
   

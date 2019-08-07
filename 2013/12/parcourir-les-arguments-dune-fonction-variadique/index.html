@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parcourir les arguments d&#39;une fonction variadique</title>
-<meta name="generator" content="Hugo 0.54.0" />
+<meta name="generator" content="Hugo 0.55.6" />
 
 
 
@@ -27,12 +27,12 @@
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/">
 <meta property="twitter:title" content="Parcourir les arguments d&#39;une fonction variadique">
 <meta name="description" content="À l&rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
-Info : Ce qui suit n&rsquo;est plus d&rsquo;actualité depuis C&#43;&#43;17 et les fold expressions.
+Info : Ce qui suit n&#39;est plus d&#39;actualité depuis C&#43;&#43;17 et les [fold expressions](https://en.cppreference.com/w/cpp/language/fold).
  Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&rsquo;à plus d&rsquo;argument ou jusqu&rsquo;à un nombre défini, généralement 1.
 Quelque chose dans ce goût-là:
 #include &lt;iostream&gt; void f1() {} template&lt;classT, class... Args&gt; void f1(const T&amp; first, const Args&amp;.">
 <meta property="twitter:description" content="À l&rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
-Info : Ce qui suit n&rsquo;est plus d&rsquo;actualité depuis C&#43;&#43;17 et les fold expressions.
+Info : Ce qui suit n&#39;est plus d&#39;actualité depuis C&#43;&#43;17 et les [fold expressions](https://en.cppreference.com/w/cpp/language/fold).
  Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&rsquo;à plus d&rsquo;argument ou jusqu&rsquo;à un nombre défini, généralement 1.
 Quelque chose dans ce goût-là:
 #include &lt;iostream&gt; void f1() {} template&lt;classT, class... Args&gt; void f1(const T&amp; first, const Args&amp;.">
@@ -233,8 +233,7 @@ Quelque chose dans ce goût-là:
 
 <p>À l&rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.</p>
 
-<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> Ce qui suit n&rsquo;est plus d&rsquo;actualité depuis C++17 et les <a href="https://en.cppreference.com/w/cpp/language/fold">fold expressions</a>.</p></div>
-
+<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> Ce qui suit n'est plus d'actualité depuis C++17 et les [fold expressions](https://en.cppreference.com/w/cpp/language/fold).</p></div>
 
 <a class="headline-hash" href="#fonction-récursive"><h2 id="fonction-récursive">Fonction récursive</h2></a>
 

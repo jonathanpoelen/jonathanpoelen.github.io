@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jonathan Poelen&#39;s Blog</title>
-<meta name="generator" content="Hugo 0.54.0" />
+<meta name="generator" content="Hugo 0.55.6" />
 
 <link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="https://jonathanpoelen.github.io/index.xml" />
 
@@ -836,19 +836,19 @@ note: penser à investir dans une porte plus solide
 </span></code></pre></div>
 
 
-<p>Les continuations limitent drastiquement le recours aux &laquo;&nbsp;lambdas&nbsp;&raquo;. Dans d&rsquo;autres bibliothèques du genre, <code>add_const_lvalue_reference</code> s&rsquo;écrirait <code>lambda&lt;add_lvalue_reference, lambda&lt;add_const, _&gt;&gt;</code> ce qui est beaucoup moins glamour.</p>
+<p>Les continuations limitent drastiquement le recours aux &laquo;&nbsp;lambdas&nbsp;&raquo;. Dans d&rsquo;autres bibliothèques du genre, <code>add_const_lvalue_reference</code> s&rsquo;écrirait <code>lambda&lt;add_lvalue_reference, lambda&lt;add_const, _&gt;&gt;</code> ce qui, il faut l&rsquo;avouer, beaucoup moins glamour.</p>
 
-<p>Dans des algorithmes du type transformation l&rsquo;impact sur la lecture du code est immédiat:</p>
+<p>Dans des algorithmes du type transformation, l&rsquo;impact sur la lecture du code est immédiat:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">transform</span><span class="o">&lt;</span><span class="n">lambda</span><span class="o">&lt;</span><span class="n">next</span><span class="p">,</span> <span class="n">lambda</span><span class="o">&lt;</span><span class="n">times</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
 <span class="c1">// vs
-</span><span class="c1"></span><span class="n">call</span><span class="o">&lt;</span><span class="n">transform</span><span class="o">&lt;</span><span class="n">times</span><span class="o">&lt;</span><span class="n">next</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="cm">/*C=listify*/</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
+</span><span class="c1"></span><span class="n">call</span><span class="o">&lt;</span><span class="n">transform</span><span class="o">&lt;</span><span class="n">times</span><span class="o">&lt;</span><span class="n">next</span><span class="o">&lt;&gt;</span><span class="cm">/*, C=listify*/</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
 </code></pre></div>
 <p>Qui se traduit par la construction d&rsquo;une nouvelle liste avec la formule <code>(x*y)+1</code>.</p>
 
 <p>Ce code met bien en évidence un autre aspect des continuations: la lecture du code se fait de gauche à droite alors que les lambdas se lisent de droite à gauche et oblige le lecteur à faire des allers/retours pour suivre le flux de code.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">transform</span><span class="o">&lt;</span><span class="n">lambda</span><span class="o">&lt;</span><span class="n">next</span><span class="p">,</span> <span class="n">lambda</span><span class="o">&lt;</span><span class="n">times</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
  <span class="cm">/* 1 */</span>       <span class="cm">/* 3 */</span>       <span class="cm">/* 2 */</span>
-<span class="n">call</span><span class="o">&lt;</span><span class="n">transform</span><span class="o">&lt;</span><span class="n">times</span><span class="o">&lt;</span><span class="n">next</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="cm">/*C=listify*/</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
+<span class="n">call</span><span class="o">&lt;</span><span class="n">transform</span><span class="o">&lt;</span><span class="n">times</span><span class="o">&lt;</span><span class="n">next</span><span class="o">&lt;&gt;</span><span class="cm">/*, C=listify*/</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
       <span class="cm">/* 1 *//* 2 *//* 3 */</span>      <span class="cm">/* 4 */</span>
 </code></pre></div>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/#méta-fonction"><h2 id="méta-fonction">Méta-fonction</h2></a>
@@ -945,7 +945,7 @@ note: penser à investir dans une porte plus solide
   <span class="o">&gt;</span>
 <span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
-<p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.</p>
+<p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations, les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.</p>
 
 <p>Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, <code>remove_extent&lt;T&gt;</code> ne sera pas instancié lorsque <code>is_array_v&lt;T&gt;</code> est faux ce qui rend les continuations très facilement composables.</p>
 
@@ -956,10 +956,10 @@ note: penser à investir dans une porte plus solide
   <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span>
     <span class="n">if_</span><span class="o">&lt;</span>
       <span class="n">cfl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_array</span><span class="o">&gt;</span><span class="p">,</span>
-      <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_extent</span><span class="p">,</span> <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">add_pointer</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+      <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_extent</span><span class="p">,</span> <span class="n">cfe</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">add_pointer_impl</span><span class="o">&gt;&gt;</span><span class="p">,</span>
       <span class="n">if_</span><span class="o">&lt;</span>
         <span class="n">cfl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_function</span><span class="o">&gt;</span><span class="p">,</span>
-        <span class="n">cfe</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">add_pointer_impl</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">add_pointer</span><span class="o">&gt;</span><span class="p">,</span>
         <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv</span><span class="o">&gt;</span>
       <span class="o">&gt;</span>
     <span class="o">&gt;</span><span class="p">,</span>
@@ -969,7 +969,7 @@ note: penser à investir dans une porte plus solide
 </code></pre></div>
 
 
-<p>Avec l&rsquo;implémentation de <code>if_</code>:</p>
+<p>Avec l&rsquo;implémentation de <code>if_</code>, <code>cfl</code> (continuation from a lazy metafunction) et <code>cfe</code> (continuation from a eager metafunction):</p>
 
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
@@ -1307,8 +1307,7 @@ note: penser à investir dans une porte plus solide
 
 <p>Dans l&rsquo;article précédent sur les variants, j&rsquo;ai fait une implémentation un peu spéciale de <code>index_of</code>. Je vais présenter une quinzaine d&rsquo;implémentations possibles et le coût de chacune sur le compilateur.</p>
 
-<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> L&rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &laquo;&nbsp;classique&nbsp;&raquo; a les mêmes conséquences.</p></div>
-
+<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> L'implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus "classique" a les mêmes conséquences.</p></div>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/#avant-propos"><h2 id="avant-propos">Avant-propos</h2></a>
 
@@ -1333,7 +1332,7 @@ note: penser à investir dans une porte plus solide
 <li><code>[x*500]</code>: une liste de 500 <code>x</code>.</li>
 <li><code>[_*250, x, _*249]</code>: une liste de 250 <code>_</code>, suivit de <code>x</code> et d&rsquo;une liste de <code>249</code> <code>_</code>.</li>
 <li><code>[i{0..40}*150]</code>: uns suite de 150 <code>i0</code>, une autre de 150 <code>i1</code> et ainsi de suite jusqu&rsquo;à <code>i40</code>.</li>
-<li><code>[i0..i{0..140}]</code>: une suite <code>[i0..i0]</code>, puis [i0..i1], etc jusqu&rsquo;à <code>[i0..i140]</code>.</li>
+<li><code>[i0..i{0..140}]</code>: une suite <code>[i0..i0]</code>, puis <code>[i0..i1]</code>, etc jusqu&rsquo;à <code>[i0..i140]</code>.</li>
 <li><code>[i{0..n},x,i{n-(n..0)..n}];n=100</code>: les suites <code>[i{0..100},x,i{100..100}]</code>,  <code>[i{1..100},x,i{99..100}]</code>, etc</li>
 </ul>
 
@@ -1451,8 +1450,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 
 <p>Si on compare le temps de compilation entre Clang et Gcc, il s&rsquo;avère que Gcc est un peu plus rapide que son concurrent alors même que les premiers tests se font sur une liste de 1200 éléments contre 1400. De mon expérience, c&rsquo;est presque toujours le cas avec des templates récursives sur de &laquo;&nbsp;grands&nbsp;&raquo; ensembles.</p>
 
-<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> La limite de 1200 est dûe à une limitation de Clang qui ne peut pas dépasser 1293 niveaux de profondeur sans crasher (en tout cas chez moi probablement à cause d&rsquo;un dépassement de pile).</p></div>
-
+<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> La limite de 1200 est dûe à une limitation de Clang qui ne peut pas dépasser 1293 niveaux de profondeur sans crasher (en tout cas chez moi probablement à cause d'un dépassement de pile).</p></div>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/#profiter-davantage-de-mémoïsation"><h2 id="profiter-davantage-de-mémoïsation">Profiter davantage de mémoïsation</h2></a>
 
@@ -2009,10 +2007,10 @@ Il n&rsquo;y a pas de comportement commun, les traitements se feront en fonction
 <li>Une fonction <code>visit</code> (en membre, pour des raisons de simplification).</li>
 </ul>
 
-<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> <p>L&rsquo;implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l&rsquo;exemple à ne pas suivre.
-  Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l&rsquo;<em>idéal</em> du variant.</p>
+<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> 
+  L'implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l'exemple à ne pas suivre.
+  Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l'*idéal* du variant.
 </p></div>
-
 
 <p>Comme le type change en cours de route, nous allons utiliser en interne une classe de base qui pour chaque dérivée va contenir le type réel.
 Grâce à cela, le type stocké pourra être supprimé et un nouveau type pourra y être enregistré.
@@ -2126,9 +2124,8 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
   <span class="k">auto</span> <span class="n">visit_impl</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">auto</span> <span class="n">rec</span><span class="p">,</span> <span class="k">auto</span><span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="k">auto</span><span class="o">*</span><span class="p">...</span> <span class="n">ts</span><span class="p">){</span>
     <span class="k">using</span> <span class="n">Impl</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">VariantImpl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">;</span>
     <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">ts</span><span class="p">))</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">())</span>
-        <span class="o">?</span> <span class="n">f</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">)</span>
-        <span class="o">:</span> <span class="n">rec</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">ts</span><span class="p">...);</span>
+      <span class="k">auto</span><span class="o">*</span> <span class="n">impl</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+      <span class="k">return</span> <span class="n">impl</span> <span class="o">?</span> <span class="n">f</span><span class="p">(</span><span class="n">impl</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">)</span> <span class="o">:</span> <span class="n">rec</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">ts</span><span class="p">...);</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="p">{</span>
       <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">rec</span><span class="p">;</span>
@@ -2194,22 +2191,22 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
 <span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">impl_</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">())</span>
-<span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">type_index_</span><span class="p">)</span>
-<span class="p">{}</span>
+<span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">type_index_</span><span class="p">)</span> <span class="c1">// ici
+</span><span class="c1"></span><span class="p">{}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
 <span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
-<span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span>
-<span class="p">{}</span>
+<span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span> <span class="c1">// là
+</span><span class="c1"></span><span class="p">{}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">impl_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">impl_</span> <span class="o">?</span> <span class="n">other</span><span class="p">.</span><span class="n">impl_</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">()</span> <span class="o">:</span> <span class="k">nullptr</span><span class="p">;</span>
-  <span class="n">type_index_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">type_index_</span><span class="p">;</span>
-  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+  <span class="n">type_index_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">type_index_</span><span class="p">;</span> <span class="c1">// ici aussi
+</span><span class="c1"></span>  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
@@ -2217,8 +2214,8 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">impl_</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
-  <span class="n">type_index_</span> <span class="o">=</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
-  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+  <span class="n">type_index_</span> <span class="o">=</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span> <span class="c1">// et là
+</span><span class="c1"></span>  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -2235,7 +2232,8 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
     <span class="k">using</span> <span class="n">T</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
     <span class="k">using</span> <span class="n">Impl</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">VariantImpl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">;</span>
     <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">ts</span><span class="p">))</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="n">type_index_</span> <span class="o">==</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span>
+      <span class="c1">// plus de dynamic_cast, mais une comparaison d&#39;entier + static_cast
+</span><span class="c1"></span>      <span class="k">return</span> <span class="n">type_index_</span> <span class="o">==</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span>
         <span class="o">?</span> <span class="n">f</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">)</span>
         <span class="o">:</span> <span class="n">rec</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">ts</span><span class="p">...);</span>
     <span class="p">}</span>
@@ -2386,7 +2384,7 @@ Le code final est plutôt gros alors je ne mets <a href="https://github.com/jona
 <p>Bien que le variant actuel soit incomplet, il est utilisable et proche des implémentations actuelles. Mais il y a plusieurs petits détails qui ne sont pas approfondis ici:</p>
 
 <ul>
-<li>l&rsquo;optimisation sur type_index,</li>
+<li>l&rsquo;optimisation sur la taille de <code>type_index</code>,</li>
 <li>les différents moyens de remplacer une vtable (ici je n&rsquo;utilise que le if/else récursif),</li>
 <li>le coût d&rsquo;utilisation d&rsquo;un objet en fonction de sa nature (par exemple: le compilateur dévirtualise-t-il les fonctions virtuelles venant d&rsquo;un membre de variant ?)</li>
 <li>les unions récursives</li>
@@ -2601,38 +2599,39 @@ Pour prendre en exemple le blog, sur l&rsquo;ancien (blogspot) les archives sont
 <ul>
 <li>S&rsquo;adapter au plus grand.
 <!-- <div class="figure"><figure>
-  <img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-normal.png" alt="" />
-  <figcaption>Une apparence sans défaut.</figcaption>
+![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-normal.png)
+<figcaption>Une apparence sans défaut.</figcaption>
 </figure></div>
- -->
+-->
 <div class="figure"><figure>
-  <img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row.png" alt="" />
-  <figcaption>Débordement par la droite.</figcaption>
-</figure></div>
+<img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row.png" alt="" />
+<figcaption>Débordement par la droite.</figcaption>
+</figure></div></li>
+</ul>
 
 <div class="figure"><figure>
-  <img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row-reverse.png" alt="" />
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row-reverse.png)
   <figcaption>Débordement par la gauche. Le scroll disparaît. Au moins pour Firefox.</figcaption>
 </figure></div>
-</li>
-<li>Compacter les éléments ou mettre dans un scroll.
+
+<ul>
+<li><p>Compacter les éléments ou mettre dans un scroll.
 <div class="figure"><figure>
-  <img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-scroll.png" alt="" />
-  <figcaption>Un scroll alors qu&#39;il y a de l&#39;espace à droite.</figcaption>
-</figure></div>
-</li>
-<li>Cacher le surplus.
+<img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-scroll.png" alt="" />
+<figcaption>Un scroll alors qu&#39;il y a de l&#39;espace à droite.</figcaption>
+</figure></div></p></li>
+
+<li><p>Cacher le surplus.
 <div class="figure"><figure>
-  <img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-hidden.png" alt="" />
-  <figcaption>Il n&#39;y a plus moyen de lire le contenu qui déborde.</figcaption>
-</figure></div>
-</li>
-<li>Superposer les éléments.
+<img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-hidden.png" alt="" />
+<figcaption>Il n&#39;y a plus moyen de lire le contenu qui déborde.</figcaption>
+</figure></div></p></li>
+
+<li><p>Superposer les éléments.
 <div class="figure"><figure>
-  <img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-above.png" alt="" />
-  <figcaption>La partie droite cache une partie du contenu.</figcaption>
-</figure></div>
-</li>
+<img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-above.png" alt="" />
+<figcaption>La partie droite cache une partie du contenu.</figcaption>
+</figure></div></p></li>
 </ul>
 
 <p>Presque toutes ces images ont un point commun: un menu à droite. Ce n&rsquo;est pas anodin, il est difficile d&rsquo;avoir un menu à droite quand la partie gauche veut prendre sa place.</p>
@@ -2657,10 +2656,9 @@ Pour prendre en exemple le blog, sur l&rsquo;ancien (blogspot) les archives sont
 <!-- Demande-moi de faire un gâteau, je te dirai que l'alarme incendie ne s'est pas déclenchée lorsque le four s'est enflammé. --></p>
 
 <div class="figure"><figure>
-  <img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-multi-line.png" alt="" />
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-multi-line.png)
   <figcaption>Clic... Clic ? Clic clic clic ! Comment ? Je ne suis pas dessus ?</figcaption>
 </figure></div>
-
 
 <p>Arrive mon second fléau, déplacer suffisamment la souris pour être sur le lien. Mais pas trop, parce que ce foutu cadre qui change de couleur n&rsquo;en fait pas partie non plus.</p>
 
@@ -2669,17 +2667,16 @@ Pour prendre en exemple le blog, sur l&rsquo;ancien (blogspot) les archives sont
 <p>Quand un cadre contenant un lien change de couleur au passage de la souris, c&rsquo;est une invitation au clic. Celui-ci se doit d&rsquo;être cliquable pour répondre au principe de la moindre surprise. Bonus, cela élargit la surface de clic et rend par la même occasion le lien plus accessible.</p>
 
 <!--<div class="figure"><figure>
-  <img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-bad.png" alt="" />
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-bad.png)
   <figcaption>Contre toute attente, la souris n&#39;est pas sur le lien.</figcaption>
 </figure></div>
 
 VS.-->
 
 <div class="figure"><figure>
-  <img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-good.png" alt="" />
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-good.png)
   <figcaption>C&#39;est quand même plus agréable lorsque le cadre est un lien.</figcaption>
 </figure></div>
-
 
 <p>Cette extension de la zone de clic est très présente sur le blog. Comme les espaces blancs décoratifs sur le menu qui font partie du lien. Il est possible en plein écran de plaquer le curseur à gauche et de pouvoir cliquer dessus. Ou par exemple les liens &laquo;&nbsp;Précédent&nbsp;&raquo; et &laquo;&nbsp;Suivant&nbsp;&raquo; en fin d&rsquo;article qui prennent chacun une moitié de largeur de contenu. Ou encore les icônes de flux RSS qui possèdent une zone de clic réelle beaucoup plus grande que l&rsquo;image. Chacun de ces éléments possède une zone de clic plus large pour simplifier la visée.</p>
 
@@ -2734,26 +2731,23 @@ VS.-->
 <p>La couleur est un vecteur d&rsquo;information aussi importante &ndash;voire plus&ndash; que la forme. Par contre, il faut utiliser la couleur d&rsquo;usage sur l&rsquo;objet représenté au risque de perturber le lecteur.</p>
 
 <div class="figure"><figure>
-  <img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/ok-cancel.png" alt="" />
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/ok-cancel.png)
   <figcaption>Perturbant, n&#39;est-ce pas ?</figcaption>
 </figure></div>
-
 
 <p>La couleur et les effets permettent également de distinguer les éléments entre eux. Par exemple, une légère ombre sur un bouton lui donne un relief qui le distingue d&rsquo;un cadre lambda. Mais il faut savoir varier. Si je prends comme exemple les boutons sociaux, il est difficile d&rsquo;en trouver un précisément lorsqu&rsquo;ils sont tous de la même couleur.</p>
 
 <div class="figure"><figure>
-  <img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-gray.png" alt="" />
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-gray.png)
   <figcaption>Y a-t-il ton réseau préféré ?</figcaption>
 </figure></div>
-
 
 <p>Alors que mettre la couleur habituellement utilisée par une marque permet de se focaliser presque sans effort dessus.</p>
 
 <div class="figure"><figure>
-  <img src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-color.png" alt="" />
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-color.png)
   <figcaption>Et maintenant ?</figcaption>
 </figure></div>
-
 
 <p>Même si les couleurs du site sont banales, je me permets quelques remarques. Premièrement, il vaut mieux se restreindre à un nombre raisonnable de couleurs, mais suffisamment contrastées pour les dissocier. Trop de couleurs empêchent de hiérarchiser l&rsquo;information, un contraste trop faible de dissocier les éléments ce qui rend illisible le texte.</p>
 

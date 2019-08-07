@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Méta-fonction et continuation</title>
-<meta name="generator" content="Hugo 0.54.0" />
+<meta name="generator" content="Hugo 0.55.6" />
 
 
 
@@ -242,19 +242,19 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo
 </span></code></pre></div>
 
 
-<p>Les continuations limitent drastiquement le recours aux &laquo;&nbsp;lambdas&nbsp;&raquo;. Dans d&rsquo;autres bibliothèques du genre, <code>add_const_lvalue_reference</code> s&rsquo;écrirait <code>lambda&lt;add_lvalue_reference, lambda&lt;add_const, _&gt;&gt;</code> ce qui est beaucoup moins glamour.</p>
+<p>Les continuations limitent drastiquement le recours aux &laquo;&nbsp;lambdas&nbsp;&raquo;. Dans d&rsquo;autres bibliothèques du genre, <code>add_const_lvalue_reference</code> s&rsquo;écrirait <code>lambda&lt;add_lvalue_reference, lambda&lt;add_const, _&gt;&gt;</code> ce qui, il faut l&rsquo;avouer, beaucoup moins glamour.</p>
 
-<p>Dans des algorithmes du type transformation l&rsquo;impact sur la lecture du code est immédiat:</p>
+<p>Dans des algorithmes du type transformation, l&rsquo;impact sur la lecture du code est immédiat:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">transform</span><span class="o">&lt;</span><span class="n">lambda</span><span class="o">&lt;</span><span class="n">next</span><span class="p">,</span> <span class="n">lambda</span><span class="o">&lt;</span><span class="n">times</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
 <span class="c1">// vs
-</span><span class="c1"></span><span class="n">call</span><span class="o">&lt;</span><span class="n">transform</span><span class="o">&lt;</span><span class="n">times</span><span class="o">&lt;</span><span class="n">next</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="cm">/*C=listify*/</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
+</span><span class="c1"></span><span class="n">call</span><span class="o">&lt;</span><span class="n">transform</span><span class="o">&lt;</span><span class="n">times</span><span class="o">&lt;</span><span class="n">next</span><span class="o">&lt;&gt;</span><span class="cm">/*, C=listify*/</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
 </code></pre></div>
 <p>Qui se traduit par la construction d&rsquo;une nouvelle liste avec la formule <code>(x*y)+1</code>.</p>
 
 <p>Ce code met bien en évidence un autre aspect des continuations: la lecture du code se fait de gauche à droite alors que les lambdas se lisent de droite à gauche et oblige le lecteur à faire des allers/retours pour suivre le flux de code.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">transform</span><span class="o">&lt;</span><span class="n">lambda</span><span class="o">&lt;</span><span class="n">next</span><span class="p">,</span> <span class="n">lambda</span><span class="o">&lt;</span><span class="n">times</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
  <span class="cm">/* 1 */</span>       <span class="cm">/* 3 */</span>       <span class="cm">/* 2 */</span>
-<span class="n">call</span><span class="o">&lt;</span><span class="n">transform</span><span class="o">&lt;</span><span class="n">times</span><span class="o">&lt;</span><span class="n">next</span><span class="o">&lt;&gt;</span><span class="p">,</span> <span class="cm">/*C=listify*/</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
+<span class="n">call</span><span class="o">&lt;</span><span class="n">transform</span><span class="o">&lt;</span><span class="n">times</span><span class="o">&lt;</span><span class="n">next</span><span class="o">&lt;&gt;</span><span class="cm">/*, C=listify*/</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
       <span class="cm">/* 1 *//* 2 *//* 3 */</span>      <span class="cm">/* 4 */</span>
 </code></pre></div>
 <a class="headline-hash" href="#méta-fonction"><h2 id="méta-fonction">Méta-fonction</h2></a>
@@ -351,7 +351,7 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo
   <span class="o">&gt;</span>
 <span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
-<p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.</p>
+<p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations, les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.</p>
 
 <p>Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, <code>remove_extent&lt;T&gt;</code> ne sera pas instancié lorsque <code>is_array_v&lt;T&gt;</code> est faux ce qui rend les continuations très facilement composables.</p>
 
@@ -362,10 +362,10 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo
   <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span>
     <span class="n">if_</span><span class="o">&lt;</span>
       <span class="n">cfl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_array</span><span class="o">&gt;</span><span class="p">,</span>
-      <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_extent</span><span class="p">,</span> <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">add_pointer</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+      <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_extent</span><span class="p">,</span> <span class="n">cfe</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">add_pointer_impl</span><span class="o">&gt;&gt;</span><span class="p">,</span>
       <span class="n">if_</span><span class="o">&lt;</span>
         <span class="n">cfl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_function</span><span class="o">&gt;</span><span class="p">,</span>
-        <span class="n">cfe</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">add_pointer_impl</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">add_pointer</span><span class="o">&gt;</span><span class="p">,</span>
         <span class="n">cfe</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv</span><span class="o">&gt;</span>
       <span class="o">&gt;</span>
     <span class="o">&gt;</span><span class="p">,</span>
@@ -375,7 +375,7 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo
 </code></pre></div>
 
 
-<p>Avec l&rsquo;implémentation de <code>if_</code>:</p>
+<p>Avec l&rsquo;implémentation de <code>if_</code>, <code>cfl</code> (continuation from a lazy metafunction) et <code>cfe</code> (continuation from a eager metafunction):</p>
 
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>

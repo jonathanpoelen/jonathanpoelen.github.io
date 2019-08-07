@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jonathan Poelen&#39;s Blog on Jonathan Poelen&#39;s Blog</title>
@@ -532,19 +531,19 @@ note: penser à investir dans une porte plus solide
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Les continuations limitent drastiquement le recours aux &amp;laquo;&amp;nbsp;lambdas&amp;nbsp;&amp;raquo;. Dans d&amp;rsquo;autres bibliothèques du genre, &lt;code&gt;add_const_lvalue_reference&lt;/code&gt; s&amp;rsquo;écrirait &lt;code&gt;lambda&amp;lt;add_lvalue_reference, lambda&amp;lt;add_const, _&amp;gt;&amp;gt;&lt;/code&gt; ce qui est beaucoup moins glamour.&lt;/p&gt;
+&lt;p&gt;Les continuations limitent drastiquement le recours aux &amp;laquo;&amp;nbsp;lambdas&amp;nbsp;&amp;raquo;. Dans d&amp;rsquo;autres bibliothèques du genre, &lt;code&gt;add_const_lvalue_reference&lt;/code&gt; s&amp;rsquo;écrirait &lt;code&gt;lambda&amp;lt;add_lvalue_reference, lambda&amp;lt;add_const, _&amp;gt;&amp;gt;&lt;/code&gt; ce qui, il faut l&amp;rsquo;avouer, beaucoup moins glamour.&lt;/p&gt;
 
-&lt;p&gt;Dans des algorithmes du type transformation l&amp;rsquo;impact sur la lecture du code est immédiat:&lt;/p&gt;
+&lt;p&gt;Dans des algorithmes du type transformation, l&amp;rsquo;impact sur la lecture du code est immédiat:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lambda&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lambda&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;times&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;c1&#34;&gt;// vs
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;call&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;times&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;cm&#34;&gt;/*C=listify*/&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;call&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;times&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/*, C=listify*/&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Qui se traduit par la construction d&amp;rsquo;une nouvelle liste avec la formule &lt;code&gt;(x*y)+1&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Ce code met bien en évidence un autre aspect des continuations: la lecture du code se fait de gauche à droite alors que les lambdas se lisent de droite à gauche et oblige le lecteur à faire des allers/retours pour suivre le flux de code.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;n&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lambda&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lambda&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;times&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
  &lt;span class=&#34;cm&#34;&gt;/* 1 */&lt;/span&gt;       &lt;span class=&#34;cm&#34;&gt;/* 3 */&lt;/span&gt;       &lt;span class=&#34;cm&#34;&gt;/* 2 */&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;call&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;times&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;cm&#34;&gt;/*C=listify*/&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;call&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;times&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/*, C=listify*/&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;L2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
       &lt;span class=&#34;cm&#34;&gt;/* 1 *//* 2 *//* 3 */&lt;/span&gt;      &lt;span class=&#34;cm&#34;&gt;/* 4 */&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id=&#34;méta-fonction&#34;&gt;Méta-fonction&lt;/h2&gt;
@@ -641,7 +640,7 @@ note: penser à investir dans une porte plus solide
   &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Qui engendre son lot de problèmes: en plus des 2 traits précédents, &lt;code&gt;remove_extent&lt;/code&gt;, &lt;code&gt;add_pointer&lt;/code&gt; et &lt;code&gt;remove_cv&lt;/code&gt; sont toujours déclarés avec &lt;code&gt;T&lt;/code&gt;. Cela ne pose pas de réel problème ici &amp;ndash; à part le temps de compilation&amp;ndash;, malheureusement, dans certaines situations les branches ne doivent s&amp;rsquo;évaluer qu&amp;rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.&lt;/p&gt;
+&lt;p&gt;Qui engendre son lot de problèmes: en plus des 2 traits précédents, &lt;code&gt;remove_extent&lt;/code&gt;, &lt;code&gt;add_pointer&lt;/code&gt; et &lt;code&gt;remove_cv&lt;/code&gt; sont toujours déclarés avec &lt;code&gt;T&lt;/code&gt;. Cela ne pose pas de réel problème ici &amp;ndash; à part le temps de compilation&amp;ndash;, malheureusement, dans certaines situations, les branches ne doivent s&amp;rsquo;évaluer qu&amp;rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.&lt;/p&gt;
 
 &lt;p&gt;Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, &lt;code&gt;remove_extent&amp;lt;T&amp;gt;&lt;/code&gt; ne sera pas instancié lorsque &lt;code&gt;is_array_v&amp;lt;T&amp;gt;&lt;/code&gt; est faux ce qui rend les continuations très facilement composables.&lt;/p&gt;
 
@@ -652,10 +651,10 @@ note: penser à investir dans une porte plus solide
   &lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;call&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;if_&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;
       &lt;span class=&#34;n&#34;&gt;cfl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_array&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-      &lt;span class=&#34;n&#34;&gt;cfe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;remove_extent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cfe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add_pointer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;n&#34;&gt;cfe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;remove_extent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cfe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;detail&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add_pointer_impl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
       &lt;span class=&#34;n&#34;&gt;if_&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;cfl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_function&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;cfe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;detail&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add_pointer_impl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;cfe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add_pointer&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;cfe&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;remove_cv&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
       &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
@@ -665,7 +664,7 @@ note: penser à investir dans une porte plus solide
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Avec l&amp;rsquo;implémentation de &lt;code&gt;if_&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;Avec l&amp;rsquo;implémentation de &lt;code&gt;if_&lt;/code&gt;, &lt;code&gt;cfl&lt;/code&gt; (continuation from a lazy metafunction) et &lt;code&gt;cfe&lt;/code&gt; (continuation from a eager metafunction):&lt;/p&gt;
 
 
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;namespace&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;detail&lt;/span&gt;
@@ -893,8 +892,7 @@ note: penser à investir dans une porte plus solide
 
 &lt;p&gt;Dans l&amp;rsquo;article précédent sur les variants, j&amp;rsquo;ai fait une implémentation un peu spéciale de &lt;code&gt;index_of&lt;/code&gt;. Je vais présenter une quinzaine d&amp;rsquo;implémentations possibles et le coût de chacune sur le compilateur.&lt;/p&gt;
 
-&lt;div class=&#34;InfoBox&#34;&gt;&lt;p&gt;&lt;strong class=&#34;InfoBox-title&#34;&gt;Info :&lt;/strong&gt; L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &amp;laquo;&amp;nbsp;classique&amp;nbsp;&amp;raquo; a les mêmes conséquences.&lt;/p&gt;&lt;/div&gt;
-
+&lt;div class=&#34;InfoBox&#34;&gt;&lt;p&gt;&lt;strong class=&#34;InfoBox-title&#34;&gt;Info :&lt;/strong&gt; L&#39;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &#34;classique&#34; a les mêmes conséquences.&lt;/p&gt;&lt;/div&gt;
 
 &lt;h2 id=&#34;avant-propos&#34;&gt;Avant-propos&lt;/h2&gt;
 
@@ -919,7 +917,7 @@ note: penser à investir dans une porte plus solide
 &lt;li&gt;&lt;code&gt;[x*500]&lt;/code&gt;: une liste de 500 &lt;code&gt;x&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;[_*250, x, _*249]&lt;/code&gt;: une liste de 250 &lt;code&gt;_&lt;/code&gt;, suivit de &lt;code&gt;x&lt;/code&gt; et d&amp;rsquo;une liste de &lt;code&gt;249&lt;/code&gt; &lt;code&gt;_&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;[i{0..40}*150]&lt;/code&gt;: uns suite de 150 &lt;code&gt;i0&lt;/code&gt;, une autre de 150 &lt;code&gt;i1&lt;/code&gt; et ainsi de suite jusqu&amp;rsquo;à &lt;code&gt;i40&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;[i0..i{0..140}]&lt;/code&gt;: une suite &lt;code&gt;[i0..i0]&lt;/code&gt;, puis [i0..i1], etc jusqu&amp;rsquo;à &lt;code&gt;[i0..i140]&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;[i0..i{0..140}]&lt;/code&gt;: une suite &lt;code&gt;[i0..i0]&lt;/code&gt;, puis &lt;code&gt;[i0..i1]&lt;/code&gt;, etc jusqu&amp;rsquo;à &lt;code&gt;[i0..i140]&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;[i{0..n},x,i{n-(n..0)..n}];n=100&lt;/code&gt;: les suites &lt;code&gt;[i{0..100},x,i{100..100}]&lt;/code&gt;,  &lt;code&gt;[i{1..100},x,i{99..100}]&lt;/code&gt;, etc&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -1037,8 +1035,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque &lt;c
 
 &lt;p&gt;Si on compare le temps de compilation entre Clang et Gcc, il s&amp;rsquo;avère que Gcc est un peu plus rapide que son concurrent alors même que les premiers tests se font sur une liste de 1200 éléments contre 1400. De mon expérience, c&amp;rsquo;est presque toujours le cas avec des templates récursives sur de &amp;laquo;&amp;nbsp;grands&amp;nbsp;&amp;raquo; ensembles.&lt;/p&gt;
 
-&lt;div class=&#34;InfoBox&#34;&gt;&lt;p&gt;&lt;strong class=&#34;InfoBox-title&#34;&gt;Info :&lt;/strong&gt; La limite de 1200 est dûe à une limitation de Clang qui ne peut pas dépasser 1293 niveaux de profondeur sans crasher (en tout cas chez moi probablement à cause d&amp;rsquo;un dépassement de pile).&lt;/p&gt;&lt;/div&gt;
-
+&lt;div class=&#34;InfoBox&#34;&gt;&lt;p&gt;&lt;strong class=&#34;InfoBox-title&#34;&gt;Info :&lt;/strong&gt; La limite de 1200 est dûe à une limitation de Clang qui ne peut pas dépasser 1293 niveaux de profondeur sans crasher (en tout cas chez moi probablement à cause d&#39;un dépassement de pile).&lt;/p&gt;&lt;/div&gt;
 
 &lt;h2 id=&#34;profiter-davantage-de-mémoïsation&#34;&gt;Profiter davantage de mémoïsation&lt;/h2&gt;
 
@@ -1540,10 +1537,10 @@ Il n&amp;rsquo;y a pas de comportement commun, les traitements se feront en fonc
 &lt;li&gt;Une fonction &lt;code&gt;visit&lt;/code&gt; (en membre, pour des raisons de simplification).&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&#34;InfoBox&#34;&gt;&lt;p&gt;&lt;strong class=&#34;InfoBox-title&#34;&gt;Info :&lt;/strong&gt; &lt;p&gt;L&amp;rsquo;implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l&amp;rsquo;exemple à ne pas suivre.
-  Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l&amp;rsquo;&lt;em&gt;idéal&lt;/em&gt; du variant.&lt;/p&gt;
+&lt;div class=&#34;InfoBox&#34;&gt;&lt;p&gt;&lt;strong class=&#34;InfoBox-title&#34;&gt;Info :&lt;/strong&gt; 
+  L&#39;implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l&#39;exemple à ne pas suivre.
+  Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l&#39;*idéal* du variant.
 &lt;/p&gt;&lt;/div&gt;
-
 
 &lt;p&gt;Comme le type change en cours de route, nous allons utiliser en interne une classe de base qui pour chaque dérivée va contenir le type réel.
 Grâce à cela, le type stocké pourra être supprimé et un nouveau type pourra y être enregistré.
@@ -1657,9 +1654,8 @@ Cette classe de base pourra aussi servir à implémenter l&amp;rsquo;opérateur 
   &lt;span class=&#34;k&#34;&gt;auto&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;visit_impl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;](&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;auto&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;auto&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;auto&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Impl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;detail&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VariantImpl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;decltype&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;constexpr&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-      &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;dynamic_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Impl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;impl_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;static_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Impl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;impl_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...);&lt;/span&gt;
+      &lt;span class=&#34;k&#34;&gt;auto&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;impl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;dynamic_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Impl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;impl_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;
+      &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;impl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;impl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...);&lt;/span&gt;
     &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
       &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -1725,22 +1721,22 @@ Comme notre variant ne contient &amp;ndash;normalement&amp;ndash; qu&amp;rsquo;u
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;... &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;Variant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Variant&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Variant&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;other&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;impl_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;other&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;impl_&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;other&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;other&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// ici
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;... &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;Variant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Variant&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;impl_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;detail&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;make_variant_impl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;forward&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)))&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mp_index_of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mp_index_of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// là
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;... &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;Variant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Variant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Variant&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;other&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;n&#34;&gt;impl_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;other&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;impl_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;other&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;impl_&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;nullptr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;other&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;other&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// ici aussi
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;... &lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;
@@ -1748,8 +1744,8 @@ Comme notre variant ne contient &amp;ndash;normalement&amp;ndash; qu&amp;rsquo;u
 &lt;span class=&#34;n&#34;&gt;Variant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Variant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;n&#34;&gt;impl_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;detail&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;make_variant_impl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;forward&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mp_index_of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mp_index_of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// et là
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;this&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -1766,7 +1762,8 @@ Comme notre variant ne contient &amp;ndash;normalement&amp;ndash; qu&amp;rsquo;u
     &lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;T&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;decltype&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Impl&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;detail&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VariantImpl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decay_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;constexpr&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-      &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mp_index_of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;
+      &lt;span class=&#34;c1&#34;&gt;// plus de dynamic_cast, mais une comparaison d&amp;#39;entier + static_cast
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;      &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;type_index_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mp_index_of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;
         &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;static_cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Impl&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;impl_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
         &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...);&lt;/span&gt;
     &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
@@ -1917,7 +1914,7 @@ Le code final est plutôt gros alors je ne mets &lt;a href=&#34;https://github.c
 &lt;p&gt;Bien que le variant actuel soit incomplet, il est utilisable et proche des implémentations actuelles. Mais il y a plusieurs petits détails qui ne sont pas approfondis ici:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;l&amp;rsquo;optimisation sur type_index,&lt;/li&gt;
+&lt;li&gt;l&amp;rsquo;optimisation sur la taille de &lt;code&gt;type_index&lt;/code&gt;,&lt;/li&gt;
 &lt;li&gt;les différents moyens de remplacer une vtable (ici je n&amp;rsquo;utilise que le if/else récursif),&lt;/li&gt;
 &lt;li&gt;le coût d&amp;rsquo;utilisation d&amp;rsquo;un objet en fonction de sa nature (par exemple: le compilateur dévirtualise-t-il les fonctions virtuelles venant d&amp;rsquo;un membre de variant ?)&lt;/li&gt;
 &lt;li&gt;les unions récursives&lt;/li&gt;
@@ -2022,38 +2019,39 @@ Pour prendre en exemple le blog, sur l&amp;rsquo;ancien (blogspot) les archives 
 &lt;ul&gt;
 &lt;li&gt;S&amp;rsquo;adapter au plus grand.
 &lt;!-- &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-normal.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Une apparence sans défaut.&lt;/figcaption&gt;
+![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-normal.png)
+&lt;figcaption&gt;Une apparence sans défaut.&lt;/figcaption&gt;
 &lt;/figure&gt;&lt;/div&gt;
- --&gt;
+--&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Débordement par la droite.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
+&lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row.png&#34; alt=&#34;&#34; /&gt;
+&lt;figcaption&gt;Débordement par la droite.&lt;/figcaption&gt;
+&lt;/figure&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row-reverse.png&#34; alt=&#34;&#34; /&gt;
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row-reverse.png)
   &lt;figcaption&gt;Débordement par la gauche. Le scroll disparaît. Au moins pour Firefox.&lt;/figcaption&gt;
 &lt;/figure&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Compacter les éléments ou mettre dans un scroll.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Compacter les éléments ou mettre dans un scroll.
 &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-scroll.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Un scroll alors qu&amp;#39;il y a de l&amp;#39;espace à droite.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Cacher le surplus.
+&lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-scroll.png&#34; alt=&#34;&#34; /&gt;
+&lt;figcaption&gt;Un scroll alors qu&amp;#39;il y a de l&amp;#39;espace à droite.&lt;/figcaption&gt;
+&lt;/figure&gt;&lt;/div&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Cacher le surplus.
 &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-hidden.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;Il n&amp;#39;y a plus moyen de lire le contenu qui déborde.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;Superposer les éléments.
+&lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-hidden.png&#34; alt=&#34;&#34; /&gt;
+&lt;figcaption&gt;Il n&amp;#39;y a plus moyen de lire le contenu qui déborde.&lt;/figcaption&gt;
+&lt;/figure&gt;&lt;/div&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Superposer les éléments.
 &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-above.png&#34; alt=&#34;&#34; /&gt;
-  &lt;figcaption&gt;La partie droite cache une partie du contenu.&lt;/figcaption&gt;
-&lt;/figure&gt;&lt;/div&gt;
-&lt;/li&gt;
+&lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-above.png&#34; alt=&#34;&#34; /&gt;
+&lt;figcaption&gt;La partie droite cache une partie du contenu.&lt;/figcaption&gt;
+&lt;/figure&gt;&lt;/div&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Presque toutes ces images ont un point commun: un menu à droite. Ce n&amp;rsquo;est pas anodin, il est difficile d&amp;rsquo;avoir un menu à droite quand la partie gauche veut prendre sa place.&lt;/p&gt;
@@ -2078,10 +2076,9 @@ Pour prendre en exemple le blog, sur l&amp;rsquo;ancien (blogspot) les archives 
 &lt;!-- Demande-moi de faire un gâteau, je te dirai que l&#39;alarme incendie ne s&#39;est pas déclenchée lorsque le four s&#39;est enflammé. --&gt;&lt;/p&gt;
 
 &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-multi-line.png&#34; alt=&#34;&#34; /&gt;
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-multi-line.png)
   &lt;figcaption&gt;Clic... Clic ? Clic clic clic ! Comment ? Je ne suis pas dessus ?&lt;/figcaption&gt;
 &lt;/figure&gt;&lt;/div&gt;
-
 
 &lt;p&gt;Arrive mon second fléau, déplacer suffisamment la souris pour être sur le lien. Mais pas trop, parce que ce foutu cadre qui change de couleur n&amp;rsquo;en fait pas partie non plus.&lt;/p&gt;
 
@@ -2090,17 +2087,16 @@ Pour prendre en exemple le blog, sur l&amp;rsquo;ancien (blogspot) les archives 
 &lt;p&gt;Quand un cadre contenant un lien change de couleur au passage de la souris, c&amp;rsquo;est une invitation au clic. Celui-ci se doit d&amp;rsquo;être cliquable pour répondre au principe de la moindre surprise. Bonus, cela élargit la surface de clic et rend par la même occasion le lien plus accessible.&lt;/p&gt;
 
 &lt;!--&lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-bad.png&#34; alt=&#34;&#34; /&gt;
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-bad.png)
   &lt;figcaption&gt;Contre toute attente, la souris n&amp;#39;est pas sur le lien.&lt;/figcaption&gt;
 &lt;/figure&gt;&lt;/div&gt;
 
 VS.--&gt;
 
 &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-good.png&#34; alt=&#34;&#34; /&gt;
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-good.png)
   &lt;figcaption&gt;C&amp;#39;est quand même plus agréable lorsque le cadre est un lien.&lt;/figcaption&gt;
 &lt;/figure&gt;&lt;/div&gt;
-
 
 &lt;p&gt;Cette extension de la zone de clic est très présente sur le blog. Comme les espaces blancs décoratifs sur le menu qui font partie du lien. Il est possible en plein écran de plaquer le curseur à gauche et de pouvoir cliquer dessus. Ou par exemple les liens &amp;laquo;&amp;nbsp;Précédent&amp;nbsp;&amp;raquo; et &amp;laquo;&amp;nbsp;Suivant&amp;nbsp;&amp;raquo; en fin d&amp;rsquo;article qui prennent chacun une moitié de largeur de contenu. Ou encore les icônes de flux RSS qui possèdent une zone de clic réelle beaucoup plus grande que l&amp;rsquo;image. Chacun de ces éléments possède une zone de clic plus large pour simplifier la visée.&lt;/p&gt;
 
@@ -2155,26 +2151,23 @@ VS.--&gt;
 &lt;p&gt;La couleur est un vecteur d&amp;rsquo;information aussi importante &amp;ndash;voire plus&amp;ndash; que la forme. Par contre, il faut utiliser la couleur d&amp;rsquo;usage sur l&amp;rsquo;objet représenté au risque de perturber le lecteur.&lt;/p&gt;
 
 &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/ok-cancel.png&#34; alt=&#34;&#34; /&gt;
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/ok-cancel.png)
   &lt;figcaption&gt;Perturbant, n&amp;#39;est-ce pas ?&lt;/figcaption&gt;
 &lt;/figure&gt;&lt;/div&gt;
-
 
 &lt;p&gt;La couleur et les effets permettent également de distinguer les éléments entre eux. Par exemple, une légère ombre sur un bouton lui donne un relief qui le distingue d&amp;rsquo;un cadre lambda. Mais il faut savoir varier. Si je prends comme exemple les boutons sociaux, il est difficile d&amp;rsquo;en trouver un précisément lorsqu&amp;rsquo;ils sont tous de la même couleur.&lt;/p&gt;
 
 &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-gray.png&#34; alt=&#34;&#34; /&gt;
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-gray.png)
   &lt;figcaption&gt;Y a-t-il ton réseau préféré ?&lt;/figcaption&gt;
 &lt;/figure&gt;&lt;/div&gt;
-
 
 &lt;p&gt;Alors que mettre la couleur habituellement utilisée par une marque permet de se focaliser presque sans effort dessus.&lt;/p&gt;
 
 &lt;div class=&#34;figure&#34;&gt;&lt;figure&gt;
-  &lt;img src=&#34;https://jonathanpoelen.github.io/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-color.png&#34; alt=&#34;&#34; /&gt;
+  ![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-color.png)
   &lt;figcaption&gt;Et maintenant ?&lt;/figcaption&gt;
 &lt;/figure&gt;&lt;/div&gt;
-
 
 &lt;p&gt;Même si les couleurs du site sont banales, je me permets quelques remarques. Premièrement, il vaut mieux se restreindre à un nombre raisonnable de couleurs, mais suffisamment contrastées pour les dissocier. Trop de couleurs empêchent de hiérarchiser l&amp;rsquo;information, un contraste trop faible de dissocier les éléments ce qui rend illisible le texte.&lt;/p&gt;
 

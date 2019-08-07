@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Au cœur d&#39;un variant</title>
-<meta name="generator" content="Hugo 0.54.0" />
+<meta name="generator" content="Hugo 0.55.6" />
 
 
 
@@ -249,10 +249,10 @@ Il n&rsquo;y a pas de comportement commun, les traitements se feront en fonction
 <li>Une fonction <code>visit</code> (en membre, pour des raisons de simplification).</li>
 </ul>
 
-<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> <p>L&rsquo;implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l&rsquo;exemple à ne pas suivre.
-  Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l&rsquo;<em>idéal</em> du variant.</p>
+<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> 
+  L'implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l'exemple à ne pas suivre.
+  Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l'*idéal* du variant.
 </p></div>
-
 
 <p>Comme le type change en cours de route, nous allons utiliser en interne une classe de base qui pour chaque dérivée va contenir le type réel.
 Grâce à cela, le type stocké pourra être supprimé et un nouveau type pourra y être enregistré.
@@ -366,9 +366,8 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
   <span class="k">auto</span> <span class="n">visit_impl</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">auto</span> <span class="n">rec</span><span class="p">,</span> <span class="k">auto</span><span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="k">auto</span><span class="o">*</span><span class="p">...</span> <span class="n">ts</span><span class="p">){</span>
     <span class="k">using</span> <span class="n">Impl</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">VariantImpl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">;</span>
     <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">ts</span><span class="p">))</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">())</span>
-        <span class="o">?</span> <span class="n">f</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">)</span>
-        <span class="o">:</span> <span class="n">rec</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">ts</span><span class="p">...);</span>
+      <span class="k">auto</span><span class="o">*</span> <span class="n">impl</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+      <span class="k">return</span> <span class="n">impl</span> <span class="o">?</span> <span class="n">f</span><span class="p">(</span><span class="n">impl</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">)</span> <span class="o">:</span> <span class="n">rec</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">ts</span><span class="p">...);</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="p">{</span>
       <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">rec</span><span class="p">;</span>
@@ -434,22 +433,22 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
 <span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">impl_</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">())</span>
-<span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">type_index_</span><span class="p">)</span>
-<span class="p">{}</span>
+<span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">type_index_</span><span class="p">)</span> <span class="c1">// ici
+</span><span class="c1"></span><span class="p">{}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
 <span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
-<span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span>
-<span class="p">{}</span>
+<span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span> <span class="c1">// là
+</span><span class="c1"></span><span class="p">{}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">impl_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">impl_</span> <span class="o">?</span> <span class="n">other</span><span class="p">.</span><span class="n">impl_</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">()</span> <span class="o">:</span> <span class="k">nullptr</span><span class="p">;</span>
-  <span class="n">type_index_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">type_index_</span><span class="p">;</span>
-  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+  <span class="n">type_index_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">type_index_</span><span class="p">;</span> <span class="c1">// ici aussi
+</span><span class="c1"></span>  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
@@ -457,8 +456,8 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">impl_</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
-  <span class="n">type_index_</span> <span class="o">=</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
-  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+  <span class="n">type_index_</span> <span class="o">=</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span> <span class="c1">// et là
+</span><span class="c1"></span>  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -475,7 +474,8 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
     <span class="k">using</span> <span class="n">T</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
     <span class="k">using</span> <span class="n">Impl</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">VariantImpl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">;</span>
     <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">ts</span><span class="p">))</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="n">type_index_</span> <span class="o">==</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span>
+      <span class="c1">// plus de dynamic_cast, mais une comparaison d&#39;entier + static_cast
+</span><span class="c1"></span>      <span class="k">return</span> <span class="n">type_index_</span> <span class="o">==</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span>
         <span class="o">?</span> <span class="n">f</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">)</span>
         <span class="o">:</span> <span class="n">rec</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">ts</span><span class="p">...);</span>
     <span class="p">}</span>
@@ -626,7 +626,7 @@ Le code final est plutôt gros alors je ne mets <a href="https://github.com/jona
 <p>Bien que le variant actuel soit incomplet, il est utilisable et proche des implémentations actuelles. Mais il y a plusieurs petits détails qui ne sont pas approfondis ici:</p>
 
 <ul>
-<li>l&rsquo;optimisation sur type_index,</li>
+<li>l&rsquo;optimisation sur la taille de <code>type_index</code>,</li>
 <li>les différents moyens de remplacer une vtable (ici je n&rsquo;utilise que le if/else récursif),</li>
 <li>le coût d&rsquo;utilisation d&rsquo;un objet en fonction de sa nature (par exemple: le compilateur dévirtualise-t-il les fonctions virtuelles venant d&rsquo;un membre de variant ?)</li>
 <li>les unions récursives</li>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comparaison de différentes implémentations de mp_index_of</title>
-<meta name="generator" content="Hugo 0.54.0" />
+<meta name="generator" content="Hugo 0.55.6" />
 
 
 
@@ -29,10 +29,10 @@
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/">
 <meta property="twitter:title" content="Comparaison de différentes implémentations de mp_index_of">
 <meta name="description" content="Dans l&rsquo;article précédent sur les variants, j&rsquo;ai fait une implémentation un peu spéciale de index_of. Je vais présenter une quinzaine d&rsquo;implémentations possibles et le coût de chacune sur le compilateur.
-Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &laquo;&nbsp;classique&nbsp;&raquo; a les mêmes conséquences.
+Info : L&#39;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &#34;classique&#34; a les mêmes conséquences.
  Avant-propos Toutes les implémentations de mp_index_of&lt;T, Ts...&gt; retournent un std::integral_constant&lt;int, i&gt; correspondant à l&rsquo;indice de T dans Ts ou -1 si T n&rsquo;existe pas.">
 <meta property="twitter:description" content="Dans l&rsquo;article précédent sur les variants, j&rsquo;ai fait une implémentation un peu spéciale de index_of. Je vais présenter une quinzaine d&rsquo;implémentations possibles et le coût de chacune sur le compilateur.
-Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &laquo;&nbsp;classique&nbsp;&raquo; a les mêmes conséquences.
+Info : L&#39;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &#34;classique&#34; a les mêmes conséquences.
  Avant-propos Toutes les implémentations de mp_index_of&lt;T, Ts...&gt; retournent un std::integral_constant&lt;int, i&gt; correspondant à l&rsquo;indice de T dans Ts ou -1 si T n&rsquo;existe pas.">
 
 </head>
@@ -234,8 +234,7 @@ Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car 
 
 <p>Dans l&rsquo;article précédent sur les variants, j&rsquo;ai fait une implémentation un peu spéciale de <code>index_of</code>. Je vais présenter une quinzaine d&rsquo;implémentations possibles et le coût de chacune sur le compilateur.</p>
 
-<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> L&rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &laquo;&nbsp;classique&nbsp;&raquo; a les mêmes conséquences.</p></div>
-
+<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> L'implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus "classique" a les mêmes conséquences.</p></div>
 
 <a class="headline-hash" href="#avant-propos"><h2 id="avant-propos">Avant-propos</h2></a>
 
@@ -260,7 +259,7 @@ Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car 
 <li><code>[x*500]</code>: une liste de 500 <code>x</code>.</li>
 <li><code>[_*250, x, _*249]</code>: une liste de 250 <code>_</code>, suivit de <code>x</code> et d&rsquo;une liste de <code>249</code> <code>_</code>.</li>
 <li><code>[i{0..40}*150]</code>: uns suite de 150 <code>i0</code>, une autre de 150 <code>i1</code> et ainsi de suite jusqu&rsquo;à <code>i40</code>.</li>
-<li><code>[i0..i{0..140}]</code>: une suite <code>[i0..i0]</code>, puis [i0..i1], etc jusqu&rsquo;à <code>[i0..i140]</code>.</li>
+<li><code>[i0..i{0..140}]</code>: une suite <code>[i0..i0]</code>, puis <code>[i0..i1]</code>, etc jusqu&rsquo;à <code>[i0..i140]</code>.</li>
 <li><code>[i{0..n},x,i{n-(n..0)..n}];n=100</code>: les suites <code>[i{0..100},x,i{100..100}]</code>,  <code>[i{1..100},x,i{99..100}]</code>, etc</li>
 </ul>
 
@@ -378,8 +377,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 
 <p>Si on compare le temps de compilation entre Clang et Gcc, il s&rsquo;avère que Gcc est un peu plus rapide que son concurrent alors même que les premiers tests se font sur une liste de 1200 éléments contre 1400. De mon expérience, c&rsquo;est presque toujours le cas avec des templates récursives sur de &laquo;&nbsp;grands&nbsp;&raquo; ensembles.</p>
 
-<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> La limite de 1200 est dûe à une limitation de Clang qui ne peut pas dépasser 1293 niveaux de profondeur sans crasher (en tout cas chez moi probablement à cause d&rsquo;un dépassement de pile).</p></div>
-
+<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> La limite de 1200 est dûe à une limitation de Clang qui ne peut pas dépasser 1293 niveaux de profondeur sans crasher (en tout cas chez moi probablement à cause d'un dépassement de pile).</p></div>
 
 <a class="headline-hash" href="#profiter-davantage-de-mémoïsation"><h2 id="profiter-davantage-de-mémoïsation">Profiter davantage de mémoïsation</h2></a>
 

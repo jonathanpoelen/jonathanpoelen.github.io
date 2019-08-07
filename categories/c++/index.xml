@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>C&#43;&#43; on Jonathan Poelen&#39;s Blog</title>
+    <title>c&#43;&#43; on Jonathan Poelen&#39;s Blog</title>
     <link>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</link>
-    <description>Recent content in C&#43;&#43; on Jonathan Poelen&#39;s Blog</description>
+    <description>Recent content in c&#43;&#43; on Jonathan Poelen&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
@@ -50,7 +50,7 @@ Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessou
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/</guid>
       <description>Dans l&amp;rsquo;article précédent sur les variants, j&amp;rsquo;ai fait une implémentation un peu spéciale de index_of. Je vais présenter une quinzaine d&amp;rsquo;implémentations possibles et le coût de chacune sur le compilateur.
-Info : L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &amp;laquo;&amp;nbsp;classique&amp;nbsp;&amp;raquo; a les mêmes conséquences.
+Info : L&#39;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &#34;classique&#34; a les mêmes conséquences.
  Avant-propos Toutes les implémentations de mp_index_of&amp;lt;T, Ts...&amp;gt; retournent un std::integral_constant&amp;lt;int, i&amp;gt; correspondant à l&amp;rsquo;indice de T dans Ts ou -1 si T n&amp;rsquo;existe pas.</description>
     </item>
     
@@ -185,7 +185,7 @@ Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:</description>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</guid>
       <description>À l&amp;rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
-Info : Ce qui suit n&amp;rsquo;est plus d&amp;rsquo;actualité depuis C++17 et les fold expressions.
+Info : Ce qui suit n&#39;est plus d&#39;actualité depuis C++17 et les [fold expressions](https://en.cppreference.com/w/cpp/language/fold).
  Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.
 Quelque chose dans ce goût-là:
 #include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;classT, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;.</description>

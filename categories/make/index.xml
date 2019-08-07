@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Make on Jonathan Poelen&#39;s Blog</title>
+    <title>make on Jonathan Poelen&#39;s Blog</title>
     <link>https://jonathanpoelen.github.io/categories/make/</link>
-    <description>Recent content in Make on Jonathan Poelen&#39;s Blog</description>
+    <description>Recent content in make on Jonathan Poelen&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
