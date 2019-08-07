@@ -46,7 +46,7 @@ Gris clair | 37 | 47
 
 ## Style/effet de texte
 
-L'italique (3) n'est pas répertorié dans le lien précédemment cité. Aussi, l'effet sombre (ou dim) et mode caché ne fonctionnent pas partout. Il n'existe pas de code 6.
+L'italique (3) et barré (9) ne sont pas répertoriés dans le lien précédemment cité. Aussi, l'effet sombre (ou dim), le mode caché, ainsi que les 2 précédents ne fonctionnent pas partout. Il n'existe pas de code 6.
 
 Effet      | Code | Code annulation
 -----------|------|----------------
@@ -58,6 +58,7 @@ souligné   | 4    | 24
 clignotant | 5    | 25
 inversé    | 7    | 27
 caché      | 8    | 28
+barré      | 9    | 29
 
 ## 16 couleurs
 
