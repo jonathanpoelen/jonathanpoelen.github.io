@@ -11,7 +11,7 @@
   {{ partial "categories.html" . }}
   <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>{{ .ReadingTime }} minutes ;
   <a href="{{ .Permalink }}#gh-comments" onclick="DoGithubComments({{ $.Params.ghcommentid }})"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#{{ .UniqueID }}-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  <a href="#{{ .File.UniqueID }}-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
   {{ partial "post_meta_lastmod.html" . }}
 </p>
 <!--{{- end }}-->

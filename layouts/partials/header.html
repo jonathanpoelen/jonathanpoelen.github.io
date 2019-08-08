@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ .Title }}</title>
 {{- with .Site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}
-{{ .Hugo.Generator }}
+{{ hugo.Generator }}
 {{- if .Site.Params.opengraph }}{{ template "_internal/opengraph.html" . }}{{ end }}
 <!--<link rel="dns-prefetch" href="//fonts.googleapis.com" />-->
 <!--<link rel="dns-prefetch" href="//fonts.gstatic.com" />-->
-{{- if .RSSLink }}<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }} Feed" href="{{ .RSSLink }}" />{{ end }}
+{{- $rss := .OutputFormats.Get "RSS" }}
+{{- if $rss }}<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }} Feed" href="{{ $rss.RelPermalink }}" />{{ end }}
 <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700" type="text/css" media="all" />-->
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
@@ -24,7 +25,7 @@
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:title" content="{{ .Title }}">
 {{- $baseURL := (replaceRE "/$" "" .Site.BaseURL) }}
-<meta property="og:url" content="{{ $baseURL }}{{ .URL }}">
+<meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:language" content="{{ .Site.LanguageCode | default "en-us" }}">
 {{- if .Params.image }}
 <meta property="og:image:url" content="{{ $baseURL }}/{{ .Params.image }}">
@@ -37,7 +38,7 @@
 {{- end }}
 <meta property="twitter:domain" content="{{ .Site.BaseURL }}">
 <meta property="twitter:card" content="summary">
-<meta property="twitter:url" content="{{ $baseURL }}{{ .URL }}">
+<meta property="twitter:url" content="{{ .Permalink }}">
 <meta property="twitter:title" content="{{ .Title }}">
 {{- if .Params.description }}
 <meta name="description" content="{{ .Params.description }}">

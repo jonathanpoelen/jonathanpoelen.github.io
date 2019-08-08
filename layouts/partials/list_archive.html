@@ -2,8 +2,9 @@
   {{- if .Title }}
   <header class="post__header clearfix">
     <h1 class="post__title">
-      {{- if .RSSLink }}
-        <a class="page-rss" href="{{ .RSSLink }}" type="application/rss+xml" title="Flux RSS pour {{ .Title }}">{{ .Title }} ({{ len .Pages }}) &nbsp;<i class="fas fa-rss" aria-hidden="true"> </i><span class="sr-only link-alt">(Flux RSS)</span>&nbsp;</a>
+      {{- $rss := .OutputFormats.Get "RSS" }}
+      {{- if $rss }}
+        <a class="page-rss" href="{{ $rss.RelPermalink }}" type="application/rss+xml" title="Flux RSS pour {{ .Title }}">{{ .Title }} ({{ len .Pages }}) &nbsp;<i class="fas fa-rss" aria-hidden="true"> </i><span class="sr-only link-alt">(Flux RSS)</span>&nbsp;</a>
       {{- else }}
         {{ .Title }} ({{ len .Pages }})
       {{- end }}
