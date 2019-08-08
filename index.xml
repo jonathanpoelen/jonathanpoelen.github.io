@@ -8,7 +8,7 @@
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
     <lastBuildDate>Mon, 28 Jan 2019 22:45:03 +0100</lastBuildDate>
-    <atom:link href="/" rel="self" type="application/rss+xml" />
+    <atom:link href="https://jonathanpoelen.github.io/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Grep, sed, awk, sort... Non ! Zsh</title>
