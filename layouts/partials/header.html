@@ -47,8 +47,8 @@
 <meta name="description" content="{{ .Summary }}">
 <meta property="twitter:description" content="{{ .Summary }}">
 {{- else}}
-<meta name="description" content="{{ .Site.Params.Title }}.{{ .Site.Params.subtitle }}">
-<meta property="twitter:description" content="{{ .Site.Params.Title }}.{{ .Site.Params.subtitle }}">
+<meta name="description" content="{{ .Site.Params.Title }}. {{ .Site.Params.subtitle }}">
+<meta property="twitter:description" content="{{ .Site.Params.Title }}. {{ .Site.Params.subtitle }}">
 {{- end}}
 {{ template "_internal/google_analytics_async.html" . }}
 </head>

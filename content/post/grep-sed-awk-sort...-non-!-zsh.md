@@ -25,7 +25,7 @@ Les gros avantage d'utiliser zsh plutôt que les commandes Unix sont au nombre d
 Il y a aussi des inconvénients:
 
 - Moins lisible, surtout lorsque l'on remplace une suite de pipe comme {{<hi zsh "aaa | bbb | ccc"/>}}. Mais on peut simplifier avec des variables intermédiaires.
-- Peut-être plus lent lorsqu'il y a beaucoup de texte à manipuler. En gros, faire un grep d'un fichier de 1000 lignes est plus lent qu'avec zsh, mais plus rapide si le fichier fait 100000 lignes, car zsh ne travaille pas par flux.
+- Peut être plus lent lorsqu'il y a beaucoup de texte à manipuler. En gros, faire un grep d'un fichier de 1000 lignes est plus lent qu'avec zsh, mais plus rapide si le fichier fait 100000 lignes, car zsh ne travaille pas par flux.
 
 
 ## Syntaxe de base
