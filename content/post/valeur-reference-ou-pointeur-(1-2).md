@@ -197,7 +197,7 @@ J'entends par observer les variables qui sont gardées en lecture dans le but de
 
 Les références constantes peuvent être des temporaires à leur construction (Jusque-là c'est défini par la norme: prolongement de la durée de vie d'une temporaire). Le problème vient du déplacement vers un scope parent. La valeur temporaire est détruite, mais la référence est gardée ; référence sur une valeur qui n'existe plus. Cela débouche sur un comportement indéfini et, dans le meilleurs des cas, un segfault.
 
-[Un article qui présente une situation similaire avec une lambda retournant T à travers std::function&lt;const T&>.](http://blog.developpez.com/gpu/?p=309)
+[Un article qui présente une situation similaire avec une lambda retournant T à travers `std::function<const T&>`.](http://blog.developpez.com/gpu/?p=309)
 
 ```cpp
 #include <iostream>
@@ -236,12 +236,12 @@ Ou, peut-être mieux, faire un objet `observable` tout pareil que `std::referenc
 ## Résumé
 
 - Valeur pour les types fondamentaux (int, double, etc), ceux modifiés sans que l'utilisateur n'ai besoin de le savoir (ex: itérateurs ou premier paramètre de l'opérateur '+') ou les foncteur sans états (prédicats, comparateurs, ...).
-- Valeur + std::move quand l'objet peut être déplacé (possède un move-ctor ou/et move-assign non trivial (ex: std::string, std::vector, ...).
-- Valeur pour les ressources non copiables à transférer (std::unique_ptr, ...).
+- Valeur + `std::move` quand l'objet peut être déplacé (possède un move-ctor ou/et move-assign non trivial (ex: `std::string`, `std::vector`, ...).
+- Valeur pour les ressources non copiables à transférer (`std::unique_ptr`, ...).
 - Référence constante pour les paramètres en lecture seule ou ne disposant pas de move-ctor ou/et move-assign non trivial.
-- Référence constante et rvalue quand le paramètre <em>peut être</em> copié et possède un move-ctor/move-assign non trivial.
-- Rvalue pour les ressources non copiables avec déplacement conditionnel (std::unique_ptr, ...).
-- Référence constante pour les types inconnus (template) qui n'ont pas d'intérêt à être pris par valeur (ou au pire, stratégie variable selon le résultat de std::is_trivially_*/std::is_copy_*/std::is_move_*).
-- Rvalue pour les types inconnus (template) quand le paramètre n'a pas de rôle direct dans la fonction ou que le qualificateur n'importe pas (ne pas oublier std::forward pour le transmettre à une autre fonction (seulement s'il n'est plus utilisé ensuite)).
+- Référence constante et rvalue quand le paramètre peut être copié et possède un move-ctor/move-assign non trivial.
+- Rvalue pour les ressources non copiables avec déplacement conditionnel (`std::unique_ptr`, ...).
+- Référence constante pour les types inconnus (template) qui n'ont pas d'intérêt à être pris par valeur (ou au pire, stratégie variable selon le résultat de `std::is_trivially_*`/`std::is_copy_*`/`std::is_move_*`).
+- Rvalue pour les types inconnus (template) quand le paramètre n'a pas de rôle direct dans la fonction ou que le qualificateur n'importe pas (ne pas oublier `std::forward` pour le transmettre à une autre fonction (seulement s'il n'est plus utilisé ensuite)).
 
 [Partie 2]({{<ref "valeur-reference-ou-pointeur-(2-2).md">}})
