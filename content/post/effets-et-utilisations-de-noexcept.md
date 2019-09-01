@@ -2,21 +2,21 @@
 title: "Effets et utilisations de noexcept"
 #thumbnail: ""
 #description: ""
-date: 2019-08-01T10:09:32+02:00
+date: 2019-09-01T16:09:32+02:00
 #lastmod: 2019-08-18T18:09:32+02:00
 slug: "effets-et-utilisations-de-noexcept"
 #toc: false
 #tags: [ ]
 aliases: []
 categories: [ "c++" ]
-draft: true
+draft: false
 ghcommentid: 0
 expire: 2028
 ---
 
 ## Fonction noexcept
 
-`noexcept` est un mot clef apparut en C++11. Dans le prototype d'une fonction, il indique que cette dernière ne jete pas d'exception. Cela ne veut pas dire qu'aucune exception ne sera présente dans la fonction, mais qu'**aucune exception ne sortira** de la fonction. Dans le cas contraire, le programme s'arrête subitement avec un appel à [`std::terminate`](https://en.cppreference.com/w/cpp/error/terminate).
+`noexcept` est un mot clef apparu en C++11. Dans le prototype d'une fonction, il indique que cette dernière ne jette pas d'exception. Cela ne veut pas dire qu'aucune exception ne sera présente dans la fonction, mais qu'**aucune exception ne sortira** de la fonction. Dans le cas contraire, le programme s'arrête subitement avec un appel à [`std::terminate`](https://en.cppreference.com/w/cpp/error/terminate).
 
 `noexcept` n'impose aucune restriction sur ce que peut faire la fonction. Il est tout à fait possible d'utiliser des fonctions qui ne sont pas marquées `noexcept` à l'intérieur d'une fonction `noexcept`, voire, de jeter des exceptions. La seule contrainte se trouve sur le chemin de sortie: il ne doit pas se faire avec une exception.
 
@@ -53,9 +53,9 @@ terminate called after throwing an instance of 'int'
 zsh: abort (core dumped)  ./a.out
 ```
 
-G++, Clang et MSVC émettent tout 3 un avertissement et le programme explose comme attendu.
+G++, Clang et MSVC émettent tous 3 un avertissement et le programme explose comme attendu.
 
-L'avertissement ici est évident, mais ce n'est pas toujours cas, le compilateur ne pouvant garantir que toutes les fonctions utilisées dans une fonction noexcept ne jettent pas elles-mêmes des exceptions.
+L'avertissement ici est évident, mais ce n'est pas toujours le cas, le compilateur ne pouvant garantir que toutes les fonctions utilisées dans une fonction noexcept ne jettent pas elles-mêmes des exceptions.
 
 Notre fonction `foo()` est une énorme bombe à retardement. Chouette, une raison supplémentaire pour faire planter un programme ;)
 
@@ -64,9 +64,9 @@ Notre fonction `foo()` est une énorme bombe à retardement. Chouette, une raiso
 
 Une mauvaise utilisation de `noexcept` peut faire planter un programme. Mais une fonctionnalité à risque ne vient jamais sans avantage. Puisque `noexcept` garantit qu'aucune exception ne sorte de la fonction, le compilateur peut éjecter le code qui s'en occupe. Si les fonctions ne lancent pas d'exception, il peut déterminer avec certitude quels sont les chemins de sortie, supprimer du code, réordonner les instructions et appliquer autres obscures magies dont il a le secret.
 
-Dit comme ça, on pourrait croire que plein d'optimisations s'offrent à nous, mais non. Premièrement, les compilateurs sont capables de faire des exceptions qui n'ont de coût qu'au moment de l'appel. Bien sûr, la taille de l'exécutable est plus gros et peut impacter le cache d'instruction, mais le coût d'une exception non utilisé est nulle. Secundo, ce n'est pas évident de produire un exécutable qui supprime vraiment du code, à moins d'avoir absolument toutes les fonctions en `noexcept`, la magie du compilateur se verra limité. Surtout que les bonnes options d'optimisation donnent des résultats comparables.
+Dit comme ça, on pourrait croire que plein d'optimisations s'offrent à nous, mais non. Premièrement, les compilateurs sont capables de faire des exceptions qui n'ont de coût qu'au moment de l'appel. Bien sûr, la taille de l'exécutable est plus gros et peut impacter le cache d'instruction, mais le coût d'une exception non utilisée est nulle. Secundo, ce n'est pas évident de produire un exécutable qui supprime vraiment du code, à moins d'avoir absolument toutes les fonctions en `noexcept`, la magie du compilateur se verra limité. Surtout que les bonnes options d'optimisation donnent des résultats comparables.
 
-Après plusieurs essais d'exemple de code pseudo-réaliste, en voici 2 basés sur une fonction très simple
+Après plusieurs essais d'exemples de code pseudo-réaliste, en voici 2 basés sur une fonction très simple
 
 ```cpp
 // foo.cpp
@@ -128,7 +128,7 @@ done
 `stat ./a.out` | 17632     | 16816
 
 
-Pronostique vérifié. On peut même regarder l'[assembleur sur godbolt](https://godbolt.org/z/xBmjdI) pour s'en convaincre.
+Pronostic vérifié. On peut même regarder l'[assembleur sur godbolt](https://godbolt.org/z/xBmjdI) pour s'en convaincre.
 
 Voici un second exemple plus simple qui montre que le compilateur supprime totalement la gestion des exceptions lorsqu'il lui est permis de le faire.
 
@@ -180,7 +180,7 @@ bar(std::unique_ptr<int, std::default_delete<int> >&&) [clone .cold]:
 
 La seconde partie du code asm n'est utilisée que pour le traitement d'une exception, elle se situe en dehors du flux normal d'exécution et disparait lorsque foo() ne lance pas d'exception.
 
-Maintenant, il faut savoir qu'avec l'option `-flto` la taille des exécutables sont les mêmes que foo() soit `noexcept` ou pas. Simplement parce que le compilateur déduit que foo() ne lance pas d'exception. Mais dans le cas de biliothèque partagée, `-flto` ne pourra rien faire et la différence subsistera.
+Maintenant, il faut savoir qu'avec l'option `-flto` la taille des exécutables sont les mêmes que foo() soit `noexcept` ou pas. Simplement parce que le compilateur déduit que foo() ne lance pas d'exception. Mais dans le cas de bibliothèque partagée, `-flto` ne pourra rien faire et la différence subsistera.
 
 Puisque le compilateur peut déduire lui-même qu'une fonction ne lance pas d'exception, pourquoi et surtout quand mettre noexcept ?
 
@@ -191,7 +191,7 @@ Déjà, on peut dire qu'une fonction qui ne lance absolument pas d'exception peu
 
 Néanmoins, `noexcept` est vraiment important sur les constructeurs déplacement.
 
-Pour être plus précis, conjointement avec les conteneurs de la STL, cela va détermine si le conteneur utilise ou non le déplacement. Si la fonction est `noexcept`, le déplacement d'un élément ne peut pas échouer. Dans le cas d'un `std::vector<T>`, cela veut dire qu'après un agrandissement de la capacité, tous les éléments peuvent être déplacés sans échec. Par contre, si le déplacement lance une exception, une partie des données pourrait se perdre et `std::vector` utilise alors la copie. On parle de résistance aux exceptions ou d'[exception-safety](https://en.wikipedia.org/wiki/Exception_guarantees). Dans le cas de `std::vector`, c'est une garantie forte: l'état du vector est inchangé s'il y a une exception sur l'augmentation de la capacité. Pour en savoir un peu plus sur l'exception-safety, c'est [par là](https://www.boost.org/community/exception_safety.html).
+Pour être plus précis, conjointement avec les conteneurs de la STL, cela va déterminer si le conteneur utilise ou non le déplacement. Si la fonction est `noexcept`, le déplacement d'un élément ne peut pas échouer. Dans le cas d'un `std::vector<T>`, cela veut dire qu'après un agrandissement de la capacité, tous les éléments peuvent être déplacés sans échec. Par contre, si le déplacement lance une exception, une partie des données pourrait se perdre et `std::vector` utilise alors la copie. On parle de résistance aux exceptions ou d'[exception-safety](https://en.wikipedia.org/wiki/Exception_guarantees). Dans le cas de `std::vector`, c'est une garantie forte: l'état du vector est inchangé s'il y a une exception sur l'augmentation de la capacité. Pour en savoir un peu plus sur l'exception-safety, c'est [par là](https://www.boost.org/community/exception_safety.html).
 
 Pour illustrer l'influence de `noexcept` avec std::vector, voici une petite classe qui affiche quel constructeur est utilisé. Le constructeur de déplacement est toujours présent, seule la présence de `noexcept` diffère.
 
@@ -227,15 +227,15 @@ Et les résultats après compilation:
 --------|-------------------------|------------------
 ./a.out | {{<hi cpp "A&(1)"/>}}   | {{<hi cpp "A&&(1)"/>}}
 
-Maintenant imaginons que notre classe `A` contienne des `std::string` et des `std::vector`. Si le constructeur de déplacement n'est pas `noexcept`, alors il y aura de nombreuse copie qui auront un gros impacte sur les performances. Ce n'est généralement pas ce qu'on veut.
+Maintenant imaginons que notre classe `A` contienne des `std::string` et des `std::vector`. Si le constructeur de déplacement n'est pas `noexcept`, alors il y aura de nombreuses copies qui auront un gros impact sur les performances. Ce n'est généralement pas ce qu'on veut.
 
-Personnellement, je déconseille décrire le constructeur et operator= de déplacement ou de copie. 99% du temps, la version par défaut fait le job, le compilateur déduisant lui-même `noexcept` pour les fonctions par défaut -- et c'est bien le seul moment. S'il y a une véritable nécessité, il est généralement possible d'avoir une classe qui ne fournit que ce service et l'utiliser en variable membre.
+Personnellement, je déconseille d'écrire le constructeur et operator= de déplacement ou de copie. 99% du temps, la version par défaut fait le job, le compilateur déduisant lui-même `noexcept` pour les fonctions par défaut -- et c'est bien le seul moment. S'il y a une véritable nécessité, il est généralement possible d'avoir une classe qui ne fournit que ce service et l'utiliser en variable membre.
 
 Si on écrit explicitement `noexcept` sur une fonction par défaut -- par exemple {{<hi cpp "X(X&&) noexcept = default;"/>}} -- le compilateur va **vérifier** que le déplacement de chaque membre ne lance pas d'exception. Et dans le cas contraire, ne compile pas.
 
-Pour finir, **les destructeurs sont implicitement `noexcept`**. Si un destructeur balance une exception, le programme va s'arrêter. Les raisons sont assez simples: il est diffcile de catcher une exception d'un destructeur et il est impossible d'arriver à un état cohérent sans code spécifique si les objets ne peuvent être dédruit. De plus, il faut savoir que jeter une exception pendant le traitement d'une exception appel automatiquement `std::terminate()`. Du coup, les exceptions dans un destructeur sont plutôt une mauvaise idée.
+Pour finir, **les destructeurs sont implicitement `noexcept`**. Si un destructeur balance une exception, le programme va s'arrêter. Les raisons sont assez simples: il est diffcile de catcher une exception d'un destructeur et il est impossible d'arriver à un état cohérent sans code spécifique si les objets ne peuvent être détruits. De plus, il faut savoir que jeter une exception pendant le traitement d'une exception appelle automatiquement `std::terminate()`. Du coup, les exceptions dans un destructeur sont plutôt une mauvaise idée.
 
-Mais si on veut autoriser le destructeur à jeter des exceptions ou pouvoir marquer nos fonctions en `noexcept` à la seule condition qu'une expression présice soit elle-même `noexcept` il existe un nouveau mot clef: `noexcept`. Oui, mais non, il est différent.
+Mais si on veut autoriser le destructeur à jeter des exceptions ou pouvoir marquer nos fonctions en `noexcept` à la seule condition qu'une expression précise soit elle-même `noexcept` il existe un nouveau mot clef: `noexcept`. Oui, mais non, il est différent.
 
 
 ## Spécificateur d'exception et opérateur noexcept
@@ -271,23 +271,23 @@ Pas très compliqué dans l'ensemble, même si bien que logique, le résultat de
 
 La STL offre aussi les traits [`std::is_nothrow_*`](https://en.cppreference.com/w/cpp/types#Supported_operations) pour vérifier si certaines expressions sont `noexcept` ; ainsi qu'une fonction [`std::move_if_noexcept`](https://en.cppreference.com/w/cpp/utility/move_if_noexcept) qui retourne une rvalue si le constructeur de déplacement est noexcept et une lvalue constante dans le cas inverse.
 
-Avant C++11, il existait le spécificateur `throw()` pour indiquer qu'une fonction ne jette pas d'exception. Son comportement est très différent est pas du tout efficace. En C++17, il devient l'équivalent de `noexcept(true)` pour finalement être supprimé en C++20.
+Avant C++11, il existait le spécificateur `throw()` pour indiquer qu'une fonction ne jette pas d'exception. Son comportement est très différent et pas du tout efficace. En C++17, il devient l'équivalent de `noexcept(true)` pour finalement être supprimé en C++20.
 
 
 ## Signature et type de fonction
 
-2 fonctions qui ne diffère que par la spécification d'exception ne peuvent être surchargée car leur signature est identique. Ceci n'est pas autorisé:
+2 fonctions qui ne diffèrent que par la spécification d'exception ne peuvent être surchargées car leur signature est identique. Ceci n'est pas autorisé:
 
 ```cpp
 void foo();
 void foo() noexcept; // erreur
 ```
 
-Dû fait de la signature identique, `noexcept` peut très bien apparaître dans le prototype d'une fonction exposée dans une bibliothèque C ({{<hi cpp "extern \"C\""/>}}), mais cette information disparaît dans la bibliothèque elle-même. Mieux que ça, si la bibliothèque est compilée sans `noexcept`, mais que le `.h` distribué les mets, le compilateur retrouve ses petits, car le name mangling est le même.
+Du fait de la signature identique, `noexcept` peut très bien apparaître dans le prototype d'une fonction exposée dans une bibliothèque C ({{<hi cpp "extern \"C\""/>}}), mais cette information disparaît dans la bibliothèque elle-même. Mieux que ça, si la bibliothèque est compilée sans `noexcept`, mais que le `.h` distribué les met, le compilateur retrouve ses petits, car le name mangling est le même.
 
 Par contre, avant C++17 le type d'une fonction ne prend jamais en compte `noexcept`. C’est-à-dire que les types `void(*)()` et `void(*)() noexcept` sont identiques.
 
-À partir de C++17, `noexcept` fait partie intégrande du type de la fonction. Un pointeur de fonction `noexcept` n'est pas compatible avec un pointeur de fonction qui jette potentiellement une exception. Néanmoins, une fonction `noexcept` est convertible en un pointeur de fonction qui n'est pas `noexcept`. Les posts conditions sont plus fortes ce qui ne brise pas le [LSP](https://fr.wikipedia.org/wiki/Principe_de_substitution_de_Liskov).
+À partir de C++17, `noexcept` fait partie intégrante du type de la fonction. Un pointeur de fonction `noexcept` n'est pas compatible avec un pointeur de fonction qui jette potentiellement une exception. Néanmoins, une fonction `noexcept` est convertible en un pointeur de fonction qui n'est pas `noexcept`. Les posts conditions sont plus fortes ce qui ne brise pas le [LSP](https://fr.wikipedia.org/wiki/Principe_de_substitution_de_Liskov).
 
 ```cpp
 void foo() noexcept;
@@ -323,6 +323,6 @@ class C : B
 
 ## Ce qu'il faut retenir
 
-Finalement il n'y a pas grande chose à retenir. `noexcept` permet certaines optimisations, mais appliqué n'importe comment il est source de bug. Si vous n'êtes pas sûr ne l'utilisez pas.
+Finalement il n'y a pas grand chose à retenir. `noexcept` permet certaines optimisations, mais appliqué n'importe comment il est source de bug. Si vous n'êtes pas sûr, ne l'utilisez pas.
 
 Cependant, comme cela influence les conteneurs de la STL, il faut impérativement penser à le mettre sur le constructeur de déplacement.
