@@ -233,7 +233,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 <p>Voici un code totalement inutile de démonstration avec une exception qui traverse une fonction <code>foo()</code> marquée <code>noexcept</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span>
 <span class="p">{</span>
-  <span class="k">throw</span> <span class="mi">42</span><span class="p">;</span> <span class="c1">// noexcept ? Pas vue
+  <span class="k">throw</span> <span class="mi">42</span><span class="p">;</span> <span class="c1">// noexcept ? Pas vu
 </span><span class="c1"></span><span class="p">}</span>
 
 <span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
