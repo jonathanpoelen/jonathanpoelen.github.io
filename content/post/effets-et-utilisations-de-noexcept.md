@@ -25,7 +25,7 @@ Voici un code totalement inutile de démonstration avec une exception qui traver
 ```cpp
 void foo() noexcept
 {
-  throw 42; // noexcept ? Pas vue
+  throw 42; // noexcept ? Pas vu
 }
 
 #include <iostream>
