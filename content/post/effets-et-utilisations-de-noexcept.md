@@ -294,7 +294,7 @@ void foo() noexcept;
 void bar();
 
 void(*f)() noexcept = foo;
-void(*f)() = foo; // non depuis C++17
+void(*f)() noexcept = bar; // non depuis C++17
 
 void(*g)() = bar;
 void(*g)() = foo; // ok
