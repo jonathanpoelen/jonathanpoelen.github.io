@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valeur, référence ou pointeur ? (1/2)</title>
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.56.3" />
 
 
 
@@ -87,12 +87,12 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">33 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -120,7 +120,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (23)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -389,7 +389,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
 
 <p>Les références constantes peuvent être des temporaires à leur construction (Jusque-là c&rsquo;est défini par la norme: prolongement de la durée de vie d&rsquo;une temporaire). Le problème vient du déplacement vers un scope parent. La valeur temporaire est détruite, mais la référence est gardée ; référence sur une valeur qui n&rsquo;existe plus. Cela débouche sur un comportement indéfini et, dans le meilleurs des cas, un segfault.</p>
 
-<p><a href="http://blog.developpez.com/gpu/?p=309">Un article qui présente une situation similaire avec une lambda retournant T à travers std::function&lt;const T&amp;&gt;.</a></p>
+<p><a href="http://blog.developpez.com/gpu/?p=309">Un article qui présente une situation similaire avec une lambda retournant T à travers <code>std::function&lt;const T&amp;&gt;</code>.</a></p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span><span class="cp"></span>
@@ -422,13 +422,13 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
 
 <ul>
 <li>Valeur pour les types fondamentaux (int, double, etc), ceux modifiés sans que l&rsquo;utilisateur n&rsquo;ai besoin de le savoir (ex: itérateurs ou premier paramètre de l&rsquo;opérateur &lsquo;+&rsquo;) ou les foncteur sans états (prédicats, comparateurs, &hellip;).</li>
-<li>Valeur + std::move quand l&rsquo;objet peut être déplacé (possède un move-ctor ou/et move-assign non trivial (ex: std::string, std::vector, &hellip;).</li>
-<li>Valeur pour les ressources non copiables à transférer (std::unique_ptr, &hellip;).</li>
+<li>Valeur + <code>std::move</code> quand l&rsquo;objet peut être déplacé (possède un move-ctor ou/et move-assign non trivial (ex: <code>std::string</code>, <code>std::vector</code>, &hellip;).</li>
+<li>Valeur pour les ressources non copiables à transférer (<code>std::unique_ptr</code>, &hellip;).</li>
 <li>Référence constante pour les paramètres en lecture seule ou ne disposant pas de move-ctor ou/et move-assign non trivial.</li>
-<li>Référence constante et rvalue quand le paramètre <em>peut être</em> copié et possède un move-ctor/move-assign non trivial.</li>
-<li>Rvalue pour les ressources non copiables avec déplacement conditionnel (std::unique_ptr, &hellip;).</li>
-<li>Référence constante pour les types inconnus (template) qui n&rsquo;ont pas d&rsquo;intérêt à être pris par valeur (ou au pire, stratégie variable selon le résultat de std::is<em>trivially</em><em>/std::is<em>copy</em></em>/std::is<em>move</em>*).</li>
-<li>Rvalue pour les types inconnus (template) quand le paramètre n&rsquo;a pas de rôle direct dans la fonction ou que le qualificateur n&rsquo;importe pas (ne pas oublier std::forward pour le transmettre à une autre fonction (seulement s&rsquo;il n&rsquo;est plus utilisé ensuite)).</li>
+<li>Référence constante et rvalue quand le paramètre peut être copié et possède un move-ctor/move-assign non trivial.</li>
+<li>Rvalue pour les ressources non copiables avec déplacement conditionnel (<code>std::unique_ptr</code>, &hellip;).</li>
+<li>Référence constante pour les types inconnus (template) qui n&rsquo;ont pas d&rsquo;intérêt à être pris par valeur (ou au pire, stratégie variable selon le résultat de <code>std::is_trivially_*</code>/<code>std::is_copy_*</code>/<code>std::is_move_*</code>).</li>
+<li>Rvalue pour les types inconnus (template) quand le paramètre n&rsquo;a pas de rôle direct dans la fonction ou que le qualificateur n&rsquo;importe pas (ne pas oublier <code>std::forward</code> pour le transmettre à une autre fonction (seulement s&rsquo;il n&rsquo;est plus utilisé ensuite)).</li>
 </ul>
 
 <p><a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/">Partie 2</a></p>

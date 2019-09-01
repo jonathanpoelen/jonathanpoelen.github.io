@@ -8,13 +8,22 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Mon, 28 Jan 2019 22:45:03 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 01 Sep 2019 16:09:32 +0200</lastBuildDate>
     
 	<atom:link href="https://jonathanpoelen.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>script-shell</title>
+      <title>c&#43;&#43;</title>
+      <link>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</link>
+      <pubDate>Sun, 01 Sep 2019 16:09:32 +0200</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>script shell</title>
       <link>https://jonathanpoelen.github.io/categories/script-shell/</link>
       <pubDate>Mon, 28 Jan 2019 22:45:03 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
@@ -28,15 +37,6 @@
       <pubDate>Mon, 28 Jan 2019 22:45:03 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/categories/zsh/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>c&#43;&#43;</title>
-      <link>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</link>
-      <pubDate>Sun, 09 Dec 2018 13:11:29 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</guid>
       <description></description>
     </item>
     

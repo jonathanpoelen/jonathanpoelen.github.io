@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jonathan Poelen&#39;s Blog</title>
-<meta name="generator" content="Hugo 0.55.6" />
+<meta name="generator" content="Hugo 0.56.3" />
 
 <link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="/index.xml" />
 
@@ -26,8 +26,8 @@
 <meta property="twitter:card" content="summary">
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/">
 <meta property="twitter:title" content="Jonathan Poelen&#39;s Blog">
-<meta name="description" content="Le blog de Jonathan Poelen.Mon petit mémo sur tout ce qui touche à la programmation =)">
-<meta property="twitter:description" content="Le blog de Jonathan Poelen.Mon petit mémo sur tout ce qui touche à la programmation =)">
+<meta name="description" content="Le blog de Jonathan Poelen. Mon petit mémo sur tout ce qui touche à la programmation =)">
+<meta property="twitter:description" content="Le blog de Jonathan Poelen. Mon petit mémo sur tout ce qui touche à la programmation =)">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -82,12 +82,12 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/simuler-une-vtable-sans-fonction-virtuelle/">Simuler une vtable sans fonction virtuelle</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">33 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -115,7 +115,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (23)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -178,12 +178,381 @@
         
 <article class="post">
   <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="grep-sed-awk-sort...-non-zsh"><span>
+    <div class="post__title-nextprev" id="effets-et-utilisations-de-noexcept"><span>
         &nbsp;
+        <a href="#grep-sed-awk-sort...-non-zsh"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Grep, sed, awk, sort... Non ! Zsh"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#grep-sed-awk-sort...-non-zsh">Article précédent: Grep, sed, awk, sort... Non ! Zsh</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2019-09-01T16:09:32">01 septembre 2019
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>10 minutes ;
+  <a href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#fb46726ec0a3919cca046288d3ed51bc-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
+</p>
+
+
+  </header>
+  <div class="post__content">
+      
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#fonction-noexcept"><h2 id="fonction-noexcept">Fonction noexcept</h2></a>
+
+<p><code>noexcept</code> est un mot clef apparu en C++11. Dans le prototype d&rsquo;une fonction, il indique que cette dernière ne jette pas d&rsquo;exception. Cela ne veut pas dire qu&rsquo;aucune exception ne sera présente dans la fonction, mais qu&rsquo;<strong>aucune exception ne sortira</strong> de la fonction. Dans le cas contraire, le programme s&rsquo;arrête subitement avec un appel à <a href="https://en.cppreference.com/w/cpp/error/terminate"><code>std::terminate</code></a>.</p>
+
+<p><code>noexcept</code> n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il est tout à fait possible d&rsquo;utiliser des fonctions qui ne sont pas marquées <code>noexcept</code> à l&rsquo;intérieur d&rsquo;une fonction <code>noexcept</code>, voire, de jeter des exceptions. La seule contrainte se trouve sur le chemin de sortie: il ne doit pas se faire avec une exception.</p>
+
+<p>Voici un code totalement inutile de démonstration avec une exception qui traverse une fonction <code>foo()</code> marquée <code>noexcept</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span>
+<span class="p">{</span>
+  <span class="k">throw</span> <span class="mi">42</span><span class="p">;</span> <span class="c1">// noexcept ? Pas vue
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="n">foo</span><span class="p">();</span> <span class="c1">// le programme s&#39;arrête ici
+</span><span class="c1"></span>  <span class="p">}</span>
+  <span class="k">catch</span> <span class="p">(...)</span> <span class="p">{</span>
+  <span class="p">}</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;ok</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="c1">// ne s&#39;affiche jamais
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
+<p>La compilation puis l&rsquo;exécution donne:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="err">$</span> <span class="n">g</span><span class="o">++</span> <span class="n">test</span><span class="p">.</span><span class="n">cpp</span> <span class="o">&amp;&amp;</span> <span class="p">.</span><span class="o">/</span><span class="n">a</span><span class="p">.</span><span class="n">out</span>
+<span class="n">test</span><span class="p">.</span><span class="nl">cpp</span><span class="p">:</span> <span class="n">In</span> <span class="n">function</span> <span class="err">‘</span><span class="kt">void</span> <span class="n">foo</span><span class="p">()</span><span class="err">’</span><span class="o">:</span>
+<span class="n">test</span><span class="p">.</span><span class="nl">cpp</span><span class="p">:</span><span class="mi">3</span><span class="o">:</span><span class="mi">9</span><span class="o">:</span> <span class="nl">warning</span><span class="p">:</span> <span class="k">throw</span> <span class="n">will</span> <span class="n">always</span> <span class="n">call</span> <span class="n">terminate</span><span class="p">()</span> <span class="p">[</span><span class="o">-</span><span class="n">Wterminate</span><span class="p">]</span>
+    <span class="mi">3</span> <span class="o">|</span>   <span class="k">throw</span> <span class="mi">42</span><span class="p">;</span>
+      <span class="o">|</span>         <span class="o">^~</span>
+<span class="n">terminate</span> <span class="n">called</span> <span class="n">after</span> <span class="n">throwing</span> <span class="n">an</span> <span class="n">instance</span> <span class="n">of</span> <span class="err">&#39;</span><span class="kt">int</span><span class="err">&#39;</span>
+<span class="nl">zsh</span><span class="p">:</span> <span class="n">abort</span> <span class="p">(</span><span class="n">core</span> <span class="n">dumped</span><span class="p">)</span>  <span class="p">.</span><span class="o">/</span><span class="n">a</span><span class="p">.</span><span class="n">out</span>
+</code></pre></div>
+<p>G++, Clang et MSVC émettent tous 3 un avertissement et le programme explose comme attendu.</p>
+
+<p>L&rsquo;avertissement ici est évident, mais ce n&rsquo;est pas toujours le cas, le compilateur ne pouvant garantir que toutes les fonctions utilisées dans une fonction noexcept ne jettent pas elles-mêmes des exceptions.</p>
+
+<p>Notre fonction <code>foo()</code> est une énorme bombe à retardement. Chouette, une raison supplémentaire pour faire planter un programme ;)</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#les-bénéfices-de-noexcept"><h2 id="les-bénéfices-de-noexcept">Les bénéfices de noexcept</h2></a>
+
+<p>Une mauvaise utilisation de <code>noexcept</code> peut faire planter un programme. Mais une fonctionnalité à risque ne vient jamais sans avantage. Puisque <code>noexcept</code> garantit qu&rsquo;aucune exception ne sorte de la fonction, le compilateur peut éjecter le code qui s&rsquo;en occupe. Si les fonctions ne lancent pas d&rsquo;exception, il peut déterminer avec certitude quels sont les chemins de sortie, supprimer du code, réordonner les instructions et appliquer autres obscures magies dont il a le secret.</p>
+
+<p>Dit comme ça, on pourrait croire que plein d&rsquo;optimisations s&rsquo;offrent à nous, mais non. Premièrement, les compilateurs sont capables de faire des exceptions qui n&rsquo;ont de coût qu&rsquo;au moment de l&rsquo;appel. Bien sûr, la taille de l&rsquo;exécutable est plus gros et peut impacter le cache d&rsquo;instruction, mais le coût d&rsquo;une exception non utilisée est nulle. Secundo, ce n&rsquo;est pas évident de produire un exécutable qui supprime vraiment du code, à moins d&rsquo;avoir absolument toutes les fonctions en <code>noexcept</code>, la magie du compilateur se verra limité. Surtout que les bonnes options d&rsquo;optimisation donnent des résultats comparables.</p>
+
+<p>Après plusieurs essais d&rsquo;exemples de code pseudo-réaliste, en voici 2 basés sur une fonction très simple</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// foo.cpp
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="n">NOEXCEPT</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>NOEXCEPT</code> sera à remplacer par <code>noexcept</code> ou rien. Respectivement les options de compilation <code>-DNOEXCEPT=noexcept</code> et <code>-DNOEXCEPT=</code>.</p>
+
+<p>Ce premier exemple prouve que le compilateur est capable de prendre en compte <code>noexcept</code> pour suprimmer du code.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// main.cpp
+</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">NOEXCEPT</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="n">err</span><span class="p">;</span>
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// trace de l&#39;étape en cours
+</span><span class="c1"></span>    <span class="n">err</span> <span class="o">=</span> <span class="s">&#34;foo step&#34;</span><span class="p">;</span>
+    <span class="k">auto</span> <span class="n">r</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="c1">// fin du &#34;traitement&#34;
+</span><span class="c1"></span>    <span class="n">err</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+
+    <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">r</span><span class="p">;</span> <span class="c1">// ceci peut lancer une exception std::ios_base::failure
+</span><span class="c1"></span>  <span class="p">}</span>
+  <span class="k">catch</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">exception</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// err != nullptr uniquement si foo() lance une exception
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">err</span><span class="p">)</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;oups: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">err</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ce code permet d&rsquo;afficher un message sur l&rsquo;étape en cours avant une éventuelle exception. Dans notre cas, <code>foo()</code> ne lance pas d&rsquo;exception, mais en l&rsquo;absence de <code>noexcept</code>, <code>main.cpp</code> ne le sait pas.</p>
+
+<p>Si <code>foo()</code> ne lance pas d&rsquo;exception, alors <code>err</code> sera toujours égal à <code>nullptr</code> dans le <code>catch</code>. Il est alors possible de supprimer la condition qui serait toujours évaluée à <code>false</code>, ce qui doit donner un exécutable plus petit.</p>
+
+<p>Le petit script suivant va compiler chaque <code>.cpp</code> avec et sans <code>noexcept</code> puis afficher la taille de l&rsquo;exécutable.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> x in noexcept <span class="s1">&#39;&#39;</span> <span class="p">;</span> <span class="k">do</span>
+  <span class="nv">d</span><span class="o">=</span><span class="nv">NOEXCEPT</span><span class="o">=</span><span class="nv">$x</span>
+  g++ -O3 -D<span class="nv">$d</span> *.cpp <span class="o">&amp;&amp;</span>
+  <span class="nb">echo</span> <span class="nv">$d</span> <span class="o">&amp;&amp;</span>
+  stat ./a.out *.o --format<span class="o">=</span><span class="s2">&#34;</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&#34;%n\t%s&#34;</span><span class="k">)</span><span class="s2">&#34;</span>
+<span class="k">done</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>&nbsp;</th>
+<th>NOEXCEPT=</th>
+<th>NOEXCEPT=noexcept</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>stat ./a.out</code></td>
+<td>17632</td>
+<td>16816</td>
+</tr>
+</tbody>
+</table>
+
+<p>Pronostic vérifié. On peut même regarder l&rsquo;<a href="https://godbolt.org/z/xBmjdI">assembleur sur godbolt</a> pour s&rsquo;en convaincre.</p>
+
+<p>Voici un second exemple plus simple qui montre que le compilateur supprime totalement la gestion des exceptions lorsqu&rsquo;il lui est permis de le faire.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">NOEXCEPT</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;&amp;</span> <span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// some stuff
+</span><span class="c1"></span>    <span class="c1">// ...
+</span><span class="c1"></span>    <span class="k">auto</span> <span class="n">u</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">foo</span><span class="p">(</span><span class="o">*</span><span class="n">u</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Et l&rsquo;asm de <a href="https://godbolt.org/z/-yIB7m">https://godbolt.org/z/-yIB7m</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">bar</span><span class="p">(</span><span class="no">std</span><span class="p">::</span><span class="no">unique_ptr</span><span class="err">&lt;</span><span class="no">int</span><span class="p">,</span> <span class="no">std</span><span class="p">::</span><span class="no">default_delete</span><span class="err">&lt;</span><span class="no">int</span><span class="err">&gt;</span> <span class="err">&gt;&amp;&amp;</span><span class="p">):</span>
+        <span class="nf">push</span>    <span class="no">r12</span>
+        <span class="nf">push</span>    <span class="no">rbp</span>
+        <span class="nf">sub</span>     <span class="no">rsp</span><span class="p">,</span> <span class="mi">8</span>
+        <span class="nf">mov</span>     <span class="no">rbp</span><span class="p">,</span> <span class="no">QWORD</span> <span class="no">PTR</span> <span class="p">[</span><span class="no">rdi</span><span class="p">]</span>
+        <span class="nf">mov</span>     <span class="no">QWORD</span> <span class="no">PTR</span> <span class="p">[</span><span class="no">rdi</span><span class="p">],</span> <span class="mi">0</span>
+        <span class="nf">mov</span>     <span class="no">edi</span><span class="p">,</span> <span class="no">DWORD</span> <span class="no">PTR</span> <span class="p">[</span><span class="no">rbp</span><span class="err">+</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nf">call</span>    <span class="no">foo</span><span class="p">(</span><span class="no">int</span><span class="p">)</span>
+        <span class="nf">mov</span>     <span class="no">rdi</span><span class="p">,</span> <span class="no">rbp</span>
+        <span class="nf">mov</span>     <span class="no">esi</span><span class="p">,</span> <span class="mi">4</span>
+        <span class="nf">mov</span>     <span class="no">r12d</span><span class="p">,</span> <span class="no">eax</span>
+        <span class="nf">call</span>    <span class="no">operator</span> <span class="no">delete</span><span class="p">(</span><span class="no">void</span><span class="p">*,</span> <span class="no">unsigned</span> <span class="no">long</span><span class="p">)</span>
+        <span class="nf">add</span>     <span class="no">rsp</span><span class="p">,</span> <span class="mi">8</span>
+        <span class="nf">mov</span>     <span class="no">eax</span><span class="p">,</span> <span class="no">r12d</span>
+        <span class="nf">pop</span>     <span class="no">rbp</span>
+        <span class="nf">pop</span>     <span class="no">r12</span>
+        <span class="nf">ret</span>
+<span class="c">; ce qui suit ne concerne que l&#39;éventuelle exception de foo()
+</span><span class="c"></span>        <span class="nf">mov</span>     <span class="no">r12</span><span class="p">,</span> <span class="no">rax</span>
+        <span class="nf">jmp</span>     <span class="no">.L2</span>
+<span class="nf">bar</span><span class="p">(</span><span class="no">std</span><span class="p">::</span><span class="no">unique_ptr</span><span class="err">&lt;</span><span class="no">int</span><span class="p">,</span> <span class="no">std</span><span class="p">::</span><span class="no">default_delete</span><span class="err">&lt;</span><span class="no">int</span><span class="err">&gt;</span> <span class="err">&gt;&amp;&amp;</span><span class="p">)</span> <span class="p">[</span><span class="no">clone</span> <span class="no">.cold</span><span class="p">]:</span>
+<span class="nl">.L2:</span>
+        <span class="nf">mov</span>     <span class="no">rdi</span><span class="p">,</span> <span class="no">rbp</span>
+        <span class="nf">mov</span>     <span class="no">esi</span><span class="p">,</span> <span class="mi">4</span>
+        <span class="nf">call</span>    <span class="no">operator</span> <span class="no">delete</span><span class="p">(</span><span class="no">void</span><span class="p">*,</span> <span class="no">unsigned</span> <span class="no">long</span><span class="p">)</span>
+        <span class="nf">mov</span>     <span class="no">rdi</span><span class="p">,</span> <span class="no">r12</span>
+        <span class="nf">call</span>    <span class="no">_Unwind_Resume</span></code></pre></div>
+<p>La seconde partie du code asm n&rsquo;est utilisée que pour le traitement d&rsquo;une exception, elle se situe en dehors du flux normal d&rsquo;exécution et disparait lorsque foo() ne lance pas d&rsquo;exception.</p>
+
+<p>Maintenant, il faut savoir qu&rsquo;avec l&rsquo;option <code>-flto</code> la taille des exécutables sont les mêmes que foo() soit <code>noexcept</code> ou pas. Simplement parce que le compilateur déduit que foo() ne lance pas d&rsquo;exception. Mais dans le cas de bibliothèque partagée, <code>-flto</code> ne pourra rien faire et la différence subsistera.</p>
+
+<p>Puisque le compilateur peut déduire lui-même qu&rsquo;une fonction ne lance pas d&rsquo;exception, pourquoi et surtout quand mettre noexcept ?</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#quand-mettre-noexcept"><h2 id="quand-mettre-noexcept">Quand mettre noexcept</h2></a>
+
+<p>Déjà, on peut dire qu&rsquo;une fonction qui ne lance absolument pas d&rsquo;exception peut être <code>noexcept</code>. Cette information est surtout utile dans les APIs ou bibliothèques qui ont cette garantie. Un analyseur statique pourrait aussi vérifier qu&rsquo;aucune exception ne la traverse. Dans le cas contraire, c&rsquo;est plutôt risqué.</p>
+
+<p>Néanmoins, <code>noexcept</code> est vraiment important sur les constructeurs déplacement.</p>
+
+<p>Pour être plus précis, conjointement avec les conteneurs de la STL, cela va déterminer si le conteneur utilise ou non le déplacement. Si la fonction est <code>noexcept</code>, le déplacement d&rsquo;un élément ne peut pas échouer. Dans le cas d&rsquo;un <code>std::vector&lt;T&gt;</code>, cela veut dire qu&rsquo;après un agrandissement de la capacité, tous les éléments peuvent être déplacés sans échec. Par contre, si le déplacement lance une exception, une partie des données pourrait se perdre et <code>std::vector</code> utilise alors la copie. On parle de résistance aux exceptions ou d&rsquo;<a href="https://en.wikipedia.org/wiki/Exception_guarantees">exception-safety</a>. Dans le cas de <code>std::vector</code>, c&rsquo;est une garantie forte: l&rsquo;état du vector est inchangé s&rsquo;il y a une exception sur l&rsquo;augmentation de la capacité. Pour en savoir un peu plus sur l&rsquo;exception-safety, c&rsquo;est <a href="https://www.boost.org/community/exception_safety.html">par là</a>.</p>
+
+<p>Pour illustrer l&rsquo;influence de <code>noexcept</code> avec std::vector, voici une petite classe qui affiche quel constructeur est utilisé. Le constructeur de déplacement est toujours présent, seule la présence de <code>noexcept</code> diffère.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">struct</span> <span class="n">A</span>
+<span class="p">{</span>
+  <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="o">:</span> <span class="n">i</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">{}</span>
+
+  <span class="n">A</span><span class="p">(</span><span class="n">A</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">)</span> <span class="o">:</span> <span class="n">i</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;A&amp;(&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;)</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+
+  <span class="n">A</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;&amp;</span> <span class="n">a</span><span class="p">)</span> <span class="nl">NOEXCEPT</span> <span class="p">:</span> <span class="n">i</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;A&amp;&amp;(&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;)</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+  <span class="n">v</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">v</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// agrandissement de la capacité + déplacement/copie de A(1)
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
+<p>Et les résultats après compilation:</p>
+
+<table>
+<thead>
+<tr>
+<th>&nbsp;</th>
+<th>NOEXCEPT=</th>
+<th>NOEXCEPT=noexcept</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>./a.out</td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">&amp;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></span></td>
+</tr>
+</tbody>
+</table>
+
+<p>Maintenant imaginons que notre classe <code>A</code> contienne des <code>std::string</code> et des <code>std::vector</code>. Si le constructeur de déplacement n&rsquo;est pas <code>noexcept</code>, alors il y aura de nombreuses copies qui auront un gros impact sur les performances. Ce n&rsquo;est généralement pas ce qu&rsquo;on veut.</p>
+
+<p>Personnellement, je déconseille d&rsquo;écrire le constructeur et operator= de déplacement ou de copie. 99% du temps, la version par défaut fait le job, le compilateur déduisant lui-même <code>noexcept</code> pour les fonctions par défaut &ndash; et c&rsquo;est bien le seul moment. S&rsquo;il y a une véritable nécessité, il est généralement possible d&rsquo;avoir une classe qui ne fournit que ce service et l&rsquo;utiliser en variable membre.</p>
+
+<p>Si on écrit explicitement <code>noexcept</code> sur une fonction par défaut &ndash; par exemple <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">X</span><span class="p">(</span><span class="n">X</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</code></span> &ndash; le compilateur va <strong>vérifier</strong> que le déplacement de chaque membre ne lance pas d&rsquo;exception. Et dans le cas contraire, ne compile pas.</p>
+
+<p>Pour finir, <strong>les destructeurs sont implicitement <code>noexcept</code></strong>. Si un destructeur balance une exception, le programme va s&rsquo;arrêter. Les raisons sont assez simples: il est diffcile de catcher une exception d&rsquo;un destructeur et il est impossible d&rsquo;arriver à un état cohérent sans code spécifique si les objets ne peuvent être détruits. De plus, il faut savoir que jeter une exception pendant le traitement d&rsquo;une exception appelle automatiquement <code>std::terminate()</code>. Du coup, les exceptions dans un destructeur sont plutôt une mauvaise idée.</p>
+
+<p>Mais si on veut autoriser le destructeur à jeter des exceptions ou pouvoir marquer nos fonctions en <code>noexcept</code> à la seule condition qu&rsquo;une expression précise soit elle-même <code>noexcept</code> il existe un nouveau mot clef: <code>noexcept</code>. Oui, mais non, il est différent.</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#spécificateur-d-exception-et-opérateur-noexcept"><h2 id="spécificateur-d-exception-et-opérateur-noexcept">Spécificateur d&rsquo;exception et opérateur noexcept</h2></a>
+
+<p>Il existe 2 mots clef pour <code>noexcept</code>: le spécificateur d&rsquo;exception et l&rsquo;opérateur.</p>
+
+<ul>
+<li>Le spécificateur <code>noexcept</code> ou <code>noexcept(bool)</code> se met toujours dans le prototype de la fonction. <code>noexcept</code> et <code>noexcept(true)</code> indiquent que la fonction ne jette pas d&rsquo;exception, <code>noexcept(false)</code> indique que la fonction jette potentiellement une exception.</li>
+<li>L&rsquo;opérateur <code>noexcept(expr)</code> prend une expression est retourne un booléen qui indique si oui ou non une expression peut lancer une exception.</li>
+</ul>
+
+<p>Voici quelques exemples:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">constexpr</span> <span class="kt">bool</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">f1</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">f2</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">f3</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">foo</span><span class="p">());</span> <span class="c1">// -&gt; noexcept(true)
+</span><span class="c1"></span><span class="kt">void</span> <span class="nf">f4</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">(</span><span class="k">noexcept</span><span class="p">(</span><span class="n">f1</span><span class="p">()));</span> <span class="c1">// noexcept seulement si f1() est noexcept
+</span><span class="c1"></span><span class="kt">void</span> <span class="nf">f5</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">(</span><span class="k">noexcept</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">));</span>
+<span class="kt">void</span> <span class="nf">f6</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">(</span><span class="k">noexcept</span><span class="p">(</span><span class="nb">false</span><span class="p">));</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">f1</span><span class="p">())</span>  <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="c1">// true
+</span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">f2</span><span class="p">())</span>  <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="c1">// false
+</span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">f3</span><span class="p">())</span>  <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="c1">// true
+</span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">f4</span><span class="p">())</span>  <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="c1">// true
+</span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">f5</span><span class="p">())</span>  <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="c1">// false
+</span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">f6</span><span class="p">())</span>  <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="c1">// true
+</span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">noexcept</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>  <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="c1">// true
+</span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">noexcept</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="c1">// true
+</span></code></pre></div>
+<p>Pas très compliqué dans l&rsquo;ensemble, même si bien que logique, le résultat de <code>f6()</code> et la dernière ligne peuvent surprendre: <code>false</code> est une expression qui ne retourne jamais d&rsquo;exception, par conséquent, l&rsquo;opérateur <code>noexcept</code> retourne <code>true</code>.</p>
+
+<p>La STL offre aussi les traits <a href="https://en.cppreference.com/w/cpp/types#Supported_operations"><code>std::is_nothrow_*</code></a> pour vérifier si certaines expressions sont <code>noexcept</code> ; ainsi qu&rsquo;une fonction <a href="https://en.cppreference.com/w/cpp/utility/move_if_noexcept"><code>std::move_if_noexcept</code></a> qui retourne une rvalue si le constructeur de déplacement est noexcept et une lvalue constante dans le cas inverse.</p>
+
+<p>Avant C++11, il existait le spécificateur <code>throw()</code> pour indiquer qu&rsquo;une fonction ne jette pas d&rsquo;exception. Son comportement est très différent et pas du tout efficace. En C++17, il devient l&rsquo;équivalent de <code>noexcept(true)</code> pour finalement être supprimé en C++20.</p>
+
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#signature-et-type-de-fonction"><h2 id="signature-et-type-de-fonction">Signature et type de fonction</h2></a>
+
+<p>2 fonctions qui ne diffèrent que par la spécification d&rsquo;exception ne peuvent être surchargées car leur signature est identique. Ceci n&rsquo;est pas autorisé:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">();</span>
+<span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span> <span class="c1">// erreur
+</span></code></pre></div>
+<p>Du fait de la signature identique, <code>noexcept</code> peut très bien apparaître dans le prototype d&rsquo;une fonction exposée dans une bibliothèque C (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">extern</span> <span class="s">&#34;C&#34;</span>
+</code></span>), mais cette information disparaît dans la bibliothèque elle-même. Mieux que ça, si la bibliothèque est compilée sans <code>noexcept</code>, mais que le <code>.h</code> distribué les met, le compilateur retrouve ses petits, car le name mangling est le même.</p>
+
+<p>Par contre, avant C++17 le type d&rsquo;une fonction ne prend jamais en compte <code>noexcept</code>. C’est-à-dire que les types <code>void(*)()</code> et <code>void(*)() noexcept</code> sont identiques.</p>
+
+<p>À partir de C++17, <code>noexcept</code> fait partie intégrante du type de la fonction. Un pointeur de fonction <code>noexcept</code> n&rsquo;est pas compatible avec un pointeur de fonction qui jette potentiellement une exception. Néanmoins, une fonction <code>noexcept</code> est convertible en un pointeur de fonction qui n&rsquo;est pas <code>noexcept</code>. Les posts conditions sont plus fortes ce qui ne brise pas le <a href="https://fr.wikipedia.org/wiki/Principe_de_substitution_de_Liskov">LSP</a>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="nf">bar</span><span class="p">();</span>
+
+<span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="p">)()</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="n">foo</span><span class="p">;</span>
+<span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="p">)()</span> <span class="o">=</span> <span class="n">foo</span><span class="p">;</span> <span class="c1">// non depuis C++17
+</span><span class="c1"></span>
+<span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">g</span><span class="p">)()</span> <span class="o">=</span> <span class="n">bar</span><span class="p">;</span>
+<span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">g</span><span class="p">)()</span> <span class="o">=</span> <span class="n">foo</span><span class="p">;</span> <span class="c1">// ok
+</span></code></pre></div>
+<p>Cette caractéristique s&rsquo;applique aussi aux fonctions <code>virtual</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span><span class="err"> </span><span class="nc">A</span>
+<span class="p">{</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="n">foo</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span><span class="err"> </span><span class="nc">B</span> <span class="o">:</span> <span class="n">A</span>
+<span class="p">{</span>
+  <span class="kt">void</span> <span class="n">foo</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span> <span class="c1">// il manque noexcept
+</span><span class="c1"></span>  <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="k">noexcept</span> <span class="k">override</span><span class="p">;</span> <span class="c1">// ok, plus de restriction sur les conditions de sortie
+</span><span class="c1"></span><span class="p">};</span>
+
+<span class="k">class</span><span class="err"> </span><span class="nc">C</span> <span class="o">:</span> <span class="n">B</span>
+<span class="p">{</span>
+  <span class="kt">void</span> <span class="n">bar</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span> <span class="c1">// erreur, même si A::bar() n&#39;est pas noexcept, B::bar() l&#39;est
+</span><span class="c1"></span><span class="p">};</span>
+</code></pre></div>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#ce-qu-il-faut-retenir"><h2 id="ce-qu-il-faut-retenir">Ce qu&rsquo;il faut retenir</h2></a>
+
+<p>Finalement il n&rsquo;y a pas grand chose à retenir. <code>noexcept</code> permet certaines optimisations, mais appliqué n&rsquo;importe comment il est source de bug. Si vous n&rsquo;êtes pas sûr, ne l&rsquo;utilisez pas.</p>
+
+<p>Cependant, comme cela influence les conteneurs de la STL, il faut impérativement penser à le mettre sur le constructeur de déplacement.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2019-09-01T16:09:32">01 septembre 2019
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="fb46726ec0a3919cca046288d3ed51bc-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=effets-et-utilisations-de-noexcept&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f09%2feffets-et-utilisations-de-noexcept%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f09%2feffets-et-utilisations-de-noexcept%2f&amp;title=effets-et-utilisations-de-noexcept" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f09%2feffets-et-utilisations-de-noexcept%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f09%2feffets-et-utilisations-de-noexcept%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f09%2feffets-et-utilisations-de-noexcept%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2019%2f09%2feffets-et-utilisations-de-noexcept%2f&amp;name=effets-et-utilisations-de-noexcept" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="grep-sed-awk-sort...-non-zsh"><span>
+        <a href="#effets-et-utilisations-de-noexcept"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Effets et utilisations de noexcept"></i></a>
         <a href="#presque-toujours-stdmove"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Presque toujours std::move"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></h1>
     <div class="post__title-nextprev-text sr-only">
+        <a href="#effets-et-utilisations-de-noexcept">Article suivant: Effets et utilisations de noexcept</a><br/>
         <a href="#presque-toujours-stdmove">Article précédent: Presque toujours std::move</a><br/>
     </div>
     
@@ -227,7 +596,7 @@
 
 <ul>
 <li>Moins lisible, surtout lorsque l&rsquo;on remplace une suite de pipe comme <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">aaa <span class="p">|</span> bbb <span class="p">|</span> ccc</code></span>. Mais on peut simplifier avec des variables intermédiaires.</li>
-<li>Peut-être plus lent lorsqu&rsquo;il y a beaucoup de texte à manipuler. En gros, faire un grep d&rsquo;un fichier de 1000 lignes est plus lent qu&rsquo;avec zsh, mais plus rapide si le fichier fait 100000 lignes, car zsh ne travaille pas par flux.</li>
+<li>Peut être plus lent lorsqu&rsquo;il y a beaucoup de texte à manipuler. En gros, faire un grep d&rsquo;un fichier de 1000 lignes est plus lent qu&rsquo;avec zsh, mais plus rapide si le fichier fait 100000 lignes, car zsh ne travaille pas par flux.</li>
 </ul>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/#syntaxe-de-base"><h2 id="syntaxe-de-base">Syntaxe de base</h2></a>
@@ -2930,372 +3299,6 @@ Et comme la page d&rsquo;accueil contient plusieurs articles, la taille du scrol
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fde-blogspot-a-hugo-il-a-change-de-peau%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fde-blogspot-a-hugo-il-a-change-de-peau%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
   <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fde-blogspot-a-hugo-il-a-change-de-peau%2f&amp;name=de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="minimiser-les-copies-dans-operator&#43;"><span>
-        <a href="#de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: De Blogspot à Hugo, il a changé de peau"></i></a>
-        <a href="#comment-se-passer-de-stdforward"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Comment se passer de std::forward"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/">Minimiser les copies dans operator&#43;</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau">Article suivant: De Blogspot à Hugo, il a changé de peau</a><br/>
-        <a href="#comment-se-passer-de-stdforward">Article précédent: Comment se passer de std::forward</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2017-07-05T22:02:11">05 juillet 2017
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>9 minutes ;
-  <a href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#gh-comments" onclick="DoGithubComments( 1 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#8d66709af0c9e47357d2fae8b9c175bd-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-  
-
-</p>
-
-
-  </header>
-  <div class="post__content">
-      
-
-<p>Je vais me baser sur un classique: une classe de matrice contenant un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>
-</code></span>. Cette classe va implémenter 2 opérateurs mathématiques: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">+</span>
-</code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">+=</span>
-</code></span>. Le premier en fonction libre, le second en fonction membre.</p>
-
-<p>Pour rigoler un peu, on ajoute une petite contrainte qui est &laquo;&nbsp;l&rsquo;efficacité&nbsp;&raquo;. Petit mot qui englobe un peu tout et n&rsquo;importe quoi tel que la performance en mémoire et en temps.</p>
-
-<p>À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc. Des bibliothèques comme uBLAS, Eigen, Blitz implémentent une tripotée de choses. Ici, on va uniquement s&rsquo;intéresser à la manière d&rsquo;implémenter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span>
-</code></span> pour recycler les variables temporaires dans le but d&rsquo;avoir le moins d&rsquo;allocations possibles dûes aux copies.</p>
-
-<p>Grosso-modo, des rvalues à droite, des rvalues à gauche, des rvalues partout et pour finir, pas de rvalue.</p>
-
-<p>En réalité, il y a plusieurs approches possibles que je mets ici en opposition sans qu&rsquo;elles le soient réellement.</p>
-
-<ol>
-<li>une surcharge pour tous les prototypes possibles.</li>
-<li>un opérator unique pour les gouverner tous.</li>
-</ol>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#plein-de-surcharges-de-operator"><h2 id="plein-de-surcharges-de-operator">Plein de surcharges de operator+</h2></a>
-
-<p>Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">noexcept</span>
-</code></span> sur de tels prototypes.</p>
-
-<p>Voici ce que donne l&rsquo;implémentation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">Matrix</span> <span class="n">ret</span> <span class="p">{</span><span class="n">lhs</span><span class="p">};</span>
-  <span class="n">ret</span> <span class="o">+=</span> <span class="n">rhs</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">ret</span><span class="p">;</span> <span class="c1">// et non pas return `ret += rhs`, ce qui empêcherait la NRVO.
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">lhs</span> <span class="o">+=</span> <span class="n">rhs</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lhs</span><span class="p">);</span> <span class="c1">// ne pas oublier std::move, sinon il y a aura copie en sortie
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">rhs</span> <span class="o">+=</span> <span class="n">lhs</span><span class="p">;</span> <span class="c1">// commutativité: x+y = y+x
-</span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">rhs</span> <span class="o">+=</span> <span class="n">lhs</span><span class="p">;</span> <span class="c1">// éventuellement `rhs += std::move(lhs)`
-</span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Petite note sur la dernière implémentation. Utiliser <code>rhs</code> comme valeur de retour permet de gagner un <code>mov</code> (asm). <a href="https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(j:1,source:'%23include+%3Cutility%3E%0A%23include+%3Cvector%3E%0A%0Astruct+Matrix%0A%7B%0A++++++std::vector%3Cint%3E+v%3B%0A++++++Matrix%26+operator+%2B%3D(Matrix+const%26)+%3B%0A%7D%3B%0A%0AMatrix+operator%2B+(Matrix+%26%26+lhs,+Matrix+const+%26+rhs)%0A%7B%0A++++std::move(lhs)+%2B%3D+rhs%3B%0A++++//+ne+pas+oublier+std::move,+sinon+il+y+a+aura+copie+en+sortie+puisque+que+lhs+est+une+r%C3%A9f%C3%A9rence%0A++++return+std::move(lhs)%3B%0A%7D%0A%0AMatrix+operator+%2B+(Matrix+const+%26+lhs,+Matrix+%26%26+rhs)%0A%7B%0A++++std::move(rhs)+%2B%3D+lhs%3B+//+commutativit%C3%A9:+x%2By+%3D+y%2Bx%0A++++return+std::move(rhs)%3B%0A%7D%0A'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:31.812073713509285,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g71,filters:(b:'0',commentOnly:'0',directives:'0',intel:'0'),options:'-O3+-std%3Dc%2B%2B14+-fverbose-asm+',source:1),l:'5',n:'0',o:'x86-64+gcc+7.1+(Editor+%231,+Compiler+%231)',t:'0')),k:34.07627444894807,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:g71,filters:(b:'0',commentOnly:'0',directives:'0',intel:'0'),options:'+-std%3Dc%2B%2B14+-O3+-fverbose-asm+',source:1),l:'5',n:'0',o:'x86-64+gcc+7.1+(Editor+%231,+Compiler+%232)',t:'0')),k:34.11165183754265,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4">ici</a>.</p>
-
-<p>Bon, c&rsquo;est bien joli, mais on peut quasiment faire la même avec seulement 2 prototypes. Seulement, pour une raison que j&rsquo;ignore, ni clang, ni gcc n&rsquo;applique la RVO correctement. Le constructeur de déplacement est systèmatiquement utilisé.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">lhs</span> <span class="o">+=</span> <span class="n">rhs</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">lhs</span><span class="p">;</span> <span class="c1">// pas de RVO ???
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">rhs</span> <span class="o">+=</span> <span class="n">lhs</span><span class="p">;</span> <span class="c1">// commutativité: x+y = y+x
-</span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.</p>
-
-<p>Ainsi, si dans l&rsquo;expression <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">b</span>
-</code></span> une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__PRETTY_FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span>
-</code></span> dans les implémentations et le test qui suit.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Rhs</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">test</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Matrix &#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_const</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span><span class="p">{}</span> <span class="o">?</span> <span class="s">&#34;const&#34;</span> <span class="o">:</span> <span class="s">&#34;     &#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; a; &#34;</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Matrix &#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_const</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span><span class="p">{}</span> <span class="o">?</span> <span class="s">&#34;const&#34;</span> <span class="o">:</span> <span class="s">&#34;     &#34;</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; b;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
-
-  <span class="n">Lhs</span> <span class="n">a</span><span class="p">;</span>
-  <span class="n">Rhs</span> <span class="n">b</span><span class="p">;</span>
-
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">left</span><span class="p">;</span>
-  <span class="cp">#define C(a,b) std::cout &lt;&lt; std::setw(13) &lt;&lt; #a &lt;&lt; &#34;+ &#34; &lt;&lt; std::setw(15) &lt;&lt; #b; a+b
-</span><span class="cp"></span>  <span class="n">C</span><span class="p">(</span><span class="n">a</span><span class="p">,</span>            <span class="n">b</span><span class="p">);</span>
-  <span class="n">C</span><span class="p">(</span><span class="n">a</span><span class="p">,</span>            <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
-  <span class="n">C</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">b</span><span class="p">);</span>
-  <span class="n">C</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
-  <span class="cp">#undef C
-</span><span class="cp"></span><span class="p">}</span>
-
-<span class="kt">int</span> <span class="n">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">test</span><span class="o">&lt;</span>      <span class="n">Matrix</span><span class="p">,</span>       <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
-  <span class="n">test</span><span class="o">&lt;</span>      <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
-  <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span>       <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">;</span>
-  <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Résultat:</p>
-
-<pre><code>Matrix       a; Matrix       b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;)
-a            + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
-std::move(a) + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
-
-
-Matrix       a; Matrix const b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;)
-a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
-std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
-
-
-Matrix const a; Matrix       b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;)
-a            + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
-std::move(a) + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
-
-
-Matrix const a; Matrix const b;
-
-a            + b              Matrix operator+(Matrix, const Matrix&amp;)
-a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
-std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
-std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
-</code></pre>
-
-<p>Si on y tient vraiment, on peut ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">)</span>
-</code></span>. Mais comme dit précédemment le besoin est très faible.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#un-prototype-multi-fonction"><h2 id="un-prototype-multi-fonction">Un prototype multi-fonction</h2></a>
-
-<p>Une autre solution pour la surcharge d&rsquo;opérateur est de ne faire qu&rsquo;un seul et unique prototype template qui s&rsquo;active en présence d&rsquo;un certain type. Ce n&rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.</p>
-
-<p>Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">enable_if</span>
-</code></span>. Ce qui donne:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">MatrixLhs</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">MatrixRhs</span><span class="o">&gt;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixLhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixRhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-  <span class="n">Matrix</span><span class="o">&gt;</span>
-<span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">MatrixLhs</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">MatrixRhs</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
-</code></pre></div>
-<p>Dans la réalité, l&rsquo;addition d&rsquo;une matrice fonctionne aussi sur des entiers (cf: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">+</span> <span class="n">Matrix</span>
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="o">+</span> <span class="kt">int</span>
-</code></span>). Le filtre sera alors beaucoup plus compliqué puisqu&rsquo;il faut qu&rsquo;au moins une des opérandes soit un type <code>Matrix</code> et que les paramètres soient des types compatibles (en prenant en compte la présence des références et des <code>const</code>). La condition devient alors quelque chose comme:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
-<span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
-<span class="p">(</span><span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">||</span> <span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span><span class="p">)</span>
-</code></pre></div>
-<p>Il devient alors très facile d&rsquo;ajouter un nouveau type à prendre en compte, comme par exemple un conteneur de la SL, un tableau C, un autre type matriciel d&rsquo;une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.</p>
-
-<p>Il est également envisageable de faire des prototypes par catégorie de variable: Sequence et Matrix, Integer et Matrix.</p>
-
-<p>Revenons-en à notre <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span>
-</code></span> et son implémentation. Celle-ci va être plus compliqué car elle doit être équivalente aux 4 implémentations du début ; sachant que la première possède une variable et les opérandes sont inversés dans la troisième et la quatrième.</p>
-
-<p>Une solution possible est de mettre 2 valeurs intermédiaires qui représentent l&rsquo;opérande de gauche et l&rsquo;opérande de droite et dont le type s&rsquo;adapte en fonction des types en entrée.</p>
-
-<p>Ci-dessous un tableau récapitulatif des types et valeurs de nos 2 nouvelles variables <code>Lhs</code> et <code>Rhs</code>. Les <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
-</code></span> sont supprimés car seule la référence importe.</p>
-
-<table>
-<thead>
-<tr>
-<th>Prototype</th>
-<th>NewLhs</th>
-<th>NewRhs</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
-</code></span></td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span>   
-</code></span> = lhs</td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
-</code></span> = rhs</td>
-</tr>
-
-<tr>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
-</code></span></td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span> = lhs</td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
-</code></span> = rhs</td>
-</tr>
-
-<tr>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span></td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span> = rhs</td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
-</code></span> = lhs</td>
-</tr>
-
-<tr>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span></td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span> = rhs</td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span> = lhs</td>
-</tr>
-</tbody>
-</table>
-
-<p>Et l&rsquo;implémentation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="n">rvalue_wrapper</span>
-<span class="p">{</span>
-  <span class="n">T</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">;</span>
-
-  <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;&amp;</span> <span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span>
-  <span class="p">{</span> <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">unwrap</span><span class="p">(</span><span class="n">rvalue_wrapper</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">x</span><span class="p">)</span> <span class="k">noexcept</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
-<span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">unwrap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="k">noexcept</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Rhs</span><span class="o">&gt;</span>
-<span class="n">Matrix</span> <span class="k">operator</span> <span class="o">+</span><span class="p">(</span><span class="n">Lhs</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Rhs</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">using</span> <span class="n">NewLhs</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional_t</span><span class="o">&lt;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-    <span class="n">Matrix</span><span class="p">,</span>
-    <span class="n">rvalue_wrapper</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&gt;&gt;</span><span class="p">;</span>
-
-  <span class="k">using</span> <span class="n">NewRhs</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional_t</span><span class="o">&lt;</span>
-    <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
-    <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-    <span class="n">Matrix</span><span class="o">&amp;</span><span class="p">,</span>
-    <span class="n">Matrix</span><span class="o">&amp;&amp;&gt;</span><span class="p">;</span>
-
-  <span class="k">constexpr</span> <span class="kt">bool</span> <span class="n">swap_arg</span> <span class="o">=</span> <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_lvalue_reference</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span>
-
-  <span class="n">NewLhs</span> <span class="n">new_lhs</span><span class="p">{</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">swap_arg</span> <span class="o">?</span> <span class="nl">rhs</span> <span class="p">:</span> <span class="n">lhs</span><span class="p">)};</span>
-  <span class="n">NewRhs</span> <span class="n">new_rhs</span><span class="p">{</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NewRhs</span><span class="o">&gt;</span><span class="p">(</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">swap_arg</span> <span class="o">?</span> <span class="nl">lhs</span> <span class="p">:</span> <span class="n">rhs</span><span class="p">))};</span>
-
-  <span class="n">unwrap</span><span class="p">(</span><span class="n">new_lhs</span><span class="p">)</span> <span class="o">+=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NewRhs</span><span class="o">&gt;</span><span class="p">(</span><span class="n">new_rhs</span><span class="p">);</span>
-
-  <span class="k">return</span> <span class="n">new_lhs</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Le code mérite quelques explications. Pour commencer, parlons de <code>rvalue_reference</code> qui est un palliatif pour une optimisation au niveau de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">return</span>
-</code></span>. Au niveau du retour, si <code>NewLhs</code> est une rvalue, il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">move</span>
-</code></span>, sauf que l&rsquo;utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_rvalue_reference</span><span class="o">&lt;</span><span class="n">NewLhs</span><span class="o">&gt;</span><span class="p">{})</span> <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lhs</span><span class="p">);</span>
-</code></span> avant <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">return</span> <span class="n">new_lhs</span>
-</code></span> l&rsquo;optimisation n&rsquo;est pas faite. Cela fonctionne néanmoins avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span>
-</code></span> de c++17. Le but de <code>rvalue_reference</code>  est finalement de rendre automatique un retour par rvalue grâce à l&rsquo;opérateur de cast interne.</p>
-
-<p>Concernant ce curieux enchaînement de cast, celui-ci s&rsquo;explique par la difficulté de contrôler le type retourné par une ternaire. Une ternaire sur deux variables de même type va retourner une référence (une variable est toujours une lvalue). La référence sera considérée constante si une des deux valeurs est une référence constante. Du coup, on vire le const pour ensuite construire les types <code>NewLhs</code> et <code>NewRhs</code>.</p>
-
-<p>Ici, le constructeur de la matrice (quand <code>NewLhs = Matrix</code>) va recevoir un type non const. À moins qu&rsquo;un constructeur existe pour les références non const, cela ne cause pas de problème. On peut très bien ajouter un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">conditional</span>
-</code></span> pour forcer le const.</p>
-
-<p>En première impression <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NewRhs</span><span class="o">&gt;</span>
-</code></span> pourrait être optionnel, mais celui-ci permet de forcer la rvalue pour construire NewRhs. Une lvalue (le retour de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&amp;&gt;</span>
-</code></span>) ne pouvant être affectée à une rvalue sans cela.</p>
-
-<p>Les casts présents fonctionnent bien parce que <code>lhs</code> et <code>rhs</code> sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">falcon</span><span class="o">::</span><span class="n">cif</span>
-</code></span> ou <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">boost</span><span class="o">::</span><span class="n">hana</span><span class="o">::</span><span class="n">if_</span>
-</code></span>. Plusieurs de mes articles en parlent.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp"><h2 id="n-écrivez-pas-operator-vous-même-c-est-trop-compliqué-nbsp">N&rsquo;écrivez pas operator+ vous-même, c&rsquo;est trop compliqué&nbsp;!</h2></a>
-
-<p>Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est alourdi, la lisibilité réduite. Il y a moyen d&rsquo;implémenter la plupart des opérateurs en quelques lignes pour le même résultat.</p>
-
-<p>De plus, l&rsquo;implémentation des opérateurs peuvent varier. Par exemple, pas de commutativité. Ses variantes sont difficiles à détecter dans une grande masse de code, il devient facile de faire une erreur aussi bien à l&rsquo;écriture qu&rsquo;à la lecture.</p>
-
-<p>Autre point, les types des opérandes peuvent être nombreux, faire tous les prototypes necessaires vous vaudra des heures de souffrances :).</p>
-
-<p>Du coup, comment faire ? Une solution facile est d&rsquo;utiliser une macro pour implémenter les opérateurs voulus. C&rsquo;est simple et rapide, mais l&rsquo;utiliser avec des types template est un peu délicat. Cela reste néanmoins la solution la plus simple.</p>
-
-<p>Une autre manière passe par du CRTP pour que la classe de base implémente les opérateurs voulus sous forme de fonction amie. C&rsquo;est la solution de <a href="http://www.boost.org/doc/libs/1_64_0/libs/utility/operators.htm">boost/operators.hpp</a>. Malheureusement, elle ne prend pas en compte les optimisations possibles sur les rvalues écrits dans cet article. Il faut la ré-écrire.</p>
-
-<p>La dernière solution consiste à se servir des traits pour activer ou non certains prototypes comme dans le chapitre précédent. Une mise en oeuvre poussée peut être extrêmement extensible et s&rsquo;adapte très facilement aux catégories de valeur (séquence, intégrale), mais c&rsquo;est un poil complexe à mettre en place. Je ne connais pas de bibliothèque qui le fasse.</p>
-
-<p>Au final, il n&rsquo;existe actuellement pas d&rsquo;outil satisfaisant pour générer les opérateurs alors qu&rsquo;il est presque aussi rapide d&rsquo;écrire une lib ou des macros pour le faire. Le temps perdu sera largement compensé par le nombre d&rsquo;opérateurs à implémenter par la suite. Avec un peu de jugeote, il est même possible de mutualiser l&rsquo;écriture des opérateurs <code>@=</code>. Pensez-y la prochaine fois qu&rsquo;il faudra écrire des opérateurs ;).</p>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2017-07-05T22:02:11">05 juillet 2017
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
- ;
-  
-
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="8d66709af0c9e47357d2fae8b9c175bd-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=minimiser-les-copies-dans-operator%2b&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fminimiser-les-copies-dans-operator-%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fminimiser-les-copies-dans-operator-%2f&amp;title=minimiser-les-copies-dans-operator%2b" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fminimiser-les-copies-dans-operator-%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fminimiser-les-copies-dans-operator-%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fminimiser-les-copies-dans-operator-%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2017%2f07%2fminimiser-les-copies-dans-operator-%2f&amp;name=minimiser-les-copies-dans-operator%2b" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
