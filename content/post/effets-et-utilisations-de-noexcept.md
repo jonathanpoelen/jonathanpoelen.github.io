@@ -64,7 +64,7 @@ Notre fonction `foo()` est une énorme bombe à retardement. Chouette, une raiso
 
 Une mauvaise utilisation de `noexcept` peut faire planter un programme. Mais une fonctionnalité à risque ne vient jamais sans avantage. Puisque `noexcept` garantit qu'aucune exception ne sorte de la fonction, le compilateur peut éjecter le code qui s'en occupe. Si les fonctions ne lancent pas d'exception, il peut déterminer avec certitude quels sont les chemins de sortie, supprimer du code, réordonner les instructions et appliquer autres obscures magies dont il a le secret.
 
-Dit comme ça, on pourrait croire que plein d'optimisations s'offrent à nous, mais non. Premièrement, les compilateurs sont capables de faire des exceptions qui n'ont de coût qu'au moment de l'appel. Bien sûr, la taille de l'exécutable est plus gros et peut impacter le cache d'instruction, mais le coût d'une exception non utilisée est nulle. Secundo, ce n'est pas évident de produire un exécutable qui supprime vraiment du code, à moins d'avoir absolument toutes les fonctions en `noexcept`, la magie du compilateur se verra limité. Surtout que les bonnes options d'optimisation donnent des résultats comparables.
+Dit comme ça, on pourrait croire que plein d'optimisations s'offrent à nous, mais non. Premièrement, les compilateurs sont capables de faire des exceptions qui n'ont de coût qu'au moment de l'appel. Bien sûr, l'exécutable est plus gros et peut impacter le cache d'instruction, mais le coût d'une exception non utilisée est nulle. Secundo, ce n'est pas évident de produire un exécutable qui supprime vraiment du code, à moins d'avoir absolument toutes les fonctions en `noexcept`, la magie du compilateur se verra limité. Surtout que les bonnes options d'optimisation donnent des résultats comparables.
 
 Après plusieurs essais d'exemples de code pseudo-réaliste, en voici 2 basés sur une fonction très simple
 
@@ -78,7 +78,7 @@ int foo(int x) NOEXCEPT
 
 `NOEXCEPT` sera à remplacer par `noexcept` ou rien. Respectivement les options de compilation `-DNOEXCEPT=noexcept` et `-DNOEXCEPT=`.
 
-Ce premier exemple prouve que le compilateur est capable de prendre en compte `noexcept` pour suprimmer du code.
+Ce premier exemple prouve que le compilateur est capable de prendre en compte `noexcept` pour supprimmer du code.
 
 ```cpp
 // main.cpp
@@ -233,7 +233,7 @@ Personnellement, je déconseille d'écrire le constructeur et operator= de dépl
 
 Si on écrit explicitement `noexcept` sur une fonction par défaut -- par exemple {{<hi cpp "X(X&&) noexcept = default;"/>}} -- le compilateur va **vérifier** que le déplacement de chaque membre ne lance pas d'exception. Et dans le cas contraire, ne compile pas.
 
-Pour finir, **les destructeurs sont implicitement `noexcept`**. Si un destructeur balance une exception, le programme va s'arrêter. Les raisons sont assez simples: il est diffcile de catcher une exception d'un destructeur et il est impossible d'arriver à un état cohérent sans code spécifique si les objets ne peuvent être détruits. De plus, il faut savoir que jeter une exception pendant le traitement d'une exception appelle automatiquement `std::terminate()`. Du coup, les exceptions dans un destructeur sont plutôt une mauvaise idée.
+Pour finir, **les destructeurs sont implicitement `noexcept`**. Si un destructeur balance une exception, le programme va s'arrêter. Les raisons sont assez simples: il est difficile de catcher une exception d'un destructeur et il est impossible d'arriver à un état cohérent sans code spécifique si les objets ne peuvent être détruits. De plus, il faut savoir que jeter une exception pendant le traitement d'une exception appelle automatiquement `std::terminate()`. Du coup, les exceptions dans un destructeur sont plutôt une mauvaise idée.
 
 Mais si on veut autoriser le destructeur à jeter des exceptions ou pouvoir marquer nos fonctions en `noexcept` à la seule condition qu'une expression précise soit elle-même `noexcept` il existe un nouveau mot clef: `noexcept`. Oui, mais non, il est différent.
 
