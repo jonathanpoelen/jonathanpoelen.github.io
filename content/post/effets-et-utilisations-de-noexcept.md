@@ -78,7 +78,7 @@ int foo(int x) NOEXCEPT
 
 `NOEXCEPT` sera à remplacer par `noexcept` ou rien. Respectivement les options de compilation `-DNOEXCEPT=noexcept` et `-DNOEXCEPT=`.
 
-Ce premier exemple prouve que le compilateur est capable de prendre en compte `noexcept` pour supprimmer du code.
+Ce premier exemple prouve que le compilateur est capable de prendre en compte `noexcept` pour supprimer du code.
 
 ```cpp
 // main.cpp
