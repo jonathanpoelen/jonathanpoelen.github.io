@@ -72,7 +72,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;code&gt;NOEXCEPT&lt;/code&gt; sera à remplacer par &lt;code&gt;noexcept&lt;/code&gt; ou rien. Respectivement les options de compilation &lt;code&gt;-DNOEXCEPT=noexcept&lt;/code&gt; et &lt;code&gt;-DNOEXCEPT=&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Ce premier exemple prouve que le compilateur est capable de prendre en compte &lt;code&gt;noexcept&lt;/code&gt; pour supprimmer du code.&lt;/p&gt;
+&lt;p&gt;Ce premier exemple prouve que le compilateur est capable de prendre en compte &lt;code&gt;noexcept&lt;/code&gt; pour supprimer du code.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// main.cpp
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
 &lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
