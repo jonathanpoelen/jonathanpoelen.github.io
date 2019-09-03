@@ -201,7 +201,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 ;
 
 
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>10 minutes ;
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>11 minutes ;
   <a href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
   <a href="#fb46726ec0a3919cca046288d3ed51bc-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
   
@@ -378,6 +378,8 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
         <span class="nf">mov</span>     <span class="no">rdi</span><span class="p">,</span> <span class="no">r12</span>
         <span class="nf">call</span>    <span class="no">_Unwind_Resume</span></code></pre></div>
 <p>La seconde partie du code asm n&rsquo;est utilisée que pour le traitement d&rsquo;une exception, elle se situe en dehors du flux normal d&rsquo;exécution et disparait lorsque foo() ne lance pas d&rsquo;exception.</p>
+
+<p>Mais attention, si une fonction <code>noexcept</code> appelle une fonction qui n&rsquo;est pas <code>noexcept</code>, le compilo va ajouter du code pour forcer l&rsquo;utilisation de <code>std::terminate()</code>. Cela revient presque à un support d&rsquo;exception, mais en plus léger.</p>
 
 <p>Maintenant, il faut savoir qu&rsquo;avec l&rsquo;option <code>-flto</code> la taille des exécutables sont les mêmes que foo() soit <code>noexcept</code> ou pas. Simplement parce que le compilateur déduit que foo() ne lance pas d&rsquo;exception. Mais dans le cas de bibliothèque partagée, <code>-flto</code> ne pourra rien faire et la différence subsistera.</p>
 

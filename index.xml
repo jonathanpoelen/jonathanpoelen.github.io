@@ -173,6 +173,8 @@
         &lt;span class=&#34;nf&#34;&gt;call&lt;/span&gt;    &lt;span class=&#34;no&#34;&gt;_Unwind_Resume&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;La seconde partie du code asm n&amp;rsquo;est utilisée que pour le traitement d&amp;rsquo;une exception, elle se situe en dehors du flux normal d&amp;rsquo;exécution et disparait lorsque foo() ne lance pas d&amp;rsquo;exception.&lt;/p&gt;
 
+&lt;p&gt;Mais attention, si une fonction &lt;code&gt;noexcept&lt;/code&gt; appelle une fonction qui n&amp;rsquo;est pas &lt;code&gt;noexcept&lt;/code&gt;, le compilo va ajouter du code pour forcer l&amp;rsquo;utilisation de &lt;code&gt;std::terminate()&lt;/code&gt;. Cela revient presque à un support d&amp;rsquo;exception, mais en plus léger.&lt;/p&gt;
+
 &lt;p&gt;Maintenant, il faut savoir qu&amp;rsquo;avec l&amp;rsquo;option &lt;code&gt;-flto&lt;/code&gt; la taille des exécutables sont les mêmes que foo() soit &lt;code&gt;noexcept&lt;/code&gt; ou pas. Simplement parce que le compilateur déduit que foo() ne lance pas d&amp;rsquo;exception. Mais dans le cas de bibliothèque partagée, &lt;code&gt;-flto&lt;/code&gt; ne pourra rien faire et la différence subsistera.&lt;/p&gt;
 
 &lt;p&gt;Puisque le compilateur peut déduire lui-même qu&amp;rsquo;une fonction ne lance pas d&amp;rsquo;exception, pourquoi et surtout quand mettre noexcept ?&lt;/p&gt;
