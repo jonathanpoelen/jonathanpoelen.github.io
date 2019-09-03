@@ -180,6 +180,8 @@ bar(std::unique_ptr<int, std::default_delete<int> >&&) [clone .cold]:
 
 La seconde partie du code asm n'est utilisée que pour le traitement d'une exception, elle se situe en dehors du flux normal d'exécution et disparait lorsque foo() ne lance pas d'exception.
 
+Mais attention, si une fonction `noexcept` appelle une fonction qui n'est pas `noexcept`, le compilo va ajouter du code pour forcer l'utilisation de `std::terminate()`. Cela revient presque à un support d'exception, mais en plus léger.
+
 Maintenant, il faut savoir qu'avec l'option `-flto` la taille des exécutables sont les mêmes que foo() soit `noexcept` ou pas. Simplement parce que le compilateur déduit que foo() ne lance pas d'exception. Mais dans le cas de bibliothèque partagée, `-flto` ne pourra rien faire et la différence subsistera.
 
 Puisque le compilateur peut déduire lui-même qu'une fonction ne lance pas d'exception, pourquoi et surtout quand mettre noexcept ?
