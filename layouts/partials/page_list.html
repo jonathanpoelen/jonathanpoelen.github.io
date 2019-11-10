@@ -9,8 +9,8 @@
     </div>
     {{- end }}
     {{- if .IsHome }}
-      {{- $postSections := ($.Param "postSections" | default (slice "post")) }}
-      {{- $paginator := .Paginate ( where .Data.Pages "Section" "in" $postSections ) }}
+      {{- $postSections := (.Site.Params.postSections | default (slice "post")) }}
+      {{- $paginator := .Paginate ( where .Site.RegularPages "Section" "in" $postSections ) }}
       {{- range $paginator.Pages }}
         {{ partial "post.html" (dict "article" .) }}
       {{- end }}

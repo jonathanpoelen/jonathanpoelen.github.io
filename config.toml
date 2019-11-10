@@ -1,7 +1,7 @@
 baseURL = "https://jonathanpoelen.github.io/"
 languageCode = "fr-FR"
 DefaultContentLanguage = "fr"
-title = "Jonathan Poelen's Blog"
+title = "Le blog de Jonathan Poelen"
 #copyright = "This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."
 
 #paginate=10
