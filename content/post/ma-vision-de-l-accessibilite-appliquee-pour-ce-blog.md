@@ -161,9 +161,9 @@ Je suis également tombé sur un conseil qui va à l'encontre du bon sens: mettr
 
 Étrangement, il n'y a que sur internet où la taille est redéfinie. Sur une application de bureau personne ne s'en occupe et les polices et tailles configurées au niveau du système sont utilisées automatiquement pour les différents types d'éléments (titre, paragraphe, police monospace, etc).
 
-Mon seul conseil pour `font-size` est d'appliquer le différentiel entre Serif/Sans-Serif et la police choisie car Serif ou Sans-Serif ont un différentiel de [jambage](https://fr.wikipedia.org/wiki/Jambage) supérieur et inférieur égal au nombre de pixels demandé.
+Il est également possible d'utiliser les polices configurées au niveau du navigateur via leur [nom générique](https://developer.mozilla.org/en-US/docs/Web/CSS/font-family#Values), les principales étant `serif`, `sans-serif` et `monospace`.
 
-Comme on parle d'[empattement](https://fr.wikipedia.org/wiki/Empattement_\(typographie\)) (serif ou sans-serif), j'en suis venu à la conclusion qu'une police sans empattement est plus lisible sur un écran. Peut-être à cause de la petitesse des lettres qui "charge" visuellement les glyphes. Ou Le rétro-éclairage, je ne sais pas.
+Concernant l'[empattement](https://fr.wikipedia.org/wiki/Empattement_\(typographie\)) (serif ou sans-serif), j'en suis venu à la conclusion qu'une police sans empattement est plus lisible sur un écran. Peut-être à cause de la petitesse des lettres qui "charge" visuellement les glyphes. Ou Le rétro-éclairage, je ne sais pas.
 
 
 ## Le pouvoir de la couleur
