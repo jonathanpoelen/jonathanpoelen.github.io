@@ -25,7 +25,7 @@ En fait, il s'avère qu'en rajoutant extended dans la recherche "color shell" on
 
 Le caractère {{<hi sh "\e"/>}} correspond à la touche Esc (échap). On peut aussi l'écrire en hexadécimal {{<hi sh "\x1B"/>}} ou en octal {{<hi sh "\033"/>}}.
 
-Pour bash et `echo`, il faut utiliser l'option `-e` pour interpréter les séquences backslashés.
+Pour bash et `echo`, il faut utiliser l'option `-e` pour interpréter les séquences backslashés ou utiliser la forme {{<hi sh "$'\x1b'"/>}}.
 
 {{<hi sh "${FormatColor}"/>}} correspond à un nombre représentant une couleur de texte, de fond ou un effet. Plusieurs formats peuvent être mis en les séparant par des {{<hi sh ";"/>}} (point virgule). L'ordre n'a pas d'importance.
 
@@ -95,7 +95,7 @@ Dont {{<hi sh "${r}"/>}}, {{<hi sh "${g}"/>}} et {{<hi sh "${b}"/>}} sont à rem
 
 ## Notes de fin
 
-Outre le fait que TrueColor et les couleurs étendues ne fonctionnent pas partout, elles peuvent allègrement pourrir le rendu. Pour retrouver un rendu normal utiser `tput reset`.
+Outre le fait que TrueColor et les couleurs étendues ne fonctionnent pas partout, elles peuvent allègrement détériorer le rendu. Pour retrouver un terminal propre, il faut le réinitialiser avec `tput reset`.
 
 Le bout de code ci-dessous permet de visualiser une palette de 256 couleurs.
 
