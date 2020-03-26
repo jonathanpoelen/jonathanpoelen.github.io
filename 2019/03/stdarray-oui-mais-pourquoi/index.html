@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>std::array, oui, mais pourquoi ?</title>
-<meta name="generator" content="Hugo 0.54.0" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="std::array, oui, mais pourquoi ?">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/">
 <meta property="og:language" content="fr-FR">
@@ -26,10 +21,10 @@
 <meta property="twitter:card" content="summary">
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/">
 <meta property="twitter:title" content="std::array, oui, mais pourquoi ?">
-<meta name="description" content="Depuis C&#43;&#43;11, un nouveau type de tableau fait son apparition: std::array. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.
-Les tableaux C se convertissent en pointeur trop facilement Le tableau C à l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens.">
-<meta property="twitter:description" content="Depuis C&#43;&#43;11, un nouveau type de tableau fait son apparition: std::array. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.
-Les tableaux C se convertissent en pointeur trop facilement Le tableau C à l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens.">
+<meta name="description" content="Depuis C&#43;&#43;11, un nouveau type de tableau fait son apparition: std::array. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la STL est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.
+Les tableaux C se convertissent en pointeur trop facilement Le tableau C a l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens.">
+<meta property="twitter:description" content="Depuis C&#43;&#43;11, un nouveau type de tableau fait son apparition: std::array. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la STL est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.
+Les tableaux C se convertissent en pointeur trop facilement Le tableau C a l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -41,7 +36,7 @@ Les tableaux C se convertissent en pointeur trop facilement Le tableau C à l&rs
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -83,12 +78,12 @@ Les tableaux C se convertissent en pointeur trop facilement Le tableau C à l&rs
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">33 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -116,7 +111,7 @@ Les tableaux C se convertissent en pointeur trop facilement Le tableau C à l&rs
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -179,11 +174,12 @@ Les tableaux C se convertissent en pointeur trop facilement Le tableau C à l&rs
 <article class="post">
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="stdarray-oui-mais-pourquoi"><span>
-        &nbsp;
+        <a href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Effets et utilisations de noexcept"></i></a>
         <a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Grep, sed, awk, sort... Non ! Zsh"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></h1>
     <div class="post__title-nextprev-text sr-only">
+        <a href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/">Article suivant: Effets et utilisations de noexcept</a><br/>
         <a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/">Article précédent: Grep, sed, awk, sort... Non ! Zsh</a><br/>
     </div>
     
@@ -212,33 +208,21 @@ Les tableaux C se convertissent en pointeur trop facilement Le tableau C à l&rs
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
-<ul>
-<li><a href="#les-tableaux-c-se-convertissent-en-pointeur-trop-facilement">Les tableaux C se convertissent en pointeur trop facilement</a></li>
-<li><a href="#votre-prototype-de-fonction-ment">Votre prototype de fonction ment</a></li>
-<li><a href="#un-tableau-c-n-est-pas-copiable">Un tableau C n&rsquo;est pas copiable</a></li>
-<li><a href="#std-array-un-conteneur-comme-les-autres">Std::array, un conteneur comme les autres</a></li>
-<li><a href="#un-tableau-de-0-élément">Un tableau de 0 élément</a></li>
-<li><a href="#std-array-est-un-tuple">Std::array est un tuple</a></li>
-<li><a href="#déduction-de-taille-vs-taille-explicite">Déduction de taille VS taille explicite</a></li>
-</ul></nav>
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#les-tableaux-c-se-convertissent-en-pointeur-trop-facilement">Les tableaux C se convertissent en pointeur trop facilement</a></li>
+    <li><a href="#votre-prototype-de-fonction-ment">Votre prototype de fonction ment</a></li>
+    <li><a href="#un-tableau-c-nest-pas-copiable">Un tableau C n&rsquo;est pas copiable</a></li>
+    <li><a href="#stdarray-un-conteneur-comme-les-autres">Std::array, un conteneur comme les autres</a></li>
+    <li><a href="#un-tableau-de-0-élément">Un tableau de 0 élément</a></li>
+    <li><a href="#stdarray-est-un-tuple">Std::array est un tuple</a></li>
+    <li><a href="#déduction-de-taille-vs-taille-explicite">Déduction de taille VS taille explicite</a></nav>
         </div></aside>
-      
-
-<p>Depuis C++11, un nouveau type de tableau fait son apparition: <code>std::array</code>. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la stl est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.</p>
-
+      <p>Depuis C++11, un nouveau type de tableau fait son apparition: <code>std::array</code>. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la STL est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.</p>
 <a class="headline-hash" href="#les-tableaux-c-se-convertissent-en-pointeur-trop-facilement"><h2 id="les-tableaux-c-se-convertissent-en-pointeur-trop-facilement">Les tableaux C se convertissent en pointeur trop facilement</h2></a>
-
-<p>Le tableau C à l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens. Mais puisque les tableaux sont convertis silencieusement en pointeur, le compilateur l&rsquo;accepte sans broncher.</p>
-
+<p>Le tableau C a l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens. Mais puisque les tableaux se dégradent en pointeur, le compilateur l&rsquo;accepte sans broncher.</p>
 <p>Le seul pseudo-avantage est l&rsquo;arithmétique des pointeurs qui permet de manipuler un tableau presque comme un pointeur &ndash; à la différence que l&rsquo;incrémentation et la décrémentation ne sont pas possibles.</p>
-
 <p>Ainsi, on pourra écrire <code>auto* p = a + i</code> plutôt que <code>auto* p = &amp;a[i]</code>.</p>
-
-<p>Ou encore <code>&amp;i[a]</code> (i.e. <code>&amp;2[a]</code>), forme uniquement valide avec des tableaux ou des pointeurs. Tant qu&rsquo;à hériter du C, prenons le meilleur&hellip; :D</p>
-
+<p>Ou encore <code>&amp;i[a]</code> (i.e. <code>&amp;2[a]</code>), forme uniquement valide avec des tableaux ou des pointeurs. Tant qu'à hériter du C, prenons le meilleur&hellip; :D</p>
 <a class="headline-hash" href="#votre-prototype-de-fonction-ment"><h2 id="votre-prototype-de-fonction-ment">Votre prototype de fonction ment</h2></a>
-
 <p>Voici une fonction tout à fait banale qui affiche les valeurs d&rsquo;un tableau:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
 <span class="p">{</span>
@@ -247,75 +231,53 @@ Les tableaux C se convertissent en pointeur trop facilement Le tableau C à l&rs
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>Fonction qui ne compile pas, car <code>array</code> n&rsquo;est pas un tableau, mais un pointeur. Et un pointeur ne fonctionne pas avec les boucles sur intervalle. Gcc indique l&rsquo;erreur en affichant le prototype tel qu&rsquo;il devrait être lu: &laquo;&nbsp;dans la fonction <code>void print(const int*)</code>&nbsp;&raquo;. Clang va même jusqu&rsquo;à dire qu&rsquo;un paramètre de type <code>int[3]</code> est considéré comme un pointeur. La conversion en pointeur se propage même à ce niveau.</p>
-
-<p>Ce qui veut dire qu&rsquo;écrire un prototype qui prend un tableau de 3 <code>int</code> est un mensonge. Le compilateur ne fera aucune vérification sur la taille du tableau passé en paramètre. Pour lui, que l&rsquo;argument soit un tableau de 1, 2, 3 ou plus d&rsquo;éléments, c&rsquo;est pareil: un pointeur. Par conséquent, les 4 prototypes suivants sont strictement identiques:</p>
+</code></pre></div><p>Fonction qui ne compile pas, car <code>array</code> n&rsquo;est pas un tableau, mais un pointeur. Et un pointeur ne fonctionne pas avec les boucles sur intervalle. Gcc indique l&rsquo;erreur en affichant le prototype tel qu&rsquo;il devrait être lu: &ldquo;dans la fonction <code>void print(const int*)</code>&rdquo;. Clang va même jusqu'à dire qu&rsquo;un paramètre de type <code>int[3]</code> est considéré comme un pointeur. La conversion en pointeur se propage même à ce niveau.</p>
+<p>Ce qui veut dire qu'écrire un prototype qui prend un tableau de 3 <code>int</code> est un mensonge. Le compilateur ne fera aucune vérification sur la taille du tableau passé en paramètre. Pour lui, que l&rsquo;argument soit un tableau de 1, 2, 3 ou plus d'éléments, c&rsquo;est pareil: un pointeur. Par conséquent, les 4 prototypes suivants sont strictement identiques:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
 <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
 <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[]);</span>
 <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span><span class="o">*</span> <span class="n">array</span><span class="p">);</span>
-</code></pre></div>
-<p>Bien sûr, il est possible d&rsquo;avoir un vrai tableau en paramètre avec l&rsquo;aide des références et d&rsquo;une syntaxe alambiquée:</p>
+</code></pre></div><p>Bien sûr, il est possible d&rsquo;avoir un vrai tableau en paramètre avec l&rsquo;aide des références et d&rsquo;une syntaxe alambiquée:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">array</span><span class="p">)[</span><span class="mi">3</span><span class="p">]);</span> <span class="c1">// bienvenue dans le monde merveilleux de C++
-</span></code></pre></div>
-<p>À ce moment, le compilateur considère <code>array</code> comme étant un tableau de 3 entiers constants et la boucle précédente pourra fonctionner. Si l&rsquo;utilisateur met un tableau de moins ou de plus de 3 éléments, le compilateur va gentiment l&rsquo;envoyer bouler.</p>
-
-<a class="headline-hash" href="#un-tableau-c-n-est-pas-copiable"><h2 id="un-tableau-c-n-est-pas-copiable">Un tableau C n&rsquo;est pas copiable</h2></a>
-
-<p>Le tableau est le seul type du C qui ne supporte ni la copie, ni l&rsquo;affectation, ce qui le rend inutilisable dans n&rsquo;importe quel conteneur de la stl tel que <code>std::vector</code>. Il n&rsquo;est pas non plus possible de construire un tableau directement dans l&rsquo;appel d&rsquo;une fonction (sauf en C99 avec un cast: <code>foo((int[]){1,2})</code>).</p>
-
+</span></code></pre></div><p>À ce moment, le compilateur considère <code>array</code> comme étant un tableau de 3 entiers constants et la boucle précédente pourra fonctionner. Si l&rsquo;utilisateur met un tableau de moins ou de plus de 3 éléments, le compilateur va gentiment l&rsquo;envoyer bouler.</p>
+<a class="headline-hash" href="#un-tableau-c-nest-pas-copiable"><h2 id="un-tableau-c-nest-pas-copiable">Un tableau C n&rsquo;est pas copiable</h2></a>
+<p>Le tableau est le seul type du C qui ne supporte ni la copie, ni l&rsquo;affectation, ce qui le rend inutilisable dans n&rsquo;importe quel conteneur de la STL tel que <code>std::vector</code>. Il n&rsquo;est pas non plus possible de construire un tableau directement dans l&rsquo;appel d&rsquo;une fonction (sauf en C99 avec un cast: <code>foo((int[]){1,2})</code>).</p>
 <p>Par contre, une structure qui contient un tableau est aussi bien copiable qu&rsquo;affectable. Manipuler un tableau directement impose plusieurs contraintes complètement loufoques, mais mettez le tout dans une boîte et tout est permis. Ce qui m&rsquo;amène à <code>std::array</code>, car il fait justement office de boîte.</p>
-
-<a class="headline-hash" href="#std-array-un-conteneur-comme-les-autres"><h2 id="std-array-un-conteneur-comme-les-autres">Std::array, un conteneur comme les autres</h2></a>
-
+<a class="headline-hash" href="#stdarray-un-conteneur-comme-les-autres"><h2 id="stdarray-un-conteneur-comme-les-autres">Std::array, un conteneur comme les autres</h2></a>
 <p>Le gros avantage de <code>std::array</code> est son interface commune avec les autres conteneurs:</p>
-
 <ul>
 <li><code>size()</code></li>
 <li><code>empty()</code></li>
 <li><code>begin()</code>/<code>end()</code></li>
 <li><code>data()</code></li>
 </ul>
-
 <p>Ainsi que quelques membres utilitaires comme <code>fill()</code>, <code>front()</code>, <code>back()</code> et la panoplie de type comme <code>value_type</code>, <code>reference</code>, etc qu&rsquo;on s&rsquo;attend à voir.</p>
-
 <p>Si je prends le cas de <code>size()</code>, la version tableau C est beaucoup plus compliquée: <code>sizeof(array)/sizeof(array[0])</code>, Mais aussi dangereuse, car le comportement sera totalement imprévisible si, suite à un refactoring, notre tableau est remplacé par <code>std::vector</code>.</p>
-
-<p>La manière intelligente de faire consiste en une fonction libre <code>size(T(&amp;)[N])</code> qui s&rsquo;occupe de cela pour nous. Si le type change, alors la fonction ne correspond plus et des erreurs apparaissent. Au passage, C++17 introduit <code>std::size(cont)</code>, <code>std::empty(cont)</code> et <code>std::data(cont)</code> valident pour tous les conteneurs, y compris les tableaux. Voici <a href="https://linuxfr.org/news/cpp17-libere-size-data-et-empty">un article de Lmghs</a> sur le sujet et les raisons de ce choix.</p>
-
+<p>La manière intelligente de faire consiste en une fonction libre <code>size(T(&amp;)[N])</code> qui s&rsquo;occupe de cela pour nous. Si le type change, alors la fonction ne correspond plus et des erreurs apparaissent. Au passage, C++17 introduit <code>std::size(cont)</code>, <code>std::empty(cont)</code> et <code>std::data(cont)</code> valides pour tous les conteneurs, y compris les tableaux. Voici <a href="https://linuxfr.org/news/cpp17-libere-size-data-et-empty">un article de Lmghs</a> sur le sujet et les raisons de ce choix.</p>
 <a class="headline-hash" href="#un-tableau-de-0-élément"><h2 id="un-tableau-de-0-élément">Un tableau de 0 élément</h2></a>
-
 <p>Dans certaines circonstances, on peut vouloir un tableau de 0 élément. Cela fonctionne très bien avec <code>std::array</code> contrairement au tableau C qui doit utiliser une extension du compilateur pour le supporter (c&rsquo;est interdit par le standard). Pour pallier à ce problème, la taille du tableau est généralement forcée à 1, mais d&rsquo;autres complications surviennent dès que les types ne sont pas trivialement constructibles.</p>
-
-<a class="headline-hash" href="#std-array-est-un-tuple"><h2 id="std-array-est-un-tuple">Std::array est un tuple</h2></a>
-
+<a class="headline-hash" href="#stdarray-est-un-tuple"><h2 id="stdarray-est-un-tuple">Std::array est un tuple</h2></a>
 <p>Propriété anecdotique, les fonctions et classes associées au tuple sont disponibles pour <code>std::array</code>. Cela permet par exemple de jouer avec <code>std::apply</code> pour transformer un <code>std::array</code> en un pack variadique.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
 <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">apply</span><span class="p">([](</span><span class="k">auto</span><span class="p">...</span> <span class="n">xs</span><span class="p">){</span> <span class="k">return</span> <span class="n">xs</span> <span class="o">+</span> <span class="p">...;</span> <span class="p">},</span> <span class="n">a</span><span class="p">);</span>
-</code></pre></div>
-<p>Dans la pratique, il n&rsquo;y a pas d&rsquo;inconvénient à le faire sur un tableau C ici, mais le standard ne le prévoit pas.</p>
-
+</code></pre></div><p>Dans la pratique, il n&rsquo;y a pas d&rsquo;inconvénient à le faire sur un tableau C ici, mais le standard ne le prévoit pas.</p>
 <a class="headline-hash" href="#déduction-de-taille-vs-taille-explicite"><h2 id="déduction-de-taille-vs-taille-explicite">Déduction de taille VS taille explicite</h2></a>
-
 <p>Un gros avantage du tableau C se situe sur la déclaration de la taille au moment de l&rsquo;initialisation: le compilateur peut la déduire. Alors qu&rsquo;avec <code>std::array</code> il faut la mettre en paramètre template au risque d&rsquo;y mettre une valeur trop grande (une valeur trop petite donne une erreur).</p>
-
-<p>Sauf que depuis C++17, les <a href="https://en.cppreference.com/w/cpp/language/class_template_argument_deduction">guides de déduction</a> rendent optionnels les paramètres template. Ce n&rsquo;est pas un strict équivalent puisque le type est aussi deduit, mais c&rsquo;est généralement ce qu&rsquo;on veut car tous les éléments doivent être du même type<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>. Dans le pire des cas, on peut se tourner vers quelque chose comme <code>std::make_array&lt;T&gt;(xs...)</code> (en TS) qui permet de spécifier le type du tableau sans indiquer explicitement la taille.</p>
+<p>Sauf que depuis C++17, les <a href="https://en.cppreference.com/w/cpp/language/class_template_argument_deduction">guides de déduction</a> rendent optionnels les paramètres template. Ce n&rsquo;est pas un strict équivalent puisque le type est aussi déduit, mais c&rsquo;est généralement ce qu&rsquo;on veut car tous les éléments doivent être du même type<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Dans le pire des cas, on peut se tourner vers quelque chose comme <code>std::make_array&lt;T&gt;(xs...)</code> (en TS) qui permet de spécifier le type du tableau sans indiquer explicitement la taille.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">a1</span><span class="p">[</span><span class="mi">3</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
 <span class="kt">int</span> <span class="n">a2</span><span class="p">[]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span> <span class="c1">// taille implicite
 </span><span class="c1"></span>
 <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">a3</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
 <span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">a4</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span> <span class="c1">// taille et type implicites
 </span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">a5</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span> <span class="c1">// taille implicite
-</span></code></pre></div><div class="footnotes">
-
-<hr />
-
+</span></code></pre></div><section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li id="fn:1">On notera que <code>auto a[] {1,2,3}</code> n&rsquo;est pas autorisé.
- <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:1" role="doc-endnote">
+<p>On notera que <code>auto a[] {1,2,3}</code> n&rsquo;est pas autorisé. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>
+</section>
 
   </div>
   <footer class="post__footer">
@@ -350,6 +312,7 @@ Les tableaux C se convertissent en pointeur trop facilement Le tableau C à l&rs
     <a class="post-nav__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Grep, sed, awk, sort... Non ! Zsh</span></a>
   </div>
   <div class="post-nav__item post-nav__item--next">
+    <a class="post-nav__link" href="/2019/09/effets-et-utilisations-de-noexcept/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">Effets et utilisations de noexcept</span></a>
   </div>
 </nav>
 
@@ -366,7 +329,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

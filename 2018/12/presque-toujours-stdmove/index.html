@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Presque toujours std::move</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Presque toujours std::move">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/">
 <meta property="og:language" content="fr-FR">
@@ -26,10 +21,12 @@
 <meta property="twitter:card" content="summary">
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/">
 <meta property="twitter:title" content="Presque toujours std::move">
-<meta name="description" content="Le principe de std::move est de &laquo;&nbsp;déplacer1&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objectif de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
-Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?">
-<meta property="twitter:description" content="Le principe de std::move est de &laquo;&nbsp;déplacer1&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objectif de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
-Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?">
+<meta name="description" content="Le principe de std::move est de &ldquo;déplacer1&rdquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objectif de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
+Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?
+Rire sarcastique.">
+<meta property="twitter:description" content="Le principe de std::move est de &ldquo;déplacer1&rdquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objectif de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
+Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?
+Rire sarcastique.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -41,7 +38,7 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -84,9 +81,9 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -116,7 +113,7 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -213,70 +210,47 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
-<ul>
-<li><a href="#du-déplacement-sans-std-move">Du &laquo;&nbsp;déplacement&nbsp;&raquo; sans std::move</a></li>
-</ul></nav>
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#du-déplacement-sans-stdmove">Du &ldquo;déplacement&rdquo; sans std::move</a></nav>
         </div></aside>
-      
-
-<p>Le principe de <code>std::move</code> est de &laquo;&nbsp;déplacer<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>&nbsp;&raquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objectif de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.</p>
-
+      <p>Le principe de <code>std::move</code> est de &ldquo;déplacer<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>&rdquo; un objet qui n&rsquo;est plus utilisé dans l&rsquo;objectif de décharger la responsabilité dans une autre variable ou d&rsquo;utiliser le constructeur de déplacement à la place de celui de copie.</p>
 <p>Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&rsquo;en priver ?</p>
-
 <p><em>Rire sarcastique.</em></p>
-
-<p>Parce qu&rsquo;il est possible de &laquo;&nbsp;déplacer&nbsp;&raquo; les valeurs sans passer le constructeur !</p>
-
-<a class="headline-hash" href="#du-déplacement-sans-std-move"><h2 id="du-déplacement-sans-std-move">Du &laquo;&nbsp;déplacement&nbsp;&raquo; sans std::move</h2></a>
-
+<p>Parce qu&rsquo;il est possible de &ldquo;déplacer&rdquo; les valeurs sans passer le constructeur !</p>
+<a class="headline-hash" href="#du-déplacement-sans-stdmove"><h2 id="du-déplacement-sans-stdmove">Du &ldquo;déplacement&rdquo; sans std::move</h2></a>
 <p>C&rsquo;est fort du roquefort ! Pas de constructeur, pas de <code>std::move</code>, mais un objet qui se déplace quand même. On croirait faire de la magie !</p>
-
 <p><code>std::move</code> va forcer l&rsquo;appel à un constructeur de déplacement alors que le compilateur a les moyens &ndash; et même l&rsquo;obligation &ndash; de le faire pour nous. Ou mieux, bypasser tous les constructeurs et mettre la valeur directement là où il faut. On parle d&rsquo;<a href="https://en.cppreference.com/w/cpp/language/copy_elision">élision par copie</a> ou de (N)RVO (Named Return Value Optimization). Sauf que <code>std::move</code> bloque ces optimisations.</p>
-
-<p>Dans le cas de l&rsquo;élision de copie, le compilateur construit directement les paramètres de type T (un type sans référence) lorsqu&rsquo;on utilise un temporaire.</p>
-
+<p>Dans le cas de l'élision de copie, le compilateur construit directement les paramètres de type T (un type sans référence) lorsqu&rsquo;on utilise un temporaire.</p>
 <p>Avec <code>void foo(T)</code>, il faut faire <code>foo(T{...})</code> et non pas <code>foo(std::move(T({...})</code>. Comme on ne fait pas <code>T x = std::move(T{...})</code>, mais <code>T x = T{...}</code> (on peut faire <code>T x{}</code>, c&rsquo;est pour l&rsquo;exemple)</p>
-
 <p>Les temporaires peuvent aussi exister depuis l&rsquo;appel à une fonction qui retourne <code>T</code>.</p>
-
 <p>Avec <code>T bar()</code>, il faut faire <code>foo(bar())</code>, et non pas <code>foo(std::move(bar()))</code>.</p>
-
 <p>La (N)RVO est une optimisation qui fonctionne sur le même principe au niveau de la valeur de retour.</p>
-
-<p>On n&rsquo;écrit pas <code>T bar() { return std::move(T{...}); }</code>, mais <code>T bar() { return T{...}; }</code>.</p>
-
+<p>On n'écrit pas <code>T bar() { return std::move(T{...}); }</code>, mais <code>T bar() { return T{...}; }</code>.</p>
 <p>Le compilateur possède aussi un comportement spécial pour la variable locale retournée: celle-ci doit être déplacée si possible. Et si possible, on optimise avec une élision.</p>
-
 <p>On écrit</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
   <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
   <span class="c1">// ...
 </span><span class="c1"></span>  <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>À la place de</p>
+</code></pre></div><p>À la place de</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
   <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
   <span class="c1">// ...
 </span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>Au final, les seuls moments où <code>std::move</code> devrait être utilisé, sont</p>
-
+</code></pre></div><p>Au final, les seuls moments où <code>std::move</code> devrait être utilisé, sont</p>
 <ul>
 <li>Pour transférer une variable de type référence (lvalue ou rvalue) en la forçant en rvalue.</li>
 <li>Pour passer une variable de type plein (sans référence) à une autre fonction.</li>
 </ul>
-<div class="footnotes">
-
-<hr />
-
+<section class="footnotes" role="doc-endnotes">
+<hr>
 <ol>
-<li id="fn:1">std::move n&rsquo;est qu&rsquo;un <code>static_cast&lt;T&amp;&amp;&gt;</code>
- <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:1" role="doc-endnote">
+<p>std::move n&rsquo;est qu&rsquo;un <code>static_cast&lt;T&amp;&amp;&gt;</code> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
 </ol>
-</div>
+</section>
 
   </div>
   <footer class="post__footer">
@@ -328,7 +302,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

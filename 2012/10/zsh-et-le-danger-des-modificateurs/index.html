@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zsh et le danger des modificateurs</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Zsh et le danger des modificateurs">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/">
 <meta property="og:language" content="fr-FR">
@@ -41,7 +36,7 @@ Une variable $GTK_MODULES est définie et contient tous les modules gtk séparé
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -84,9 +79,9 @@ Une variable $GTK_MODULES est définie et contient tous les modules gtk séparé
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -116,7 +111,7 @@ Une variable $GTK_MODULES est définie et contient tous les modules gtk séparé
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -212,8 +207,10 @@ Une variable $GTK_MODULES est définie et contient tous les modules gtk séparé
 
   </header>
   <div class="post__content">
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"></nav>
+        </div></aside>
       <p>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&rsquo;interpréteur utilisé. J&rsquo;ai eu le coup une fois lorsqu&rsquo;il fallait charger le module <code>canberra-gtk</code> pour les programmes java.</p>
-
 <p>Une variable <code>$GTK_MODULES</code> est définie et contient tous les modules gtk séparés par des deux points (<code>:</code>).
 Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-gtk-module</code>. Les fautifs ? <code>52libcanberra-gtk-module_add-to-gtk-modules</code> et <code>52libcanberra-gtk3-module_add-to-gtk-modules</code> Avec un contenu identique:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
@@ -222,27 +219,21 @@ Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-
     <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">:canberra-gtk-module&#34;</span>
 <span class="k">fi</span>
 
-<span class="nb">export</span> GTK_MODULES</code></pre></div>
-<p>Et là, paf ! C&rsquo;est le drame. <code>$GTK_MODULES</code> = <code>canberra-gtk-moduleanberra-gtk-module</code>, naturellement :D.</p>
-
+<span class="nb">export</span> GTK_MODULES
+</code></pre></div><p>Et là, paf ! C&rsquo;est le drame. <code>$GTK_MODULES</code> = <code>canberra-gtk-moduleanberra-gtk-module</code>, naturellement :D.</p>
 <p>Vous venez d&rsquo;assister à l&rsquo;effet du modificateur <code>c</code> (dans <code>:c</code>) qui ajoute le chemin de l&rsquo;executable présent dans <code>$GTK_MODULES</code>. Comme <code>canberra-gtk-module</code> n&rsquo;est pas un executable, rien n&rsquo;est fait, mais <code>:c</code> disparaît. Avec l&rsquo;auto-complétion on peut voir qu&rsquo;il y en a une petite quinzaine de disponibles, de quoi tomber plusieurs fois dans le piège.</p>
-
 <p>Les modificateurs existent aussi dans bash, mais ils sont moins nombreux et ne s&rsquo;utilisent qu&rsquo;avec l&rsquo;historique (paragraphe <code>HISTORY EXPANSION</code> du manuel).</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> unfichier.txt
-<span class="nb">echo</span> !:1:r</code></pre></div>
-<p>Résultat :</p>
-
+<span class="nb">echo</span> !:1:r
+</code></pre></div><p>Résultat :</p>
 <div class="highlight-nocode"><pre class="chroma-nocode"><code>unfichier.txt
 unfichier
-</code></pre></div>
-
-<p>Quasiment jamais utilisé en fait.</p>
-
+</code></pre><p>Quasiment jamais utilisé en fait.</p>
 <p>Mais voilà, zsh les généralise aussi aux variables ce qui engendre une erreur dans <code>GTK_MODULES</code>.</p>
-
 <p>Alors comment faire ?
 Simple, entourer la variable d&rsquo;accolades:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GTK_MODULES</span><span class="si">}</span><span class="s2">:canberra-gtk-module&#34;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GTK_MODULES</span><span class="si">}</span><span class="s2">:canberra-gtk-module&#34;</span>
+</code></pre></div>
   </div>
   <footer class="post__footer">
     <p class="post__meta meta">
@@ -293,7 +284,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

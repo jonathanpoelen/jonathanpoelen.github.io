@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tableau dans un std::vector</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Tableau dans un std::vector">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/">
 <meta property="og:language" content="fr-FR">
@@ -28,11 +23,11 @@
 <meta property="twitter:title" content="Tableau dans un std::vector">
 <meta name="description" content="Prenons le type suivant: std::vector&lt;int[4]&gt; . Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&rsquo;est vrai !
 Ajoutons maintenant un élément à notre vector avec push_back.
-std::vector&lt;int[2]&gt; v; int a[2]{}; v.push_back(a);  Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.
+std::vector&lt;int[2]&gt; v; int a[2]{}; v.push_back(a); Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.
 La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau.">
 <meta property="twitter:description" content="Prenons le type suivant: std::vector&lt;int[4]&gt; . Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&rsquo;est vrai !
 Ajoutons maintenant un élément à notre vector avec push_back.
-std::vector&lt;int[2]&gt; v; int a[2]{}; v.push_back(a);  Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.
+std::vector&lt;int[2]&gt; v; int a[2]{}; v.push_back(a); Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.
 La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau.">
 
 </head>
@@ -45,7 +40,7 @@ La manière la plus facile pour éliminer ces erreurs de compilation est de mett
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -88,9 +83,9 @@ La manière la plus facile pour éliminer ces erreurs de compilation est de mett
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -120,7 +115,7 @@ La manière la plus facile pour éliminer ces erreurs de compilation est de mett
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -216,41 +211,34 @@ La manière la plus facile pour éliminer ces erreurs de compilation est de mett
 
   </header>
   <div class="post__content">
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"></nav>
+        </div></aside>
       <p>Prenons le type suivant: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">&gt;</span>
 </code></span>. Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&rsquo;est vrai !</p>
-
 <p>Ajoutons maintenant un élément à notre vector avec <code>push_back</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
 <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]{};</span>
 <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-</code></pre></div>
-<p>Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.</p>
-
+</code></pre></div><p>Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.</p>
 <p>La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau. Écrire ce wrapper n&rsquo;est pas très compliqué et Oh joie, Oh bonheur, il existe <a href="http://en.cppreference.com/w/cpp/container/array">std::array</a>.</p>
-
 <p>Mais si l&rsquo;on tient vraiment à notre tableau (pour d&rsquo;obscures raisons sataniques :D) il est toujours possible de modifier le comportement du vector pour qu&rsquo;il comprenne les tableaux. Ceci à travers l&rsquo;allocateur, le second paramètre template d&rsquo;un vector ; celui jamais utilisé, toujours oublié <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">là_ici</span><span class="o">&gt;</span>
 </code></span>.</p>
-
 <p>La technique consiste à remplacer l&rsquo;allocateur par une version spécialisée pour les tableaux. Le plus simple est d&rsquo;hériter d&rsquo;un <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a> et de redéfinir les 2 méthodes problématiques: <a href="http://en.cppreference.com/w/cpp/memory/allocator/construct">construct</a> et <a href="http://en.cppreference.com/w/cpp/memory/allocator/destroy">destroy</a>. On peut aussi utiliser une spécialisation de template.</p>
-
 <p>Et ne surtout pas oublier <code>rebind</code> qui permet de recréer l&rsquo;allocateur avec un type interne différent. C&rsquo;est utilisé par les conteneurs :).</p>
-
 <p>(Un <a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/">précédent article</a> permet de comprendre les mécanismes utilisés par un allocateur.)</p>
-
 <p>L&rsquo;implémentation de <code>construct</code> et <code>destroy</code> est vraiment bateau, il suffit d&rsquo;appeler le constructeur ou le destructeur pour chaque élément du tableau.</p>
-
 <p>Mais pour faire au minimum bien les choses et supporter l&rsquo;allocation de tableau de tableau (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
 </code></span>) on utilise <code>array_allocator::construct/destroy</code> si les cellules sont des tableaux (appel récursif) ou <code>std::allocator::construct/destroy</code> dans le cas contraire.</p>
-
 <p>À noter que la récursivité peut être éliminée en utilisant les propriétés d&rsquo;alignement des tableaux (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
 </code></span> -&gt; <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span>
 </code></span>).</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="k">class</span><span class="err"> </span><span class="nc">array_allocator</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">array_allocator</span><span class="p">;</span>
 
 <span class="c1">//c&#39;est juste pour les tableaux
 </span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
-<span class="k">class</span><span class="err"> </span><span class="nc">array_allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">array_allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
 <span class="o">:</span> <span class="k">public</span>  <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
@@ -262,7 +250,7 @@ La manière la plus facile pour éliminer ces erreurs de compilation est de mett
 
 <span class="k">public</span><span class="o">:</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">U</span><span class="o">&gt;</span>
-  <span class="k">struct</span> <span class="n">rebind</span>
+  <span class="k">struct</span> <span class="nc">rebind</span>
   <span class="p">{</span> <span class="k">typedef</span> <span class="n">array_allocator</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span> <span class="n">other</span><span class="p">;</span> <span class="p">};</span>
 
   <span class="kt">void</span> <span class="nf">construct</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">N</span><span class="p">],</span> <span class="k">const</span> <span class="n">T</span><span class="p">(</span><span class="o">&amp;</span><span class="n">val</span><span class="p">)[</span><span class="n">N</span><span class="p">])</span>
@@ -281,15 +269,13 @@ La manière la plus facile pour éliminer ces erreurs de compilation est de mett
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">};</span>
-</code></pre></div>
-<p>Dans l&rsquo;idéal, il faudrait un <code>construct</code> avec un nombre variable d&rsquo;arguments ce qui permet d&rsquo;utiliser <code>emplace_back</code>.
+</code></pre></div><p>Dans l&rsquo;idéal, il faudrait un <code>construct</code> avec un nombre variable d&rsquo;arguments ce qui permet d&rsquo;utiliser <code>emplace_back</code>.
 Toutefois, cette version est fonctionnelle avec <code>push_back</code> :).</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">array_allocator</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
 <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
 <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
 <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">});</span>
-</code></pre></div>
-<p>(La bibliothèque <a href="https://github.com/jonathanpoelen/falcon">falcon</a> (dont je suis le seul développeur actuellement :p) dispose d&rsquo;un allocateur de ce style: <a href="https://github.com/jonathanpoelen/falcon/blob/master/falcon/memory/generic_allocator.hpp">generic_allocator</a>. Comme son nom l&rsquo;indique, l&rsquo;allocateur couvre un spectre un peu plus large et gère en plus des types POD.)</p>
+</code></pre></div><p>(La bibliothèque <a href="https://github.com/jonathanpoelen/falcon">falcon</a> (dont je suis le seul développeur actuellement :p) dispose d&rsquo;un allocateur de ce style: <a href="https://github.com/jonathanpoelen/falcon/blob/master/falcon/memory/generic_allocator.hpp">generic_allocator</a>. Comme son nom l&rsquo;indique, l&rsquo;allocateur couvre un spectre un peu plus large et gère en plus des types POD.)</p>
 
   </div>
   <footer class="post__footer">
@@ -341,7 +327,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>De Blogspot à Hugo, il a changé de peau</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="De Blogspot à Hugo, il a changé de peau">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2017/07/de-blogspot-a-hugo-il-a-change-de-peau/">
 <meta property="og:language" content="fr-FR">
@@ -45,7 +40,7 @@ Il y a 3 mois, en regardant une classe de matrice en C&#43;&#43;, une idée m&rs
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -88,9 +83,9 @@ Il y a 3 mois, en regardant une classe de matrice en C&#43;&#43;, une idée m&rs
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -120,7 +115,7 @@ Il y a 3 mois, en regardant une classe de matrice en C&#43;&#43;, une idée m&rs
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -213,68 +208,38 @@ Il y a 3 mois, en regardant une classe de matrice en C&#43;&#43;, une idée m&rs
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
-<ul>
-<li><a href="#pourquoi-quitter-blogspot">Pourquoi quitter Blogspot ?</a></li>
-<li><a href="#essai-de-hugo">Essai de Hugo</a></li>
-<li><a href="#et-octopress">Et Octopress ?</a></li>
-<li><a href="#pour-finir">Pour finir</a></li>
-</ul></nav>
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#pourquoi-quitter-blogspot-">Pourquoi quitter Blogspot ?</a></li>
+    <li><a href="#essai-de-hugo">Essai de Hugo</a></li>
+    <li><a href="#et-octopress-">Et Octopress ?</a></li>
+    <li><a href="#pour-finir">Pour finir</a></nav>
         </div></aside>
-      
-
-<p>Il y a 2 ans je me suis dit :</p>
-
+      <p>Il y a 2 ans je me suis dit :</p>
 <blockquote>
 <p>Au prochain article, j&rsquo;essaye un autre système de blog !</p>
 </blockquote>
-
 <p>Et depuis 2 ans, plus rien&hellip; Je n&rsquo;ai pas parcouru le web à la recherche de la solution idéale, loin de là, je n&rsquo;avais juste pas d&rsquo;idée d&rsquo;article.</p>
-
 <p>Il y a 3 mois, en regardant une classe de matrice en C++, une idée m&rsquo;est venue. J&rsquo;ai écrit mon article puis cherché un système de site statique.</p>
-
-<p>Au départ, j&rsquo;avais en tête <a href="http://octopress.org/">Octopress</a> utilisé par Luc Hermitte pour son <a href="http://luchermitte.github.io/">blog</a>. Le principe est d&rsquo;écrire des fichiers en markdown, de générer le blog et mettre le tout sur github pour avoir une adresse en <code>github.io</code>. Le mettre sur github n&rsquo;est pas une obligation, mais c&rsquo;est pour moi le plus simple.</p>
-
+<p>Au départ, j&rsquo;avais en tête <a href="http://octopress.org/">Octopress</a> utilisé par Luc Hermitte pour son <a href="http://luchermitte.github.io/">blog</a>. Le principe est d'écrire des fichiers en markdown, de générer le blog et mettre le tout sur github pour avoir une adresse en <code>github.io</code>. Le mettre sur github n&rsquo;est pas une obligation, mais c&rsquo;est pour moi le plus simple.</p>
 <p>J&rsquo;ai donc essayé <a href="https://github.com/gohugoio/hugo">Hugo</a>&hellip; Ma logique est infaillible :).</p>
-
-<a class="headline-hash" href="#pourquoi-quitter-blogspot"><h2 id="pourquoi-quitter-blogspot">Pourquoi quitter Blogspot ?</h2></a>
-
+<a class="headline-hash" href="#pourquoi-quitter-blogspot-"><h2 id="pourquoi-quitter-blogspot-">Pourquoi quitter Blogspot ?</h2></a>
 <p>Avant de commencer, une petite explication sur pourquoi Blogspot ne m&rsquo;est pas pratique.</p>
-
 <p>La principale raison est que l&rsquo;utilisation de Blogspot m&rsquo;oblige à faire du post-traitement sur mes articles. Pour avoir la couleur dans les codes, ils sont écrits dans un éditeur puis convertits en HTML (via Kate dans mon cas). La couleur de fond est trop contrastée pour le blog ce qui oblige un post-traitement supplémentaire. L&rsquo;ensemble est plutôt rapide à faire, mais modifier un code est pénible.</p>
-
-<p>Puisque je suis dans le mode HTML de blogspot, je me tape aussi tout le balisage des liens, paragraphes, mots importants, etc, ce qui parasite le texte. L&rsquo;absence de couleur dans la zone d&rsquo;édition n&rsquo;aide pas beaucoup.</p>
-
-<p>Autre point, j&rsquo;écris rarement un article depuis l&rsquo;interface web. Déjà parce qu&rsquo;il faut y accéder &ndash; il y a un peu trop de clics à faire et Blogspot reste lent à charger &ndash; ensuite parce que l&rsquo;éditeur est trop pauvre. Ça paraît con, mais les possibilités de mon éditeur de code sont très sollicités, même pour l&rsquo;écriture d&rsquo;un article. J&rsquo;envisage même de faire des plugins pour de la saisie rapide.</p>
-
-<p>Ceci fait qu&rsquo;utiliser un générateur de type markdown me trottait dans la tête depuis un bon moment. Il existe plein de générateurs vers HTML, <a href="http://pandoc.org/">Pandoc</a> étant probablement le plus connu. C&rsquo;est suffisant. On écrit un article, on convertit et on colle la sortie dans la zone d&rsquo;édition du blog.</p>
-
+<p>Puisque je suis dans le mode HTML de blogspot, je me tape aussi tout le balisage des liens, paragraphes, mots importants, etc, ce qui parasite le texte. L&rsquo;absence de couleur dans la zone d'édition n&rsquo;aide pas beaucoup.</p>
+<p>Autre point, j'écris rarement un article depuis l&rsquo;interface web. Déjà parce qu&rsquo;il faut y accéder &ndash; il y a un peu trop de clics à faire et Blogspot reste lent à charger &ndash; ensuite parce que l'éditeur est trop pauvre. Ça paraît con, mais les possibilités de mon éditeur de code sont très sollicités, même pour l'écriture d&rsquo;un article. J&rsquo;envisage même de faire des plugins pour de la saisie rapide.</p>
+<p>Ceci fait qu&rsquo;utiliser un générateur de type markdown me trottait dans la tête depuis un bon moment. Il existe plein de générateurs vers HTML, <a href="http://pandoc.org/">Pandoc</a> étant probablement le plus connu. C&rsquo;est suffisant. On écrit un article, on convertit et on colle la sortie dans la zone d'édition du blog.</p>
 <p>J&rsquo;aurais très bien pu utiliser Blogspot + un générateur. Sauf que je trouve Blogspot lourd à charger et les possibilités de menu et de mise en page sont un peu limitées. Alors autant voir ailleurs !</p>
-
 <a class="headline-hash" href="#essai-de-hugo"><h2 id="essai-de-hugo">Essai de Hugo</h2></a>
-
 <p>En fait, au moment où je commençais à regarder les systèmes existants, quelqu&rsquo;un sur le <a href="https://openclassrooms.com/forum/sujet/groupe-communautaire-groupe-42">MM de 42</a> mit un lien vers Hugo. Le principe reste le même &ndash; au moins pour la génération de blog &ndash; avec comme objectif principal de ne pas avoir de dépendance et de générer rapidement le site.</p>
-
 <p>Un truc qui me plaît bien est de pouvoir utiliser autre chose que le markdown par défaut, par exemple, <a href="http://asciidoc.org/">Asciidoctor</a> ou <a href="http://docutils.sourceforge.net/rst.html">ReStructuredText</a>. Les implémentations ne sont pas nativement incorporées à Hugo ce qui rend leur utilisation plus lente dans la génération (il faut appeler un programme externe). Toutefois, il y a en native 2 implémentaitons de <a href="https://gohugo.io/content-management/formats/">markdown</a> et le <a href="http://orgmode.org/">mode Org</a> de Emacs. Pour se faire une idée du mode org, il y a 3 traductions françaises dont 2 à venir de <a href="pragmatic_emacs">Pragmatic Emacs</a> sur <a href="linuxfr_org">linuxfr</a>.</p>
-
 <p>J&rsquo;ai essayé Asciidoc, mais il ne fonctionne pas tel quel, il m&rsquo;a fallu un intermédiaire qui supprime l&rsquo;option <code>--safe</code> pour la coloraion du code (celle-ci utilise <a href="pygmentize">Pygmentize</a>). Par contre, je trouve le code HTML généré vraiment trop verbeux. À mon sens, entourer les paragraphes de <code>&lt;div class=&quot;paragraph&quot;&gt;...&lt;/div&gt;</code> est plus que superflux. Je ne sais pas ce qu&rsquo;il en est des autres formats ne les ayant pas essayés, pour le moment mes besoins suffisent pour le markdown. À savoir que les formats non natifs ne peuvent pas générer le sommaire, il faut faire un post-traitement sur la sortie HTML.</p>
-
 <p>Une autre chose sympathique que je n&rsquo;ai pas eu l&rsquo;occasion d&rsquo;utiliser concerne les templates Hugo au sein même des documents. Par exemple, un template <code>image</code> qui sort un code HTML avec caption + figure + image de la bonne taille + lien pour voir l&rsquo;image d&rsquo;origine. En gros, générer un truc bien casse pied à écrire :).</p>
-
-<a class="headline-hash" href="#et-octopress"><h2 id="et-octopress">Et Octopress ?</h2></a>
-
+<a class="headline-hash" href="#et-octopress-"><h2 id="et-octopress-">Et Octopress ?</h2></a>
 <p>Bon Hugo c&rsquo;est bon pour moi, mais j&rsquo;ai rapidement fait un tour sur Octopress entre deux. Pour tout dire, j&rsquo;ai rapidement abandonné. Le plugin le plus intéressant pour moi est <a href="http://octopress.org/docs/plugins/codeblock/">Codeblock</a> et il ne fonctionne pas comme indiqué. J&rsquo;ai regardé les sources et finalement renoncé.</p>
-
 <p>Au passage, je remarque que le projet n&rsquo;est plus maintenu depuis plusieurs années et qu&rsquo;il se base sur <a href="jekyll">Jekyll</a>. J&rsquo;essaye ce dernier et me retrouve avec des problèmes de dépendances et des packageurs &ndash; il y en a pas qu&rsquo;un &ndash; qui demandent les droits root pour l&rsquo;installation. Las, j&rsquo;abandonne. Finalement, Hugo c&rsquo;est bien.</p>
-
 <a class="headline-hash" href="#pour-finir"><h2 id="pour-finir">Pour finir</h2></a>
-
 <p>J&rsquo;ai beaucoup touché au template de Hugo, aussi bien la partie CSS que HTML en me basant sur un des thèmes disponibles. À la base je voulais un thème sombre, mais j&rsquo;ai finalement adopté un thème clair pour le contenu. Premièrement parce que le thème choisi l&rsquo;est de base, deuxièmement parce que je trouve le résultat peu satisfaisant. Toutefois, le thème sombre est disponible en le sélectionnant dans le menu du navigateur: Vue -&gt; Style de page -&gt; Night theme (sur firefox, cela varie peut-être sur d&rsquo;autres navigateurs). À terme, je pense chavirer du côté obscur.</p>
-
 <p>La plupart des morceaux modifiés concernent des éritants que je rencontre sur certains sites et logiciels. J&rsquo;ai essayé de faire quelque chose d&rsquo;accessible et de pratique (là je vous vends un objet rare et de grande valeur :D). Du coup, le prochain article y sera consacré. Ça va me changer du c++ et de la méta-programmation.</p>
-
 <p>Et parce que les habitudes ont la vie dure, l&rsquo;article qui suivra sera dédié au dispatcheur d&rsquo;un std::variant. La méta-prog, on ne la quitte que les pieds devant :o).</p>
-
 <p>En même temps, les articles de l&rsquo;ancien blog seront déportés et mis à jour si besoin.</p>
 
   </div>
@@ -326,7 +291,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

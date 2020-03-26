@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valeur, référence ou pointeur ? (2/2)</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Valeur, référence ou pointeur ? (2/2)">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/">
 <meta property="og:language" content="fr-FR">
@@ -47,7 +42,7 @@ Les références possèdent un contrat beaucoup plus fort que les pointeurs: ell
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -90,9 +85,9 @@ Les références possèdent un contrat beaucoup plus fort que les pointeurs: ell
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -122,7 +117,7 @@ Les références possèdent un contrat beaucoup plus fort que les pointeurs: ell
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -219,66 +214,41 @@ Les références possèdent un contrat beaucoup plus fort que les pointeurs: ell
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
-<ul>
-<li><a href="#référence-ou-pointeur">Référence ou pointeur ?</a></li>
-<li><a href="#le-pointeur-parle-trop">Le pointeur parle trop</a></li>
-<li><a href="#plus-de-sémantique-pour-un-pointeur">Plus de sémantique pour un pointeur</a></li>
-</ul></nav>
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#référence-ou-pointeur-">Référence ou pointeur ?</a></li>
+    <li><a href="#le-pointeur-parle-trop">Le pointeur parle trop</a></li>
+    <li><a href="#plus-de-sémantique-pour-un-pointeur">Plus de sémantique pour un pointeur</a></nav>
         </div></aside>
-      
-
-<p>Dans le <a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/">précédent billet</a>, j&rsquo;opposai les paramètres par références constantes à ceux par valeurs.</p>
-
+      <p>Dans le <a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/">précédent billet</a>, j&rsquo;opposai les paramètres par références constantes à ceux par valeurs.</p>
 <p>Sans plus attendre entamons la seconde question.</p>
-
-<a class="headline-hash" href="#référence-ou-pointeur"><h2 id="référence-ou-pointeur">Référence ou pointeur ?</h2></a>
-
+<a class="headline-hash" href="#référence-ou-pointeur-"><h2 id="référence-ou-pointeur-">Référence ou pointeur ?</h2></a>
 <p>Si je dois faire court je dirai: pointeur jamais ; référence quand possible. Sans autre forme de procès :D</p>
-
 <p>Mais on me dit dans l&rsquo;oreillette qu&rsquo;il faut argumenter&hellip; Alors c&rsquo;est parti.</p>
-
 <p>Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.</p>
-
 <p>À contrario, les pointeurs peuvent changer la variable référencée ou ne pointer sur aucune variable (<a href="http://en.cppreference.com/w/cpp/types/nullptr_t">nullptr</a>).</p>
-
-<p>Une référence est l&rsquo;équivalent d&rsquo;un pointeur constant non-nul (avec une syntaxe d&rsquo;utilisation plus simple: pas besoin de déréférencer).
+<p>Une référence est l'équivalent d&rsquo;un pointeur constant non-nul (avec une syntaxe d&rsquo;utilisation plus simple: pas besoin de déréférencer).
 De leurs restrictions, celles-ci ne peuvent pas toujours correspondre au besoin ; les pointeurs sont alors envisageables.</p>
-
 <p>De plus, les pointeurs sont beaucoup utilisés dans les constructions dynamiques (allocation dynamique) quand les classes sont à <a href="http://blog.emmanueldeloget.com/index.php?post/2011/11/18/Standard-C11-%3A-la-s%C3%A9mantique-de-d%C3%A9placement">sémantique d&rsquo;entités</a>. Principalement car ces dernières ne sont pas copiables et que l&rsquo;allocation dynamique permet de s&rsquo;affranchir de la portée (le scope) en se détachant de la pile.</p>
-
 <a class="headline-hash" href="#le-pointeur-parle-trop"><h2 id="le-pointeur-parle-trop">Le pointeur parle trop</h2></a>
-
 <p>L&rsquo;usage de pointeur (pointeur nu) est cependant à prendre avec des pincettes, voici 3 questions que soulève l&rsquo;usage d&rsquo;un pointeur:</p>
-
 <ul>
 <li>Dois-je contrôler la durée de vie du pointeur (le détruire) ? [oui, non]</li>
-<li>Est-ce un élément ou une séquence d&rsquo;élément ? [séquence, simple valeur, ça dépend]</li>
+<li>Est-ce un élément ou une séquence d'élément ? [séquence, simple valeur, ça dépend]</li>
 <li>Le pointeur peut-il être nul ? [oui, non]</li>
 </ul>
-
-<p>Après un petit calcul combinatoire (2*3*2), il y a 12 réponses possibles. Le pire est de répondre: &laquo;&nbsp;ça dépend&nbsp;&raquo;. Si on l&rsquo;enlève, il reste quand même 8 possibilités.</p>
-
+<p>Après un petit calcul combinatoire (2<em>3</em>2), il y a 12 réponses possibles. Le pire est de répondre: &ldquo;ça dépend&rdquo;. Si on l&rsquo;enlève, il reste quand même 8 possibilités.</p>
 <p>La sémantique du pointeur est, au final, très faible. Lui en ajouter devient alors capital.</p>
-
 <a class="headline-hash" href="#plus-de-sémantique-pour-un-pointeur"><h2 id="plus-de-sémantique-pour-un-pointeur">Plus de sémantique pour un pointeur</h2></a>
-
 <p>Hélas, il n&rsquo;y a pas de réponse universelle, tout dépend des cas d&rsquo;usages. De plus certaines combinaisons son conceptuellement douteuses.
 Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène aux références mais idéologiquement une référence n&rsquo;est pas faite pour être détruite.</p>
-
 <p>On peut néanmoins sortir quelques règles:</p>
-
 <ul>
 <li>Si le pointeur n&rsquo;est pas nul et que l&rsquo;appelé ne gère pas la durée de vie: <code>std::reference_wrapper</code> qui permet de changer la référence utilisée.</li>
 <li>Si l&rsquo;appelé contrôle la durée de vie: pointeurs intelligents (<code>std::unique_ptr</code> en priorité, <code>std::shared_ptr</code>, &hellip;).</li>
-<li>Si le pointeur peut être nul et que l&rsquo;appelé ne gère pas la durée de vie alors un pointeur est &laquo;&nbsp;justifié&nbsp;&raquo;. En interne du moins, pour l&rsquo;extérieur un <code>non_owner_ptr</code> ou un <code>observer_ptr</code> sera plus parlant. Si le pointeur peut être invalidé pendant l&rsquo;exécution alors <code>std::weak_ptr</code> ou autres est à envisager.</li>
+<li>Si le pointeur peut être nul et que l&rsquo;appelé ne gère pas la durée de vie alors un pointeur est &ldquo;justifié&rdquo;. En interne du moins, pour l&rsquo;extérieur un <code>non_owner_ptr</code> ou un <code>observer_ptr</code> sera plus parlant. Si le pointeur peut être invalidé pendant l&rsquo;exécution alors <code>std::weak_ptr</code> ou autres est à envisager.</li>
 <li>Tout ce qui est tableau est indiqué dans les signatures des objets wrapper (<code>unique_ptr&lt;T[]&gt;</code>) ou/et grâce à un attribut de taille. De plus, s&rsquo;il faut soit des tableaux, soit une valeur alors toujours préférer le type commun: tableau (les valeurs deviennent des tableaux de taille 1). Les tableaux dynamiques sont, quant à eux, plus faciles à utiliser avec <code>std::vector</code>.</li>
 </ul>
-
 <p>Au final, l&rsquo;usage de pointeur nu est très peu utilisé, voire pas du tout. De plus, leur mauvais usage avec l&rsquo;allocation dynamique amène des fuites mémoires principalement dues aux libérations manuelles. Dans un langage comme le C++, un code non exception safe <strong>va</strong> faire des fuites mémoires. De manière générale, la libération s&rsquo;applique sur toute forme de ressource: lock, fichier, etc.</p>
-
 <p>Pour éviter cela, les ressources doivent être attachées à la pile et la puissance du déterminisme de destruction permettra de les libérer convenablement. On parle aussi de <a href="http://fr.wikipedia.org/wiki/RAII">RAII</a>. Pour rappel, tout ce qui est sur la pile est détruit à la sortie du scope. La sémantique de déplacement permettra de changer de portée.</p>
-
 <p>Le wiki de Guillaume Belz en parle très bien: <a href="http://guillaume.belz.free.fr/doku.php?id=pourquoi_le_raii_est_fondamental_en_c">pourquoi le RAII est fondamental en C++ ?</a></p>
 
   </div>
@@ -331,7 +301,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

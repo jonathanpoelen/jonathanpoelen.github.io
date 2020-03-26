@@ -3,29 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jonathan Poelen&#39;s Blog</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<title>Le blog de Jonathan Poelen</title>
+<meta name="generator" content="Hugo 0.68.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
-<link rel="alternate" type="application/rss+xml" title="Jonathan Poelen&#39;s Blog Feed" href="/index.xml" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
-<meta property="og:title" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
+<meta property="og:title" content="Le blog de Jonathan Poelen">
 <meta property="og:url" content="https://jonathanpoelen.github.io/">
 <meta property="og:language" content="fr-FR">
 <meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
 <meta property="twitter:card" content="summary">
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/">
-<meta property="twitter:title" content="Jonathan Poelen&#39;s Blog">
+<meta property="twitter:title" content="Le blog de Jonathan Poelen">
 <meta name="description" content="Le blog de Jonathan Poelen. Mon petit mémo sur tout ce qui touche à la programmation =)">
 <meta property="twitter:description" content="Le blog de Jonathan Poelen. Mon petit mémo sur tout ce qui touche à la programmation =)">
 
@@ -39,7 +34,7 @@
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -83,9 +78,9 @@
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -115,7 +110,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -178,6 +173,137 @@
         
 <article class="post">
   <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="diff%C3%A9rence-entre-et"><span>
+        <a href="#sqlite-reconstruire-la-bdd-pour-lall%25C3%25A9ger"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Sqlite, reconstruire la bdd pour l&#39;alléger"></i></a>
+        <a href="#d%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Délégation d&#39;événement en js"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/">Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#sqlite-reconstruire-la-bdd-pour-lall%25C3%25A9ger">Article suivant: Sqlite, reconstruire la bdd pour l&#39;alléger</a><br/>
+        <a href="#d%25C3%25A9l%25C3%25A9gation-d%25C3%25A9v%25C3%25A9nement-en-js">Article précédent: Délégation d&#39;événement en js</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2013-02-17T10:42:27">17 février 2013
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/script-shell" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>script-shell</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#8a748c2097cc6e626a4bac010e5693ed-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées <code>argv</code> dans pas mal d&rsquo;autres langages): <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span>.</p>
+<ul>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> est une variable ce qu&rsquo;il y a de plus normale et ne diffère pas d&rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&rsquo;y reviens après).</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> est une variable au comportement différent entre les shells basés sur sh (bash, dash, &hellip;) et les autres (ksh, zsh).</li>
+</ul>
+<p>Sur bash, il n&rsquo;y a aucune différence entre <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span>. Par contre, sur ksh/zsh, <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> représente un tableau d&rsquo;arguments. Il faut savoir que sur bash, utiliser une variable sans guillemet revient à créer autant d&rsquo;arguments qu&rsquo;il y a de mots. Les mots sont séparés en fonction des caractères de <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$IFS</span></code></span> (la variable contient : espace, tabulation et saut de ligne). C&rsquo;est pour cela qu&rsquo;il est conseillé d&rsquo;entourer ces variables de guillemets doubles.</p>
+<p>Un petit exemple pour comprendre :).</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span>
+<span class="k">for</span> v in <span class="nv">$a</span> <span class="p">;</span> <span class="k">do</span>
+  <span class="nb">echo</span> <span class="nv">$v</span>
+<span class="k">done</span>
+</code></pre></div><div class="highlight-nocode"><pre class="chroma-nocode"><code>&gt; a
+&gt; b
+&gt; c
+</code></pre><p>Le résultat est 3 lignes pour 1 paramètre, la chaîne <code>'a b c'</code> contenant des espaces s&rsquo;est fait couper. Ce n&rsquo;est pas le cas pour zsh qui ne fait pas cette césure (raison historique, j&rsquo;y reviens à la fin).</p>
+<p>Maintenant il reste <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span> qui ne diffère pas entre les shells.</p>
+<ul>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span> correspond à une seule chaîne, tout est géré en un seul bloc.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span> représente les paramètres réels. C&rsquo;est identique à <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> avec ksh et zsh.</li>
+</ul>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/#démonstration"><h2 id="démonstration">Démonstration</h2></a>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># test.sh</span>
+<span class="k">for</span> v in XXX <span class="p">;</span> <span class="k">do</span>
+  <span class="nb">echo</span> <span class="nv">$v</span>
+<span class="k">done</span>
+</code></pre></div><p>Le code ci-dessus est utilisé avec <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">./test.s <span class="s1">&#39;a b&#39;</span> c</code></span> et pour lequel <code>XXX</code> est remplacé par une des 4 variables précédemment citées.</p>
+<table>
+<thead>
+<tr>
+<th>XXX</th>
+<th>bash</th>
+<th>ksh</th>
+<th>zsh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span></td>
+<td>a<!-- raw HTML omitted -->b<!-- raw HTML omitted -->c</td>
+<td>a<!-- raw HTML omitted -->b<!-- raw HTML omitted -->c</td>
+<td>a b<!-- raw HTML omitted -->c</td>
+</tr>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span></td>
+<td>a<!-- raw HTML omitted -->b<!-- raw HTML omitted -->c</td>
+<td>a b<!-- raw HTML omitted -->c</td>
+<td>a b<!-- raw HTML omitted -->c</td>
+</tr>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span></td>
+<td>a b c</td>
+<td>a b c</td>
+<td>a b c</td>
+</tr>
+<tr>
+<td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span></td>
+<td>a b<!-- raw HTML omitted -->c</td>
+<td>a b<!-- raw HTML omitted -->c</td>
+<td>a b<!-- raw HTML omitted -->c</td>
+</tr>
+</tbody>
+</table>
+<p>Pour que zsh boucle sur des mots, il faut ajouter un flag à la variable (<span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">=*</span><span class="si">}</span></code></span>), comme ci-dessous.</p>
+<div class="highlight"><pre class="chroma"><code class="language-zsh" data-lang="zsh"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span><span class="p">;</span>
+<span class="k">for</span> v in <span class="si">${</span><span class="p">=a</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span>
+  <span class="nb">echo</span> <span class="nv">$v</span>
+<span class="k">done</span>
+</code></pre></div>
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2013-02-17T10:42:27">17 février 2013
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/script-shell" rel="category">script-shell</a>
+ ;
+  
+
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="8a748c2097cc6e626a4bac010e5693ed-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=diff%25C3%25A9rence-entre-et&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f&amp;title=diff%25C3%25A9rence-entre-et" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f02%2fdifference-entre-variables-speciales%2f&amp;name=diff%25C3%25A9rence-entre-et" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
     <div class="post__title-nextprev" id="d%C3%A9l%C3%A9gation-d%C3%A9v%C3%A9nement-en-js"><span>
         <a href="#diff%25C3%25A9rence-entre-et"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;"></i></a>
         <a href="#la-vis-cach%25C3%25A9e-de-getopt"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: La vis cachée de getopt"></i></a>
@@ -212,18 +338,15 @@
 
   </header>
   <div class="post__content">
-      <p>En règle générale les événements sont attachés à l&rsquo;élément qui va le traiter.</p>
-
+      <p>En règle générale les événements sont attachés à l'élément qui va le traiter.</p>
 <p>Par exemple en javascript, un menu (<code>ul</code>) contenant 10 entrées (<code>li</code>) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.</p>
-
-<p>Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</p>
+<p>Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l'événement est généré par un de ses fils et fait le traitement en conséquence.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ul</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;menu&#34;</span><span class="p">);</span>
 <span class="nx">ul</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span> <span class="o">===</span> <span class="nx">ul</span><span class="p">)</span> <span class="c1">// est-ce toi mon fils ?
 </span><span class="c1"></span>    <span class="nx">openWithAjax</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>On peut trouver le même type de fonction dans JQuery: <a href="https://api.jquery.com/on/">.on()</a>.</p>
+</code></pre></div><p>On peut trouver le même type de fonction dans JQuery: <a href="https://api.jquery.com/on/">.on()</a>.</p>
 
   </div>
   <footer class="post__footer">
@@ -289,8 +412,7 @@
   </header>
   <div class="post__content">
       <p>Voici une petite information très mal connue et peu utilisée du <code>getopt</code> de la lib C et de la commande shell. Ainsi que <code>Boost.Program_options</code>. Parce que boost c&rsquo;est bien :p.</p>
-
-<p>Les noms des options longues n&rsquo;ont pas besoin d&rsquo;être écrites entièrement.</p>
+<p>Les noms des options longues n&rsquo;ont pas besoin d'être écrites entièrement.</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="k">function</span> parsecmd<span class="o">()</span>
 <span class="o">{</span>
   getopt -o <span class="s1">&#39;&#39;</span> --long <span class="se">\
@@ -298,14 +420,10 @@
 </span><span class="se"></span>    -n <span class="s1">&#39;example&#39;</span> -- <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span>
 <span class="o">}</span>
 
-parsecmd --option-l --u plop bidule</code></pre></div>
-<p>Donne</p>
-
+parsecmd --option-l --u plop bidule
+</code></pre></div><p>Donne</p>
 <div class="highlight-nocode"><pre class="chroma-nocode"><code>--option-longue --une-autre-option 'plop' -- 'bidule'
-</code></pre></div>
-
-<p>La commande shell <code>getopt</code> est un peu plus souple que les autres. Si ambiguïté, la première option correspondante sera sélectionnée. Si l&rsquo;option <code>-a</code> existe ce n&rsquo;est plus le cas et le code d&rsquo;erreur <code>1</code> est retourné ainsi qu&rsquo;un petit message listant les options possibles. Mais avec <code>-a</code> les options longues peuvent commencer par un simple tiret.</p>
-
+</code></pre><p>La commande shell <code>getopt</code> est un peu plus souple que les autres. Si ambiguïté, la première option correspondante sera sélectionnée. Si l&rsquo;option <code>-a</code> existe ce n&rsquo;est plus le cas et le code d&rsquo;erreur <code>1</code> est retourné ainsi qu&rsquo;un petit message listant les options possibles. Mais avec <code>-a</code> les options longues peuvent commencer par un simple tiret.</p>
 <p>La plupart des commandes Linux utilisant <code>getopt</code>, cette astuce peut s&rsquo;utiliser assez souvent.</p>
 
   </div>
@@ -371,16 +489,11 @@ parsecmd --option-l --u plop bidule</code></pre></div>
 
   </header>
   <div class="post__content">
-      
-
-<p>Le C++ a l&rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &laquo;&nbsp;tags&nbsp;&raquo;.</p>
-
+      <p>Le C++ a l&rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &ldquo;tags&rdquo;.</p>
 <p>Comme exemple je vais utiliser les <a href="http://en.cppreference.com/w/cpp/iterator">tags présents dans les itérateurs de la STL</a> et une implémentation de la fonction <a href="http://en.cppreference.com/w/cpp/iterator/advance">std::advance()</a>.</p>
-
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#première-implémentation"><h2 id="première-implémentation">Première implémentation</h2></a>
-
 <p>La fonction <code>std::advance()</code> permet d&rsquo;incrémenter un itérateur de <code>N</code> éléments (ou décrémenter si <code>N</code> est négatif). D&rsquo;après cette description, un premier algorithme peut être émis:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Distance</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
@@ -392,58 +505,46 @@ parsecmd --option-l --u plop bidule</code></pre></div>
       <span class="o">++</span><span class="n">it</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#optimisation"><h2 id="optimisation">Optimisation</h2></a>
-
+</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#optimisation"><h2 id="optimisation">Optimisation</h2></a>
 <p>Maintenant, que se passe-t-il quand l&rsquo;itérateur est un pointeur ? Réponse: une boucle.</p>
-
 <p>Ne serait-il pas préférable de faire <code>it += n</code> !?</p>
-
 <p>C&rsquo;est là que les tags entrent en jeu.</p>
-
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#utilisation-des-tags"><h2 id="utilisation-des-tags">Utilisation des tags</h2></a>
-
 <p>Les itérateurs possèdent des types prédéfinis qui sont: <code>pointer</code>, <code>value_type</code>, <code>reference</code>, <code>difference_type</code> et <code>iterator_category</code>. C&rsquo;est ce dernier qui correspond au tag de l&rsquo;itérateur.</p>
-
 <p>En réalité un tag est une classe vide. Cela suffit, le type est porteur de l&rsquo;information. Les <a href="http://en.cppreference.com/w/cpp/iterator/iterator_tags">tags des itérateurs</a> possèdent aussi une hiérarchie et certains sont donc hérités.</p>
-
 <p>Pour récupérer le type contenu dans un itérateur il faut passer par <code>std::iterator_traits&lt;&gt;</code>, cela permet de fonctionner même avec un type scalaire comme le pointeur qui ne possède pas de type interne.</p>
-
 <p>Le tag d&rsquo;un pointeur étant <code>std::random_access_iterator_tag</code> voici une implémentation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">It</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">It</span><span class="o">&gt;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">It</span><span class="o">&gt;::</span><span class="n">iterator_category</span>
 <span class="n">iterator_category</span><span class="p">(</span><span class="k">const</span> <span class="n">It</span><span class="o">&amp;</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">return</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">It</span><span class="o">&gt;::</span><span class="n">iterator_category</span><span class="p">();</span>
 <span class="p">}</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">RandomIt</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Distance</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">RandomIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">RandomIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">random_access_iterator_tag</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">it</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Distance</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">advance</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">iterator_category</span><span class="p">(</span><span class="n">it</span><span class="p">));</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>Bien sûr, on change aussi le prototype de la précédente implémentation.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Tag</span><span class="o">&gt;</span>
+</code></pre></div><p>Bien sûr, on change aussi le prototype de la précédente implémentation.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">);</span>
-</code></pre></div>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#problème-avec-forwarditerator"><h2 id="problème-avec-forwarditerator">Problème avec ForwardIterator</h2></a>
-
+</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#problème-avec-forwarditerator"><h2 id="problème-avec-forwarditerator">Problème avec ForwardIterator</h2></a>
 <p>Toutefois un problème persiste, lorsqu&rsquo;un ForwardIterator est utilisé, il n&rsquo;y a pas d&rsquo;opération de décrémentation, et la compilation ne se fait pas. Il faut de nouveau changer notre première implémentation pour qu&rsquo;elle ne fonctionne qu&rsquo;avec <code>bidirectional_iterator_tag</code> et une implémentation généraliste qui fait une incrémentation.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Tag</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">)</span>
     <span class="o">++</span><span class="n">it</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">Distance</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">bidirectional_iterator_tag</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
@@ -455,9 +556,7 @@ parsecmd --option-l --u plop bidule</code></pre></div>
       <span class="o">++</span><span class="n">it</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#conclusion"><h2 id="conclusion">Conclusion</h2></a>
-
+</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#conclusion"><h2 id="conclusion">Conclusion</h2></a>
 <p>Les tags sont un moyen simple de spécifier les comportements liés à une classe. On peut les voir comme une liste d&rsquo;interface disponible pour cibler précisément ce qu&rsquo;il est possible de faire ou ne pas faire.</p>
 
   </div>
@@ -524,7 +623,6 @@ parsecmd --option-l --u plop bidule</code></pre></div>
   </header>
   <div class="post__content">
       <p>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&rsquo;interpréteur utilisé. J&rsquo;ai eu le coup une fois lorsqu&rsquo;il fallait charger le module <code>canberra-gtk</code> pour les programmes java.</p>
-
 <p>Une variable <code>$GTK_MODULES</code> est définie et contient tous les modules gtk séparés par des deux points (<code>:</code>).
 Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-gtk-module</code>. Les fautifs ? <code>52libcanberra-gtk-module_add-to-gtk-modules</code> et <code>52libcanberra-gtk3-module_add-to-gtk-modules</code> Avec un contenu identique:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
@@ -533,27 +631,21 @@ Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-
     <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">:canberra-gtk-module&#34;</span>
 <span class="k">fi</span>
 
-<span class="nb">export</span> GTK_MODULES</code></pre></div>
-<p>Et là, paf ! C&rsquo;est le drame. <code>$GTK_MODULES</code> = <code>canberra-gtk-moduleanberra-gtk-module</code>, naturellement :D.</p>
-
+<span class="nb">export</span> GTK_MODULES
+</code></pre></div><p>Et là, paf ! C&rsquo;est le drame. <code>$GTK_MODULES</code> = <code>canberra-gtk-moduleanberra-gtk-module</code>, naturellement :D.</p>
 <p>Vous venez d&rsquo;assister à l&rsquo;effet du modificateur <code>c</code> (dans <code>:c</code>) qui ajoute le chemin de l&rsquo;executable présent dans <code>$GTK_MODULES</code>. Comme <code>canberra-gtk-module</code> n&rsquo;est pas un executable, rien n&rsquo;est fait, mais <code>:c</code> disparaît. Avec l&rsquo;auto-complétion on peut voir qu&rsquo;il y en a une petite quinzaine de disponibles, de quoi tomber plusieurs fois dans le piège.</p>
-
 <p>Les modificateurs existent aussi dans bash, mais ils sont moins nombreux et ne s&rsquo;utilisent qu&rsquo;avec l&rsquo;historique (paragraphe <code>HISTORY EXPANSION</code> du manuel).</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> unfichier.txt
-<span class="nb">echo</span> !:1:r</code></pre></div>
-<p>Résultat :</p>
-
+<span class="nb">echo</span> !:1:r
+</code></pre></div><p>Résultat :</p>
 <div class="highlight-nocode"><pre class="chroma-nocode"><code>unfichier.txt
 unfichier
-</code></pre></div>
-
-<p>Quasiment jamais utilisé en fait.</p>
-
+</code></pre><p>Quasiment jamais utilisé en fait.</p>
 <p>Mais voilà, zsh les généralise aussi aux variables ce qui engendre une erreur dans <code>GTK_MODULES</code>.</p>
-
 <p>Alors comment faire ?
 Simple, entourer la variable d&rsquo;accolades:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GTK_MODULES</span><span class="si">}</span><span class="s2">:canberra-gtk-module&#34;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GTK_MODULES</span><span class="si">}</span><span class="s2">:canberra-gtk-module&#34;</span>
+</code></pre></div>
   </div>
   <footer class="post__footer">
     <p class="post__meta meta">
@@ -618,11 +710,9 @@ Simple, entourer la variable d&rsquo;accolades:</p>
   </header>
   <div class="post__content">
       <p>Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:</p>
-
 <blockquote>
 <p>Coder la <a href="https://fr.wikipedia.org/wiki/Suite_de_Fibonacci">suite de Fibonacci</a> en récursive et en itérative.</p>
 </blockquote>
-
 <p>Mais partout où j&rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&rsquo;on peut trouver.</p>
 <div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">//itérative
 </span><span class="c1"></span><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
@@ -645,9 +735,8 @@ Simple, entourer la variable d&rsquo;accolades:</p>
   <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">n</span> <span class="o">||</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">fib_r</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib_r</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
-<p>Sauf que cet algorithme récursif est pourri. Il recalcule sans cesse <code>fib-1</code> et <code>fib-2</code> et fait monter la pile d&rsquo;appel <strong>jusqu&rsquo;à explosion</strong> là où l&rsquo;algorithme itératif additionne une variable.</p>
-
+<span class="p">}</span>
+</code></pre></div><p>Sauf que cet algorithme récursif est pourri. Il recalcule sans cesse <code>fib-1</code> et <code>fib-2</code> et fait monter la pile d&rsquo;appel <strong>jusqu'à explosion</strong> là où l&rsquo;algorithme itératif additionne une variable.</p>
 <p>Pour avoir un algorithme récursif équivalent à celui itératif, il faut garder le même comportement. C&rsquo;est à dire garder <code>a</code> et <code>b</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r_impl</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">r</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">rp</span><span class="p">)</span>
 <span class="p">{</span>
@@ -659,8 +748,8 @@ Simple, entourer la variable d&rsquo;accolades:</p>
 <span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">return</span> <span class="n">fib_r_impl</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
-<p>Cet algo est strictement identique au premier car applique la <a href="http://fr.wikipedia.org/wiki/R%C3%A9cursion_terminale">récursion terminale</a>. Ainsi, le code généré par un compilateur (avec les options d&rsquo;optimisation) donnera un binaire identique (ou très proche). Des langages comme OCaml ou Haskel optimisent la pile quand il y a une récursion terminale.</p>
+<span class="p">}</span>
+</code></pre></div><p>Cet algo est strictement identique au premier car applique la <a href="http://fr.wikipedia.org/wiki/R%C3%A9cursion_terminale">récursion terminale</a>. Ainsi, le code généré par un compilateur (avec les options d&rsquo;optimisation) donnera un binaire identique (ou très proche). Des langages comme OCaml ou Haskel optimisent la pile quand il y a une récursion terminale.</p>
 
   </div>
   <footer class="post__footer">
@@ -726,35 +815,27 @@ Simple, entourer la variable d&rsquo;accolades:</p>
   </header>
   <div class="post__content">
       <p>Il y a 3 semaines environ je cherchais le moyen d&rsquo;utiliser la commande sed avec une regex sur plusieurs lignes. Je voulais transformer tous les <code>/\+\n\s+&quot;&quot;/</code> en rien du tout (oui, les supprimer…). Sauf que comme tel, ça ne fonctionne pas, <code>sed</code> comme beaucoup de commandes unix fonctionne par ligne. Après de lourdes et pompeuses recherches d&rsquo;au moins 7 secondes montre en main, je suis tombé sur la solution.</p>
-
 <p>Pour ce faire, il suffit d&rsquo;un identifiant, un petit label, une information de multi-ligne au milieu et 3 autres bricoles ; rien que ça :D.</p>
-
 <p>Ce qui se traduit par:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sed -e :a -e N -e <span class="s1">&#39;$!ba&#39;</span> -e s<span class="s1">&#39;/+\n\s\+&#34;&#34;//g&#39;</span></code></pre></div>
-<p>Et en version courte:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sed <span class="s1">&#39;:a;N;$!ba;s/+\n\s\+&#34;&#34;//g&#39;</span></code></pre></div>
-<p>Je sais ce que vous vous demandez: pourquoi il n&rsquo;y a pas <code>-e</code> dans la version courte ?</p>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sed -e :a -e N -e <span class="s1">&#39;$!ba&#39;</span> -e s<span class="s1">&#39;/+\n\s\+&#34;&#34;//g&#39;</span>
+</code></pre></div><p>Et en version courte:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sed <span class="s1">&#39;:a;N;$!ba;s/+\n\s\+&#34;&#34;//g&#39;</span>
+</code></pre></div><p>Je sais ce que vous vous demandez: pourquoi il n&rsquo;y a pas <code>-e</code> dans la version courte ?</p>
 <p>Mais parce que c&rsquo;est la version courte, évidemment !</p>
-
 <p>Sinon dans une moindre mesure.</p>
-
 <ul>
 <li><code>:a</code>:
-pour créer un identifiant nommé &laquo;&nbsp;a&nbsp;&raquo;, mais il peut très bien se nommer bidule.</li>
+pour créer un identifiant nommé &ldquo;a&rdquo;, mais il peut très bien se nommer bidule.</li>
 <li><code>N</code>:
 pour lire la ligne suivante et l&rsquo;ajouter dans l&rsquo;espace de recherche.</li>
 <li><code>$!ba</code>:
-Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), sauter au label (<code>b</code>) nommé &laquo;&nbsp;a&nbsp;&raquo;. C&rsquo;est une boucle.</li>
+Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), sauter au label (<code>b</code>) nommé &ldquo;a&rdquo;. C&rsquo;est une boucle.</li>
 </ul>
-
 <p>L&rsquo;espace de recherche est la partie sur laquelle s&rsquo;applique une regex. Par défaut, l&rsquo;espace de recherche ne contient qu&rsquo;une ligne à la fois qui sont manipulées individuellement. Avec cette boucle, l&rsquo;espace de recherche contient toutes les lignes (avec saut de ligne) et la regex est appliquée sur l&rsquo;ensemble du document.</p>
-
 <p>Et en bonus, quelques commandes supplémentaires bons à savoir.</p>
-
 <ul>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="m">2</span>,5s/e/U/g</code></span> remplace <code>e</code> par <code>U</code> à partir de la ligne 2 jusqu&rsquo;à la 5.</li>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,/</span><span class="nv">$fin</span><span class="s2">/&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> jusqu&rsquo;à <code>$fin</code>.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed 2,5s/e/U/g</code></span> remplace <code>e</code> par <code>U</code> à partir de la ligne 2 jusqu'à la 5.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,/</span><span class="nv">$fin</span><span class="s2">/&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> jusqu'à <code>$fin</code>.</li>
 <li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,+5&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> et sur 5 lignes.</li>
 </ul>
 
@@ -789,12 +870,10 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="rendre-accessible-le-chargement-de-lien-avec-ajax"><span>
         <a href="#sed-tout-puissant"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Sed tout puissant"></i></a>
-        <a href="#"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: "></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/">Rendre accessible le chargement de lien avec AJAX</a></h1>
     <div class="post__title-nextprev-text sr-only">
         <a href="#sed-tout-puissant">Article suivant: Sed tout puissant</a><br/>
-        <a href="#">Article précédent: </a><br/>
     </div>
     
 <p class="post__meta meta">
@@ -822,22 +901,15 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
   </header>
   <div class="post__content">
       <p>Le but d&rsquo;un site chargeant ces pages avec AJAX est double:</p>
-
 <ul>
 <li>Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées).</li>
 <li>Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins.</li>
 </ul>
-
 <p>Toutefois, si mal fait, des problèmes apparaissent au niveau de l&rsquo;historique qui n&rsquo;est plus utilisable. Par la même occasion, il sera impossible d&rsquo;accéder à une page via son url. Quant à ceux n&rsquo;ayant pas javascript ‑moteur de recherche compris‑ il est totalement impossible de visiter le site.</p>
-
 <p>Le premier problème peut se corriger avec <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#The_pushState().C2.A0method"><code>history.pushState</code></a> qui permet d&rsquo;ajouter, supprimer et modifier l&rsquo;historique d&rsquo;une page. Le second problème est tout simple, il suffit d&rsquo;indiquer une page complète et ajouter un paramètre dans l&rsquo;url pour les utilisateurs ayant javascript. Si ce paramètre existe, la page ne renvoie que le contenu désiré. Dans le cas contraire, la page est entièrement retournée.</p>
-
-<p>Par exemple avec un lien sur <code>ma_page.php</code> qui retourne une page complète. On intercepte l&rsquo;événement click. On ajoute un paramètre, par exemple <code>ajax</code>, ce qui donne <code>ma_page.php?ajax</code> puis on charge cette page. Le serveur ne renvoie que le contenu, on ajoute <code>ma_page.php</code> dans l&rsquo;historique et on remplace l&rsquo;ancien contenu par le nouveau.</p>
-
+<p>Par exemple avec un lien sur <code>ma_page.php</code> qui retourne une page complète. On intercepte l'événement click. On ajoute un paramètre, par exemple <code>ajax</code>, ce qui donne <code>ma_page.php?ajax</code> puis on charge cette page. Le serveur ne renvoie que le contenu, on ajoute <code>ma_page.php</code> dans l&rsquo;historique et on remplace l&rsquo;ancien contenu par le nouveau.</p>
 <p>Il faut également vérifier que les liens fonctionnent lorsqu&rsquo;ils sont ouverts dans un nouvel onglet. Il n&rsquo;y a rien de plus énervant pour moi qu&rsquo;un lien qui ne peut pas s&rsquo;ouvrir dans un autre onglet. J&rsquo;ai pour habitude en lisant un article ou certains sites d&rsquo;ouvrir les liens potentiellement intéressants dans un nouvel onglet. Ceux s&rsquo;ouvrant en javascript sont une vraie plaie ! Ils ouvrent une page blanche et quelle horreur de constater au bout d&rsquo;un quart d&rsquo;heure que toutes mes pages dûment sélectionnées sont ouvertes sur le néant.</p>
-
 <p>Alors soit je fuis le site, soit je commence un véritable parcours du combattant pour l&rsquo;ouvrir dans un onglet:</p>
-
 <ul>
 <li>copier l&rsquo;url (Ctrl+L, Ctrl+C)</li>
 <li>retour en arrière (Alt+gauche)</li>
@@ -845,10 +917,8 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
 <li>aller sur la page copiée (Ctrl+Shift+V ou Ctrl+V, Entrée)</li>
 <li>revenir sur l&rsquo;onglet original (Ctrl+Shift+Tab)</li>
 </ul>
-
 <p>Généralement, je fuis !</p>
-
-<p>Pour une bonne expérience utilisateur, il faut aussi indiquer les chargements quelque part, surtout quand ils s&rsquo;éternisent (c&rsquo;est perturbant de ne rien voir réagir après un clic). Et ne surtout pas oublier la gestion d&rsquo;erreur. Avoir des problèmes de connexion peut arriver à n&rsquo;importe qui, si le site ne réagit plus sans en avertir l&rsquo;utilisateur, alors dans la tête de l&rsquo;usager, le site est bogué. Mais il faut le faire de manière intelligente, pas en cachant le contenu sous une énorme popup ;).</p>
+<p>Pour une bonne expérience utilisateur, il faut aussi indiquer les chargements quelque part, surtout quand ils s'éternisent (c&rsquo;est perturbant de ne rien voir réagir après un clic). Et ne surtout pas oublier la gestion d&rsquo;erreur. Avoir des problèmes de connexion peut arriver à n&rsquo;importe qui, si le site ne réagit plus sans en avertir l&rsquo;utilisateur, alors dans la tête de l&rsquo;usager, le site est bogué. Mais il faut le faire de manière intelligente, pas en cachant le contenu sous une énorme popup ;).</p>
 
   </div>
   <footer class="post__footer">
@@ -876,155 +946,6 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
   </footer>
 </article>
 
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id=""><span>
-        <a href="#rendre-accessible-le-chargement-de-lien-avec-ajax"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Rendre accessible le chargement de lien avec AJAX"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/1/01/"></a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#rendre-accessible-le-chargement-de-lien-avec-ajax">Article suivant: Rendre accessible le chargement de lien avec AJAX</a><br/>
-    </div>
-    
-
-  </header>
-  <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 2017 ans. Les informations y figurant peuvent être dépassées.</p>
-      
-
-<p>^&mdash;
-title: &laquo;&nbsp;std::array, oui, mais pourquoi ?&nbsp;&raquo;
-#thumbnail: &laquo;&nbsp;&nbsp;&raquo;
-#description: &laquo;&nbsp;&nbsp;&raquo;
-date: 2019-03-29T17:28:19+01:00
-#lastmod: 2019-03-29T17:28:19+01:00
-slug: &laquo;&nbsp;stdarray-oui-mais-pourquoi-&nbsp;&raquo;
-#toc: false
-#tags: [ ]
-aliases: []
-categories: [ &laquo;&nbsp;c++&nbsp;&raquo; ]
-draft: false
-ghcommentid: 0</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/1/01/#expire-2028"><h2 id="expire-2028">expire: 2028</h2></a>
-
-<p>Depuis C++11, un nouveau type de tableau fait son apparition: <code>std::array</code>. S&rsquo;il est là, ce n&rsquo;est pas uniquement parce que la STL est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/1/01/#les-tableaux-c-se-convertissent-en-pointeur-trop-facilement"><h2 id="les-tableaux-c-se-convertissent-en-pointeur-trop-facilement">Les tableaux C se convertissent en pointeur trop facilement</h2></a>
-
-<p>Le tableau C a l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens. Mais puisque les tableaux se dégradent en pointeur, le compilateur l&rsquo;accepte sans broncher.</p>
-
-<p>Le seul pseudo-avantage est l&rsquo;arithmétique des pointeurs qui permet de manipuler un tableau presque comme un pointeur &ndash; à la différence que l&rsquo;incrémentation et la décrémentation ne sont pas possibles.</p>
-
-<p>Ainsi, on pourra écrire <code>auto* p = a + i</code> plutôt que <code>auto* p = &amp;a[i]</code>.</p>
-
-<p>Ou encore <code>&amp;i[a]</code> (i.e. <code>&amp;2[a]</code>), forme uniquement valide avec des tableaux ou des pointeurs. Tant qu&rsquo;à hériter du C, prenons le meilleur&hellip; :D</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/1/01/#votre-prototype-de-fonction-ment"><h2 id="votre-prototype-de-fonction-ment">Votre prototype de fonction ment</h2></a>
-
-<p>Voici une fonction tout à fait banale qui affiche les valeurs d&rsquo;un tableau:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="p">{</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="nl">i</span> <span class="p">:</span> <span class="n">array</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>Fonction qui ne compile pas, car <code>array</code> n&rsquo;est pas un tableau, mais un pointeur. Et un pointeur ne fonctionne pas avec les boucles sur intervalle. Gcc indique l&rsquo;erreur en affichant le prototype tel qu&rsquo;il devrait être lu: &laquo;&nbsp;dans la fonction <code>void print(const int*)</code>&nbsp;&raquo;. Clang va même jusqu&rsquo;à dire qu&rsquo;un paramètre de type <code>int[3]</code> est considéré comme un pointeur. La conversion en pointeur se propage même à ce niveau.</p>
-
-<p>Ce qui veut dire qu&rsquo;écrire un prototype qui prend un tableau de 3 <code>int</code> est un mensonge. Le compilateur ne fera aucune vérification sur la taille du tableau passé en paramètre. Pour lui, que l&rsquo;argument soit un tableau de 1, 2, 3 ou plus d&rsquo;éléments, c&rsquo;est pareil: un pointeur. Par conséquent, les 4 prototypes suivants sont strictement identiques:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
-<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
-<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[]);</span>
-<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span><span class="o">*</span> <span class="n">array</span><span class="p">);</span>
-</code></pre></div>
-<p>Bien sûr, il est possible d&rsquo;avoir un vrai tableau en paramètre avec l&rsquo;aide des références et d&rsquo;une syntaxe alambiquée:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">array</span><span class="p">)[</span><span class="mi">3</span><span class="p">]);</span> <span class="c1">// bienvenue dans le monde merveilleux de C++
-</span></code></pre></div>
-<p>À ce moment, le compilateur considère <code>array</code> comme étant un tableau de 3 entiers constants et la boucle précédente pourra fonctionner. Si l&rsquo;utilisateur met un tableau de moins ou de plus de 3 éléments, le compilateur va gentiment l&rsquo;envoyer bouler.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/1/01/#un-tableau-c-n-est-pas-copiable"><h2 id="un-tableau-c-n-est-pas-copiable">Un tableau C n&rsquo;est pas copiable</h2></a>
-
-<p>Le tableau est le seul type du C qui ne supporte ni la copie, ni l&rsquo;affectation, ce qui le rend inutilisable dans n&rsquo;importe quel conteneur de la STL tel que <code>std::vector</code>. Il n&rsquo;est pas non plus possible de construire un tableau directement dans l&rsquo;appel d&rsquo;une fonction (sauf en C99 avec un cast: <code>foo((int[]){1,2})</code>).</p>
-
-<p>Par contre, une structure qui contient un tableau est aussi bien copiable qu&rsquo;affectable. Manipuler un tableau directement impose plusieurs contraintes complètement loufoques, mais mettez le tout dans une boîte et tout est permis. Ce qui m&rsquo;amène à <code>std::array</code>, car il fait justement office de boîte.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/1/01/#std-array-un-conteneur-comme-les-autres"><h2 id="std-array-un-conteneur-comme-les-autres">Std::array, un conteneur comme les autres</h2></a>
-
-<p>Le gros avantage de <code>std::array</code> est son interface commune avec les autres conteneurs:</p>
-
-<ul>
-<li><code>size()</code></li>
-<li><code>empty()</code></li>
-<li><code>begin()</code>/<code>end()</code></li>
-<li><code>data()</code></li>
-</ul>
-
-<p>Ainsi que quelques membres utilitaires comme <code>fill()</code>, <code>front()</code>, <code>back()</code> et la panoplie de type comme <code>value_type</code>, <code>reference</code>, etc qu&rsquo;on s&rsquo;attend à voir.</p>
-
-<p>Si je prends le cas de <code>size()</code>, la version tableau C est beaucoup plus compliquée: <code>sizeof(array)/sizeof(array[0])</code>, Mais aussi dangereuse, car le comportement sera totalement imprévisible si, suite à un refactoring, notre tableau est remplacé par <code>std::vector</code>.</p>
-
-<p>La manière intelligente de faire consiste en une fonction libre <code>size(T(&amp;)[N])</code> qui s&rsquo;occupe de cela pour nous. Si le type change, alors la fonction ne correspond plus et des erreurs apparaissent. Au passage, C++17 introduit <code>std::size(cont)</code>, <code>std::empty(cont)</code> et <code>std::data(cont)</code> valides pour tous les conteneurs, y compris les tableaux. Voici <a href="https://linuxfr.org/news/cpp17-libere-size-data-et-empty">un article de Lmghs</a> sur le sujet et les raisons de ce choix.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/1/01/#un-tableau-de-0-élément"><h2 id="un-tableau-de-0-élément">Un tableau de 0 élément</h2></a>
-
-<p>Dans certaines circonstances, on peut vouloir un tableau de 0 élément. Cela fonctionne très bien avec <code>std::array</code> contrairement au tableau C qui doit utiliser une extension du compilateur pour le supporter (c&rsquo;est interdit par le standard). Pour pallier à ce problème, la taille du tableau est généralement forcée à 1, mais d&rsquo;autres complications surviennent dès que les types ne sont pas trivialement constructibles.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/1/01/#std-array-est-un-tuple"><h2 id="std-array-est-un-tuple">Std::array est un tuple</h2></a>
-
-<p>Propriété anecdotique, les fonctions et classes associées au tuple sont disponibles pour <code>std::array</code>. Cela permet par exemple de jouer avec <code>std::apply</code> pour transformer un <code>std::array</code> en un pack variadique.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
-<span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">apply</span><span class="p">([](</span><span class="k">auto</span><span class="p">...</span> <span class="n">xs</span><span class="p">){</span> <span class="k">return</span> <span class="n">xs</span> <span class="o">+</span> <span class="p">...;</span> <span class="p">},</span> <span class="n">a</span><span class="p">);</span>
-</code></pre></div>
-<p>Dans la pratique, il n&rsquo;y a pas d&rsquo;inconvénient à le faire sur un tableau C ici, mais le standard ne le prévoit pas.</p>
-
-<a class="headline-hash" href="https://jonathanpoelen.github.io/1/01/#déduction-de-taille-vs-taille-explicite"><h2 id="déduction-de-taille-vs-taille-explicite">Déduction de taille VS taille explicite</h2></a>
-
-<p>Un gros avantage du tableau C se situe sur la déclaration de la taille au moment de l&rsquo;initialisation: le compilateur peut la déduire. Alors qu&rsquo;avec <code>std::array</code> il faut la mettre en paramètre template au risque d&rsquo;y mettre une valeur trop grande (une valeur trop petite donne une erreur).</p>
-
-<p>Sauf que depuis C++17, les <a href="https://en.cppreference.com/w/cpp/language/class_template_argument_deduction">guides de déduction</a> rendent optionnels les paramètres template. Ce n&rsquo;est pas un strict équivalent puisque le type est aussi déduit, mais c&rsquo;est généralement ce qu&rsquo;on veut car tous les éléments doivent être du même type<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>. Dans le pire des cas, on peut se tourner vers quelque chose comme <code>std::make_array&lt;T&gt;(xs...)</code> (en TS) qui permet de spécifier le type du tableau sans indiquer explicitement la taille.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">a1</span><span class="p">[</span><span class="mi">3</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span>
-<span class="kt">int</span> <span class="n">a2</span><span class="p">[]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">}</span> <span class="c1">// taille implicite
-</span><span class="c1"></span>
-<span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">a3</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
-<span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">a4</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span> <span class="c1">// taille et type implicites
-</span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">array</span> <span class="n">a5</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_array</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span> <span class="c1">// taille implicite
-</span></code></pre></div><div class="footnotes">
-
-<hr />
-
-<ol>
-<li id="fn:1">On notera que <code>auto a[] {1,2,3}</code> n&rsquo;est pas autorisé.
- <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
-</ol>
-</div>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Par Jonathan Poelen ;
-  
-
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/1/01/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="8f57f6c0a6a13d37f24c60e9a5993627-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f1%2f01%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f1%2f01%2f&amp;title=" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f1%2f01%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f1%2f01%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f1%2f01%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f1%2f01%2f&amp;name=" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
 
     
       
@@ -1043,7 +964,7 @@ ghcommentid: 0</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

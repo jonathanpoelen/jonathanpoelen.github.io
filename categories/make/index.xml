@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>make on Jonathan Poelen&#39;s Blog</title>
+    <title>make on Le blog de Jonathan Poelen</title>
     <link>https://jonathanpoelen.github.io/categories/make/</link>
-    <description>Recent content in make on Jonathan Poelen&#39;s Blog</description>
+    <description>Recent content in make on Le blog de Jonathan Poelen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
@@ -19,7 +19,7 @@
       <pubDate>Wed, 26 Jun 2013 11:05:28 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/</guid>
-      <description>La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile &amp;laquo;&amp;nbsp;par défaut&amp;nbsp;&amp;raquo; avec plein de règles. Celui-ci est visible en tapant make -pf /dev/null dans un terminal.
+      <description>La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile &amp;ldquo;par défaut&amp;rdquo; avec plein de règles. Celui-ci est visible en tapant make -pf /dev/null dans un terminal.
 Rien qu&amp;rsquo;avec ça, on peut compiler des fichiers C, C++, archive, latex, etc. Il y a de quoi faire en fait.
 Par exemple, je crée un fichier C nommé test.c:
 int main(int ac, char** av) { return ac; } Que je compile avec make test pour créer l&amp;rsquo;exécutable test.</description>

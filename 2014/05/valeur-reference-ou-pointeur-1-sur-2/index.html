@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valeur, référence ou pointeur ? (1/2)</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Valeur, référence ou pointeur ? (1/2)">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/">
 <meta property="og:language" content="fr-FR">
@@ -29,11 +24,13 @@
 <meta name="description" content="Quand utiliser une variable par valeur, référence ou pointeur ?
  Telle fut la question qui m&rsquo;a été posée :p.
 Comme je ne suis pas entièrement satisfait de la réponse que j&rsquo;ai donné, je fais un article. Pour tout dire, la réponse n&rsquo;est pas aussi triviale que l&rsquo;on pourrait le croire depuis l&rsquo;arrivée du C&#43;&#43;11 et la sémantique de déplacement.
-Tout d&rsquo;abord, décomposons cette question en 2 parties:">
+Tout d&rsquo;abord, décomposons cette question en 2 parties:
+ Valeur ou référence constante ?">
 <meta property="twitter:description" content="Quand utiliser une variable par valeur, référence ou pointeur ?
  Telle fut la question qui m&rsquo;a été posée :p.
 Comme je ne suis pas entièrement satisfait de la réponse que j&rsquo;ai donné, je fais un article. Pour tout dire, la réponse n&rsquo;est pas aussi triviale que l&rsquo;on pourrait le croire depuis l&rsquo;arrivée du C&#43;&#43;11 et la sémantique de déplacement.
-Tout d&rsquo;abord, décomposons cette question en 2 parties:">
+Tout d&rsquo;abord, décomposons cette question en 2 parties:
+ Valeur ou référence constante ?">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -45,7 +42,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -88,9 +85,9 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -120,7 +117,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -217,89 +214,64 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
-<ul>
-<li><a href="#valeur-ou-référence-constante">Valeur ou référence constante ?</a></li>
-<li><a href="#mais-ça-c-était-avant">Mais ça c&rsquo;était avant&hellip;</a></li>
-<li><a href="#quand-la-copie-se-fait-sous-condition">Quand la copie se fait sous condition</a></li>
-<li><a href="#prise-d-objet-non-copiable-sous-condition">Prise d&rsquo;objet non-copiable sous condition</a></li>
-<li><a href="#quand-les-opérations-ne-sont-pas-connues">Quand les opérations ne sont pas connues</a></li>
-<li><a href="#pas-de-référence-constante-pour-les-observers">Pas de référence constante pour les observers</a></li>
-<li><a href="#résumé">Résumé</a></li>
-</ul></nav>
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#valeur-ou-référence-constante-">Valeur ou référence constante ?</a></li>
+    <li><a href="#mais-ça-cétait-avant">Mais ça c'était avant&hellip;</a></li>
+    <li><a href="#quand-la-copie-se-fait-sous-condition">Quand la copie se fait sous condition</a></li>
+    <li><a href="#prise-dobjet-non-copiable-sous-condition">Prise d&rsquo;objet non-copiable sous condition</a></li>
+    <li><a href="#quand-les-opérations-ne-sont-pas-connues">Quand les opérations ne sont pas connues</a></li>
+    <li><a href="#pas-de-référence-constante-pour-les-observers">Pas de référence constante pour les observers</a></li>
+    <li><a href="#résumé">Résumé</a></nav>
         </div></aside>
-      
-
-<blockquote>
+      <blockquote>
 <p>Quand utiliser une variable par valeur, référence ou pointeur ?</p>
 </blockquote>
-
 <p>Telle fut la question qui m&rsquo;a été posée :p.</p>
-
 <p>Comme je ne suis pas entièrement satisfait de la réponse que j&rsquo;ai donné, je fais un article. Pour tout dire, la réponse n&rsquo;est pas aussi triviale que l&rsquo;on pourrait le croire depuis l&rsquo;arrivée du C++11 et la sémantique de déplacement.</p>
-
 <p>Tout d&rsquo;abord, décomposons cette question en 2 parties:</p>
-
 <ul>
 <li>Valeur ou référence constante ?</li>
 <li>Référence ou pointeur ?</li>
 </ul>
-
 <p>Je réponds ici à la première, la seconde fera l&rsquo;objet d&rsquo;un autre article.</p>
-
-<a class="headline-hash" href="#valeur-ou-référence-constante"><h2 id="valeur-ou-référence-constante">Valeur ou référence constante ?</h2></a>
-
+<a class="headline-hash" href="#valeur-ou-référence-constante-"><h2 id="valeur-ou-référence-constante-">Valeur ou référence constante ?</h2></a>
 <p>Le choix se justifie en majorité par un besoin d&rsquo;optimisation. Une prise par valeur induit forcément une copie, cette dernière pouvant être extrêmement coûteuse. Par exemple, la copie d&rsquo;un <code>std::vector</code> ne se fait pas en un claquement de doigt, il y a tout un attirail derrière: allouer un espace mémoire et copier tous les éléments du vecteur précédent qui peuvent eux-mêmes faire des opérations complexes.</p>
-
 <p>À contrario, la référence constante est un alias vers une variable. Il n&rsquo;y a jamais de copie.</p>
-
 <p>J&rsquo;insiste bien sur référence <strong>constante</strong> car, pour être au plus proche de l&rsquo;effet d&rsquo;une copie, l&rsquo;objet d&rsquo;origine ne doit pas bouger. De plus, une instance constante ne peut appeler que des fonction membre constantes, ce qui assure une invariance (cf: const-correctness).</p>
-
-<p>Donc, référence constante pour les valeurs qui ne sont pas modifiés dans la fonction. Une règle dit: &laquo;&nbsp;tout ce qui est plus grand qu&rsquo;un pointeur pourrait être passé par référence constante&nbsp;&raquo;. Je préfère dire tous les types en référence constante sauf les <a href="http://en.cppreference.com/w/cpp/language/types">fondamentaux</a> (int, float, etc). Même si mettre une référence constante sur un <code>int</code> n&rsquo;est pas une erreur, je n&rsquo;adhère pas vraiment.</p>
-
+<p>Donc, référence constante pour les valeurs qui ne sont pas modifiés dans la fonction. Une règle dit: &ldquo;tout ce qui est plus grand qu&rsquo;un pointeur pourrait être passé par référence constante&rdquo;. Je préfère dire tous les types en référence constante sauf les <a href="http://en.cppreference.com/w/cpp/language/types">fondamentaux</a> (int, float, etc). Même si mettre une référence constante sur un <code>int</code> n&rsquo;est pas une erreur, je n&rsquo;adhère pas vraiment.</p>
 <p>Une seule exception cependant, quand le paramètre va de toute façon être copié localement dans la fonction pour être modifié. On pourrait croire que le résultat sera le même, mais c&rsquo;est être naïf.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span><span class="err"> </span><span class="nc">BigInt</span> <span class="p">{</span> <span class="err">…</span> <span class="p">};</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">BigInt</span> <span class="p">{</span> <span class="err">…</span> <span class="p">};</span>
 <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="n">BigInt</span> <span class="n">ret</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+  <span class="n">BigInt</span> <span class="nf">ret</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
   <span class="n">ret</span> <span class="o">+=</span> <span class="n">b</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>Supposons que BigInt fasse de l&rsquo;allocation dynamique pour représenter les nombres. Avec ce code:</p>
+</code></pre></div><p>Supposons que BigInt fasse de l&rsquo;allocation dynamique pour représenter les nombres. Avec ce code:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">BigInt</span> <span class="nf">n1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="n">BigInt</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">BigInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">n1</span><span class="p">;</span>
-</code></pre></div>
-<p>Il y a 3 allocations:</p>
-
+</code></pre></div><p>Il y a 3 allocations:</p>
 <ul>
 <li>n1</li>
 <li>BigInt(2)</li>
 <li>ret</li>
 </ul>
-
 <p>Alors que cette implémentation de <code>operator+</code> n&rsquo;en produit que 2.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">BigInt</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">a</span> <span class="o">+=</span> <span class="n">b</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>Car il y a <a href="http://en.cppreference.com/w/cpp/language/copy_elision">copy elision</a> (c&rsquo;est le même principe que la RVO mais pour les paramètres). (Voir aussi <a href="http://cpp.developpez.com/actu/53711/Operateur-d-affectation-copie-implicite-ou-explicite/">ici et la réponse de Flob90</a>.</p>
-
-<a class="headline-hash" href="#mais-ça-c-était-avant"><h2 id="mais-ça-c-était-avant">Mais ça c&rsquo;était avant&hellip;</h2></a>
-
-<p>Maintenant qu&rsquo;il y a la <a href="http://h-deb.clg.qc.ca/Sujets/Divers--cplusplus/Mouvement.html">sémantique de déplacement</a>, les copies sont préférées quand une fonction recevant le paramètre va, quoi qu&rsquo;il arrive, le copier dans une variable membre. Premièrement parce que l&rsquo;utilisateur pourra faire un <code>std::move</code> de sa variable pour s&rsquo;en &laquo;&nbsp;débarrasser&nbsp;&raquo; car il n&rsquo;en a plus besoin. Deuxièmement parce que la fonction a besoin d&rsquo;une copie et le compilateur le fera pour nous.</p>
-
+</code></pre></div><p>Car il y a <a href="http://en.cppreference.com/w/cpp/language/copy_elision">copy elision</a> (c&rsquo;est le même principe que la RVO mais pour les paramètres). (Voir aussi <a href="http://cpp.developpez.com/actu/53711/Operateur-d-affectation-copie-implicite-ou-explicite/">ici et la réponse de Flob90</a>.</p>
+<a class="headline-hash" href="#mais-ça-cétait-avant"><h2 id="mais-ça-cétait-avant">Mais ça c'était avant&hellip;</h2></a>
+<p>Maintenant qu&rsquo;il y a la <a href="http://h-deb.clg.qc.ca/Sujets/Divers--cplusplus/Mouvement.html">sémantique de déplacement</a>, les copies sont préférées quand une fonction recevant le paramètre va, quoi qu&rsquo;il arrive, le copier dans une variable membre. Premièrement parce que l&rsquo;utilisateur pourra faire un <code>std::move</code> de sa variable pour s&rsquo;en &ldquo;débarrasser&rdquo; car il n&rsquo;en a plus besoin. Deuxièmement parce que la fonction a besoin d&rsquo;une copie et le compilateur le fera pour nous.</p>
 <p>En comparaison avec une copie sur le <code>std::vector</code>, le move-constructor et le move-assignment sont extrêmement rapide: 3 affections de pointeur pour chaque vecteur.</p>
-
 <p>Par exemple avec cette base:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="k">using</span> <span class="n">vector_int_t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
 
-<span class="k">class</span><span class="err"> </span><span class="nc">A</span> <span class="p">{</span>
+<span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
   <span class="n">vector_int_t</span> <span class="n">c</span><span class="p">;</span>
 
 <span class="k">public</span><span class="o">:</span>
@@ -307,33 +279,26 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
   <span class="o">:</span> <span class="n">c</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">cont</span><span class="p">))</span>
   <span class="p">{}</span>
 <span class="p">};</span>
-</code></pre></div>
-<p>Le code suivant fait 2 allocations (comme avec les références constantes)</p>
+</code></pre></div><p>Le code suivant fait 2 allocations (comme avec les références constantes)</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
 <span class="n">A</span> <span class="nf">a</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
-</code></pre></div>
-<p>Alors que celui-ci qu&rsquo;une seule</p>
+</code></pre></div><p>Alors que celui-ci qu&rsquo;une seule</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
 <span class="n">A</span> <span class="nf">a</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
 <span class="c1">// c.size() == 0;
-</span></code></pre></div>
-<p>Et ce dernier aussi</p>
+</span></code></pre></div><p>Et ce dernier aussi</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="p">(</span><span class="n">vector_int_t</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">});</span>
 <span class="c1">// ou A({1 ,2});
-</span></code></pre></div>
-<p>Mais si le type ne possède pas de constructeur de déplacement, celui de copie sera utilisé et alors une référence constante est probablement mieux.</p>
-
+</span></code></pre></div><p>Mais si le type ne possède pas de constructeur de déplacement, celui de copie sera utilisé et alors une référence constante est probablement mieux.</p>
 <a class="headline-hash" href="#quand-la-copie-se-fait-sous-condition"><h2 id="quand-la-copie-se-fait-sous-condition">Quand la copie se fait sous condition</h2></a>
-
 <p>Il existe des paramètres pouvant être copiés, mais pas toujours. Dans ce cas, bien que la référence constante reste une bonne solution, une version prenant aussi une temporaire (rvalue ici) est probablement mieux. Mais si les types ne sont pas abstraits (comprendre full template) alors il faudra faire 2 versions: une avec rvalue et une avec constref. Ce qui se traduit, quand le code est un peu long, par l&rsquo;ajout d&rsquo;une fonction de prédicat ou une version template privée appelé par les 2 autres.</p>
-
 <p>Les <code>&amp;&amp;</code> sur les types full templates ont 2 états possibles: rvalue ou lvalue (<a href="http://en.cppreference.com/w/cpp/language/value_category">catégorie de valeurs</a>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">Foo</span> <span class="p">{</span>
-  <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
-  <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">));</span> <span class="p">}</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Foo</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">));</span> <span class="p">}</span>
 
 <span class="k">private</span><span class="o">:</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">String</span><span class="o">&gt;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">String</span><span class="o">&gt;</span>
   <span class="c1">// ici &amp;&amp; représente soit rvalue, soit une référence (constante)
 </span><span class="c1"></span>  <span class="kt">void</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">String</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// …
@@ -345,11 +310,10 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
 
   <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
 <span class="p">};</span>
-</code></pre></div>
-<p>Ou</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">Bar</span> <span class="p">{</span>
-  <span class="kt">void</span> <span class="n">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="n">str</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
-  <span class="kt">void</span> <span class="n">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="n">str</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
+</code></pre></div><p>Ou</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Bar</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="n">str</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="n">str</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
 
 <span class="k">private</span><span class="o">:</span>
   <span class="kt">bool</span> <span class="n">check</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
@@ -359,41 +323,28 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
 
   <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
 <span class="p">};</span>
-</code></pre></div>
-<a class="headline-hash" href="#prise-d-objet-non-copiable-sous-condition"><h2 id="prise-d-objet-non-copiable-sous-condition">Prise d&rsquo;objet non-copiable sous condition</h2></a>
-
+</code></pre></div><a class="headline-hash" href="#prise-dobjet-non-copiable-sous-condition"><h2 id="prise-dobjet-non-copiable-sous-condition">Prise d&rsquo;objet non-copiable sous condition</h2></a>
 <p>Par exemple, donner la propriété d&rsquo;un <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr">std::unique_ptr</a> à une classe selon certains prérequis décidés par une fonction. Contrainte supplémentaire, l&rsquo;objet n&rsquo;est pas copiable.</p>
-
 <ul>
 <li>Une référence constante n&rsquo;est pas envisageable, l&rsquo;objet ne pouvant pas être déplacé car constant.</li>
 <li>Une prise par valeur non plus (grâce à std::move), car la ressource serait systématiquement transmise à la fonction même si cette dernière ne la garde pas. L&rsquo;appelant est dans l&rsquo;incapacité de le savoir et perd la ressource.</li>
 <li>Une référence non-constante est possible, mais il ne sera alors pas possible d&rsquo;envoyer un temporaire. Il faudra obligatoirement passer par une variable intermédiaire ce qui est désagréable quand on ne va rien en faire.</li>
-<li>Reste la rvalue avec laquelle une temporaire fonctionne, mais il faudra automatiquement faire un std::move quand la variable est une référence. Cela a l&rsquo;avantage d&rsquo;informer l&rsquo;utilisateur sur l&rsquo;éventuel déplacement de ressource.</li>
+<li>Reste la rvalue avec laquelle une temporaire fonctionne, mais il faudra automatiquement faire un std::move quand la variable est une référence. Cela a l&rsquo;avantage d&rsquo;informer l&rsquo;utilisateur sur l'éventuel déplacement de ressource.</li>
 </ul>
-
-<p>Au final, bien qu&rsquo;une référence fonctionne, seule une rvalue est pratique à l&rsquo;usage. Seulement, aucunes de ces méthodes n&rsquo;indiquent une prise partielle, seule la documentation nous le dira. Ceci pourrait par contre être une convention d&rsquo;écriture: si une ressource non copiable est prise par rvalue, alors la fonction est libre de se l&rsquo;approprier quand certaines conditions internes sont remplies.</p>
-
+<p>Au final, bien qu&rsquo;une référence fonctionne, seule une rvalue est pratique à l&rsquo;usage. Seulement, aucunes de ces méthodes n&rsquo;indiquent une prise partielle, seule la documentation nous le dira. Ceci pourrait par contre être une convention d'écriture: si une ressource non copiable est prise par rvalue, alors la fonction est libre de se l&rsquo;approprier quand certaines conditions internes sont remplies.</p>
 <a class="headline-hash" href="#quand-les-opérations-ne-sont-pas-connues"><h2 id="quand-les-opérations-ne-sont-pas-connues">Quand les opérations ne sont pas connues</h2></a>
-
 <p>Reste la dernière situation: les templates. Les règles sont les mêmes qu&rsquo;avant mais si le rôle du paramètre n&rsquo;est pas défini (comprendre la fonction ne fait rien d&rsquo;autre qu&rsquo;envoyer le paramètre à une autre fonction ou que le qualifier importe peu) les paramètres sont à prendre par référence universelle (<code>T&amp;&amp;</code> pour les template). À ce moment, toutes les utilisations de cette variable devraient se faire par l&rsquo;intermédiaire de <a href="http://en.cppreference.com/w/cpp/utility/forward">std::forward</a>, même lorsqu&rsquo;une fonction membre est utilisées (la faute au <a href="http://en.cppreference.com/w/cpp/language/member_functions#const-.2C_volatile-.2C_and_ref-qualified_member_functions">qualificateur de référence sur fonction membre</a>.</p>
-
 <p>Toutefois, attention de ne pas déléguer plusieurs fois la responsabilité et de ne faire std::forward (et std::move) que sur la dernière utilisation de la variable.</p>
-
 <p>Cependant, certains objets de par leur concept seront pris par valeur. Comme les itérateurs pour la bonne raison que leurs états changent dans l&rsquo;execution de la fonction. On peut toutefois prendre l&rsquo;itérateur de fin par référence constante s&rsquo;il n&rsquo;est pas modifié.</p>
-
 <a class="headline-hash" href="#pas-de-référence-constante-pour-les-observers"><h2 id="pas-de-référence-constante-pour-les-observers">Pas de référence constante pour les observers</h2></a>
-
 <p>Bien que cela sorte du cadre de la question d&rsquo;origine, il ne faut pas prendre par référence constante une valeur à observer.</p>
-
 <p>J&rsquo;entends par observer les variables qui sont gardées en lecture dans le but de vérifier leur état à un instant t.</p>
-
 <p>Les références constantes peuvent être des temporaires à leur construction (Jusque-là c&rsquo;est défini par la norme: prolongement de la durée de vie d&rsquo;une temporaire). Le problème vient du déplacement vers un scope parent. La valeur temporaire est détruite, mais la référence est gardée ; référence sur une valeur qui n&rsquo;existe plus. Cela débouche sur un comportement indéfini et, dans le meilleurs des cas, un segfault.</p>
-
 <p><a href="http://blog.developpez.com/gpu/?p=309">Un article qui présente une situation similaire avec une lambda retournant T à travers <code>std::function&lt;const T&amp;&gt;</code>.</a></p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span><span class="cp"></span>
-<span class="k">struct</span> <span class="n">Validate</span>
+<span class="k">struct</span> <span class="nc">Validate</span>
 <span class="p">{</span>
   <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">;</span>
   <span class="kt">void</span> <span class="nf">display</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
@@ -407,19 +358,13 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
   <span class="n">Validate</span> <span class="n">x</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span>
   <span class="n">x</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>(Moi j&rsquo;ai un segfault)</p>
-
+</code></pre></div><p>(Moi j&rsquo;ai un segfault)</p>
 <p>Pour limiter ce bug, il faut empêcher de prendre une rvalue. Soit avec les constucteurs suivants:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Validate</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="o">=</span><span class="k">delete</span><span class="p">;</span>
 <span class="n">Validate</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">s</span><span class="p">(</span><span class="n">s</span><span class="p">){}</span>
-</code></pre></div>
-<p>Soit en utilisant <a href="http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper">std::reference_wrapper</a> (et <a href="http://en.cppreference.com/w/cpp/utility/functional/ref">std::cref</a>).</p>
-
-<p>Ou, peut-être mieux, faire un objet <code>observable</code> tout pareil que <code>std::reference_wrapper</code>, mais avec constructeur explicite. L&rsquo;intérêt d&rsquo;utiliser l&rsquo;un des 2 objets cités et de focaliser l&rsquo;utilisateur sur l&rsquo;aspect &laquo;&nbsp;j&rsquo;ai besoin que cette variable vive au moins aussi longtemps que moi&nbsp;&raquo;.</p>
-
+</code></pre></div><p>Soit en utilisant <a href="http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper">std::reference_wrapper</a> (et <a href="http://en.cppreference.com/w/cpp/utility/functional/ref">std::cref</a>).</p>
+<p>Ou, peut-être mieux, faire un objet <code>observable</code> tout pareil que <code>std::reference_wrapper</code>, mais avec constructeur explicite. L&rsquo;intérêt d&rsquo;utiliser l&rsquo;un des 2 objets cités et de focaliser l&rsquo;utilisateur sur l&rsquo;aspect &ldquo;j&rsquo;ai besoin que cette variable vive au moins aussi longtemps que moi&rdquo;.</p>
 <a class="headline-hash" href="#résumé"><h2 id="résumé">Résumé</h2></a>
-
 <ul>
 <li>Valeur pour les types fondamentaux (int, double, etc), ceux modifiés sans que l&rsquo;utilisateur n&rsquo;ai besoin de le savoir (ex: itérateurs ou premier paramètre de l&rsquo;opérateur &lsquo;+&rsquo;) ou les foncteur sans états (prédicats, comparateurs, &hellip;).</li>
 <li>Valeur + <code>std::move</code> quand l&rsquo;objet peut être déplacé (possède un move-ctor ou/et move-assign non trivial (ex: <code>std::string</code>, <code>std::vector</code>, &hellip;).</li>
@@ -430,7 +375,6 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:">
 <li>Référence constante pour les types inconnus (template) qui n&rsquo;ont pas d&rsquo;intérêt à être pris par valeur (ou au pire, stratégie variable selon le résultat de <code>std::is_trivially_*</code>/<code>std::is_copy_*</code>/<code>std::is_move_*</code>).</li>
 <li>Rvalue pour les types inconnus (template) quand le paramètre n&rsquo;a pas de rôle direct dans la fonction ou que le qualificateur n&rsquo;importe pas (ne pas oublier <code>std::forward</code> pour le transmettre à une autre fonction (seulement s&rsquo;il n&rsquo;est plus utilisé ensuite)).</li>
 </ul>
-
 <p><a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/">Partie 2</a></p>
 
   </div>
@@ -483,7 +427,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

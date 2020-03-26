@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ne pas empêcher la NRVO</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Ne pas empêcher la NRVO">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2013/03/ne-pas-empecher-la-nrvo/">
 <meta property="og:language" content="fr-FR">
@@ -28,10 +23,10 @@
 <meta property="twitter:title" content="Ne pas empêcher la NRVO">
 <meta name="description" content="La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la FAQ C&#43;&#43; developpez.com.
 Cependant, ces optimisations ne s&rsquo;appliquent que sur une variable de type T sans référence. Ce qui veut dire qu&rsquo;une référence ne sera pas optimisée.
-iterator operator&#43;(const iterator&amp; other, int n) { return iterator(other) &#43;= n; // pas de RVO }  Alors qu&rsquo;une décomposition de la fonction active la NRVO.">
+iterator operator&#43;(const iterator&amp; other, int n) { return iterator(other) &#43;= n; // pas de RVO } Alors qu&rsquo;une décomposition de la fonction active la NRVO.">
 <meta property="twitter:description" content="La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la FAQ C&#43;&#43; developpez.com.
 Cependant, ces optimisations ne s&rsquo;appliquent que sur une variable de type T sans référence. Ce qui veut dire qu&rsquo;une référence ne sera pas optimisée.
-iterator operator&#43;(const iterator&amp; other, int n) { return iterator(other) &#43;= n; // pas de RVO }  Alors qu&rsquo;une décomposition de la fonction active la NRVO.">
+iterator operator&#43;(const iterator&amp; other, int n) { return iterator(other) &#43;= n; // pas de RVO } Alors qu&rsquo;une décomposition de la fonction active la NRVO.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -43,7 +38,7 @@ iterator operator&#43;(const iterator&amp; other, int n) { return iterator(other
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -86,9 +81,9 @@ iterator operator&#43;(const iterator&amp; other, int n) { return iterator(other
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -118,7 +113,7 @@ iterator operator&#43;(const iterator&amp; other, int n) { return iterator(other
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -214,23 +209,23 @@ iterator operator&#43;(const iterator&amp; other, int n) { return iterator(other
 
   </header>
   <div class="post__content">
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"></nav>
+        </div></aside>
       <p>La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la <a href="https://cpp.developpez.com/faq/cpp/?page=Optimisation#Qu-est-ce-que-la-RVO">FAQ C++ developpez.com</a>.</p>
-
 <p>Cependant, ces optimisations ne s&rsquo;appliquent que sur une variable de type <code>T</code> <strong>sans référence</strong>. Ce qui veut dire qu&rsquo;une référence ne sera pas optimisée.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">iterator</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">iterator</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="k">return</span> <span class="n">iterator</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// pas de RVO
+  <span class="k">return</span> <span class="nf">iterator</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// pas de RVO
 </span><span class="c1"></span><span class="p">}</span>
-</code></pre></div>
-<p>Alors qu&rsquo;une décomposition de la fonction active la NRVO.</p>
+</code></pre></div><p>Alors qu&rsquo;une décomposition de la fonction active la NRVO.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">iterator</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">iterator</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="n">iterator</span> <span class="n">ret</span><span class="p">(</span><span class="n">other</span><span class="p">);</span>
+  <span class="n">iterator</span> <span class="nf">ret</span><span class="p">(</span><span class="n">other</span><span class="p">);</span>
   <span class="n">ret</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>C&rsquo;est une optimisation facile à faire et il est tout aussi facile de passer à côté ;).</p>
+</code></pre></div><p>C&rsquo;est une optimisation facile à faire et il est tout aussi facile de passer à côté ;).</p>
 
   </div>
   <footer class="post__footer">
@@ -282,7 +277,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

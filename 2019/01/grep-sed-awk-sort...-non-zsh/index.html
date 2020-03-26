@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grep, sed, awk, sort... Non ! Zsh</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Grep, sed, awk, sort... Non ! Zsh">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/">
 <meta property="og:language" content="fr-FR">
@@ -41,7 +36,7 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -84,9 +79,9 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -116,7 +111,7 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -179,12 +174,12 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 <article class="post">
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="grep-sed-awk-sort...-non-zsh"><span>
-        <a href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Effets et utilisations de noexcept"></i></a>
+        <a href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: std::array, oui, mais pourquoi ?"></i></a>
         <a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Presque toujours std::move"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></h1>
     <div class="post__title-nextprev-text sr-only">
-        <a href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/">Article suivant: Effets et utilisations de noexcept</a><br/>
+        <a href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/">Article suivant: std::array, oui, mais pourquoi ?</a><br/>
         <a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/">Article précédent: Presque toujours std::move</a><br/>
     </div>
     
@@ -213,53 +208,42 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
-<ul>
-<li><a href="#syntaxe-de-base">Syntaxe de base</a>
-<ul>
-<li><a href="#lire-un-fichier">Lire un fichier</a></li>
-<li><a href="#glob-et-glob-étendu">Glob et glob étendu</a></li>
-</ul></li>
-<li><a href="#équivalent-des-commandes-unix">Équivalent des commandes *Unix</a>
-<ul>
-<li><a href="#grep">grep</a></li>
-<li><a href="#agrep">agrep</a></li>
-<li><a href="#sed">sed</a></li>
-<li><a href="#head">head</a></li>
-<li><a href="#awk">awk</a></li>
-<li><a href="#find">find</a></li>
-<li><a href="#sort">sort</a></li>
-<li><a href="#manipulation-de-chemin">Manipulation de chemin</a></li>
-<li><a href="#cut">cut</a></li>
-<li><a href="#printf">printf</a></li>
-</ul></li>
-</ul></nav>
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#syntaxe-de-base">Syntaxe de base</a>
+      <ul>
+        <li><a href="#lire-un-fichier">Lire un fichier</a></li>
+        <li><a href="#glob-et-glob-étendu">Glob et glob étendu</a></li>
+      </ul>
+    </li>
+    <li><a href="#équivalent-des-commandes-unix">Équivalent des commandes *Unix</a>
+      <ul>
+        <li><a href="#grep">grep</a></li>
+        <li><a href="#agrep">agrep</a></li>
+        <li><a href="#sed">sed</a></li>
+        <li><a href="#head">head</a></li>
+        <li><a href="#awk">awk</a></li>
+        <li><a href="#find">find</a></li>
+        <li><a href="#sort">sort</a></li>
+        <li><a href="#manipulation-de-chemin">Manipulation de chemin</a></li>
+        <li><a href="#cut">cut</a></li>
+        <li><a href="#printf">printf</a></li>
+      </ul>
+    </nav>
         </div></aside>
-      
-
-<p>Depuis plusieurs années maintenant, j&rsquo;utilise Zsh comme shell par défaut. Et par la force des choses, il m&rsquo;arrive de taper des commandes zsh, de faire des boucles zsh, de penser zsh. Bref, de coder en zsh. Bien que le langage a des inconvénients, il possède de nombreuses fonctionnalités qui recouvrent celles de certains utilitaires Unix.</p>
-
+      <p>Depuis plusieurs années maintenant, j&rsquo;utilise Zsh comme shell par défaut. Et par la force des choses, il m&rsquo;arrive de taper des commandes zsh, de faire des boucles zsh, de penser zsh. Bref, de coder en zsh. Bien que le langage a des inconvénients, il possède de nombreuses fonctionnalités qui recouvrent celles de certains utilitaires Unix.</p>
 <p>Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au nombre de 3:</p>
-
 <ul>
 <li>Pas de post traitement pour mettre le résultat d&rsquo;une commande dans une variable.</li>
 <li>Beaucoup plus rapide que lancer une commande. La création de process prend du temps et se ressent dans une boucle.</li>
 <li>Écrire en 3 lettres ce qu&rsquo;on peut faire en 32. C&rsquo;est-à-dire frimer ;).</li>
 </ul>
-
 <p>Il y a aussi des inconvénients:</p>
-
 <ul>
 <li>Moins lisible, surtout lorsque l&rsquo;on remplace une suite de pipe comme <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">aaa <span class="p">|</span> bbb <span class="p">|</span> ccc</code></span>. Mais on peut simplifier avec des variables intermédiaires.</li>
 <li>Peut être plus lent lorsqu&rsquo;il y a beaucoup de texte à manipuler. En gros, faire un grep d&rsquo;un fichier de 1000 lignes est plus lent qu&rsquo;avec zsh, mais plus rapide si le fichier fait 100000 lignes, car zsh ne travaille pas par flux.</li>
 </ul>
-
 <a class="headline-hash" href="#syntaxe-de-base"><h2 id="syntaxe-de-base">Syntaxe de base</h2></a>
-
 <p>Le <code>man</code> de zsh fait plus de 5 fois celui de bash. Le manuel est tellement gros qu&rsquo;il est divisé en 16 parties + un <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">man zshall</code></span> pour les afficher tous. Difficile de tout mettre en 1 article alors je me contente de certaines parties de <code>zshexpn</code> (zsh expansion and substitution). Parmi celles utilisées ici il y a les options d&rsquo;expansion de paramètres (<span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(@)x</span><span class="si">}</span></code></span>) et les modificateurs (<span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">x</span><span class="p">:</span><span class="nv">h</span><span class="si">}</span></code></span> ou <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$x</span>:h</code></span>). Il existe un pdf compilant les options et syntaxe de zsh: <a href="http://www.bash2zsh.com/zsh_refcard/refcard.pdf">http://www.bash2zsh.com/zsh_refcard/refcard.pdf</a>.</p>
-
 <a class="headline-hash" href="#lire-un-fichier"><h3 id="lire-un-fichier">Lire un fichier</h3></a>
-
 <p>Voici comment les scripts zsh peuvent lire un fichier et mettre chaque ligne dans un tableau grâce aux extensions de paramètres:</p>
 <div class="highlight"><pre class="chroma"><code class="language-zsh" data-lang="zsh"><span class="nv">contents</span><span class="o">=</span><span class="k">$(</span>&lt;file<span class="k">)</span> <span class="c1"># lire un fichier</span>
 <span class="nv">contents</span><span class="o">=</span><span class="k">$(</span>&lt;file1 &lt;file2<span class="k">)</span> <span class="c1"># lire 2 fichiers</span>
@@ -277,15 +261,11 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 <span class="nb">echo</span> -E <span class="si">${</span><span class="p">(F)lines</span><span class="si">}</span>
 
 <span class="c1"># affiche chaque ligne d&#39;un fichier dans des crochets</span>
-<span class="nb">echo</span> -E <span class="s2">&#34;[</span><span class="si">${</span><span class="p">(j:]</span><span class="se">\n</span><span class="p">[:)</span><span class="s2">&#34;</span><span class="si">${</span><span class="p">(@f)</span><span class="k">$(</span>&lt;file<span class="k">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="si">}</span><span class="s2">]&#34;</span></code></pre></div>
-<p>Il y a encore de nombreux paramètres qui peuvent être trouvés dans le manuel ou via l&rsquo;auto-complétion de zsh. Aussi, pour simplifier les exemples qui suivront, j&rsquo;utiliserai directement les variables <code>contents</code> et <code>lines</code>.</p>
-
+<span class="nb">echo</span> -E <span class="s2">&#34;[</span><span class="si">${</span><span class="p">(j:]</span><span class="se">\n</span><span class="p">[:)</span><span class="s2">&#34;</span><span class="si">${</span><span class="p">(@f)</span><span class="k">$(</span>&lt;file<span class="k">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="si">}</span><span class="s2">]&#34;</span>
+</code></pre></div><p>Il y a encore de nombreux paramètres qui peuvent être trouvés dans le manuel ou via l&rsquo;auto-complétion de zsh. Aussi, pour simplifier les exemples qui suivront, j&rsquo;utiliserai directement les variables <code>contents</code> et <code>lines</code>.</p>
 <a class="headline-hash" href="#glob-et-glob-étendu"><h3 id="glob-et-glob-étendu">Glob et glob étendu</h3></a>
-
-<p>L&rsquo;une des grandes forces de zsh réside dans le globbing. Il ne se restreint pas qu&rsquo;à la recherche de fichier, mais peut aussi s&rsquo;appliquer sur les éléments d&rsquo;un tableau ou des chaînes pour filtrer ou transformer. En plus de <code>*</code> et <code>?</code>, zsh comprend <code>[...]</code>, <code>[^...]</code> et <code>&lt;x-y&gt;</code> pour un nombre entre <code>x</code> et <code>y</code> inclu (<code>&lt;-&gt;</code> pour n&rsquo;importe quel digit).</p>
-
+<p>L&rsquo;une des grandes forces de zsh réside dans le globbing. Il ne se restreint pas qu'à la recherche de fichier, mais peut aussi s&rsquo;appliquer sur les éléments d&rsquo;un tableau ou des chaînes pour filtrer ou transformer. En plus de <code>*</code> et <code>?</code>, zsh comprend <code>[...]</code>, <code>[^...]</code> et <code>&lt;x-y&gt;</code> pour un nombre entre <code>x</code> et <code>y</code> inclu (<code>&lt;-&gt;</code> pour n&rsquo;importe quel digit).</p>
 <p>Avec le glob étendu (<code>setopt extendedglob</code>) on possède alors un équivalent des regex:</p>
-
 <ul>
 <li><code>x#</code> 0 ou plus de <code>x</code></li>
 <li><code>x##</code> 1 ou plus de <code>x</code></li>
@@ -294,9 +274,7 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 <li><code>(#s)</code> début (équivalent de <code>^</code> des regex)</li>
 <li><code>(#e)</code> fin (équivalent de <code>$</code> des regex)</li>
 </ul>
-
 <p>Ainsi que la syntaxe ksh si activée</p>
-
 <table>
 <thead>
 <tr>
@@ -304,43 +282,33 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 <th>glob operators</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">@<span class="o">(</span>...<span class="o">)</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">(</span>...<span class="o">)</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">*<span class="o">(</span>...<span class="o">)</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">(</span>...<span class="o">)</span>#</code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">+<span class="o">(</span>...<span class="o">)</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">(</span>...<span class="o">)</span><span class="c1">##</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">?<span class="o">(</span>...<span class="o">)</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">(</span><span class="p">|</span>...<span class="o">)</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">!<span class="o">(</span>...<span class="o">)</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">(</span>^<span class="o">(</span>...<span class="o">))</span></code></span></td>
 </tr>
 </tbody>
 </table>
-
 <a class="headline-hash" href="#équivalent-des-commandes-unix"><h2 id="équivalent-des-commandes-unix">Équivalent des commandes *Unix</h2></a>
-
 <p>Maintenant que la petite introduction syntaxique est faite, on peut s&rsquo;attaquer au remplacement des commandes systèmes. Bien sûr, toutes les options d&rsquo;une commande ne peuvent pas être simulées facilement avec zsh, mais je présente ici l&rsquo;essentiel. Je précise que les commandes bash ont implicitement <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">&lt;&lt;&lt;</span><span class="nv">$contents</span></code></span> comme flux de lecture et que le résultat des commandes zsh est fait avec un <code>echo -E</code>.</p>
-
 <p>Je conseille aussi le petit <a href="https://github.com/zdharma/Zsh-100-Commits-Club/blob/master/Zsh-Native-Scripting-Handbook.adoc">Zsh Native Scripting Guide</a>.</p>
-
 <a class="headline-hash" href="#grep"><h3 id="grep">grep</h3></a>
-
 <table>
 <thead>
 <tr>
@@ -348,41 +316,32 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 <th>zsh</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">grep <span class="s1">&#39;Alligator&#39;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(M)lines:#*Alligator*</span><span class="si">}</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">grep -v <span class="s1">&#39;Alligator&#39;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">:#*Alligator*</span><span class="si">}</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">grep <span class="s1">&#39;^Alligator .* Alligator$&#39;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(M)lines:#Alligator * Alligator</span><span class="si">}</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">grep -i <span class="s1">&#39;alligator&#39;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(M)lines:#(#i)*alligator*</span><span class="si">}</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">grep -m1 <span class="s1">&#39;alligator&#39;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">[(r)*alligator*]</span><span class="si">}</span></code></span></td>
 </tr>
 </tbody>
 </table>
-
 <p><code>(#i)</code> n&rsquo;est utilisable qu&rsquo;avec <code>setopt extendedglob</code> et peut s&rsquo;appliquer sur un groupe seulement de caractère (i.e. <code>((#i)a)lbator</code>). Il existe l&rsquo;option inverse: <code>#I</code>. Ainsi que <code>#l</code> qui fait une recherche insensible à la case pour les lettres minuscules du pattern, et en majuscule pour celles en majuscule dans le pattern.</p>
-
 <a class="headline-hash" href="#agrep"><h3 id="agrep">agrep</h3></a>
-
-<p><code>agrep</code> pour &laquo;&nbsp;approximate grep&nbsp;&raquo;. C&rsquo;est un <code>grep</code> qui autorise une marge d&rsquo;erreur dans la recherche. Zsh possède une option de glob qui fait à peu près la même chose: <code>(#a3)</code> pour une recherche avec 3 erreurs.</p>
-
+<p><code>agrep</code> pour &ldquo;approximate grep&rdquo;. C&rsquo;est un <code>grep</code> qui autorise une marge d&rsquo;erreur dans la recherche. Zsh possède une option de glob qui fait à peu près la même chose: <code>(#a3)</code> pour une recherche avec 3 erreurs.</p>
 <table>
 <thead>
 <tr>
@@ -390,7 +349,6 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 <th>zsh</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">agrep -3 <span class="s1">&#39;alligator&#39;</span></code></span></td>
@@ -398,9 +356,7 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 </tr>
 </tbody>
 </table>
-
 <a class="headline-hash" href="#sed"><h3 id="sed">sed</h3></a>
-
 <table>
 <thead>
 <tr>
@@ -408,42 +364,34 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 <th>zsh</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed <span class="s1">&#39;3,6!d&#39;</span></code></span></td>
-<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$lines</span><span class="o">[</span><span class="m">3</span>,5<span class="o">]</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$lines</span><span class="o">[</span>3,5<span class="o">]</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed s/alligator/crocodile/</code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">contents</span><span class="p">/alligator/crocodile</span><span class="si">}</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed s/alligator/crocodile/g</code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">contents</span><span class="p">//alligator/crocodile</span><span class="si">}</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed <span class="s1">&#39;s/^alligator\*$/_/&#39;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">:</span><span class="nv">s</span><span class="p">%alligator*%_</span><span class="si">}</span></code></span> ou <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">/(#s)alligator</span><span class="se">\*</span><span class="p">(#e)/_</span><span class="si">}</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed <span class="s1">&#39;s/^\w\+$/[&amp;]/&#39;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">:/(#m)[[:</span><span class="nv">alnum</span><span class="p">:]]##/[</span><span class="nv">$MATCH</span><span class="p">]</span><span class="si">}</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed -E <span class="s1">&#39;s/^(\w+) = (\w+)$/\2 = \1/&#39;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">:/(#b)([[:</span><span class="nv">alnum</span><span class="p">:]]##) = ([[:</span><span class="nv">alnum</span><span class="p">:]]##)/</span><span class="nv">$match</span><span class="p">[2] = </span><span class="nv">$match</span><span class="p">[1]</span><span class="si">}</span></code></span></td>
 </tr>
 </tbody>
 </table>
-
 <a class="headline-hash" href="#head"><h3 id="head">head</h3></a>
-
 <table>
 <thead>
 <tr>
@@ -451,33 +399,26 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 <th>zsh</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">head -n3</code></span></td>
-<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$lines</span><span class="o">[</span><span class="m">1</span>,3<span class="o">]</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$lines</span><span class="o">[</span>1,3<span class="o">]</span></code></span></td>
 </tr>
 </tbody>
 </table>
-
 <a class="headline-hash" href="#awk"><h3 id="awk">awk</h3></a>
-
 <p>Pour celui-là, l&rsquo;entrée sera le texte ci-dessous. Le programme va coloriser le préfixe.</p>
-
 <div class="highlight-nocode"><pre class="chroma-nocode"><code>info: un alligator dort sur le balcon
 avertissement: l'alligator se réveille
 erreur: l'alligator attaque
 note: penser à investir dans une porte plus solide
-</code></pre></div>
-
-<table>
+</code></pre><table>
 <thead>
 <tr>
 <th>awk</th>
 <th>zsh</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-awk" data-lang="awk"><span class="nb">BEGIN</span> <span class="p">{</span>
@@ -494,7 +435,7 @@ note: penser à investir dans une porte plus solide
   <span class="k">else</span>
     <span class="kr">print</span> <span class="o">$</span><span class="mi">0</span>
 <span class="p">}</span></code></span></td>
-<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nb">declare</span> -A <span class="nv">colors</span><span class="o">=(</span>erreur: <span class="m">31</span> avertissement: <span class="m">33</span> info: <span class="m">35</span><span class="o">)</span>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nb">declare</span> -A <span class="nv">colors</span><span class="o">=(</span>erreur: <span class="m">31</span> avertissement: <span class="m">33</span> info: 35<span class="o">)</span>
 <span class="nb">declare</span> -A colorized
 <span class="k">for</span> k in <span class="si">${</span><span class="p">(k)colors</span><span class="si">}</span> <span class="p">;</span>
   <span class="nv">colorized</span><span class="o">+=(</span><span class="nv">$k</span> <span class="s2">&#34;\033[</span><span class="nv">$colors</span><span class="s2">[</span><span class="nv">$k</span><span class="s2">]m</span><span class="nv">$k</span><span class="s2">\033[0m&#34;</span><span class="o">)</span>
@@ -503,9 +444,7 @@ note: penser à investir dans une porte plus solide
 </tr>
 </tbody>
 </table>
-
 <a class="headline-hash" href="#find"><h3 id="find">find</h3></a>
-
 <table>
 <thead>
 <tr>
@@ -513,44 +452,35 @@ note: penser à investir dans une porte plus solide
 <th>zsh</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -name <span class="s1">&#39;*alligator*&#39;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*alligator*</code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -name <span class="s1">&#39;*alligator*&#39;</span> -a -not <span class="s1">&#39;*crocodile*&#39;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*alligator*~*crocodile*</code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -type d</code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*<span class="o">(</span>/<span class="o">)</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -not -type d</code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*<span class="o">(</span>^/<span class="o">)</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -type l</code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*<span class="o">(</span>@<span class="o">)</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">find -atime <span class="m">3</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">**/*<span class="o">(</span>a3<span class="o">)</span></code></span></td>
 </tr>
 </tbody>
 </table>
-
 <p>Bon, vous l&rsquo;aurez compris, zsh permet de nombreux filtres dans la recherche de fichier. Il peut trier la recherche par date, nom, groupe, etc ou même via une fonction personnalisée.</p>
-
 <a class="headline-hash" href="#sort"><h3 id="sort">sort</h3></a>
-
 <table>
 <thead>
 <tr>
@@ -558,34 +488,27 @@ note: penser à investir dans une porte plus solide
 <th>zsh</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sort</code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(o)lines</span><span class="si">}</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sort -n</code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(on)lines</span><span class="si">}</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sort -rn</code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(On)lines</span><span class="si">}</span></code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sort -u</code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(uo)lines</span><span class="si">}</span></code></span></td>
 </tr>
 </tbody>
 </table>
-
 <p>À noter que <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(u)lines</span><span class="si">}</span></code></span> élimine les doublons sans trier le tableau.</p>
-
 <a class="headline-hash" href="#manipulation-de-chemin"><h3 id="manipulation-de-chemin">Manipulation de chemin</h3></a>
-
 <table>
 <thead>
 <tr>
@@ -593,29 +516,23 @@ note: penser à investir dans une porte plus solide
 <th>zsh</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">dirname <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">&#34;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$0</span>:h</code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">basename <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">&#34;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$0</span>:t</code></span></td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">realpath <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">&#34;</span></code></span></td>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$0</span>:P</code></span></td>
 </tr>
 </tbody>
 </table>
-
 <p>Il y en a évidemment d&rsquo;autres.</p>
-
 <a class="headline-hash" href="#cut"><h3 id="cut">cut</h3></a>
-
 <table>
 <thead>
 <tr>
@@ -623,7 +540,6 @@ note: penser à investir dans une porte plus solide
 <th>zsh</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">cut -d: -f2,1</code></span></td>
@@ -631,11 +547,8 @@ note: penser à investir dans une porte plus solide
 </tr>
 </tbody>
 </table>
-
 <p>Mais une boucle serait mieux ici.</p>
-
 <a class="headline-hash" href="#printf"><h3 id="printf">printf</h3></a>
-
 <table>
 <thead>
 <tr>
@@ -643,7 +556,6 @@ note: penser à investir dans une porte plus solide
 <th>zsh</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nb">printf</span> <span class="s1">&#39;%04d&#39;</span> <span class="m">42</span></code></span></td>
@@ -685,7 +597,7 @@ note: penser à investir dans une porte plus solide
     <a class="post-nav__link" href="/2018/12/presque-toujours-stdmove/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Presque toujours std::move</span></a>
   </div>
   <div class="post-nav__item post-nav__item--next">
-    <a class="post-nav__link" href="/2019/09/effets-et-utilisations-de-noexcept/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">Effets et utilisations de noexcept</span></a>
+    <a class="post-nav__link" href="/2019/03/stdarray-oui-mais-pourquoi/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">std::array, oui, mais pourquoi ?</span></a>
   </div>
 </nav>
 
@@ -702,7 +614,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/">
 <meta property="og:language" content="fr-FR">
@@ -41,7 +36,7 @@
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -84,9 +79,9 @@
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -116,7 +111,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -213,48 +208,34 @@
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
-<ul>
-<li><a href="#démonstration">Démonstration</a></li>
-</ul></nav>
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#démonstration">Démonstration</a></nav>
         </div></aside>
-      
-
-<p>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées <code>argv</code> dans pas mal d&rsquo;autres langages): <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span>.</p>
-
+      <p>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées <code>argv</code> dans pas mal d&rsquo;autres langages): <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span>.</p>
 <ul>
 <li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> est une variable ce qu&rsquo;il y a de plus normale et ne diffère pas d&rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&rsquo;y reviens après).</li>
 <li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> est une variable au comportement différent entre les shells basés sur sh (bash, dash, &hellip;) et les autres (ksh, zsh).</li>
 </ul>
-
 <p>Sur bash, il n&rsquo;y a aucune différence entre <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span>. Par contre, sur ksh/zsh, <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> représente un tableau d&rsquo;arguments. Il faut savoir que sur bash, utiliser une variable sans guillemet revient à créer autant d&rsquo;arguments qu&rsquo;il y a de mots. Les mots sont séparés en fonction des caractères de <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$IFS</span></code></span> (la variable contient : espace, tabulation et saut de ligne). C&rsquo;est pour cela qu&rsquo;il est conseillé d&rsquo;entourer ces variables de guillemets doubles.</p>
-
 <p>Un petit exemple pour comprendre :).</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span>
 <span class="k">for</span> v in <span class="nv">$a</span> <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
-<span class="k">done</span></code></pre></div>
-<div class="highlight-nocode"><pre class="chroma-nocode"><code>&gt; a
+<span class="k">done</span>
+</code></pre></div><div class="highlight-nocode"><pre class="chroma-nocode"><code>&gt; a
 &gt; b
 &gt; c
-</code></pre></div>
-
-<p>Le résultat est 3 lignes pour 1 paramètre, la chaîne <code>'a b c'</code> contenant des espaces s&rsquo;est fait couper. Ce n&rsquo;est pas le cas pour zsh qui ne fait pas cette césure (raison historique, j&rsquo;y reviens à la fin).</p>
-
+</code></pre><p>Le résultat est 3 lignes pour 1 paramètre, la chaîne <code>'a b c'</code> contenant des espaces s&rsquo;est fait couper. Ce n&rsquo;est pas le cas pour zsh qui ne fait pas cette césure (raison historique, j&rsquo;y reviens à la fin).</p>
 <p>Maintenant il reste <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span> qui ne diffère pas entre les shells.</p>
-
 <ul>
 <li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span> correspond à une seule chaîne, tout est géré en un seul bloc.</li>
 <li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span> représente les paramètres réels. C&rsquo;est identique à <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> avec ksh et zsh.</li>
 </ul>
-
 <a class="headline-hash" href="#démonstration"><h2 id="démonstration">Démonstration</h2></a>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># test.sh</span>
 <span class="k">for</span> v in XXX <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
-<span class="k">done</span></code></pre></div>
-<p>Le code ci-dessus est utilisé avec <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">./test.s <span class="s1">&#39;a b&#39;</span> c</code></span> et pour lequel <code>XXX</code> est remplacé par une des 4 variables précédemment citées.</p>
-
+<span class="k">done</span>
+</code></pre></div><p>Le code ci-dessus est utilisé avec <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">./test.s <span class="s1">&#39;a b&#39;</span> c</code></span> et pour lequel <code>XXX</code> est remplacé par une des 4 variables précédemment citées.</p>
 <table>
 <thead>
 <tr>
@@ -264,43 +245,39 @@
 <th>zsh</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span></td>
-<td>a<br>b<br>c</td>
-<td>a<br>b<br>c</td>
-<td>a b<br>c</td>
+<td>a<!-- raw HTML omitted -->b<!-- raw HTML omitted -->c</td>
+<td>a<!-- raw HTML omitted -->b<!-- raw HTML omitted -->c</td>
+<td>a b<!-- raw HTML omitted -->c</td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span></td>
-<td>a<br>b<br>c</td>
-<td>a b<br>c</td>
-<td>a b<br>c</td>
+<td>a<!-- raw HTML omitted -->b<!-- raw HTML omitted -->c</td>
+<td>a b<!-- raw HTML omitted -->c</td>
+<td>a b<!-- raw HTML omitted -->c</td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span></td>
 <td>a b c</td>
 <td>a b c</td>
 <td>a b c</td>
 </tr>
-
 <tr>
 <td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span></td>
-<td>a b<br>c</td>
-<td>a b<br>c</td>
-<td>a b<br>c</td>
+<td>a b<!-- raw HTML omitted -->c</td>
+<td>a b<!-- raw HTML omitted -->c</td>
+<td>a b<!-- raw HTML omitted -->c</td>
 </tr>
 </tbody>
 </table>
-
 <p>Pour que zsh boucle sur des mots, il faut ajouter un flag à la variable (<span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">=*</span><span class="si">}</span></code></span>), comme ci-dessous.</p>
 <div class="highlight"><pre class="chroma"><code class="language-zsh" data-lang="zsh"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span><span class="p">;</span>
 <span class="k">for</span> v in <span class="si">${</span><span class="p">=a</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
-<span class="k">done</span></code></pre></div>
+<span class="k">done</span>
+</code></pre></div>
   </div>
   <footer class="post__footer">
     <p class="post__meta meta">
@@ -351,7 +328,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

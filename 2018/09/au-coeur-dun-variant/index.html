@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Au cœur d&#39;un variant</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Au cœur d&#39;un variant">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/">
 <meta property="og:language" content="fr-FR">
@@ -41,7 +36,7 @@ Rappel sur ce qu&rsquo;est un variant Un variant est une union sécurisée comme
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -84,9 +79,9 @@ Rappel sur ce qu&rsquo;est un variant Un variant est une union sécurisée comme
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -116,7 +111,7 @@ Rappel sur ce qu&rsquo;est un variant Un variant est une union sécurisée comme
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -213,35 +208,24 @@ Rappel sur ce qu&rsquo;est un variant Un variant est une union sécurisée comme
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
-<ul>
-<li><a href="#rappel-sur-ce-qu-est-un-variant">Rappel sur ce qu&rsquo;est un variant</a></li>
-<li><a href="#un-premier-variant">Un premier variant</a></li>
-<li><a href="#moi-j-aime-pas-dynamic-cast">Moi j&rsquo;aime pas dynamic_cast</a></li>
-<li><a href="#l-allocation-dynamique-n-est-pas-gratuite">L&rsquo;allocation dynamique n&rsquo;est pas gratuite</a></li>
-<li><a href="#mot-de-la-fin">Mot de la fin</a></li>
-</ul></nav>
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#rappel-sur-ce-quest-un-variant">Rappel sur ce qu&rsquo;est un variant</a></li>
+    <li><a href="#un-premier-variant">Un premier variant</a></li>
+    <li><a href="#moi-jaime-pas-dynamic_cast">Moi j&rsquo;aime pas dynamic_cast</a></li>
+    <li><a href="#lallocation-dynamique-nest-pas-gratuite">L&rsquo;allocation dynamique n&rsquo;est pas gratuite</a></li>
+    <li><a href="#mot-de-la-fin">Mot de la fin</a></nav>
         </div></aside>
-      
-
-<p>Cet article va être consacré à la réalisation d&rsquo;une classe variant comme on peut la trouver dans la <a href="http://en.cppreference.com/w/cpp/utility/variant">STL</a>, <a href="http://en.cppreference.com/w/cpp/utility/variant">boost</a> et <a href="https://github.com/mapbox/variant">autres</a>. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&rsquo;exécution. Je vais faire un petit tour de ce que j&rsquo;ai pu voir et comment les implémenter.</p>
-
-<a class="headline-hash" href="#rappel-sur-ce-qu-est-un-variant"><h2 id="rappel-sur-ce-qu-est-un-variant">Rappel sur ce qu&rsquo;est un variant</h2></a>
-
+      <p>Cet article va être consacré à la réalisation d&rsquo;une classe variant comme on peut la trouver dans la <a href="http://en.cppreference.com/w/cpp/utility/variant">STL</a>, <a href="http://en.cppreference.com/w/cpp/utility/variant">boost</a> et <a href="https://github.com/mapbox/variant">autres</a>. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&rsquo;exécution. Je vais faire un petit tour de ce que j&rsquo;ai pu voir et comment les implémenter.</p>
+<a class="headline-hash" href="#rappel-sur-ce-quest-un-variant"><h2 id="rappel-sur-ce-quest-un-variant">Rappel sur ce qu&rsquo;est un variant</h2></a>
 <p>Un variant est une <strong>union sécurisée</strong> comme on peut le trouver dans les langages fonctionnels.
 Contrairement aux <a href="http://en.cppreference.com/w/cpp/language/union">union</a> classique du C++, le variant garde l&rsquo;information du type manipulé.
 C&rsquo;est en cela qu&rsquo;il est sécurisé, on ne sélectionne pas une valeur d&rsquo;un certain type,
 mais on fournit une fonction que le variant appelle avec le type enregistré.</p>
-
 <p>Même si le variant peut aisément remplacer l&rsquo;héritage lorsque le nombre de classe dérivée est connue,
 il est beaucoup plus adapté lorsque les valeurs priment sur les comportements.
 Par exemple, une valeur d&rsquo;une structure JSON représente un nombre, un tableau, une chaîne de caractères ou un objet.
 Il n&rsquo;y a pas de comportement commun, les traitements se feront en fonction du type de la valeur.</p>
-
 <a class="headline-hash" href="#un-premier-variant"><h2 id="un-premier-variant">Un premier variant</h2></a>
-
 <p>Notre version minimale de variant va contenir:</p>
-
 <ul>
 <li>Les constructeurs par défaut, de copie et de déplacement.</li>
 <li>Un constructeur pour initialiser avec un type de la liste.</li>
@@ -249,19 +233,17 @@ Il n&rsquo;y a pas de comportement commun, les traitements se feront en fonction
 <li>Une fonction <code>visit</code> (en membre, pour des raisons de simplification).</li>
 </ul>
 
-<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> 
-  L'implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l'exemple à ne pas suivre.
-  Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l'*idéal* du variant.
+<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> <p>L&rsquo;implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l&rsquo;exemple à ne pas suivre.
+Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l&rsquo;<em>idéal</em> du variant.</p>
 </p></div>
 
 <p>Comme le type change en cours de route, nous allons utiliser en interne une classe de base qui pour chaque dérivée va contenir le type réel.
 Grâce à cela, le type stocké pourra être supprimé et un nouveau type pourra y être enregistré.
 Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de copie via une fonction <code>clone</code>.</p>
 
-
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
-  <span class="k">struct</span> <span class="n">VariantBase</span>
+  <span class="k">struct</span> <span class="nc">VariantBase</span>
   <span class="p">{</span>
     <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">VariantBase</span><span class="o">&gt;</span> <span class="n">clone</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">virtual</span> <span class="o">~</span><span class="n">VariantBase</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
@@ -269,23 +251,23 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
 <span class="p">}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">class</span><span class="err"> </span><span class="nc">Variant</span>
+<span class="k">class</span> <span class="nc">Variant</span>
 <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
   <span class="n">Variant</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
   <span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
   <span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
 
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="n">Variant</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">);</span>
 
   <span class="n">Variant</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Variant</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
   <span class="n">Variant</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
 
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="n">Variant</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">);</span>
 
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">F</span><span class="o">&gt;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="o">&gt;</span>
   <span class="k">auto</span> <span class="n">visit</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span><span class="p">);</span>
 
 <span class="k">private</span><span class="o">:</span>
@@ -293,18 +275,15 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
 <span class="p">};</span>
 </code></pre></div>
 
-
 <p>Pour ne pas parasiter les codes, je n&rsquo;ajoute pas les noexcept. De toute façon, avec les allocations dynamiques, cela ne va pas être évident.</p>
-
 <p>Toute la difficulté va se trouver dans les implémentations de <code>VariantBase</code> et la fonction <code>visit</code>. Pour en faire une dérivée, un pattern assez commun va être utilisé, celui d&rsquo;avoir une classe <code>VariantImpl</code> template sur le type à stocker.</p>
-
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
-  <span class="k">struct</span> <span class="nl">VariantImpl</span> <span class="p">:</span> <span class="n">VariantBase</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">VariantImpl</span> <span class="o">:</span> <span class="n">VariantBase</span>
   <span class="p">{</span>
-    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">U</span><span class="o">&gt;</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
     <span class="n">VariantImpl</span><span class="p">(</span><span class="n">U</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
     <span class="o">:</span> <span class="n">value_</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
     <span class="p">{}</span>
@@ -317,7 +296,7 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
     <span class="n">T</span> <span class="n">value_</span><span class="p">;</span>
   <span class="p">};</span>
 
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="k">auto</span> <span class="n">make_variant_impl</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">VariantImpl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span>
@@ -331,7 +310,7 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
 <span class="p">{}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
 <span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
 <span class="p">{}</span>
@@ -344,7 +323,7 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
 <span class="p">}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">impl_</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
@@ -352,14 +331,11 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>En réalité ce qu&rsquo;on vient de faire ici n&rsquo;est ni plus ni moins qu&rsquo;un <code>std::any</code>. Si on réfléchit bien, nous ne sommes pas limités dans les types à stocker et il n&rsquo;y a aucune vérification au niveau de l&rsquo;initialisation d&rsquo;une valeur. C&rsquo;est mal, mais on va rester comme cela pour le moment.</p>
-
 <p>Reste ensuite la fonction <code>visit</code>. À ce stade, je dirais que la solution la plus naturelle est d&rsquo;utiliser <code>dynamic_cast</code> pour déterminer le type réel et appeler la bonne surcharge de fonction.</p>
 
-
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">F</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="o">&gt;</span>
 <span class="k">auto</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">visit</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">assert</span><span class="p">(</span><span class="n">impl_</span><span class="p">);</span>
@@ -378,57 +354,48 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>Cette implémentation parcourt récursivement les types du variant pour trouver celui qui correspond à la valeur de <code>impl_</code>, appel <code>f</code> avec le bon type puis propage son retour en remontant la pile d&rsquo;appel.
 Le dernier élément est un cas spécial traité dans le <code>else</code> car, quand on le compare avec <code>dynamic_cast</code>, le résultat est toujours vrai.
 Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre restreint de types, si la valeur de <code>impl_</code> ne correspond pas aux types qui précèdent le dernier, alors <code>impl_</code> est forcément du type du dernier élément.</p>
-
-<a class="headline-hash" href="#moi-j-aime-pas-dynamic-cast"><h2 id="moi-j-aime-pas-dynamic-cast">Moi j&rsquo;aime pas dynamic_cast</h2></a>
-
+<a class="headline-hash" href="#moi-jaime-pas-dynamic_cast"><h2 id="moi-jaime-pas-dynamic_cast">Moi j&rsquo;aime pas dynamic_cast</h2></a>
 <p><code>dynamic_cast</code> est souvent un signe révélateur d&rsquo;un problème de conception. Si on abstrait les valeurs, c&rsquo;est dans le but de ne pas se soucier du type de l&rsquo;implémentation. Or, un variant met le focus sur le type et rend caduque cette abstraction. Seulement, <code>dynamic_cast</code> a un coût d&rsquo;exécution exorbitant par rapport à la tâche qu&rsquo;il effectue ici.</p>
-
-<p>De ce fait, <code>dynamic_cast</code> n&rsquo;est pas une bonne solution, il est plus judicieux de conserver une information pour différencier les types. Comme un variant contient une liste d&rsquo;éléments, l&rsquo;indice du type utilisé suffit amplement.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span><span class="err"> </span><span class="nc">Variant</span>
+<p>De ce fait, <code>dynamic_cast</code> n&rsquo;est pas une bonne solution, il est plus judicieux de conserver une information pour différencier les types. Comme un variant contient une liste d'éléments, l&rsquo;indice du type utilisé suffit amplement.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Variant</span>
 <span class="p">{</span>
   <span class="c1">// ...
 </span><span class="c1"></span><span class="k">private</span><span class="o">:</span>
   <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">VariantBase</span><span class="o">&gt;</span> <span class="n">impl_</span><span class="p">;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">type_index_</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>Maintenant, il faut convertir un type en indice, c&rsquo;est à ce moment que la méta-programmation arrive à la rescousse.</p>
-
+</code></pre></div><p>Maintenant, il faut convertir un type en indice, c&rsquo;est à ce moment que la méta-programmation arrive à la rescousse.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;type_traits&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-  <span class="k">struct</span> <span class="n">count_items_to_right_of</span><span class="p">;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">count_items_to_right_of</span><span class="p">;</span>
 
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Us</span><span class="o">&gt;</span>
-  <span class="k">struct</span> <span class="n">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">Us</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Us</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">Us</span><span class="p">...</span><span class="o">&gt;</span>
   <span class="o">:</span> <span class="n">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Us</span><span class="p">...</span><span class="o">&gt;</span>
   <span class="p">{};</span>
 
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Us</span><span class="o">&gt;</span>
-  <span class="k">struct</span> <span class="n">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Us</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Us</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Us</span><span class="p">...</span><span class="o">&gt;</span>
   <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Us</span><span class="p">)</span><span class="o">&gt;</span>
   <span class="p">{};</span>
 <span class="p">}</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span>
   <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span> <span class="o">-</span> <span class="n">detail</span><span class="o">::</span><span class="n">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">-</span> <span class="mi">1</span>
 <span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
 
-
-<p><code>mp_index_of</code> est un alias sur <code>std::integral_constant</code>. L&rsquo;implémentation déroule récursivement les éléments de <code>Ts</code> jusqu&rsquo;à trouver <code>T</code> et retourne le nombre d&rsquo;éléments qu&rsquo;il reste dans la liste. Soustraire ce résultat à <code>sizeof...(Ts) - 1</code> permet d&rsquo;avoir la position de <code>T</code>.</p>
-
+<p><code>mp_index_of</code> est un alias sur <code>std::integral_constant</code>. L&rsquo;implémentation déroule récursivement les éléments de <code>Ts</code> jusqu'à trouver <code>T</code> et retourne le nombre d'éléments qu&rsquo;il reste dans la liste. Soustraire ce résultat à <code>sizeof...(Ts) - 1</code> permet d&rsquo;avoir la position de <code>T</code>.</p>
 <p>On met à jour l&rsquo;implémentation pour initialiser le nouveau membre.</p>
-
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
@@ -437,7 +404,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 </span><span class="c1"></span><span class="p">{}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
 <span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
 <span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span> <span class="c1">// là
@@ -452,7 +419,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="p">}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">impl_</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
@@ -461,12 +428,10 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>Puis on supprime <code>dynamic_cast</code> de la fonction <code>visit</code>, le remplaçant par une comparaison d&rsquo;index.</p>
 
-
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">F</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="o">&gt;</span>
 <span class="k">auto</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">visit</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">assert</span><span class="p">(</span><span class="n">impl_</span><span class="p">);</span>
@@ -488,29 +453,21 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>Peu de changement finalement, mais maintenant <code>variant</code> peut fonctionner sans support de <a href="https://fr.wikipedia.org/wiki/Run-time_type_information">RTTI</a> !</p>
-
 <p>On notera aussi que puisque nous possédons l&rsquo;indice lié au type, on peut aussi remplacer les fonctions virtuelles par un appel à <code>visit</code> pour supprimer la vtable et enlever l&rsquo;indirection pour accéder aux fonctions virtuelles dans celle-ci.</p>
-
-<a class="headline-hash" href="#l-allocation-dynamique-n-est-pas-gratuite"><h2 id="l-allocation-dynamique-n-est-pas-gratuite">L&rsquo;allocation dynamique n&rsquo;est pas gratuite</h2></a>
-
+<a class="headline-hash" href="#lallocation-dynamique-nest-pas-gratuite"><h2 id="lallocation-dynamique-nest-pas-gratuite">L&rsquo;allocation dynamique n&rsquo;est pas gratuite</h2></a>
 <p>Il est vrai que l&rsquo;allocation dynamique a un coût non négligeable sur les performances. Personne n&rsquo;a idée de faire <code>new int</code> alors qu&rsquo;en regardant de plus près, c&rsquo;est exactement ce que fait notre implémentation. Vient ensuite les déréférencements de pointeur qui font sauter des optimisations. Effet amplifié lorsque les fonctions sont <code>virtual</code>. Décidément, l&rsquo;allocation dynamique pour un variant n&rsquo;est pas une bonne idée.</p>
-
 <p>Le mieux serait de stocker nos types de la même manière qu&rsquo;une union: un seul bloc mémoire de la taille du type le plus grand. À ma connaissance il existe 2 possibilités:</p>
-
 <ul>
 <li>une union récursive</li>
 <li><a href="http://en.cppreference.com/w/cpp/types/aligned_union">std::aligned_union</a></li>
 </ul>
-
 <p>Pour choisir le procédé le plus efficace, nous implémentons les 2 dans une classe qui ne possède que les fonctions d&rsquo;accès et les constructeurs.</p>
 
-
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="n">AlignedStorage</span>
+<span class="k">struct</span> <span class="nc">AlignedStorage</span>
 <span class="p">{</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="n">T</span><span class="o">&amp;</span> <span class="n">get</span><span class="p">()</span>
   <span class="p">{</span>
     <span class="k">return</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">);</span>
@@ -521,16 +478,13 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="p">};</span>
 </code></pre></div>
 
-
 <p>Sans les constructeurs, la version avec <code>std::aligned_union</code> est vraiment simple. Mais l&rsquo;utilisation de <code>reinterpret_cast</code> empêche de mettre la fonction <code>get()</code> en <code>constexpr</code> (gcc l&rsquo;accepte néanmoins).</p>
-
 <p>À contrario, la version avec une union récursive est extrêmement verbeuse (toujours sans constructeur d&rsquo;initialisation de valeur):</p>
-
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-  <span class="k">union</span> <span class="n">RecursiveUnion</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">union</span> <span class="nc">RecursiveUnion</span>
   <span class="p">{</span>
     <span class="kt">char</span> <span class="n">dummy</span><span class="p">;</span>
     <span class="n">T</span> <span class="n">value</span><span class="p">;</span>
@@ -540,8 +494,8 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
     <span class="o">~</span><span class="n">RecursiveUnion</span><span class="p">(){}</span>
   <span class="p">};</span>
 
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
-  <span class="k">union</span> <span class="n">RecursiveUnion</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">union</span> <span class="nc">RecursiveUnion</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
   <span class="p">{</span>
     <span class="kt">char</span> <span class="n">dummy</span><span class="p">;</span>
     <span class="n">T</span> <span class="n">value</span><span class="p">;</span>
@@ -550,13 +504,13 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
     <span class="o">~</span><span class="n">RecursiveUnion</span><span class="p">(){}</span>
   <span class="p">};</span>
 
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
   <span class="n">T</span><span class="o">&amp;</span> <span class="n">get</span><span class="p">(</span><span class="n">RecursiveUnion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">u</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="k">return</span> <span class="n">u</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U</span><span class="o">&gt;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
   <span class="n">T</span><span class="o">&amp;</span> <span class="n">get</span><span class="p">(</span><span class="n">U</span><span class="o">&amp;</span> <span class="n">u</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="k">return</span> <span class="n">get</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">others</span><span class="p">);</span>
@@ -564,9 +518,9 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="p">}</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="n">UnionStorage</span>
+<span class="k">struct</span> <span class="nc">UnionStorage</span>
 <span class="p">{</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="n">T</span><span class="o">&amp;</span> <span class="n">get</span><span class="p">()</span>
   <span class="p">{</span>
     <span class="k">return</span> <span class="n">detail</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
@@ -578,53 +532,41 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="p">};</span>
 </code></pre></div>
 
-
 <p>Si on regarde <a href="https://godbolt.org/g/xu9fwh">l&rsquo;assembleur</a>, il s&rsquo;avère que les 2 versions sont exactement les mêmes.</p>
-
 <p>Pour initialiser l&rsquo;objet avec une valeur, la version avec <code>std::aligned_union</code> doit utiliser un <a href="http://en.cppreference.com/w/cpp/language/new">placement new</a> qui empêche de rendre le constructeur <code>constexpr</code>. Ce qui par la même occasion s&rsquo;applique aussi au variant. Sans compter le problème du <code>reinterpret_cast</code> dans la fonction <code>get()</code>. Du coup, bien que cette version soit plus simple et que je ne mette pas <code>constexpr</code>, l&rsquo;union récursive est préférable.</p>
-
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// std::in_place_index_t
 </span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="n">in_place_index_t</span>
+<span class="k">struct</span> <span class="nc">in_place_index_t</span>
 <span class="p">{</span>
-  <span class="k">explicit</span> <span class="n">in_place_index_t</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+  <span class="k">explicit</span> <span class="nf">in_place_index_t</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 <span class="p">};</span>
 </code></pre></div>
 
-
 <p>(<code>RecursiveUnion</code> devient <code>VariadicUnion</code>)</p>
 
-
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp">    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">U</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp">    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
     <span class="n">VariadicUnion</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">U</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
     <span class="o">:</span> <span class="n">value</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
     <span class="p">{}</span>
 
-    <span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">I</span><span class="p">,</span> <span class="k">class</span><span class="err"> </span><span class="nc">U</span><span class="o">&gt;</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">I</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
     <span class="n">VariadicUnion</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">U</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
     <span class="o">:</span> <span class="n">others</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
     <span class="p">{}</span>
 </code></pre></div>
 
-
 <p>Puis on adapte les fonctions de <code>Variant</code>.
 Le code final est plutôt gros alors je ne mets <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/cpp_variant/variant3.cpp#l157">que le lien</a>
 .</p>
-
 <p>Pour éviter une condition particulière dans le code, l&rsquo;union possède un membre supplémentaire: <code>Uninit</code>, utilisé par <code>init</code>, <code>copy</code> et <code>destroy</code> pour représenter un variant sans valeur.</p>
-
 <p>Il y a aussi une condition dans <code>operator=</code> pour choisir entre la fonction <code>copy</code> si les 2 éléments sont du même type ou les fonctions <code>destroy</code>+<code>init</code> dans le cas contraire. Cette condition peut être supprimée si:</p>
-
 <ul>
 <li>Tous les éléments ont un destructeur trivial: il n&rsquo;y a pas besoin de faire <code>destroy</code>+<code>init</code>.</li>
 <li>La fonction <code>visit</code> peut prendre plusieurs variants en paramètre pour faire un switch allant de 0 à <code>(sizeof...(Ts) + 1) * (sizeof...(Ts) + 1)</code>.</li>
 </ul>
-
 <a class="headline-hash" href="#mot-de-la-fin"><h2 id="mot-de-la-fin">Mot de la fin</h2></a>
-
 <p>Bien que le variant actuel soit incomplet, il est utilisable et proche des implémentations actuelles. Mais il y a plusieurs petits détails qui ne sont pas approfondis ici:</p>
-
 <ul>
 <li>l&rsquo;optimisation sur la taille de <code>type_index</code>,</li>
 <li>les différents moyens de remplacer une vtable (ici je n&rsquo;utilise que le if/else récursif),</li>
@@ -632,9 +574,7 @@ Le code final est plutôt gros alors je ne mets <a href="https://github.com/jona
 <li>les unions récursives</li>
 <li>et bien d&rsquo;autres</li>
 </ul>
-
 <p>Les prochains articles seront davantage axés sur la méta-programmation et indirectement reliés avec certains aspects du variant présentés ici.</p>
-
 <p>Les sources sont disponibles sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/cpp_variant">github</a>
 .</p>
 
@@ -688,7 +628,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

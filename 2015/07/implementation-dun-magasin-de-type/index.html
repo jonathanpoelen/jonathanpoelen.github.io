@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Implémentation d&#39;un magasin de type</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Implémentation d&#39;un magasin de type">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/">
 <meta property="og:language" content="fr-FR">
@@ -28,10 +23,10 @@
 <meta property="twitter:title" content="Implémentation d&#39;un magasin de type">
 <meta name="description" content="Ce que j&rsquo;appelle ici un magasin de type n&rsquo;est autre qu&rsquo;un std::tuple où les types ne sont présents qu&rsquo;une seule fois. Une espèce de set version tuple en somme.
 Je me suis servi de ce type de structure à 2 reprises.
-Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&rsquo;étais en C&#43;&#43;11 et que dans cette norme std::get&lt;Type&gt;() n&rsquo;existe pas.">
+Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&#39;étais en C&#43;&#43;11 et que dans cette norme std::get&lt;Type&gt;() n&rsquo;existe pas.">
 <meta property="twitter:description" content="Ce que j&rsquo;appelle ici un magasin de type n&rsquo;est autre qu&rsquo;un std::tuple où les types ne sont présents qu&rsquo;une seule fois. Une espèce de set version tuple en somme.
 Je me suis servi de ce type de structure à 2 reprises.
-Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&rsquo;étais en C&#43;&#43;11 et que dans cette norme std::get&lt;Type&gt;() n&rsquo;existe pas.">
+Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&#39;étais en C&#43;&#43;11 et que dans cette norme std::get&lt;Type&gt;() n&rsquo;existe pas.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -43,7 +38,7 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -86,9 +81,9 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -118,7 +113,7 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -215,57 +210,39 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
-<ul>
-<li><a href="#planter-la-compilation-quand-un-type-est-en-doublon">Planter la compilation quand un type est en doublon</a></li>
-<li><a href="#piocher-dans-le-magasin">Piocher dans le magasin</a></li>
-<li><a href="#ce-qu-il-manque">Ce qu&rsquo;il manque</a></li>
-</ul></nav>
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#planter-la-compilation-quand-un-type-est-en-doublon">Planter la compilation quand un type est en doublon</a></li>
+    <li><a href="#piocher-dans-le-magasin">Piocher dans le magasin</a></li>
+    <li><a href="#ce-quil-manque">Ce qu&rsquo;il manque</a></nav>
         </div></aside>
-      
-
-<p>Ce que j&rsquo;appelle ici un magasin de type n&rsquo;est autre qu&rsquo;un <code>std::tuple</code> où les types ne sont présents qu&rsquo;une seule fois. Une espèce de set version tuple en somme.</p>
-
+      <p>Ce que j&rsquo;appelle ici un magasin de type n&rsquo;est autre qu&rsquo;un <code>std::tuple</code> où les types ne sont présents qu&rsquo;une seule fois. Une espèce de set version tuple en somme.</p>
 <p>Je me suis servi de ce type de structure à 2 reprises.</p>
-
-<p>Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de <code>std::tuple</code>. Il faut dire aussi que j&rsquo;étais en C++11 et que dans cette norme <code>std::get&lt;Type&gt;()</code> n&rsquo;existe pas.</p>
-
+<p>Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de <code>std::tuple</code>. Il faut dire aussi que j'étais en C++11 et que dans cette norme <code>std::get&lt;Type&gt;()</code> n&rsquo;existe pas.</p>
 <p>L&rsquo;autre fois dans une fonction variadique qui distribue les valeurs vers différentes fonctions. Le but étant de ne pas se soucier de l&rsquo;ordre des paramètres, certains étant optionnels.</p>
-
 <p><code>std::tuple</code> fait plutôt bien le boulot, mais possède un énorme inconvénient pour ce cas de figure: aucune erreur de compilation si un type est présent 2 fois (et c&rsquo;est normal pour un tuple).</p>
-
 <a class="headline-hash" href="#planter-la-compilation-quand-un-type-est-en-doublon"><h2 id="planter-la-compilation-quand-un-type-est-en-doublon">Planter la compilation quand un type est en doublon</h2></a>
-
 <p>Le C++ dispose déjà d&rsquo;un mécanisme interne qui vérifie et hurle au scandale si un type doublon existe. J&rsquo;ai nommé l&rsquo;<strong>héritage</strong>.</p>
-
 <p>Seulement, un héritage direct n&rsquo;est pas possible avec les types scalaires, il faut un intermédiaire.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="n">item</span> <span class="p">{</span> <span class="n">T</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">item</span> <span class="p">{</span> <span class="n">T</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
 
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nl">typeset</span> <span class="p">:</span> <span class="n">item</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span> <span class="p">{};</span>
-</code></pre></div>
-<p>Avec cette implémentation, des petits malins pourraient faire de la pseudo-duplication de type en y ajoutant des qualificeurs, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">typeset</span> <span class="o">:</span> <span class="n">item</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span> <span class="p">{};</span>
+</code></pre></div><p>Avec cette implémentation, des petits malins pourraient faire de la pseudo-duplication de type en y ajoutant des qualificeurs, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&gt;</span>
 </code></span> par exemple.</p>
-
 <p>On peut être tolérant ou devenir un tyran sans pitié en empêchant cela.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="nl">tyrannical_typeset_impl</span> <span class="p">:</span> <span class="n">typeset</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="k">struct</span> <span class="nc">tyrannical_typeset_impl</span> <span class="o">:</span> <span class="n">typeset</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{</span>
   <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">typeset</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">using</span> <span class="n">tyrannical_typeset</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">tyrannical_typeset_impl</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-</code></pre></div>
-<p>Le typeset tyrannique est construit en 2 étapes, car un alias direct sur un typeset épuré ne permet pas de garder les qualificatifs.</p>
-
+</code></pre></div><p>Le typeset tyrannique est construit en 2 étapes, car un alias direct sur un typeset épuré ne permet pas de garder les qualificatifs.</p>
 <a class="headline-hash" href="#piocher-dans-le-magasin"><h2 id="piocher-dans-le-magasin">Piocher dans le magasin</h2></a>
-
 <p>Piquer un élément du typeset est une affaire de cast. Un simple <code>static_cast</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
 
 <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">item</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;&gt;</span><span class="p">(</span><span class="n">my_typeset</span><span class="p">).</span><span class="n">x</span><span class="p">;</span>
-</code></pre></div>
-<p>En mettant des opérateurs de cast dans la classe item, plus besoin de préciser cette dernière avec le <code>static_cast</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="n">item</span> <span class="p">{</span>
+</code></pre></div><p>En mettant des opérateurs de cast dans la classe item, plus besoin de préciser cette dernière avec le <code>static_cast</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">item</span> <span class="p">{</span>
   <span class="k">explicit</span> <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;</span> <span class="p">()</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
   <span class="k">explicit</span> <span class="k">operator</span> <span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
 <span class="k">private</span><span class="o">:</span>
@@ -273,22 +250,18 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
 <span class="p">};</span>
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
 <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">my_typeset</span><span class="p">);</span>
-</code></pre></div>
-<p>Petit bémol toutefois, cela ne permet pas d&rsquo;enlever l&rsquo;ambiguïté pour un type qui diffère uniquement par son qualificatif.</p>
+</code></pre></div><p>Petit bémol toutefois, cela ne permet pas d&rsquo;enlever l&rsquo;ambiguïté pour un type qui diffère uniquement par son qualificatif.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">volatile</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
 
 <span class="c1">// ‘typeset&lt;int, volatile int&gt;’ to ‘volatile int&amp;’ is ambiguous
 </span><span class="c1"></span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span> <span class="k">volatile</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">my_typeset</span><span class="p">);</span>
-</code></pre></div>
-<a class="headline-hash" href="#ce-qu-il-manque"><h2 id="ce-qu-il-manque">Ce qu&rsquo;il manque</h2></a>
-
+</code></pre></div><a class="headline-hash" href="#ce-quil-manque"><h2 id="ce-quil-manque">Ce qu&rsquo;il manque</h2></a>
 <ul>
 <li>Les constructeurs, évidemment.</li>
 <li>Une fonction <code>get&lt;Type&gt;()</code> pour un parallèle avec la STL.</li>
 <li>Une fonction pour boucler sur chaque item (<code>for_each</code> ?).</li>
 <li>Et sûrement d&rsquo;autres.</li>
 </ul>
-
 <p>J&rsquo;ai mis tout ça dans un repo au nom provisoire <a href="https://github.com/jonathanpoelen/falcon.store">falcon.store</a>.</p>
 
   </div>
@@ -341,7 +314,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

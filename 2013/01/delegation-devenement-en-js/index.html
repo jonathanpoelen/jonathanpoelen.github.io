@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Délégation d&#39;événement en js</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Délégation d&#39;événement en js">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/">
 <meta property="og:language" content="fr-FR">
@@ -26,12 +21,12 @@
 <meta property="twitter:card" content="summary">
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/">
 <meta property="twitter:title" content="Délégation d&#39;événement en js">
-<meta name="description" content="En règle générale les événements sont attachés à l&rsquo;élément qui va le traiter.
+<meta name="description" content="En règle générale les événements sont attachés à l&#39;élément qui va le traiter.
 Par exemple en javascript, un menu (ul) contenant 10 entrées (li) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.
-Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.">
-<meta property="twitter:description" content="En règle générale les événements sont attachés à l&rsquo;élément qui va le traiter.
+Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&#39;événement est généré par un de ses fils et fait le traitement en conséquence.">
+<meta property="twitter:description" content="En règle générale les événements sont attachés à l&#39;élément qui va le traiter.
 Par exemple en javascript, un menu (ul) contenant 10 entrées (li) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.
-Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.">
+Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&#39;événement est généré par un de ses fils et fait le traitement en conséquence.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -43,7 +38,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -86,9 +81,9 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -118,7 +113,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -214,18 +209,18 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
 
   </header>
   <div class="post__content">
-      <p>En règle générale les événements sont attachés à l&rsquo;élément qui va le traiter.</p>
-
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"></nav>
+        </div></aside>
+      <p>En règle générale les événements sont attachés à l'élément qui va le traiter.</p>
 <p>Par exemple en javascript, un menu (<code>ul</code>) contenant 10 entrées (<code>li</code>) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.</p>
-
-<p>Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</p>
+<p>Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l'événement est généré par un de ses fils et fait le traitement en conséquence.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ul</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;menu&#34;</span><span class="p">);</span>
 <span class="nx">ul</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span> <span class="o">===</span> <span class="nx">ul</span><span class="p">)</span> <span class="c1">// est-ce toi mon fils ?
 </span><span class="c1"></span>    <span class="nx">openWithAjax</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>On peut trouver le même type de fonction dans JQuery: <a href="https://api.jquery.com/on/">.on()</a>.</p>
+</code></pre></div><p>On peut trouver le même type de fonction dans JQuery: <a href="https://api.jquery.com/on/">.on()</a>.</p>
 
   </div>
   <footer class="post__footer">
@@ -277,7 +272,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

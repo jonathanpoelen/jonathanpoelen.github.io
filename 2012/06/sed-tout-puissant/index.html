@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sed tout puissant</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Sed tout puissant">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/">
 <meta property="og:language" content="fr-FR">
@@ -41,7 +36,7 @@ Pour ce faire, il suffit d&rsquo;un identifiant, un petit label, une information
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -84,9 +79,9 @@ Pour ce faire, il suffit d&rsquo;un identifiant, un petit label, une information
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -116,7 +111,7 @@ Pour ce faire, il suffit d&rsquo;un identifiant, un petit label, une information
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -212,36 +207,31 @@ Pour ce faire, il suffit d&rsquo;un identifiant, un petit label, une information
 
   </header>
   <div class="post__content">
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"></nav>
+        </div></aside>
       <p>Il y a 3 semaines environ je cherchais le moyen d&rsquo;utiliser la commande sed avec une regex sur plusieurs lignes. Je voulais transformer tous les <code>/\+\n\s+&quot;&quot;/</code> en rien du tout (oui, les supprimer…). Sauf que comme tel, ça ne fonctionne pas, <code>sed</code> comme beaucoup de commandes unix fonctionne par ligne. Après de lourdes et pompeuses recherches d&rsquo;au moins 7 secondes montre en main, je suis tombé sur la solution.</p>
-
 <p>Pour ce faire, il suffit d&rsquo;un identifiant, un petit label, une information de multi-ligne au milieu et 3 autres bricoles ; rien que ça :D.</p>
-
 <p>Ce qui se traduit par:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sed -e :a -e N -e <span class="s1">&#39;$!ba&#39;</span> -e s<span class="s1">&#39;/+\n\s\+&#34;&#34;//g&#39;</span></code></pre></div>
-<p>Et en version courte:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sed <span class="s1">&#39;:a;N;$!ba;s/+\n\s\+&#34;&#34;//g&#39;</span></code></pre></div>
-<p>Je sais ce que vous vous demandez: pourquoi il n&rsquo;y a pas <code>-e</code> dans la version courte ?</p>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sed -e :a -e N -e <span class="s1">&#39;$!ba&#39;</span> -e s<span class="s1">&#39;/+\n\s\+&#34;&#34;//g&#39;</span>
+</code></pre></div><p>Et en version courte:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sed <span class="s1">&#39;:a;N;$!ba;s/+\n\s\+&#34;&#34;//g&#39;</span>
+</code></pre></div><p>Je sais ce que vous vous demandez: pourquoi il n&rsquo;y a pas <code>-e</code> dans la version courte ?</p>
 <p>Mais parce que c&rsquo;est la version courte, évidemment !</p>
-
 <p>Sinon dans une moindre mesure.</p>
-
 <ul>
 <li><code>:a</code>:
-pour créer un identifiant nommé &laquo;&nbsp;a&nbsp;&raquo;, mais il peut très bien se nommer bidule.</li>
+pour créer un identifiant nommé &ldquo;a&rdquo;, mais il peut très bien se nommer bidule.</li>
 <li><code>N</code>:
 pour lire la ligne suivante et l&rsquo;ajouter dans l&rsquo;espace de recherche.</li>
 <li><code>$!ba</code>:
-Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), sauter au label (<code>b</code>) nommé &laquo;&nbsp;a&nbsp;&raquo;. C&rsquo;est une boucle.</li>
+Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), sauter au label (<code>b</code>) nommé &ldquo;a&rdquo;. C&rsquo;est une boucle.</li>
 </ul>
-
 <p>L&rsquo;espace de recherche est la partie sur laquelle s&rsquo;applique une regex. Par défaut, l&rsquo;espace de recherche ne contient qu&rsquo;une ligne à la fois qui sont manipulées individuellement. Avec cette boucle, l&rsquo;espace de recherche contient toutes les lignes (avec saut de ligne) et la regex est appliquée sur l&rsquo;ensemble du document.</p>
-
 <p>Et en bonus, quelques commandes supplémentaires bons à savoir.</p>
-
 <ul>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="m">2</span>,5s/e/U/g</code></span> remplace <code>e</code> par <code>U</code> à partir de la ligne 2 jusqu&rsquo;à la 5.</li>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,/</span><span class="nv">$fin</span><span class="s2">/&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> jusqu&rsquo;à <code>$fin</code>.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed 2,5s/e/U/g</code></span> remplace <code>e</code> par <code>U</code> à partir de la ligne 2 jusqu'à la 5.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,/</span><span class="nv">$fin</span><span class="s2">/&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> jusqu'à <code>$fin</code>.</li>
 <li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,+5&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> et sur 5 lignes.</li>
 </ul>
 
@@ -295,7 +285,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

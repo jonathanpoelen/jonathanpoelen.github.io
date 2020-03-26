@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rendre accessible le chargement de lien avec AJAX</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Rendre accessible le chargement de lien avec AJAX">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/">
 <meta property="og:language" content="fr-FR">
@@ -41,7 +36,7 @@
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -84,9 +79,9 @@
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -116,7 +111,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -180,12 +175,10 @@
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="rendre-accessible-le-chargement-de-lien-avec-ajax"><span>
         <a href="https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Sed tout puissant"></i></a>
-        <a href="https://jonathanpoelen.github.io/1/01/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: "></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/">Rendre accessible le chargement de lien avec AJAX</a></h1>
     <div class="post__title-nextprev-text sr-only">
         <a href="https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/">Article suivant: Sed tout puissant</a><br/>
-        <a href="https://jonathanpoelen.github.io/1/01/">Article précédent: </a><br/>
     </div>
     
 <p class="post__meta meta">
@@ -212,23 +205,19 @@
 
   </header>
   <div class="post__content">
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"></nav>
+        </div></aside>
       <p>Le but d&rsquo;un site chargeant ces pages avec AJAX est double:</p>
-
 <ul>
 <li>Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées).</li>
 <li>Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins.</li>
 </ul>
-
 <p>Toutefois, si mal fait, des problèmes apparaissent au niveau de l&rsquo;historique qui n&rsquo;est plus utilisable. Par la même occasion, il sera impossible d&rsquo;accéder à une page via son url. Quant à ceux n&rsquo;ayant pas javascript ‑moteur de recherche compris‑ il est totalement impossible de visiter le site.</p>
-
 <p>Le premier problème peut se corriger avec <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#The_pushState().C2.A0method"><code>history.pushState</code></a> qui permet d&rsquo;ajouter, supprimer et modifier l&rsquo;historique d&rsquo;une page. Le second problème est tout simple, il suffit d&rsquo;indiquer une page complète et ajouter un paramètre dans l&rsquo;url pour les utilisateurs ayant javascript. Si ce paramètre existe, la page ne renvoie que le contenu désiré. Dans le cas contraire, la page est entièrement retournée.</p>
-
-<p>Par exemple avec un lien sur <code>ma_page.php</code> qui retourne une page complète. On intercepte l&rsquo;événement click. On ajoute un paramètre, par exemple <code>ajax</code>, ce qui donne <code>ma_page.php?ajax</code> puis on charge cette page. Le serveur ne renvoie que le contenu, on ajoute <code>ma_page.php</code> dans l&rsquo;historique et on remplace l&rsquo;ancien contenu par le nouveau.</p>
-
+<p>Par exemple avec un lien sur <code>ma_page.php</code> qui retourne une page complète. On intercepte l'événement click. On ajoute un paramètre, par exemple <code>ajax</code>, ce qui donne <code>ma_page.php?ajax</code> puis on charge cette page. Le serveur ne renvoie que le contenu, on ajoute <code>ma_page.php</code> dans l&rsquo;historique et on remplace l&rsquo;ancien contenu par le nouveau.</p>
 <p>Il faut également vérifier que les liens fonctionnent lorsqu&rsquo;ils sont ouverts dans un nouvel onglet. Il n&rsquo;y a rien de plus énervant pour moi qu&rsquo;un lien qui ne peut pas s&rsquo;ouvrir dans un autre onglet. J&rsquo;ai pour habitude en lisant un article ou certains sites d&rsquo;ouvrir les liens potentiellement intéressants dans un nouvel onglet. Ceux s&rsquo;ouvrant en javascript sont une vraie plaie ! Ils ouvrent une page blanche et quelle horreur de constater au bout d&rsquo;un quart d&rsquo;heure que toutes mes pages dûment sélectionnées sont ouvertes sur le néant.</p>
-
 <p>Alors soit je fuis le site, soit je commence un véritable parcours du combattant pour l&rsquo;ouvrir dans un onglet:</p>
-
 <ul>
 <li>copier l&rsquo;url (Ctrl+L, Ctrl+C)</li>
 <li>retour en arrière (Alt+gauche)</li>
@@ -236,10 +225,8 @@
 <li>aller sur la page copiée (Ctrl+Shift+V ou Ctrl+V, Entrée)</li>
 <li>revenir sur l&rsquo;onglet original (Ctrl+Shift+Tab)</li>
 </ul>
-
 <p>Généralement, je fuis !</p>
-
-<p>Pour une bonne expérience utilisateur, il faut aussi indiquer les chargements quelque part, surtout quand ils s&rsquo;éternisent (c&rsquo;est perturbant de ne rien voir réagir après un clic). Et ne surtout pas oublier la gestion d&rsquo;erreur. Avoir des problèmes de connexion peut arriver à n&rsquo;importe qui, si le site ne réagit plus sans en avertir l&rsquo;utilisateur, alors dans la tête de l&rsquo;usager, le site est bogué. Mais il faut le faire de manière intelligente, pas en cachant le contenu sous une énorme popup ;).</p>
+<p>Pour une bonne expérience utilisateur, il faut aussi indiquer les chargements quelque part, surtout quand ils s'éternisent (c&rsquo;est perturbant de ne rien voir réagir après un clic). Et ne surtout pas oublier la gestion d&rsquo;erreur. Avoir des problèmes de connexion peut arriver à n&rsquo;importe qui, si le site ne réagit plus sans en avertir l&rsquo;utilisateur, alors dans la tête de l&rsquo;usager, le site est bogué. Mais il faut le faire de manière intelligente, pas en cachant le contenu sous une énorme popup ;).</p>
 
   </div>
   <footer class="post__footer">
@@ -271,7 +258,6 @@
   
 <nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
   <div class="post-nav__item post-nav__item--prev">
-    <a class="post-nav__link" href="/1/01/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title"></span></a>
   </div>
   <div class="post-nav__item post-nav__item--next">
     <a class="post-nav__link" href="/2012/06/sed-tout-puissant/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">Sed tout puissant</span></a>
@@ -291,7 +277,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

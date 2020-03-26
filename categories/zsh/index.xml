@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>zsh on Jonathan Poelen&#39;s Blog</title>
+    <title>zsh on Le blog de Jonathan Poelen</title>
     <link>https://jonathanpoelen.github.io/categories/zsh/</link>
-    <description>Recent content in zsh on Jonathan Poelen&#39;s Blog</description>
+    <description>Recent content in zsh on Le blog de Jonathan Poelen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>

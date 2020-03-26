@@ -4,21 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Placement new, allocateur et conteneur</title>
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.68.1" />
 
-
-
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Droid+Serif" crossorigin="anonymous" />
-<link rel="stylesheet" type="text/css" media="all" href="https://fonts.googleapis.com/css?family=Noto+Sans" crossorigin="anonymous" />
-
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.6c3b65e273dd1f1e5adbf16ff4bb80c7fb22d1a5d4b7176b0340248775ca7fa8.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
 <link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
 <link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
 <link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
-<meta property="og:site_name" content="Jonathan Poelen&#39;s Blog">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
 <meta property="og:title" content="Placement new, allocateur et conteneur">
 <meta property="og:url" content="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/">
 <meta property="og:language" content="fr-FR">
@@ -43,7 +38,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
     <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
       <div class="container-inner">
         <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
-          <a class="logo__link" href="/" title="Jonathan Poelen&#39;s Blog" rel="home">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
             <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
             <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
           </a>
@@ -86,9 +81,9 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
       <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/11/meta-fonction-et-continuation/">Méta-fonction et continuation</a></li>
       
       <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
     </ul>
@@ -118,7 +113,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (24)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -215,66 +210,43 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents">
-<ul>
-<li><a href="#allouer-de-la-mémoire">Allouer de la mémoire</a></li>
-<li><a href="#placement-new">Placement new</a></li>
-<li><a href="#destruction">Destruction</a></li>
-<li><a href="#libération-de-la-mémoire">Libération de la mémoire</a></li>
-<li><a href="#allocation-de-tableau">Allocation de tableau</a></li>
-<li><a href="#surcharge-de-new-et-delete">Surcharge de new et delete</a></li>
-<li><a href="#l-alignement-mémoire">L&rsquo;alignement mémoire</a></li>
-<li><a href="#allocateurs-de-la-sl">Allocateurs de la SL</a></li>
-<li><a href="#allocateurs-et-conteneurs">Allocateurs et conteneurs</a></li>
-</ul></nav>
+          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#allouer-de-la-mémoire">Allouer de la mémoire</a></li>
+    <li><a href="#placement-new">Placement new</a></li>
+    <li><a href="#destruction">Destruction</a></li>
+    <li><a href="#libération-de-la-mémoire">Libération de la mémoire</a></li>
+    <li><a href="#allocation-de-tableau">Allocation de tableau</a></li>
+    <li><a href="#surcharge-de-new-et-delete">Surcharge de new et delete</a></li>
+    <li><a href="#lalignement-mémoire">L&rsquo;alignement mémoire</a></li>
+    <li><a href="#allocateurs-de-la-sl">Allocateurs de la SL</a></li>
+    <li><a href="#allocateurs-et-conteneurs">Allocateurs et conteneurs</a></nav>
         </div></aside>
-      
-
-<p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
+      <p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
 </code></span> est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de <code>malloc()</code>, &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.</p>
-
 <p>Mais <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
 </code></span> fait une troisième chose: il lance une exception <code>std::bad_alloc</code> si l&rsquo;espace mémoire est insuffisant.</p>
-
 <p>Ou pas. Car <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
 </code></span> est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête <code>&lt;new&gt;</code> un type (<code>std::nothrow_t</code>) et une variable (<code>std::nothrow</code>) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">);</span>
-</code></pre></div>
-<p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparement.</p>
-
+</code></pre></div><p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparement.</p>
 <a class="headline-hash" href="#allouer-de-la-mémoire"><h2 id="allouer-de-la-mémoire">Allouer de la mémoire</h2></a>
-
 <p>Comme on veut juste réserver un espace mémoire, <code>malloc()</code> peut suffire, mais prenons les bonnes habitudes, utilisons la fonction <a href="http://en.cppreference.com/w/cpp/memory/new/operator_new">::operator new()</a> !</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">));</span>
-</code></pre></div>
-<p>Ou la version sans exception.</p>
+</code></pre></div><p>Ou la version sans exception.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">);</span>
-</code></pre></div>
-<p>Maintenant qu&rsquo;on a un joli espace mémoire tout fraîchement alloué, construisons l&rsquo;objet.</p>
-
+</code></pre></div><p>Maintenant qu&rsquo;on a un joli espace mémoire tout fraîchement alloué, construisons l&rsquo;objet.</p>
 <a class="headline-hash" href="#placement-new"><h2 id="placement-new">Placement new</h2></a>
-
 <p>Le placement new permet d&rsquo;appeler le constructeur d&rsquo;un objet sur une zone mémoire prédéfinie.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params…*/</span><span class="p">);</span>
 <span class="c1">// machin == p (même zone mémoire)
-</span></code></pre></div>
-<p>Mais attention aux fuites mémoire si le constructeur de <code>Machin</code> lance une exception.</p>
-
+</span></code></pre></div><p>Mais attention aux fuites mémoire si le constructeur de <code>Machin</code> lance une exception.</p>
 <p>Et maintenant que c&rsquo;est construit, on détruit :D</p>
-
 <a class="headline-hash" href="#destruction"><h2 id="destruction">Destruction</h2></a>
-
 <p>Un appel explicite au destructeur et le tour est joué.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">machin</span><span class="o">-&gt;~</span><span class="n">Machin</span><span class="p">();</span>
-</code></pre></div>
-<p>Étape inutile pour les types scalaires. De toute façon ils n&rsquo;ont pas de destructeur. En C++17, la STL contient <a href="http://en.cppreference.com/w/cpp/memory/destroy_at">std::destroy_at</a>.</p>
-
+</code></pre></div><p>Étape inutile pour les types scalaires. De toute façon ils n&rsquo;ont pas de destructeur. En C++17, la STL contient <a href="http://en.cppreference.com/w/cpp/memory/destroy_at">std::destroy_at</a>.</p>
 <p>Évidemment, si <code>machin</code> possède un destructeur virtuel et est en réalité une classe fille, alors c&rsquo;est le destructeur de la classe dérivée qui est appelé.</p>
-
-<p>Il ne reste plus qu&rsquo;à libérer la mémoire.</p>
-
+<p>Il ne reste plus qu'à libérer la mémoire.</p>
 <a class="headline-hash" href="#libération-de-la-mémoire"><h2 id="libération-de-la-mémoire">Libération de la mémoire</h2></a>
-
 <p>De la même manière qu&rsquo;il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span>
 </code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span><span class="p">[]</span>
 </code></span> pour <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
@@ -282,32 +254,27 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 </code></span>, il existe un <a href="http://en.cppreference.com/w/cpp/memory/new/operator_delete">::operator delete()</a> associé à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">()</span>
 </code></span>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span> <span class="p">(</span><span class="n">p</span><span class="p">);</span>
-</code></pre></div>
-<a class="headline-hash" href="#allocation-de-tableau"><h2 id="allocation-de-tableau">Allocation de tableau</h2></a>
-
+</code></pre></div><a class="headline-hash" href="#allocation-de-tableau"><h2 id="allocation-de-tableau">Allocation de tableau</h2></a>
 <p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[]</span>
 </code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">[]</span>
 </code></span> fonctionnent de la même manière, mais sont plus sûrs qu&rsquo;une gestion manuelle de tableau avec leurs homologues sans crochets. Ne serait-ce que pour détruire proprement les objets si un des constructeurs jette une exception.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[](</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span> <span class="c1">// identique que la version sans crochet
 </span><span class="c1"></span><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="cm">/*{params...}*/</span><span class="p">;</span>
-</code></pre></div>
-<a class="headline-hash" href="#surcharge-de-new-et-delete"><h2 id="surcharge-de-new-et-delete">Surcharge de new et delete</h2></a>
-
+</code></pre></div><a class="headline-hash" href="#surcharge-de-new-et-delete"><h2 id="surcharge-de-new-et-delete">Surcharge de new et delete</h2></a>
 <p>Toutes les formes de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
 </code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span>
 </code></span> sont surchargeables de façon locale ou globale. Local quand l&rsquo;opérateur est implémenté à l&rsquo;intérieur d&rsquo;une classe (son prototype sera implicitement statique) et global lorsqu&rsquo;implémenté dans le namespace global.</p>
-
 <p>De plus, comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
 </code></span> peut prendre des paramètres, il est possible de les personnaliser et d&rsquo;en ajouter.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;new&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="k">struct</span> <span class="n">A</span>
+</span><span class="cp"></span><span class="k">struct</span> <span class="nc">A</span>
 <span class="p">{</span>
   <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;A(&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;)&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
   <span class="p">}</span>
 
-  <span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">)</span>
+  <span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;new A &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
     <span class="k">return</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
@@ -315,40 +282,24 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 <span class="p">};</span>
 
 <span class="k">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="n">A</span><span class="p">;</span> <span class="c1">// affiche &#34;new A 1 2 A(0)&#34;
-</span></code></pre></div>
-<a class="headline-hash" href="#l-alignement-mémoire"><h2 id="l-alignement-mémoire">L&rsquo;alignement mémoire</h2></a>
-
+</span></code></pre></div><a class="headline-hash" href="#lalignement-mémoire"><h2 id="lalignement-mémoire">L&rsquo;alignement mémoire</h2></a>
 <p>L&rsquo;alignement mémoire est une histoire à part entière, je n&rsquo;en parle donc pas plus que ça :p.</p>
-
 <p>Toutefois, renseignez-vous dessus, des variables non alignées peuvent faire chuter les performances et planter certaines architectures de processeur.
 Présent dans boost et la dernière norme du C++, il existe <a href="http://en.cppreference.com/w/cpp/types/aligned_storage">aligned_storage</a> et co pour aider.</p>
-
 <a class="headline-hash" href="#allocateurs-de-la-sl"><h2 id="allocateurs-de-la-sl">Allocateurs de la SL</h2></a>
-
 <p>Les allocateurs sont des objets qui s&rsquo;occupent de faire tout ce qui a été dit auparavant à travers des fonctions comme <code>allocate</code>/<code>desallocate</code>, <code>construct</code>/<code>destroy</code>, etc, mais sans faire de surcharge. En fait, tous les conteneurs dynamiques de la STL utilisent un <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a> comme allocateur par défaut paramétrable à travers le dernier type template du conteneur.</p>
-
 <p>Depuis C++11, il existe <a href="http://en.cppreference.com/w/cpp/memory/allocator_traits">std::allocator_traits</a> qui simplifie grandement la création d&rsquo;un allocateur en rendant la plupart des fonctions optionnelles.
 Et à partir de C++17 un <a href="http://en.cppreference.com/w/cpp/header/memory_resource">allocateur polymorphique</a> voit le jour avec quelques gestionnaires de mémoire.</p>
-
 <a class="headline-hash" href="#allocateurs-et-conteneurs"><h2 id="allocateurs-et-conteneurs">Allocateurs et conteneurs</h2></a>
-
 <p>Utiliser un allocateur personnalisé permet d&rsquo;avoir un contrôle plus fin de la mémoire pour répondre plus efficacement au besoin et augmenter les performances.</p>
-
 <p>Évidemment, l&rsquo;allocateur peut être personnalisable et dans certaines circonstances permet un gain de performance en évitant l&rsquo;allocation/dés-allocation répété.</p>
-
 <p>Par exemple, il y a quelques semaines, j&rsquo;ai fait un algorithme qui faisait au total 2&rsquo;100&rsquo;000 <code>new</code> pour au final ne garder que 100&rsquo;000 objets. Donc 2&rsquo;000&rsquo;000 de <code>delete</code>.</p>
-
-<p>Dans le pire des cas, il y avait une suite de 25 objets à supprimer. Avec un allocateur qui ne vide pas la mémoire mais garde un tableau des pointeurs alloués je n&rsquo;avais plus qu&rsquo;à faire 25 dés-allocations au lieu de 2&rsquo;000&rsquo;000. Le nombre de <code>new</code> effectuées descendait quant à lui à 100&rsquo;025.</p>
-
+<p>Dans le pire des cas, il y avait une suite de 25 objets à supprimer. Avec un allocateur qui ne vide pas la mémoire mais garde un tableau des pointeurs alloués je n&rsquo;avais plus qu'à faire 25 dés-allocations au lieu de 2&rsquo;000&rsquo;000. Le nombre de <code>new</code> effectuées descendait quant à lui à 100&rsquo;025.</p>
 <p>Seul le nombre d&rsquo;appels au destructeur et au placement new restait inchangé. Respectivement 2&rsquo;000&rsquo;000 et 2&rsquo;100&rsquo;000.</p>
-
 <p>Au final l&rsquo;algorithme était quand même 30% plus rapide. J&rsquo;aurais aussi pu allouer directement tous mes objets et les réutiliser, mais là n&rsquo;est pas le propos :).</p>
-
-<p>Ce type d&rsquo;optimisation reste toutefois exceptionnel et n&rsquo;est pas adapté à tous les conteneurs. Par exemple, std::vector se prête mal à ce genre d&rsquo;exercice car il demande toujours une allocation d&rsquo;au moins la taille du nombre d&rsquo;éléments qu&rsquo;il possède.</p>
-
+<p>Ce type d&rsquo;optimisation reste toutefois exceptionnel et n&rsquo;est pas adapté à tous les conteneurs. Par exemple, std::vector se prête mal à ce genre d&rsquo;exercice car il demande toujours une allocation d&rsquo;au moins la taille du nombre d'éléments qu&rsquo;il possède.</p>
 <p>Par contre, les conteneurs comme std::list ou std::map, qui allouent toujours un seul élément à la fois sont un meilleur choix pour utiliser ce type d&rsquo;allocateur.
 Cependant, comme les conteneurs retournent une copie de leur allocateur, il sera difficile de supprimer de manière simple la mémoire non utilisée par l&rsquo;allocateur du conteneur.</p>
-
 <p>En ce moment, j&rsquo;ajoute plusieurs allocateurs dans <a href="https://github.com/jonathanpoelen/falcon/tree/master/falcon/memory">falcon/memory</a>. Même si celui dont je viens de parler n&rsquo;est pas encore présent car son implémentation était vraiment basique et spécifique, il fait quand même partie de ma todo-list.</p>
 
   </div>
@@ -401,7 +352,7 @@ me chargerai de les associer.</p>
   <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
-       Jonathan Poelen&#39;s Blog. <span class="footer__copyright-credits">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
       Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
       et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.

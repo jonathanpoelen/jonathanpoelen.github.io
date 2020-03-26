@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>c&#43;&#43; on Jonathan Poelen&#39;s Blog</title>
+    <title>c&#43;&#43; on Le blog de Jonathan Poelen</title>
     <link>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</link>
-    <description>Recent content in c&#43;&#43; on Jonathan Poelen&#39;s Blog</description>
+    <description>Recent content in c&#43;&#43; on Le blog de Jonathan Poelen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
@@ -24,13 +24,24 @@ noexcept n&amp;rsquo;impose aucune restriction sur ce que peut faire la fonction
     </item>
     
     <item>
+      <title>std::array, oui, mais pourquoi ?</title>
+      <link>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</link>
+      <pubDate>Fri, 29 Mar 2019 17:28:19 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</guid>
+      <description>Depuis C++11, un nouveau type de tableau fait son apparition: std::array. S&amp;rsquo;il est là, ce n&amp;rsquo;est pas uniquement parce que la STL est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.
+Les tableaux C se convertissent en pointeur trop facilement Le tableau C a l&amp;rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&amp;rsquo;a aucun sens.</description>
+    </item>
+    
+    <item>
       <title>Presque toujours std::move</title>
       <link>https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/</link>
       <pubDate>Sun, 09 Dec 2018 13:11:29 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/</guid>
-      <description>Le principe de std::move est de &amp;laquo;&amp;nbsp;déplacer1&amp;nbsp;&amp;raquo; un objet qui n&amp;rsquo;est plus utilisé dans l&amp;rsquo;objectif de décharger la responsabilité dans une autre variable ou d&amp;rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
-Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&amp;rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&amp;rsquo;en priver ?</description>
+      <description>Le principe de std::move est de &amp;ldquo;déplacer1&amp;rdquo; un objet qui n&amp;rsquo;est plus utilisé dans l&amp;rsquo;objectif de décharger la responsabilité dans une autre variable ou d&amp;rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
+Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&amp;rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&amp;rsquo;en priver ?
+Rire sarcastique.</description>
     </item>
     
     <item>
@@ -39,8 +50,8 @@ Pour avoir de meilleures performances, il est tentant de le mettre partout lorsq
       <pubDate>Thu, 08 Nov 2018 18:56:13 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/</guid>
-      <description>J&amp;rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&amp;rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &amp;ndash;parce que cela va bien de paire,&amp;ndash; l&amp;rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&amp;lt;Ts...&amp;gt;).
-Continuation Chaque algorithme dispose d&amp;rsquo;un paramètre qui décrit l&amp;rsquo;étape suivante du traitement, c&amp;rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&amp;rsquo;opérateur |.</description>
+      <description>J&amp;rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&amp;rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &amp;ndash;parce que cela va bien de paire,&amp;ndash; l&#39;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&amp;lt;Ts...&amp;gt;).
+Continuation Chaque algorithme dispose d&amp;rsquo;un paramètre qui décrit l&#39;étape suivante du traitement, c&amp;rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&amp;rsquo;opérateur |.</description>
     </item>
     
     <item>
@@ -60,7 +71,7 @@ Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessou
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/</guid>
       <description>Dans l&amp;rsquo;article précédent sur les variants, j&amp;rsquo;ai fait une implémentation un peu spéciale de index_of. Je vais présenter une quinzaine d&amp;rsquo;implémentations possibles et le coût de chacune sur le compilateur.
-Info : L&#39;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &#34;classique&#34; a les mêmes conséquences.
+Info : L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &amp;ldquo;classique&amp;rdquo; a les mêmes conséquences.
  Avant-propos Toutes les implémentations de mp_index_of&amp;lt;T, Ts...&amp;gt; retournent un std::integral_constant&amp;lt;int, i&amp;gt; correspondant à l&amp;rsquo;indice de T dans Ts ou -1 si T n&amp;rsquo;existe pas.</description>
     </item>
     
@@ -91,7 +102,7 @@ Du côté de Clang, il y a un -Weverything qui active absolument tous les warnin
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/</guid>
       <description>Je vais me baser sur un classique: une classe de matrice contenant un std::vector&amp;lt;int&amp;gt; . Cette classe va implémenter 2 opérateurs mathématiques: +  et += . Le premier en fonction libre, le second en fonction membre.
-Pour rigoler un peu, on ajoute une petite contrainte qui est &amp;laquo;&amp;nbsp;l&amp;rsquo;efficacité&amp;nbsp;&amp;raquo;. Petit mot qui englobe un peu tout et n&amp;rsquo;importe quoi tel que la performance en mémoire et en temps.
+Pour rigoler un peu, on ajoute une petite contrainte qui est &amp;ldquo;l&amp;rsquo;efficacité&amp;rdquo;. Petit mot qui englobe un peu tout et n&amp;rsquo;importe quoi tel que la performance en mémoire et en temps.
 À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc.</description>
     </item>
     
@@ -115,7 +126,7 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
       <description>Le but de if constexpr  est d&amp;rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&amp;rsquo;a pas l&amp;rsquo;obligation de pouvoir être compilé.
 Plutôt étrange, n&amp;rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.
 Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières:
- foncteur + paramètres fonction membre + objet + paramètres fonction membre + pointeur d&amp;rsquo;objet + paramètres</description>
+ foncteur + paramètres fonction membre + objet + paramètres fonction membre + pointeur d&amp;rsquo;objet + paramètres  // x et y sont des std::string invoke(std::equal_to&amp;lt;&amp;gt;{}, x, y); // foncteur invoke(&amp;amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;amp;std::string::size, &amp;amp;x, y); // fonction membre et pointeur En C++17, tout peut se faire en une seule fonction, alors qu&amp;rsquo;avant C++17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if.</description>
     </item>
     
     <item>
@@ -124,9 +135,9 @@ Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières
       <pubDate>Tue, 28 Jul 2015 00:43:22 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/</guid>
-      <description>Cet article est la démonstration de l&amp;rsquo;article précédent. La problématique présentée est la suivante: &amp;laquo;&amp;nbsp;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&amp;nbsp;&amp;raquo;
+      <description>Cet article est la démonstration de l&amp;rsquo;article précédent. La problématique présentée est la suivante: &amp;ldquo;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&amp;rdquo;
 La fonction de référence sera la suivante:
-void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, char border_bottom = &amp;#39;-&amp;#39; , char border_left = &amp;#39;&amp;lt;&amp;#39;, char border_right = &amp;#39;&amp;gt;&amp;#39; , char fill = &amp;#39;#&amp;#39; ) { std::cout &amp;lt;&amp;lt; std::setfill(border_top) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; while (h--) { std::cout &amp;lt;&amp;lt; border_left &amp;lt;&amp;lt; std::setfill(fill) &amp;lt;&amp;lt; std::setw(w) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; border_right &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } std::cout &amp;lt;&amp;lt; std::setfill(border_bottom) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; }  Comment faire un appel proche de draw_rect(4,3, fill=&amp;#39;@&amp;#39;)  ?</description>
+void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, char border_bottom = &amp;#39;-&amp;#39; , char border_left = &amp;#39;&amp;lt;&amp;#39;, char border_right = &amp;#39;&amp;gt;&amp;#39; , char fill = &amp;#39;#&amp;#39; ) { std::cout &amp;lt;&amp;lt; std::setfill(border_top) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; while (h--) { std::cout &amp;lt;&amp;lt; border_left &amp;lt;&amp;lt; std::setfill(fill) &amp;lt;&amp;lt; std::setw(w) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; border_right &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } std::cout &amp;lt;&amp;lt; std::setfill(border_bottom) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } Comment faire un appel proche de draw_rect(4,3, fill=&amp;#39;@&amp;#39;)  ?</description>
     </item>
     
     <item>
@@ -137,7 +148,7 @@ void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, 
       <guid>https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/</guid>
       <description>Ce que j&amp;rsquo;appelle ici un magasin de type n&amp;rsquo;est autre qu&amp;rsquo;un std::tuple où les types ne sont présents qu&amp;rsquo;une seule fois. Une espèce de set version tuple en somme.
 Je me suis servi de ce type de structure à 2 reprises.
-Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&amp;rsquo;étais en C++11 et que dans cette norme std::get&amp;lt;Type&amp;gt;() n&amp;rsquo;existe pas.</description>
+Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&#39;étais en C++11 et que dans cette norme std::get&amp;lt;Type&amp;gt;() n&amp;rsquo;existe pas.</description>
     </item>
     
     <item>
@@ -159,7 +170,7 @@ Appeler T::sort si possible, sinon std::sort(begin(T), end(T)) L&amp;rsquo;exemp
       <description>Un petit article pour parler d&amp;rsquo;optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par std::unique_ptr.
 Implémentation naïve de std::unique_ptr Pour rappel, std::unique_ptr prend 2 paramètres template: T et Deleter (qui par défaut égal std::default_delete&amp;lt;T&amp;gt;).
 Naïvement, l&amp;rsquo;implémentation serait:
-template&amp;lt;T, Deleter = std::default_delete&amp;lt;T&amp;gt;&amp;gt; classmy_unique_ptr { T* m_pointer; Deleter m_deleter; // … };  Rien d&amp;rsquo;extraordinaire.
+template&amp;lt;T, Deleter = std::default_delete&amp;lt;T&amp;gt;&amp;gt; class my_unique_ptr { T* m_pointer; Deleter m_deleter; // … }; Rien d&amp;rsquo;extraordinaire.
 Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 octet.</description>
     </item>
     
@@ -185,7 +196,8 @@ Les références possèdent un contrat beaucoup plus fort que les pointeurs: ell
       <description>Quand utiliser une variable par valeur, référence ou pointeur ?
  Telle fut la question qui m&amp;rsquo;a été posée :p.
 Comme je ne suis pas entièrement satisfait de la réponse que j&amp;rsquo;ai donné, je fais un article. Pour tout dire, la réponse n&amp;rsquo;est pas aussi triviale que l&amp;rsquo;on pourrait le croire depuis l&amp;rsquo;arrivée du C++11 et la sémantique de déplacement.
-Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:</description>
+Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:
+ Valeur ou référence constante ?</description>
     </item>
     
     <item>
@@ -195,10 +207,10 @@ Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:</description>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</guid>
       <description>À l&amp;rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
-Info : Ce qui suit n&#39;est plus d&#39;actualité depuis C++17 et les [fold expressions](https://en.cppreference.com/w/cpp/language/fold).
- Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.
+Info : Ce qui suit n&amp;rsquo;est plus d&amp;rsquo;actualité depuis C++17 et les fold expressions.
+ Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&#39;à plus d&amp;rsquo;argument ou jusqu&#39;à un nombre défini, généralement 1.
 Quelque chose dans ce goût-là:
-#include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;classT, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;.</description>
+#include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;class T, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;.</description>
     </item>
     
     <item>
@@ -209,7 +221,7 @@ Quelque chose dans ce goût-là:
       <guid>https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/</guid>
       <description>Prenons le type suivant: std::vector&amp;lt;int[4]&amp;gt; . Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&amp;rsquo;est vrai !
 Ajoutons maintenant un élément à notre vector avec push_back.
-std::vector&amp;lt;int[2]&amp;gt; v; int a[2]{}; v.push_back(a);  Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&amp;rsquo;a ni constructeur ni destructeur.
+std::vector&amp;lt;int[2]&amp;gt; v; int a[2]{}; v.push_back(a); Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&amp;rsquo;a ni constructeur ni destructeur.
 La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau.</description>
     </item>
     
@@ -219,7 +231,7 @@ La manière la plus facile pour éliminer ces erreurs de compilation est de mett
       <pubDate>Sat, 20 Jul 2013 11:18:49 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/</guid>
-      <description>Une fonction utilitaire est une fonction libre qui n&amp;rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
+      <description>Une fonction utilitaire est une fonction libre qui n&#39;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
 Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilitaire qui me vient à l&amp;rsquo;esprit en C++03 est std::swap (fonction qui échange le contenu de 2 variables). Pour info, l&amp;rsquo;en-tête de std::swap est passé de &amp;lt;algorithm&amp;gt; en C++03 à &amp;lt;utility&amp;gt; en C++11.</description>
     </item>
     
@@ -230,7 +242,7 @@ Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilit
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/05/reference-constante-sur-reference/</guid>
       <description>Une petite note sur les références et le qualificatif const  en commençant par un exemple :).
-using reference = int&amp;amp;; int i = 0; reference const r = i; r = 3;  Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de r. En fait, ajouter const  sur une référence ne fait rien car cela ne s&amp;rsquo;applique pas sur le référé qui reste un int&amp;amp; .</description>
+using reference = int&amp;amp;; int i = 0; reference const r = i; r = 3; Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de r. En fait, ajouter const  sur une référence ne fait rien car cela ne s&amp;rsquo;applique pas sur le référé qui reste un int&amp;amp; .</description>
     </item>
     
     <item>
@@ -252,7 +264,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
       <guid>https://jonathanpoelen.github.io/2013/03/ne-pas-empecher-la-nrvo/</guid>
       <description>La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la FAQ C++ developpez.com.
 Cependant, ces optimisations ne s&amp;rsquo;appliquent que sur une variable de type T sans référence. Ce qui veut dire qu&amp;rsquo;une référence ne sera pas optimisée.
-iterator operator+(const iterator&amp;amp; other, int n) { return iterator(other) += n; // pas de RVO }  Alors qu&amp;rsquo;une décomposition de la fonction active la NRVO.</description>
+iterator operator+(const iterator&amp;amp; other, int n) { return iterator(other) += n; // pas de RVO } Alors qu&amp;rsquo;une décomposition de la fonction active la NRVO.</description>
     </item>
     
     <item>
@@ -261,7 +273,7 @@ iterator operator+(const iterator&amp;amp; other, int n) { return iterator(other
       <pubDate>Thu, 20 Dec 2012 01:22:50 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/</guid>
-      <description>Le C++ a l&amp;rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &amp;laquo;&amp;nbsp;tags&amp;nbsp;&amp;raquo;.
+      <description>Le C++ a l&amp;rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &amp;ldquo;tags&amp;rdquo;.
 Comme exemple je vais utiliser les tags présents dans les itérateurs de la STL et une implémentation de la fonction std::advance().
 Première implémentation La fonction std::advance() permet d&amp;rsquo;incrémenter un itérateur de N éléments (ou décrémenter si N est négatif). D&amp;rsquo;après cette description, un premier algorithme peut être émis:</description>
     </item>
