@@ -1,4 +1,4 @@
-^---
+---
 title: "std::array, oui, mais pourquoi ?"
 #thumbnail: ""
 #description: ""
