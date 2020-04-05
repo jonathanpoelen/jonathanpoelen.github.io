@@ -1,4 +1,4 @@
-{{<fhi "simu_vtable/e1.cpp" main>}}
-{{<urlhi "mp_index_of" "name">}}
+{{<fhi "simu_vtable/e1.cpp" "optional_section_name">}}
+{{<urlhi "mp_index_of" "text">}}
 {{%info%}}{{%/info%}}
 {{<hi sh ";"/>}}

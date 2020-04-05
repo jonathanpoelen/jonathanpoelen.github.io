@@ -1,8 +1,13 @@
 {{- $content := .Get 0 | printf "resources/%s" | readFile }}
-{{- $re := printf "BEGIN %s\\b(.|\n)*END %s\\b" (.Get 1) (.Get 1) }}
-{{- $bloc := index (findRE $re $content 1) 0  }}
-{{- $lines := split $bloc "\n"  }}
-{{- $innerLines := first (sub (len $lines) 2) (after 1 $lines) }}
-{{- $src := delimit $innerLines "\n" }}
-{{- $ext := delimit (split (.Get 0) "." | last 1) "" | string }}
+{{- if .Get 1 }}
+  {{- $re := printf "BEGIN %s\\b(.|\n)*END %s\\b" (.Get 1) (.Get 1) }}
+  {{- $bloc := index (findRE $re $content 1) 0  }}
+  {{- $lines := split $bloc "\n"  }}
+  {{- $innerLines := first (sub (len $lines) 2) (after 1 $lines) }}
+  {{- $src := delimit $innerLines "\n" }}
+  {{- $ext := delimit (split (.Get 0) "." | last 1) "" | string }}
 <div class="highlight"><pre class="chroma">{{- highlight $src $ext "" | replaceRE "^.{43}|.{12}$" "" | safeHTML }}</pre></div>
+{{- else }}
+  {{- $ext := delimit (split (.Get 0) "." | last 1) "" | string }}
+  <div class="highlight"><pre class="chroma">{{- highlight $content $ext "" | replaceRE "^.{43}|.{12}$" "" | safeHTML }}</pre></div>
+{{- end }}
