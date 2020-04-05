@@ -57,6 +57,8 @@ theme = ["my"]
   angledQuotes = true
   smartypantsQuotesNBSP = true
 
+[markup.tableOfContents]
+  startLevel = 2
 
 #[[menu.main]]
 #    name = "Mon Github"

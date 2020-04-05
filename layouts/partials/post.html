@@ -29,11 +29,10 @@
     </figure>
     {{- end }}
     {{- if and $.isSinglePage (ne .Params.toc false) }}
-      {{- $toc := string (replaceRE "^(<nav id=\"TableOfContents\">)\\s*<ul>\\s*<li>|</li>\\s*</ul>\\s*(</nav>)$" "$1$2" .TableOfContents) }}
-      {{- if ne "" $toc }}
+      {{- if ne "<nav id=\"TableOfContents\"></nav>" .TableOfContents }}
         <aside id="toc"><div id="tocInner">
           <h2 id="tocHeading">Sommaire</h2>
-          {{- safeHTML $toc }}
+          {{ .TableOfContents }}
         </div></aside>
       {{- end }}
     {{- end }}
