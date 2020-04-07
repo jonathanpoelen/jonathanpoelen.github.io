@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Effets et utilisations de noexcept</title>
-<meta name="generator" content="Hugo 0.68.1" />
+<meta name="generator" content="Hugo 0.68.3" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -78,12 +78,12 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2020/04/sfinae/">SFINAE</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">35 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -111,7 +111,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (26)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -174,11 +174,12 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 <article class="post">
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="effets-et-utilisations-de-noexcept"><span>
-        &nbsp;
+        <a href="https://jonathanpoelen.github.io/2020/04/sfinae/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: SFINAE"></i></a>
         <a href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: std::array, oui, mais pourquoi ?"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></h1>
     <div class="post__title-nextprev-text sr-only">
+        <a href="https://jonathanpoelen.github.io/2020/04/sfinae/">Article suivant: SFINAE</a><br/>
         <a href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/">Article précédent: std::array, oui, mais pourquoi ?</a><br/>
     </div>
     
@@ -207,12 +208,17 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#fonction-noexcept">Fonction noexcept</a></li>
+          <h2 id="tocHeading">Sommaire</h2>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#fonction-noexcept">Fonction noexcept</a></li>
     <li><a href="#les-bénéfices-de-noexcept">Les bénéfices de noexcept</a></li>
     <li><a href="#quand-mettre-noexcept">Quand mettre noexcept</a></li>
     <li><a href="#spécificateur-dexception-et-opérateur-noexcept">Spécificateur d&rsquo;exception et opérateur noexcept</a></li>
     <li><a href="#signature-et-type-de-fonction">Signature et type de fonction</a></li>
-    <li><a href="#ce-quil-faut-retenir">Ce qu&rsquo;il faut retenir</a></nav>
+    <li><a href="#ce-quil-faut-retenir">Ce qu&rsquo;il faut retenir</a></li>
+  </ul>
+</nav>
         </div></aside>
       <a class="headline-hash" href="#fonction-noexcept"><h2 id="fonction-noexcept">Fonction noexcept</h2></a>
 <p><code>noexcept</code> est un mot clef apparu en C++11. Dans le prototype d&rsquo;une fonction, il indique que cette dernière ne jette pas d&rsquo;exception. Cela ne veut pas dire qu&rsquo;aucune exception ne sera présente dans la fonction, mais qu&rsquo;<strong>aucune exception ne sortira</strong> de la fonction. Dans le cas contraire, le programme s&rsquo;arrête subitement avec un appel à <a href="https://en.cppreference.com/w/cpp/error/terminate"><code>std::terminate</code></a>.</p>
@@ -501,6 +507,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
     <a class="post-nav__link" href="/2019/03/stdarray-oui-mais-pourquoi/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">std::array, oui, mais pourquoi ?</span></a>
   </div>
   <div class="post-nav__item post-nav__item--next">
+    <a class="post-nav__link" href="/2020/04/sfinae/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">SFINAE</span></a>
   </div>
 </nav>
 

@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Au cœur d&#39;un variant</title>
-<meta name="generator" content="Hugo 0.68.1" />
+<meta name="generator" content="Hugo 0.68.3" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -78,12 +78,12 @@ Rappel sur ce qu&rsquo;est un variant Un variant est une union sécurisée comme
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2020/04/sfinae/">SFINAE</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">35 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -111,7 +111,7 @@ Rappel sur ce qu&rsquo;est un variant Un variant est une union sécurisée comme
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (26)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -208,11 +208,16 @@ Rappel sur ce qu&rsquo;est un variant Un variant est une union sécurisée comme
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#rappel-sur-ce-quest-un-variant">Rappel sur ce qu&rsquo;est un variant</a></li>
+          <h2 id="tocHeading">Sommaire</h2>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#rappel-sur-ce-quest-un-variant">Rappel sur ce qu&rsquo;est un variant</a></li>
     <li><a href="#un-premier-variant">Un premier variant</a></li>
     <li><a href="#moi-jaime-pas-dynamic_cast">Moi j&rsquo;aime pas dynamic_cast</a></li>
     <li><a href="#lallocation-dynamique-nest-pas-gratuite">L&rsquo;allocation dynamique n&rsquo;est pas gratuite</a></li>
-    <li><a href="#mot-de-la-fin">Mot de la fin</a></nav>
+    <li><a href="#mot-de-la-fin">Mot de la fin</a></li>
+  </ul>
+</nav>
         </div></aside>
       <p>Cet article va être consacré à la réalisation d&rsquo;une classe variant comme on peut la trouver dans la <a href="http://en.cppreference.com/w/cpp/utility/variant">STL</a>, <a href="http://en.cppreference.com/w/cpp/utility/variant">boost</a> et <a href="https://github.com/mapbox/variant">autres</a>. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&rsquo;exécution. Je vais faire un petit tour de ce que j&rsquo;ai pu voir et comment les implémenter.</p>
 <a class="headline-hash" href="#rappel-sur-ce-quest-un-variant"><h2 id="rappel-sur-ce-quest-un-variant">Rappel sur ce qu&rsquo;est un variant</h2></a>

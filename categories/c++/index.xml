@@ -8,10 +8,20 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Sun, 01 Sep 2019 16:09:32 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 07 Apr 2020 09:29:25 +0200</lastBuildDate>
     
 	<atom:link href="https://jonathanpoelen.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SFINAE</title>
+      <link>https://jonathanpoelen.github.io/2020/04/sfinae/</link>
+      <pubDate>Tue, 07 Apr 2020 09:29:25 +0200</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2020/04/sfinae/</guid>
+      <description>SFINAE (Substitution Failure Is Not An Error) est un mécanisme du compilateur pour ignorer certaines instanciations de fonction ou de classe qui ne compilent pas, sans pour autant émettre une erreur de compilation.
+Pour comprendre pleinement le mécanisme derrière, il faut assimiler le principe de substitution appliquée par le compilateur. Lorsqu&amp;rsquo;une expression dépend d&amp;rsquo;un paramètre template, le compilateur va évaluer l&amp;rsquo;expression en la substituant par le type ou la valeur de l&amp;rsquo;expression.</description>
+    </item>
     
     <item>
       <title>Effets et utilisations de noexcept</title>

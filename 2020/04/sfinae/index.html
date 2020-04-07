@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SFINAE</title>
+<meta name="generator" content="Hugo 0.68.3" />
+
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
+<link rel="shortcut icon" href="/favicon.jpg"/>
+<link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
+<link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
+<link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
+<link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
+<meta property="og:title" content="SFINAE">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2020/04/sfinae/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2020/04/sfinae/">
+<meta property="twitter:title" content="SFINAE">
+<meta name="description" content="SFINAE (Substitution Failure Is Not An Error) est un mécanisme du compilateur pour ignorer certaines instanciations de fonction ou de classe qui ne compilent pas, sans pour autant émettre une erreur de compilation.
+Pour comprendre pleinement le mécanisme derrière, il faut assimiler le principe de substitution appliquée par le compilateur. Lorsqu&rsquo;une expression dépend d&rsquo;un paramètre template, le compilateur va évaluer l&rsquo;expression en la substituant par le type ou la valeur de l&rsquo;expression.">
+<meta property="twitter:description" content="SFINAE (Substitution Failure Is Not An Error) est un mécanisme du compilateur pour ignorer certaines instanciations de fonction ou de classe qui ne compilent pas, sans pour autant émettre une erreur de compilation.
+Pour comprendre pleinement le mécanisme derrière, il faut assimiler le principe de substitution appliquée par le compilateur. Lorsqu&rsquo;une expression dépend d&rsquo;un paramètre template, le compilateur va évaluer l&rsquo;expression en la substituant par le type ou la valeur de l&rsquo;expression.">
+
+</head>
+<body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+  <div id="avoidance-link">
+    <a class="evitement" href="#main-content" title="Aller au contenu">Aller au contenu</a>
+    <a class="evitement" href="#main-menu" title="Aller au menu">Aller au menu</a>
+  </div>
+  <div class="container container-outer">
+    <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+      <div class="container-inner">
+        <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
+            <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
+            <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
+          </a>
+        </div>
+        <nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <ul class="menu__list">
+    <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
+      <i class="fab fa-github" aria-hidden="true"></i> Github
+    </a></li>
+    <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
+      <i class="fas fa-archive" aria-hidden="true"></i> Archives</a>
+    </li>
+    <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
+      <i class="fas fa-rss" aria-hidden="true"></i> RSS</a>
+    </li>
+  </ul>
+</nav>
+
+
+      </div>
+    </header>
+    <div class="wrapper clearfix">
+
+<aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="widget-search widget">
+  <form class="widget-search__form" role="search" method="get" action="https://duckduckgo.com">
+    <label>
+      <span class="screen-reader-text">Search for:</span>
+      <input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+    </label>
+    <input class="widget-search__submit" type="submit" value="Search">
+    <input type="hidden" name="sites" value="https://jonathanpoelen.github.io/" />
+  </form>
+</div>
+
+	
+<div class="widget-recent widget" id="main-menu">
+  <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2020/04/sfinae/">SFINAE</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
+      
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">35 autres…</a></li>
+    </ul>
+  </div>
+</div>
+<div class="widget-recent widget">
+  <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2013/12/parcourir-les-arguments-dune-fonction-variadique/" title="Ajout du chapitre « Fold expression et C&#43;&#43;17 »">
+        <time datetime="2019-03-23T03:23:06">23/03/2019</time>
+        -- Parcourir les arguments d&#39;une fonction variadique
+      </a></li>
+
+    </ul>
+  </div>
+</div>
+
+	
+<div class="widget-categories widget">
+  <h4 class="widget__title"><i class="fas fa-folder-o" aria-hidden="true"></i> Catégories</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (26)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/script-shell">Script-Shell (7)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilite-Web">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/accessibilite-web">Accessibilite-Web (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/zsh">Zsh (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/make">Make (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+	
+	
+
+</aside>
+<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
+  
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="sfinae"><span>
+        &nbsp;
+        <a href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Effets et utilisations de noexcept"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2020/04/sfinae/">SFINAE</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/">Article précédent: Effets et utilisations de noexcept</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2020-04-07T09:29:25">07 avril 2020
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>12 minutes ;
+  <a href="https://jonathanpoelen.github.io/2020/04/sfinae/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#387a37cf3aa969713e423816ed3561c7-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
+</p>
+
+
+  </header>
+  <div class="post__content">
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#dépendance-de-typevaleur">Dépendance de type/valeur</a></li>
+    <li><a href="#emplacement-des-expressions-pour-le-sfinae">Emplacement des expressions pour le SFINAE</a></li>
+    <li><a href="#technique-et-usage-du-sfinae">Technique et usage du SFINAE</a>
+      <ul>
+        <li><a href="#sélection-de-fonction-à-travers-un-type-membre">Sélection de fonction à travers un type membre</a></li>
+        <li><a href="#condition-dans-une-spécialisation-template">Condition dans une spécialisation template</a></li>
+        <li><a href="#jouer-avec-les-conversions-implicites">Jouer avec les conversions implicites</a></li>
+        <li><a href="#les-variadiques-de-la-dernière-chance">Les variadiques de la dernière chance</a></li>
+        <li><a href="#rendre-dépendant-un-type-indépendant">Rendre dépendant un type indépendant</a></li>
+      </ul>
+    </li>
+    <li><a href="#c20-et-concept">C++20 et concept</a></li>
+  </ul>
+</nav>
+        </div></aside>
+      <p><a href="https://en.cppreference.com/w/cpp/language/sfinae">SFINAE</a> (Substitution Failure Is Not An Error) est un mécanisme du compilateur pour ignorer certaines instanciations de fonction ou de classe qui ne compilent pas, sans pour autant émettre une erreur de compilation.</p>
+<p>Pour comprendre pleinement le mécanisme derrière, il faut assimiler le principe de substitution appliquée par le compilateur. Lorsqu&rsquo;une expression dépend d&rsquo;un <strong>paramètre template</strong>, le compilateur va évaluer l&rsquo;expression en la substituant par le type ou la valeur de l&rsquo;expression. Par exemple</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span> <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="kt">int</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span> <span class="n">value</span><span class="p">);</span>
+
+<span class="n">foo</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div><p>À l&rsquo;appel de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">foo</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span>
+</code></span>, le compilateur remplace <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span>
+</code></span> par <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">::</span><span class="n">type</span>
+</code></span>, qui correspond ici à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span>
+</code></span>. C&rsquo;est la substitution. Lorsque le compilateur n&rsquo;arrive pas à faire cette substitution &ndash; car par exemple il n&rsquo;y a pas de membre <code>type</code> &ndash; il va chercher une autre fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">foo</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span>
+</code></span> qui pourrait être utilisée.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">B</span> <span class="p">{</span> <span class="k">using</span> <span class="n">value_type</span> <span class="o">=</span> <span class="kt">int</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span> <span class="n">value</span><span class="p">);</span> <span class="c1">// B::type n&#39;existe pas, cette fonction est ignorée
+</span><span class="c1"></span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">value_type</span> <span class="n">value</span><span class="p">);</span>
+
+<span class="n">foo</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div><p>Bien sûr, si le compilateur peut utiliser les 2 fonctions <code>foo</code> précédentes, il y aura ambiguïté et finalement une erreur.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">C</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">value_type</span> <span class="o">=</span> <span class="kt">int</span><span class="p">;</span>
+  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="kt">int</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">foo</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">test</span><span class="p">.</span><span class="nl">cpp</span><span class="p">:</span><span class="mi">15</span><span class="o">:</span><span class="mi">3</span><span class="o">:</span> <span class="nl">error</span><span class="p">:</span> <span class="n">call</span> <span class="n">to</span> <span class="err">&#39;</span><span class="n">foo</span><span class="err">&#39;</span> <span class="n">is</span> <span class="n">ambiguous</span>
+  <span class="n">foo</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+  <span class="o">^~~~~~</span>
+<span class="n">test</span><span class="p">.</span><span class="nl">cpp</span><span class="p">:</span><span class="mi">2</span><span class="o">:</span><span class="mi">6</span><span class="o">:</span> <span class="nl">note</span><span class="p">:</span> <span class="n">candidate</span> <span class="n">function</span> <span class="p">[</span><span class="n">with</span> <span class="n">T</span> <span class="o">=</span> <span class="n">C</span><span class="p">]</span>
+<span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span> <span class="n">value</span><span class="p">);</span>
+     <span class="o">^</span>
+<span class="n">test</span><span class="p">.</span><span class="nl">cpp</span><span class="p">:</span><span class="mi">5</span><span class="o">:</span><span class="mi">6</span><span class="o">:</span> <span class="nl">note</span><span class="p">:</span> <span class="n">candidate</span> <span class="n">function</span> <span class="p">[</span><span class="n">with</span> <span class="n">T</span> <span class="o">=</span> <span class="n">C</span><span class="p">]</span>
+<span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">value_type</span> <span class="n">value</span><span class="p">);</span>
+     <span class="o">^</span>
+</code></pre></div><p>Il faut bien comprendre que SFINAE n&rsquo;est pas un mécanisme pour simplifier les messages d&rsquo;erreur, ni pour les ignorer. Le résultat est même plutôt inverse, à un certain point, il est difficile de savoir pourquoi une fonction est utilisée à la place d&rsquo;une autre, le compilateur ne donnant aucun diagnostic. Les erreurs sont plus verbeuses &ndash; l&rsquo;ensemble des prototypes sont listés &ndash; et les ambiguïtés difficiles à corriger sans ajouter de la complexité.</p>
+<p>Plus le nombre de prototypes liés à un nom de fonction croît, plus le code devient difficile et les erreurs &ndash; principalement d&rsquo;ambiguïtés &ndash; nombreuses. Il faut bien réfléchir à la manière de s&rsquo;y prendre pour ne pas être happé par le code avec des prototypes à rallonge à ne plus savoir quoi en faire. Le but de cet article est de présenter différentes solutions pour exploiter SFINAE sans être enfermé dans un usage unique qui se limite souvent à la superposition de condition dans un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span>
+</code></span>.</p>
+<a class="headline-hash" href="#dépendance-de-typevaleur"><h2 id="dépendance-de-typevaleur">Dépendance de type/valeur</h2></a>
+<p>Le SFINAE repose entièrement sur les valeurs ou types template, on parle de value-dependent ou type-dependent (je ne ferais pas de distinction entre les 2). Tout ce qui n&rsquo;est pas lié à une valeur template sera évalué automatiquement par le compilateur, que l&rsquo;expression soit ou non dans une classe ou une fonction template.</p>
+<p>Par exemple:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{</span> <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="kt">int</span><span class="p">;</span> <span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">int</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="o">::</span><span class="n">type</span> <span class="n">y</span><span class="p">)</span> <span class="c1">// A::type doit exister, car le type n&#39;est pas type-dependent
+</span><span class="c1"></span>                        <span class="c1">// Si A::type n&#39;existe pas, il y aura une erreur
+</span><span class="c1"></span>                        <span class="c1">// même si foo() n&#39;est pas utilisée
+</span><span class="c1"></span><span class="p">{</span>
+  <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// Cette expression dépend de x qui est template,
+</span><span class="c1"></span>                <span class="c1">// une erreur ne pourra survenir qu&#39;au moment de l&#39;instanciation de foo()
+</span><span class="c1"></span>  <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">;</span> <span class="c1">// cette expression n&#39;a aucune dépendance -&gt; il devrait y avoir une erreur
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>Si le compilateur respecte scrupuleusement la norme et sans la moindre utilisation de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">foo</span><span class="p">()</span>
+</code></span>, tout ce qui n&rsquo;a pas de dépendance doit être évalué au plus tôt et systématiquement.</p>
+<ul>
+<li>le type <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">::</span><span class="n">type</span>
+</code></span> doit exister</li>
+<li>le second retour ne doit pas compiler</li>
+</ul>
+<p>Étrangement, du moment que la fonction n&rsquo;est pas utilisée, gcc ne vérifie pas si le retour est convertible vers celui de la fonction, mais demande quand même une expression valide, alors que msvc ne fait aucune vérification au sein de la fonction. Par contre clang indique qu&rsquo;une chaîne de caractères n&rsquo;est pas convertible en int.</p>
+<p>L'évaluation systématique des types indépendants explique pourquoi le code ci-dessous donne toujours une erreur.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">xxx</span><span class="p">)</span>
+<span class="p">{}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+  <span class="k">static_assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="c1">// toujours évalué -&gt; erreur de compilation
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>On touche ici au contexte d'évaluation: le prototype, suivi du corps de fonction. Le second est évalué différemment selon les compilateurs, mais cela ne cause pas réellement de problème, car les erreurs apparaissent au moment de l&rsquo;utilisation de la fonction.</p>
+<p>Quand on parle de contexte, on parle aussi de sous-contexte. Dans le cas de SFINAE, la dépendance d&rsquo;un contexte au contexte parent <strong>ne peut pas être attrapé</strong>, ce qui résultera dans tous les cas à une erreur de compilation. Le corps d&rsquo;une fonction est un exemple, un autre concerne les membres d&rsquo;une classe:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">A</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="kt">int</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="nc">B</span>
+<span class="p">{};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">C</span> <span class="c1">// contexte principal (instanciation de la structure)
+</span><span class="c1"></span><span class="p">{</span>
+  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span><span class="p">;</span> <span class="c1">// sous-contexte,
+</span><span class="c1"></span>                                 <span class="c1">// T::type dépend de T du contexte parent
+</span><span class="c1"></span><span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="err">= </span><span class="nc">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="kt">int</span> <span class="n">foo</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+<span class="p">{</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="kt">int</span> <span class="n">foo</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span>
+<span class="p">{</span> <span class="k">return</span> <span class="mi">2</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">static_assert</span><span class="p">(</span><span class="n">foo</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">foo</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">foo</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">foo</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// erreur
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">test</span><span class="p">.</span><span class="nl">cpp</span><span class="p">:</span><span class="mi">12</span><span class="o">:</span><span class="mi">28</span><span class="o">:</span> <span class="nl">error</span><span class="p">:</span> <span class="n">no</span> <span class="n">type</span> <span class="n">named</span> <span class="err">&#39;</span><span class="n">type</span><span class="err">&#39;</span> <span class="n">in</span> <span class="sc">&#39;B&#39;</span>
+  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span><span class="p">;</span> <span class="c1">// sous-contexte,
+</span><span class="c1"></span>               <span class="o">~~~~~~~~~~~~^~~~</span>
+<span class="n">test</span><span class="p">.</span><span class="nl">cpp</span><span class="p">:</span><span class="mi">16</span><span class="o">:</span><span class="mi">36</span><span class="o">:</span> <span class="nl">note</span><span class="p">:</span> <span class="n">in</span> <span class="n">instantiation</span> <span class="n">of</span> <span class="k">template</span> <span class="k">class</span> <span class="err">&#39;</span><span class="nc">C</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="err">&#39;</span> <span class="n">requested</span> <span class="n">here</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="err">= </span><span class="nc">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span><span class="o">&gt;</span>
+                                   <span class="o">^</span>
+</code></pre></div><p>Pour que <code>C</code> fonctionne avec SFINAE, il faut une spécialisation de <code>C</code> sans le membre <code>type</code>. Cela requière un développement spécifique qui rend le support de SFINAE quelquefois difficile à mettre en place.</p>
+<a class="headline-hash" href="#emplacement-des-expressions-pour-le-sfinae"><h2 id="emplacement-des-expressions-pour-le-sfinae">Emplacement des expressions pour le SFINAE</h2></a>
+<p>Partout où il est possible de mettre un type ou une valeur est propice à la substitution: paramètre template, contenu de noexcept, decltype, sizeof et même les paramètres par défaut. Quel que soit l&rsquo;emplacement, si le compilateur ne trouve pas une expression qu&rsquo;il peut compiler, il va simplement ignorer la fonction ou l&rsquo;instanciation.</p>
+<p>Généralement, pour vérifier une expression, le plus simple est d&rsquo;ajouter un paramètre de template initialisé avec l&rsquo;expression qui doit être valide ou passer par <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span>
+</code></span>. Pour ce dernier, une petite astuce pour ajouter plusieurs expressions consiste à les séparer par des virgules et entourer le tout d&rsquo;une paire de parenthèse:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="p">...,</span> <span class="k">class</span> <span class="err">= </span><span class="nc">decltype</span><span class="p">(...)</span><span class="o">&gt;</span> <span class="c1">// ici ou
+</span><span class="c1"></span><span class="k">auto</span> <span class="n">f</span><span class="p">(...)</span> <span class="o">-&gt;</span> <span class="k">decltype</span><span class="p">(((</span><span class="kt">void</span><span class="p">)</span><span class="n">expr1</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="p">)(</span><span class="n">expr2</span><span class="p">),</span> <span class="n">expr3</span><span class="p">));</span>
+                     <span class="c1">// ^ pour que decltype ne voit qu&#39;une expression
+</span><span class="c1"></span>                     <span class="c1">//  ^ le cast en void permet d&#39;inhiber d&#39;éventuelle surcharge de ,
+</span><span class="c1"></span>                     <span class="c1">//             ^ la virgule pour séparer chacune des expressions
+</span><span class="c1"></span>                     <span class="c1">//                              ^ l&#39;expression pour le type de retour
+</span></code></pre></div><a class="headline-hash" href="#technique-et-usage-du-sfinae"><h2 id="technique-et-usage-du-sfinae">Technique et usage du SFINAE</h2></a>
+<p>À partir de maintenant, je vais présenter les techniques qui me viennent à l&rsquo;esprit en me basant si possible sur des éléments de la STL pour des exemples pratiques. Les plus curieux pourront comparer avec l&rsquo;implémentation de la STL qu&rsquo;ils utilisent (<a href="https://github.com/microsoft/STL/">msvc</a>, <a href="https://github.com/llvm-mirror/libcxx">clang (libc++)</a> et <a href="https://github.com/gcc-mirror/gcc/tree/master/libstdc%2B%2B-v3">gcc (libstdc++)</a> pour les plus connues).</p>
+<a class="headline-hash" href="#sélection-de-fonction-à-travers-un-type-membre"><h3 id="sélection-de-fonction-à-travers-un-type-membre">Sélection de fonction à travers un type membre</h3></a>
+<p>Dans ce premier exemple, nous allons voir comment implémenter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span>
+</code></span>. Pour rappel, il existe 3 versions:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">...)</span> <span class="o">-&gt;</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="n">make_unique</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// arrays of unknown bound
+</span><span class="c1"></span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">...)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="c1">// arrays of known bound
+</span></code></pre></div><p>Comme le premier type template influence les paramètres et le type de retour, le plus simple est un trait qui va sélectionner le bon prototype. Contrairement au trait que l&rsquo;on rencontre habituellement, celui-ci va définir un type membre différent pour chaque spécialisation utilisée par un prototype. Ainsi, seul un prototype pourra être utilisé pendant que les autres ne trouveront pas le membre attendu. Cette implémentation est tout droit sortie des STLs.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">make_unique_select</span>
+  <span class="p">{</span>
+    <span class="k">using</span> <span class="n">single_object</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">make_unique_select</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[]</span><span class="o">&gt;</span>
+  <span class="p">{</span>
+    <span class="k">using</span> <span class="n">array</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">make_unique_select</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
+  <span class="p">{</span>
+    <span class="k">struct</span> <span class="nc">invalid_type</span> <span class="p">{};</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+<span class="k">typename</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_unique_select</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">single_object</span>
+<span class="n">make_unique</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">T</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...));</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">typename</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_unique_select</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">array</span>
+<span class="n">make_unique</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">num</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">std</span><span class="o">::</span><span class="n">remove_extent_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">[</span><span class="n">num</span><span class="p">]());</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+<span class="k">typename</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_unique_select</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">invalid_type</span>
+<span class="n">make_unique</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+</code></pre></div><p>Si le C++ supportait la spécialisation partielle de fonction, on pourrait se passer de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">detail</span><span class="o">::</span><span class="n">make_unique_select</span>
+</code></span>. Par contre, comme l&rsquo;implémentation de <code>make_unique</code> dépend uniquement d&rsquo;un type template qui doit être explicitement mis, on peut simplifier le code grâce aux variables template et en déplaçant l&rsquo;implémentation des fonctions dans les spécialisations de structure.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">make_unique_impl</span>
+  <span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="k">operator</span><span class="p">()(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="k">const</span>
+    <span class="p">{</span>
+       <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">T</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...));</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">make_unique_impl</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[]</span><span class="o">&gt;</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[]</span><span class="o">&gt;</span> <span class="k">operator</span><span class="p">()(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">num</span><span class="p">)</span> <span class="k">const</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">std</span><span class="o">::</span><span class="n">remove_extent_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">[</span><span class="n">num</span><span class="p">]());</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">make_unique_impl</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
+  <span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+    <span class="k">struct</span> <span class="nc">invalid_type</span> <span class="k">operator</span><span class="p">()(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...)</span> <span class="k">const</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_unique_impl</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">make_unique</span> <span class="p">{};</span>
+</code></pre></div><p>Ce qui revient à des bêtes spécialisations de template.</p>
+<a class="headline-hash" href="#condition-dans-une-spécialisation-template"><h3 id="condition-dans-une-spécialisation-template">Condition dans une spécialisation template</h3></a>
+<p>Grâce à un paramètre supplémentaire, il est possible d&rsquo;ajouter des conditions dans une spécialisation pour y ajouter des contraintes. Voici un exemple simplifié avec une implémentation de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span>
+</code></span>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">From</span><span class="p">,</span> <span class="k">class</span> <span class="nc">To</span><span class="p">,</span> <span class="k">class</span> <span class="err">= </span><span class="nc">void</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">is_convertible</span> <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">false_type</span>
+<span class="p">{};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">From</span><span class="p">,</span> <span class="k">class</span> <span class="nc">To</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">is_convertible</span><span class="o">&lt;</span><span class="n">From</span><span class="p">,</span> <span class="n">To</span><span class="p">,</span>
+  <span class="c1">// on utilise le paramètre &#34;fantôme&#34;,
+</span><span class="c1"></span>  <span class="c1">// mais le type final de l&#39;expression doit être le même que la valeur par défaut
+</span><span class="c1"></span>  <span class="k">class</span> <span class="err">= </span><span class="nc">decltype</span><span class="p">(</span>
+    <span class="c1">// fonction créée à la volée qui prend un paramètre To
+</span><span class="c1"></span>    <span class="c1">// qui échouera si From n&#39;est pas convertible
+</span><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="o">&amp;</span><span class="p">)(</span><span class="n">To</span><span class="p">)</span><span class="o">&gt;</span><span class="p">()(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">From</span><span class="o">&gt;</span><span class="p">())</span>
+  <span class="p">)</span>
+<span class="o">&gt;</span> <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span>
+<span class="p">{};</span>
+</code></pre></div><p>Cette technique permet de n&rsquo;instancier un type que si tous les prérequis sont acceptés. Au début de l&rsquo;article, j&rsquo;ai présenté un exemple de classe où <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">T</span><span class="o">::</span><span class="n">type</span>
+</code></span> (avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="o">=</span> <span class="n">C</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span>
+</code></span>) donne une erreur, car le sous-membre (<code>type</code>) dépend d&rsquo;un contexte parent. Voici comment on peut palier à ce problème:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="err">= </span><span class="nc">void</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">C</span>
+<span class="p">{</span>
+  <span class="c1">// par défaut aucun membre
+</span><span class="c1"></span><span class="p">};</span>
+
+<span class="c1">// si T::type existe bien, cette spécialisation sera utilisée
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">C</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">void_t</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span><span class="o">&gt;&gt;</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div><p>Ceci fonctionne pour des types, mais les compilateurs sont plus capricieux avec des valeurs. Par exemple, une spécialisation sur des valeurs divisibles par 16 comme ci-dessus donne une erreur avec gcc, msvc et icc. Étrangement, seul clang l&rsquo;accepte.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">=</span> <span class="nb">false</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">is_mod16</span> <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">false_type</span>
+<span class="p">{};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">is_mod16</span><span class="o">&lt;</span><span class="n">N</span><span class="p">,</span> <span class="p">(</span><span class="n">N</span> <span class="o">%</span> <span class="mi">16</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">&gt;</span> <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span> <span class="c1">// erreur
+</span><span class="c1"></span><span class="p">{};</span>
+</code></pre></div><p>Faute de mieux, le plus simple est de passer par <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">N</span> <span class="o">%</span> <span class="mi">16</span> <span class="o">==</span> <span class="mi">0</span><span class="o">&gt;</span>
+</code></span> et prendre un type comme second paramètre de template.</p>
+<a class="headline-hash" href="#jouer-avec-les-conversions-implicites"><h3 id="jouer-avec-les-conversions-implicites">Jouer avec les conversions implicites</h3></a>
+<p>Il est possible d&rsquo;ajouter un paramètre dans une fonction et jouer avec les conversions implicites pour prioriser l&rsquo;ordre d&rsquo;appel.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="err">= </span><span class="nc">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="kt">int</span> <span class="n">foo</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="err">= </span><span class="nc">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">value_type</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="kt">int</span> <span class="n">foo</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">2</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="k">struct</span> <span class="nc">A</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="kt">int</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="nc">B</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">value_type</span> <span class="o">=</span> <span class="kt">int</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="nc">C</span> <span class="o">:</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span>
+<span class="p">{};</span>
+
+<span class="k">static_assert</span><span class="p">(</span><span class="n">foo</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">foo</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
+<span class="c1">// les 2 fonctions sont valides, mais T::type est prioritaire car 42 est un int
+</span><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">foo</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
+</code></pre></div><p>On peut même ajouter autant de paramètres que nécessaire pour avoir une chaîne de priorité. Par exemple, on pourrait faire une fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">front</span><span class="p">()</span>
+</code></span> qui utilise en priorité la fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">front</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span>
+</code></span> dans le namespace de l&rsquo;objet (règles d&rsquo;<a href="https://en.cppreference.com/w/cpp/language/adl">ADL</a>), sinon <code>cont.front()</code> et en dernier recours <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">*</span><span class="n">begin</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span>
+</code></span>.</p>
+
+  <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="c1">// juste pour simplifier l&#39;écriture des fonctions
+</span><span class="c1"></span><span class="cp">#define DECLTYPE_AUTO_RETURN_NOEXCEPT(...)                 \
+</span><span class="cp">  noexcept(noexcept(__VA_ARGS__)) -&gt; decltype(__VA_ARGS__) \
+</span><span class="cp">  {                                                        \
+</span><span class="cp">    return (__VA_ARGS__);                                  \
+</span><span class="cp">  }
+</span><span class="cp"></span>
+<span class="k">namespace</span> <span class="n">adl_barrier</span>
+<span class="p">{</span>
+  <span class="c1">// pour que front_impl() voit une fonction front() qu&#39;elle pourrait utiliser
+</span><span class="c1"></span>  <span class="k">struct</span> <span class="nc">na</span> <span class="p">{};</span>
+  <span class="kt">void</span> <span class="nf">front</span><span class="p">(</span><span class="n">na</span><span class="p">);</span>
+
+  <span class="c1">// pour que begin(cont) utilise le begin de son namespace (ADL) ou std::begin()
+</span><span class="c1"></span>  <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">;</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Cont</span><span class="o">&gt;</span>
+  <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">front_impl</span><span class="p">(</span><span class="n">Cont</span><span class="o">&amp;</span> <span class="n">cont</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span>
+  <span class="n">DECLTYPE_AUTO_RETURN_NOEXCEPT</span><span class="p">(</span><span class="n">front</span><span class="p">(</span><span class="n">cont</span><span class="p">))</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Cont</span><span class="o">&gt;</span>
+  <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">front_impl</span><span class="p">(</span><span class="n">Cont</span><span class="o">&amp;</span> <span class="n">cont</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="p">)</span>
+  <span class="n">DECLTYPE_AUTO_RETURN_NOEXCEPT</span><span class="p">(</span><span class="n">cont</span><span class="p">.</span><span class="n">front</span><span class="p">())</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Cont</span><span class="o">&gt;</span>
+  <span class="k">constexpr</span> <span class="k">auto</span> <span class="n">front_impl</span><span class="p">(</span><span class="n">Cont</span><span class="o">&amp;</span> <span class="n">cont</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">)</span>
+  <span class="n">DECLTYPE_AUTO_RETURN_NOEXCEPT</span><span class="p">(</span><span class="o">*</span><span class="n">begin</span><span class="p">(</span><span class="n">cont</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Cont</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="k">auto</span> <span class="n">front</span><span class="p">(</span><span class="n">Cont</span><span class="o">&amp;&amp;</span> <span class="n">cont</span><span class="p">)</span>
+<span class="c1">// le perfect forwarding n&#39;est pas respecté pour simplifier l&#39;exemple
+</span><span class="c1"></span><span class="n">DECLTYPE_AUTO_RETURN_NOEXCEPT</span><span class="p">(</span><span class="n">adl_barrier</span><span class="o">::</span><span class="n">front_impl</span><span class="p">(</span><span class="n">cont</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+
+<span class="k">namespace</span> <span class="n">mylib</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="nc">A</span>
+  <span class="p">{</span>
+    <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">constexpr</span> <span class="kt">char</span> <span class="nf">front</span><span class="p">(</span><span class="n">A</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="p">}</span>
+
+
+  <span class="k">struct</span> <span class="nc">B</span>
+  <span class="p">{</span>
+    <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">s</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">constexpr</span> <span class="kt">char</span> <span class="k">const</span><span class="o">*</span> <span class="nf">begin</span><span class="p">(</span><span class="n">B</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">b</span><span class="p">.</span><span class="n">s</span><span class="p">;</span>
+  <span class="p">}</span>
+
+
+  <span class="k">struct</span> <span class="nc">C</span>
+  <span class="p">{</span>
+    <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">s</span><span class="p">;</span>
+
+    <span class="k">constexpr</span> <span class="kt">char</span> <span class="nf">front</span><span class="p">()</span> <span class="k">const</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">static_assert</span><span class="p">(</span><span class="n">front</span><span class="p">(</span><span class="n">mylib</span><span class="o">::</span><span class="n">A</span><span class="p">{</span><span class="s">&#34;ax&#34;</span><span class="p">})</span> <span class="o">==</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span> <span class="c1">// mylib::front(A)
+</span><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">front</span><span class="p">(</span><span class="n">mylib</span><span class="o">::</span><span class="n">B</span><span class="p">{</span><span class="s">&#34;bx&#34;</span><span class="p">})</span> <span class="o">==</span> <span class="sc">&#39;b&#39;</span><span class="p">);</span> <span class="c1">// *mylib::begin(B)
+</span><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">front</span><span class="p">(</span><span class="n">mylib</span><span class="o">::</span><span class="n">C</span><span class="p">{</span><span class="s">&#34;cx&#34;</span><span class="p">})</span> <span class="o">==</span> <span class="sc">&#39;c&#39;</span><span class="p">);</span> <span class="c1">// C::front()
+</span></code></pre></div>
+
+<a class="headline-hash" href="#les-variadiques-de-la-dernière-chance"><h3 id="les-variadiques-de-la-dernière-chance">Les variadiques de la dernière chance</h3></a>
+<p>Il existe en C des paramètres variadiques dont l&rsquo;usage est limité aux types de base et aux pointeurs. Ce genre de paramètre à une particularité intéressante: il n&rsquo;est pris en compte qu'à la seule condition qu&rsquo;aucune autre fonction ne pourrait correspondre. Il a donc une priorité inférieure à la conversion et ne rentre pas en conflit avec. On pourrait réécrire <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span>
+</code></span> comme suit</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">From</span><span class="p">,</span> <span class="k">class</span> <span class="nc">To</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">is_convertible_impl</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">true_type</span> <span class="n">test</span><span class="p">(</span><span class="n">To</span><span class="p">);</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">false_type</span> <span class="n">test</span><span class="p">(...);</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">From</span><span class="p">,</span> <span class="k">class</span> <span class="nc">To</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">is_convertible</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">is_convertible_impl</span><span class="o">&lt;</span><span class="n">From</span><span class="p">,</span> <span class="n">To</span><span class="o">&gt;::</span><span class="n">test</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">From</span><span class="o">&gt;</span><span class="p">()));</span>
+</code></pre></div><a class="headline-hash" href="#rendre-dépendant-un-type-indépendant"><h3 id="rendre-dépendant-un-type-indépendant">Rendre dépendant un type indépendant</h3></a>
+<p>Cela peut paraître idiot, mais pour rendre dépendant un type indépendant du contexte, il suffit qu&rsquo;il traverse un type dépendant.</p>
+<p>Voici un exemple pour avoir le plus proche d&rsquo;un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">()</span> <span class="p">{}</span> <span class="k">else</span> <span class="k">static_assert</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
+</code></span>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">fn_identity</span> <span class="o">=</span> <span class="p">[](</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="o">&gt;</span>
+<span class="kr">inline</span> <span class="k">auto</span> <span class="n">dependent_identity</span> <span class="o">=</span> <span class="n">fn_identity</span><span class="p">;</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_array_v</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// ...
+</span><span class="c1"></span>  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="c1">// _ depend de T, mais est toujours égal à fn_identity
+</span><span class="c1"></span>    <span class="k">auto</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dependent_identity</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="c1">// _(false) retourne false,
+</span><span class="c1"></span>    <span class="c1">// mais la valeur est indirectement dépendante de T
+</span><span class="c1"></span>    <span class="k">static_assert</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="nb">false</span><span class="p">));</span>
+    <span class="c1">// on notera que même si _ n&#39;est pas une variable constexpr
+</span><span class="c1"></span>    <span class="c1">// le résultat de _(false) l&#39;est :)
+</span><span class="c1"></span>  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// on peut aussi utiliser la variable x plutôt que T, avec quelque chose comme
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
+<span class="k">constexpr</span> <span class="n">first</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">,</span> <span class="n">U</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//...
+</span><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">first</span><span class="p">(</span><span class="nb">false</span><span class="p">,</span> <span class="n">x</span><span class="p">));</span>
+</code></pre></div><p>Cela s&rsquo;applique aussi au membre d&rsquo;une classe en ajoutant un template avec un paramètre par défaut qui ne sera jamais modifié par l&rsquo;extérieur.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">A</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">U</span> <span class="o">=</span> <span class="n">T</span><span class="o">&gt;</span>
+  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">U</span><span class="o">::</span><span class="n">type</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// son écriture en est par contre fortement alourdie:
+</span><span class="c1"></span><span class="n">A</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&lt;&gt;</span>
+<span class="n">A</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="k">template</span> <span class="n">type</span><span class="o">&lt;&gt;</span> <span class="c1">// dans une fonction/classe template
+</span></code></pre></div><p>Ou sur une fonction membre:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">A</span>
+<span class="p">{</span>
+  <span class="c1">// sans ce template, le type T doit obligatoirement avoir une fonction foo()
+</span><span class="c1"></span>  <span class="c1">// sinon, l&#39;instanciation de A ne pourra pas se faire et A&lt;int&gt; donnerait
+</span><span class="c1"></span>  <span class="c1">// request for member ‘foo’ in ‘std::declval&lt;int&amp;&gt;()’, which is of non-class type ‘int’
+</span><span class="c1"></span>  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">U</span> <span class="o">=</span> <span class="n">T</span><span class="o">&gt;</span>
+  <span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&amp;&gt;</span><span class="p">().</span><span class="n">foo</span><span class="p">())</span> <span class="n">foo</span><span class="p">();</span>
+<span class="p">};</span>
+</code></pre></div><a class="headline-hash" href="#c20-et-concept"><h2 id="c20-et-concept">C++20 et concept</h2></a>
+<p>Depuis C++20, il existe un nouvel outil pour exploiter le SFINAE: <a href="https://en.cppreference.com/w/cpp/language/constraints">les concepts</a>. Les concepts sont des contraintes ajoutées aux types qui doivent être vérifiées pour que le compilateur accepte d&rsquo;utiliser la fonction ou d&rsquo;instancier le type. Cela simplifie l&rsquo;utilisation du SFINAE et rend le code beaucoup plus lisible. La fonctionnalité étant récente, la plupart des compilateurs ne la supporte pas encore.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2020-04-07T09:29:25">07 avril 2020
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2020/04/sfinae/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="387a37cf3aa969713e423816ed3561c7-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=sfinae&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2020%2f04%2fsfinae%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2020%2f04%2fsfinae%2f&amp;title=sfinae" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2020%2f04%2fsfinae%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2020%2f04%2fsfinae%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2020%2f04%2fsfinae%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2020%2f04%2fsfinae%2f&amp;name=sfinae" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+  
+  
+<nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--prev">
+    <a class="post-nav__link" href="/2019/09/effets-et-utilisations-de-noexcept/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Effets et utilisations de noexcept</span></a>
+  </div>
+  <div class="post-nav__item post-nav__item--next">
+  </div>
+</nav>
+
+  <section id="gh-comments">
+  <h1>Commentaires</h1>
+<p>Les commentaires ne sont pas encore ouverts.</p>
+<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues">les issues de github</a> et aucun n'est associée au billet.
+Vous pouvez faire votre commentaire dans une issue qui a comme titre celui du billet. Je
+me chargerai de les associer.</p>
+</section>
+
+</main>
+</div>
+  <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+    <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
+    <p class="footer__copyright">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
+      Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
+      et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
+      Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
+      </span>
+    </p>
+  </footer>
+</div>
+<a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
+
+</body>
+</html>
+

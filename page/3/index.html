@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.68.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.68.3" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -77,12 +77,12 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2020/04/sfinae/">SFINAE</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">35 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -110,7 +110,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (26)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -170,6 +170,102 @@
 </aside>
 
   <main class="main-content list content" role="main" id="main-content">
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="valeur-r%C3%A9f%C3%A9rence-ou-pointeur-2/2"><span>
+        <a href="#256-couleurs-et-plus-dans-la-console"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: 256 couleurs et plus dans la console"></i></a>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-1%2f2"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Valeur, référence ou pointeur ? (1/2)"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/">Valeur, référence ou pointeur ? (2/2)</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#256-couleurs-et-plus-dans-la-console">Article suivant: 256 couleurs et plus dans la console</a><br/>
+        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-1%2f2">Article précédent: Valeur, référence ou pointeur ? (1/2)</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2014-05-31T21:18:10">31 mai 2014
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
+  <a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#10ed39526a7913e7e5ec22dcf3e6f161-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p>Dans le <a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/">précédent billet</a>, j&rsquo;opposai les paramètres par références constantes à ceux par valeurs.</p>
+<p>Sans plus attendre entamons la seconde question.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#référence-ou-pointeur-"><h2 id="référence-ou-pointeur-">Référence ou pointeur ?</h2></a>
+<p>Si je dois faire court je dirai: pointeur jamais ; référence quand possible. Sans autre forme de procès :D</p>
+<p>Mais on me dit dans l&rsquo;oreillette qu&rsquo;il faut argumenter&hellip; Alors c&rsquo;est parti.</p>
+<p>Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.</p>
+<p>À contrario, les pointeurs peuvent changer la variable référencée ou ne pointer sur aucune variable (<a href="http://en.cppreference.com/w/cpp/types/nullptr_t">nullptr</a>).</p>
+<p>Une référence est l'équivalent d&rsquo;un pointeur constant non-nul (avec une syntaxe d&rsquo;utilisation plus simple: pas besoin de déréférencer).
+De leurs restrictions, celles-ci ne peuvent pas toujours correspondre au besoin ; les pointeurs sont alors envisageables.</p>
+<p>De plus, les pointeurs sont beaucoup utilisés dans les constructions dynamiques (allocation dynamique) quand les classes sont à <a href="http://blog.emmanueldeloget.com/index.php?post/2011/11/18/Standard-C11-%3A-la-s%C3%A9mantique-de-d%C3%A9placement">sémantique d&rsquo;entités</a>. Principalement car ces dernières ne sont pas copiables et que l&rsquo;allocation dynamique permet de s&rsquo;affranchir de la portée (le scope) en se détachant de la pile.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#le-pointeur-parle-trop"><h2 id="le-pointeur-parle-trop">Le pointeur parle trop</h2></a>
+<p>L&rsquo;usage de pointeur (pointeur nu) est cependant à prendre avec des pincettes, voici 3 questions que soulève l&rsquo;usage d&rsquo;un pointeur:</p>
+<ul>
+<li>Dois-je contrôler la durée de vie du pointeur (le détruire) ? [oui, non]</li>
+<li>Est-ce un élément ou une séquence d'élément ? [séquence, simple valeur, ça dépend]</li>
+<li>Le pointeur peut-il être nul ? [oui, non]</li>
+</ul>
+<p>Après un petit calcul combinatoire (2<em>3</em>2), il y a 12 réponses possibles. Le pire est de répondre: &ldquo;ça dépend&rdquo;. Si on l&rsquo;enlève, il reste quand même 8 possibilités.</p>
+<p>La sémantique du pointeur est, au final, très faible. Lui en ajouter devient alors capital.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#plus-de-sémantique-pour-un-pointeur"><h2 id="plus-de-sémantique-pour-un-pointeur">Plus de sémantique pour un pointeur</h2></a>
+<p>Hélas, il n&rsquo;y a pas de réponse universelle, tout dépend des cas d&rsquo;usages. De plus certaines combinaisons son conceptuellement douteuses.
+Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène aux références mais idéologiquement une référence n&rsquo;est pas faite pour être détruite.</p>
+<p>On peut néanmoins sortir quelques règles:</p>
+<ul>
+<li>Si le pointeur n&rsquo;est pas nul et que l&rsquo;appelé ne gère pas la durée de vie: <code>std::reference_wrapper</code> qui permet de changer la référence utilisée.</li>
+<li>Si l&rsquo;appelé contrôle la durée de vie: pointeurs intelligents (<code>std::unique_ptr</code> en priorité, <code>std::shared_ptr</code>, &hellip;).</li>
+<li>Si le pointeur peut être nul et que l&rsquo;appelé ne gère pas la durée de vie alors un pointeur est &ldquo;justifié&rdquo;. En interne du moins, pour l&rsquo;extérieur un <code>non_owner_ptr</code> ou un <code>observer_ptr</code> sera plus parlant. Si le pointeur peut être invalidé pendant l&rsquo;exécution alors <code>std::weak_ptr</code> ou autres est à envisager.</li>
+<li>Tout ce qui est tableau est indiqué dans les signatures des objets wrapper (<code>unique_ptr&lt;T[]&gt;</code>) ou/et grâce à un attribut de taille. De plus, s&rsquo;il faut soit des tableaux, soit une valeur alors toujours préférer le type commun: tableau (les valeurs deviennent des tableaux de taille 1). Les tableaux dynamiques sont, quant à eux, plus faciles à utiliser avec <code>std::vector</code>.</li>
+</ul>
+<p>Au final, l&rsquo;usage de pointeur nu est très peu utilisé, voire pas du tout. De plus, leur mauvais usage avec l&rsquo;allocation dynamique amène des fuites mémoires principalement dues aux libérations manuelles. Dans un langage comme le C++, un code non exception safe <strong>va</strong> faire des fuites mémoires. De manière générale, la libération s&rsquo;applique sur toute forme de ressource: lock, fichier, etc.</p>
+<p>Pour éviter cela, les ressources doivent être attachées à la pile et la puissance du déterminisme de destruction permettra de les libérer convenablement. On parle aussi de <a href="http://fr.wikipedia.org/wiki/RAII">RAII</a>. Pour rappel, tout ce qui est sur la pile est détruit à la sortie du scope. La sémantique de déplacement permettra de changer de portée.</p>
+<p>Le wiki de Guillaume Belz en parle très bien: <a href="http://guillaume.belz.free.fr/doku.php?id=pourquoi_le_raii_est_fondamental_en_c">pourquoi le RAII est fondamental en C++ ?</a></p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2014-05-31T21:18:10">31 mai 2014
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="10ed39526a7913e7e5ec22dcf3e6f161-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f&amp;title=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f&amp;name=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
         
 <article class="post">
   <header class="post__header clearfix">
@@ -1355,96 +1451,6 @@ Cependant, comme les conteneurs retournent une copie de leur allocateur, il sera
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f03%2fne-pas-empecher-la-nrvo%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f03%2fne-pas-empecher-la-nrvo%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
   <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f03%2fne-pas-empecher-la-nrvo%2f&amp;name=ne-pas-emp%25C3%25AAcher-la-nrvo" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="sqlite-reconstruire-la-bdd-pour-lall%C3%A9ger"><span>
-        <a href="#ne-pas-emp%25C3%25AAcher-la-nrvo"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Ne pas empêcher la NRVO"></i></a>
-        <a href="#diff%25C3%25A9rence-entre-et"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/">Sqlite, reconstruire la bdd pour l&#39;alléger</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#ne-pas-emp%25C3%25AAcher-la-nrvo">Article suivant: Ne pas empêcher la NRVO</a><br/>
-        <a href="#diff%25C3%25A9rence-entre-et">Article précédent: Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2013-03-04T23:36:14">04 mars 2013
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/sqlite" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>SQLite</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>1 minutes ;
-  <a href="https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#ad01fb29f7f3d0612a1e3b7bcb9f403f-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-  
-
-</p>
-
-
-  </header>
-  <div class="post__content">
-      <p>Il existe sur les bases de données SQLite une commande pour réduire la fragmentation des tables et optimiser l&rsquo;espace disque.
-J&rsquo;ai nommé: <a href="http://sqlite.org/lang_vacuum.html">VACUUM</a>.</p>
-<p>Cette commande reconstruit la bdd pour éliminer les lignes vides et réorganise les index (plus de détails dans la doc en lien).</p>
-<p>Comme certains logiciels se servent de sqlite comme BDD, il peut être intéressant d&rsquo;utiliser cette commande de temps en temps.
-La première fois que je l&rsquo;ai fait pour firefox (fichier <code>~/.mozilla/firefox/nom-du-profil/*.sqlite</code> sur linux) j&rsquo;ai gagné ½ giga :).</p>
-<p>Voici un petit script qui va permettre de le faire sur tous les fichiers sqlite du système (du moins, ceux indexés) et connaître la taille totale avant et après utilisation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
-</span><span class="cp"></span><span class="nv">tmpf</span><span class="o">=</span><span class="si">${</span><span class="nv">TMPDIR</span><span class="p">:=/tmp</span><span class="si">}</span>/sqlite_file_path
-locate <span class="se">\.</span>sqlite <span class="se">\
-</span><span class="se"></span><span class="p">|</span> xargs -d<span class="s1">&#39;\n&#39;</span> mimetype <span class="se">\
-</span><span class="se"></span><span class="p">|</span> grep <span class="s1">&#39;application/x-sqlite3$&#39;</span> <span class="se">\
-</span><span class="se"></span><span class="p">|</span> sed <span class="s1">&#39;s/:\s*application\/x-sqlite3\s*$//&#39;</span> <span class="se">\
-</span><span class="se"></span>&gt; <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span>
-xargs --arg-file <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span> -d<span class="s1">&#39;\n&#39;</span> du -hc <span class="p">|</span> tail -n1
-<span class="k">while</span> <span class="nb">read</span> f <span class="p">;</span> <span class="k">do</span>
-  sqlite3 <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s1">&#39;VACUUM;&#39;</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s2">&#34;\tfor </span><span class="nv">$f</span><span class="s2">&#34;</span>
-<span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span>
-xargs --arg-file <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span> -d<span class="s1">&#39;\n&#39;</span> du -hc <span class="p">|</span> tail -n1
-rm <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span>
-</code></pre></div><p>Et une petite version qui prend des fichiers en paramètre:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
-</span><span class="cp"></span>du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span>
-<span class="k">for</span> f in <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span> <span class="p">;</span> <span class="k">do</span>
-  sqlite3 <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s1">&#39;VACUUM;&#39;</span>
-<span class="k">done</span>
-du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span>
-</code></pre></div>
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2013-03-04T23:36:14">04 mars 2013
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/sqlite" rel="category">SQLite</a>
- ;
-  
-
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="ad01fb29f7f3d0612a1e3b7bcb9f403f-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=sqlite-reconstruire-la-bdd-pour-lall%25C3%25A9ger&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f03%2fsqlite-reconstruire-la-bdd-pour-lalleger%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f03%2fsqlite-reconstruire-la-bdd-pour-lalleger%2f&amp;title=sqlite-reconstruire-la-bdd-pour-lall%25C3%25A9ger" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f03%2fsqlite-reconstruire-la-bdd-pour-lalleger%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f03%2fsqlite-reconstruire-la-bdd-pour-lalleger%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f03%2fsqlite-reconstruire-la-bdd-pour-lalleger%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f03%2fsqlite-reconstruire-la-bdd-pour-lalleger%2f&amp;name=sqlite-reconstruire-la-bdd-pour-lall%25C3%25A9ger" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>

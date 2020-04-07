@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simuler une vtable sans fonction virtuelle</title>
-<meta name="generator" content="Hugo 0.68.1" />
+<meta name="generator" content="Hugo 0.68.3" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -78,12 +78,12 @@ Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessou
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2020/04/sfinae/">SFINAE</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">35 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -111,7 +111,7 @@ Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessou
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (26)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -208,9 +208,14 @@ Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessou
   </header>
   <div class="post__content">
         <aside id="toc"><div id="tocInner">
-          <h2 id="tocHeading">Sommaire</h2><nav id="TableOfContents"><a href="#une-vtable-à-la-mano">Une vtable à la mano</a></li>
+          <h2 id="tocHeading">Sommaire</h2>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#une-vtable-à-la-mano">Une vtable à la mano</a></li>
     <li><a href="#une-vtable-par-type-vs-une-vtable-par-instance">Une vtable par type vs une vtable par instance</a></li>
-    <li><a href="#la-méthode-du-gros-switch">La méthode du gros switch</a></nav>
+    <li><a href="#la-méthode-du-gros-switch">La méthode du gros switch</a></li>
+  </ul>
+</nav>
         </div></aside>
       <p>La <code>vtable</code> est le mécanisme interne utilisé par C++ pour implémenter les fonctions virtuelles. Lorsqu&rsquo;une classe possède une fonction virtuelle, un pointeur sur la <code>vtable</code> (virtual table) est automatiquement réservé par le compilateur. Cette table contient des pointeurs de fonction sur l&rsquo;ensemble des fonctions virtuelles de la classe et chaque classe dérivée possède sa propre <code>vtable</code>.</p>
 <p>Pour une classe de base implémentant une fonction <code>foo</code> virtuelle comme ci-dessous, l&rsquo;utilisation de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">obj</span><span class="o">-&gt;</span><span class="n">foo</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">)</span>

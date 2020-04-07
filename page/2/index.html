@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.68.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.68.3" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.2884e833a11c1f77b9edb4fa316dd26549f9f511b5281fb276e7bfb223d57e7a.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -77,12 +77,12 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2020/04/sfinae/">SFINAE</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/">Grep, sed, awk, sort... Non ! Zsh</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">34 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">35 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -110,7 +110,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (25)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (26)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -170,6 +170,187 @@
 </aside>
 
   <main class="main-content list content" role="main" id="main-content">
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="ma-vision-de-laccessibilit%C3%A9-appliqu%C3%A9e-pour-ce-blog"><span>
+        <a href="#faites-parler-votre-compilateur"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Faites parler votre compilateur"></i></a>
+        <a href="#de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: De Blogspot à Hugo, il a changé de peau"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/">Ma vision de l&#39;accessibilité appliquée pour ce blog</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#faites-parler-votre-compilateur">Article suivant: Faites parler votre compilateur</a><br/>
+        <a href="#de-blogspot-%25C3%25A0-hugo-il-a-chang%25C3%25A9-de-peau">Article précédent: De Blogspot à Hugo, il a changé de peau</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2018-01-02T14:18:22">02 janvier 2018
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/accessibilite-web" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>accessibilite-web</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>15 minutes ;
+  <a href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#1a9d6a59534c2a4e6ca564c7da302e80-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p>Pour changer de la programmation logicielle, je vais parler de l&rsquo;accessibilité d&rsquo;un site et des petits détails exaspérants que je rencontre sur la toile. Je pense qu&rsquo;une bonne partie parle à chacun, généralement on fait avec, simplement parce qu&rsquo;il n&rsquo;y a pas d&rsquo;autre choix, mais c&rsquo;est toujours frustrant de tomber dessus.</p>
+<p>Pour le blog, j&rsquo;ai passé pas mal de temps sur un template déjà existant en touchant finalement un peu à toutes les parties CSS et HTML. Je vais ici parler un peu de couleur, de police, de lien, de la manière de disposer des cadres et quelques autres bricoles insignifiantes et par définition essentielles.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#plus-de-clics-moins-de-contenu"><h2 id="plus-de-clics-moins-de-contenu">Plus de clics, moins de contenu</h2></a>
+<p>Depuis plusieurs années, une pratique courante consiste à multiplier les clics pour accéder à du contenu. Cela prend plusieurs formes, généralement à travers un menu sectionné sur une multitude de pages, des listes déroulantes ou du texte qui apparait au clic. De l&rsquo;intuitif comme ils disent.</p>
+<p>Le défaut de vouloir tout cacher est de rendre difficile d&rsquo;accès l&rsquo;information:</p>
+<ul>
+<li>Il n&rsquo;est pas possible de faire une recherche de texte.</li>
+<li>Si on ne sait pas dans quel menu aller, on finit par cliquer partout.</li>
+<li>L&rsquo;information est diffuse sur plusieurs pages, c&rsquo;est beaucoup de manipulations, pénible et long. Encore plus s&rsquo;il faut naviguer sur plusieurs pages avec une connexion lente.</li>
+</ul>
+<p>Un des exemples typiques que je déteste est matérialisé par la <a href="https://cpp.developpez.com/faq/cpp/">FAQ de dvp</a>: chaque catégorie doit être déroulée pour qu&rsquo;apparaissent les questions. Résultat, depuis la mise en place de ce nouveau système, je ne la consulte plus puisque trouver une question approximative est une gageure. Il me faut trouver la catégorie, l'éventuelle sous-catégorie, dérouler chacune et enfin pouvoir faire une recherche de texte sur le mot qui m&rsquo;intéresse dans la question (le moteur de recherche donne souvent beaucoup trop de résultats).</p>
+<p>À contrario, les FAQs sur le site du gouvernement permettent un affichage de toutes les questions et/ou réponses ce qui permet une recherche rapide et une lecture continue.</p>
+<p>Je trouve que le site <a href="https://doisjeutiliser.fr">doisjeutiliser.fr</a> donne un bon résumé de la situation. Et je suis d&rsquo;accord avec tous les autres contre-exemples.</p>
+<p>De plus, comme le langage graphique est différent entre les logiciels et entre sites on ne sait pas toujours le comportement associé au clic ou au lien par manque d&rsquo;indicateur, on va au-devant de grosses surprises. Une icône qui représente une sous-catégorie déroulée pour tel site, mais enroulée pour un autre site. Un clic pour dérouler alors que cela ouvre une nouvelle page, voire pire, une nouvelle fenêtre ou, inversement, ouvrir dans un nouvel onglet un lien fait pour afficher un zone cachée (généralement, on tombe sur une page vide). Dans les 2 scénarios c&rsquo;est une mauvaise surprise.</p>
+<p>Et certains ont la bonne idée de redéfinir (ou de simuler) les actions d&rsquo;une liste déroulante en supprimant toute action clavier. Tu veux atteindre &ldquo;août&rdquo; en appuyant sur <code>a</code> ? Fais autrement ! Avec un peu de chance, il faudra aussi cliquer sur le bouton &ldquo;Ok&rdquo; pour valider son choix. Il ne faudrait pas user la touche entrée&hellip;</p>
+<p>Vous l&rsquo;aurez compris, je suis contre cette pratique du &ldquo;clic pour apparaître&rdquo; à outrance.
+Pour prendre en exemple le blog, sur l&rsquo;ancien (blogspot) les archives sont déroulées par années et par mois. Avec une moyenne qui dépasse difficilement 2 articles/mois, en trouver un précis en moins de 2 clics mérite une médaille. Ici, les archives sont sur une page dédiée qui permet une vue d&rsquo;ensemble immédiate sans étaler les titres sur plusieurs lignes.</p>
+<p>(On y notera la police monospace sur la date qui facilite le parcours vertical ;).)</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#disposition-générale-et-débordement"><h2 id="disposition-générale-et-débordement">Disposition générale et débordement</h2></a>
+<p>De mon point de vue, un site web possède classiquement un en-tête, un menu et du contenu, le tout positionné dans un nombre restreint de possibilités. La grande différence se joue sur la gestion du vide. Càd, la place que va prendre un élément sur la page.</p>
+<p>Il existe principalement 3 cas de figures:</p>
+<ul>
+<li>Prendre un maximum de place.</li>
+<li>Mettre une limite maximum sur la largeur.</li>
+<li>Avoir une largeur fixée.</li>
+</ul>
+<p>Une solution n&rsquo;est pas meilleure qu&rsquo;une autre, le choix dépend du design, du type de contenu et du dispositif d&rsquo;affichage. La plupart du temps le site prend toute la largeur jusqu'à une taille raisonnable avant de permuter en taille fixe définie en pourcentage ou en pixel.</p>
+<p>On peut très bien avoir un contenu qui prend toute la page quelle que soit la résolution, mais il faut être conscient qu&rsquo;une ligne trop grande est difficile à lire. Plus une ligne est longue ou un paragraphe dense, moins il y a de points de repère visuels pour &ldquo;suivre&rdquo; le texte. Cela augmente le risque de glisser à la ligne suivante au milieu d&rsquo;une phrase, de sauter une ligne ou relire la même au lieu de passer à la suivante. L&rsquo;extrême inverse étant le format colonne utilisé par les journaux ou magazines, mais difficile à reproduire sur un navigateur.</p>
+<p>Concernant la disposition du menu, à priori, n&rsquo;importe laquelle fait l&rsquo;affaire. À gauche, à droite ou en haut, quelle importance ? Mais c&rsquo;est oublier un point essentiel: que faire quand un élément est trop grand ? La solution immédiate est simple: aller à la ligne. C&rsquo;est même le comportement par défaut des navigateurs sur les blocs de texte. Ouf, nous sommes sauvés, tout va bien dans le meilleur des mondes.</p>
+<p>Sauf qu&rsquo;il existe aussi les images, les tableaux, les lecteurs vidéo et l&rsquo;ensemble des éléments dont un &ldquo;saut de ligne&rdquo; n&rsquo;est pas envisageable. Et là, c&rsquo;est le drame. Heureusement, il existe plein d&rsquo;horribles solutions.</p>
+<p>Les exemples qui suivent sont faits avec une ligne de code qui ne fait pas de saut de ligne automatique.</p>
+<ul>
+<li>S&rsquo;adapter au plus grand.</li>
+</ul>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ul>
+<li>Compacter les éléments ou mettre dans un scroll.</li>
+</ul>
+<!-- raw HTML omitted -->
+<ul>
+<li>Cacher le surplus.</li>
+</ul>
+<!-- raw HTML omitted -->
+<ul>
+<li>Superposer les éléments.</li>
+</ul>
+<!-- raw HTML omitted -->
+<p>Presque toutes ces images ont un point commun: un menu à droite. Ce n&rsquo;est pas anodin, il est difficile d&rsquo;avoir un menu à droite quand la partie gauche veut prendre sa place.</p>
+<p>En déplaçant le menu à gauche, les problèmes de superposition contenu/menu disparaîssent d&rsquo;eux-mêmes. On peut alors laisser le bloc prendre une place optimale.</p>
+<p>Mais il faut le faire intelligemment pour ne pas tomber sur le premier cas qui ajoute un scroll horizontal pour l&rsquo;ensemble du contenu. Vous vous imaginez devoir scroller pour lire une ligne ? Puis bon, les paragraphes qui deviennent des lignes de 3 kilomètres, non merci !</p>
+<p>Il serait également bête de faire comme le second cas qui ajoute un scroll sur tous les éléments dépassant une certaine taille alors qu&rsquo;un énorme vide persiste sur la droite.</p>
+<p>J&rsquo;ai assisté sur la doc de Hugo au passage d&rsquo;un gabarit full page à celui d&rsquo;une taille fixe et, malheureusement, chaque code se voyait estampillé d&rsquo;un scroll horizontal. Obligé de déplacer la souris dessus pour qu&rsquo;il s&rsquo;agrandisse automatiquement jusqu&rsquo;au bord droit de ma fenêtre. Ce qui rendait par la même occasion le scroll superflu. La seule question qui m&rsquo;est venue est &ldquo;Pourquoi dois-je utiliser une souris ? Pourquoi ce n&rsquo;est pas l&rsquo;apparence par défaut ?&quot;.</p>
+<p>Bon ok, deux questions.</p>
+<p>Pour le blog, mon choix s&rsquo;est porté sur un menu à gauche, un contenu sur plus au moins 60% de large pour le centrer, mais avec les contenus trop grands qui débordent un maximum avant le recourt au scroll. C&rsquo;est la disposition la plus pratique à mes yeux. Le résultat peut même être visible sur l&rsquo;avant-dernier article dont un code possède une ligne plus grande qu'à l&rsquo;habitude.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#liens-zone-de-clic-et-surbrillance"><h2 id="liens-zone-de-clic-et-surbrillance">Liens, zone de clic et surbrillance</h2></a>
+<p>Comment parler du web sans un petit mot sur les liens ? Le point central de la navigation internet et pourtant si difficile à cliquer pour moi.</p>
+<p>J&rsquo;ai l&rsquo;impression de faire partie des gens dont la souris est invariablement attirée par la rangée de pixels non cliquable en plein milieu d&rsquo;un lien. C&rsquo;est systématique lorsque celui-ci est sur plusieurs lignes. Tout indique que je suis dessus: la couleur de fond du cadre qui change, celle du texte, la petite décoration qui apparaît. Tout, sauf le pointeur de souris. Mais il y a tellement de changement autour que ce détail ne se voit même plus.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Arrive mon second fléau, déplacer suffisamment la souris pour être sur le lien. Mais pas trop, parce que ce foutu cadre qui change de couleur n&rsquo;en fait pas partie non plus.</p>
+<p>Le problème que je rencontre ici est récurant. Des changements de couleurs et de formes donnent l&rsquo;impression de pouvoir effectuer une action alors que ce n&rsquo;est pas vrai. Il vient alors un sentiment d&rsquo;incompréhension très désagréable qui se change petit à petit en frustration lorsqu&rsquo;on réalise que le pointeur de souris n&rsquo;a pas la bonne forme.</p>
+<p>Quand un cadre contenant un lien change de couleur au passage de la souris, c&rsquo;est une invitation au clic. Celui-ci se doit d'être cliquable pour répondre au principe de la moindre surprise. Bonus, cela élargit la surface de clic et rend par la même occasion le lien plus accessible.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Cette extension de la zone de clic est très présente sur le blog. Comme les espaces blancs décoratifs sur le menu qui font partie du lien. Il est possible en plein écran de plaquer le curseur à gauche et de pouvoir cliquer dessus. Ou par exemple les liens &ldquo;Précédent&rdquo; et &ldquo;Suivant&rdquo; en fin d&rsquo;article qui prennent chacun une moitié de largeur de contenu. Ou encore les icônes de flux RSS qui possèdent une zone de clic réelle beaucoup plus grande que l&rsquo;image. Chacun de ces éléments possède une zone de clic plus large pour simplifier la visée.</p>
+<p>Une dernière chose à éviter impérativement sur un lien concerne l&rsquo;application d&rsquo;un effet de gras au survol. Si par malheur le lien se situe en fin de ligne, la mise en gras va agrandir de quelques pixels les lettres et peut déplacer des mots à la ligne suivante. Qui se retrouvent en dehors de la zone de pointage. Qui reviennent car ne sont plus concernés par le survol. Puis repartent. Et ainsi de suite rendant le lien presque incliquable pour ceux ayant échappé à la crise d'épilepsie. Bien sûr, si le lien est une boîte qui grandit ou ne se déplace pas, il n&rsquo;y a aucun problème.</p>
+<p>À présent, parlons d&rsquo;une évidence: un lien doit être mis en surbrillance par rapport au reste du contenu. S&rsquo;il n&rsquo;y a aucun repère visuel qui le différencie, personne ne le remarquera. Dans l&rsquo;imaginaire collectif, un texte bleu ou violet et surtout souligné représente un lien. Bien que l&rsquo;on puisse le modifier, je déconseille d&rsquo;enlever le soulignement. Un simple changement de couleur pouvant être considéré comme une mise en gras.</p>
+<p>En plus de la pseudo-classe <code>:hover</code> &ndash;source des problèmes cités au début du chapitre lorsqu&rsquo;elle est mal utilisée&ndash;, il est essentiel de mettre en valeur les liens possédant le focus (<code>:focus</code>) pour les adeptes de la navigation clavier. Certains navigateurs comme Opéra possèdent des raccourcis clavier très pratiques pour sauter de lien en lien, mais très handicapants lorsque le site n&rsquo;utilise pas ce marqueur visuel.</p>
+<p>(Je profite du paragraphe pour parler des <a href="https://www.alsacreations.com/article/lire/572-Les-liens-d-evitement.html#menu">liens d'évitement</a> (<a href="http://blog.atalan.fr/des-liens-devitement-astucieux/#categories">ici</a> et <a href="http://www.accede-web.com/notices/html-css-javascript/12-navigation-clavier/12-2-liens-evitement/">là</a>) pour sauter les regroupements de texte comme le menu et simplifier la vie des utilisateurs de clavier et autres dispositifs).</p>
+<p>Pour finir sur les pseudo-classes et clore le sujet, je trouve que beaucoup de sites ignorent <code>:active</code>, alors que c&rsquo;est un excellent moyen d&rsquo;informer un visiteur que son clic est bien pris en compte. C&rsquo;est un indicateur qui manque souvent quand j&rsquo;ouvre dans un nouvel onglet: ai-je bien cliqué ? Cette information m&rsquo;est tellement essentielle que je force dans mon navigateur un cadre en pointillé rouge lorsque je valide un lien.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#la-police-des-caractères"><h2 id="la-police-des-caractères">La police des caractères</h2></a>
+<p>Une chose que j&rsquo;ai apprise en testant plusieurs polices d'écriture, est que la taille apparente varie énormément entre 2 fonts. Mettre une taille de police adaptée à la lecture n&rsquo;est pas suffisant, il faut aussi que chaque police dans la liste de <code>font-family</code> ait une taille similaire au risque d&rsquo;avoir des textes trop grands, ou pire, trop petits.</p>
+<p>Je suis également tombé sur un conseil qui va à l&rsquo;encontre du bon sens: mettre un <code>font-size: 62.5%</code> global. Avec pour seule justification que la taille par défaut est trop grande. Sans prendre en compte la taille effective d&rsquo;une police et en rejetant toute configuration utilisateur. Si &ldquo;62.5%&rdquo; est trop petit, c&rsquo;est le problème de l&rsquo;utilisateur après tout.</p>
+<!-- raw HTML omitted -->
+<p>Étrangement, il n&rsquo;y a que sur internet où la taille est redéfinie. Sur une application de bureau personne ne s&rsquo;en occupe et les polices et tailles configurées au niveau du système sont utilisées automatiquement pour les différents types d'éléments (titre, paragraphe, police monospace, etc).</p>
+<p>Il est également possible d&rsquo;utiliser les polices configurées au niveau du navigateur via leur <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family#Values">nom générique</a>, les principales étant <code>serif</code>, <code>sans-serif</code> et <code>monospace</code>.</p>
+<p>Concernant l&rsquo;<a href="https://fr.wikipedia.org/wiki/Empattement_(typographie)">empattement</a> (serif ou sans-serif), j&rsquo;en suis venu à la conclusion qu&rsquo;une police sans empattement est plus lisible sur un écran. Peut-être à cause de la petitesse des lettres qui &ldquo;charge&rdquo; visuellement les glyphes. Ou Le rétro-éclairage, je ne sais pas.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#le-pouvoir-de-la-couleur"><h2 id="le-pouvoir-de-la-couleur">Le pouvoir de la couleur</h2></a>
+<p>La couleur est un vecteur d&rsquo;information aussi importante &ndash;voire plus&ndash; que la forme. Par contre, il faut utiliser la couleur d&rsquo;usage sur l&rsquo;objet représenté au risque de perturber le lecteur.</p>
+<!-- raw HTML omitted -->
+<p>La couleur et les effets permettent également de distinguer les éléments entre eux. Par exemple, une légère ombre sur un bouton lui donne un relief qui le distingue d&rsquo;un cadre lambda. Mais il faut savoir varier. Si je prends comme exemple les boutons sociaux, il est difficile d&rsquo;en trouver un précisément lorsqu&rsquo;ils sont tous de la même couleur.</p>
+<!-- raw HTML omitted -->
+<p>Alors que mettre la couleur habituellement utilisée par une marque permet de se focaliser presque sans effort dessus.</p>
+<!-- raw HTML omitted -->
+<p>Même si les couleurs du site sont banales, je me permets quelques remarques. Premièrement, il vaut mieux se restreindre à un nombre raisonnable de couleurs, mais suffisamment contrastées pour les dissocier. Trop de couleurs empêchent de hiérarchiser l&rsquo;information, un contraste trop faible de dissocier les éléments ce qui rend illisible le texte.</p>
+<p>Il existe différents outils pour faire des palettes de couleurs qu&rsquo;on peut fabriquer avec le logiciel <a href="https://doc.ubuntu-fr.org/agave">Agave</a>, le très bon site <a href="https://color.adobe.com/fr/create/color-wheel">Adobe Kuler</a>, <a href="https://colourco.de">colourco.de</a> ou <a href="http://www.code-couleur.com/">code-couleur.com</a> qui liste quelques palettes de couleurs. Ce dernier contient également la signification de certaines couleurs dans le monde occidental. Je trouve intéressant d&rsquo;ajouter cet <a href="https://alfange.com/graphisme-10-couleurs-signification/">article trouvé sur la toile</a> pour voir un peu &ndash;bien que difficile à vérifier&ndash; l'évolution et usage au fil du temps. En cherchant un peu, on tombe sur pléthore de sites et de conseils. On a l&rsquo;embarras du choix.</p>
+<p>Si je peux donner un conseil, évitez les couleurs trop pures ; celles qui contiennent une composante de couleur proche de 255 et les autres à 0 comme pour les couleurs primaires (ex: <code>#ff0000</code>). Ce sont des couleurs très prononcées, pas du tout naturelles. Je trouve qu&rsquo;elles brillent trop et agressent les yeux.</p>
+<p>Une dernière chose concernant les couleurs, tout le monde ne les voit pas de la même façon, essayer un filtre pour <a href="https://www.toptal.com/designers/colorfilter">simuler le daltonisme</a> est une expérience intéressante.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#les-métadonnées-sont-importantes-"><h2 id="les-métadonnées-sont-importantes-">Les métadonnées sont importantes !</h2></a>
+<p>Les métadonnées sont toutes les informations relatives à un document qui permettent notamment de le replacer dans un contexte sans le supposer après lecture de plusieurs paragraphes (même ainsi, certains éléments sont impossibles à déduire). Elles sont tellement importantes qu&rsquo;il est possible de déduire le contenu du document associé sans l&rsquo;avoir jamais lu.</p>
+<p>J&rsquo;exagère un peu, mais si on prend un article de blog et qu&rsquo;on a l&rsquo;habitude de lire les commentaires de l&rsquo;auteur sur des forums, on se fait une relativement bonne idée du contenu de ses écrits. Mais pour cela il faut au moins avoir le nom de l&rsquo;auteur, le sujet principal (titre, domaine du sujet) et probablement la date. Cela paraît évident, mais des fois, un ou plusieurs éléments manquent. Grossièrement, ce sont pour moi des marqueurs qui permettent de filtrer les lectures potentiellement intéressantes et de se préparer mentalement.</p>
+<p>Plus généralement, les métadonnées sont un moyen de mettre en relation des données avec d&rsquo;autres via des <a href="https://fr.wikipedia.org/wiki/Uniform_Resource_Identifier">URIs</a> dans le but de faire des requêtes extrêmement sophistiquées à la manière de SQL (<a href="https://fr.wikipedia.org/wiki/SPARQL">SPARQL</a>). On parle aussi de <a href="https://fr.wikipedia.org/wiki/Web_s%C3%A9mantique">web sémantique</a> que je trouve une très bonne idée pour des ressources ayant beaucoup de relations, de dépendances, etc comme les encyclopédies ou des documents de normalisation, mais c&rsquo;est un travail de longue haleine et franchement superflu dans le cadre d&rsquo;un blog.</p>
+<p>Donc voilà, les métadonnées c&rsquo;est cool, mais je me contente de quelques informations en tête et pied d&rsquo;article. On peut aussi les retrouver de manière plus structurée dans le <a href="/index.xml">flux RSS</a>.</p>
+<p>Parmi les informations qui gravitent autour des articles ici, on trouve:</p>
+<ul>
+<li>Les catégories, car c&rsquo;est un moyen facile de centrer le domaine d&rsquo;application et filtrer les contenus.</li>
+<li>La date, parce qu&rsquo;une information se périme vite. Les bonnes pratiques d&rsquo;hier sont les mauvaises pratiques de demain. Et si je parle d&rsquo;hier, on sait au moins de quel hier je fais référence.</li>
+<li>La date de dernière mise à jour s&rsquo;il y a lieu. Il y a aussi une entrée dédiée dans le menu. Pour le moment je ne sais pas comment mettre en valeur les changements, peut-être une note en pied de page ?</li>
+<li>Le temps de lecture. C&rsquo;est un bête calcul en fonction du nombre de mots qui peut être plus précis que la taille du scroll en présence d&rsquo;image.
+Et comme la page d&rsquo;accueil contient plusieurs articles, la taille du scroll n&rsquo;est pas une information fiable.</li>
+<li>L&rsquo;auteur, même si pour le coup il n&rsquo;y aura &ndash; probablement &ndash; que moi.</li>
+<li>Le lien permanent et les boutons de partage pour conquérir le monde.<!-- raw HTML omitted --></li>
+</ul>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#les-commentaires"><h2 id="les-commentaires">Les commentaires</h2></a>
+<p>Sur un site statique, il n&rsquo;est pas possible d&rsquo;intégrer son propre système de commentaire. On peut utiliser un service web comme <a href="https://disqus.com">disqus.com</a> qui est très bien fait, mais aussi lourd et lent à charger.</p>
+<p>C&rsquo;est un reproche qui peut se faire sur beaucoup de sites. À force d&rsquo;incorporer nombre de services externes (pour certains discutables), le site est ralenti et perd en fluidité.</p>
+<p>Comme je pense qu&rsquo;un espace commentaire est toujours intéressant, je tenais vraiment à en avoir un sur le blog. Alors je me suis dit, quitte à utiliser github.io, autant y aller jusqu&rsquo;au bout et me servir des issues de github comme système d'échange. Ce n&rsquo;est pas aussi bien intégré dans la page qu&rsquo;un système natif (il faut passer par github pour poster), mais cela fait son job. Je perds par contre les commentaires anonymes puisqu&rsquo;il faut un compte pour poster.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#mais-encore"><h2 id="mais-encore">Mais encore</h2></a>
+<p>À vrai dire, il y a pas mal de petites choses non citées qui m&rsquo;agacent beaucoup (titre tronqué devenant trop court, animation trop lente, etc), mais ce sont des conseils qu&rsquo;on peut retrouver assez facilement sur la toile.</p>
+<p>J&rsquo;ai davantage axé mes propos sur des détails que je trouve peu discutés. Tellement peu évoqués que j&rsquo;ai l&rsquo;impression d'être le seul concerné. Pour dire. Mais si cela permet de faire réfléchir, tant mieux.</p>
+<p>Après, c&rsquo;est bien possible que n'étant pas spécialement attiré par les technos web, un site spécialisé que je ne connais pas en parle mieux que moi. Tant mieux aussi.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2018-01-02T14:18:22">02 janvier 2018
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/accessibilite-web" rel="category">accessibilite-web</a>
+ ;
+  
+
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="1a9d6a59534c2a4e6ca564c7da302e80-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=ma-vision-de-laccessibilit%25C3%25A9-appliqu%25C3%25A9e-pour-ce-blog&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f01%2fma-vision-de-laccessibilite-appliquee-pour-ce-blog%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f01%2fma-vision-de-laccessibilite-appliquee-pour-ce-blog%2f&amp;title=ma-vision-de-laccessibilit%25C3%25A9-appliqu%25C3%25A9e-pour-ce-blog" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f01%2fma-vision-de-laccessibilite-appliquee-pour-ce-blog%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f01%2fma-vision-de-laccessibilite-appliquee-pour-ce-blog%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f01%2fma-vision-de-laccessibilite-appliquee-pour-ce-blog%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f01%2fma-vision-de-laccessibilite-appliquee-pour-ce-blog%2f&amp;name=ma-vision-de-laccessibilit%25C3%25A9-appliqu%25C3%25A9e-pour-ce-blog" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
         
 <article class="post">
   <header class="post__header clearfix">
@@ -1598,102 +1779,6 @@ Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standar
   <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2f256-couleurs-et-plus-dans-la-console%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
   <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2f256-couleurs-et-plus-dans-la-console%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
   <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2f256-couleurs-et-plus-dans-la-console%2f&amp;name=256-couleurs-et-plus-dans-la-console" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="valeur-r%C3%A9f%C3%A9rence-ou-pointeur-2/2"><span>
-        <a href="#256-couleurs-et-plus-dans-la-console"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: 256 couleurs et plus dans la console"></i></a>
-        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-1%2f2"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Valeur, référence ou pointeur ? (1/2)"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/">Valeur, référence ou pointeur ? (2/2)</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#256-couleurs-et-plus-dans-la-console">Article suivant: 256 couleurs et plus dans la console</a><br/>
-        <a href="#valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-1%2f2">Article précédent: Valeur, référence ou pointeur ? (1/2)</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2014-05-31T21:18:10">31 mai 2014
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
-  <a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#10ed39526a7913e7e5ec22dcf3e6f161-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-  
-
-</p>
-
-
-  </header>
-  <div class="post__content">
-      <p>Dans le <a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/">précédent billet</a>, j&rsquo;opposai les paramètres par références constantes à ceux par valeurs.</p>
-<p>Sans plus attendre entamons la seconde question.</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#référence-ou-pointeur-"><h2 id="référence-ou-pointeur-">Référence ou pointeur ?</h2></a>
-<p>Si je dois faire court je dirai: pointeur jamais ; référence quand possible. Sans autre forme de procès :D</p>
-<p>Mais on me dit dans l&rsquo;oreillette qu&rsquo;il faut argumenter&hellip; Alors c&rsquo;est parti.</p>
-<p>Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.</p>
-<p>À contrario, les pointeurs peuvent changer la variable référencée ou ne pointer sur aucune variable (<a href="http://en.cppreference.com/w/cpp/types/nullptr_t">nullptr</a>).</p>
-<p>Une référence est l'équivalent d&rsquo;un pointeur constant non-nul (avec une syntaxe d&rsquo;utilisation plus simple: pas besoin de déréférencer).
-De leurs restrictions, celles-ci ne peuvent pas toujours correspondre au besoin ; les pointeurs sont alors envisageables.</p>
-<p>De plus, les pointeurs sont beaucoup utilisés dans les constructions dynamiques (allocation dynamique) quand les classes sont à <a href="http://blog.emmanueldeloget.com/index.php?post/2011/11/18/Standard-C11-%3A-la-s%C3%A9mantique-de-d%C3%A9placement">sémantique d&rsquo;entités</a>. Principalement car ces dernières ne sont pas copiables et que l&rsquo;allocation dynamique permet de s&rsquo;affranchir de la portée (le scope) en se détachant de la pile.</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#le-pointeur-parle-trop"><h2 id="le-pointeur-parle-trop">Le pointeur parle trop</h2></a>
-<p>L&rsquo;usage de pointeur (pointeur nu) est cependant à prendre avec des pincettes, voici 3 questions que soulève l&rsquo;usage d&rsquo;un pointeur:</p>
-<ul>
-<li>Dois-je contrôler la durée de vie du pointeur (le détruire) ? [oui, non]</li>
-<li>Est-ce un élément ou une séquence d'élément ? [séquence, simple valeur, ça dépend]</li>
-<li>Le pointeur peut-il être nul ? [oui, non]</li>
-</ul>
-<p>Après un petit calcul combinatoire (2<em>3</em>2), il y a 12 réponses possibles. Le pire est de répondre: &ldquo;ça dépend&rdquo;. Si on l&rsquo;enlève, il reste quand même 8 possibilités.</p>
-<p>La sémantique du pointeur est, au final, très faible. Lui en ajouter devient alors capital.</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#plus-de-sémantique-pour-un-pointeur"><h2 id="plus-de-sémantique-pour-un-pointeur">Plus de sémantique pour un pointeur</h2></a>
-<p>Hélas, il n&rsquo;y a pas de réponse universelle, tout dépend des cas d&rsquo;usages. De plus certaines combinaisons son conceptuellement douteuses.
-Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène aux références mais idéologiquement une référence n&rsquo;est pas faite pour être détruite.</p>
-<p>On peut néanmoins sortir quelques règles:</p>
-<ul>
-<li>Si le pointeur n&rsquo;est pas nul et que l&rsquo;appelé ne gère pas la durée de vie: <code>std::reference_wrapper</code> qui permet de changer la référence utilisée.</li>
-<li>Si l&rsquo;appelé contrôle la durée de vie: pointeurs intelligents (<code>std::unique_ptr</code> en priorité, <code>std::shared_ptr</code>, &hellip;).</li>
-<li>Si le pointeur peut être nul et que l&rsquo;appelé ne gère pas la durée de vie alors un pointeur est &ldquo;justifié&rdquo;. En interne du moins, pour l&rsquo;extérieur un <code>non_owner_ptr</code> ou un <code>observer_ptr</code> sera plus parlant. Si le pointeur peut être invalidé pendant l&rsquo;exécution alors <code>std::weak_ptr</code> ou autres est à envisager.</li>
-<li>Tout ce qui est tableau est indiqué dans les signatures des objets wrapper (<code>unique_ptr&lt;T[]&gt;</code>) ou/et grâce à un attribut de taille. De plus, s&rsquo;il faut soit des tableaux, soit une valeur alors toujours préférer le type commun: tableau (les valeurs deviennent des tableaux de taille 1). Les tableaux dynamiques sont, quant à eux, plus faciles à utiliser avec <code>std::vector</code>.</li>
-</ul>
-<p>Au final, l&rsquo;usage de pointeur nu est très peu utilisé, voire pas du tout. De plus, leur mauvais usage avec l&rsquo;allocation dynamique amène des fuites mémoires principalement dues aux libérations manuelles. Dans un langage comme le C++, un code non exception safe <strong>va</strong> faire des fuites mémoires. De manière générale, la libération s&rsquo;applique sur toute forme de ressource: lock, fichier, etc.</p>
-<p>Pour éviter cela, les ressources doivent être attachées à la pile et la puissance du déterminisme de destruction permettra de les libérer convenablement. On parle aussi de <a href="http://fr.wikipedia.org/wiki/RAII">RAII</a>. Pour rappel, tout ce qui est sur la pile est détruit à la sortie du scope. La sémantique de déplacement permettra de changer de portée.</p>
-<p>Le wiki de Guillaume Belz en parle très bien: <a href="http://guillaume.belz.free.fr/doku.php?id=pourquoi_le_raii_est_fondamental_en_c">pourquoi le RAII est fondamental en C++ ?</a></p>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2014-05-31T21:18:10">31 mai 2014
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
- ;
-  
-
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="10ed39526a7913e7e5ec22dcf3e6f161-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f&amp;title=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f05%2fvaleur-reference-ou-pointeur-2-sur-2%2f&amp;name=valeur-r%25C3%25A9f%25C3%25A9rence-ou-pointeur-2%2f2" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
 </p>
 
   </footer>
