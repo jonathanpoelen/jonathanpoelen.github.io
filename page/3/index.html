@@ -224,7 +224,7 @@ De leurs restrictions, celles-ci ne peuvent pas toujours correspondre au besoin 
 <li>Est-ce un élément ou une séquence d'élément ? [séquence, simple valeur, ça dépend]</li>
 <li>Le pointeur peut-il être nul ? [oui, non]</li>
 </ul>
-<p>Après un petit calcul combinatoire (2<em>3</em>2), il y a 12 réponses possibles. Le pire est de répondre: &ldquo;ça dépend&rdquo;. Si on l&rsquo;enlève, il reste quand même 8 possibilités.</p>
+<p>Après un petit calcul combinatoire (2*3*2), il y a 12 réponses possibles. Le pire est de répondre: &ldquo;ça dépend&rdquo;. Si on l&rsquo;enlève, il reste quand même 8 possibilités.</p>
 <p>La sémantique du pointeur est, au final, très faible. Lui en ajouter devient alors capital.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#plus-de-sémantique-pour-un-pointeur"><h2 id="plus-de-sémantique-pour-un-pointeur">Plus de sémantique pour un pointeur</h2></a>
 <p>Hélas, il n&rsquo;y a pas de réponse universelle, tout dépend des cas d&rsquo;usages. De plus certaines combinaisons son conceptuellement douteuses.
@@ -373,7 +373,7 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 </span></code></pre></div><p>Mais si le type ne possède pas de constructeur de déplacement, celui de copie sera utilisé et alors une référence constante est probablement mieux.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/#quand-la-copie-se-fait-sous-condition"><h2 id="quand-la-copie-se-fait-sous-condition">Quand la copie se fait sous condition</h2></a>
 <p>Il existe des paramètres pouvant être copiés, mais pas toujours. Dans ce cas, bien que la référence constante reste une bonne solution, une version prenant aussi une temporaire (rvalue ici) est probablement mieux. Mais si les types ne sont pas abstraits (comprendre full template) alors il faudra faire 2 versions: une avec rvalue et une avec constref. Ce qui se traduit, quand le code est un peu long, par l&rsquo;ajout d&rsquo;une fonction de prédicat ou une version template privée appelé par les 2 autres.</p>
-<p>Les <code>&amp;&amp;</code> sur les types full templates ont 2 états possibles: rvalue ou lvalue (<a href="http://en.cppreference.com/w/cpp/language/value_category">catégorie de valeurs</a>.</p>
+<p>Les <code>&amp;&amp;</code> sur les types full templates ont 2 états possibles: rvalue ou lvalue (<a href="http://en.cppreference.com/w/cpp/language/value_category">catégorie de valeurs</a>).</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Foo</span> <span class="p">{</span>
   <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
   <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">));</span> <span class="p">}</span>
@@ -1194,7 +1194,7 @@ coproc bc 2&gt;<span class="p">&amp;</span><span class="m">1</span>
 <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="n">reference</span> <span class="k">const</span> <span class="n">r</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
 <span class="n">r</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-</code></pre></div><p>Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de <code>r</code>.
+</code></pre></div></div><p>Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de <code>r</code>.
 En fait, ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
 </code></span> sur une référence ne fait rien car cela ne s&rsquo;applique pas sur le référé qui reste un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="o">&amp;</span>
 </code></span>.</p>
