@@ -129,7 +129,7 @@ Mais si le type ne possède pas de constructeur de déplacement, celui de copie 
 
 Il existe des paramètres pouvant être copiés, mais pas toujours. Dans ce cas, bien que la référence constante reste une bonne solution, une version prenant aussi une temporaire (rvalue ici) est probablement mieux. Mais si les types ne sont pas abstraits (comprendre full template) alors il faudra faire 2 versions: une avec rvalue et une avec constref. Ce qui se traduit, quand le code est un peu long, par l'ajout d'une fonction de prédicat ou une version template privée appelé par les 2 autres.
 
-Les `&&` sur les types full templates ont 2 états possibles: rvalue ou lvalue ([catégorie de valeurs](http://en.cppreference.com/w/cpp/language/value_category).
+Les `&&` sur les types full templates ont 2 états possibles: rvalue ou lvalue ([catégorie de valeurs](http://en.cppreference.com/w/cpp/language/value_category)).
 
 ```cpp
 struct Foo {

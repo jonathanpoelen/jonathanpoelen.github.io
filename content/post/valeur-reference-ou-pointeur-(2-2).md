@@ -42,7 +42,7 @@ L'usage de pointeur (pointeur nu) est cependant à prendre avec des pincettes, v
 - Est-ce un élément ou une séquence d'élément ? \[séquence, simple valeur, ça dépend]
 - Le pointeur peut-il être nul ? \[oui, non]
 
-Après un petit calcul combinatoire (2*3*2), il y a 12 réponses possibles. Le pire est de répondre: "ça dépend". Si on l'enlève, il reste quand même 8 possibilités.
+Après un petit calcul combinatoire (2\*3\*2), il y a 12 réponses possibles. Le pire est de répondre: "ça dépend". Si on l'enlève, il reste quand même 8 possibilités.
 
 La sémantique du pointeur est, au final, très faible. Lui en ajouter devient alors capital.
 
