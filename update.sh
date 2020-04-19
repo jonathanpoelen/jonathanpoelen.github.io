@@ -8,7 +8,7 @@ cd "$(dirname "$0")"
 
 # fix ```
 find public \( -path 'public/2???/*' -or -path 'public/page/*' \) -type f -name '*.html' -exec \
-  sed -i '/<pre><code>/,/<\/code><\/pre>/{s#<pre><code>#<div class="highlight-nocode"><pre class="chroma-nocode"><code>#;n;s#</code></pre>#</code></pre></div>#}' '{}' +
+  sed -i '/<pre><code>/,/<\/code><\/pre>/{s#<pre><code>#<div class="highlight-nocode"><pre class="chroma-nocode"><code>#;N;s#^</code></pre>#</code></pre></div>#}' '{}' +
 
 cd public
 git add .
