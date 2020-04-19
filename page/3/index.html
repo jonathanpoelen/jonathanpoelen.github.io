@@ -566,7 +566,7 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 2.4
 plop
 1, 2.4, plop
-</code></pre><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#sans-récursivité"><h2 id="sans-récursivité">Sans récursivité</h2></a>
+</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#sans-récursivité"><h2 id="sans-récursivité">Sans récursivité</h2></a>
 <p>Il existe cependant une autre façon de faire qui n&rsquo;utilise pas la récursivité. J&rsquo;ai découvert cette méthode sur le forum de openclassroms (<a href="http://fr.openclassrooms.com/forum/sujet/atelier-quiz-question-pour-un-champion-c?page=4">ce sujet, 10ème message</a>), elle est très astucieuse.</p>
 <p>Implémentée sous la forme d&rsquo;une macro cela donne:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#define UNPACK(...)                   \
@@ -1124,7 +1124,7 @@ coproc bc 2&gt;<span class="p">&amp;</span><span class="m">1</span>
 23*9
 23s*9
 3*9
-</code></pre></div>
+</code></pre>
   </div>
   <footer class="post__footer">
     <p class="post__meta meta">
@@ -1194,7 +1194,7 @@ coproc bc 2&gt;<span class="p">&amp;</span><span class="m">1</span>
 <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="n">reference</span> <span class="k">const</span> <span class="n">r</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
 <span class="n">r</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-</code></pre></div></div><p>Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de <code>r</code>.
+</code></pre></div><p>Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de <code>r</code>.
 En fait, ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
 </code></span> sur une référence ne fait rien car cela ne s&rsquo;applique pas sur le référé qui reste un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="o">&amp;</span>
 </code></span>.</p>
@@ -1277,7 +1277,7 @@ Le type de <code>r</code> est donc bien une référence sur un entier non-consta
 <p>Ou pas. Car <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
 </code></span> est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête <code>&lt;new&gt;</code> un type (<code>std::nothrow_t</code>) et une variable (<code>std::nothrow</code>) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">);</span>
-</code></pre></div><p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparement.</p>
+</code></pre></div></div><p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparement.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allouer-de-la-mémoire"><h2 id="allouer-de-la-mémoire">Allouer de la mémoire</h2></a>
 <p>Comme on veut juste réserver un espace mémoire, <code>malloc()</code> peut suffire, mais prenons les bonnes habitudes, utilisons la fonction <a href="http://en.cppreference.com/w/cpp/memory/new/operator_new">::operator new()</a> !</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">));</span>

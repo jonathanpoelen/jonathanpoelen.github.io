@@ -226,10 +226,10 @@
 <span class="k">for</span> v in <span class="nv">$a</span> <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
 <span class="k">done</span>
-</code></pre></div><div class="highlight-nocode"><pre class="chroma-nocode"><code>&gt; a
+</code></pre></div></div><div class="highlight-nocode"><pre class="chroma-nocode"><code>&gt; a
 &gt; b
 &gt; c
-</code></pre></div><p>Le résultat est 3 lignes pour 1 paramètre, la chaîne <code>'a b c'</code> contenant des espaces s&rsquo;est fait couper. Ce n&rsquo;est pas le cas pour zsh qui ne fait pas cette césure (raison historique, j&rsquo;y reviens à la fin).</p>
+</code></pre><p>Le résultat est 3 lignes pour 1 paramètre, la chaîne <code>'a b c'</code> contenant des espaces s&rsquo;est fait couper. Ce n&rsquo;est pas le cas pour zsh qui ne fait pas cette césure (raison historique, j&rsquo;y reviens à la fin).</p>
 <p>Maintenant il reste <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span> qui ne diffère pas entre les shells.</p>
 <ul>
 <li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span> correspond à une seule chaîne, tout est géré en un seul bloc.</li>
@@ -240,7 +240,7 @@
 <span class="k">for</span> v in XXX <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
 <span class="k">done</span>
-</code></pre></div><p>Le code ci-dessus est utilisé avec <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">./test.s <span class="s1">&#39;a b&#39;</span> c</code></span> et pour lequel <code>XXX</code> est remplacé par une des 4 variables précédemment citées.</p>
+</code></pre></div></div><p>Le code ci-dessus est utilisé avec <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">./test.s <span class="s1">&#39;a b&#39;</span> c</code></span> et pour lequel <code>XXX</code> est remplacé par une des 4 variables précédemment citées.</p>
 <table>
 <thead>
 <tr>

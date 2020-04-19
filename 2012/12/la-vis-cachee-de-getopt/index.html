@@ -223,7 +223,7 @@ function parsecmd() { getopt -o &#39;&#39; --long \  option-longue,option-encore
 parsecmd --option-l --u plop bidule
 </code></pre></div><p>Donne</p>
 <div class="highlight-nocode"><pre class="chroma-nocode"><code>--option-longue --une-autre-option 'plop' -- 'bidule'
-</code></pre></div><p>La commande shell <code>getopt</code> est un peu plus souple que les autres. Si ambiguïté, la première option correspondante sera sélectionnée. Si l&rsquo;option <code>-a</code> existe ce n&rsquo;est plus le cas et le code d&rsquo;erreur <code>1</code> est retourné ainsi qu&rsquo;un petit message listant les options possibles. Mais avec <code>-a</code> les options longues peuvent commencer par un simple tiret.</p>
+</code></pre><p>La commande shell <code>getopt</code> est un peu plus souple que les autres. Si ambiguïté, la première option correspondante sera sélectionnée. Si l&rsquo;option <code>-a</code> existe ce n&rsquo;est plus le cas et le code d&rsquo;erreur <code>1</code> est retourné ainsi qu&rsquo;un petit message listant les options possibles. Mais avec <code>-a</code> les options longues peuvent commencer par un simple tiret.</p>
 <p>La plupart des commandes Linux utilisant <code>getopt</code>, cette astuce peut s&rsquo;utiliser assez souvent.</p>
 
   </div>

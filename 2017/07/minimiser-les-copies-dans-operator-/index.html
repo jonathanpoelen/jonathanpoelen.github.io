@@ -334,7 +334,7 @@ a            + b              Matrix operator+(Matrix, const Matrix&amp;)
 a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
-</code></pre><p>Si on y tient vraiment, on peut ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">)</span>
+</code></pre></div><p>Si on y tient vraiment, on peut ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">)</span>
 </code></span>. Mais comme dit précédemment le besoin est très faible.</p>
 <a class="headline-hash" href="#un-prototype-multi-fonction"><h2 id="un-prototype-multi-fonction">Un prototype multi-fonction</h2></a>
 <p>Une autre solution pour la surcharge d&rsquo;opérateur est de ne faire qu&rsquo;un seul et unique prototype template qui s&rsquo;active en présence d&rsquo;un certain type. Ce n&rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.</p>

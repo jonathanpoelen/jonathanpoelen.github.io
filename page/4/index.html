@@ -308,10 +308,10 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 <span class="k">for</span> v in <span class="nv">$a</span> <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
 <span class="k">done</span>
-</code></pre></div><div class="highlight-nocode"><pre class="chroma-nocode"><code>&gt; a
+</code></pre></div></div><div class="highlight-nocode"><pre class="chroma-nocode"><code>&gt; a
 &gt; b
 &gt; c
-</code></pre></div><p>Le résultat est 3 lignes pour 1 paramètre, la chaîne <code>'a b c'</code> contenant des espaces s&rsquo;est fait couper. Ce n&rsquo;est pas le cas pour zsh qui ne fait pas cette césure (raison historique, j&rsquo;y reviens à la fin).</p>
+</code></pre><p>Le résultat est 3 lignes pour 1 paramètre, la chaîne <code>'a b c'</code> contenant des espaces s&rsquo;est fait couper. Ce n&rsquo;est pas le cas pour zsh qui ne fait pas cette césure (raison historique, j&rsquo;y reviens à la fin).</p>
 <p>Maintenant il reste <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span> qui ne diffère pas entre les shells.</p>
 <ul>
 <li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span> correspond à une seule chaîne, tout est géré en un seul bloc.</li>
@@ -322,7 +322,7 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 <span class="k">for</span> v in XXX <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
 <span class="k">done</span>
-</code></pre></div><p>Le code ci-dessus est utilisé avec <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">./test.s <span class="s1">&#39;a b&#39;</span> c</code></span> et pour lequel <code>XXX</code> est remplacé par une des 4 variables précédemment citées.</p>
+</code></pre></div></div><p>Le code ci-dessus est utilisé avec <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">./test.s <span class="s1">&#39;a b&#39;</span> c</code></span> et pour lequel <code>XXX</code> est remplacé par une des 4 variables précédemment citées.</p>
 <table>
 <thead>
 <tr>
@@ -513,7 +513,7 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 parsecmd --option-l --u plop bidule
 </code></pre></div><p>Donne</p>
 <div class="highlight-nocode"><pre class="chroma-nocode"><code>--option-longue --une-autre-option 'plop' -- 'bidule'
-</code></pre></div><p>La commande shell <code>getopt</code> est un peu plus souple que les autres. Si ambiguïté, la première option correspondante sera sélectionnée. Si l&rsquo;option <code>-a</code> existe ce n&rsquo;est plus le cas et le code d&rsquo;erreur <code>1</code> est retourné ainsi qu&rsquo;un petit message listant les options possibles. Mais avec <code>-a</code> les options longues peuvent commencer par un simple tiret.</p>
+</code></pre><p>La commande shell <code>getopt</code> est un peu plus souple que les autres. Si ambiguïté, la première option correspondante sera sélectionnée. Si l&rsquo;option <code>-a</code> existe ce n&rsquo;est plus le cas et le code d&rsquo;erreur <code>1</code> est retourné ainsi qu&rsquo;un petit message listant les options possibles. Mais avec <code>-a</code> les options longues peuvent commencer par un simple tiret.</p>
 <p>La plupart des commandes Linux utilisant <code>getopt</code>, cette astuce peut s&rsquo;utiliser assez souvent.</p>
 
   </div>
@@ -595,7 +595,7 @@ parsecmd --option-l --u plop bidule
       <span class="o">++</span><span class="n">it</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#optimisation"><h2 id="optimisation">Optimisation</h2></a>
+</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#optimisation"><h2 id="optimisation">Optimisation</h2></a>
 <p>Maintenant, que se passe-t-il quand l&rsquo;itérateur est un pointeur ? Réponse: une boucle.</p>
 <p>Ne serait-il pas préférable de faire <code>it += n</code> !?</p>
 <p>C&rsquo;est là que les tags entrent en jeu.</p>
@@ -622,7 +622,7 @@ parsecmd --option-l --u plop bidule
 <span class="p">{</span>
   <span class="n">advance</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">iterator_category</span><span class="p">(</span><span class="n">it</span><span class="p">));</span>
 <span class="p">}</span>
-</code></pre></div><p>Bien sûr, on change aussi le prototype de la précédente implémentation.</p>
+</code></pre></div></div><p>Bien sûr, on change aussi le prototype de la précédente implémentation.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">);</span>
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#problème-avec-forwarditerator"><h2 id="problème-avec-forwarditerator">Problème avec ForwardIterator</h2></a>
@@ -730,7 +730,7 @@ Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-
 </code></pre></div><p>Résultat :</p>
 <div class="highlight-nocode"><pre class="chroma-nocode"><code>unfichier.txt
 unfichier
-</code></pre><p>Quasiment jamais utilisé en fait.</p>
+</code></pre></div><p>Quasiment jamais utilisé en fait.</p>
 <p>Mais voilà, zsh les généralise aussi aux variables ce qui engendre une erreur dans <code>GTK_MODULES</code>.</p>
 <p>Alors comment faire ?
 Simple, entourer la variable d&rsquo;accolades:</p>

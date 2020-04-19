@@ -590,7 +590,7 @@ a            + b              Matrix operator+(Matrix, const Matrix&amp;)
 a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
-</code></pre><p>Si on y tient vraiment, on peut ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">)</span>
+</code></pre></div><p>Si on y tient vraiment, on peut ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">)</span>
 </code></span>. Mais comme dit précédemment le besoin est très faible.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#un-prototype-multi-fonction"><h2 id="un-prototype-multi-fonction">Un prototype multi-fonction</h2></a>
 <p>Une autre solution pour la surcharge d&rsquo;opérateur est de ne faire qu&rsquo;un seul et unique prototype template qui s&rsquo;active en présence d&rsquo;un certain type. Ce n&rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.</p>
@@ -1351,7 +1351,7 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
 </code></pre></div><p>Résultats:</p>
 <div class="highlight-nocode"><pre class="chroma-nocode"><code>2 4 6
 2 4 6
-</code></pre><a class="headline-hash" href="https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/#implémentation-avec-sizeof-pre-c11"><h2 id="implémentation-avec-sizeof-pre-c11">implémentation avec sizeof (pre-C++11)</h2></a>
+</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/#implémentation-avec-sizeof-pre-c11"><h2 id="implémentation-avec-sizeof-pre-c11">implémentation avec sizeof (pre-C++11)</h2></a>
 <p>J&rsquo;ai indiqué qu&rsquo;il été possible d&rsquo;utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span>
 </code></span> à la place de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span>
 </code></span>. Voici comment:</p>
