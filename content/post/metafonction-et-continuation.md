@@ -6,7 +6,7 @@ date: 2018-11-08T18:56:13+01:00
 #lastmod: 2018-11-05T21:56:13+01:00
 slug: "meta-fonction-et-continuation"
 #toc: false
-#tags: [ ]
+# tags: [ "meta-prog" ]
 aliases: []
 categories: [ "c++" ]
 draft: false
@@ -18,11 +18,11 @@ J'ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j
 
 ## Continuation
 
-Chaque algorithme dispose d'un paramètre qui décrit l'étape suivante du traitement, c'est la continuation. En shell ou dans des bibliothèques comme [rangev3](https://github.com/ericniebler/range-v3), les continuations se font avec l'opérateur `|`. Par exemple `grep x | wc -l` ou `filter(is_odd) | take(6)`. Il n'est pas possible d'utiliser `|` avec des templates alors la continuation est un paramètre ajouté à l'algorithme. En chaînant les continuations, on construit un nouvel algorithme qui s'utilise avec `call<algo, xs...>`.
+Chaque algorithme dispose d'un paramètre qui décrit l'étape suivante du traitement, c'est la continuation. En shell ou dans des bibliothèques comme [rangev3](https://github.com/ericniebler/range-v3), les continuations se font avec l'opérateur `|`. Par exemple `grep x | wc -l` ou `filter(is_odd) | take(6)`. Il n'est pas possible d'utiliser `|` avec des templates, alors la continuation est un paramètre ajouté à l'algorithme. En chaînant les continuations, on construit un nouvel algorithme qui s'utilise avec `call<algo, args...>`.
 
 {{<fhi "metafunc_continuation/decay.cpp" "proto add_const/lvalue">}}
 
-Les continuations limitent drastiquement le recours aux "lambdas". Dans d'autres bibliothèques du genre, `add_const_lvalue_reference` s'écrirait `lambda<add_lvalue_reference, lambda<add_const, _>>` ce qui, il faut l'avouer, beaucoup moins glamour.
+Les continuations limitent drastiquement le recours aux "lambdas". Dans d'autres bibliothèques du genre, `add_const_lvalue_reference` s'écrirait `lambda<add_lvalue_reference, lambda<add_const, _>>` ce qui est, il faut l'avouer, beaucoup moins glamour.
 
 Dans des algorithmes du type transformation, l'impact sur la lecture du code est immédiat:
 
@@ -111,7 +111,7 @@ using __decay_selector = conditional<
 
 Qui engendre son lot de problèmes: en plus des 2 traits précédents, `remove_extent`, `add_pointer` et `remove_cv` sont toujours déclarés avec `T`. Cela ne pose pas de réel problème ici -- à part le temps de compilation--, malheureusement, dans certaines situations, les branches ne doivent s'évaluer qu'en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.
 
-Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, `remove_extent<T>` ne sera pas instancié lorsque `is_array_v<T>` est faux ce qui rend les continuations très facilement composables.
+Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, `remove_extent<T>` ne sera pas instancié lorsque `is_array_v<T>` est faux, ce qui rend les continuations très facilement composables.
 
 {{<fhi "metafunc_continuation/decay.cpp" "decay">}}
 
