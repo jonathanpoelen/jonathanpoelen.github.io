@@ -11,7 +11,7 @@ namespace adl_barrier
 {
   // pour que front_impl() voit une fonction front() qu'elle pourrait utiliser
   struct na {};
-  void front(na);
+  void front(na) = delete;
 
   // pour que begin(cont) utilise le begin de son namespace (ADL) ou std::begin()
   using std::begin;
@@ -73,3 +73,5 @@ namespace mylib
 static_assert(front(mylib::A{"ax"}) == 'a'); // mylib::front(A)
 static_assert(front(mylib::B{"bx"}) == 'b'); // *mylib::begin(B)
 static_assert(front(mylib::C{"cx"}) == 'c'); // C::front()
+constexpr char carr[] = "dx";
+static_assert(front(carr) == 'd'); // *std::begin(carr)
