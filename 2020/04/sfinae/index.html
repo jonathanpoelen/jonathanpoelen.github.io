@@ -510,7 +510,7 @@ Pour comprendre pleinement le mécanisme derrière, il faut assimiler le princip
 <span class="p">{</span>
   <span class="c1">// pour que front_impl() voit une fonction front() qu&#39;elle pourrait utiliser
 </span><span class="c1"></span>  <span class="k">struct</span> <span class="nc">na</span> <span class="p">{};</span>
-  <span class="kt">void</span> <span class="nf">front</span><span class="p">(</span><span class="n">na</span><span class="p">);</span>
+  <span class="kt">void</span> <span class="nf">front</span><span class="p">(</span><span class="n">na</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
 
   <span class="c1">// pour que begin(cont) utilise le begin de son namespace (ADL) ou std::begin()
 </span><span class="c1"></span>  <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">;</span>
@@ -572,6 +572,8 @@ Pour comprendre pleinement le mécanisme derrière, il faut assimiler le princip
 <span class="k">static_assert</span><span class="p">(</span><span class="n">front</span><span class="p">(</span><span class="n">mylib</span><span class="o">::</span><span class="n">A</span><span class="p">{</span><span class="s">&#34;ax&#34;</span><span class="p">})</span> <span class="o">==</span> <span class="sc">&#39;a&#39;</span><span class="p">);</span> <span class="c1">// mylib::front(A)
 </span><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">front</span><span class="p">(</span><span class="n">mylib</span><span class="o">::</span><span class="n">B</span><span class="p">{</span><span class="s">&#34;bx&#34;</span><span class="p">})</span> <span class="o">==</span> <span class="sc">&#39;b&#39;</span><span class="p">);</span> <span class="c1">// *mylib::begin(B)
 </span><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">front</span><span class="p">(</span><span class="n">mylib</span><span class="o">::</span><span class="n">C</span><span class="p">{</span><span class="s">&#34;cx&#34;</span><span class="p">})</span> <span class="o">==</span> <span class="sc">&#39;c&#39;</span><span class="p">);</span> <span class="c1">// C::front()
+</span><span class="c1"></span><span class="k">constexpr</span> <span class="kt">char</span> <span class="n">carr</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;dx&#34;</span><span class="p">;</span>
+<span class="k">static_assert</span><span class="p">(</span><span class="n">front</span><span class="p">(</span><span class="n">carr</span><span class="p">)</span> <span class="o">==</span> <span class="sc">&#39;d&#39;</span><span class="p">);</span> <span class="c1">// *std::begin(carr)
 </span></code></pre></div>
 
 <a class="headline-hash" href="#les-variadiques-de-la-dernière-chance"><h3 id="les-variadiques-de-la-dernière-chance">Les variadiques de la dernière chance</h3></a>
