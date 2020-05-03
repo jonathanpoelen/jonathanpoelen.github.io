@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Utilisation de swap et des fonctions utilitaires en général</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -21,9 +21,9 @@
 <meta property="twitter:card" content="summary">
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/">
 <meta property="twitter:title" content="Utilisation de swap et des fonctions utilitaires en général">
-<meta name="description" content="Une fonction utilitaire est une fonction libre qui n&#39;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
+<meta name="description" content="Une fonction utilitaire est une fonction libre qui n&rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
 Toutes ces fonctions citées sont disponibles en C&#43;&#43;11. La seule fonction utilitaire qui me vient à l&rsquo;esprit en C&#43;&#43;03 est std::swap (fonction qui échange le contenu de 2 variables). Pour info, l&rsquo;en-tête de std::swap est passé de &lt;algorithm&gt; en C&#43;&#43;03 à &lt;utility&gt; en C&#43;&#43;11.">
-<meta property="twitter:description" content="Une fonction utilitaire est une fonction libre qui n&#39;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
+<meta property="twitter:description" content="Une fonction utilitaire est une fonction libre qui n&rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
 Toutes ces fonctions citées sont disponibles en C&#43;&#43;11. La seule fonction utilitaire qui me vient à l&rsquo;esprit en C&#43;&#43;03 est std::swap (fonction qui échange le contenu de 2 variables). Pour info, l&rsquo;en-tête de std::swap est passé de &lt;algorithm&gt; en C&#43;&#43;03 à &lt;utility&gt; en C&#43;&#43;11.">
 
 </head>
@@ -216,7 +216,7 @@ Toutes ces fonctions citées sont disponibles en C&#43;&#43;11. La seule fonctio
   </ul>
 </nav>
         </div></aside>
-      <p>Une fonction utilitaire est une fonction libre qui n'étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).</p>
+      <p>Une fonction utilitaire est une fonction libre qui n&rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).</p>
 <p>Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilitaire qui me vient à l&rsquo;esprit en C++03 est <code>std::swap</code> (fonction qui échange le contenu de 2 variables). Pour info, l&rsquo;en-tête de <code>std::swap</code> est passé de <code>&lt;algorithm&gt;</code> en C++03 à <code>&lt;utility&gt;</code> en C++11.</p>
 <a class="headline-hash" href="#comment-déclarer-et-utiliser-une-fonction-utilitaire"><h2 id="comment-déclarer-et-utiliser-une-fonction-utilitaire">Comment déclarer et utiliser une fonction utilitaire</h2></a>
 <p>Il arrive qu&rsquo;un jour ou l&rsquo;autre on veuille faire une surcharge de <code>swap</code> pour un objet particulier. À ce moment 2 choix s&rsquo;offrent: en faire une fonction libre dans le namespace où se trouve la classe ou dans le namespace <code>std</code>. Évidemment, le meilleur choix est le premier.</p>

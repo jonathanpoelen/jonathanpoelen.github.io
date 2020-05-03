@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>std::array, oui, mais pourquoi ?</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -226,7 +226,7 @@ Les tableaux C se convertissent en pointeur trop facilement Le tableau C a l&rsq
 <p>Le tableau C a l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens. Mais puisque les tableaux se dégradent en pointeur, le compilateur l&rsquo;accepte sans broncher.</p>
 <p>Le seul pseudo-avantage est l&rsquo;arithmétique des pointeurs qui permet de manipuler un tableau presque comme un pointeur &ndash; à la différence que l&rsquo;incrémentation et la décrémentation ne sont pas possibles.</p>
 <p>Ainsi, on pourra écrire <code>auto* p = a + i</code> plutôt que <code>auto* p = &amp;a[i]</code>.</p>
-<p>Ou encore <code>&amp;i[a]</code> (i.e. <code>&amp;2[a]</code>), forme uniquement valide avec des tableaux ou des pointeurs. Tant qu'à hériter du C, prenons le meilleur&hellip; :D</p>
+<p>Ou encore <code>&amp;i[a]</code> (i.e. <code>&amp;2[a]</code>), forme uniquement valide avec des tableaux ou des pointeurs. Tant qu&rsquo;à hériter du C, prenons le meilleur&hellip; :D</p>
 <a class="headline-hash" href="#votre-prototype-de-fonction-ment"><h2 id="votre-prototype-de-fonction-ment">Votre prototype de fonction ment</h2></a>
 <p>Voici une fonction tout à fait banale qui affiche les valeurs d&rsquo;un tableau:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
@@ -236,8 +236,8 @@ Les tableaux C se convertissent en pointeur trop facilement Le tableau C a l&rsq
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p>Fonction qui ne compile pas, car <code>array</code> n&rsquo;est pas un tableau, mais un pointeur. Et un pointeur ne fonctionne pas avec les boucles sur intervalle. Gcc indique l&rsquo;erreur en affichant le prototype tel qu&rsquo;il devrait être lu: &ldquo;dans la fonction <code>void print(const int*)</code>&rdquo;. Clang va même jusqu'à dire qu&rsquo;un paramètre de type <code>int[3]</code> est considéré comme un pointeur. La conversion en pointeur se propage même à ce niveau.</p>
-<p>Ce qui veut dire qu'écrire un prototype qui prend un tableau de 3 <code>int</code> est un mensonge. Le compilateur ne fera aucune vérification sur la taille du tableau passé en paramètre. Pour lui, que l&rsquo;argument soit un tableau de 1, 2, 3 ou plus d'éléments, c&rsquo;est pareil: un pointeur. Par conséquent, les 4 prototypes suivants sont strictement identiques:</p>
+</code></pre></div><p>Fonction qui ne compile pas, car <code>array</code> n&rsquo;est pas un tableau, mais un pointeur. Et un pointeur ne fonctionne pas avec les boucles sur intervalle. Gcc indique l&rsquo;erreur en affichant le prototype tel qu&rsquo;il devrait être lu: &ldquo;dans la fonction <code>void print(const int*)</code>&rdquo;. Clang va même jusqu&rsquo;à dire qu&rsquo;un paramètre de type <code>int[3]</code> est considéré comme un pointeur. La conversion en pointeur se propage même à ce niveau.</p>
+<p>Ce qui veut dire qu&rsquo;écrire un prototype qui prend un tableau de 3 <code>int</code> est un mensonge. Le compilateur ne fera aucune vérification sur la taille du tableau passé en paramètre. Pour lui, que l&rsquo;argument soit un tableau de 1, 2, 3 ou plus d&rsquo;éléments, c&rsquo;est pareil: un pointeur. Par conséquent, les 4 prototypes suivants sont strictement identiques:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
 <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
 <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[]);</span>

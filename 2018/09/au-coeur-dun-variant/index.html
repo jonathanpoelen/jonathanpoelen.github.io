@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Au cœur d&#39;un variant</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -364,7 +364,7 @@ Le dernier élément est un cas spécial traité dans le <code>else</code> car, 
 Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre restreint de types, si la valeur de <code>impl_</code> ne correspond pas aux types qui précèdent le dernier, alors <code>impl_</code> est forcément du type du dernier élément.</p>
 <a class="headline-hash" href="#moi-jaime-pas-dynamic_cast"><h2 id="moi-jaime-pas-dynamic_cast">Moi j&rsquo;aime pas dynamic_cast</h2></a>
 <p><code>dynamic_cast</code> est souvent un signe révélateur d&rsquo;un problème de conception. Si on abstrait les valeurs, c&rsquo;est dans le but de ne pas se soucier du type de l&rsquo;implémentation. Or, un variant met le focus sur le type et rend caduque cette abstraction. Seulement, <code>dynamic_cast</code> a un coût d&rsquo;exécution exorbitant par rapport à la tâche qu&rsquo;il effectue ici.</p>
-<p>De ce fait, <code>dynamic_cast</code> n&rsquo;est pas une bonne solution, il est plus judicieux de conserver une information pour différencier les types. Comme un variant contient une liste d'éléments, l&rsquo;indice du type utilisé suffit amplement.</p>
+<p>De ce fait, <code>dynamic_cast</code> n&rsquo;est pas une bonne solution, il est plus judicieux de conserver une information pour différencier les types. Comme un variant contient une liste d&rsquo;éléments, l&rsquo;indice du type utilisé suffit amplement.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Variant</span>
 <span class="p">{</span>
   <span class="c1">// ...
@@ -399,7 +399,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
 
-<p><code>mp_index_of</code> est un alias sur <code>std::integral_constant</code>. L&rsquo;implémentation déroule récursivement les éléments de <code>Ts</code> jusqu'à trouver <code>T</code> et retourne le nombre d'éléments qu&rsquo;il reste dans la liste. Soustraire ce résultat à <code>sizeof...(Ts) - 1</code> permet d&rsquo;avoir la position de <code>T</code>.</p>
+<p><code>mp_index_of</code> est un alias sur <code>std::integral_constant</code>. L&rsquo;implémentation déroule récursivement les éléments de <code>Ts</code> jusqu&rsquo;à trouver <code>T</code> et retourne le nombre d&rsquo;éléments qu&rsquo;il reste dans la liste. Soustraire ce résultat à <code>sizeof...(Ts) - 1</code> permet d&rsquo;avoir la position de <code>T</code>.</p>
 <p>On met à jour l&rsquo;implémentation pour initialiser le nouveau membre.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
@@ -576,7 +576,7 @@ Le code final est plutôt gros alors je ne mets <a href="https://github.com/jona
 <li>l&rsquo;optimisation sur la taille de <code>type_index</code>,</li>
 <li>les différents moyens de remplacer une vtable (ici je n&rsquo;utilise que le if/else récursif),</li>
 <li>le coût d&rsquo;utilisation d&rsquo;un objet en fonction de sa nature (par exemple: le compilateur dévirtualise-t-il les fonctions virtuelles venant d&rsquo;un membre de variant ?)</li>
-<li>les unions récursives</li>
+<li>les variants récursives</li>
 <li>et bien d&rsquo;autres</li>
 </ul>
 <p>Les prochains articles seront davantage axés sur la méta-programmation et indirectement reliés avec certains aspects du variant présentés ici.</p>

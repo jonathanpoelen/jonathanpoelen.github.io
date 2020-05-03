@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valeur, référence ou pointeur ? (1/2)</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -218,7 +218,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:
           <nav id="TableOfContents">
   <ul>
     <li><a href="#valeur-ou-référence-constante-">Valeur ou référence constante ?</a></li>
-    <li><a href="#mais-ça-cétait-avant">Mais ça c'était avant&hellip;</a></li>
+    <li><a href="#mais-ça-cétait-avant">Mais ça c&rsquo;était avant&hellip;</a></li>
     <li><a href="#quand-la-copie-se-fait-sous-condition">Quand la copie se fait sous condition</a></li>
     <li><a href="#prise-dobjet-non-copiable-sous-condition">Prise d&rsquo;objet non-copiable sous condition</a></li>
     <li><a href="#quand-les-opérations-ne-sont-pas-connues">Quand les opérations ne sont pas connues</a></li>
@@ -267,7 +267,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:
   <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div><p>Car il y a <a href="http://en.cppreference.com/w/cpp/language/copy_elision">copy elision</a> (c&rsquo;est le même principe que la RVO mais pour les paramètres). (Voir aussi <a href="http://cpp.developpez.com/actu/53711/Operateur-d-affectation-copie-implicite-ou-explicite/">ici et la réponse de Flob90</a>.</p>
-<a class="headline-hash" href="#mais-ça-cétait-avant"><h2 id="mais-ça-cétait-avant">Mais ça c'était avant&hellip;</h2></a>
+<a class="headline-hash" href="#mais-ça-cétait-avant"><h2 id="mais-ça-cétait-avant">Mais ça c&rsquo;était avant&hellip;</h2></a>
 <p>Maintenant qu&rsquo;il y a la <a href="http://h-deb.clg.qc.ca/Sujets/Divers--cplusplus/Mouvement.html">sémantique de déplacement</a>, les copies sont préférées quand une fonction recevant le paramètre va, quoi qu&rsquo;il arrive, le copier dans une variable membre. Premièrement parce que l&rsquo;utilisateur pourra faire un <code>std::move</code> de sa variable pour s&rsquo;en &ldquo;débarrasser&rdquo; car il n&rsquo;en a plus besoin. Deuxièmement parce que la fonction a besoin d&rsquo;une copie et le compilateur le fera pour nous.</p>
 <p>En comparaison avec une copie sur le <code>std::vector</code>, le move-constructor et le move-assignment sont extrêmement rapide: 3 affections de pointeur pour chaque vecteur.</p>
 <p>Par exemple avec cette base:</p>
@@ -334,9 +334,9 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:
 <li>Une référence constante n&rsquo;est pas envisageable, l&rsquo;objet ne pouvant pas être déplacé car constant.</li>
 <li>Une prise par valeur non plus (grâce à std::move), car la ressource serait systématiquement transmise à la fonction même si cette dernière ne la garde pas. L&rsquo;appelant est dans l&rsquo;incapacité de le savoir et perd la ressource.</li>
 <li>Une référence non-constante est possible, mais il ne sera alors pas possible d&rsquo;envoyer un temporaire. Il faudra obligatoirement passer par une variable intermédiaire ce qui est désagréable quand on ne va rien en faire.</li>
-<li>Reste la rvalue avec laquelle une temporaire fonctionne, mais il faudra automatiquement faire un std::move quand la variable est une référence. Cela a l&rsquo;avantage d&rsquo;informer l&rsquo;utilisateur sur l'éventuel déplacement de ressource.</li>
+<li>Reste la rvalue avec laquelle une temporaire fonctionne, mais il faudra automatiquement faire un std::move quand la variable est une référence. Cela a l&rsquo;avantage d&rsquo;informer l&rsquo;utilisateur sur l&rsquo;éventuel déplacement de ressource.</li>
 </ul>
-<p>Au final, bien qu&rsquo;une référence fonctionne, seule une rvalue est pratique à l&rsquo;usage. Seulement, aucunes de ces méthodes n&rsquo;indiquent une prise partielle, seule la documentation nous le dira. Ceci pourrait par contre être une convention d'écriture: si une ressource non copiable est prise par rvalue, alors la fonction est libre de se l&rsquo;approprier quand certaines conditions internes sont remplies.</p>
+<p>Au final, bien qu&rsquo;une référence fonctionne, seule une rvalue est pratique à l&rsquo;usage. Seulement, aucunes de ces méthodes n&rsquo;indiquent une prise partielle, seule la documentation nous le dira. Ceci pourrait par contre être une convention d&rsquo;écriture: si une ressource non copiable est prise par rvalue, alors la fonction est libre de se l&rsquo;approprier quand certaines conditions internes sont remplies.</p>
 <a class="headline-hash" href="#quand-les-opérations-ne-sont-pas-connues"><h2 id="quand-les-opérations-ne-sont-pas-connues">Quand les opérations ne sont pas connues</h2></a>
 <p>Reste la dernière situation: les templates. Les règles sont les mêmes qu&rsquo;avant mais si le rôle du paramètre n&rsquo;est pas défini (comprendre la fonction ne fait rien d&rsquo;autre qu&rsquo;envoyer le paramètre à une autre fonction ou que le qualifier importe peu) les paramètres sont à prendre par référence universelle (<code>T&amp;&amp;</code> pour les template). À ce moment, toutes les utilisations de cette variable devraient se faire par l&rsquo;intermédiaire de <a href="http://en.cppreference.com/w/cpp/utility/forward">std::forward</a>, même lorsqu&rsquo;une fonction membre est utilisées (la faute au <a href="http://en.cppreference.com/w/cpp/language/member_functions#const-.2C_volatile-.2C_and_ref-qualified_member_functions">qualificateur de référence sur fonction membre</a>.</p>
 <p>Toutefois, attention de ne pas déléguer plusieurs fois la responsabilité et de ne faire std::forward (et std::move) que sur la dernière utilisation de la variable.</p>

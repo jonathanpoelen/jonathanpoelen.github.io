@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Implémentation d&#39;un magasin de type</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -23,10 +23,10 @@
 <meta property="twitter:title" content="Implémentation d&#39;un magasin de type">
 <meta name="description" content="Ce que j&rsquo;appelle ici un magasin de type n&rsquo;est autre qu&rsquo;un std::tuple où les types ne sont présents qu&rsquo;une seule fois. Une espèce de set version tuple en somme.
 Je me suis servi de ce type de structure à 2 reprises.
-Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&#39;étais en C&#43;&#43;11 et que dans cette norme std::get&lt;Type&gt;() n&rsquo;existe pas.">
+Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&rsquo;étais en C&#43;&#43;11 et que dans cette norme std::get&lt;Type&gt;() n&rsquo;existe pas.">
 <meta property="twitter:description" content="Ce que j&rsquo;appelle ici un magasin de type n&rsquo;est autre qu&rsquo;un std::tuple où les types ne sont présents qu&rsquo;une seule fois. Une espèce de set version tuple en somme.
 Je me suis servi de ce type de structure à 2 reprises.
-Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&#39;étais en C&#43;&#43;11 et que dans cette norme std::get&lt;Type&gt;() n&rsquo;existe pas.">
+Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&rsquo;étais en C&#43;&#43;11 et que dans cette norme std::get&lt;Type&gt;() n&rsquo;existe pas.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -221,7 +221,7 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
         </div></aside>
       <p>Ce que j&rsquo;appelle ici un magasin de type n&rsquo;est autre qu&rsquo;un <code>std::tuple</code> où les types ne sont présents qu&rsquo;une seule fois. Une espèce de set version tuple en somme.</p>
 <p>Je me suis servi de ce type de structure à 2 reprises.</p>
-<p>Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de <code>std::tuple</code>. Il faut dire aussi que j'étais en C++11 et que dans cette norme <code>std::get&lt;Type&gt;()</code> n&rsquo;existe pas.</p>
+<p>Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de <code>std::tuple</code>. Il faut dire aussi que j&rsquo;étais en C++11 et que dans cette norme <code>std::get&lt;Type&gt;()</code> n&rsquo;existe pas.</p>
 <p>L&rsquo;autre fois dans une fonction variadique qui distribue les valeurs vers différentes fonctions. Le but étant de ne pas se soucier de l&rsquo;ordre des paramètres, certains étant optionnels.</p>
 <p><code>std::tuple</code> fait plutôt bien le boulot, mais possède un énorme inconvénient pour ce cas de figure: aucune erreur de compilation si un type est présent 2 fois (et c&rsquo;est normal pour un tuple).</p>
 <a class="headline-hash" href="#planter-la-compilation-quand-un-type-est-en-doublon"><h2 id="planter-la-compilation-quand-un-type-est-en-doublon">Planter la compilation quand un type est en doublon</h2></a>

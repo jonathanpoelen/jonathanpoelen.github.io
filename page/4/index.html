@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.68.3" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.69.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -428,9 +428,9 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 
   </header>
   <div class="post__content">
-      <p>En règle générale les événements sont attachés à l'élément qui va le traiter.</p>
+      <p>En règle générale les événements sont attachés à l&rsquo;élément qui va le traiter.</p>
 <p>Par exemple en javascript, un menu (<code>ul</code>) contenant 10 entrées (<code>li</code>) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.</p>
-<p>Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l'événement est généré par un de ses fils et fait le traitement en conséquence.</p>
+<p>Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ul</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;menu&#34;</span><span class="p">);</span>
 <span class="nx">ul</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span> <span class="o">===</span> <span class="nx">ul</span><span class="p">)</span> <span class="c1">// est-ce toi mon fils ?
@@ -502,7 +502,7 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
   </header>
   <div class="post__content">
       <p>Voici une petite information très mal connue et peu utilisée du <code>getopt</code> de la lib C et de la commande shell. Ainsi que <code>Boost.Program_options</code>. Parce que boost c&rsquo;est bien :p.</p>
-<p>Les noms des options longues n&rsquo;ont pas besoin d'être écrites entièrement.</p>
+<p>Les noms des options longues n&rsquo;ont pas besoin d&rsquo;être écrites entièrement.</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="k">function</span> parsecmd<span class="o">()</span>
 <span class="o">{</span>
   getopt -o <span class="s1">&#39;&#39;</span> --long <span class="se">\
@@ -826,7 +826,7 @@ Simple, entourer la variable d&rsquo;accolades:</p>
     <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">fib_r</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib_r</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div><p>Sauf que cet algorithme récursif est pourri. Il recalcule sans cesse <code>fib-1</code> et <code>fib-2</code> et fait monter la pile d&rsquo;appel <strong>jusqu'à explosion</strong> là où l&rsquo;algorithme itératif additionne une variable.</p>
+</code></pre></div><p>Sauf que cet algorithme récursif est pourri. Il recalcule sans cesse <code>fib-1</code> et <code>fib-2</code> et fait monter la pile d&rsquo;appel <strong>jusqu&rsquo;à explosion</strong> là où l&rsquo;algorithme itératif additionne une variable.</p>
 <p>Pour avoir un algorithme récursif équivalent à celui itératif, il faut garder le même comportement. C&rsquo;est à dire garder <code>a</code> et <code>b</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r_impl</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">r</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">rp</span><span class="p">)</span>
 <span class="p">{</span>
@@ -924,8 +924,8 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
 <p>L&rsquo;espace de recherche est la partie sur laquelle s&rsquo;applique une regex. Par défaut, l&rsquo;espace de recherche ne contient qu&rsquo;une ligne à la fois qui sont manipulées individuellement. Avec cette boucle, l&rsquo;espace de recherche contient toutes les lignes (avec saut de ligne) et la regex est appliquée sur l&rsquo;ensemble du document.</p>
 <p>Et en bonus, quelques commandes supplémentaires bons à savoir.</p>
 <ul>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed 2,5s/e/U/g</code></span> remplace <code>e</code> par <code>U</code> à partir de la ligne 2 jusqu'à la 5.</li>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,/</span><span class="nv">$fin</span><span class="s2">/&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> jusqu'à <code>$fin</code>.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed 2,5s/e/U/g</code></span> remplace <code>e</code> par <code>U</code> à partir de la ligne 2 jusqu&rsquo;à la 5.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,/</span><span class="nv">$fin</span><span class="s2">/&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> jusqu&rsquo;à <code>$fin</code>.</li>
 <li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,+5&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> et sur 5 lignes.</li>
 </ul>
 
@@ -997,7 +997,7 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
 </ul>
 <p>Toutefois, si mal fait, des problèmes apparaissent au niveau de l&rsquo;historique qui n&rsquo;est plus utilisable. Par la même occasion, il sera impossible d&rsquo;accéder à une page via son url. Quant à ceux n&rsquo;ayant pas javascript ‑moteur de recherche compris‑ il est totalement impossible de visiter le site.</p>
 <p>Le premier problème peut se corriger avec <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#The_pushState().C2.A0method"><code>history.pushState</code></a> qui permet d&rsquo;ajouter, supprimer et modifier l&rsquo;historique d&rsquo;une page. Le second problème est tout simple, il suffit d&rsquo;indiquer une page complète et ajouter un paramètre dans l&rsquo;url pour les utilisateurs ayant javascript. Si ce paramètre existe, la page ne renvoie que le contenu désiré. Dans le cas contraire, la page est entièrement retournée.</p>
-<p>Par exemple avec un lien sur <code>ma_page.php</code> qui retourne une page complète. On intercepte l'événement click. On ajoute un paramètre, par exemple <code>ajax</code>, ce qui donne <code>ma_page.php?ajax</code> puis on charge cette page. Le serveur ne renvoie que le contenu, on ajoute <code>ma_page.php</code> dans l&rsquo;historique et on remplace l&rsquo;ancien contenu par le nouveau.</p>
+<p>Par exemple avec un lien sur <code>ma_page.php</code> qui retourne une page complète. On intercepte l&rsquo;événement click. On ajoute un paramètre, par exemple <code>ajax</code>, ce qui donne <code>ma_page.php?ajax</code> puis on charge cette page. Le serveur ne renvoie que le contenu, on ajoute <code>ma_page.php</code> dans l&rsquo;historique et on remplace l&rsquo;ancien contenu par le nouveau.</p>
 <p>Il faut également vérifier que les liens fonctionnent lorsqu&rsquo;ils sont ouverts dans un nouvel onglet. Il n&rsquo;y a rien de plus énervant pour moi qu&rsquo;un lien qui ne peut pas s&rsquo;ouvrir dans un autre onglet. J&rsquo;ai pour habitude en lisant un article ou certains sites d&rsquo;ouvrir les liens potentiellement intéressants dans un nouvel onglet. Ceux s&rsquo;ouvrant en javascript sont une vraie plaie ! Ils ouvrent une page blanche et quelle horreur de constater au bout d&rsquo;un quart d&rsquo;heure que toutes mes pages dûment sélectionnées sont ouvertes sur le néant.</p>
 <p>Alors soit je fuis le site, soit je commence un véritable parcours du combattant pour l&rsquo;ouvrir dans un onglet:</p>
 <ul>
@@ -1008,7 +1008,7 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
 <li>revenir sur l&rsquo;onglet original (Ctrl+Shift+Tab)</li>
 </ul>
 <p>Généralement, je fuis !</p>
-<p>Pour une bonne expérience utilisateur, il faut aussi indiquer les chargements quelque part, surtout quand ils s'éternisent (c&rsquo;est perturbant de ne rien voir réagir après un clic). Et ne surtout pas oublier la gestion d&rsquo;erreur. Avoir des problèmes de connexion peut arriver à n&rsquo;importe qui, si le site ne réagit plus sans en avertir l&rsquo;utilisateur, alors dans la tête de l&rsquo;usager, le site est bogué. Mais il faut le faire de manière intelligente, pas en cachant le contenu sous une énorme popup ;).</p>
+<p>Pour une bonne expérience utilisateur, il faut aussi indiquer les chargements quelque part, surtout quand ils s&rsquo;éternisent (c&rsquo;est perturbant de ne rien voir réagir après un clic). Et ne surtout pas oublier la gestion d&rsquo;erreur. Avoir des problèmes de connexion peut arriver à n&rsquo;importe qui, si le site ne réagit plus sans en avertir l&rsquo;utilisateur, alors dans la tête de l&rsquo;usager, le site est bogué. Mais il faut le faire de manière intelligente, pas en cachant le contenu sous une énorme popup ;).</p>
 
   </div>
   <footer class="post__footer">

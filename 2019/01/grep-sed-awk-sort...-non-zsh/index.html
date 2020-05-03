@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grep, sed, awk, sort... Non ! Zsh</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -269,7 +269,7 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 <span class="nb">echo</span> -E <span class="s2">&#34;[</span><span class="si">${</span><span class="p">(j:]</span><span class="se">\n</span><span class="p">[:)</span><span class="s2">&#34;</span><span class="si">${</span><span class="p">(@f)</span><span class="k">$(</span>&lt;file<span class="k">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="si">}</span><span class="s2">]&#34;</span>
 </code></pre></div><p>Il y a encore de nombreux paramètres qui peuvent être trouvés dans le manuel ou via l&rsquo;auto-complétion de zsh. Aussi, pour simplifier les exemples qui suivront, j&rsquo;utiliserai directement les variables <code>contents</code> et <code>lines</code>.</p>
 <a class="headline-hash" href="#glob-et-glob-étendu"><h3 id="glob-et-glob-étendu">Glob et glob étendu</h3></a>
-<p>L&rsquo;une des grandes forces de zsh réside dans le globbing. Il ne se restreint pas qu'à la recherche de fichier, mais peut aussi s&rsquo;appliquer sur les éléments d&rsquo;un tableau ou des chaînes pour filtrer ou transformer. En plus de <code>*</code> et <code>?</code>, zsh comprend <code>[...]</code>, <code>[^...]</code> et <code>&lt;x-y&gt;</code> pour un nombre entre <code>x</code> et <code>y</code> inclu (<code>&lt;-&gt;</code> pour n&rsquo;importe quel digit).</p>
+<p>L&rsquo;une des grandes forces de zsh réside dans le globbing. Il ne se restreint pas qu&rsquo;à la recherche de fichier, mais peut aussi s&rsquo;appliquer sur les éléments d&rsquo;un tableau ou des chaînes pour filtrer ou transformer. En plus de <code>*</code> et <code>?</code>, zsh comprend <code>[...]</code>, <code>[^...]</code> et <code>&lt;x-y&gt;</code> pour un nombre entre <code>x</code> et <code>y</code> inclu (<code>&lt;-&gt;</code> pour n&rsquo;importe quel digit).</p>
 <p>Avec le glob étendu (<code>setopt extendedglob</code>) on possède alors un équivalent des regex:</p>
 <ul>
 <li><code>x#</code> 0 ou plus de <code>x</code></li>
@@ -440,10 +440,17 @@ note: penser à investir dans une porte plus solide
   <span class="k">else</span>
     <span class="kr">print</span> <span class="o">$</span><span class="mi">0</span>
 <span class="p">}</span></code></span></td>
-<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nb">declare</span> -A <span class="nv">colors</span><span class="o">=(</span>erreur: <span class="m">31</span> avertissement: <span class="m">33</span> info: 35<span class="o">)</span>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">setopt extendedglob
+
+<span class="nb">declare</span> -A <span class="nv">colors</span><span class="o">=(</span>
+  erreur: <span class="m">31</span>
+  avertissement: <span class="m">33</span>
+  info: <span class="m">35</span>
+<span class="o">)</span>
 <span class="nb">declare</span> -A colorized
+<span class="nv">esc</span><span class="o">=</span><span class="s1">$&#39;\e&#39;</span>
 <span class="k">for</span> k in <span class="si">${</span><span class="p">(k)colors</span><span class="si">}</span> <span class="p">;</span>
-  <span class="nv">colorized</span><span class="o">+=(</span><span class="nv">$k</span> <span class="s2">&#34;\033[</span><span class="nv">$colors</span><span class="s2">[</span><span class="nv">$k</span><span class="s2">]m</span><span class="nv">$k</span><span class="s2">\033[0m&#34;</span><span class="o">)</span>
+  <span class="nv">colorized</span><span class="o">+=(</span><span class="nv">$k</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">esc</span><span class="si">}</span><span class="s2">[</span><span class="nv">$colors</span><span class="s2">[</span><span class="nv">$k</span><span class="s2">]m</span><span class="nv">$k</span><span class="si">${</span><span class="nv">esc</span><span class="si">}</span><span class="s2">[0m&#34;</span><span class="o">)</span>
 
 <span class="nb">echo</span> -E <span class="si">${</span><span class="p">(F)lines/(#m)(#s)[a-z]##:/</span><span class="si">${</span><span class="nv">colorized</span><span class="p">[</span><span class="nv">$MATCH</span><span class="p">]</span><span class="k">:-</span><span class="nv">$MATCH</span><span class="si">}}</span></code></span></td>
 </tr>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Optimisation de script bash en limitant l&#39;ouverture de processus</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -212,7 +212,7 @@ Le meilleur moyen d&rsquo;accélérer un script est de passer par les builtins e
 En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&rsquo;entrée standard et retourne un résultat ; un peu comme <code>bc</code>.
 C&rsquo;est là que les coprocessus viennent à la rescousse :).</p>
 <p>Un coprocessus est un sous-shell exécuté de façon asynchrone et fournissant les tubes d&rsquo;entrée/sortie. Ceux-ci sont accessibles via <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$COPROC</span><span class="o">[</span>1<span class="o">]</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$COPROC</span><span class="o">[</span>2<span class="o">]</span></code></span>.</p>
-<p>Du coup, avec <code>bc</code>, la méthode est d'écrire dans un tube et lire dans l&rsquo;autre. Comme la lecture est bloquante, le script va attendre que <code>bc</code> retourne le résultat.</p>
+<p>Du coup, avec <code>bc</code>, la méthode est d&rsquo;écrire dans un tube et lire dans l&rsquo;autre. Comme la lecture est bloquante, le script va attendre que <code>bc</code> retourne le résultat.</p>
 <p>Et voilà ! L&rsquo;ouverture d&rsquo;un programme est remplacé par une lecture/écriture.</p>
 <p>Pour exemple, un petit programme qui lit un fichier contenant des opérations mathématiques et les affichent suivies du résultat.</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash

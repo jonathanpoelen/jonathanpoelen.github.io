@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sed tout puissant</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -227,8 +227,8 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
 <p>L&rsquo;espace de recherche est la partie sur laquelle s&rsquo;applique une regex. Par défaut, l&rsquo;espace de recherche ne contient qu&rsquo;une ligne à la fois qui sont manipulées individuellement. Avec cette boucle, l&rsquo;espace de recherche contient toutes les lignes (avec saut de ligne) et la regex est appliquée sur l&rsquo;ensemble du document.</p>
 <p>Et en bonus, quelques commandes supplémentaires bons à savoir.</p>
 <ul>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed 2,5s/e/U/g</code></span> remplace <code>e</code> par <code>U</code> à partir de la ligne 2 jusqu'à la 5.</li>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,/</span><span class="nv">$fin</span><span class="s2">/&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> jusqu'à <code>$fin</code>.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed 2,5s/e/U/g</code></span> remplace <code>e</code> par <code>U</code> à partir de la ligne 2 jusqu&rsquo;à la 5.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,/</span><span class="nv">$fin</span><span class="s2">/&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> jusqu&rsquo;à <code>$fin</code>.</li>
 <li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,+5&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> et sur 5 lignes.</li>
 </ul>
 

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Placement new, allocateur et conteneur</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -250,7 +250,7 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">machin</span><span class="o">-&gt;~</span><span class="n">Machin</span><span class="p">();</span>
 </code></pre></div><p>Étape inutile pour les types scalaires. De toute façon ils n&rsquo;ont pas de destructeur. En C++17, la STL contient <a href="http://en.cppreference.com/w/cpp/memory/destroy_at">std::destroy_at</a>.</p>
 <p>Évidemment, si <code>machin</code> possède un destructeur virtuel et est en réalité une classe fille, alors c&rsquo;est le destructeur de la classe dérivée qui est appelé.</p>
-<p>Il ne reste plus qu'à libérer la mémoire.</p>
+<p>Il ne reste plus qu&rsquo;à libérer la mémoire.</p>
 <a class="headline-hash" href="#libération-de-la-mémoire"><h2 id="libération-de-la-mémoire">Libération de la mémoire</h2></a>
 <p>De la même manière qu&rsquo;il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span>
 </code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span><span class="p">[]</span>
@@ -298,11 +298,11 @@ Et à partir de C++17 un <a href="http://en.cppreference.com/w/cpp/header/memory
 <a class="headline-hash" href="#allocateurs-et-conteneurs"><h2 id="allocateurs-et-conteneurs">Allocateurs et conteneurs</h2></a>
 <p>Utiliser un allocateur personnalisé permet d&rsquo;avoir un contrôle plus fin de la mémoire pour répondre plus efficacement au besoin et augmenter les performances.</p>
 <p>Évidemment, l&rsquo;allocateur peut être personnalisable et dans certaines circonstances permet un gain de performance en évitant l&rsquo;allocation/dés-allocation répété.</p>
-<p>Par exemple, il y a quelques semaines, j&rsquo;ai fait un algorithme qui faisait au total 2&rsquo;100&rsquo;000 <code>new</code> pour au final ne garder que 100&rsquo;000 objets. Donc 2&rsquo;000&rsquo;000 de <code>delete</code>.</p>
-<p>Dans le pire des cas, il y avait une suite de 25 objets à supprimer. Avec un allocateur qui ne vide pas la mémoire mais garde un tableau des pointeurs alloués je n&rsquo;avais plus qu'à faire 25 dés-allocations au lieu de 2&rsquo;000&rsquo;000. Le nombre de <code>new</code> effectuées descendait quant à lui à 100&rsquo;025.</p>
-<p>Seul le nombre d&rsquo;appels au destructeur et au placement new restait inchangé. Respectivement 2&rsquo;000&rsquo;000 et 2&rsquo;100&rsquo;000.</p>
+<p>Par exemple, il y a quelques semaines, j&rsquo;ai fait un algorithme qui faisait au total 2'100'000 <code>new</code> pour au final ne garder que 100'000 objets. Donc 2'000'000 de <code>delete</code>.</p>
+<p>Dans le pire des cas, il y avait une suite de 25 objets à supprimer. Avec un allocateur qui ne vide pas la mémoire mais garde un tableau des pointeurs alloués je n&rsquo;avais plus qu&rsquo;à faire 25 dés-allocations au lieu de 2'000'000. Le nombre de <code>new</code> effectuées descendait quant à lui à 100'025.</p>
+<p>Seul le nombre d&rsquo;appels au destructeur et au placement new restait inchangé. Respectivement 2'000'000 et 2'100'000.</p>
 <p>Au final l&rsquo;algorithme était quand même 30% plus rapide. J&rsquo;aurais aussi pu allouer directement tous mes objets et les réutiliser, mais là n&rsquo;est pas le propos :).</p>
-<p>Ce type d&rsquo;optimisation reste toutefois exceptionnel et n&rsquo;est pas adapté à tous les conteneurs. Par exemple, std::vector se prête mal à ce genre d&rsquo;exercice car il demande toujours une allocation d&rsquo;au moins la taille du nombre d'éléments qu&rsquo;il possède.</p>
+<p>Ce type d&rsquo;optimisation reste toutefois exceptionnel et n&rsquo;est pas adapté à tous les conteneurs. Par exemple, std::vector se prête mal à ce genre d&rsquo;exercice car il demande toujours une allocation d&rsquo;au moins la taille du nombre d&rsquo;éléments qu&rsquo;il possède.</p>
 <p>Par contre, les conteneurs comme std::list ou std::map, qui allouent toujours un seul élément à la fois sont un meilleur choix pour utiliser ce type d&rsquo;allocateur.
 Cependant, comme les conteneurs retournent une copie de leur allocateur, il sera difficile de supprimer de manière simple la mémoire non utilisée par l&rsquo;allocateur du conteneur.</p>
 <p>En ce moment, j&rsquo;ajoute plusieurs allocateurs dans <a href="https://github.com/jonathanpoelen/falcon/tree/master/falcon/memory">falcon/memory</a>. Même si celui dont je viens de parler n&rsquo;est pas encore présent car son implémentation était vraiment basique et spécifique, il fait quand même partie de ma todo-list.</p>

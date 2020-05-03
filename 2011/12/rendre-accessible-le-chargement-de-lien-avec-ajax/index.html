@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rendre accessible le chargement de lien avec AJAX</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -212,7 +212,7 @@
 </ul>
 <p>Toutefois, si mal fait, des problèmes apparaissent au niveau de l&rsquo;historique qui n&rsquo;est plus utilisable. Par la même occasion, il sera impossible d&rsquo;accéder à une page via son url. Quant à ceux n&rsquo;ayant pas javascript ‑moteur de recherche compris‑ il est totalement impossible de visiter le site.</p>
 <p>Le premier problème peut se corriger avec <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#The_pushState().C2.A0method"><code>history.pushState</code></a> qui permet d&rsquo;ajouter, supprimer et modifier l&rsquo;historique d&rsquo;une page. Le second problème est tout simple, il suffit d&rsquo;indiquer une page complète et ajouter un paramètre dans l&rsquo;url pour les utilisateurs ayant javascript. Si ce paramètre existe, la page ne renvoie que le contenu désiré. Dans le cas contraire, la page est entièrement retournée.</p>
-<p>Par exemple avec un lien sur <code>ma_page.php</code> qui retourne une page complète. On intercepte l'événement click. On ajoute un paramètre, par exemple <code>ajax</code>, ce qui donne <code>ma_page.php?ajax</code> puis on charge cette page. Le serveur ne renvoie que le contenu, on ajoute <code>ma_page.php</code> dans l&rsquo;historique et on remplace l&rsquo;ancien contenu par le nouveau.</p>
+<p>Par exemple avec un lien sur <code>ma_page.php</code> qui retourne une page complète. On intercepte l&rsquo;événement click. On ajoute un paramètre, par exemple <code>ajax</code>, ce qui donne <code>ma_page.php?ajax</code> puis on charge cette page. Le serveur ne renvoie que le contenu, on ajoute <code>ma_page.php</code> dans l&rsquo;historique et on remplace l&rsquo;ancien contenu par le nouveau.</p>
 <p>Il faut également vérifier que les liens fonctionnent lorsqu&rsquo;ils sont ouverts dans un nouvel onglet. Il n&rsquo;y a rien de plus énervant pour moi qu&rsquo;un lien qui ne peut pas s&rsquo;ouvrir dans un autre onglet. J&rsquo;ai pour habitude en lisant un article ou certains sites d&rsquo;ouvrir les liens potentiellement intéressants dans un nouvel onglet. Ceux s&rsquo;ouvrant en javascript sont une vraie plaie ! Ils ouvrent une page blanche et quelle horreur de constater au bout d&rsquo;un quart d&rsquo;heure que toutes mes pages dûment sélectionnées sont ouvertes sur le néant.</p>
 <p>Alors soit je fuis le site, soit je commence un véritable parcours du combattant pour l&rsquo;ouvrir dans un onglet:</p>
 <ul>
@@ -223,7 +223,7 @@
 <li>revenir sur l&rsquo;onglet original (Ctrl+Shift+Tab)</li>
 </ul>
 <p>Généralement, je fuis !</p>
-<p>Pour une bonne expérience utilisateur, il faut aussi indiquer les chargements quelque part, surtout quand ils s'éternisent (c&rsquo;est perturbant de ne rien voir réagir après un clic). Et ne surtout pas oublier la gestion d&rsquo;erreur. Avoir des problèmes de connexion peut arriver à n&rsquo;importe qui, si le site ne réagit plus sans en avertir l&rsquo;utilisateur, alors dans la tête de l&rsquo;usager, le site est bogué. Mais il faut le faire de manière intelligente, pas en cachant le contenu sous une énorme popup ;).</p>
+<p>Pour une bonne expérience utilisateur, il faut aussi indiquer les chargements quelque part, surtout quand ils s&rsquo;éternisent (c&rsquo;est perturbant de ne rien voir réagir après un clic). Et ne surtout pas oublier la gestion d&rsquo;erreur. Avoir des problèmes de connexion peut arriver à n&rsquo;importe qui, si le site ne réagit plus sans en avertir l&rsquo;utilisateur, alors dans la tête de l&rsquo;usager, le site est bogué. Mais il faut le faire de manière intelligente, pas en cachant le contenu sous une énorme popup ;).</p>
 
   </div>
   <footer class="post__footer">

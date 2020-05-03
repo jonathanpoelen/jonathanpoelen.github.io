@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Méta-fonction et continuation</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -21,10 +21,10 @@
 <meta property="twitter:card" content="summary">
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/">
 <meta property="twitter:title" content="Méta-fonction et continuation">
-<meta name="description" content="J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &ndash;parce que cela va bien de paire,&ndash; l&#39;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&lt;Ts...&gt;).
-Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&#39;étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&rsquo;opérateur |.">
-<meta property="twitter:description" content="J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &ndash;parce que cela va bien de paire,&ndash; l&#39;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&lt;Ts...&gt;).
-Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&#39;étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&rsquo;opérateur |.">
+<meta name="description" content="J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &ndash;parce que cela va bien de paire,&ndash; l&rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&lt;Ts...&gt;).
+Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo;étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&rsquo;opérateur |.">
+<meta property="twitter:description" content="J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &ndash;parce que cela va bien de paire,&ndash; l&rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&lt;Ts...&gt;).
+Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo;étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&rsquo;opérateur |.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -217,9 +217,9 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&#39;�
   </ul>
 </nav>
         </div></aside>
-      <p>J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est <a href="https://github.com/kvasir-io/mpl">Kvasir.Mpl</a>. Son originalité réside dans le support des <a href="https://fr.wikipedia.org/wiki/Continuation">continuations</a> et &ndash;parce que cela va bien de paire,&ndash; l'évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (<code>list&lt;Ts...&gt;</code>).</p>
+      <p>J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est <a href="https://github.com/kvasir-io/mpl">Kvasir.Mpl</a>. Son originalité réside dans le support des <a href="https://fr.wikipedia.org/wiki/Continuation">continuations</a> et &ndash;parce que cela va bien de paire,&ndash; l&rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (<code>list&lt;Ts...&gt;</code>).</p>
 <a class="headline-hash" href="#continuation"><h2 id="continuation">Continuation</h2></a>
-<p>Chaque algorithme dispose d&rsquo;un paramètre qui décrit l'étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme <a href="https://github.com/ericniebler/range-v3">rangev3</a>, les continuations se font avec l&rsquo;opérateur <code>|</code>. Par exemple <code>grep x | wc -l</code> ou <code>filter(is_odd) | take(6)</code>. Il n&rsquo;est pas possible d&rsquo;utiliser <code>|</code> avec des templates, alors la continuation est un paramètre ajouté à l&rsquo;algorithme. En chaînant les continuations, on construit un nouvel algorithme qui s&rsquo;utilise avec <code>call&lt;algo, args...&gt;</code>.</p>
+<p>Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo;étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme <a href="https://github.com/ericniebler/range-v3">rangev3</a>, les continuations se font avec l&rsquo;opérateur <code>|</code>. Par exemple <code>grep x | wc -l</code> ou <code>filter(is_odd) | take(6)</code>. Il n&rsquo;est pas possible d&rsquo;utiliser <code>|</code> avec des templates, alors la continuation est un paramètre ajouté à l&rsquo;algorithme. En chaînant les continuations, on construit un nouvel algorithme qui s&rsquo;utilise avec <code>call&lt;algo, args...&gt;</code>.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// `C` pour continuation
 </span><span class="c1"></span>
@@ -233,7 +233,7 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&#39;�
 <span class="k">using</span> <span class="n">add_const_lvalue_reference</span> <span class="o">=</span> <span class="n">add_const</span><span class="o">&lt;</span><span class="n">add_lvalue_reference</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;&gt;</span><span class="p">;</span> <span class="c1">// un chaînage
 </span></code></pre></div>
 
-<p>Les continuations limitent drastiquement le recours aux &ldquo;lambdas&rdquo;. Dans d&rsquo;autres bibliothèques du genre, <code>add_const_lvalue_reference</code> s'écrirait <code>lambda&lt;add_lvalue_reference, lambda&lt;add_const, _&gt;&gt;</code> ce qui est, il faut l&rsquo;avouer, beaucoup moins glamour.</p>
+<p>Les continuations limitent drastiquement le recours aux &ldquo;lambdas&rdquo;. Dans d&rsquo;autres bibliothèques du genre, <code>add_const_lvalue_reference</code> s&rsquo;écrirait <code>lambda&lt;add_lvalue_reference, lambda&lt;add_const, _&gt;&gt;</code> ce qui est, il faut l&rsquo;avouer, beaucoup moins glamour.</p>
 <p>Dans des algorithmes du type transformation, l&rsquo;impact sur la lecture du code est immédiat:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">transform</span><span class="o">&lt;</span><span class="n">lambda</span><span class="o">&lt;</span><span class="n">next</span><span class="p">,</span> <span class="n">lambda</span><span class="o">&lt;</span><span class="n">times</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
 <span class="c1">// vs
@@ -285,7 +285,7 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&#39;�
 
 <a class="headline-hash" href="#cest-beau-cest-propre"><h2 id="cest-beau-cest-propre">C&rsquo;est beau, c&rsquo;est propre</h2></a>
 <p>Il y a quelques jours, après mon petit passage quotidien dans libstdc++ et en regardant <code>std::decay</code>, je me suis dit <del>c&rsquo;est beau, c&rsquo;est propre</del> qu&rsquo;il faudrait comparer avec une implémentation qui utilise les concepts de kvasir.</p>
-<p>Voici en l'état la version fournie avec gcc-8.2:</p>
+<p>Voici en l&rsquo;état la version fournie avec gcc-8.2:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// Decay trait for arrays and functions, used for perfect forwarding
 </span><span class="c1">// in make_pair, make_tuple, etc.
 </span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">_Up</span><span class="p">,</span>
@@ -328,7 +328,7 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&#39;�
     <span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
   <span class="o">&gt;</span>
 <span class="o">&gt;</span><span class="p">;</span>
-</code></pre></div><p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations, les branches ne doivent s'évaluer qu&rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.</p>
+</code></pre></div><p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations, les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.</p>
 <p>Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, <code>remove_extent&lt;T&gt;</code> ne sera pas instancié lorsque <code>is_array_v&lt;T&gt;</code> est faux, ce qui rend les continuations très facilement composables.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>

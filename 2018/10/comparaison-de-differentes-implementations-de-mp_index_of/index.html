@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comparaison de différentes implémentations de mp_index_of</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -233,30 +233,30 @@ Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car 
 
 <a class="headline-hash" href="#avant-propos"><h2 id="avant-propos">Avant-propos</h2></a>
 <p>Toutes les implémentations de <code>mp_index_of&lt;T, Ts...&gt;</code> retournent un <code>std::integral_constant&lt;int, i&gt;</code> correspondant à l&rsquo;indice de <code>T</code> dans <code>Ts</code> ou <code>-1</code> si <code>T</code> n&rsquo;existe pas.</p>
-<p>Clang possède des outils tel que <a href="http://plc.inf.elte.hu/templight/">templight</a>, mais il n&rsquo;y a pas d'équivalent pour Gcc. Par conséquent, les tests sont faits avec <code>/usr/bin/time --format=&quot;%E %M&quot;</code> qui ressort le temps et la mémoire maximum utilisée par un programme.</p>
+<p>Clang possède des outils tel que <a href="http://plc.inf.elte.hu/templight/">templight</a>, mais il n&rsquo;y a pas d&rsquo;équivalent pour Gcc. Par conséquent, les tests sont faits avec <code>/usr/bin/time --format=&quot;%E %M&quot;</code> qui ressort le temps et la mémoire maximum utilisée par un programme.</p>
 <p>Au niveau des options de compilation, <code>-fsyntax-only</code> permet de vérifier la validité d&rsquo;un code sans générer de fichier de sortie. <code>-std=c++17</code> est présent pour utiliser les plies, mais tous les algorithmes n&rsquo;en ont pas besoin. <code>-ftemplate-depth=n</code> et <code>-fconstexpr-depth=n</code> appliquent une profondeur limite dans la récursivité appliquée respectivement aux templates et aux fonctions constexpr. <code>-w</code> supprime tous les avertissements (tels que des macros non utilisés) pour éviter que des sorties inopportunes influencent la mesure.</p>
 <p>Il y a 2 formes de test:</p>
 <ul>
 <li>ceux sur des listes contenant 2 types nommés <code>x</code> et <code>_</code> et</li>
-<li>ceux sur des suites <code>i&lt;n&gt;</code> avec <code>n</code> un entier et <code>x</code>.</li>
+<li>ceux sur des suites <code>x</code> et <code>i&lt;n&gt;</code> avec <code>n</code> un entier.</li>
 </ul>
 <p>Pour chaque test, <code>T</code> représente <code>x</code> et il peut être présent ou non dans <code>Ts</code>.</p>
 <p>les valeurs de <code>Ts</code> sont présentées dans les légendes sous forme abrégée:</p>
 <ul>
 <li><code>[x*500]</code>: une liste de 500 <code>x</code>.</li>
 <li><code>[_*250, x, _*249]</code>: une liste de 250 <code>_</code>, suivit de <code>x</code> et d&rsquo;une liste de <code>249</code> <code>_</code>.</li>
-<li><code>[i{0..40}*150]</code>: uns suite de 150 <code>i0</code>, une autre de 150 <code>i1</code> et ainsi de suite jusqu'à <code>i40</code>.</li>
-<li><code>[i0..i{0..140}]</code>: une suite <code>[i0..i0]</code>, puis <code>[i0..i1]</code>, etc jusqu'à <code>[i0..i140]</code>.</li>
+<li><code>[i{0..40}*150]</code>: une suite de 150 <code>i0</code>, une autre de 150 <code>i1</code> et ainsi de suite jusqu&rsquo;à <code>i40</code>.</li>
+<li><code>[i0..i{0..140}]</code>: une suite <code>[i0..i0]</code>, puis <code>[i0..i1]</code>, etc jusqu&rsquo;à <code>[i0..i140]</code>.</li>
 <li><code>[i{0..n},x,i{n-(n..0)..n}];n=100</code>: les suites <code>[i{0..100},x,i{100..100}]</code>,  <code>[i{1..100},x,i{99..100}]</code>, etc</li>
 </ul>
 <p>Les sources se trouvent sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/mp_index_of">github</a>
  dans un même fichier cpp. Chacune des implémentations possède son propre namespace et des macros activent individuellement chaque test. <!-- raw HTML omitted --></p>
 <a class="headline-hash" href="#relation-temps-de-compilation-et-mémoire"><h2 id="relation-temps-de-compilation-et-mémoire">Relation temps de compilation et mémoire</h2></a>
-<p>Dans du code utilisant la méta-programmation, le temps de compilation suit la même courbe que la mémoire. Plus une compilation est lente, plus la mémoire utilisée augmente allant jusqu'à saturation.</p>
+<p>Dans du code utilisant la méta-programmation, le temps de compilation suit la même courbe que la mémoire. Plus une compilation est lente, plus la mémoire utilisée augmente allant jusqu&rsquo;à saturation.</p>
 <p>Et la mémoire est fortement liée au nombre de types instanciés par le compilateur. Ici, il ne faut pas voir une instance comme une variable, mais comme la première création d&rsquo;un type. Par exemple, <code>index_of&lt;int, int&gt;</code> est une instance de type (ou d&rsquo;alias), <code>index_of&lt;int, int, int&gt;</code> une seconde instance, <code>index_of&lt;int, float&gt;</code> une troisième, etc. Chaque type construit s&rsquo;ajoute dans la mémoire du compilateur et l&rsquo;ensemble utilise de plus en plus de place. C&rsquo;est ainsi que le compilateur implémente naturellement la <a href="https://fr.wikipedia.org/wiki/M%C3%A9mo%C3%AFsation">mémoïsation</a> pour les templates.</p>
 <p>Pour réduire le temps de compilation, il faut donc réduire le nombre de type instancié.</p>
 <a class="headline-hash" href="#la-récursivité"><h2 id="la-récursivité">La récursivité</h2></a>
-<p>La première chose qu&rsquo;on apprend avec les variadiques, c&rsquo;est que les boucles se font avec de la récursivité en enlevant un par un les éléments. C&rsquo;est une forme très facile à écrire et à comprendre, mais qui crée beaucoup de types intermédiaires à l&rsquo;intérieur du compilateur.</p>
+<p>La première chose qu&rsquo;on apprend avec les variadiques, c&rsquo;est que les boucles se font avec de la récursivité en enlevant un par un les éléments. C&rsquo;est une forme facile à écrire et à comprendre, mais qui crée beaucoup de types intermédiaires à l&rsquo;intérieur du compilateur.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_ternary</span>
 <span class="p">{</span>
@@ -278,7 +278,7 @@ Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car 
 <span class="p">}</span>
 </code></pre></div>
 
-<p>Une implémentation avec ternaire récursive comme on peut la trouver dans le fichier variant de libstdc++. Elle souffre d&rsquo;un léger problème: il y a autant d&rsquo;instance de <code>_index_of</code> que d'élément dans la liste, même si <code>T</code> se trouve en première position.</p>
+<p>Une implémentation avec ternaire récursive comme on peut la trouver dans le fichier variant de libstdc++. Elle souffre d&rsquo;un léger problème: il y a autant d&rsquo;instance de <code>_index_of</code> que d&rsquo;élément dans la liste, même si <code>T</code> se trouve en première position.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_indexed</span>
 <span class="p">{</span>
@@ -329,11 +329,11 @@ Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car 
 <p>Un mélange des 2 implémentations précédentes sans les inconvénients. En réalité, c&rsquo;est la forme la plus communément écrite.</p>
 <!-- raw HTML omitted -->
 <p><img src="/post/mp_index_of/rec_gcc_time.png" alt="duré de compilation avec gcc de 3 implémentations récursives"></p>
-<p>Sans surprise, sur les 3 premiers tests, la version avec ternaire est à peu près stable quelle que soit la position de <code>x</code>, même s&rsquo;il semble qu'évaluer la ternaire ralentisse un peu la compilation lorsque <code>x</code> se situe vers la fin.
+<p>Sans surprise, sur les 3 premiers tests, la version avec ternaire est à peu près stable quelle que soit la position de <code>x</code>, même s&rsquo;il semble qu&rsquo;évaluer la ternaire ralentisse un peu la compilation lorsque <code>x</code> se situe vers la fin.
 Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code>x</code> est au début pour rattraper progressivement la version ternaire. Sans que je sache l&rsquo;expliquer, la version avec index explose le compteur pour le test 3.</p>
-<p>Comme la courbe de progression pour la version récursive classique n&rsquo;est pas linéaire, je déduis que le nombre d'éléments dans un pack d&rsquo;argument influence le temps de compilation. Il y a ±600ms de différence pour parcourir les 700 premiers <code>_</code> contre seulement ±220ms pour les 700 restant. Cela peut se comprendre assez facilement, plus il y a de types dans la template, plus la création d&rsquo;un identifiant au sein du compilateur va prendre du temps.</p>
-<p>Le test 5 met clairement à défaut la version avec indice, car la mémoïsation ne s&rsquo;applique pas ici. Avec la version ternaire et récursive, lorsque le compilateur calcule la position d&rsquo;une liste de la forme <code>[0,1,2,3]</code>, il l&rsquo;a aussi fait pour <code>[1,2,3]</code>, <code>[2,3]</code> et <code>[3]</code> ce qui permet d'être très rapide lorsqu&rsquo;il tombe sur des valeurs déjà évaluées. Or, la version avec indice ajoute un élément qui empêche cela: <code>&lt;0, [0,1,2,3]&gt;</code> se déroule en <code>&lt;1, [1,2,3]&gt;</code>, <code>&lt;2, [2,3]&gt;</code> et <code>&lt;3, [3]&gt;</code> alors que <code>&lt;0, [0,1,2]&gt;</code> se déroule en <code>&lt;1, [1,2]&gt;</code> et <code>&lt;2, [2]&gt;</code>. Les suites sont différentes, le compilateur crée donc beaucoup plus de types intermédiaires ce qui ralentit la compilation.</p>
-<p>Dans l&rsquo;ensemble, l&rsquo;algorithme avec index est à éviter, car il montre qu&rsquo;une mauvaise mémoïsation ralentit fortement l'évaluation de template. Il faut également éviter la version ternaire au profil d&rsquo;une implémentation qui stoppe la récursivité pour ne pas faire de calcul inutile. Finalement, l&rsquo;algorithme de récursion classique est plus rapide dans tous les cas.</p>
+<p>Comme la courbe de progression pour la version récursive classique n&rsquo;est pas linéaire, je déduis que le nombre d&rsquo;éléments dans un pack d&rsquo;argument influence le temps de compilation. Il y a ±600ms de différence pour parcourir les 700 premiers <code>_</code> contre seulement ±220ms pour les 700 restant. Cela peut se comprendre assez facilement, plus il y a de types dans la template, plus la création d&rsquo;un identifiant au sein du compilateur va prendre du temps.</p>
+<p>Le test 5 met clairement à défaut la version avec indice, car la mémoïsation ne s&rsquo;applique pas ici. Avec la version ternaire et récursive, lorsque le compilateur calcule la position d&rsquo;une liste de la forme <code>[0,1,2,3]</code>, il l&rsquo;a aussi fait pour <code>[1,2,3]</code>, <code>[2,3]</code> et <code>[3]</code> ce qui permet d&rsquo;être très rapide lorsqu&rsquo;il tombe sur des valeurs déjà évaluées. Or, la version avec indice ajoute un élément qui empêche cela: <code>&lt;0, [0,1,2,3]&gt;</code> se déroule en <code>&lt;1, [1,2,3]&gt;</code>, <code>&lt;2, [2,3]&gt;</code> et <code>&lt;3, [3]&gt;</code> alors que <code>&lt;0, [0,1,2]&gt;</code> se déroule en <code>&lt;1, [1,2]&gt;</code> et <code>&lt;2, [2]&gt;</code>. Les suites sont différentes, le compilateur crée donc beaucoup plus de types intermédiaires ce qui ralentit la compilation.</p>
+<p>Dans l&rsquo;ensemble, l&rsquo;algorithme avec index est à éviter, car il montre qu&rsquo;une mauvaise mémoïsation ralentit fortement l&rsquo;évaluation de template. Il faut également éviter la version ternaire au profil d&rsquo;une implémentation qui stoppe la récursivité pour ne pas faire de calcul inutile. Finalement, l&rsquo;algorithme de récursion classique est plus rapide dans tous les cas.</p>
 <p>Ce qui est vrai pour Gcc, ne l&rsquo;est pas forcément pour Clang comme le montre le graphique ci-dessous.</p>
 <!-- raw HTML omitted -->
 <p><img src="/post/mp_index_of/rec_clang_time.png" alt="duré de compilation avec clang de 3 implémentations récursives"></p>
@@ -401,7 +401,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 
 <!-- raw HTML omitted -->
 <p><img src="/post/mp_index_of/rec_bool_gcc_time.png" alt="comparaison de temps de 3 implémentations qui font une transformation en booléan"></p>
-<p>Là où la version récursive était rapide, la transformation en une liste de booléan l&rsquo;est tout autant. Le bénéfice devient évident sur une grande variété de listes (test 4) et des listes homogènes (test 6) où le temps de compilation est réduit par 3.</p>
+<p>Là où la version récursive était rapide, la transformation en une liste de booléan l&rsquo;est tout autant. Le bénéfice devient évident sur une grande variété de listes (test 4) et des listes homogènes (test 6) où le temps de compilation est divisé par 3.</p>
 <p>L&rsquo;algorithme <code>recursive_bool2</code> spécialisé dans la recherche d&rsquo;un <code>std::true_type</code> permet de grappiller encore quelques millisecondes principalement grâce à une spécialisation de template en moins.</p>
 <p>À contrario, la version 3 qui manipule des booléens plutôt que des types est lente. Manipuler des types serait donc plus rapide que manipuler des valeurs dans les spécialisations. Le même comportement est présent dans Clang, même s&rsquo;il est moins prononcé.</p>
 <!-- raw HTML omitted -->
@@ -460,7 +460,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="p">}</span>
 </code></pre></div>
 
-<p>Et L'équivalent qui fait une transformation en liste de booléen avant:</p>
+<p>Et L&rsquo;équivalent qui fait une transformation en liste de booléen avant:</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">pack8_bool</span>
 <span class="p">{</span>
@@ -505,7 +505,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <!-- raw HTML omitted -->
 <p><img src="/post/mp_index_of/pack8_gcc_time.png" alt="duré de compilation avec gcc pour un algo récursive par pack de 8"></p>
 <p>Même lorsque la position de <code>x</code> est éloignée (test 2 et 3), les <code>pack8</code> sont efficaces. Si on prend la différence entre le test 1 et 2, et 2 et 3, il y a plus ou moins un facteur 8.</p>
-<p>Comme c'était le cas lorsqu&rsquo;on comparaît l&rsquo;algorithme <code>recursive</code> avec <code>recursive_bool</code>, <code>pack8_bool</code> est plus rapide que <code>pack8</code> lorsque le nombre de listes différentes augmente (test 5 et 7).</p>
+<p>Comme c&rsquo;était le cas lorsqu&rsquo;on comparaît l&rsquo;algorithme <code>recursive</code> avec <code>recursive_bool</code>, <code>pack8_bool</code> est plus rapide que <code>pack8</code> lorsque le nombre de listes différentes augmente (test 5 et 7).</p>
 <p>Le test 6 profite déjà d&rsquo;une mémoïsation optimale pour les 3 implémentations, même si <code>pack8_bool</code> est un chouia plus lent que les autres ici.</p>
 <p>Toutefois, la suprématie de <code>pack8_bool</code> par rapport à <code>pack8</code> est beaucoup plus ténue avec Clang.</p>
 <!-- raw HTML omitted -->

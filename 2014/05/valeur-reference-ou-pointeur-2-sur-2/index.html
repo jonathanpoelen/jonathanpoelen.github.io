@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valeur, référence ou pointeur ? (2/2)</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -230,14 +230,14 @@ Les références possèdent un contrat beaucoup plus fort que les pointeurs: ell
 <p>Mais on me dit dans l&rsquo;oreillette qu&rsquo;il faut argumenter&hellip; Alors c&rsquo;est parti.</p>
 <p>Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.</p>
 <p>À contrario, les pointeurs peuvent changer la variable référencée ou ne pointer sur aucune variable (<a href="http://en.cppreference.com/w/cpp/types/nullptr_t">nullptr</a>).</p>
-<p>Une référence est l'équivalent d&rsquo;un pointeur constant non-nul (avec une syntaxe d&rsquo;utilisation plus simple: pas besoin de déréférencer).
+<p>Une référence est l&rsquo;équivalent d&rsquo;un pointeur constant non-nul (avec une syntaxe d&rsquo;utilisation plus simple: pas besoin de déréférencer).
 De leurs restrictions, celles-ci ne peuvent pas toujours correspondre au besoin ; les pointeurs sont alors envisageables.</p>
 <p>De plus, les pointeurs sont beaucoup utilisés dans les constructions dynamiques (allocation dynamique) quand les classes sont à <a href="http://blog.emmanueldeloget.com/index.php?post/2011/11/18/Standard-C11-%3A-la-s%C3%A9mantique-de-d%C3%A9placement">sémantique d&rsquo;entités</a>. Principalement car ces dernières ne sont pas copiables et que l&rsquo;allocation dynamique permet de s&rsquo;affranchir de la portée (le scope) en se détachant de la pile.</p>
 <a class="headline-hash" href="#le-pointeur-parle-trop"><h2 id="le-pointeur-parle-trop">Le pointeur parle trop</h2></a>
 <p>L&rsquo;usage de pointeur (pointeur nu) est cependant à prendre avec des pincettes, voici 3 questions que soulève l&rsquo;usage d&rsquo;un pointeur:</p>
 <ul>
 <li>Dois-je contrôler la durée de vie du pointeur (le détruire) ? [oui, non]</li>
-<li>Est-ce un élément ou une séquence d'élément ? [séquence, simple valeur, ça dépend]</li>
+<li>Est-ce un élément ou une séquence d&rsquo;élément ? [séquence, simple valeur, ça dépend]</li>
 <li>Le pointeur peut-il être nul ? [oui, non]</li>
 </ul>
 <p>Après un petit calcul combinatoire (2*3*2), il y a 12 réponses possibles. Le pire est de répondre: &ldquo;ça dépend&rdquo;. Si on l&rsquo;enlève, il reste quand même 8 possibilités.</p>

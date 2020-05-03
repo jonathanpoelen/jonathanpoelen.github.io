@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Délégation d&#39;événement en js</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -21,12 +21,12 @@
 <meta property="twitter:card" content="summary">
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/">
 <meta property="twitter:title" content="Délégation d&#39;événement en js">
-<meta name="description" content="En règle générale les événements sont attachés à l&#39;élément qui va le traiter.
+<meta name="description" content="En règle générale les événements sont attachés à l&rsquo;élément qui va le traiter.
 Par exemple en javascript, un menu (ul) contenant 10 entrées (li) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.
-Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&#39;événement est généré par un de ses fils et fait le traitement en conséquence.">
-<meta property="twitter:description" content="En règle générale les événements sont attachés à l&#39;élément qui va le traiter.
+Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.">
+<meta property="twitter:description" content="En règle générale les événements sont attachés à l&rsquo;élément qui va le traiter.
 Par exemple en javascript, un menu (ul) contenant 10 entrées (li) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.
-Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&#39;événement est généré par un de ses fils et fait le traitement en conséquence.">
+Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.">
 
 </head>
 <body class="body body-right-sidebar mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -209,9 +209,9 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
 
   </header>
   <div class="post__content">
-      <p>En règle générale les événements sont attachés à l'élément qui va le traiter.</p>
+      <p>En règle générale les événements sont attachés à l&rsquo;élément qui va le traiter.</p>
 <p>Par exemple en javascript, un menu (<code>ul</code>) contenant 10 entrées (<code>li</code>) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.</p>
-<p>Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l'événement est généré par un de ses fils et fait le traitement en conséquence.</p>
+<p>Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ul</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;menu&#34;</span><span class="p">);</span>
 <span class="nx">ul</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span> <span class="o">===</span> <span class="nx">ul</span><span class="p">)</span> <span class="c1">// est-ce toi mon fils ?

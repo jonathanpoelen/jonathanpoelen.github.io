@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Appel conditionnel de fonction selon la validité d&#39;une expression</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -220,7 +220,7 @@ Appeler T::sort si possible, sinon std::sort(begin(T), end(T)) L&rsquo;exemple v
       <p>L&rsquo;approche suivante consiste à vérifier qu&rsquo;une fonction (membre ou statique) est appelable dans le but de l&rsquo;utiliser, ou, à défaut, fournir implémentation générique. De manière plus générale, la méthode présentée ici s&rsquo;applique à toutes expressions.</p>
 <a class="headline-hash" href="#appeler-tsort-si-possible-sinon-stdsortbegint-endt"><h2 id="appeler-tsort-si-possible-sinon-stdsortbegint-endt">Appeler T::sort si possible, sinon std::sort(begin(T), end(T))</h2></a>
 <p>L&rsquo;exemple va se faire sur la classe <code>std::list</code> qui n&rsquo;est pas triable avec <code>std::sort</code>, mais possède une fonction membre <code>sort()</code>. Ainsi que sur <code>std::vector</code> qui, inversement, n&rsquo;a pas de fonction membre <code>sort()</code>, mais fonctionne avec <code>std::sort</code>.</p>
-<p>La méthode est simple et consiste à créer 2 fonctions: une pour vérifier si une expression est valide (ici <code>x.sort()</code>) et une autre en cas d'échec.</p>
+<p>La méthode est simple et consiste à créer 2 fonctions: une pour vérifier si une expression est valide (ici <code>x.sort()</code>) et une autre en cas d&rsquo;échec.</p>
 <p>Seulement, qui dit 2 fonctions dit 2 prototypes. Leur prototype doit être légèrement différent mais compatible avec les mêmes valeurs d&rsquo;entrée pour appeler la seconde si la première échoue (principe du <a href="http://en.cppreference.com/w/cpp/language/sfinae">SFINAE</a>).</p>
 <p>Pour vérifier l&rsquo;expression, seuls 2 mots clef existent: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span>
 </code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span>

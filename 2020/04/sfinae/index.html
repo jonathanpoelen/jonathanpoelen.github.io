@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SFINAE</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -290,14 +290,14 @@ Pour comprendre pleinement le mécanisme derrière, il faut assimiler le princip
 <li>le second retour ne doit pas compiler</li>
 </ul>
 <p>Étrangement, du moment que la fonction n&rsquo;est pas utilisée, gcc ne vérifie pas si le retour est convertible vers celui de la fonction, mais demande quand même une expression valide, alors que msvc ne fait aucune vérification au sein de la fonction. Par contre clang indique qu&rsquo;une chaîne de caractères n&rsquo;est pas convertible en int.</p>
-<p>L'évaluation systématique des types indépendants explique pourquoi le code ci-dessous donne toujours une erreur.</p>
+<p>L&rsquo;évaluation systématique des types indépendants explique pourquoi le code ci-dessous donne toujours une erreur.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">xxx</span><span class="p">)</span>
 <span class="p">{}</span>
 <span class="k">else</span>
 <span class="p">{</span>
   <span class="k">static_assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="c1">// toujours évalué -&gt; erreur de compilation
 </span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>On touche ici au contexte d'évaluation: le prototype, suivi du corps de fonction. Le second est évalué différemment selon les compilateurs, mais cela ne cause pas réellement de problème, car les erreurs apparaissent au moment de l&rsquo;utilisation de la fonction.</p>
+</code></pre></div><p>On touche ici au contexte d&rsquo;évaluation: le prototype, suivi du corps de fonction. Le second est évalué différemment selon les compilateurs, mais cela ne cause pas réellement de problème, car les erreurs apparaissent au moment de l&rsquo;utilisation de la fonction.</p>
 <p>Quand on parle de contexte, on parle aussi de sous-contexte. Dans le cas de SFINAE, la dépendance d&rsquo;un contexte au contexte parent <strong>ne peut pas être attrapé</strong>, ce qui résultera dans tous les cas à une erreur de compilation. Le corps d&rsquo;une fonction est un exemple, un autre concerne les membres d&rsquo;une classe:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">A</span>
 <span class="p">{</span>
@@ -577,7 +577,7 @@ Pour comprendre pleinement le mécanisme derrière, il faut assimiler le princip
 </span></code></pre></div>
 
 <a class="headline-hash" href="#les-variadiques-de-la-dernière-chance"><h3 id="les-variadiques-de-la-dernière-chance">Les variadiques de la dernière chance</h3></a>
-<p>Il existe en C des paramètres variadiques dont l&rsquo;usage est limité aux types de base et aux pointeurs. Ce genre de paramètre à une particularité intéressante: il n&rsquo;est pris en compte qu'à la seule condition qu&rsquo;aucune autre fonction ne pourrait correspondre. Il a donc une priorité inférieure à la conversion et ne rentre pas en conflit avec. On pourrait réécrire <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span>
+<p>Il existe en C des paramètres variadiques dont l&rsquo;usage est limité aux types de base et aux pointeurs. Ce genre de paramètre à une particularité intéressante: il n&rsquo;est pris en compte qu&rsquo;à la seule condition qu&rsquo;aucune autre fonction ne pourrait correspondre. Il a donc une priorité inférieure à la conversion et ne rentre pas en conflit avec. On pourrait réécrire <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span>
 </code></span> comme suit</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">From</span><span class="p">,</span> <span class="k">class</span> <span class="nc">To</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">is_convertible_impl</span>

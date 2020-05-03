@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>256 couleurs et plus dans la console</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -225,7 +225,7 @@ En fait, il s&rsquo;avère qu&rsquo;en rajoutant extended dans la recherche &ldq
 <p>En fait, il s&rsquo;avère qu&rsquo;en rajoutant extended dans la recherche &ldquo;color shell&rdquo; on puisse trouver <!-- raw HTML omitted -->quelque(s) ressource(s)<!-- raw HTML omitted -->. J&rsquo;aurais bien voulu y penser la semaine dernière, ça m&rsquo;aurait évité de comprendre par tâtonnement&hellip;</p>
 <a class="headline-hash" href="#utilisation"><h2 id="utilisation">Utilisation</h2></a>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s2">&#34;\e[</span><span class="si">${</span><span class="nv">FormatColor</span><span class="si">}</span><span class="s2">m&#34;</span>
-</code></pre></div><p>Le caractère <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\e</span></code></span> correspond à la touche Esc (échap). On peut aussi l'écrire en hexadécimal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\x</span>1B</code></span> ou en octal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\0</span><span class="m">33</span></code></span>.</p>
+</code></pre></div><p>Le caractère <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\e</span></code></span> correspond à la touche Esc (échap). On peut aussi l&rsquo;écrire en hexadécimal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\x</span>1B</code></span> ou en octal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\0</span><span class="m">33</span></code></span>.</p>
 <p>Pour bash et <code>echo</code>, il faut utiliser l&rsquo;option <code>-e</code> pour interpréter les séquences backslashés ou utiliser la forme <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s1">$&#39;\x1b&#39;</span></code></span>.</p>
 <p><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">FormatColor</span><span class="si">}</span></code></span> correspond à un nombre représentant une couleur de texte, de fond ou un effet. Plusieurs formats peuvent être mis en les séparant par des <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="p">;</span></code></span> (point virgule). L&rsquo;ordre n&rsquo;a pas d&rsquo;importance.</p>
 <a class="headline-hash" href="#8-couleurs"><h2 id="8-couleurs">8 couleurs</h2></a>

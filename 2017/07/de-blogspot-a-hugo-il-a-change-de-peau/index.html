@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>De Blogspot à Hugo, il a changé de peau</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -224,14 +224,14 @@ Il y a 3 mois, en regardant une classe de matrice en C&#43;&#43;, une idée m&rs
 </blockquote>
 <p>Et depuis 2 ans, plus rien&hellip; Je n&rsquo;ai pas parcouru le web à la recherche de la solution idéale, loin de là, je n&rsquo;avais juste pas d&rsquo;idée d&rsquo;article.</p>
 <p>Il y a 3 mois, en regardant une classe de matrice en C++, une idée m&rsquo;est venue. J&rsquo;ai écrit mon article puis cherché un système de site statique.</p>
-<p>Au départ, j&rsquo;avais en tête <a href="http://octopress.org/">Octopress</a> utilisé par Luc Hermitte pour son <a href="http://luchermitte.github.io/">blog</a>. Le principe est d'écrire des fichiers en markdown, de générer le blog et mettre le tout sur github pour avoir une adresse en <code>github.io</code>. Le mettre sur github n&rsquo;est pas une obligation, mais c&rsquo;est pour moi le plus simple.</p>
+<p>Au départ, j&rsquo;avais en tête <a href="http://octopress.org/">Octopress</a> utilisé par Luc Hermitte pour son <a href="http://luchermitte.github.io/">blog</a>. Le principe est d&rsquo;écrire des fichiers en markdown, de générer le blog et mettre le tout sur github pour avoir une adresse en <code>github.io</code>. Le mettre sur github n&rsquo;est pas une obligation, mais c&rsquo;est pour moi le plus simple.</p>
 <p>J&rsquo;ai donc essayé <a href="https://github.com/gohugoio/hugo">Hugo</a>&hellip; Ma logique est infaillible :).</p>
 <a class="headline-hash" href="#pourquoi-quitter-blogspot-"><h2 id="pourquoi-quitter-blogspot-">Pourquoi quitter Blogspot ?</h2></a>
 <p>Avant de commencer, une petite explication sur pourquoi Blogspot ne m&rsquo;est pas pratique.</p>
 <p>La principale raison est que l&rsquo;utilisation de Blogspot m&rsquo;oblige à faire du post-traitement sur mes articles. Pour avoir la couleur dans les codes, ils sont écrits dans un éditeur puis convertits en HTML (via Kate dans mon cas). La couleur de fond est trop contrastée pour le blog ce qui oblige un post-traitement supplémentaire. L&rsquo;ensemble est plutôt rapide à faire, mais modifier un code est pénible.</p>
-<p>Puisque je suis dans le mode HTML de blogspot, je me tape aussi tout le balisage des liens, paragraphes, mots importants, etc, ce qui parasite le texte. L&rsquo;absence de couleur dans la zone d'édition n&rsquo;aide pas beaucoup.</p>
-<p>Autre point, j'écris rarement un article depuis l&rsquo;interface web. Déjà parce qu&rsquo;il faut y accéder &ndash; il y a un peu trop de clics à faire et Blogspot reste lent à charger &ndash; ensuite parce que l'éditeur est trop pauvre. Ça paraît con, mais les possibilités de mon éditeur de code sont très sollicités, même pour l'écriture d&rsquo;un article. J&rsquo;envisage même de faire des plugins pour de la saisie rapide.</p>
-<p>Ceci fait qu&rsquo;utiliser un générateur de type markdown me trottait dans la tête depuis un bon moment. Il existe plein de générateurs vers HTML, <a href="http://pandoc.org/">Pandoc</a> étant probablement le plus connu. C&rsquo;est suffisant. On écrit un article, on convertit et on colle la sortie dans la zone d'édition du blog.</p>
+<p>Puisque je suis dans le mode HTML de blogspot, je me tape aussi tout le balisage des liens, paragraphes, mots importants, etc, ce qui parasite le texte. L&rsquo;absence de couleur dans la zone d&rsquo;édition n&rsquo;aide pas beaucoup.</p>
+<p>Autre point, j&rsquo;écris rarement un article depuis l&rsquo;interface web. Déjà parce qu&rsquo;il faut y accéder &ndash; il y a un peu trop de clics à faire et Blogspot reste lent à charger &ndash; ensuite parce que l&rsquo;éditeur est trop pauvre. Ça paraît con, mais les possibilités de mon éditeur de code sont très sollicités, même pour l&rsquo;écriture d&rsquo;un article. J&rsquo;envisage même de faire des plugins pour de la saisie rapide.</p>
+<p>Ceci fait qu&rsquo;utiliser un générateur de type markdown me trottait dans la tête depuis un bon moment. Il existe plein de générateurs vers HTML, <a href="http://pandoc.org/">Pandoc</a> étant probablement le plus connu. C&rsquo;est suffisant. On écrit un article, on convertit et on colle la sortie dans la zone d&rsquo;édition du blog.</p>
 <p>J&rsquo;aurais très bien pu utiliser Blogspot + un générateur. Sauf que je trouve Blogspot lourd à charger et les possibilités de menu et de mise en page sont un peu limitées. Alors autant voir ailleurs !</p>
 <a class="headline-hash" href="#essai-de-hugo"><h2 id="essai-de-hugo">Essai de Hugo</h2></a>
 <p>En fait, au moment où je commençais à regarder les systèmes existants, quelqu&rsquo;un sur le <a href="https://openclassrooms.com/forum/sujet/groupe-communautaire-groupe-42">MM de 42</a> mit un lien vers Hugo. Le principe reste le même &ndash; au moins pour la génération de blog &ndash; avec comme objectif principal de ne pas avoir de dépendance et de générer rapidement le site.</p>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.68.3" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.69.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -214,14 +214,14 @@
 <p>Mais on me dit dans l&rsquo;oreillette qu&rsquo;il faut argumenter&hellip; Alors c&rsquo;est parti.</p>
 <p>Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.</p>
 <p>À contrario, les pointeurs peuvent changer la variable référencée ou ne pointer sur aucune variable (<a href="http://en.cppreference.com/w/cpp/types/nullptr_t">nullptr</a>).</p>
-<p>Une référence est l'équivalent d&rsquo;un pointeur constant non-nul (avec une syntaxe d&rsquo;utilisation plus simple: pas besoin de déréférencer).
+<p>Une référence est l&rsquo;équivalent d&rsquo;un pointeur constant non-nul (avec une syntaxe d&rsquo;utilisation plus simple: pas besoin de déréférencer).
 De leurs restrictions, celles-ci ne peuvent pas toujours correspondre au besoin ; les pointeurs sont alors envisageables.</p>
 <p>De plus, les pointeurs sont beaucoup utilisés dans les constructions dynamiques (allocation dynamique) quand les classes sont à <a href="http://blog.emmanueldeloget.com/index.php?post/2011/11/18/Standard-C11-%3A-la-s%C3%A9mantique-de-d%C3%A9placement">sémantique d&rsquo;entités</a>. Principalement car ces dernières ne sont pas copiables et que l&rsquo;allocation dynamique permet de s&rsquo;affranchir de la portée (le scope) en se détachant de la pile.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#le-pointeur-parle-trop"><h2 id="le-pointeur-parle-trop">Le pointeur parle trop</h2></a>
 <p>L&rsquo;usage de pointeur (pointeur nu) est cependant à prendre avec des pincettes, voici 3 questions que soulève l&rsquo;usage d&rsquo;un pointeur:</p>
 <ul>
 <li>Dois-je contrôler la durée de vie du pointeur (le détruire) ? [oui, non]</li>
-<li>Est-ce un élément ou une séquence d'élément ? [séquence, simple valeur, ça dépend]</li>
+<li>Est-ce un élément ou une séquence d&rsquo;élément ? [séquence, simple valeur, ça dépend]</li>
 <li>Le pointeur peut-il être nul ? [oui, non]</li>
 </ul>
 <p>Après un petit calcul combinatoire (2*3*2), il y a 12 réponses possibles. Le pire est de répondre: &ldquo;ça dépend&rdquo;. Si on l&rsquo;enlève, il reste quand même 8 possibilités.</p>
@@ -343,7 +343,7 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
   <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div><p>Car il y a <a href="http://en.cppreference.com/w/cpp/language/copy_elision">copy elision</a> (c&rsquo;est le même principe que la RVO mais pour les paramètres). (Voir aussi <a href="http://cpp.developpez.com/actu/53711/Operateur-d-affectation-copie-implicite-ou-explicite/">ici et la réponse de Flob90</a>.</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/#mais-ça-cétait-avant"><h2 id="mais-ça-cétait-avant">Mais ça c'était avant&hellip;</h2></a>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/#mais-ça-cétait-avant"><h2 id="mais-ça-cétait-avant">Mais ça c&rsquo;était avant&hellip;</h2></a>
 <p>Maintenant qu&rsquo;il y a la <a href="http://h-deb.clg.qc.ca/Sujets/Divers--cplusplus/Mouvement.html">sémantique de déplacement</a>, les copies sont préférées quand une fonction recevant le paramètre va, quoi qu&rsquo;il arrive, le copier dans une variable membre. Premièrement parce que l&rsquo;utilisateur pourra faire un <code>std::move</code> de sa variable pour s&rsquo;en &ldquo;débarrasser&rdquo; car il n&rsquo;en a plus besoin. Deuxièmement parce que la fonction a besoin d&rsquo;une copie et le compilateur le fera pour nous.</p>
 <p>En comparaison avec une copie sur le <code>std::vector</code>, le move-constructor et le move-assignment sont extrêmement rapide: 3 affections de pointeur pour chaque vecteur.</p>
 <p>Par exemple avec cette base:</p>
@@ -410,9 +410,9 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 <li>Une référence constante n&rsquo;est pas envisageable, l&rsquo;objet ne pouvant pas être déplacé car constant.</li>
 <li>Une prise par valeur non plus (grâce à std::move), car la ressource serait systématiquement transmise à la fonction même si cette dernière ne la garde pas. L&rsquo;appelant est dans l&rsquo;incapacité de le savoir et perd la ressource.</li>
 <li>Une référence non-constante est possible, mais il ne sera alors pas possible d&rsquo;envoyer un temporaire. Il faudra obligatoirement passer par une variable intermédiaire ce qui est désagréable quand on ne va rien en faire.</li>
-<li>Reste la rvalue avec laquelle une temporaire fonctionne, mais il faudra automatiquement faire un std::move quand la variable est une référence. Cela a l&rsquo;avantage d&rsquo;informer l&rsquo;utilisateur sur l'éventuel déplacement de ressource.</li>
+<li>Reste la rvalue avec laquelle une temporaire fonctionne, mais il faudra automatiquement faire un std::move quand la variable est une référence. Cela a l&rsquo;avantage d&rsquo;informer l&rsquo;utilisateur sur l&rsquo;éventuel déplacement de ressource.</li>
 </ul>
-<p>Au final, bien qu&rsquo;une référence fonctionne, seule une rvalue est pratique à l&rsquo;usage. Seulement, aucunes de ces méthodes n&rsquo;indiquent une prise partielle, seule la documentation nous le dira. Ceci pourrait par contre être une convention d'écriture: si une ressource non copiable est prise par rvalue, alors la fonction est libre de se l&rsquo;approprier quand certaines conditions internes sont remplies.</p>
+<p>Au final, bien qu&rsquo;une référence fonctionne, seule une rvalue est pratique à l&rsquo;usage. Seulement, aucunes de ces méthodes n&rsquo;indiquent une prise partielle, seule la documentation nous le dira. Ceci pourrait par contre être une convention d&rsquo;écriture: si une ressource non copiable est prise par rvalue, alors la fonction est libre de se l&rsquo;approprier quand certaines conditions internes sont remplies.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/#quand-les-opérations-ne-sont-pas-connues"><h2 id="quand-les-opérations-ne-sont-pas-connues">Quand les opérations ne sont pas connues</h2></a>
 <p>Reste la dernière situation: les templates. Les règles sont les mêmes qu&rsquo;avant mais si le rôle du paramètre n&rsquo;est pas défini (comprendre la fonction ne fait rien d&rsquo;autre qu&rsquo;envoyer le paramètre à une autre fonction ou que le qualifier importe peu) les paramètres sont à prendre par référence universelle (<code>T&amp;&amp;</code> pour les template). À ce moment, toutes les utilisations de cette variable devraient se faire par l&rsquo;intermédiaire de <a href="http://en.cppreference.com/w/cpp/utility/forward">std::forward</a>, même lorsqu&rsquo;une fonction membre est utilisées (la faute au <a href="http://en.cppreference.com/w/cpp/language/member_functions#const-.2C_volatile-.2C_and_ref-qualified_member_functions">qualificateur de référence sur fonction membre</a>.</p>
 <p>Toutefois, attention de ne pas déléguer plusieurs fois la responsabilité et de ne faire std::forward (et std::move) que sur la dernière utilisation de la variable.</p>
@@ -529,7 +529,7 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 <div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> Ce qui suit n&rsquo;est plus d&rsquo;actualité depuis C++17 et les <a href="https://en.cppreference.com/w/cpp/language/fold">fold expressions</a>.</p></div>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#fonction-récursive"><h2 id="fonction-récursive">Fonction récursive</h2></a>
-<p>La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu'à plus d&rsquo;argument ou jusqu'à un nombre défini, généralement 1.</p>
+<p>La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&rsquo;à plus d&rsquo;argument ou jusqu&rsquo;à un nombre défini, généralement 1.</p>
 <p>Quelque chose dans ce goût-là:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span>
@@ -596,7 +596,7 @@ plop
   <span class="n">UNPACK</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">others</span><span class="p">);</span>
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div><p>Ce qui simplifie considérablement l'écriture :).</p>
+</code></pre></div><p>Ce qui simplifie considérablement l&rsquo;écriture :).</p>
 <p>Évidemment, cette macro se trouve depuis dans falcon: <a href="https://github.com/jonathanpoelen/falcon.cxx">falcon.cxx</a>.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#fold-expression-et-c17"><h2 id="fold-expression-et-c17">Fold expression et C++17</h2></a>
 <p>Depuis C++17, le langage introduit les <a href="https://en.cppreference.com/w/cpp/language/fold">fold expressions</a> qui ne font pas moins que la macro précédente. Elles font même un peu plus, mais je vous laisse consulter la doc pour en prendre connaissance.</p>
@@ -808,7 +808,7 @@ Toutefois, cette version est fonctionnelle avec <code>push_back</code> :).</p>
 
   </header>
   <div class="post__content">
-      <p>Une fonction utilitaire est une fonction libre qui n'étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).</p>
+      <p>Une fonction utilitaire est une fonction libre qui n&rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).</p>
 <p>Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilitaire qui me vient à l&rsquo;esprit en C++03 est <code>std::swap</code> (fonction qui échange le contenu de 2 variables). Pour info, l&rsquo;en-tête de <code>std::swap</code> est passé de <code>&lt;algorithm&gt;</code> en C++03 à <code>&lt;utility&gt;</code> en C++11.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/#comment-déclarer-et-utiliser-une-fonction-utilitaire"><h2 id="comment-déclarer-et-utiliser-une-fonction-utilitaire">Comment déclarer et utiliser une fonction utilitaire</h2></a>
 <p>Il arrive qu&rsquo;un jour ou l&rsquo;autre on veuille faire une surcharge de <code>swap</code> pour un objet particulier. À ce moment 2 choix s&rsquo;offrent: en faire une fonction libre dans le namespace où se trouve la classe ou dans le namespace <code>std</code>. Évidemment, le meilleur choix est le premier.</p>
@@ -1099,7 +1099,7 @@ Mais si on veut avoir des fichiers objets, il faut le demander explicitement: <c
 En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&rsquo;entrée standard et retourne un résultat ; un peu comme <code>bc</code>.
 C&rsquo;est là que les coprocessus viennent à la rescousse :).</p>
 <p>Un coprocessus est un sous-shell exécuté de façon asynchrone et fournissant les tubes d&rsquo;entrée/sortie. Ceux-ci sont accessibles via <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$COPROC</span><span class="o">[</span>1<span class="o">]</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$COPROC</span><span class="o">[</span>2<span class="o">]</span></code></span>.</p>
-<p>Du coup, avec <code>bc</code>, la méthode est d'écrire dans un tube et lire dans l&rsquo;autre. Comme la lecture est bloquante, le script va attendre que <code>bc</code> retourne le résultat.</p>
+<p>Du coup, avec <code>bc</code>, la méthode est d&rsquo;écrire dans un tube et lire dans l&rsquo;autre. Comme la lecture est bloquante, le script va attendre que <code>bc</code> retourne le résultat.</p>
 <p>Et voilà ! L&rsquo;ouverture d&rsquo;un programme est remplacé par une lecture/écriture.</p>
 <p>Pour exemple, un petit programme qui lit un fichier contenant des opérations mathématiques et les affichent suivies du résultat.</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
@@ -1295,7 +1295,7 @@ Le type de <code>r</code> est donc bien une référence sur un entier non-consta
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">machin</span><span class="o">-&gt;~</span><span class="n">Machin</span><span class="p">();</span>
 </code></pre></div><p>Étape inutile pour les types scalaires. De toute façon ils n&rsquo;ont pas de destructeur. En C++17, la STL contient <a href="http://en.cppreference.com/w/cpp/memory/destroy_at">std::destroy_at</a>.</p>
 <p>Évidemment, si <code>machin</code> possède un destructeur virtuel et est en réalité une classe fille, alors c&rsquo;est le destructeur de la classe dérivée qui est appelé.</p>
-<p>Il ne reste plus qu'à libérer la mémoire.</p>
+<p>Il ne reste plus qu&rsquo;à libérer la mémoire.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#libération-de-la-mémoire"><h2 id="libération-de-la-mémoire">Libération de la mémoire</h2></a>
 <p>De la même manière qu&rsquo;il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span>
 </code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span><span class="p">[]</span>
@@ -1343,11 +1343,11 @@ Et à partir de C++17 un <a href="http://en.cppreference.com/w/cpp/header/memory
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allocateurs-et-conteneurs"><h2 id="allocateurs-et-conteneurs">Allocateurs et conteneurs</h2></a>
 <p>Utiliser un allocateur personnalisé permet d&rsquo;avoir un contrôle plus fin de la mémoire pour répondre plus efficacement au besoin et augmenter les performances.</p>
 <p>Évidemment, l&rsquo;allocateur peut être personnalisable et dans certaines circonstances permet un gain de performance en évitant l&rsquo;allocation/dés-allocation répété.</p>
-<p>Par exemple, il y a quelques semaines, j&rsquo;ai fait un algorithme qui faisait au total 2&rsquo;100&rsquo;000 <code>new</code> pour au final ne garder que 100&rsquo;000 objets. Donc 2&rsquo;000&rsquo;000 de <code>delete</code>.</p>
-<p>Dans le pire des cas, il y avait une suite de 25 objets à supprimer. Avec un allocateur qui ne vide pas la mémoire mais garde un tableau des pointeurs alloués je n&rsquo;avais plus qu'à faire 25 dés-allocations au lieu de 2&rsquo;000&rsquo;000. Le nombre de <code>new</code> effectuées descendait quant à lui à 100&rsquo;025.</p>
-<p>Seul le nombre d&rsquo;appels au destructeur et au placement new restait inchangé. Respectivement 2&rsquo;000&rsquo;000 et 2&rsquo;100&rsquo;000.</p>
+<p>Par exemple, il y a quelques semaines, j&rsquo;ai fait un algorithme qui faisait au total 2'100'000 <code>new</code> pour au final ne garder que 100'000 objets. Donc 2'000'000 de <code>delete</code>.</p>
+<p>Dans le pire des cas, il y avait une suite de 25 objets à supprimer. Avec un allocateur qui ne vide pas la mémoire mais garde un tableau des pointeurs alloués je n&rsquo;avais plus qu&rsquo;à faire 25 dés-allocations au lieu de 2'000'000. Le nombre de <code>new</code> effectuées descendait quant à lui à 100'025.</p>
+<p>Seul le nombre d&rsquo;appels au destructeur et au placement new restait inchangé. Respectivement 2'000'000 et 2'100'000.</p>
 <p>Au final l&rsquo;algorithme était quand même 30% plus rapide. J&rsquo;aurais aussi pu allouer directement tous mes objets et les réutiliser, mais là n&rsquo;est pas le propos :).</p>
-<p>Ce type d&rsquo;optimisation reste toutefois exceptionnel et n&rsquo;est pas adapté à tous les conteneurs. Par exemple, std::vector se prête mal à ce genre d&rsquo;exercice car il demande toujours une allocation d&rsquo;au moins la taille du nombre d'éléments qu&rsquo;il possède.</p>
+<p>Ce type d&rsquo;optimisation reste toutefois exceptionnel et n&rsquo;est pas adapté à tous les conteneurs. Par exemple, std::vector se prête mal à ce genre d&rsquo;exercice car il demande toujours une allocation d&rsquo;au moins la taille du nombre d&rsquo;éléments qu&rsquo;il possède.</p>
 <p>Par contre, les conteneurs comme std::list ou std::map, qui allouent toujours un seul élément à la fois sont un meilleur choix pour utiliser ce type d&rsquo;allocateur.
 Cependant, comme les conteneurs retournent une copie de leur allocateur, il sera difficile de supprimer de manière simple la mémoire non utilisée par l&rsquo;allocateur du conteneur.</p>
 <p>En ce moment, j&rsquo;ajoute plusieurs allocateurs dans <a href="https://github.com/jonathanpoelen/falcon/tree/master/falcon/memory">falcon/memory</a>. Même si celui dont je viens de parler n&rsquo;est pas encore présent car son implémentation était vraiment basique et spécifique, il fait quand même partie de ma todo-list.</p>

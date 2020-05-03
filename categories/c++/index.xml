@@ -60,8 +60,8 @@ Rire sarcastique.</description>
       <pubDate>Thu, 08 Nov 2018 18:56:13 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/</guid>
-      <description>J&amp;rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&amp;rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &amp;ndash;parce que cela va bien de paire,&amp;ndash; l&#39;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&amp;lt;Ts...&amp;gt;).
-Continuation Chaque algorithme dispose d&amp;rsquo;un paramètre qui décrit l&#39;étape suivante du traitement, c&amp;rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&amp;rsquo;opérateur |.</description>
+      <description>J&amp;rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&amp;rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &amp;ndash;parce que cela va bien de paire,&amp;ndash; l&amp;rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&amp;lt;Ts...&amp;gt;).
+Continuation Chaque algorithme dispose d&amp;rsquo;un paramètre qui décrit l&amp;rsquo;étape suivante du traitement, c&amp;rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&amp;rsquo;opérateur |.</description>
     </item>
     
     <item>
@@ -158,7 +158,7 @@ void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, 
       <guid>https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/</guid>
       <description>Ce que j&amp;rsquo;appelle ici un magasin de type n&amp;rsquo;est autre qu&amp;rsquo;un std::tuple où les types ne sont présents qu&amp;rsquo;une seule fois. Une espèce de set version tuple en somme.
 Je me suis servi de ce type de structure à 2 reprises.
-Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&#39;étais en C++11 et que dans cette norme std::get&amp;lt;Type&amp;gt;() n&amp;rsquo;existe pas.</description>
+Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&amp;rsquo;étais en C++11 et que dans cette norme std::get&amp;lt;Type&amp;gt;() n&amp;rsquo;existe pas.</description>
     </item>
     
     <item>
@@ -218,7 +218,7 @@ Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:
       <guid>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</guid>
       <description>À l&amp;rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
 Info : Ce qui suit n&amp;rsquo;est plus d&amp;rsquo;actualité depuis C++17 et les fold expressions.
- Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&#39;à plus d&amp;rsquo;argument ou jusqu&#39;à un nombre défini, généralement 1.
+ Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.
 Quelque chose dans ce goût-là:
 #include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;class T, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;.</description>
     </item>
@@ -241,7 +241,7 @@ La manière la plus facile pour éliminer ces erreurs de compilation est de mett
       <pubDate>Sat, 20 Jul 2013 11:18:49 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/</guid>
-      <description>Une fonction utilitaire est une fonction libre qui n&#39;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
+      <description>Une fonction utilitaire est une fonction libre qui n&amp;rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
 Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilitaire qui me vient à l&amp;rsquo;esprit en C++03 est std::swap (fonction qui échange le contenu de 2 variables). Pour info, l&amp;rsquo;en-tête de std::swap est passé de &amp;lt;algorithm&amp;gt; en C++03 à &amp;lt;utility&amp;gt; en C++11.</description>
     </item>
     

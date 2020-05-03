@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Presque toujours std::move</title>
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.69.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -224,12 +224,12 @@ Rire sarcastique.">
 <a class="headline-hash" href="#du-déplacement-sans-stdmove"><h2 id="du-déplacement-sans-stdmove">Du &ldquo;déplacement&rdquo; sans std::move</h2></a>
 <p>C&rsquo;est fort du roquefort ! Pas de constructeur, pas de <code>std::move</code>, mais un objet qui se déplace quand même. On croirait faire de la magie !</p>
 <p><code>std::move</code> va forcer l&rsquo;appel à un constructeur de déplacement alors que le compilateur a les moyens &ndash; et même l&rsquo;obligation &ndash; de le faire pour nous. Ou mieux, bypasser tous les constructeurs et mettre la valeur directement là où il faut. On parle d&rsquo;<a href="https://en.cppreference.com/w/cpp/language/copy_elision">élision par copie</a> ou de (N)RVO (Named Return Value Optimization). Sauf que <code>std::move</code> bloque ces optimisations.</p>
-<p>Dans le cas de l'élision de copie, le compilateur construit directement les paramètres de type T (un type sans référence) lorsqu&rsquo;on utilise un temporaire.</p>
+<p>Dans le cas de l&rsquo;élision de copie, le compilateur construit directement les paramètres de type T (un type sans référence) lorsqu&rsquo;on utilise un temporaire.</p>
 <p>Avec <code>void foo(T)</code>, il faut faire <code>foo(T{...})</code> et non pas <code>foo(std::move(T({...})</code>. Comme on ne fait pas <code>T x = std::move(T{...})</code>, mais <code>T x = T{...}</code> (on peut faire <code>T x{}</code>, c&rsquo;est pour l&rsquo;exemple)</p>
 <p>Les temporaires peuvent aussi exister depuis l&rsquo;appel à une fonction qui retourne <code>T</code>.</p>
 <p>Avec <code>T bar()</code>, il faut faire <code>foo(bar())</code>, et non pas <code>foo(std::move(bar()))</code>.</p>
 <p>La (N)RVO est une optimisation qui fonctionne sur le même principe au niveau de la valeur de retour.</p>
-<p>On n'écrit pas <code>T bar() { return std::move(T{...}); }</code>, mais <code>T bar() { return T{...}; }</code>.</p>
+<p>On n&rsquo;écrit pas <code>T bar() { return std::move(T{...}); }</code>, mais <code>T bar() { return T{...}; }</code>.</p>
 <p>Le compilateur possède aussi un comportement spécial pour la variable locale retournée: celle-ci doit être déplacée si possible. Et si possible, on optimise avec une élision.</p>
 <p>On écrit</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>

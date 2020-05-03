@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.68.3" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.69.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -197,7 +197,7 @@
 ;
 
 
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>15 minutes ;
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>16 minutes ;
   <a href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
   <a href="#1a9d6a59534c2a4e6ca564c7da302e80-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
   
@@ -219,7 +219,7 @@
 <li>Si on ne sait pas dans quel menu aller, on finit par cliquer partout.</li>
 <li>L&rsquo;information est diffuse sur plusieurs pages, c&rsquo;est beaucoup de manipulations, pénible et long. Encore plus s&rsquo;il faut naviguer sur plusieurs pages avec une connexion lente.</li>
 </ul>
-<p>Un des exemples typiques que je déteste est matérialisé par la <a href="https://cpp.developpez.com/faq/cpp/">FAQ de dvp</a>: chaque catégorie doit être déroulée pour qu&rsquo;apparaissent les questions. Résultat, depuis la mise en place de ce nouveau système, je ne la consulte plus puisque trouver une question approximative est une gageure. Il me faut trouver la catégorie, l'éventuelle sous-catégorie, dérouler chacune et enfin pouvoir faire une recherche de texte sur le mot qui m&rsquo;intéresse dans la question (le moteur de recherche donne souvent beaucoup trop de résultats).</p>
+<p>Un des exemples typiques que je déteste est matérialisé par la <a href="https://cpp.developpez.com/faq/cpp/">FAQ de dvp</a>: chaque catégorie doit être déroulée pour qu&rsquo;apparaissent les questions. Résultat, depuis la mise en place de ce nouveau système, je ne la consulte plus puisque trouver une question approximative est une gageure. Il me faut trouver la catégorie, l&rsquo;éventuelle sous-catégorie, dérouler chacune et enfin pouvoir faire une recherche de texte sur le mot qui m&rsquo;intéresse dans la question (le moteur de recherche donne souvent beaucoup trop de résultats).</p>
 <p>À contrario, les FAQs sur le site du gouvernement permettent un affichage de toutes les questions et/ou réponses ce qui permet une recherche rapide et une lecture continue.</p>
 <p>Je trouve que le site <a href="https://doisjeutiliser.fr">doisjeutiliser.fr</a> donne un bon résumé de la situation. Et je suis d&rsquo;accord avec tous les autres contre-exemples.</p>
 <p>De plus, comme le langage graphique est différent entre les logiciels et entre sites on ne sait pas toujours le comportement associé au clic ou au lien par manque d&rsquo;indicateur, on va au-devant de grosses surprises. Une icône qui représente une sous-catégorie déroulée pour tel site, mais enroulée pour un autre site. Un clic pour dérouler alors que cela ouvre une nouvelle page, voire pire, une nouvelle fenêtre ou, inversement, ouvrir dans un nouvel onglet un lien fait pour afficher un zone cachée (généralement, on tombe sur une page vide). Dans les 2 scénarios c&rsquo;est une mauvaise surprise.</p>
@@ -235,7 +235,7 @@ Pour prendre en exemple le blog, sur l&rsquo;ancien (blogspot) les archives sont
 <li>Mettre une limite maximum sur la largeur.</li>
 <li>Avoir une largeur fixée.</li>
 </ul>
-<p>Une solution n&rsquo;est pas meilleure qu&rsquo;une autre, le choix dépend du design, du type de contenu et du dispositif d&rsquo;affichage. La plupart du temps le site prend toute la largeur jusqu'à une taille raisonnable avant de permuter en taille fixe définie en pourcentage ou en pixel.</p>
+<p>Une solution n&rsquo;est pas meilleure qu&rsquo;une autre, le choix dépend du design, du type de contenu et du dispositif d&rsquo;affichage. La plupart du temps le site prend toute la largeur jusqu&rsquo;à une taille raisonnable avant de permuter en taille fixe définie en pourcentage ou en pixel.</p>
 <p>On peut très bien avoir un contenu qui prend toute la page quelle que soit la résolution, mais il faut être conscient qu&rsquo;une ligne trop grande est difficile à lire. Plus une ligne est longue ou un paragraphe dense, moins il y a de points de repère visuels pour &ldquo;suivre&rdquo; le texte. Cela augmente le risque de glisser à la ligne suivante au milieu d&rsquo;une phrase, de sauter une ligne ou relire la même au lieu de passer à la suivante. L&rsquo;extrême inverse étant le format colonne utilisé par les journaux ou magazines, mais difficile à reproduire sur un navigateur.</p>
 <p>Concernant la disposition du menu, à priori, n&rsquo;importe laquelle fait l&rsquo;affaire. À gauche, à droite ou en haut, quelle importance ? Mais c&rsquo;est oublier un point essentiel: que faire quand un élément est trop grand ? La solution immédiate est simple: aller à la ligne. C&rsquo;est même le comportement par défaut des navigateurs sur les blocs de texte. Ouf, nous sommes sauvés, tout va bien dans le meilleur des mondes.</p>
 <p>Sauf qu&rsquo;il existe aussi les images, les tableaux, les lecteurs vidéo et l&rsquo;ensemble des éléments dont un &ldquo;saut de ligne&rdquo; n&rsquo;est pas envisageable. Et là, c&rsquo;est le drame. Heureusement, il existe plein d&rsquo;horribles solutions.</p>
@@ -244,61 +244,96 @@ Pour prendre en exemple le blog, sur l&rsquo;ancien (blogspot) les archives sont
 <li>S&rsquo;adapter au plus grand.</li>
 </ul>
 <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<p><div class="figure"><figure>
+  <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row.png' alt="">
+  <figcaption>Débordement par la droite.</figcaption>
+</figure></div>
+
+<div class="figure"><figure>
+  <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row-reverse.png' alt="">
+  <figcaption>Débordement par la gauche. Le scroll disparaît. Au moins pour Firefox.</figcaption>
+</figure></div>
+</p>
 <ul>
-<li>Compacter les éléments ou mettre dans un scroll.</li>
+<li>Compacter les éléments ou mettre dans un scroll.
+<div class="figure"><figure>
+  <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-scroll.png' alt="">
+  <figcaption>Un scroll alors qu&#39;il y a de l&#39;espace à droite.</figcaption>
+</figure></div>
+</li>
+<li>Cacher le surplus.
+<div class="figure"><figure>
+  <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-hidden.png' alt="">
+  <figcaption>Il n&#39;y a plus moyen de lire le contenu qui déborde.</figcaption>
+</figure></div>
+</li>
+<li>Superposer les éléments.
+<div class="figure"><figure>
+  <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-above.png' alt="">
+  <figcaption>La partie droite cache une partie du contenu.</figcaption>
+</figure></div>
+</li>
 </ul>
-<!-- raw HTML omitted -->
-<ul>
-<li>Cacher le surplus.</li>
-</ul>
-<!-- raw HTML omitted -->
-<ul>
-<li>Superposer les éléments.</li>
-</ul>
-<!-- raw HTML omitted -->
 <p>Presque toutes ces images ont un point commun: un menu à droite. Ce n&rsquo;est pas anodin, il est difficile d&rsquo;avoir un menu à droite quand la partie gauche veut prendre sa place.</p>
 <p>En déplaçant le menu à gauche, les problèmes de superposition contenu/menu disparaîssent d&rsquo;eux-mêmes. On peut alors laisser le bloc prendre une place optimale.</p>
 <p>Mais il faut le faire intelligemment pour ne pas tomber sur le premier cas qui ajoute un scroll horizontal pour l&rsquo;ensemble du contenu. Vous vous imaginez devoir scroller pour lire une ligne ? Puis bon, les paragraphes qui deviennent des lignes de 3 kilomètres, non merci !</p>
 <p>Il serait également bête de faire comme le second cas qui ajoute un scroll sur tous les éléments dépassant une certaine taille alors qu&rsquo;un énorme vide persiste sur la droite.</p>
 <p>J&rsquo;ai assisté sur la doc de Hugo au passage d&rsquo;un gabarit full page à celui d&rsquo;une taille fixe et, malheureusement, chaque code se voyait estampillé d&rsquo;un scroll horizontal. Obligé de déplacer la souris dessus pour qu&rsquo;il s&rsquo;agrandisse automatiquement jusqu&rsquo;au bord droit de ma fenêtre. Ce qui rendait par la même occasion le scroll superflu. La seule question qui m&rsquo;est venue est &ldquo;Pourquoi dois-je utiliser une souris ? Pourquoi ce n&rsquo;est pas l&rsquo;apparence par défaut ?&quot;.</p>
 <p>Bon ok, deux questions.</p>
-<p>Pour le blog, mon choix s&rsquo;est porté sur un menu à gauche, un contenu sur plus au moins 60% de large pour le centrer, mais avec les contenus trop grands qui débordent un maximum avant le recourt au scroll. C&rsquo;est la disposition la plus pratique à mes yeux. Le résultat peut même être visible sur l&rsquo;avant-dernier article dont un code possède une ligne plus grande qu'à l&rsquo;habitude.</p>
+<p>Pour le blog, mon choix s&rsquo;est porté sur un menu à gauche, un contenu sur plus au moins 60% de large pour le centrer, mais avec les contenus trop grands qui débordent un maximum avant le recourt au scroll. C&rsquo;est la disposition la plus pratique à mes yeux. Le résultat peut même être visible sur l&rsquo;avant-dernier article dont un code possède une ligne plus grande qu&rsquo;à l&rsquo;habitude.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#liens-zone-de-clic-et-surbrillance"><h2 id="liens-zone-de-clic-et-surbrillance">Liens, zone de clic et surbrillance</h2></a>
 <p>Comment parler du web sans un petit mot sur les liens ? Le point central de la navigation internet et pourtant si difficile à cliquer pour moi.</p>
 <p>J&rsquo;ai l&rsquo;impression de faire partie des gens dont la souris est invariablement attirée par la rangée de pixels non cliquable en plein milieu d&rsquo;un lien. C&rsquo;est systématique lorsque celui-ci est sur plusieurs lignes. Tout indique que je suis dessus: la couleur de fond du cadre qui change, celle du texte, la petite décoration qui apparaît. Tout, sauf le pointeur de souris. Mais il y a tellement de changement autour que ce détail ne se voit même plus.</p>
 <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<div class="figure"><figure>
+  <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-multi-line.png' alt="">
+  <figcaption>Clic... Clic ? Clic clic clic ! Comment ? Je ne suis pas dessus ?</figcaption>
+</figure></div>
+
 <p>Arrive mon second fléau, déplacer suffisamment la souris pour être sur le lien. Mais pas trop, parce que ce foutu cadre qui change de couleur n&rsquo;en fait pas partie non plus.</p>
 <p>Le problème que je rencontre ici est récurant. Des changements de couleurs et de formes donnent l&rsquo;impression de pouvoir effectuer une action alors que ce n&rsquo;est pas vrai. Il vient alors un sentiment d&rsquo;incompréhension très désagréable qui se change petit à petit en frustration lorsqu&rsquo;on réalise que le pointeur de souris n&rsquo;a pas la bonne forme.</p>
-<p>Quand un cadre contenant un lien change de couleur au passage de la souris, c&rsquo;est une invitation au clic. Celui-ci se doit d'être cliquable pour répondre au principe de la moindre surprise. Bonus, cela élargit la surface de clic et rend par la même occasion le lien plus accessible.</p>
+<p>Quand un cadre contenant un lien change de couleur au passage de la souris, c&rsquo;est une invitation au clic. Celui-ci se doit d&rsquo;être cliquable pour répondre au principe de la moindre surprise. Bonus, cela élargit la surface de clic et rend par la même occasion le lien plus accessible.</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<div class="figure"><figure>
+  <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-good.png' alt="">
+  <figcaption>C&#39;est quand même plus agréable lorsque le cadre est un lien.</figcaption>
+</figure></div>
+
 <p>Cette extension de la zone de clic est très présente sur le blog. Comme les espaces blancs décoratifs sur le menu qui font partie du lien. Il est possible en plein écran de plaquer le curseur à gauche et de pouvoir cliquer dessus. Ou par exemple les liens &ldquo;Précédent&rdquo; et &ldquo;Suivant&rdquo; en fin d&rsquo;article qui prennent chacun une moitié de largeur de contenu. Ou encore les icônes de flux RSS qui possèdent une zone de clic réelle beaucoup plus grande que l&rsquo;image. Chacun de ces éléments possède une zone de clic plus large pour simplifier la visée.</p>
-<p>Une dernière chose à éviter impérativement sur un lien concerne l&rsquo;application d&rsquo;un effet de gras au survol. Si par malheur le lien se situe en fin de ligne, la mise en gras va agrandir de quelques pixels les lettres et peut déplacer des mots à la ligne suivante. Qui se retrouvent en dehors de la zone de pointage. Qui reviennent car ne sont plus concernés par le survol. Puis repartent. Et ainsi de suite rendant le lien presque incliquable pour ceux ayant échappé à la crise d'épilepsie. Bien sûr, si le lien est une boîte qui grandit ou ne se déplace pas, il n&rsquo;y a aucun problème.</p>
+<p>Une dernière chose à éviter impérativement sur un lien concerne l&rsquo;application d&rsquo;un effet de gras au survol. Si par malheur le lien se situe en fin de ligne, la mise en gras va agrandir de quelques pixels les lettres et peut déplacer des mots à la ligne suivante. Qui se retrouvent en dehors de la zone de pointage. Qui reviennent car ne sont plus concernés par le survol. Puis repartent. Et ainsi de suite rendant le lien presque incliquable pour ceux ayant échappé à la crise d&rsquo;épilepsie. Bien sûr, si le lien est une boîte qui grandit ou ne se déplace pas, il n&rsquo;y a aucun problème.</p>
 <p>À présent, parlons d&rsquo;une évidence: un lien doit être mis en surbrillance par rapport au reste du contenu. S&rsquo;il n&rsquo;y a aucun repère visuel qui le différencie, personne ne le remarquera. Dans l&rsquo;imaginaire collectif, un texte bleu ou violet et surtout souligné représente un lien. Bien que l&rsquo;on puisse le modifier, je déconseille d&rsquo;enlever le soulignement. Un simple changement de couleur pouvant être considéré comme une mise en gras.</p>
 <p>En plus de la pseudo-classe <code>:hover</code> &ndash;source des problèmes cités au début du chapitre lorsqu&rsquo;elle est mal utilisée&ndash;, il est essentiel de mettre en valeur les liens possédant le focus (<code>:focus</code>) pour les adeptes de la navigation clavier. Certains navigateurs comme Opéra possèdent des raccourcis clavier très pratiques pour sauter de lien en lien, mais très handicapants lorsque le site n&rsquo;utilise pas ce marqueur visuel.</p>
-<p>(Je profite du paragraphe pour parler des <a href="https://www.alsacreations.com/article/lire/572-Les-liens-d-evitement.html#menu">liens d'évitement</a> (<a href="http://blog.atalan.fr/des-liens-devitement-astucieux/#categories">ici</a> et <a href="http://www.accede-web.com/notices/html-css-javascript/12-navigation-clavier/12-2-liens-evitement/">là</a>) pour sauter les regroupements de texte comme le menu et simplifier la vie des utilisateurs de clavier et autres dispositifs).</p>
+<p>(Je profite du paragraphe pour parler des <a href="https://www.alsacreations.com/article/lire/572-Les-liens-d-evitement.html#menu">liens d&rsquo;évitement</a> (<a href="http://blog.atalan.fr/des-liens-devitement-astucieux/#categories">ici</a> et <a href="http://www.accede-web.com/notices/html-css-javascript/12-navigation-clavier/12-2-liens-evitement/">là</a>) pour sauter les regroupements de texte comme le menu et simplifier la vie des utilisateurs de clavier et autres dispositifs).</p>
 <p>Pour finir sur les pseudo-classes et clore le sujet, je trouve que beaucoup de sites ignorent <code>:active</code>, alors que c&rsquo;est un excellent moyen d&rsquo;informer un visiteur que son clic est bien pris en compte. C&rsquo;est un indicateur qui manque souvent quand j&rsquo;ouvre dans un nouvel onglet: ai-je bien cliqué ? Cette information m&rsquo;est tellement essentielle que je force dans mon navigateur un cadre en pointillé rouge lorsque je valide un lien.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#la-police-des-caractères"><h2 id="la-police-des-caractères">La police des caractères</h2></a>
-<p>Une chose que j&rsquo;ai apprise en testant plusieurs polices d'écriture, est que la taille apparente varie énormément entre 2 fonts. Mettre une taille de police adaptée à la lecture n&rsquo;est pas suffisant, il faut aussi que chaque police dans la liste de <code>font-family</code> ait une taille similaire au risque d&rsquo;avoir des textes trop grands, ou pire, trop petits.</p>
+<p>Une chose que j&rsquo;ai apprise en testant plusieurs polices d&rsquo;écriture, est que la taille apparente varie énormément entre 2 fonts. Mettre une taille de police adaptée à la lecture n&rsquo;est pas suffisant, il faut aussi que chaque police dans la liste de <code>font-family</code> ait une taille similaire au risque d&rsquo;avoir des textes trop grands, ou pire, trop petits.</p>
 <p>Je suis également tombé sur un conseil qui va à l&rsquo;encontre du bon sens: mettre un <code>font-size: 62.5%</code> global. Avec pour seule justification que la taille par défaut est trop grande. Sans prendre en compte la taille effective d&rsquo;une police et en rejetant toute configuration utilisateur. Si &ldquo;62.5%&rdquo; est trop petit, c&rsquo;est le problème de l&rsquo;utilisateur après tout.</p>
 <!-- raw HTML omitted -->
-<p>Étrangement, il n&rsquo;y a que sur internet où la taille est redéfinie. Sur une application de bureau personne ne s&rsquo;en occupe et les polices et tailles configurées au niveau du système sont utilisées automatiquement pour les différents types d'éléments (titre, paragraphe, police monospace, etc).</p>
+<p>Étrangement, il n&rsquo;y a que sur internet où la taille est redéfinie. Sur une application de bureau personne ne s&rsquo;en occupe et les polices et tailles configurées au niveau du système sont utilisées automatiquement pour les différents types d&rsquo;éléments (titre, paragraphe, police monospace, etc).</p>
 <p>Il est également possible d&rsquo;utiliser les polices configurées au niveau du navigateur via leur <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family#Values">nom générique</a>, les principales étant <code>serif</code>, <code>sans-serif</code> et <code>monospace</code>.</p>
 <p>Concernant l&rsquo;<a href="https://fr.wikipedia.org/wiki/Empattement_(typographie)">empattement</a> (serif ou sans-serif), j&rsquo;en suis venu à la conclusion qu&rsquo;une police sans empattement est plus lisible sur un écran. Peut-être à cause de la petitesse des lettres qui &ldquo;charge&rdquo; visuellement les glyphes. Ou Le rétro-éclairage, je ne sais pas.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#le-pouvoir-de-la-couleur"><h2 id="le-pouvoir-de-la-couleur">Le pouvoir de la couleur</h2></a>
 <p>La couleur est un vecteur d&rsquo;information aussi importante &ndash;voire plus&ndash; que la forme. Par contre, il faut utiliser la couleur d&rsquo;usage sur l&rsquo;objet représenté au risque de perturber le lecteur.</p>
-<!-- raw HTML omitted -->
+<div class="figure"><figure>
+  <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/ok-cancel.png' alt="">
+  <figcaption>Perturbant, n&#39;est-ce pas ?</figcaption>
+</figure></div>
+
 <p>La couleur et les effets permettent également de distinguer les éléments entre eux. Par exemple, une légère ombre sur un bouton lui donne un relief qui le distingue d&rsquo;un cadre lambda. Mais il faut savoir varier. Si je prends comme exemple les boutons sociaux, il est difficile d&rsquo;en trouver un précisément lorsqu&rsquo;ils sont tous de la même couleur.</p>
-<!-- raw HTML omitted -->
+<div class="figure"><figure>
+  <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-gray.png' alt="">
+  <figcaption>Y a-t-il ton réseau préféré ?</figcaption>
+</figure></div>
+
 <p>Alors que mettre la couleur habituellement utilisée par une marque permet de se focaliser presque sans effort dessus.</p>
-<!-- raw HTML omitted -->
+<div class="figure"><figure>
+  <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-color.png' alt="">
+  <figcaption>Et maintenant ?</figcaption>
+</figure></div>
+
 <p>Même si les couleurs du site sont banales, je me permets quelques remarques. Premièrement, il vaut mieux se restreindre à un nombre raisonnable de couleurs, mais suffisamment contrastées pour les dissocier. Trop de couleurs empêchent de hiérarchiser l&rsquo;information, un contraste trop faible de dissocier les éléments ce qui rend illisible le texte.</p>
-<p>Il existe différents outils pour faire des palettes de couleurs qu&rsquo;on peut fabriquer avec le logiciel <a href="https://doc.ubuntu-fr.org/agave">Agave</a>, le très bon site <a href="https://color.adobe.com/fr/create/color-wheel">Adobe Kuler</a>, <a href="https://colourco.de">colourco.de</a> ou <a href="http://www.code-couleur.com/">code-couleur.com</a> qui liste quelques palettes de couleurs. Ce dernier contient également la signification de certaines couleurs dans le monde occidental. Je trouve intéressant d&rsquo;ajouter cet <a href="https://alfange.com/graphisme-10-couleurs-signification/">article trouvé sur la toile</a> pour voir un peu &ndash;bien que difficile à vérifier&ndash; l'évolution et usage au fil du temps. En cherchant un peu, on tombe sur pléthore de sites et de conseils. On a l&rsquo;embarras du choix.</p>
+<p>Il existe différents outils pour faire des palettes de couleurs qu&rsquo;on peut fabriquer avec le logiciel <a href="https://doc.ubuntu-fr.org/agave">Agave</a>, le très bon site <a href="https://color.adobe.com/fr/create/color-wheel">Adobe Kuler</a>, <a href="https://colourco.de">colourco.de</a> ou <a href="http://www.code-couleur.com/">code-couleur.com</a> qui liste quelques palettes de couleurs. Ce dernier contient également la signification de certaines couleurs dans le monde occidental. Je trouve intéressant d&rsquo;ajouter cet <a href="https://alfange.com/graphisme-10-couleurs-signification/">article trouvé sur la toile</a> pour voir un peu &ndash;bien que difficile à vérifier&ndash; l&rsquo;évolution et usage au fil du temps. En cherchant un peu, on tombe sur pléthore de sites et de conseils. On a l&rsquo;embarras du choix.</p>
 <p>Si je peux donner un conseil, évitez les couleurs trop pures ; celles qui contiennent une composante de couleur proche de 255 et les autres à 0 comme pour les couleurs primaires (ex: <code>#ff0000</code>). Ce sont des couleurs très prononcées, pas du tout naturelles. Je trouve qu&rsquo;elles brillent trop et agressent les yeux.</p>
 <p>Une dernière chose concernant les couleurs, tout le monde ne les voit pas de la même façon, essayer un filtre pour <a href="https://www.toptal.com/designers/colorfilter">simuler le daltonisme</a> est une expérience intéressante.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#les-métadonnées-sont-importantes-"><h2 id="les-métadonnées-sont-importantes-">Les métadonnées sont importantes !</h2></a>
@@ -319,11 +354,11 @@ Et comme la page d&rsquo;accueil contient plusieurs articles, la taille du scrol
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#les-commentaires"><h2 id="les-commentaires">Les commentaires</h2></a>
 <p>Sur un site statique, il n&rsquo;est pas possible d&rsquo;intégrer son propre système de commentaire. On peut utiliser un service web comme <a href="https://disqus.com">disqus.com</a> qui est très bien fait, mais aussi lourd et lent à charger.</p>
 <p>C&rsquo;est un reproche qui peut se faire sur beaucoup de sites. À force d&rsquo;incorporer nombre de services externes (pour certains discutables), le site est ralenti et perd en fluidité.</p>
-<p>Comme je pense qu&rsquo;un espace commentaire est toujours intéressant, je tenais vraiment à en avoir un sur le blog. Alors je me suis dit, quitte à utiliser github.io, autant y aller jusqu&rsquo;au bout et me servir des issues de github comme système d'échange. Ce n&rsquo;est pas aussi bien intégré dans la page qu&rsquo;un système natif (il faut passer par github pour poster), mais cela fait son job. Je perds par contre les commentaires anonymes puisqu&rsquo;il faut un compte pour poster.</p>
+<p>Comme je pense qu&rsquo;un espace commentaire est toujours intéressant, je tenais vraiment à en avoir un sur le blog. Alors je me suis dit, quitte à utiliser github.io, autant y aller jusqu&rsquo;au bout et me servir des issues de github comme système d&rsquo;échange. Ce n&rsquo;est pas aussi bien intégré dans la page qu&rsquo;un système natif (il faut passer par github pour poster), mais cela fait son job. Je perds par contre les commentaires anonymes puisqu&rsquo;il faut un compte pour poster.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#mais-encore"><h2 id="mais-encore">Mais encore</h2></a>
 <p>À vrai dire, il y a pas mal de petites choses non citées qui m&rsquo;agacent beaucoup (titre tronqué devenant trop court, animation trop lente, etc), mais ce sont des conseils qu&rsquo;on peut retrouver assez facilement sur la toile.</p>
-<p>J&rsquo;ai davantage axé mes propos sur des détails que je trouve peu discutés. Tellement peu évoqués que j&rsquo;ai l&rsquo;impression d'être le seul concerné. Pour dire. Mais si cela permet de faire réfléchir, tant mieux.</p>
-<p>Après, c&rsquo;est bien possible que n'étant pas spécialement attiré par les technos web, un site spécialisé que je ne connais pas en parle mieux que moi. Tant mieux aussi.</p>
+<p>J&rsquo;ai davantage axé mes propos sur des détails que je trouve peu discutés. Tellement peu évoqués que j&rsquo;ai l&rsquo;impression d&rsquo;être le seul concerné. Pour dire. Mais si cela permet de faire réfléchir, tant mieux.</p>
+<p>Après, c&rsquo;est bien possible que n&rsquo;étant pas spécialement attiré par les technos web, un site spécialisé que je ne connais pas en parle mieux que moi. Tant mieux aussi.</p>
 
   </div>
   <footer class="post__footer">
@@ -390,14 +425,14 @@ Et comme la page d&rsquo;accueil contient plusieurs articles, la taille du scrol
 </blockquote>
 <p>Et depuis 2 ans, plus rien&hellip; Je n&rsquo;ai pas parcouru le web à la recherche de la solution idéale, loin de là, je n&rsquo;avais juste pas d&rsquo;idée d&rsquo;article.</p>
 <p>Il y a 3 mois, en regardant une classe de matrice en C++, une idée m&rsquo;est venue. J&rsquo;ai écrit mon article puis cherché un système de site statique.</p>
-<p>Au départ, j&rsquo;avais en tête <a href="http://octopress.org/">Octopress</a> utilisé par Luc Hermitte pour son <a href="http://luchermitte.github.io/">blog</a>. Le principe est d'écrire des fichiers en markdown, de générer le blog et mettre le tout sur github pour avoir une adresse en <code>github.io</code>. Le mettre sur github n&rsquo;est pas une obligation, mais c&rsquo;est pour moi le plus simple.</p>
+<p>Au départ, j&rsquo;avais en tête <a href="http://octopress.org/">Octopress</a> utilisé par Luc Hermitte pour son <a href="http://luchermitte.github.io/">blog</a>. Le principe est d&rsquo;écrire des fichiers en markdown, de générer le blog et mettre le tout sur github pour avoir une adresse en <code>github.io</code>. Le mettre sur github n&rsquo;est pas une obligation, mais c&rsquo;est pour moi le plus simple.</p>
 <p>J&rsquo;ai donc essayé <a href="https://github.com/gohugoio/hugo">Hugo</a>&hellip; Ma logique est infaillible :).</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/de-blogspot-a-hugo-il-a-change-de-peau/#pourquoi-quitter-blogspot-"><h2 id="pourquoi-quitter-blogspot-">Pourquoi quitter Blogspot ?</h2></a>
 <p>Avant de commencer, une petite explication sur pourquoi Blogspot ne m&rsquo;est pas pratique.</p>
 <p>La principale raison est que l&rsquo;utilisation de Blogspot m&rsquo;oblige à faire du post-traitement sur mes articles. Pour avoir la couleur dans les codes, ils sont écrits dans un éditeur puis convertits en HTML (via Kate dans mon cas). La couleur de fond est trop contrastée pour le blog ce qui oblige un post-traitement supplémentaire. L&rsquo;ensemble est plutôt rapide à faire, mais modifier un code est pénible.</p>
-<p>Puisque je suis dans le mode HTML de blogspot, je me tape aussi tout le balisage des liens, paragraphes, mots importants, etc, ce qui parasite le texte. L&rsquo;absence de couleur dans la zone d'édition n&rsquo;aide pas beaucoup.</p>
-<p>Autre point, j'écris rarement un article depuis l&rsquo;interface web. Déjà parce qu&rsquo;il faut y accéder &ndash; il y a un peu trop de clics à faire et Blogspot reste lent à charger &ndash; ensuite parce que l'éditeur est trop pauvre. Ça paraît con, mais les possibilités de mon éditeur de code sont très sollicités, même pour l'écriture d&rsquo;un article. J&rsquo;envisage même de faire des plugins pour de la saisie rapide.</p>
-<p>Ceci fait qu&rsquo;utiliser un générateur de type markdown me trottait dans la tête depuis un bon moment. Il existe plein de générateurs vers HTML, <a href="http://pandoc.org/">Pandoc</a> étant probablement le plus connu. C&rsquo;est suffisant. On écrit un article, on convertit et on colle la sortie dans la zone d'édition du blog.</p>
+<p>Puisque je suis dans le mode HTML de blogspot, je me tape aussi tout le balisage des liens, paragraphes, mots importants, etc, ce qui parasite le texte. L&rsquo;absence de couleur dans la zone d&rsquo;édition n&rsquo;aide pas beaucoup.</p>
+<p>Autre point, j&rsquo;écris rarement un article depuis l&rsquo;interface web. Déjà parce qu&rsquo;il faut y accéder &ndash; il y a un peu trop de clics à faire et Blogspot reste lent à charger &ndash; ensuite parce que l&rsquo;éditeur est trop pauvre. Ça paraît con, mais les possibilités de mon éditeur de code sont très sollicités, même pour l&rsquo;écriture d&rsquo;un article. J&rsquo;envisage même de faire des plugins pour de la saisie rapide.</p>
+<p>Ceci fait qu&rsquo;utiliser un générateur de type markdown me trottait dans la tête depuis un bon moment. Il existe plein de générateurs vers HTML, <a href="http://pandoc.org/">Pandoc</a> étant probablement le plus connu. C&rsquo;est suffisant. On écrit un article, on convertit et on colle la sortie dans la zone d&rsquo;édition du blog.</p>
 <p>J&rsquo;aurais très bien pu utiliser Blogspot + un générateur. Sauf que je trouve Blogspot lourd à charger et les possibilités de menu et de mise en page sont un peu limitées. Alors autant voir ailleurs !</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/de-blogspot-a-hugo-il-a-change-de-peau/#essai-de-hugo"><h2 id="essai-de-hugo">Essai de Hugo</h2></a>
 <p>En fait, au moment où je commençais à regarder les systèmes existants, quelqu&rsquo;un sur le <a href="https://openclassrooms.com/forum/sujet/groupe-communautaire-groupe-42">MM de 42</a> mit un lien vers Hugo. Le principe reste le même &ndash; au moins pour la génération de blog &ndash; avec comme objectif principal de ne pas avoir de dépendance et de générer rapidement le site.</p>
@@ -723,14 +758,14 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 <p>Les casts présents fonctionnent bien parce que <code>lhs</code> et <code>rhs</code> sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">falcon</span><span class="o">::</span><span class="n">cif</span>
 </code></span> ou <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">boost</span><span class="o">::</span><span class="n">hana</span><span class="o">::</span><span class="n">if_</span>
 </code></span>. Plusieurs de mes articles en parlent.</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#nécrivez-pas-operator-vous-même-cest-trop-compliquénbsp"><h2 id="nécrivez-pas-operator-vous-même-cest-trop-compliquénbsp">N'écrivez pas operator+ vous-même, c&rsquo;est trop compliqué !</h2></a>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#nécrivez-pas-operator-vous-même-cest-trop-compliquénbsp"><h2 id="nécrivez-pas-operator-vous-même-cest-trop-compliquénbsp">N&rsquo;écrivez pas operator+ vous-même, c&rsquo;est trop compliqué !</h2></a>
 <p>Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est alourdi, la lisibilité réduite. Il y a moyen d&rsquo;implémenter la plupart des opérateurs en quelques lignes pour le même résultat.</p>
-<p>De plus, l&rsquo;implémentation des opérateurs peuvent varier. Par exemple, pas de commutativité. Ses variantes sont difficiles à détecter dans une grande masse de code, il devient facile de faire une erreur aussi bien à l'écriture qu'à la lecture.</p>
+<p>De plus, l&rsquo;implémentation des opérateurs peuvent varier. Par exemple, pas de commutativité. Ses variantes sont difficiles à détecter dans une grande masse de code, il devient facile de faire une erreur aussi bien à l&rsquo;écriture qu&rsquo;à la lecture.</p>
 <p>Autre point, les types des opérandes peuvent être nombreux, faire tous les prototypes necessaires vous vaudra des heures de souffrances :).</p>
 <p>Du coup, comment faire ? Une solution facile est d&rsquo;utiliser une macro pour implémenter les opérateurs voulus. C&rsquo;est simple et rapide, mais l&rsquo;utiliser avec des types template est un peu délicat. Cela reste néanmoins la solution la plus simple.</p>
 <p>Une autre manière passe par du CRTP pour que la classe de base implémente les opérateurs voulus sous forme de fonction amie. C&rsquo;est la solution de <a href="http://www.boost.org/doc/libs/1_64_0/libs/utility/operators.htm">boost/operators.hpp</a>. Malheureusement, elle ne prend pas en compte les optimisations possibles sur les rvalues écrits dans cet article. Il faut la ré-écrire.</p>
 <p>La dernière solution consiste à se servir des traits pour activer ou non certains prototypes comme dans le chapitre précédent. Une mise en oeuvre poussée peut être extrêmement extensible et s&rsquo;adapte très facilement aux catégories de valeur (séquence, intégrale), mais c&rsquo;est un poil complexe à mettre en place. Je ne connais pas de bibliothèque qui le fasse.</p>
-<p>Au final, il n&rsquo;existe actuellement pas d&rsquo;outil satisfaisant pour générer les opérateurs alors qu&rsquo;il est presque aussi rapide d'écrire une lib ou des macros pour le faire. Le temps perdu sera largement compensé par le nombre d&rsquo;opérateurs à implémenter par la suite. Avec un peu de jugeote, il est même possible de mutualiser l'écriture des opérateurs <code>@=</code>. Pensez-y la prochaine fois qu&rsquo;il faudra écrire des opérateurs ;).</p>
+<p>Au final, il n&rsquo;existe actuellement pas d&rsquo;outil satisfaisant pour générer les opérateurs alors qu&rsquo;il est presque aussi rapide d&rsquo;écrire une lib ou des macros pour le faire. Le temps perdu sera largement compensé par le nombre d&rsquo;opérateurs à implémenter par la suite. Avec un peu de jugeote, il est même possible de mutualiser l&rsquo;écriture des opérateurs <code>@=</code>. Pensez-y la prochaine fois qu&rsquo;il faudra écrire des opérateurs ;).</p>
 
   </div>
   <footer class="post__footer">
@@ -941,7 +976,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 <span class="p">}</span>
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/#simulation-de-if-constexpr-en-pre-c17"><h2 id="simulation-de-if-constexpr-en-pre-c17">Simulation de if constexpr en pre-C++17</h2></a>
 <p>L&rsquo;atout principal de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span>
-</code></span> ici est de n'évaluer le code qu&rsquo;au besoin. Il faut donc un moyen de court-circuiter le flux de code. Le plus simple consiste à faire 2 fonctions, une avec un paramètre de type <code>std::true_type</code>, l&rsquo;autre avec un <code>std::false_type</code> qui représente le résultat de la condition et 2 paramètres: <code>If</code> et <code>Else</code>.</p>
+</code></span> ici est de n&rsquo;évaluer le code qu&rsquo;au besoin. Il faut donc un moyen de court-circuiter le flux de code. Le plus simple consiste à faire 2 fonctions, une avec un paramètre de type <code>std::true_type</code>, l&rsquo;autre avec un <code>std::false_type</code> qui représente le résultat de la condition et 2 paramètres: <code>If</code> et <code>Else</code>.</p>
 <p>Aussi, pour que les foncteurs <code>If</code> et <code>Else</code> soient évalués au dernier moment, ils devront prendre et utiliser un paramètre générique (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">auto</span>
 </code></span>). Sinon le compilateur va vérifier le code au moment de l&rsquo;instanciation de la lambda plutôt qu&rsquo;au moment de son utilisation.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Identity</span>
@@ -1181,7 +1216,7 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
   <div class="post__content">
       <p>Ce que j&rsquo;appelle ici un magasin de type n&rsquo;est autre qu&rsquo;un <code>std::tuple</code> où les types ne sont présents qu&rsquo;une seule fois. Une espèce de set version tuple en somme.</p>
 <p>Je me suis servi de ce type de structure à 2 reprises.</p>
-<p>Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de <code>std::tuple</code>. Il faut dire aussi que j'étais en C++11 et que dans cette norme <code>std::get&lt;Type&gt;()</code> n&rsquo;existe pas.</p>
+<p>Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de <code>std::tuple</code>. Il faut dire aussi que j&rsquo;étais en C++11 et que dans cette norme <code>std::get&lt;Type&gt;()</code> n&rsquo;existe pas.</p>
 <p>L&rsquo;autre fois dans une fonction variadique qui distribue les valeurs vers différentes fonctions. Le but étant de ne pas se soucier de l&rsquo;ordre des paramètres, certains étant optionnels.</p>
 <p><code>std::tuple</code> fait plutôt bien le boulot, mais possède un énorme inconvénient pour ce cas de figure: aucune erreur de compilation si un type est présent 2 fois (et c&rsquo;est normal pour un tuple).</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/#planter-la-compilation-quand-un-type-est-en-doublon"><h2 id="planter-la-compilation-quand-un-type-est-en-doublon">Planter la compilation quand un type est en doublon</h2></a>
@@ -1295,7 +1330,7 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
       <p>L&rsquo;approche suivante consiste à vérifier qu&rsquo;une fonction (membre ou statique) est appelable dans le but de l&rsquo;utiliser, ou, à défaut, fournir implémentation générique. De manière plus générale, la méthode présentée ici s&rsquo;applique à toutes expressions.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/#appeler-tsort-si-possible-sinon-stdsortbegint-endt"><h2 id="appeler-tsort-si-possible-sinon-stdsortbegint-endt">Appeler T::sort si possible, sinon std::sort(begin(T), end(T))</h2></a>
 <p>L&rsquo;exemple va se faire sur la classe <code>std::list</code> qui n&rsquo;est pas triable avec <code>std::sort</code>, mais possède une fonction membre <code>sort()</code>. Ainsi que sur <code>std::vector</code> qui, inversement, n&rsquo;a pas de fonction membre <code>sort()</code>, mais fonctionne avec <code>std::sort</code>.</p>
-<p>La méthode est simple et consiste à créer 2 fonctions: une pour vérifier si une expression est valide (ici <code>x.sort()</code>) et une autre en cas d'échec.</p>
+<p>La méthode est simple et consiste à créer 2 fonctions: une pour vérifier si une expression est valide (ici <code>x.sort()</code>) et une autre en cas d&rsquo;échec.</p>
 <p>Seulement, qui dit 2 fonctions dit 2 prototypes. Leur prototype doit être légèrement différent mais compatible avec les mêmes valeurs d&rsquo;entrée pour appeler la seconde si la première échoue (principe du <a href="http://en.cppreference.com/w/cpp/language/sfinae">SFINAE</a>).</p>
 <p>Pour vérifier l&rsquo;expression, seuls 2 mots clef existent: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span>
 </code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span>
@@ -1491,7 +1526,7 @@ Concrètement, cela se traduit par une classe interne qui contient le pointeur e
 </code></span>, l&rsquo;héritage ne fonctionne pas. Il faut se rabattre sur la première forme (celle naïve).
 Avec des traits et un code plus ou moins volumineux, cela est &ldquo;facile&rdquo;.
 Il faut cependant noter que <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_final</span>
-</code></span> n&rsquo;apparaît qu'à partir de C++14 et son implémentation n&rsquo;est pas possible en pure C++.
+</code></span> n&rsquo;apparaît qu&rsquo;à partir de C++14 et son implémentation n&rsquo;est pas possible en pure C++.
 Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standard.</p>
 <p>Toutefois, la STL possède un conteneur générique qui utilise l&rsquo;EBO si possible: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span>
 </code></span>. Ce qui permet de s&rsquo;affranchir de ces difficultés tout en optimisant l&rsquo;espace mémoire à condition de mettre les types dans l&rsquo;ordre croissant d&rsquo;alignement pour réduire le padding entre les membres lorsqu&rsquo;il y en a plus de 2.</p>
@@ -1563,7 +1598,7 @@ Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standar
 <p>En fait, il s&rsquo;avère qu&rsquo;en rajoutant extended dans la recherche &ldquo;color shell&rdquo; on puisse trouver <!-- raw HTML omitted -->quelque(s) ressource(s)<!-- raw HTML omitted -->. J&rsquo;aurais bien voulu y penser la semaine dernière, ça m&rsquo;aurait évité de comprendre par tâtonnement&hellip;</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/#utilisation"><h2 id="utilisation">Utilisation</h2></a>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s2">&#34;\e[</span><span class="si">${</span><span class="nv">FormatColor</span><span class="si">}</span><span class="s2">m&#34;</span>
-</code></pre></div><p>Le caractère <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\e</span></code></span> correspond à la touche Esc (échap). On peut aussi l'écrire en hexadécimal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\x</span>1B</code></span> ou en octal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\0</span><span class="m">33</span></code></span>.</p>
+</code></pre></div><p>Le caractère <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\e</span></code></span> correspond à la touche Esc (échap). On peut aussi l&rsquo;écrire en hexadécimal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\x</span>1B</code></span> ou en octal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\0</span><span class="m">33</span></code></span>.</p>
 <p>Pour bash et <code>echo</code>, il faut utiliser l&rsquo;option <code>-e</code> pour interpréter les séquences backslashés ou utiliser la forme <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s1">$&#39;\x1b&#39;</span></code></span>.</p>
 <p><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">FormatColor</span><span class="si">}</span></code></span> correspond à un nombre représentant une couleur de texte, de fond ou un effet. Plusieurs formats peuvent être mis en les séparant par des <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="p">;</span></code></span> (point virgule). L&rsquo;ordre n&rsquo;a pas d&rsquo;importance.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/#8-couleurs"><h2 id="8-couleurs">8 couleurs</h2></a>

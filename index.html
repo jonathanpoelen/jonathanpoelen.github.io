@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.68.3" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.69.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -271,14 +271,14 @@
 <li>le second retour ne doit pas compiler</li>
 </ul>
 <p>Étrangement, du moment que la fonction n&rsquo;est pas utilisée, gcc ne vérifie pas si le retour est convertible vers celui de la fonction, mais demande quand même une expression valide, alors que msvc ne fait aucune vérification au sein de la fonction. Par contre clang indique qu&rsquo;une chaîne de caractères n&rsquo;est pas convertible en int.</p>
-<p>L'évaluation systématique des types indépendants explique pourquoi le code ci-dessous donne toujours une erreur.</p>
+<p>L&rsquo;évaluation systématique des types indépendants explique pourquoi le code ci-dessous donne toujours une erreur.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">xxx</span><span class="p">)</span>
 <span class="p">{}</span>
 <span class="k">else</span>
 <span class="p">{</span>
   <span class="k">static_assert</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span> <span class="c1">// toujours évalué -&gt; erreur de compilation
 </span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>On touche ici au contexte d'évaluation: le prototype, suivi du corps de fonction. Le second est évalué différemment selon les compilateurs, mais cela ne cause pas réellement de problème, car les erreurs apparaissent au moment de l&rsquo;utilisation de la fonction.</p>
+</code></pre></div><p>On touche ici au contexte d&rsquo;évaluation: le prototype, suivi du corps de fonction. Le second est évalué différemment selon les compilateurs, mais cela ne cause pas réellement de problème, car les erreurs apparaissent au moment de l&rsquo;utilisation de la fonction.</p>
 <p>Quand on parle de contexte, on parle aussi de sous-contexte. Dans le cas de SFINAE, la dépendance d&rsquo;un contexte au contexte parent <strong>ne peut pas être attrapé</strong>, ce qui résultera dans tous les cas à une erreur de compilation. Le corps d&rsquo;une fonction est un exemple, un autre concerne les membres d&rsquo;une classe:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">A</span>
 <span class="p">{</span>
@@ -558,7 +558,7 @@
 </span></code></pre></div>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2020/04/sfinae/#les-variadiques-de-la-dernière-chance"><h3 id="les-variadiques-de-la-dernière-chance">Les variadiques de la dernière chance</h3></a>
-<p>Il existe en C des paramètres variadiques dont l&rsquo;usage est limité aux types de base et aux pointeurs. Ce genre de paramètre à une particularité intéressante: il n&rsquo;est pris en compte qu'à la seule condition qu&rsquo;aucune autre fonction ne pourrait correspondre. Il a donc une priorité inférieure à la conversion et ne rentre pas en conflit avec. On pourrait réécrire <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span>
+<p>Il existe en C des paramètres variadiques dont l&rsquo;usage est limité aux types de base et aux pointeurs. Ce genre de paramètre à une particularité intéressante: il n&rsquo;est pris en compte qu&rsquo;à la seule condition qu&rsquo;aucune autre fonction ne pourrait correspondre. Il a donc une priorité inférieure à la conversion et ne rentre pas en conflit avec. On pourrait réécrire <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span>
 </code></span> comme suit</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">From</span><span class="p">,</span> <span class="k">class</span> <span class="nc">To</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">is_convertible_impl</span>
@@ -762,7 +762,7 @@
     <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p>Ce code permet d&rsquo;afficher un message sur l'étape en cours avant une éventuelle exception. Dans notre cas, <code>foo()</code> ne lance pas d&rsquo;exception, mais en l&rsquo;absence de <code>noexcept</code>, <code>main.cpp</code> ne le sait pas.</p>
+</code></pre></div><p>Ce code permet d&rsquo;afficher un message sur l&rsquo;étape en cours avant une éventuelle exception. Dans notre cas, <code>foo()</code> ne lance pas d&rsquo;exception, mais en l&rsquo;absence de <code>noexcept</code>, <code>main.cpp</code> ne le sait pas.</p>
 <p>Si <code>foo()</code> ne lance pas d&rsquo;exception, alors <code>err</code> sera toujours égal à <code>nullptr</code> dans le <code>catch</code>. Il est alors possible de supprimer la condition qui serait toujours évaluée à <code>false</code>, ce qui doit donner un exécutable plus petit.</p>
 <p>Le petit script suivant va compiler chaque <code>.cpp</code> avec et sans <code>noexcept</code> puis afficher la taille de l&rsquo;exécutable.</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> x in noexcept <span class="s1">&#39;&#39;</span> <span class="p">;</span> <span class="k">do</span>
@@ -835,7 +835,7 @@
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#quand-mettre-noexcept"><h2 id="quand-mettre-noexcept">Quand mettre noexcept</h2></a>
 <p>Déjà, on peut dire qu&rsquo;une fonction qui ne lance absolument pas d&rsquo;exception peut être <code>noexcept</code>. Cette information est surtout utile dans les APIs ou bibliothèques qui ont cette garantie. Un analyseur statique pourrait aussi vérifier qu&rsquo;aucune exception ne la traverse. Dans le cas contraire, c&rsquo;est plutôt risqué.</p>
 <p>Néanmoins, <code>noexcept</code> est vraiment important sur les constructeurs déplacement.</p>
-<p>Pour être plus précis, conjointement avec les conteneurs de la STL, cela va déterminer si le conteneur utilise ou non le déplacement. Si la fonction est <code>noexcept</code>, le déplacement d&rsquo;un élément ne peut pas échouer. Dans le cas d&rsquo;un <code>std::vector&lt;T&gt;</code>, cela veut dire qu&rsquo;après un agrandissement de la capacité, tous les éléments peuvent être déplacés sans échec. Par contre, si le déplacement lance une exception, une partie des données pourrait se perdre et <code>std::vector</code> utilise alors la copie. On parle de résistance aux exceptions ou d&rsquo;<a href="https://en.wikipedia.org/wiki/Exception_guarantees">exception-safety</a>. Dans le cas de <code>std::vector</code>, c&rsquo;est une garantie forte: l'état du vector est inchangé s&rsquo;il y a une exception sur l&rsquo;augmentation de la capacité. Pour en savoir un peu plus sur l&rsquo;exception-safety, c&rsquo;est <a href="https://www.boost.org/community/exception_safety.html">par là</a>.</p>
+<p>Pour être plus précis, conjointement avec les conteneurs de la STL, cela va déterminer si le conteneur utilise ou non le déplacement. Si la fonction est <code>noexcept</code>, le déplacement d&rsquo;un élément ne peut pas échouer. Dans le cas d&rsquo;un <code>std::vector&lt;T&gt;</code>, cela veut dire qu&rsquo;après un agrandissement de la capacité, tous les éléments peuvent être déplacés sans échec. Par contre, si le déplacement lance une exception, une partie des données pourrait se perdre et <code>std::vector</code> utilise alors la copie. On parle de résistance aux exceptions ou d&rsquo;<a href="https://en.wikipedia.org/wiki/Exception_guarantees">exception-safety</a>. Dans le cas de <code>std::vector</code>, c&rsquo;est une garantie forte: l&rsquo;état du vector est inchangé s&rsquo;il y a une exception sur l&rsquo;augmentation de la capacité. Pour en savoir un peu plus sur l&rsquo;exception-safety, c&rsquo;est <a href="https://www.boost.org/community/exception_safety.html">par là</a>.</p>
 <p>Pour illustrer l&rsquo;influence de <code>noexcept</code> avec std::vector, voici une petite classe qui affiche quel constructeur est utilisé. Le constructeur de déplacement est toujours présent, seule la présence de <code>noexcept</code> diffère.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span>
@@ -880,7 +880,7 @@
 </tbody>
 </table>
 <p>Maintenant imaginons que notre classe <code>A</code> contienne des <code>std::string</code> et des <code>std::vector</code>. Si le constructeur de déplacement n&rsquo;est pas <code>noexcept</code>, alors il y aura de nombreuses copies qui auront un gros impact sur les performances. Ce n&rsquo;est généralement pas ce qu&rsquo;on veut.</p>
-<p>Personnellement, je déconseille d'écrire le constructeur et operator= de déplacement ou de copie. 99% du temps, la version par défaut fait le job, le compilateur déduisant lui-même <code>noexcept</code> pour les fonctions par défaut &ndash; et c&rsquo;est bien le seul moment. S&rsquo;il y a une véritable nécessité, il est généralement possible d&rsquo;avoir une classe qui ne fournit que ce service et l&rsquo;utiliser en variable membre.</p>
+<p>Personnellement, je déconseille d&rsquo;écrire le constructeur et operator= de déplacement ou de copie. 99% du temps, la version par défaut fait le job, le compilateur déduisant lui-même <code>noexcept</code> pour les fonctions par défaut &ndash; et c&rsquo;est bien le seul moment. S&rsquo;il y a une véritable nécessité, il est généralement possible d&rsquo;avoir une classe qui ne fournit que ce service et l&rsquo;utiliser en variable membre.</p>
 <p>Si on écrit explicitement <code>noexcept</code> sur une fonction par défaut &ndash; par exemple <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">X</span><span class="p">(</span><span class="n">X</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 </code></span> &ndash; le compilateur va <strong>vérifier</strong> que le déplacement de chaque membre ne lance pas d&rsquo;exception. Et dans le cas contraire, ne compile pas.</p>
 <p>Pour finir, <strong>les destructeurs sont implicitement <code>noexcept</code></strong>. Si un destructeur balance une exception, le programme va s&rsquo;arrêter. Les raisons sont assez simples: il est difficile de catcher une exception d&rsquo;un destructeur et il est impossible d&rsquo;arriver à un état cohérent sans code spécifique si les objets ne peuvent être détruits. De plus, il faut savoir que jeter une exception pendant le traitement d&rsquo;une exception appelle automatiquement <code>std::terminate()</code>. Du coup, les exceptions dans un destructeur sont plutôt une mauvaise idée.</p>
@@ -911,7 +911,7 @@
 </span><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">noexcept</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="c1">// true
 </span></code></pre></div><p>Pas très compliqué dans l&rsquo;ensemble, même si bien que logique, le résultat de <code>f6()</code> et la dernière ligne peuvent surprendre: <code>false</code> est une expression qui ne retourne jamais d&rsquo;exception, par conséquent, l&rsquo;opérateur <code>noexcept</code> retourne <code>true</code>.</p>
 <p>La STL offre aussi les traits <a href="https://en.cppreference.com/w/cpp/types#Supported_operations"><code>std::is_nothrow_*</code></a> pour vérifier si certaines expressions sont <code>noexcept</code> ; ainsi qu&rsquo;une fonction <a href="https://en.cppreference.com/w/cpp/utility/move_if_noexcept"><code>std::move_if_noexcept</code></a> qui retourne une rvalue si le constructeur de déplacement est noexcept et une lvalue constante dans le cas inverse.</p>
-<p>Avant C++11, il existait le spécificateur <code>throw()</code> pour indiquer qu&rsquo;une fonction ne jette pas d&rsquo;exception. Son comportement est très différent et pas du tout efficace. En C++17, il devient l'équivalent de <code>noexcept(true)</code> pour finalement être supprimé en C++20.</p>
+<p>Avant C++11, il existait le spécificateur <code>throw()</code> pour indiquer qu&rsquo;une fonction ne jette pas d&rsquo;exception. Son comportement est très différent et pas du tout efficace. En C++17, il devient l&rsquo;équivalent de <code>noexcept(true)</code> pour finalement être supprimé en C++20.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#signature-et-type-de-fonction"><h2 id="signature-et-type-de-fonction">Signature et type de fonction</h2></a>
 <p>2 fonctions qui ne diffèrent que par la spécification d&rsquo;exception ne peuvent être surchargées car leur signature est identique. Ceci n&rsquo;est pas autorisé:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">();</span>
@@ -946,7 +946,7 @@
   <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span> <span class="c1">// erreur, même si A::bar() n&#39;est pas noexcept, B::bar() l&#39;est
 </span><span class="c1"></span><span class="p">};</span>
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#ce-quil-faut-retenir"><h2 id="ce-quil-faut-retenir">Ce qu&rsquo;il faut retenir</h2></a>
-<p>Finalement il n&rsquo;y a pas grand chose à retenir. <code>noexcept</code> permet certaines optimisations, mais appliqué n&rsquo;importe comment il est source de bug. Si vous n'êtes pas sûr, ne l&rsquo;utilisez pas.</p>
+<p>Finalement il n&rsquo;y a pas grand chose à retenir. <code>noexcept</code> permet certaines optimisations, mais appliqué n&rsquo;importe comment il est source de bug. Si vous n&rsquo;êtes pas sûr, ne l&rsquo;utilisez pas.</p>
 <p>Cependant, comme cela influence les conteneurs de la STL, il faut impérativement penser à le mettre sur le constructeur de déplacement.</p>
 
   </div>
@@ -1017,7 +1017,7 @@
 <p>Le tableau C a l&rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&rsquo;a aucun sens. Mais puisque les tableaux se dégradent en pointeur, le compilateur l&rsquo;accepte sans broncher.</p>
 <p>Le seul pseudo-avantage est l&rsquo;arithmétique des pointeurs qui permet de manipuler un tableau presque comme un pointeur &ndash; à la différence que l&rsquo;incrémentation et la décrémentation ne sont pas possibles.</p>
 <p>Ainsi, on pourra écrire <code>auto* p = a + i</code> plutôt que <code>auto* p = &amp;a[i]</code>.</p>
-<p>Ou encore <code>&amp;i[a]</code> (i.e. <code>&amp;2[a]</code>), forme uniquement valide avec des tableaux ou des pointeurs. Tant qu'à hériter du C, prenons le meilleur&hellip; :D</p>
+<p>Ou encore <code>&amp;i[a]</code> (i.e. <code>&amp;2[a]</code>), forme uniquement valide avec des tableaux ou des pointeurs. Tant qu&rsquo;à hériter du C, prenons le meilleur&hellip; :D</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#votre-prototype-de-fonction-ment"><h2 id="votre-prototype-de-fonction-ment">Votre prototype de fonction ment</h2></a>
 <p>Voici une fonction tout à fait banale qui affiche les valeurs d&rsquo;un tableau:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
@@ -1027,8 +1027,8 @@
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p>Fonction qui ne compile pas, car <code>array</code> n&rsquo;est pas un tableau, mais un pointeur. Et un pointeur ne fonctionne pas avec les boucles sur intervalle. Gcc indique l&rsquo;erreur en affichant le prototype tel qu&rsquo;il devrait être lu: &ldquo;dans la fonction <code>void print(const int*)</code>&rdquo;. Clang va même jusqu'à dire qu&rsquo;un paramètre de type <code>int[3]</code> est considéré comme un pointeur. La conversion en pointeur se propage même à ce niveau.</p>
-<p>Ce qui veut dire qu'écrire un prototype qui prend un tableau de 3 <code>int</code> est un mensonge. Le compilateur ne fera aucune vérification sur la taille du tableau passé en paramètre. Pour lui, que l&rsquo;argument soit un tableau de 1, 2, 3 ou plus d'éléments, c&rsquo;est pareil: un pointeur. Par conséquent, les 4 prototypes suivants sont strictement identiques:</p>
+</code></pre></div><p>Fonction qui ne compile pas, car <code>array</code> n&rsquo;est pas un tableau, mais un pointeur. Et un pointeur ne fonctionne pas avec les boucles sur intervalle. Gcc indique l&rsquo;erreur en affichant le prototype tel qu&rsquo;il devrait être lu: &ldquo;dans la fonction <code>void print(const int*)</code>&rdquo;. Clang va même jusqu&rsquo;à dire qu&rsquo;un paramètre de type <code>int[3]</code> est considéré comme un pointeur. La conversion en pointeur se propage même à ce niveau.</p>
+<p>Ce qui veut dire qu&rsquo;écrire un prototype qui prend un tableau de 3 <code>int</code> est un mensonge. Le compilateur ne fera aucune vérification sur la taille du tableau passé en paramètre. Pour lui, que l&rsquo;argument soit un tableau de 1, 2, 3 ou plus d&rsquo;éléments, c&rsquo;est pareil: un pointeur. Par conséquent, les 4 prototypes suivants sont strictement identiques:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">4</span><span class="p">]);</span>
 <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
 <span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="k">const</span> <span class="n">array</span><span class="p">[]);</span>
@@ -1173,7 +1173,7 @@
 <span class="nb">echo</span> -E <span class="s2">&#34;[</span><span class="si">${</span><span class="p">(j:]</span><span class="se">\n</span><span class="p">[:)</span><span class="s2">&#34;</span><span class="si">${</span><span class="p">(@f)</span><span class="k">$(</span>&lt;file<span class="k">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="si">}</span><span class="s2">]&#34;</span>
 </code></pre></div><p>Il y a encore de nombreux paramètres qui peuvent être trouvés dans le manuel ou via l&rsquo;auto-complétion de zsh. Aussi, pour simplifier les exemples qui suivront, j&rsquo;utiliserai directement les variables <code>contents</code> et <code>lines</code>.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/#glob-et-glob-étendu"><h3 id="glob-et-glob-étendu">Glob et glob étendu</h3></a>
-<p>L&rsquo;une des grandes forces de zsh réside dans le globbing. Il ne se restreint pas qu'à la recherche de fichier, mais peut aussi s&rsquo;appliquer sur les éléments d&rsquo;un tableau ou des chaînes pour filtrer ou transformer. En plus de <code>*</code> et <code>?</code>, zsh comprend <code>[...]</code>, <code>[^...]</code> et <code>&lt;x-y&gt;</code> pour un nombre entre <code>x</code> et <code>y</code> inclu (<code>&lt;-&gt;</code> pour n&rsquo;importe quel digit).</p>
+<p>L&rsquo;une des grandes forces de zsh réside dans le globbing. Il ne se restreint pas qu&rsquo;à la recherche de fichier, mais peut aussi s&rsquo;appliquer sur les éléments d&rsquo;un tableau ou des chaînes pour filtrer ou transformer. En plus de <code>*</code> et <code>?</code>, zsh comprend <code>[...]</code>, <code>[^...]</code> et <code>&lt;x-y&gt;</code> pour un nombre entre <code>x</code> et <code>y</code> inclu (<code>&lt;-&gt;</code> pour n&rsquo;importe quel digit).</p>
 <p>Avec le glob étendu (<code>setopt extendedglob</code>) on possède alors un équivalent des regex:</p>
 <ul>
 <li><code>x#</code> 0 ou plus de <code>x</code></li>
@@ -1344,10 +1344,17 @@ note: penser à investir dans une porte plus solide
   <span class="k">else</span>
     <span class="kr">print</span> <span class="o">$</span><span class="mi">0</span>
 <span class="p">}</span></code></span></td>
-<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nb">declare</span> -A <span class="nv">colors</span><span class="o">=(</span>erreur: <span class="m">31</span> avertissement: <span class="m">33</span> info: 35<span class="o">)</span>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">setopt extendedglob
+
+<span class="nb">declare</span> -A <span class="nv">colors</span><span class="o">=(</span>
+  erreur: <span class="m">31</span>
+  avertissement: <span class="m">33</span>
+  info: <span class="m">35</span>
+<span class="o">)</span>
 <span class="nb">declare</span> -A colorized
+<span class="nv">esc</span><span class="o">=</span><span class="s1">$&#39;\e&#39;</span>
 <span class="k">for</span> k in <span class="si">${</span><span class="p">(k)colors</span><span class="si">}</span> <span class="p">;</span>
-  <span class="nv">colorized</span><span class="o">+=(</span><span class="nv">$k</span> <span class="s2">&#34;\033[</span><span class="nv">$colors</span><span class="s2">[</span><span class="nv">$k</span><span class="s2">]m</span><span class="nv">$k</span><span class="s2">\033[0m&#34;</span><span class="o">)</span>
+  <span class="nv">colorized</span><span class="o">+=(</span><span class="nv">$k</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">esc</span><span class="si">}</span><span class="s2">[</span><span class="nv">$colors</span><span class="s2">[</span><span class="nv">$k</span><span class="s2">]m</span><span class="nv">$k</span><span class="si">${</span><span class="nv">esc</span><span class="si">}</span><span class="s2">[0m&#34;</span><span class="o">)</span>
 
 <span class="nb">echo</span> -E <span class="si">${</span><span class="p">(F)lines/(#m)(#s)[a-z]##:/</span><span class="si">${</span><span class="nv">colorized</span><span class="p">[</span><span class="nv">$MATCH</span><span class="p">]</span><span class="k">:-</span><span class="nv">$MATCH</span><span class="si">}}</span></code></span></td>
 </tr>
@@ -1543,12 +1550,12 @@ note: penser à investir dans une porte plus solide
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/#du-déplacement-sans-stdmove"><h2 id="du-déplacement-sans-stdmove">Du &ldquo;déplacement&rdquo; sans std::move</h2></a>
 <p>C&rsquo;est fort du roquefort ! Pas de constructeur, pas de <code>std::move</code>, mais un objet qui se déplace quand même. On croirait faire de la magie !</p>
 <p><code>std::move</code> va forcer l&rsquo;appel à un constructeur de déplacement alors que le compilateur a les moyens &ndash; et même l&rsquo;obligation &ndash; de le faire pour nous. Ou mieux, bypasser tous les constructeurs et mettre la valeur directement là où il faut. On parle d&rsquo;<a href="https://en.cppreference.com/w/cpp/language/copy_elision">élision par copie</a> ou de (N)RVO (Named Return Value Optimization). Sauf que <code>std::move</code> bloque ces optimisations.</p>
-<p>Dans le cas de l'élision de copie, le compilateur construit directement les paramètres de type T (un type sans référence) lorsqu&rsquo;on utilise un temporaire.</p>
+<p>Dans le cas de l&rsquo;élision de copie, le compilateur construit directement les paramètres de type T (un type sans référence) lorsqu&rsquo;on utilise un temporaire.</p>
 <p>Avec <code>void foo(T)</code>, il faut faire <code>foo(T{...})</code> et non pas <code>foo(std::move(T({...})</code>. Comme on ne fait pas <code>T x = std::move(T{...})</code>, mais <code>T x = T{...}</code> (on peut faire <code>T x{}</code>, c&rsquo;est pour l&rsquo;exemple)</p>
 <p>Les temporaires peuvent aussi exister depuis l&rsquo;appel à une fonction qui retourne <code>T</code>.</p>
 <p>Avec <code>T bar()</code>, il faut faire <code>foo(bar())</code>, et non pas <code>foo(std::move(bar()))</code>.</p>
 <p>La (N)RVO est une optimisation qui fonctionne sur le même principe au niveau de la valeur de retour.</p>
-<p>On n'écrit pas <code>T bar() { return std::move(T{...}); }</code>, mais <code>T bar() { return T{...}; }</code>.</p>
+<p>On n&rsquo;écrit pas <code>T bar() { return std::move(T{...}); }</code>, mais <code>T bar() { return T{...}; }</code>.</p>
 <p>Le compilateur possède aussi un comportement spécial pour la variable locale retournée: celle-ci doit être déplacée si possible. Et si possible, on optimise avec une élision.</p>
 <p>On écrit</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
@@ -1639,9 +1646,9 @@ note: penser à investir dans une porte plus solide
 
   </header>
   <div class="post__content">
-      <p>J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est <a href="https://github.com/kvasir-io/mpl">Kvasir.Mpl</a>. Son originalité réside dans le support des <a href="https://fr.wikipedia.org/wiki/Continuation">continuations</a> et &ndash;parce que cela va bien de paire,&ndash; l'évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (<code>list&lt;Ts...&gt;</code>).</p>
+      <p>J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est <a href="https://github.com/kvasir-io/mpl">Kvasir.Mpl</a>. Son originalité réside dans le support des <a href="https://fr.wikipedia.org/wiki/Continuation">continuations</a> et &ndash;parce que cela va bien de paire,&ndash; l&rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (<code>list&lt;Ts...&gt;</code>).</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/#continuation"><h2 id="continuation">Continuation</h2></a>
-<p>Chaque algorithme dispose d&rsquo;un paramètre qui décrit l'étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme <a href="https://github.com/ericniebler/range-v3">rangev3</a>, les continuations se font avec l&rsquo;opérateur <code>|</code>. Par exemple <code>grep x | wc -l</code> ou <code>filter(is_odd) | take(6)</code>. Il n&rsquo;est pas possible d&rsquo;utiliser <code>|</code> avec des templates, alors la continuation est un paramètre ajouté à l&rsquo;algorithme. En chaînant les continuations, on construit un nouvel algorithme qui s&rsquo;utilise avec <code>call&lt;algo, args...&gt;</code>.</p>
+<p>Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo;étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme <a href="https://github.com/ericniebler/range-v3">rangev3</a>, les continuations se font avec l&rsquo;opérateur <code>|</code>. Par exemple <code>grep x | wc -l</code> ou <code>filter(is_odd) | take(6)</code>. Il n&rsquo;est pas possible d&rsquo;utiliser <code>|</code> avec des templates, alors la continuation est un paramètre ajouté à l&rsquo;algorithme. En chaînant les continuations, on construit un nouvel algorithme qui s&rsquo;utilise avec <code>call&lt;algo, args...&gt;</code>.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// `C` pour continuation
 </span><span class="c1"></span>
@@ -1655,7 +1662,7 @@ note: penser à investir dans une porte plus solide
 <span class="k">using</span> <span class="n">add_const_lvalue_reference</span> <span class="o">=</span> <span class="n">add_const</span><span class="o">&lt;</span><span class="n">add_lvalue_reference</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;&gt;</span><span class="p">;</span> <span class="c1">// un chaînage
 </span></code></pre></div>
 
-<p>Les continuations limitent drastiquement le recours aux &ldquo;lambdas&rdquo;. Dans d&rsquo;autres bibliothèques du genre, <code>add_const_lvalue_reference</code> s'écrirait <code>lambda&lt;add_lvalue_reference, lambda&lt;add_const, _&gt;&gt;</code> ce qui est, il faut l&rsquo;avouer, beaucoup moins glamour.</p>
+<p>Les continuations limitent drastiquement le recours aux &ldquo;lambdas&rdquo;. Dans d&rsquo;autres bibliothèques du genre, <code>add_const_lvalue_reference</code> s&rsquo;écrirait <code>lambda&lt;add_lvalue_reference, lambda&lt;add_const, _&gt;&gt;</code> ce qui est, il faut l&rsquo;avouer, beaucoup moins glamour.</p>
 <p>Dans des algorithmes du type transformation, l&rsquo;impact sur la lecture du code est immédiat:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">transform</span><span class="o">&lt;</span><span class="n">lambda</span><span class="o">&lt;</span><span class="n">next</span><span class="p">,</span> <span class="n">lambda</span><span class="o">&lt;</span><span class="n">times</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="o">&gt;</span>
 <span class="c1">// vs
@@ -1707,7 +1714,7 @@ note: penser à investir dans une porte plus solide
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/#cest-beau-cest-propre"><h2 id="cest-beau-cest-propre">C&rsquo;est beau, c&rsquo;est propre</h2></a>
 <p>Il y a quelques jours, après mon petit passage quotidien dans libstdc++ et en regardant <code>std::decay</code>, je me suis dit <del>c&rsquo;est beau, c&rsquo;est propre</del> qu&rsquo;il faudrait comparer avec une implémentation qui utilise les concepts de kvasir.</p>
-<p>Voici en l'état la version fournie avec gcc-8.2:</p>
+<p>Voici en l&rsquo;état la version fournie avec gcc-8.2:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// Decay trait for arrays and functions, used for perfect forwarding
 </span><span class="c1">// in make_pair, make_tuple, etc.
 </span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">_Up</span><span class="p">,</span>
@@ -1750,7 +1757,7 @@ note: penser à investir dans une porte plus solide
     <span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
   <span class="o">&gt;</span>
 <span class="o">&gt;</span><span class="p">;</span>
-</code></pre></div><p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations, les branches ne doivent s'évaluer qu&rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.</p>
+</code></pre></div><p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations, les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.</p>
 <p>Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, <code>remove_extent&lt;T&gt;</code> ne sera pas instancié lorsque <code>is_array_v&lt;T&gt;</code> est faux, ce qui rend les continuations très facilement composables.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
@@ -1934,7 +1941,7 @@ note: penser à investir dans une porte plus solide
 <span class="p">};</span>
 </code></pre></div>
 
-<p>Grâce à ses variables inline, on peut construire notre tableau très facilement. Il ne reste plus qu'à faire un petit wrapper pour utiliser <code>Rect</code> et <code>Circle</code> indistinctement.</p>
+<p>Grâce à ses variables inline, on peut construire notre tableau très facilement. Il ne reste plus qu&rsquo;à faire un petit wrapper pour utiliser <code>Rect</code> et <code>Circle</code> indistinctement.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Drawable</span>
 <span class="p">{</span>
@@ -2002,7 +2009,7 @@ note: penser à investir dans une porte plus solide
 
 <p>Pour une classe qui ne possède qu&rsquo;une fonction polymorphique, le pointeur de fonction en membre est un peu plus efficace qu&rsquo;une vtable en évitant une indirection. <code>std::function</code> utilise le même principe en interne en plus de prendre l&rsquo;ownership de l&rsquo;objet. Prendre l&rsquo;ownership implique de mettre l&rsquo;objet en membre, si l&rsquo;objet prend trop de place, comme une lambda avec une grosse capture, alors elle déborde du tampon interne et une allocation dynamique est généralement effectuée. Pour un comportement plus proche des exemples ci-dessus qui prennent une référence sur les données, il existe <a href="https://github.com/Naios/function2#small-functor-optimization">fn2::function_view</a>.</p>
 <p>Par contre, pour chaque fonction polymorphique, la classe doit contenir un pointeur de fonction ce qui augmente sa taille. Si cet objet est mis dans un vector, alors il y aura beaucoup de pointeurs similaires entre les valeurs et une vtable peut réduire drastiquement la mémoire allouée par le vecteur.</p>
-<p>Il y a un dernier point qui n&rsquo;est pas visible avec les exemples du dessus : le comportement peut être dynamiquement modifié. C&rsquo;est-à-dire qu&rsquo;une instance peut décider de modifier le comportement d&rsquo;une de ses fonctions en la remplaçant (taper dans <code>draw_func</code>) sans avoir de variable d'état. La fonction en cours d&rsquo;exécution représentant l'état courant. C&rsquo;est un aspect de la <a href="https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_prototype">programmation orientée prototype</a>.</p>
+<p>Il y a un dernier point qui n&rsquo;est pas visible avec les exemples du dessus : le comportement peut être dynamiquement modifié. C&rsquo;est-à-dire qu&rsquo;une instance peut décider de modifier le comportement d&rsquo;une de ses fonctions en la remplaçant (taper dans <code>draw_func</code>) sans avoir de variable d&rsquo;état. La fonction en cours d&rsquo;exécution représentant l&rsquo;état courant. C&rsquo;est un aspect de la <a href="https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_prototype">programmation orientée prototype</a>.</p>
 <p>Bien sûr, avec une vtable, modifier un des pointeurs impacte tous les objets y faisant référence.</p>
 <p>Après, rien n&rsquo;empêche d&rsquo;avoir un comportement hybride, une vtable pour les fonctions communes, peu utilisées ou &ldquo;lentes&rdquo;, et un membre pour les fonctions polymorphiques qui doivent etre &ldquo;rapides&rdquo; d&rsquo;accès ou qui changent en court de route. Des projets tels <a href="https://github.com/ldionne/dyno">dyno</a> permettent cela.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/#la-méthode-du-gros-switch"><h2 id="la-méthode-du-gros-switch">La méthode du gros switch</h2></a>
@@ -2078,30 +2085,30 @@ note: penser à investir dans une porte plus solide
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/#avant-propos"><h2 id="avant-propos">Avant-propos</h2></a>
 <p>Toutes les implémentations de <code>mp_index_of&lt;T, Ts...&gt;</code> retournent un <code>std::integral_constant&lt;int, i&gt;</code> correspondant à l&rsquo;indice de <code>T</code> dans <code>Ts</code> ou <code>-1</code> si <code>T</code> n&rsquo;existe pas.</p>
-<p>Clang possède des outils tel que <a href="http://plc.inf.elte.hu/templight/">templight</a>, mais il n&rsquo;y a pas d'équivalent pour Gcc. Par conséquent, les tests sont faits avec <code>/usr/bin/time --format=&quot;%E %M&quot;</code> qui ressort le temps et la mémoire maximum utilisée par un programme.</p>
+<p>Clang possède des outils tel que <a href="http://plc.inf.elte.hu/templight/">templight</a>, mais il n&rsquo;y a pas d&rsquo;équivalent pour Gcc. Par conséquent, les tests sont faits avec <code>/usr/bin/time --format=&quot;%E %M&quot;</code> qui ressort le temps et la mémoire maximum utilisée par un programme.</p>
 <p>Au niveau des options de compilation, <code>-fsyntax-only</code> permet de vérifier la validité d&rsquo;un code sans générer de fichier de sortie. <code>-std=c++17</code> est présent pour utiliser les plies, mais tous les algorithmes n&rsquo;en ont pas besoin. <code>-ftemplate-depth=n</code> et <code>-fconstexpr-depth=n</code> appliquent une profondeur limite dans la récursivité appliquée respectivement aux templates et aux fonctions constexpr. <code>-w</code> supprime tous les avertissements (tels que des macros non utilisés) pour éviter que des sorties inopportunes influencent la mesure.</p>
 <p>Il y a 2 formes de test:</p>
 <ul>
 <li>ceux sur des listes contenant 2 types nommés <code>x</code> et <code>_</code> et</li>
-<li>ceux sur des suites <code>i&lt;n&gt;</code> avec <code>n</code> un entier et <code>x</code>.</li>
+<li>ceux sur des suites <code>x</code> et <code>i&lt;n&gt;</code> avec <code>n</code> un entier.</li>
 </ul>
 <p>Pour chaque test, <code>T</code> représente <code>x</code> et il peut être présent ou non dans <code>Ts</code>.</p>
 <p>les valeurs de <code>Ts</code> sont présentées dans les légendes sous forme abrégée:</p>
 <ul>
 <li><code>[x*500]</code>: une liste de 500 <code>x</code>.</li>
 <li><code>[_*250, x, _*249]</code>: une liste de 250 <code>_</code>, suivit de <code>x</code> et d&rsquo;une liste de <code>249</code> <code>_</code>.</li>
-<li><code>[i{0..40}*150]</code>: uns suite de 150 <code>i0</code>, une autre de 150 <code>i1</code> et ainsi de suite jusqu'à <code>i40</code>.</li>
-<li><code>[i0..i{0..140}]</code>: une suite <code>[i0..i0]</code>, puis <code>[i0..i1]</code>, etc jusqu'à <code>[i0..i140]</code>.</li>
+<li><code>[i{0..40}*150]</code>: une suite de 150 <code>i0</code>, une autre de 150 <code>i1</code> et ainsi de suite jusqu&rsquo;à <code>i40</code>.</li>
+<li><code>[i0..i{0..140}]</code>: une suite <code>[i0..i0]</code>, puis <code>[i0..i1]</code>, etc jusqu&rsquo;à <code>[i0..i140]</code>.</li>
 <li><code>[i{0..n},x,i{n-(n..0)..n}];n=100</code>: les suites <code>[i{0..100},x,i{100..100}]</code>,  <code>[i{1..100},x,i{99..100}]</code>, etc</li>
 </ul>
 <p>Les sources se trouvent sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/mp_index_of">github</a>
  dans un même fichier cpp. Chacune des implémentations possède son propre namespace et des macros activent individuellement chaque test. <!-- raw HTML omitted --></p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/#relation-temps-de-compilation-et-mémoire"><h2 id="relation-temps-de-compilation-et-mémoire">Relation temps de compilation et mémoire</h2></a>
-<p>Dans du code utilisant la méta-programmation, le temps de compilation suit la même courbe que la mémoire. Plus une compilation est lente, plus la mémoire utilisée augmente allant jusqu'à saturation.</p>
+<p>Dans du code utilisant la méta-programmation, le temps de compilation suit la même courbe que la mémoire. Plus une compilation est lente, plus la mémoire utilisée augmente allant jusqu&rsquo;à saturation.</p>
 <p>Et la mémoire est fortement liée au nombre de types instanciés par le compilateur. Ici, il ne faut pas voir une instance comme une variable, mais comme la première création d&rsquo;un type. Par exemple, <code>index_of&lt;int, int&gt;</code> est une instance de type (ou d&rsquo;alias), <code>index_of&lt;int, int, int&gt;</code> une seconde instance, <code>index_of&lt;int, float&gt;</code> une troisième, etc. Chaque type construit s&rsquo;ajoute dans la mémoire du compilateur et l&rsquo;ensemble utilise de plus en plus de place. C&rsquo;est ainsi que le compilateur implémente naturellement la <a href="https://fr.wikipedia.org/wiki/M%C3%A9mo%C3%AFsation">mémoïsation</a> pour les templates.</p>
 <p>Pour réduire le temps de compilation, il faut donc réduire le nombre de type instancié.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/#la-récursivité"><h2 id="la-récursivité">La récursivité</h2></a>
-<p>La première chose qu&rsquo;on apprend avec les variadiques, c&rsquo;est que les boucles se font avec de la récursivité en enlevant un par un les éléments. C&rsquo;est une forme très facile à écrire et à comprendre, mais qui crée beaucoup de types intermédiaires à l&rsquo;intérieur du compilateur.</p>
+<p>La première chose qu&rsquo;on apprend avec les variadiques, c&rsquo;est que les boucles se font avec de la récursivité en enlevant un par un les éléments. C&rsquo;est une forme facile à écrire et à comprendre, mais qui crée beaucoup de types intermédiaires à l&rsquo;intérieur du compilateur.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_ternary</span>
 <span class="p">{</span>
@@ -2123,7 +2130,7 @@ note: penser à investir dans une porte plus solide
 <span class="p">}</span>
 </code></pre></div>
 
-<p>Une implémentation avec ternaire récursive comme on peut la trouver dans le fichier variant de libstdc++. Elle souffre d&rsquo;un léger problème: il y a autant d&rsquo;instance de <code>_index_of</code> que d'élément dans la liste, même si <code>T</code> se trouve en première position.</p>
+<p>Une implémentation avec ternaire récursive comme on peut la trouver dans le fichier variant de libstdc++. Elle souffre d&rsquo;un léger problème: il y a autant d&rsquo;instance de <code>_index_of</code> que d&rsquo;élément dans la liste, même si <code>T</code> se trouve en première position.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_indexed</span>
 <span class="p">{</span>
@@ -2174,11 +2181,11 @@ note: penser à investir dans une porte plus solide
 <p>Un mélange des 2 implémentations précédentes sans les inconvénients. En réalité, c&rsquo;est la forme la plus communément écrite.</p>
 <!-- raw HTML omitted -->
 <p><img src="/post/mp_index_of/rec_gcc_time.png" alt="duré de compilation avec gcc de 3 implémentations récursives"></p>
-<p>Sans surprise, sur les 3 premiers tests, la version avec ternaire est à peu près stable quelle que soit la position de <code>x</code>, même s&rsquo;il semble qu'évaluer la ternaire ralentisse un peu la compilation lorsque <code>x</code> se situe vers la fin.
+<p>Sans surprise, sur les 3 premiers tests, la version avec ternaire est à peu près stable quelle que soit la position de <code>x</code>, même s&rsquo;il semble qu&rsquo;évaluer la ternaire ralentisse un peu la compilation lorsque <code>x</code> se situe vers la fin.
 Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code>x</code> est au début pour rattraper progressivement la version ternaire. Sans que je sache l&rsquo;expliquer, la version avec index explose le compteur pour le test 3.</p>
-<p>Comme la courbe de progression pour la version récursive classique n&rsquo;est pas linéaire, je déduis que le nombre d'éléments dans un pack d&rsquo;argument influence le temps de compilation. Il y a ±600ms de différence pour parcourir les 700 premiers <code>_</code> contre seulement ±220ms pour les 700 restant. Cela peut se comprendre assez facilement, plus il y a de types dans la template, plus la création d&rsquo;un identifiant au sein du compilateur va prendre du temps.</p>
-<p>Le test 5 met clairement à défaut la version avec indice, car la mémoïsation ne s&rsquo;applique pas ici. Avec la version ternaire et récursive, lorsque le compilateur calcule la position d&rsquo;une liste de la forme <code>[0,1,2,3]</code>, il l&rsquo;a aussi fait pour <code>[1,2,3]</code>, <code>[2,3]</code> et <code>[3]</code> ce qui permet d'être très rapide lorsqu&rsquo;il tombe sur des valeurs déjà évaluées. Or, la version avec indice ajoute un élément qui empêche cela: <code>&lt;0, [0,1,2,3]&gt;</code> se déroule en <code>&lt;1, [1,2,3]&gt;</code>, <code>&lt;2, [2,3]&gt;</code> et <code>&lt;3, [3]&gt;</code> alors que <code>&lt;0, [0,1,2]&gt;</code> se déroule en <code>&lt;1, [1,2]&gt;</code> et <code>&lt;2, [2]&gt;</code>. Les suites sont différentes, le compilateur crée donc beaucoup plus de types intermédiaires ce qui ralentit la compilation.</p>
-<p>Dans l&rsquo;ensemble, l&rsquo;algorithme avec index est à éviter, car il montre qu&rsquo;une mauvaise mémoïsation ralentit fortement l'évaluation de template. Il faut également éviter la version ternaire au profil d&rsquo;une implémentation qui stoppe la récursivité pour ne pas faire de calcul inutile. Finalement, l&rsquo;algorithme de récursion classique est plus rapide dans tous les cas.</p>
+<p>Comme la courbe de progression pour la version récursive classique n&rsquo;est pas linéaire, je déduis que le nombre d&rsquo;éléments dans un pack d&rsquo;argument influence le temps de compilation. Il y a ±600ms de différence pour parcourir les 700 premiers <code>_</code> contre seulement ±220ms pour les 700 restant. Cela peut se comprendre assez facilement, plus il y a de types dans la template, plus la création d&rsquo;un identifiant au sein du compilateur va prendre du temps.</p>
+<p>Le test 5 met clairement à défaut la version avec indice, car la mémoïsation ne s&rsquo;applique pas ici. Avec la version ternaire et récursive, lorsque le compilateur calcule la position d&rsquo;une liste de la forme <code>[0,1,2,3]</code>, il l&rsquo;a aussi fait pour <code>[1,2,3]</code>, <code>[2,3]</code> et <code>[3]</code> ce qui permet d&rsquo;être très rapide lorsqu&rsquo;il tombe sur des valeurs déjà évaluées. Or, la version avec indice ajoute un élément qui empêche cela: <code>&lt;0, [0,1,2,3]&gt;</code> se déroule en <code>&lt;1, [1,2,3]&gt;</code>, <code>&lt;2, [2,3]&gt;</code> et <code>&lt;3, [3]&gt;</code> alors que <code>&lt;0, [0,1,2]&gt;</code> se déroule en <code>&lt;1, [1,2]&gt;</code> et <code>&lt;2, [2]&gt;</code>. Les suites sont différentes, le compilateur crée donc beaucoup plus de types intermédiaires ce qui ralentit la compilation.</p>
+<p>Dans l&rsquo;ensemble, l&rsquo;algorithme avec index est à éviter, car il montre qu&rsquo;une mauvaise mémoïsation ralentit fortement l&rsquo;évaluation de template. Il faut également éviter la version ternaire au profil d&rsquo;une implémentation qui stoppe la récursivité pour ne pas faire de calcul inutile. Finalement, l&rsquo;algorithme de récursion classique est plus rapide dans tous les cas.</p>
 <p>Ce qui est vrai pour Gcc, ne l&rsquo;est pas forcément pour Clang comme le montre le graphique ci-dessous.</p>
 <!-- raw HTML omitted -->
 <p><img src="/post/mp_index_of/rec_clang_time.png" alt="duré de compilation avec clang de 3 implémentations récursives"></p>
@@ -2246,7 +2253,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 
 <!-- raw HTML omitted -->
 <p><img src="/post/mp_index_of/rec_bool_gcc_time.png" alt="comparaison de temps de 3 implémentations qui font une transformation en booléan"></p>
-<p>Là où la version récursive était rapide, la transformation en une liste de booléan l&rsquo;est tout autant. Le bénéfice devient évident sur une grande variété de listes (test 4) et des listes homogènes (test 6) où le temps de compilation est réduit par 3.</p>
+<p>Là où la version récursive était rapide, la transformation en une liste de booléan l&rsquo;est tout autant. Le bénéfice devient évident sur une grande variété de listes (test 4) et des listes homogènes (test 6) où le temps de compilation est divisé par 3.</p>
 <p>L&rsquo;algorithme <code>recursive_bool2</code> spécialisé dans la recherche d&rsquo;un <code>std::true_type</code> permet de grappiller encore quelques millisecondes principalement grâce à une spécialisation de template en moins.</p>
 <p>À contrario, la version 3 qui manipule des booléens plutôt que des types est lente. Manipuler des types serait donc plus rapide que manipuler des valeurs dans les spécialisations. Le même comportement est présent dans Clang, même s&rsquo;il est moins prononcé.</p>
 <!-- raw HTML omitted -->
@@ -2305,7 +2312,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="p">}</span>
 </code></pre></div>
 
-<p>Et L'équivalent qui fait une transformation en liste de booléen avant:</p>
+<p>Et L&rsquo;équivalent qui fait une transformation en liste de booléen avant:</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">pack8_bool</span>
 <span class="p">{</span>
@@ -2350,7 +2357,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <!-- raw HTML omitted -->
 <p><img src="/post/mp_index_of/pack8_gcc_time.png" alt="duré de compilation avec gcc pour un algo récursive par pack de 8"></p>
 <p>Même lorsque la position de <code>x</code> est éloignée (test 2 et 3), les <code>pack8</code> sont efficaces. Si on prend la différence entre le test 1 et 2, et 2 et 3, il y a plus ou moins un facteur 8.</p>
-<p>Comme c'était le cas lorsqu&rsquo;on comparaît l&rsquo;algorithme <code>recursive</code> avec <code>recursive_bool</code>, <code>pack8_bool</code> est plus rapide que <code>pack8</code> lorsque le nombre de listes différentes augmente (test 5 et 7).</p>
+<p>Comme c&rsquo;était le cas lorsqu&rsquo;on comparaît l&rsquo;algorithme <code>recursive</code> avec <code>recursive_bool</code>, <code>pack8_bool</code> est plus rapide que <code>pack8</code> lorsque le nombre de listes différentes augmente (test 5 et 7).</p>
 <p>Le test 6 profite déjà d&rsquo;une mémoïsation optimale pour les 3 implémentations, même si <code>pack8_bool</code> est un chouia plus lent que les autres ici.</p>
 <p>Toutefois, la suprématie de <code>pack8_bool</code> par rapport à <code>pack8</code> est beaucoup plus ténue avec Clang.</p>
 <!-- raw HTML omitted -->
@@ -2795,7 +2802,7 @@ Le dernier élément est un cas spécial traité dans le <code>else</code> car, 
 Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre restreint de types, si la valeur de <code>impl_</code> ne correspond pas aux types qui précèdent le dernier, alors <code>impl_</code> est forcément du type du dernier élément.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#moi-jaime-pas-dynamic_cast"><h2 id="moi-jaime-pas-dynamic_cast">Moi j&rsquo;aime pas dynamic_cast</h2></a>
 <p><code>dynamic_cast</code> est souvent un signe révélateur d&rsquo;un problème de conception. Si on abstrait les valeurs, c&rsquo;est dans le but de ne pas se soucier du type de l&rsquo;implémentation. Or, un variant met le focus sur le type et rend caduque cette abstraction. Seulement, <code>dynamic_cast</code> a un coût d&rsquo;exécution exorbitant par rapport à la tâche qu&rsquo;il effectue ici.</p>
-<p>De ce fait, <code>dynamic_cast</code> n&rsquo;est pas une bonne solution, il est plus judicieux de conserver une information pour différencier les types. Comme un variant contient une liste d'éléments, l&rsquo;indice du type utilisé suffit amplement.</p>
+<p>De ce fait, <code>dynamic_cast</code> n&rsquo;est pas une bonne solution, il est plus judicieux de conserver une information pour différencier les types. Comme un variant contient une liste d&rsquo;éléments, l&rsquo;indice du type utilisé suffit amplement.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Variant</span>
 <span class="p">{</span>
   <span class="c1">// ...
@@ -2830,7 +2837,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div>
 
-<p><code>mp_index_of</code> est un alias sur <code>std::integral_constant</code>. L&rsquo;implémentation déroule récursivement les éléments de <code>Ts</code> jusqu'à trouver <code>T</code> et retourne le nombre d'éléments qu&rsquo;il reste dans la liste. Soustraire ce résultat à <code>sizeof...(Ts) - 1</code> permet d&rsquo;avoir la position de <code>T</code>.</p>
+<p><code>mp_index_of</code> est un alias sur <code>std::integral_constant</code>. L&rsquo;implémentation déroule récursivement les éléments de <code>Ts</code> jusqu&rsquo;à trouver <code>T</code> et retourne le nombre d&rsquo;éléments qu&rsquo;il reste dans la liste. Soustraire ce résultat à <code>sizeof...(Ts) - 1</code> permet d&rsquo;avoir la position de <code>T</code>.</p>
 <p>On met à jour l&rsquo;implémentation pour initialiser le nouveau membre.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
@@ -3007,7 +3014,7 @@ Le code final est plutôt gros alors je ne mets <a href="https://github.com/jona
 <li>l&rsquo;optimisation sur la taille de <code>type_index</code>,</li>
 <li>les différents moyens de remplacer une vtable (ici je n&rsquo;utilise que le if/else récursif),</li>
 <li>le coût d&rsquo;utilisation d&rsquo;un objet en fonction de sa nature (par exemple: le compilateur dévirtualise-t-il les fonctions virtuelles venant d&rsquo;un membre de variant ?)</li>
-<li>les unions récursives</li>
+<li>les variants récursives</li>
 <li>et bien d&rsquo;autres</li>
 </ul>
 <p>Les prochains articles seront davantage axés sur la méta-programmation et indirectement reliés avec certains aspects du variant présentés ici.</p>

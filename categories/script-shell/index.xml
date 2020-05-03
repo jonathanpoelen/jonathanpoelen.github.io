@@ -60,7 +60,7 @@ Le meilleur moyen d&amp;rsquo;accélérer un script est de passer par les builti
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2012/12/la-vis-cachee-de-getopt/</guid>
       <description>Voici une petite information très mal connue et peu utilisée du getopt de la lib C et de la commande shell. Ainsi que Boost.Program_options. Parce que boost c&amp;rsquo;est bien :p.
-Les noms des options longues n&amp;rsquo;ont pas besoin d&#39;être écrites entièrement.
+Les noms des options longues n&amp;rsquo;ont pas besoin d&amp;rsquo;être écrites entièrement.
 function parsecmd() { getopt -o &amp;#39;&amp;#39; --long \  option-longue,option-encore-plus-longue,une-autre-option: \  -n &amp;#39;example&amp;#39; -- &amp;#34;$@&amp;#34; } parsecmd --option-l --u plop bidule Donne
 --option-longue --une-autre-option &#39;plop&#39; -- &#39;bidule&#39; La commande shell getopt est un peu plus souple que les autres.</description>
     </item>
