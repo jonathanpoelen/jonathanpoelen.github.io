@@ -30,7 +30,7 @@ Au niveau des options de compilation, `-fsyntax-only` permet de vérifier la val
 Il y a 2 formes de test:
 
 - ceux sur des listes contenant 2 types nommés `x` et `_` et
-- ceux sur des suites `i<n>` avec `n` un entier et `x`.
+- ceux sur des suites `x` et `i<n>` avec `n` un entier.
 
 Pour chaque test, `T` représente `x` et il peut être présent ou non dans `Ts`.
 
@@ -38,7 +38,7 @@ les valeurs de `Ts` sont présentées dans les légendes sous forme abrégée:
 
 - `[x*500]`: une liste de 500 `x`.
 - `[_*250, x, _*249]`: une liste de 250 `_`, suivit de `x` et d'une liste de `249` `_`.
-- `[i{0..40}*150]`: uns suite de 150 `i0`, une autre de 150 `i1` et ainsi de suite jusqu'à `i40`.
+- `[i{0..40}*150]`: une suite de 150 `i0`, une autre de 150 `i1` et ainsi de suite jusqu'à `i40`.
 - `[i0..i{0..140}]`: une suite `[i0..i0]`, puis `[i0..i1]`, etc jusqu'à `[i0..i140]`.
 - `[i{0..n},x,i{n-(n..0)..n}];n=100`: les suites `[i{0..100},x,i{100..100}]`,  `[i{1..100},x,i{99..100}]`, etc
 
@@ -56,7 +56,7 @@ Pour réduire le temps de compilation, il faut donc réduire le nombre de type i
 
 ## La récursivité
 
-La première chose qu'on apprend avec les variadiques, c'est que les boucles se font avec de la récursivité en enlevant un par un les éléments. C'est une forme très facile à écrire et à comprendre, mais qui crée beaucoup de types intermédiaires à l'intérieur du compilateur.
+La première chose qu'on apprend avec les variadiques, c'est que les boucles se font avec de la récursivité en enlevant un par un les éléments. C'est une forme facile à écrire et à comprendre, mais qui crée beaucoup de types intermédiaires à l'intérieur du compilateur.
 
 {{<fhi "mp_index_of/mp_index_of1.cpp" recursive_ternary>}}
 
@@ -114,7 +114,7 @@ Et une autre version qui travaille sur des valeurs plutôt que des types pour v�
 <!-- ./gen_graphs.py compiler=g++ algo=recursive,recursive_bool\? legend='~[];~all;~[_*1400];~[_*700, x*700];~n*' -- rec_bool_gcc -->
 ![comparaison de temps de 3 implémentations qui font une transformation en booléan](/post/mp_index_of/rec_bool_gcc_time.png)
 
-Là où la version récursive était rapide, la transformation en une liste de booléan l'est tout autant. Le bénéfice devient évident sur une grande variété de listes (test 4) et des listes homogènes (test 6) où le temps de compilation est réduit par 3.
+Là où la version récursive était rapide, la transformation en une liste de booléan l'est tout autant. Le bénéfice devient évident sur une grande variété de listes (test 4) et des listes homogènes (test 6) où le temps de compilation est divisé par 3.
 
 L'algorithme `recursive_bool2` spécialisé dans la recherche d'un `std::true_type` permet de grappiller encore quelques millisecondes principalement grâce à une spécialisation de template en moins.
 

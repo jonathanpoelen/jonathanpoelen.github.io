@@ -149,7 +149,7 @@ Bien que le variant actuel soit incomplet, il est utilisable et proche des impl�
 - l'optimisation sur la taille de `type_index`,
 - les différents moyens de remplacer une vtable (ici je n'utilise que le if/else récursif),
 - le coût d'utilisation d'un objet en fonction de sa nature (par exemple: le compilateur dévirtualise-t-il les fonctions virtuelles venant d'un membre de variant ?)
-- les unions récursives
+- les variants récursives
 - et bien d'autres
 
 Les prochains articles seront davantage axés sur la méta-programmation et indirectement reliés avec certains aspects du variant présentés ici.

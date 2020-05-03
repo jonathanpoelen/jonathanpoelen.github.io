@@ -158,10 +158,17 @@ awk | zsh
     print s substr($0, length($1)+1)
   else
     print $0
-}{{</hi>}} | {{<hi zsh>}}declare -A colors=(erreur: 31 avertissement: 33 info: 35)
+}{{</hi>}} | {{<hi zsh>}}setopt extendedglob
+
+declare -A colors=(
+  erreur: 31
+  avertissement: 33
+  info: 35
+)
 declare -A colorized
+esc=$'\e'
 for k in ${(k)colors} ;
-  colorized+=($k "\033[$colors[$k]m$k\033[0m")
+  colorized+=($k "${esc}[$colors[$k]m$k${esc}[0m")
 
 echo -E ${(F)lines/(#m)(#s)[a-z]##:/${colorized[$MATCH]:-$MATCH}}{{</hi>}}
 
