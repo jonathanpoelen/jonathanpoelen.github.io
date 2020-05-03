@@ -72,15 +72,15 @@ Sauf qu'il existe aussi les images, les tableaux, les lecteurs vidéo et l'ensem
 Les exemples qui suivent sont faits avec une ligne de code qui ne fait pas de saut de ligne automatique.
 
 - S'adapter au plus grand.
-<!-- {{%fig "Une apparence sans défaut."%}}![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-normal.png){{%/fig%}} -->
-{{%fig "Débordement par la droite."%}}![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row.png){{%/fig%}}
-{{%fig "Débordement par la gauche. Le scroll disparaît. Au moins pour Firefox."%}}![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row-reverse.png){{%/fig%}}
+<!-- {{<img alt="Une apparence sans défaut." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-normal.png">}} -->
+{{<img alt="Débordement par la droite." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row.png">}}
+{{<img alt="Débordement par la gauche. Le scroll disparaît. Au moins pour Firefox." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row-reverse.png">}}
 - Compacter les éléments ou mettre dans un scroll.
-{{%fig "Un scroll alors qu'il y a de l'espace à droite."%}}![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-scroll.png){{%/fig%}}
+{{<img alt="Un scroll alors qu'il y a de l'espace à droite." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-scroll.png">}}
 - Cacher le surplus.
-{{%fig "Il n'y a plus moyen de lire le contenu qui déborde."%}}![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-hidden.png){{%/fig%}}
+{{<img alt="Il n'y a plus moyen de lire le contenu qui déborde." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-hidden.png">}}
 - Superposer les éléments.
-{{%fig "La partie droite cache une partie du contenu."%}}![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-above.png){{%/fig%}}
+{{<img alt="La partie droite cache une partie du contenu." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-above.png">}}
 
 Presque toutes ces images ont un point commun: un menu à droite. Ce n'est pas anodin, il est difficile d'avoir un menu à droite quand la partie gauche veut prendre sa place.
 
@@ -104,7 +104,7 @@ Comment parler du web sans un petit mot sur les liens ? Le point central de la n
 J'ai l'impression de faire partie des gens dont la souris est invariablement attirée par la rangée de pixels non cliquable en plein milieu d'un lien. C'est systématique lorsque celui-ci est sur plusieurs lignes. Tout indique que je suis dessus: la couleur de fond du cadre qui change, celle du texte, la petite décoration qui apparaît. Tout, sauf le pointeur de souris. Mais il y a tellement de changement autour que ce détail ne se voit même plus.
 <!-- Demande-moi de faire un gâteau, je te dirai que l'alarme incendie ne s'est pas déclenchée lorsque le four s'est enflammé. -->
 
-{{%fig "Clic... Clic ? Clic clic clic ! Comment ? Je ne suis pas dessus ?"%}}![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-multi-line.png){{%/fig%}}
+{{<img alt="Clic... Clic ? Clic clic clic ! Comment ? Je ne suis pas dessus ?" src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-multi-line.png">}}
 
 Arrive mon second fléau, déplacer suffisamment la souris pour être sur le lien. Mais pas trop, parce que ce foutu cadre qui change de couleur n'en fait pas partie non plus.
 
@@ -112,9 +112,9 @@ Le problème que je rencontre ici est récurant. Des changements de couleurs et 
 
 Quand un cadre contenant un lien change de couleur au passage de la souris, c'est une invitation au clic. Celui-ci se doit d'être cliquable pour répondre au principe de la moindre surprise. Bonus, cela élargit la surface de clic et rend par la même occasion le lien plus accessible.
 
-<!--{{%fig "Contre toute attente, la souris n'est pas sur le lien."%}}![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-bad.png){{%/fig%}}
+<!--{{<img alt="Contre toute attente, la souris n'est pas sur le lien." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-bad.png">}}
 VS.-->
-{{%fig "C'est quand même plus agréable lorsque le cadre est un lien."%}}![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-good.png){{%/fig%}}
+{{<img alt="C'est quand même plus agréable lorsque le cadre est un lien." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-good.png">}}
 
 Cette extension de la zone de clic est très présente sur le blog. Comme les espaces blancs décoratifs sur le menu qui font partie du lien. Il est possible en plein écran de plaquer le curseur à gauche et de pouvoir cliquer dessus. Ou par exemple les liens "Précédent" et "Suivant" en fin d'article qui prennent chacun une moitié de largeur de contenu. Ou encore les icônes de flux RSS qui possèdent une zone de clic réelle beaucoup plus grande que l'image. Chacun de ces éléments possède une zone de clic plus large pour simplifier la visée.
 
@@ -170,15 +170,15 @@ Concernant l'[empattement](https://fr.wikipedia.org/wiki/Empattement_\(typograph
 
 La couleur est un vecteur d'information aussi importante --voire plus-- que la forme. Par contre, il faut utiliser la couleur d'usage sur l'objet représenté au risque de perturber le lecteur.
 
-{{%fig "Perturbant, n'est-ce pas ?"%}}![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/ok-cancel.png){{%/fig%}}
+{{<img alt="Perturbant, n'est-ce pas ?" src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/ok-cancel.png">}}
 
 La couleur et les effets permettent également de distinguer les éléments entre eux. Par exemple, une légère ombre sur un bouton lui donne un relief qui le distingue d'un cadre lambda. Mais il faut savoir varier. Si je prends comme exemple les boutons sociaux, il est difficile d'en trouver un précisément lorsqu'ils sont tous de la même couleur.
 
-{{%fig "Y a-t-il ton réseau préféré ?"%}}![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-gray.png){{%/fig%}}
+{{<img alt="Y a-t-il ton réseau préféré ?" src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-gray.png">}}
 
 Alors que mettre la couleur habituellement utilisée par une marque permet de se focaliser presque sans effort dessus.
 
-{{%fig "Et maintenant ?"%}}![](/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-color.png){{%/fig%}}
+{{<img alt="Et maintenant ?" src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/social-color.png">}}
 
 Même si les couleurs du site sont banales, je me permets quelques remarques. Premièrement, il vaut mieux se restreindre à un nombre raisonnable de couleurs, mais suffisamment contrastées pour les dissocier. Trop de couleurs empêchent de hiérarchiser l'information, un contraste trop faible de dissocier les éléments ce qui rend illisible le texte.
 
