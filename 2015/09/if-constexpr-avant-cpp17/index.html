@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>if constexpr avant C&#43;&#43;17</title>
-<meta name="generator" content="Hugo 0.69.1" />
+<meta name="generator" content="Hugo 0.70.0" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.c7ead769ab22223ed3e0bf726768574d9f6473b1a634f77fa86e432306bbf029.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -53,7 +53,7 @@ Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
     <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
       <i class="fas fa-archive" aria-hidden="true"></i> Archives</a>
     </li>
-    <li class="menu__item"><a class="menu__link" title="Flux RSS" href="/index.xml">
+    <li class="menu__item"><a class="menu__link" type="application/rss+xml" title="Flux RSS" href="/post/index.xml">
       <i class="fas fa-rss" aria-hidden="true"></i> RSS</a>
     </li>
   </ul>
@@ -110,7 +110,7 @@ Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
   <div class="widget__content">
     <ul class="widget__list">
       <li class="widget__item">
-        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
+        <a class="rss-link" href="/categories/c&#43;&#43;/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
           &nbsp;
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
@@ -118,7 +118,7 @@ Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
         <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (26)</a>
       </li>
       <li class="widget__item">
-        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
+        <a class="rss-link" href="/categories/script-shell/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
           &nbsp;
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
@@ -126,7 +126,7 @@ Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
         <a class="widget__link" href="/categories/script-shell">Script-Shell (7)</a>
       </li>
       <li class="widget__item">
-        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilite-Web">
+        <a class="rss-link" href="/categories/accessibilite-web/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilite-Web">
           &nbsp;
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
@@ -134,7 +134,7 @@ Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
         <a class="widget__link" href="/categories/accessibilite-web">Accessibilite-Web (2)</a>
       </li>
       <li class="widget__item">
-        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
+        <a class="rss-link" href="/categories/javascript/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
           &nbsp;
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
@@ -142,7 +142,7 @@ Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
         <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
       </li>
       <li class="widget__item">
-        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
+        <a class="rss-link" href="/categories/zsh/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
           &nbsp;
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
@@ -150,7 +150,7 @@ Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
         <a class="widget__link" href="/categories/zsh">Zsh (2)</a>
       </li>
       <li class="widget__item">
-        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
+        <a class="rss-link" href="/categories/make/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
           &nbsp;
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
@@ -158,7 +158,7 @@ Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
         <a class="widget__link" href="/categories/make">Make (1)</a>
       </li>
       <li class="widget__item">
-        <a class="rss-link" href="/categories/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
+        <a class="rss-link" href="/categories/sqlite/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
           &nbsp;
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
@@ -355,8 +355,7 @@ me chargerai de les associer.</p>
     <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
     <p class="footer__copyright">
        Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
-      Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a>
-      et <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad theme</a>.
+      Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> et basé sur le thème <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a>.
       Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
       </span>
     </p>
