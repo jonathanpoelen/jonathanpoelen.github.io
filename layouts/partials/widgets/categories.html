@@ -6,13 +6,14 @@
   <div class="widget__content">
     <ul class="widget__list">
       {{- range $key, $value := .Site.Taxonomies.categories.ByCount }}
+      {{- $url := printf "%s%s" ("categories/" | relLangURL) ($value.Name | urlize | lower) }}
       <li class="widget__item">
-        <a class="rss-link" href="{{ "categories/index.xml" | relLangURL }}" type="application/rss+xml" title="Flux RSS pour {{ $value.Name | title }}">
+        <a class="rss-link" href="{{ $url }}/index.xml" type="application/rss+xml" title="Flux RSS pour {{ $value.Name | title }}">
           &nbsp;
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="{{ "categories/" | relLangURL }}{{ $value.Name | urlize | lower }}">{{ $value.Name | title }} ({{ $value.Count }})</a>
+        <a class="widget__link" href="{{ $url }}">{{ $value.Name | title }} ({{ $value.Count }})</a>
       </li>
       {{- end }}
     </ul>
