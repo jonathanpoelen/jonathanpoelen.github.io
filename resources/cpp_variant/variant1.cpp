@@ -121,12 +121,12 @@ int main()
   using MyVariant = Variant<int, char const*>;
   MyVariant v;
   v = MyVariant{3};
-  struct Visit{
+  struct Visitor {
     void operator()(int x) { std::cout << "int: " << x << '\n'; }
     void operator()(char const* x) { std::cout << "char*: " << x << '\n'; }
   };
-  v.visit(Visit{});
+  v.visit(Visitor{});
   v = "plop";
-  v.visit(Visit{});
+  v.visit(Visitor{});
 }
 //END test

@@ -47,7 +47,7 @@
 {{- end}}
 {{ template "_internal/google_analytics_async.html" . }}
 </head>
-<body class="body {{ if (.Site.Params.leftsidebar) or (.Params.leftsidebar) }}body-left-sidebar{{ else }}body-right-sidebar{{ end }} mobile" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+<body itemscope="itemscope" itemtype="http://schema.org/WebPage">
   <div id="avoidance-link">
     <a class="evitement" href="#main-content" title="Aller au contenu">Aller au contenu</a>
     <a class="evitement" href="#main-menu" title="Aller au menu">Aller au menu</a>

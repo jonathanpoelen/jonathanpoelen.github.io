@@ -395,6 +395,10 @@ select {
   clear: both;
 }
 
+.dimsep {
+  opacity: .4;
+}
+
 /*** Header ***/
 
 #avoidance-link {
@@ -406,9 +410,6 @@ select {
   display: inline-block;
   margin: 0px;
   padding: 2px 1em;
-}
-
-.logo {
 }
 
 .logo__link {
@@ -1342,13 +1343,13 @@ textarea {
     font-size: 1em;
   }
 
+	body .container {
+		width: 100%;
+	}
+
 	.container-outer {
 		margin: 0 auto;
 	}
-
-	.mobile .container {
-		width: 100%;
-  }
 
   .archives > div, .archives h1 {
     display: block;
@@ -1452,15 +1453,6 @@ textarea {
 		padding: 5px 0;
   }
 }
-
-/*@media screen and (max-width: 767px) {
-	.content, .sidebar, .body-right-sidebar .main-content,
-	.body-left-sidebar .main-content {
-		float: none;
-		width: 100%;
-		margin: 0;
-	}
-}*/
 
 @media screen and (max-width: 620px) {
   #toc {

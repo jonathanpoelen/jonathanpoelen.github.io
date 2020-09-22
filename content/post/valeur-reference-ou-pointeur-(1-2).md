@@ -73,7 +73,7 @@ operator+(BigInt a, const BigInt & b)
 }
 ```
 
-Car il y a [copy elision](http://en.cppreference.com/w/cpp/language/copy_elision) (c'est le même principe que la RVO mais pour les paramètres). (Voir aussi [ici et la réponse de Flob90](http://cpp.developpez.com/actu/53711/Operateur-d-affectation-copie-implicite-ou-explicite/).
+Car il y a [copy elision](http://en.cppreference.com/w/cpp/language/copy_elision) (c'est le même principe que la RVO mais pour les paramètres). Voir aussi [ici et la réponse de Flob90](http://cpp.developpez.com/actu/53711/Operateur-d-affectation-copie-implicite-ou-explicite/).
 
 
 ## Mais ça c'était avant...
@@ -182,7 +182,7 @@ Au final, bien qu'une référence fonctionne, seule une rvalue est pratique à l
 
 ## Quand les opérations ne sont pas connues
 
-Reste la dernière situation: les templates. Les règles sont les mêmes qu'avant mais si le rôle du paramètre n'est pas défini (comprendre la fonction ne fait rien d'autre qu'envoyer le paramètre à une autre fonction ou que le qualifier importe peu) les paramètres sont à prendre par référence universelle (`T&&` pour les template). À ce moment, toutes les utilisations de cette variable devraient se faire par l'intermédiaire de [std::forward](http://en.cppreference.com/w/cpp/utility/forward), même lorsqu'une fonction membre est utilisées (la faute au [qualificateur de référence sur fonction membre](http://en.cppreference.com/w/cpp/language/member_functions#const-.2C_volatile-.2C_and_ref-qualified_member_functions).
+Reste la dernière situation: les templates. Les règles sont les mêmes qu'avant mais si le rôle du paramètre n'est pas défini -- comprendre que la fonction ne fait rien d'autre qu'envoyer le paramètre à une autre fonction ou que le qualifier importe peu, -- les paramètres sont à prendre par référence universelle (`T&&` pour les template). À ce moment, toutes les utilisations de cette variable devraient se faire par l'intermédiaire de [std::forward](http://en.cppreference.com/w/cpp/utility/forward), même lorsqu'une fonction membre est utilisées (la faute au [qualificateur de référence sur fonction membre](http://en.cppreference.com/w/cpp/language/member_functions#const-.2C_volatile-.2C_and_ref-qualified_member_functions)).
 
 Toutefois, attention de ne pas déléguer plusieurs fois la responsabilité et de ne faire std::forward (et std::move) que sur la dernière utilisation de la variable.
 
