@@ -10,7 +10,7 @@
 {{- $rss := .OutputFormats.Get "RSS" }}
 {{- if $rss }}<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }} Feed" href="{{if eq .Title "Archives"}}/post/index.xml{{else}}{{ $rss.RelPermalink }}{{end}}" />{{ end }}
 {{ $style := resources.Get "css/style.css" | minify | fingerprint }}
-<link rel="stylesheet" type="text/css" media="all" href="{{ $style.Permalink }}">
+<link rel="stylesheet" type="text/css" media="all" href="{{ $style.RelPermalink }}">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="{{ "favicon.jpg" | relURL }}"/>
 <link rel="icon" sizes="32x32" href="{{ "favicon-32.jpg" | relURL }}" type="image/jpeg">
