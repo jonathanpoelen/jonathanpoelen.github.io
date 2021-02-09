@@ -239,13 +239,14 @@ Si aucune de ces fonctions n'est déclarée dans la classe, leur existance dépe
 
 À l'inverse, définir explicitement certaines fonctions va en désactiver d'autres. Il est nécessaire d'utiliser `=default` pour les réactiver.
 
-<sub>déclare<sub> / <sup>existe<sup> | default-ctor | copy-ctor | copy-assignment | move-ctor | move-assignment
-default-ctor                         |       ✓      |     ✓     |        ✓        |     ✓     |        ✓
-copy-ctor                            |              |     ✓     |        ✓        |           |
-copy-assignment                      |       ✓      |     ✓     |        ✓        |           |
-move-ctor                            |              |           |                 |     ✓     |
-move-assignment                      |       ✓      |           |                 |           |        ✓
-dtor                                 |       ✓      |     ✓     |        ✓        |           |
+<sub>déclare</sub> / <sup>existe</sup> | default-ctor | copy-ctor | copy-assignment | move-ctor | move-assignment
+-------------------------------------- | ------------ | --------- | --------------- | --------- | ---------------
+default-ctor                           |       ✓      |     ✓     |        ✓        |     ✓     |        ✓
+copy-ctor                              |              |     ✓     |        ✓        |           |
+copy-assignment                        |       ✓      |     ✓     |        ✓        |           |
+move-ctor                              |              |           |                 |     ✓     |
+move-assignment                        |       ✓      |           |                 |           |        ✓
+dtor                                   |       ✓      |     ✓     |        ✓        |           |
 
 À cela s'ajoute que le constructeur par défaut n'est plus définit en présence de n'importe quel autre constructeur (pas uniquement ceux de copie ou de déplacement).
 
