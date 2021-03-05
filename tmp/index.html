@@ -98,7 +98,7 @@ window.addEventListener('load', () => {
   if (urlColors) {
     const colors = urlColors.split(',');
     for (const i in colors) {
-      inputs[i].value = colors[i];
+      inputs[i].value = '#' + colors[i];
     }
   }  
 
@@ -106,7 +106,7 @@ window.addEventListener('load', () => {
   {
     const colors = new Array(inputs.length);
   	for(let i = 0; i < inputs.length; ++i) {
-        colors[i] = inputs[i].value;
+        colors[i] = inputs[i].value.substr(1);
     }
     const newurl = url.href.substr(0, url.href.length-url.search.length);
     permalink.href = `${newurl}?colors=${colors.join(',')}`;
