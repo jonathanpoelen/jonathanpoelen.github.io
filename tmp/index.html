@@ -49,6 +49,16 @@ body {
 window.addEventListener('load', () => {
   let inputs = document.getElementsByTagName('input');
 
+  const url = new URL(window.location.href);
+
+  const urlColors = url.searchParams.get('colors');
+  if (urlColors) {
+    const colors = urlColors.split(',');
+    for (const i in colors) {
+      inputs[i].value = '#' + colors[i];
+    }
+  }  
+
   const mklist = (cont) => {
     cont.className = 'col'
   	for(let i = 0; i < inputs.length; ++i) {
@@ -92,15 +102,6 @@ window.addEventListener('load', () => {
 
   inputs = document.getElementsByTagName('input');
   const permalink = document.getElementById('permalink');
-  const url = new URL(window.location.href);
-
-  const urlColors = url.searchParams.get('colors');
-  if (urlColors) {
-    const colors = urlColors.split(',');
-    for (const i in colors) {
-      inputs[i].value = '#' + colors[i];
-    }
-  }  
 
   function updatePermalink()
   {
