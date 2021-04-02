@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minimiser les copies dans operator&#43;</title>
-<meta name="generator" content="Hugo 0.74.3" />
+<meta name="generator" content="Hugo 0.78.2" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -304,7 +304,7 @@ Pour rigoler un peu, on ajoute une petite contrainte qui est &ldquo;l&rsquo;effi
   <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div><p>Résultat:</p>
-<div class="highlight-nocode"><pre class="chroma-nocode"><code>Matrix       a; Matrix       b;
+<pre><code>Matrix       a; Matrix       b;
 
 a            + b              Matrix operator+(Matrix, const Matrix&amp;)
 a            + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
@@ -334,7 +334,7 @@ a            + b              Matrix operator+(Matrix, const Matrix&amp;)
 a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
-</code></pre></div><p>Si on y tient vraiment, on peut ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">)</span>
+</code></pre><p>Si on y tient vraiment, on peut ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">)</span>
 </code></span>. Mais comme dit précédemment le besoin est très faible.</p>
 <a class="headline-hash" href="#un-prototype-multi-fonction"><h2 id="un-prototype-multi-fonction">Un prototype multi-fonction</h2></a>
 <p>Une autre solution pour la surcharge d&rsquo;opérateur est de ne faire qu&rsquo;un seul et unique prototype template qui s&rsquo;active en présence d&rsquo;un certain type. Ce n&rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.</p>

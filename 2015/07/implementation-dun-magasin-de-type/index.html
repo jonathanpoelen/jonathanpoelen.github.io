@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Implémentation d&#39;un magasin de type</title>
-<meta name="generator" content="Hugo 0.74.3" />
+<meta name="generator" content="Hugo 0.78.2" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -225,7 +225,7 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
 <p>L&rsquo;autre fois dans une fonction variadique qui distribue les valeurs vers différentes fonctions. Le but étant de ne pas se soucier de l&rsquo;ordre des paramètres, certains étant optionnels.</p>
 <p><code>std::tuple</code> fait plutôt bien le boulot, mais possède un énorme inconvénient pour ce cas de figure: aucune erreur de compilation si un type est présent 2 fois (et c&rsquo;est normal pour un tuple).</p>
 <a class="headline-hash" href="#planter-la-compilation-quand-un-type-est-en-doublon"><h2 id="planter-la-compilation-quand-un-type-est-en-doublon">Planter la compilation quand un type est en doublon</h2></a>
-<p>Le C++ dispose déjà d&rsquo;un mécanisme interne qui vérifie et hurle au scandale si un type doublon existe. J&rsquo;ai nommé l&rsquo;<strong>héritage</strong>.</p>
+<p>Le C++ dispose déjà d&rsquo;un mécanisme interne qui vérifie et hurle au scandale si un type doublon existe. J&rsquo;ai nommé l'<strong>héritage</strong>.</p>
 <p>Seulement, un héritage direct n&rsquo;est pas possible avec les types scalaires, il faut un intermédiaire.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">item</span> <span class="p">{</span> <span class="n">T</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
 

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Presque toujours std::move</title>
-<meta name="generator" content="Hugo 0.74.3" />
+<meta name="generator" content="Hugo 0.78.2" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -223,7 +223,7 @@ Rire sarcastique.">
 <p>Parce qu&rsquo;il est possible de &ldquo;déplacer&rdquo; les valeurs sans passer le constructeur !</p>
 <a class="headline-hash" href="#du-déplacement-sans-stdmove"><h2 id="du-déplacement-sans-stdmove">Du &ldquo;déplacement&rdquo; sans std::move</h2></a>
 <p>C&rsquo;est fort du roquefort ! Pas de constructeur, pas de <code>std::move</code>, mais un objet qui se déplace quand même. On croirait faire de la magie !</p>
-<p><code>std::move</code> va forcer l&rsquo;appel à un constructeur de déplacement alors que le compilateur a les moyens &ndash; et même l&rsquo;obligation &ndash; de le faire pour nous. Ou mieux, bypasser tous les constructeurs et mettre la valeur directement là où il faut. On parle d&rsquo;<a href="https://en.cppreference.com/w/cpp/language/copy_elision">élision par copie</a> ou de (N)RVO (Named Return Value Optimization). Sauf que <code>std::move</code> bloque ces optimisations.</p>
+<p><code>std::move</code> va forcer l&rsquo;appel à un constructeur de déplacement alors que le compilateur a les moyens &ndash; et même l&rsquo;obligation &ndash; de le faire pour nous. Ou mieux, bypasser tous les constructeurs et mettre la valeur directement là où il faut. On parle d'<a href="https://en.cppreference.com/w/cpp/language/copy_elision">élision par copie</a> ou de (N)RVO (Named Return Value Optimization). Sauf que <code>std::move</code> bloque ces optimisations.</p>
 <p>Dans le cas de l&rsquo;élision de copie, le compilateur construit directement les paramètres de type T (un type sans référence) lorsqu&rsquo;on utilise un temporaire.</p>
 <p>Avec <code>void foo(T)</code>, il faut faire <code>foo(T{...})</code> et non pas <code>foo(std::move(T({...})</code>. Comme on ne fait pas <code>T x = std::move(T{...})</code>, mais <code>T x = T{...}</code> (on peut faire <code>T x{}</code>, c&rsquo;est pour l&rsquo;exemple)</p>
 <p>Les temporaires peuvent aussi exister depuis l&rsquo;appel à une fonction qui retourne <code>T</code>.</p>

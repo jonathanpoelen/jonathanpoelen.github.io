@@ -8,11 +8,7 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Wed, 26 Jun 2013 11:05:28 +0100</lastBuildDate>
-    
-	<atom:link href="https://jonathanpoelen.github.io/categories/make/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 26 Jun 2013 11:05:28 +0100</lastBuildDate><atom:link href="https://jonathanpoelen.github.io/categories/make/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>make sans Makefile, utilisation des règles implicites</title>
       <link>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/</link>

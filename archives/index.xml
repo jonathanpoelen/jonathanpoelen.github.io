@@ -8,10 +8,6 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Fri, 14 Jul 2017 01:22:56 +0200</lastBuildDate>
-    
-	<atom:link href="https://jonathanpoelen.github.io/archives/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 14 Jul 2017 01:22:56 +0200</lastBuildDate><atom:link href="https://jonathanpoelen.github.io/archives/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

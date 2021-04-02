@@ -88,7 +88,6 @@ window.addEventListener('load', () => {
     const p = document.createElement('p');
     const input = inputs[0];
     const name = input.dataset['id'];
-    input.addEventListener('change', function(){ console.log('[lop')});
     input.dataset.id = name;
 
     p.appendChild(document.createTextNode(name+': '));
@@ -118,7 +117,7 @@ window.addEventListener('load', () => {
 
   jsColorPicker('input', {
     customBG: '#222',
-    readOnly: true,
+    readOnly: false,
     init: function(elm, colors) { // colors is a different instance (not connected to colorPicker)
       elm.style.backgroundColor = elm.value;
       elm.style.color = colors.rgbaMixCustom.luminance > 0.22 ? '#222' : '#ddd';

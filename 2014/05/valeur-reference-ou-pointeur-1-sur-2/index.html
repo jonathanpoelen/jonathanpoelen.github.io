@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valeur, référence ou pointeur ? (1/2)</title>
-<meta name="generator" content="Hugo 0.74.3" />
+<meta name="generator" content="Hugo 0.78.2" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -371,7 +371,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:
 <p>Ou, peut-être mieux, faire un objet <code>observable</code> tout pareil que <code>std::reference_wrapper</code>, mais avec constructeur explicite. L&rsquo;intérêt d&rsquo;utiliser l&rsquo;un des 2 objets cités et de focaliser l&rsquo;utilisateur sur l&rsquo;aspect &ldquo;j&rsquo;ai besoin que cette variable vive au moins aussi longtemps que moi&rdquo;.</p>
 <a class="headline-hash" href="#résumé"><h2 id="résumé">Résumé</h2></a>
 <ul>
-<li>Valeur pour les types fondamentaux (int, double, etc), ceux modifiés sans que l&rsquo;utilisateur n&rsquo;ai besoin de le savoir (ex: itérateurs ou premier paramètre de l&rsquo;opérateur &lsquo;+&rsquo;) ou les foncteur sans états (prédicats, comparateurs, &hellip;).</li>
+<li>Valeur pour les types fondamentaux (int, double, etc), ceux modifiés sans que l&rsquo;utilisateur n&rsquo;ai besoin de le savoir (ex: itérateurs ou premier paramètre de l&rsquo;opérateur &lsquo;+') ou les foncteur sans états (prédicats, comparateurs, &hellip;).</li>
 <li>Valeur + <code>std::move</code> quand l&rsquo;objet peut être déplacé (possède un move-ctor ou/et move-assign non trivial (ex: <code>std::string</code>, <code>std::vector</code>, &hellip;).</li>
 <li>Valeur pour les ressources non copiables à transférer (<code>std::unique_ptr</code>, &hellip;).</li>
 <li>Référence constante pour les paramètres en lecture seule ou ne disposant pas de move-ctor ou/et move-assign non trivial.</li>

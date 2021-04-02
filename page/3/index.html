@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.74.3" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.78.2" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -447,7 +447,7 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 <p>Ou, peut-être mieux, faire un objet <code>observable</code> tout pareil que <code>std::reference_wrapper</code>, mais avec constructeur explicite. L&rsquo;intérêt d&rsquo;utiliser l&rsquo;un des 2 objets cités et de focaliser l&rsquo;utilisateur sur l&rsquo;aspect &ldquo;j&rsquo;ai besoin que cette variable vive au moins aussi longtemps que moi&rdquo;.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/#résumé"><h2 id="résumé">Résumé</h2></a>
 <ul>
-<li>Valeur pour les types fondamentaux (int, double, etc), ceux modifiés sans que l&rsquo;utilisateur n&rsquo;ai besoin de le savoir (ex: itérateurs ou premier paramètre de l&rsquo;opérateur &lsquo;+&rsquo;) ou les foncteur sans états (prédicats, comparateurs, &hellip;).</li>
+<li>Valeur pour les types fondamentaux (int, double, etc), ceux modifiés sans que l&rsquo;utilisateur n&rsquo;ai besoin de le savoir (ex: itérateurs ou premier paramètre de l&rsquo;opérateur &lsquo;+') ou les foncteur sans états (prédicats, comparateurs, &hellip;).</li>
 <li>Valeur + <code>std::move</code> quand l&rsquo;objet peut être déplacé (possède un move-ctor ou/et move-assign non trivial (ex: <code>std::string</code>, <code>std::vector</code>, &hellip;).</li>
 <li>Valeur pour les ressources non copiables à transférer (<code>std::unique_ptr</code>, &hellip;).</li>
 <li>Référence constante pour les paramètres en lecture seule ou ne disposant pas de move-ctor ou/et move-assign non trivial.</li>
@@ -562,11 +562,11 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
   <span class="n">f2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="s">&#34;plop&#34;</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><p>Ce qui affiche:</p>
-<div class="highlight-nocode"><pre class="chroma-nocode"><code>1
+<pre><code>1
 2.4
 plop
 1, 2.4, plop
-</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#sans-récursivité"><h2 id="sans-récursivité">Sans récursivité</h2></a>
+</code></pre><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#sans-récursivité"><h2 id="sans-récursivité">Sans récursivité</h2></a>
 <p>Il existe cependant une autre façon de faire qui n&rsquo;utilise pas la récursivité. J&rsquo;ai découvert cette méthode sur le forum de openclassroms (<a href="http://fr.openclassrooms.com/forum/sujet/atelier-quiz-question-pour-un-champion-c?page=4">ce sujet, 10ème message</a>), elle est très astucieuse.</p>
 <p>Implémentée sous la forme d&rsquo;une macro cela donne:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#define UNPACK(...)                   \
@@ -850,7 +850,7 @@ Et surtout, 2 syntaxes différentes.</p>
 <p>Dans un contexte générique (typiquement des templates) et de maintient de code, 2 formes, ce n&rsquo;est pas acceptable.
 Il faudrait que <code>std::swap</code> soit utilisé si aucun <code>swap</code> spécialisé n&rsquo;existe.</p>
 <p>Pour ce, on &ldquo;déplace&rdquo; <code>std::swap</code> dans le scope courant avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">using</span>
-</code></span> et grâce l&rsquo;<a href="http://en.cppreference.com/w/cpp/language/adl">ADL (Argument-dependent lookup)</a>, le compilateur appellera la bonne fonction.</p>
+</code></span> et grâce l'<a href="http://en.cppreference.com/w/cpp/language/adl">ADL (Argument-dependent lookup)</a>, le compilateur appellera la bonne fonction.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
@@ -1119,7 +1119,7 @@ coproc bc 2&gt;<span class="p">&amp;</span><span class="m">1</span>
   <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> <span class="p">|</span> bc
 <span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
 </code></pre></div><p>À tester avec par exemple un fichier de calcul comme celui-ci:</p>
-<div class="highlight-nocode"><pre class="chroma-nocode"><code>2+3
+<pre><code>2+3
 2+3*9
 23*9
 23s*9
@@ -1277,7 +1277,7 @@ Le type de <code>r</code> est donc bien une référence sur un entier non-consta
 <p>Ou pas. Car <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
 </code></span> est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête <code>&lt;new&gt;</code> un type (<code>std::nothrow_t</code>) et une variable (<code>std::nothrow</code>) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">);</span>
-</code></pre></div></div><p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparement.</p>
+</code></pre></div><p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparement.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allouer-de-la-mémoire"><h2 id="allouer-de-la-mémoire">Allouer de la mémoire</h2></a>
 <p>Comme on veut juste réserver un espace mémoire, <code>malloc()</code> peut suffire, mais prenons les bonnes habitudes, utilisons la fonction <a href="http://en.cppreference.com/w/cpp/memory/new/operator_new">::operator new()</a> !</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">));</span>

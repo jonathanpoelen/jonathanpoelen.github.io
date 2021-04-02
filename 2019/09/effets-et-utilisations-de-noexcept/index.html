@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Effets et utilisations de noexcept</title>
-<meta name="generator" content="Hugo 0.74.3" />
+<meta name="generator" content="Hugo 0.78.2" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -21,9 +21,9 @@
 <meta property="twitter:card" content="summary">
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/">
 <meta property="twitter:title" content="Effets et utilisations de noexcept">
-<meta name="description" content="Fonction noexcept noexcept est un mot clef apparu en C&#43;&#43;11. Dans le prototype d&rsquo;une fonction, il indique que cette dernière ne jette pas d&rsquo;exception. Cela ne veut pas dire qu&rsquo;aucune exception ne sera présente dans la fonction, mais qu&rsquo;aucune exception ne sortira de la fonction. Dans le cas contraire, le programme s&rsquo;arrête subitement avec un appel à std::terminate.
+<meta name="description" content="Fonction noexcept noexcept est un mot clef apparu en C&#43;&#43;11. Dans le prototype d&rsquo;une fonction, il indique que cette dernière ne jette pas d&rsquo;exception. Cela ne veut pas dire qu&rsquo;aucune exception ne sera présente dans la fonction, mais qu&#39;aucune exception ne sortira de la fonction. Dans le cas contraire, le programme s&rsquo;arrête subitement avec un appel à std::terminate.
 noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il est tout à fait possible d&rsquo;utiliser des fonctions qui ne sont pas marquées noexcept à l&rsquo;intérieur d&rsquo;une fonction noexcept, voire, de jeter des exceptions.">
-<meta property="twitter:description" content="Fonction noexcept noexcept est un mot clef apparu en C&#43;&#43;11. Dans le prototype d&rsquo;une fonction, il indique que cette dernière ne jette pas d&rsquo;exception. Cela ne veut pas dire qu&rsquo;aucune exception ne sera présente dans la fonction, mais qu&rsquo;aucune exception ne sortira de la fonction. Dans le cas contraire, le programme s&rsquo;arrête subitement avec un appel à std::terminate.
+<meta property="twitter:description" content="Fonction noexcept noexcept est un mot clef apparu en C&#43;&#43;11. Dans le prototype d&rsquo;une fonction, il indique que cette dernière ne jette pas d&rsquo;exception. Cela ne veut pas dire qu&rsquo;aucune exception ne sera présente dans la fonction, mais qu&#39;aucune exception ne sortira de la fonction. Dans le cas contraire, le programme s&rsquo;arrête subitement avec un appel à std::terminate.
 noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il est tout à fait possible d&rsquo;utiliser des fonctions qui ne sont pas marquées noexcept à l&rsquo;intérieur d&rsquo;une fonction noexcept, voire, de jeter des exceptions.">
 
 </head>
@@ -221,7 +221,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 </nav>
         </div></aside>
       <a class="headline-hash" href="#fonction-noexcept"><h2 id="fonction-noexcept">Fonction noexcept</h2></a>
-<p><code>noexcept</code> est un mot clef apparu en C++11. Dans le prototype d&rsquo;une fonction, il indique que cette dernière ne jette pas d&rsquo;exception. Cela ne veut pas dire qu&rsquo;aucune exception ne sera présente dans la fonction, mais qu&rsquo;<strong>aucune exception ne sortira</strong> de la fonction. Dans le cas contraire, le programme s&rsquo;arrête subitement avec un appel à <a href="https://en.cppreference.com/w/cpp/error/terminate"><code>std::terminate</code></a>.</p>
+<p><code>noexcept</code> est un mot clef apparu en C++11. Dans le prototype d&rsquo;une fonction, il indique que cette dernière ne jette pas d&rsquo;exception. Cela ne veut pas dire qu&rsquo;aucune exception ne sera présente dans la fonction, mais qu'<strong>aucune exception ne sortira</strong> de la fonction. Dans le cas contraire, le programme s&rsquo;arrête subitement avec un appel à <a href="https://en.cppreference.com/w/cpp/error/terminate"><code>std::terminate</code></a>.</p>
 <p><code>noexcept</code> n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il est tout à fait possible d&rsquo;utiliser des fonctions qui ne sont pas marquées <code>noexcept</code> à l&rsquo;intérieur d&rsquo;une fonction <code>noexcept</code>, voire, de jeter des exceptions. La seule contrainte se trouve sur le chemin de sortie: il ne doit pas se faire avec une exception.</p>
 <p>Voici un code totalement inutile de démonstration avec une exception qui traverse une fonction <code>foo()</code> marquée <code>noexcept</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span>
@@ -312,7 +312,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 </tr>
 </tbody>
 </table>
-<p>Pronostic vérifié. On peut même regarder l&rsquo;<a href="https://godbolt.org/z/xBmjdI">assembleur sur godbolt</a> pour s&rsquo;en convaincre.</p>
+<p>Pronostic vérifié. On peut même regarder l'<a href="https://godbolt.org/z/xBmjdI">assembleur sur godbolt</a> pour s&rsquo;en convaincre.</p>
 <p>Voici un second exemple plus simple qui montre que le compilateur supprime totalement la gestion des exceptions lorsqu&rsquo;il lui est permis de le faire.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
 </span><span class="cp"></span>
@@ -360,7 +360,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 <a class="headline-hash" href="#quand-mettre-noexcept"><h2 id="quand-mettre-noexcept">Quand mettre noexcept</h2></a>
 <p>Déjà, on peut dire qu&rsquo;une fonction qui ne lance absolument pas d&rsquo;exception peut être <code>noexcept</code>. Cette information est surtout utile dans les APIs ou bibliothèques qui ont cette garantie. Un analyseur statique pourrait aussi vérifier qu&rsquo;aucune exception ne la traverse. Dans le cas contraire, c&rsquo;est plutôt risqué.</p>
 <p>Néanmoins, <code>noexcept</code> est vraiment important sur les constructeurs déplacement.</p>
-<p>Pour être plus précis, conjointement avec les conteneurs de la STL, cela va déterminer si le conteneur utilise ou non le déplacement. Si la fonction est <code>noexcept</code>, le déplacement d&rsquo;un élément ne peut pas échouer. Dans le cas d&rsquo;un <code>std::vector&lt;T&gt;</code>, cela veut dire qu&rsquo;après un agrandissement de la capacité, tous les éléments peuvent être déplacés sans échec. Par contre, si le déplacement lance une exception, une partie des données pourrait se perdre et <code>std::vector</code> utilise alors la copie. On parle de résistance aux exceptions ou d&rsquo;<a href="https://en.wikipedia.org/wiki/Exception_guarantees">exception-safety</a>. Dans le cas de <code>std::vector</code>, c&rsquo;est une garantie forte: l&rsquo;état du vector est inchangé s&rsquo;il y a une exception sur l&rsquo;augmentation de la capacité. Pour en savoir un peu plus sur l&rsquo;exception-safety, c&rsquo;est <a href="https://www.boost.org/community/exception_safety.html">par là</a>.</p>
+<p>Pour être plus précis, conjointement avec les conteneurs de la STL, cela va déterminer si le conteneur utilise ou non le déplacement. Si la fonction est <code>noexcept</code>, le déplacement d&rsquo;un élément ne peut pas échouer. Dans le cas d&rsquo;un <code>std::vector&lt;T&gt;</code>, cela veut dire qu&rsquo;après un agrandissement de la capacité, tous les éléments peuvent être déplacés sans échec. Par contre, si le déplacement lance une exception, une partie des données pourrait se perdre et <code>std::vector</code> utilise alors la copie. On parle de résistance aux exceptions ou d'<a href="https://en.wikipedia.org/wiki/Exception_guarantees">exception-safety</a>. Dans le cas de <code>std::vector</code>, c&rsquo;est une garantie forte: l&rsquo;état du vector est inchangé s&rsquo;il y a une exception sur l&rsquo;augmentation de la capacité. Pour en savoir un peu plus sur l&rsquo;exception-safety, c&rsquo;est <a href="https://www.boost.org/community/exception_safety.html">par là</a>.</p>
 <p>Pour illustrer l&rsquo;influence de <code>noexcept</code> avec std::vector, voici une petite classe qui affiche quel constructeur est utilisé. Le constructeur de déplacement est toujours présent, seule la présence de <code>noexcept</code> diffère.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span>

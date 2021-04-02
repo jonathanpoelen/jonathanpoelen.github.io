@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.74.3" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.78.2" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -475,7 +475,7 @@
 </span><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">foo</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
 </code></pre></div><p>On peut même ajouter autant de paramètres que nécessaire pour avoir une chaîne de priorité. Par exemple, on pourrait faire une fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">front</span><span class="p">()</span>
 </code></span> qui utilise en priorité la fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">front</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span>
-</code></span> dans le namespace de l&rsquo;objet (règles d&rsquo;<a href="https://en.cppreference.com/w/cpp/language/adl">ADL</a>), sinon <code>cont.front()</code> et en dernier recours <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">*</span><span class="n">begin</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span>
+</code></span> dans le namespace de l&rsquo;objet (règles d'<a href="https://en.cppreference.com/w/cpp/language/adl">ADL</a>), sinon <code>cont.front()</code> et en dernier recours <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">*</span><span class="n">begin</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span>
 </code></span>.</p>
 
   <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp">
@@ -696,7 +696,7 @@
   </header>
   <div class="post__content">
       <a class="headline-hash" href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#fonction-noexcept"><h2 id="fonction-noexcept">Fonction noexcept</h2></a>
-<p><code>noexcept</code> est un mot clef apparu en C++11. Dans le prototype d&rsquo;une fonction, il indique que cette dernière ne jette pas d&rsquo;exception. Cela ne veut pas dire qu&rsquo;aucune exception ne sera présente dans la fonction, mais qu&rsquo;<strong>aucune exception ne sortira</strong> de la fonction. Dans le cas contraire, le programme s&rsquo;arrête subitement avec un appel à <a href="https://en.cppreference.com/w/cpp/error/terminate"><code>std::terminate</code></a>.</p>
+<p><code>noexcept</code> est un mot clef apparu en C++11. Dans le prototype d&rsquo;une fonction, il indique que cette dernière ne jette pas d&rsquo;exception. Cela ne veut pas dire qu&rsquo;aucune exception ne sera présente dans la fonction, mais qu'<strong>aucune exception ne sortira</strong> de la fonction. Dans le cas contraire, le programme s&rsquo;arrête subitement avec un appel à <a href="https://en.cppreference.com/w/cpp/error/terminate"><code>std::terminate</code></a>.</p>
 <p><code>noexcept</code> n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il est tout à fait possible d&rsquo;utiliser des fonctions qui ne sont pas marquées <code>noexcept</code> à l&rsquo;intérieur d&rsquo;une fonction <code>noexcept</code>, voire, de jeter des exceptions. La seule contrainte se trouve sur le chemin de sortie: il ne doit pas se faire avec une exception.</p>
 <p>Voici un code totalement inutile de démonstration avec une exception qui traverse une fonction <code>foo()</code> marquée <code>noexcept</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span>
@@ -787,7 +787,7 @@
 </tr>
 </tbody>
 </table>
-<p>Pronostic vérifié. On peut même regarder l&rsquo;<a href="https://godbolt.org/z/xBmjdI">assembleur sur godbolt</a> pour s&rsquo;en convaincre.</p>
+<p>Pronostic vérifié. On peut même regarder l'<a href="https://godbolt.org/z/xBmjdI">assembleur sur godbolt</a> pour s&rsquo;en convaincre.</p>
 <p>Voici un second exemple plus simple qui montre que le compilateur supprime totalement la gestion des exceptions lorsqu&rsquo;il lui est permis de le faire.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
 </span><span class="cp"></span>
@@ -835,7 +835,7 @@
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#quand-mettre-noexcept"><h2 id="quand-mettre-noexcept">Quand mettre noexcept</h2></a>
 <p>Déjà, on peut dire qu&rsquo;une fonction qui ne lance absolument pas d&rsquo;exception peut être <code>noexcept</code>. Cette information est surtout utile dans les APIs ou bibliothèques qui ont cette garantie. Un analyseur statique pourrait aussi vérifier qu&rsquo;aucune exception ne la traverse. Dans le cas contraire, c&rsquo;est plutôt risqué.</p>
 <p>Néanmoins, <code>noexcept</code> est vraiment important sur les constructeurs déplacement.</p>
-<p>Pour être plus précis, conjointement avec les conteneurs de la STL, cela va déterminer si le conteneur utilise ou non le déplacement. Si la fonction est <code>noexcept</code>, le déplacement d&rsquo;un élément ne peut pas échouer. Dans le cas d&rsquo;un <code>std::vector&lt;T&gt;</code>, cela veut dire qu&rsquo;après un agrandissement de la capacité, tous les éléments peuvent être déplacés sans échec. Par contre, si le déplacement lance une exception, une partie des données pourrait se perdre et <code>std::vector</code> utilise alors la copie. On parle de résistance aux exceptions ou d&rsquo;<a href="https://en.wikipedia.org/wiki/Exception_guarantees">exception-safety</a>. Dans le cas de <code>std::vector</code>, c&rsquo;est une garantie forte: l&rsquo;état du vector est inchangé s&rsquo;il y a une exception sur l&rsquo;augmentation de la capacité. Pour en savoir un peu plus sur l&rsquo;exception-safety, c&rsquo;est <a href="https://www.boost.org/community/exception_safety.html">par là</a>.</p>
+<p>Pour être plus précis, conjointement avec les conteneurs de la STL, cela va déterminer si le conteneur utilise ou non le déplacement. Si la fonction est <code>noexcept</code>, le déplacement d&rsquo;un élément ne peut pas échouer. Dans le cas d&rsquo;un <code>std::vector&lt;T&gt;</code>, cela veut dire qu&rsquo;après un agrandissement de la capacité, tous les éléments peuvent être déplacés sans échec. Par contre, si le déplacement lance une exception, une partie des données pourrait se perdre et <code>std::vector</code> utilise alors la copie. On parle de résistance aux exceptions ou d'<a href="https://en.wikipedia.org/wiki/Exception_guarantees">exception-safety</a>. Dans le cas de <code>std::vector</code>, c&rsquo;est une garantie forte: l&rsquo;état du vector est inchangé s&rsquo;il y a une exception sur l&rsquo;augmentation de la capacité. Pour en savoir un peu plus sur l&rsquo;exception-safety, c&rsquo;est <a href="https://www.boost.org/community/exception_safety.html">par là</a>.</p>
 <p>Pour illustrer l&rsquo;influence de <code>noexcept</code> avec std::vector, voici une petite classe qui affiche quel constructeur est utilisé. Le constructeur de déplacement est toujours présent, seule la présence de <code>noexcept</code> diffère.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span>
@@ -1198,7 +1198,7 @@
 </tr>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">*<span class="o">(</span>...<span class="o">)</span></code></span></td>
-<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">(</span>...<span class="o">)</span>#</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="o">(</span>...<span class="o">)</span><span class="c1">#</span></code></span></td>
 </tr>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">+<span class="o">(</span>...<span class="o">)</span></code></span></td>
@@ -1549,7 +1549,7 @@ note: penser à investir dans une porte plus solide
 <p>Parce qu&rsquo;il est possible de &ldquo;déplacer&rdquo; les valeurs sans passer le constructeur !</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/#du-déplacement-sans-stdmove"><h2 id="du-déplacement-sans-stdmove">Du &ldquo;déplacement&rdquo; sans std::move</h2></a>
 <p>C&rsquo;est fort du roquefort ! Pas de constructeur, pas de <code>std::move</code>, mais un objet qui se déplace quand même. On croirait faire de la magie !</p>
-<p><code>std::move</code> va forcer l&rsquo;appel à un constructeur de déplacement alors que le compilateur a les moyens &ndash; et même l&rsquo;obligation &ndash; de le faire pour nous. Ou mieux, bypasser tous les constructeurs et mettre la valeur directement là où il faut. On parle d&rsquo;<a href="https://en.cppreference.com/w/cpp/language/copy_elision">élision par copie</a> ou de (N)RVO (Named Return Value Optimization). Sauf que <code>std::move</code> bloque ces optimisations.</p>
+<p><code>std::move</code> va forcer l&rsquo;appel à un constructeur de déplacement alors que le compilateur a les moyens &ndash; et même l&rsquo;obligation &ndash; de le faire pour nous. Ou mieux, bypasser tous les constructeurs et mettre la valeur directement là où il faut. On parle d'<a href="https://en.cppreference.com/w/cpp/language/copy_elision">élision par copie</a> ou de (N)RVO (Named Return Value Optimization). Sauf que <code>std::move</code> bloque ces optimisations.</p>
 <p>Dans le cas de l&rsquo;élision de copie, le compilateur construit directement les paramètres de type T (un type sans référence) lorsqu&rsquo;on utilise un temporaire.</p>
 <p>Avec <code>void foo(T)</code>, il faut faire <code>foo(T{...})</code> et non pas <code>foo(std::move(T({...})</code>. Comme on ne fait pas <code>T x = std::move(T{...})</code>, mais <code>T x = T{...}</code> (on peut faire <code>T x{}</code>, c&rsquo;est pour l&rsquo;exemple)</p>
 <p>Les temporaires peuvent aussi exister depuis l&rsquo;appel à une fonction qui retourne <code>T</code>.</p>
@@ -2677,7 +2677,7 @@ Il n&rsquo;y a pas de comportement commun, les traitements se feront en fonction
 </ul>
 
 <div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> <p>L&rsquo;implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l&rsquo;exemple à ne pas suivre.
-Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l&rsquo;<em>idéal</em> du variant.</p>
+Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l'<em>idéal</em> du variant.</p>
 </p></div>
 
 <p>Comme le type change en cours de route, nous allons utiliser en interne une classe de base qui pour chaque dérivée va contenir le type réel.

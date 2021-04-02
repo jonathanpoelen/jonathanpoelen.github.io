@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.74.3" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.78.2" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -312,7 +312,7 @@ Pour prendre en exemple le blog, sur l&rsquo;ancien (blogspot) les archives sont
 <!-- raw HTML omitted -->
 <p>Étrangement, il n&rsquo;y a que sur internet où la taille est redéfinie. Sur une application de bureau personne ne s&rsquo;en occupe et les polices et tailles configurées au niveau du système sont utilisées automatiquement pour les différents types d&rsquo;éléments (titre, paragraphe, police monospace, etc).</p>
 <p>Il est également possible d&rsquo;utiliser les polices configurées au niveau du navigateur via leur <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family#Values">nom générique</a>, les principales étant <code>serif</code>, <code>sans-serif</code> et <code>monospace</code>.</p>
-<p>Concernant l&rsquo;<a href="https://fr.wikipedia.org/wiki/Empattement_(typographie)">empattement</a> (serif ou sans-serif), j&rsquo;en suis venu à la conclusion qu&rsquo;une police sans empattement est plus lisible sur un écran. Peut-être à cause de la petitesse des lettres qui &ldquo;charge&rdquo; visuellement les glyphes. Ou Le rétro-éclairage, je ne sais pas.</p>
+<p>Concernant l'<a href="https://fr.wikipedia.org/wiki/Empattement_(typographie)">empattement</a> (serif ou sans-serif), j&rsquo;en suis venu à la conclusion qu&rsquo;une police sans empattement est plus lisible sur un écran. Peut-être à cause de la petitesse des lettres qui &ldquo;charge&rdquo; visuellement les glyphes. Ou Le rétro-éclairage, je ne sais pas.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/#le-pouvoir-de-la-couleur"><h2 id="le-pouvoir-de-la-couleur">Le pouvoir de la couleur</h2></a>
 <p>La couleur est un vecteur d&rsquo;information aussi importante &ndash;voire plus&ndash; que la forme. Par contre, il faut utiliser la couleur d&rsquo;usage sur l&rsquo;objet représenté au risque de perturber le lecteur.</p>
 <div class="figure"><figure>
@@ -595,7 +595,7 @@ Et comme la page d&rsquo;accueil contient plusieurs articles, la taille du scrol
   <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div><p>Résultat:</p>
-<div class="highlight-nocode"><pre class="chroma-nocode"><code>Matrix       a; Matrix       b;
+<pre><code>Matrix       a; Matrix       b;
 
 a            + b              Matrix operator+(Matrix, const Matrix&amp;)
 a            + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
@@ -625,7 +625,7 @@ a            + b              Matrix operator+(Matrix, const Matrix&amp;)
 a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
-</code></pre></div><p>Si on y tient vraiment, on peut ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">)</span>
+</code></pre><p>Si on y tient vraiment, on peut ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">)</span>
 </code></span>. Mais comme dit précédemment le besoin est très faible.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#un-prototype-multi-fonction"><h2 id="un-prototype-multi-fonction">Un prototype multi-fonction</h2></a>
 <p>Une autre solution pour la surcharge d&rsquo;opérateur est de ne faire qu&rsquo;un seul et unique prototype template qui s&rsquo;active en présence d&rsquo;un certain type. Ce n&rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.</p>
@@ -1220,7 +1220,7 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
 <p>L&rsquo;autre fois dans une fonction variadique qui distribue les valeurs vers différentes fonctions. Le but étant de ne pas se soucier de l&rsquo;ordre des paramètres, certains étant optionnels.</p>
 <p><code>std::tuple</code> fait plutôt bien le boulot, mais possède un énorme inconvénient pour ce cas de figure: aucune erreur de compilation si un type est présent 2 fois (et c&rsquo;est normal pour un tuple).</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/#planter-la-compilation-quand-un-type-est-en-doublon"><h2 id="planter-la-compilation-quand-un-type-est-en-doublon">Planter la compilation quand un type est en doublon</h2></a>
-<p>Le C++ dispose déjà d&rsquo;un mécanisme interne qui vérifie et hurle au scandale si un type doublon existe. J&rsquo;ai nommé l&rsquo;<strong>héritage</strong>.</p>
+<p>Le C++ dispose déjà d&rsquo;un mécanisme interne qui vérifie et hurle au scandale si un type doublon existe. J&rsquo;ai nommé l'<strong>héritage</strong>.</p>
 <p>Seulement, un héritage direct n&rsquo;est pas possible avec les types scalaires, il faut un intermédiaire.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">item</span> <span class="p">{</span> <span class="n">T</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
 
@@ -1384,9 +1384,9 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
   <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">i</span> <span class="p">:</span> <span class="n">l</span><span class="p">)</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div><p>Résultats:</p>
-<div class="highlight-nocode"><pre class="chroma-nocode"><code>2 4 6
+<pre><code>2 4 6
 2 4 6
-</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/#implémentation-avec-sizeof-pre-c11"><h2 id="implémentation-avec-sizeof-pre-c11">implémentation avec sizeof (pre-C++11)</h2></a>
+</code></pre><a class="headline-hash" href="https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/#implémentation-avec-sizeof-pre-c11"><h2 id="implémentation-avec-sizeof-pre-c11">implémentation avec sizeof (pre-C++11)</h2></a>
 <p>J&rsquo;ai indiqué qu&rsquo;il été possible d&rsquo;utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span>
 </code></span> à la place de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span>
 </code></span>. Voici comment:</p>

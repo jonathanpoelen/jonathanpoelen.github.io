@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SFINAE</title>
-<meta name="generator" content="Hugo 0.74.3" />
+<meta name="generator" content="Hugo 0.78.2" />
 
 <link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -494,7 +494,7 @@ Pour comprendre pleinement le mécanisme derrière, il faut assimiler le princip
 </span><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">foo</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
 </code></pre></div><p>On peut même ajouter autant de paramètres que nécessaire pour avoir une chaîne de priorité. Par exemple, on pourrait faire une fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">front</span><span class="p">()</span>
 </code></span> qui utilise en priorité la fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">front</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span>
-</code></span> dans le namespace de l&rsquo;objet (règles d&rsquo;<a href="https://en.cppreference.com/w/cpp/language/adl">ADL</a>), sinon <code>cont.front()</code> et en dernier recours <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">*</span><span class="n">begin</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span>
+</code></span> dans le namespace de l&rsquo;objet (règles d'<a href="https://en.cppreference.com/w/cpp/language/adl">ADL</a>), sinon <code>cont.front()</code> et en dernier recours <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">*</span><span class="n">begin</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span>
 </code></span>.</p>
 
   <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp">
