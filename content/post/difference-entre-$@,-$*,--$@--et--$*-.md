@@ -29,7 +29,7 @@ for v in $a ; do
 done
 ```
 
-```
+```sh
 > a
 > b
 > c
