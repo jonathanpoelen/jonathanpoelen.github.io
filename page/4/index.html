@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.78.2" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.83.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -512,7 +512,7 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 
 parsecmd --option-l --u plop bidule
 </code></pre></div><p>Donne</p>
-<pre><code>--option-longue --une-autre-option 'plop' -- 'bidule'
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>--option-longue --une-autre-option 'plop' -- 'bidule'
 </code></pre><p>La commande shell <code>getopt</code> est un peu plus souple que les autres. Si ambiguïté, la première option correspondante sera sélectionnée. Si l&rsquo;option <code>-a</code> existe ce n&rsquo;est plus le cas et le code d&rsquo;erreur <code>1</code> est retourné ainsi qu&rsquo;un petit message listant les options possibles. Mais avec <code>-a</code> les options longues peuvent commencer par un simple tiret.</p>
 <p>La plupart des commandes Linux utilisant <code>getopt</code>, cette astuce peut s&rsquo;utiliser assez souvent.</p>
 
@@ -622,7 +622,7 @@ parsecmd --option-l --u plop bidule
 <span class="p">{</span>
   <span class="n">advance</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">iterator_category</span><span class="p">(</span><span class="n">it</span><span class="p">));</span>
 <span class="p">}</span>
-</code></pre></div><p>Bien sûr, on change aussi le prototype de la précédente implémentation.</p>
+</code></pre></div></div><p>Bien sûr, on change aussi le prototype de la précédente implémentation.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">);</span>
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#problème-avec-forwarditerator"><h2 id="problème-avec-forwarditerator">Problème avec ForwardIterator</h2></a>
@@ -728,9 +728,9 @@ Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> unfichier.txt
 <span class="nb">echo</span> !:1:r
 </code></pre></div><p>Résultat :</p>
-<pre><code>unfichier.txt
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>unfichier.txt
 unfichier
-</code></pre><p>Quasiment jamais utilisé en fait.</p>
+</code></pre></div><p>Quasiment jamais utilisé en fait.</p>
 <p>Mais voilà, zsh les généralise aussi aux variables ce qui engendre une erreur dans <code>GTK_MODULES</code>.</p>
 <p>Alors comment faire ?
 Simple, entourer la variable d&rsquo;accolades:</p>
@@ -990,6 +990,7 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
 
   </header>
   <div class="post__content">
+      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 9 ans. Les informations y figurant peuvent être dépassées.</p>
       <p>Le but d&rsquo;un site chargeant ces pages avec AJAX est double:</p>
 <ul>
 <li>Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées).</li>

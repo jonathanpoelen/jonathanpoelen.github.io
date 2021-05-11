@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Implémentation d&#39;un magasin de type</title>
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.83.1" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -230,8 +230,7 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">item</span> <span class="p">{</span> <span class="n">T</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">typeset</span> <span class="o">:</span> <span class="n">item</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span> <span class="p">{};</span>
-</code></pre></div><p>Avec cette implémentation, des petits malins pourraient faire de la pseudo-duplication de type en y ajoutant des qualificeurs, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&gt;</span>
-</code></span> par exemple.</p>
+</code></pre></div><p>Avec cette implémentation, des petits malins pourraient faire de la pseudo-duplication de type en y ajoutant des qualificeurs, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&gt;</span></code></span> par exemple.</p>
 <p>On peut être tolérant ou devenir un tyran sans pitié en empêchant cela.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">tyrannical_typeset_impl</span> <span class="o">:</span> <span class="n">typeset</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{</span>

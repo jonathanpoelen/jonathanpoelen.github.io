@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.78.2" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.83.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -214,12 +214,7 @@
 <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span> <span class="n">value</span><span class="p">);</span>
 
 <span class="n">foo</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
-</code></pre></div><p>À l&rsquo;appel de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">foo</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span>
-</code></span>, le compilateur remplace <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span>
-</code></span> par <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">::</span><span class="n">type</span>
-</code></span>, qui correspond ici à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span>
-</code></span>. C&rsquo;est la substitution. Lorsque le compilateur n&rsquo;arrive pas à faire cette substitution &ndash; car par exemple il n&rsquo;y a pas de membre <code>type</code> &ndash; il va chercher une autre fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">foo</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span>
-</code></span> qui pourrait être utilisée.</p>
+</code></pre></div><p>À l&rsquo;appel de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">foo</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span></code></span>, le compilateur remplace <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span></code></span> par <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">::</span><span class="n">type</span></code></span>, qui correspond ici à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span></code></span>. C&rsquo;est la substitution. Lorsque le compilateur n&rsquo;arrive pas à faire cette substitution &ndash; car par exemple il n&rsquo;y a pas de membre <code>type</code> &ndash; il va chercher une autre fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">foo</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span></code></span> qui pourrait être utilisée.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">B</span> <span class="p">{</span> <span class="k">using</span> <span class="n">value_type</span> <span class="o">=</span> <span class="kt">int</span><span class="p">;</span> <span class="p">};</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
@@ -247,8 +242,7 @@
 <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">value_type</span> <span class="n">value</span><span class="p">);</span>
      <span class="o">^</span>
 </code></pre></div><p>Il faut bien comprendre que SFINAE n&rsquo;est pas un mécanisme pour simplifier les messages d&rsquo;erreur, ni pour les ignorer. Le résultat est même plutôt inverse, à un certain point, il est difficile de savoir pourquoi une fonction est utilisée à la place d&rsquo;une autre, le compilateur ne donnant aucun diagnostic. Les erreurs sont plus verbeuses &ndash; l&rsquo;ensemble des prototypes sont listés &ndash; et les ambiguïtés difficiles à corriger sans ajouter de la complexité.</p>
-<p>Plus le nombre de prototypes liés à un nom de fonction croît, plus le code devient difficile et les erreurs &ndash; principalement d&rsquo;ambiguïtés &ndash; nombreuses. Il faut bien réfléchir à la manière de s&rsquo;y prendre pour ne pas être happé par le code avec des prototypes à rallonge à ne plus savoir quoi en faire. Le but de cet article est de présenter différentes solutions pour exploiter SFINAE sans être enfermé dans un usage unique qui se limite souvent à la superposition de condition dans un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span>
-</code></span>.</p>
+<p>Plus le nombre de prototypes liés à un nom de fonction croît, plus le code devient difficile et les erreurs &ndash; principalement d&rsquo;ambiguïtés &ndash; nombreuses. Il faut bien réfléchir à la manière de s&rsquo;y prendre pour ne pas être happé par le code avec des prototypes à rallonge à ne plus savoir quoi en faire. Le but de cet article est de présenter différentes solutions pour exploiter SFINAE sans être enfermé dans un usage unique qui se limite souvent à la superposition de condition dans un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span></code></span>.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2020/04/sfinae/#dépendance-de-typevaleur"><h2 id="dépendance-de-typevaleur">Dépendance de type/valeur</h2></a>
 <p>Le SFINAE repose entièrement sur les valeurs ou types template, on parle de value-dependent ou type-dependent (je ne ferais pas de distinction entre les 2). Tout ce qui n&rsquo;est pas lié à une valeur template sera évalué automatiquement par le compilateur, que l&rsquo;expression soit ou non dans une classe ou une fonction template.</p>
 <p>Par exemple:</p>
@@ -263,11 +257,9 @@
 </span><span class="c1"></span>                <span class="c1">// une erreur ne pourra survenir qu&#39;au moment de l&#39;instanciation de foo()
 </span><span class="c1"></span>  <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="p">;</span> <span class="c1">// cette expression n&#39;a aucune dépendance -&gt; il devrait y avoir une erreur
 </span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>Si le compilateur respecte scrupuleusement la norme et sans la moindre utilisation de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">foo</span><span class="p">()</span>
-</code></span>, tout ce qui n&rsquo;a pas de dépendance doit être évalué au plus tôt et systématiquement.</p>
+</code></pre></div><p>Si le compilateur respecte scrupuleusement la norme et sans la moindre utilisation de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">foo</span><span class="p">()</span></code></span>, tout ce qui n&rsquo;a pas de dépendance doit être évalué au plus tôt et systématiquement.</p>
 <ul>
-<li>le type <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">::</span><span class="n">type</span>
-</code></span> doit exister</li>
+<li>le type <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">::</span><span class="n">type</span></code></span> doit exister</li>
 <li>le second retour ne doit pas compiler</li>
 </ul>
 <p>Étrangement, du moment que la fonction n&rsquo;est pas utilisée, gcc ne vérifie pas si le retour est convertible vers celui de la fonction, mais demande quand même une expression valide, alors que msvc ne fait aucune vérification au sein de la fonction. Par contre clang indique qu&rsquo;une chaîne de caractères n&rsquo;est pas convertible en int.</p>
@@ -316,8 +308,7 @@
 </code></pre></div><p>Pour que <code>C</code> fonctionne avec SFINAE, il faut une spécialisation de <code>C</code> sans le membre <code>type</code>. Cela requière un développement spécifique qui rend le support de SFINAE quelquefois difficile à mettre en place.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2020/04/sfinae/#emplacement-des-expressions-pour-le-sfinae"><h2 id="emplacement-des-expressions-pour-le-sfinae">Emplacement des expressions pour le SFINAE</h2></a>
 <p>Partout où il est possible de mettre un type ou une valeur est propice à la substitution: paramètre template, contenu de noexcept, decltype, sizeof et même les paramètres par défaut. Quel que soit l&rsquo;emplacement, si le compilateur ne trouve pas une expression qu&rsquo;il peut compiler, il va simplement ignorer la fonction ou l&rsquo;instanciation.</p>
-<p>Généralement, pour vérifier une expression, le plus simple est d&rsquo;ajouter un paramètre de template initialisé avec l&rsquo;expression qui doit être valide ou passer par <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span>
-</code></span>. Pour ce dernier, une petite astuce pour ajouter plusieurs expressions consiste à les séparer par des virgules et entourer le tout d&rsquo;une paire de parenthèse:</p>
+<p>Généralement, pour vérifier une expression, le plus simple est d&rsquo;ajouter un paramètre de template initialisé avec l&rsquo;expression qui doit être valide ou passer par <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span></code></span>. Pour ce dernier, une petite astuce pour ajouter plusieurs expressions consiste à les séparer par des virgules et entourer le tout d&rsquo;une paire de parenthèse:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="p">...,</span> <span class="k">class</span> <span class="err">= </span><span class="nc">decltype</span><span class="p">(...)</span><span class="o">&gt;</span> <span class="c1">// ici ou
 </span><span class="c1"></span><span class="k">auto</span> <span class="n">f</span><span class="p">(...)</span> <span class="o">-&gt;</span> <span class="k">decltype</span><span class="p">(((</span><span class="kt">void</span><span class="p">)</span><span class="n">expr1</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="p">)(</span><span class="n">expr2</span><span class="p">),</span> <span class="n">expr3</span><span class="p">));</span>
                      <span class="c1">// ^ pour que decltype ne voit qu&#39;une expression
@@ -327,8 +318,7 @@
 </span></code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2020/04/sfinae/#technique-et-usage-du-sfinae"><h2 id="technique-et-usage-du-sfinae">Technique et usage du SFINAE</h2></a>
 <p>À partir de maintenant, je vais présenter les techniques qui me viennent à l&rsquo;esprit en me basant si possible sur des éléments de la STL pour des exemples pratiques. Les plus curieux pourront comparer avec l&rsquo;implémentation de la STL qu&rsquo;ils utilisent (<a href="https://github.com/microsoft/STL/">msvc</a>, <a href="https://github.com/llvm-mirror/libcxx">clang (libc++)</a> et <a href="https://github.com/gcc-mirror/gcc/tree/master/libstdc%2B%2B-v3">gcc (libstdc++)</a> pour les plus connues).</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2020/04/sfinae/#sélection-de-fonction-à-travers-un-type-membre"><h3 id="sélection-de-fonction-à-travers-un-type-membre">Sélection de fonction à travers un type membre</h3></a>
-<p>Dans ce premier exemple, nous allons voir comment implémenter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span>
-</code></span>. Pour rappel, il existe 3 versions:</p>
+<p>Dans ce premier exemple, nous allons voir comment implémenter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span></code></span>. Pour rappel, il existe 3 versions:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">...)</span> <span class="o">-&gt;</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="n">make_unique</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span> <span class="c1">// arrays of unknown bound
 </span><span class="c1"></span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">...)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span> <span class="c1">// arrays of known bound
@@ -371,8 +361,7 @@
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
 <span class="k">typename</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_unique_select</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">invalid_type</span>
 <span class="n">make_unique</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
-</code></pre></div><p>Si le C++ supportait la spécialisation partielle de fonction, on pourrait se passer de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">detail</span><span class="o">::</span><span class="n">make_unique_select</span>
-</code></span>. Par contre, comme l&rsquo;implémentation de <code>make_unique</code> dépend uniquement d&rsquo;un type template qui doit être explicitement mis, on peut simplifier le code grâce aux variables template et en déplaçant l&rsquo;implémentation des fonctions dans les spécialisations de structure.</p>
+</code></pre></div><p>Si le C++ supportait la spécialisation partielle de fonction, on pourrait se passer de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">detail</span><span class="o">::</span><span class="n">make_unique_select</span></code></span>. Par contre, comme l&rsquo;implémentation de <code>make_unique</code> dépend uniquement d&rsquo;un type template qui doit être explicitement mis, on peut simplifier le code grâce aux variables template et en déplaçant l&rsquo;implémentation des fonctions dans les spécialisations de structure.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
@@ -406,8 +395,7 @@
 <span class="k">constexpr</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_unique_impl</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">make_unique</span> <span class="p">{};</span>
 </code></pre></div><p>Ce qui revient à des bêtes spécialisations de template.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2020/04/sfinae/#condition-dans-une-spécialisation-template"><h3 id="condition-dans-une-spécialisation-template">Condition dans une spécialisation template</h3></a>
-<p>Grâce à un paramètre supplémentaire, il est possible d&rsquo;ajouter des conditions dans une spécialisation pour y ajouter des contraintes. Voici un exemple simplifié avec une implémentation de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span>
-</code></span>.</p>
+<p>Grâce à un paramètre supplémentaire, il est possible d&rsquo;ajouter des conditions dans une spécialisation pour y ajouter des contraintes. Voici un exemple simplifié avec une implémentation de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span></code></span>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">From</span><span class="p">,</span> <span class="k">class</span> <span class="nc">To</span><span class="p">,</span> <span class="k">class</span> <span class="err">= </span><span class="nc">void</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">is_convertible</span> <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">false_type</span>
 <span class="p">{};</span>
@@ -423,9 +411,7 @@
   <span class="p">)</span>
 <span class="o">&gt;</span> <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span>
 <span class="p">{};</span>
-</code></pre></div><p>Cette technique permet de n&rsquo;instancier un type que si tous les prérequis sont acceptés. Au début de l&rsquo;article, j&rsquo;ai présenté un exemple de classe où <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">T</span><span class="o">::</span><span class="n">type</span>
-</code></span> (avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="o">=</span> <span class="n">C</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span>
-</code></span>) donne une erreur, car le sous-membre (<code>type</code>) dépend d&rsquo;un contexte parent. Voici comment on peut palier à ce problème:</p>
+</code></pre></div><p>Cette technique permet de n&rsquo;instancier un type que si tous les prérequis sont acceptés. Au début de l&rsquo;article, j&rsquo;ai présenté un exemple de classe où <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">T</span><span class="o">::</span><span class="n">type</span></code></span> (avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="o">=</span> <span class="n">C</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span></code></span>) donne une erreur, car le sous-membre (<code>type</code>) dépend d&rsquo;un contexte parent. Voici comment on peut palier à ce problème:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="err">= </span><span class="nc">void</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">C</span>
 <span class="p">{</span>
@@ -446,8 +432,7 @@
 <span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">is_mod16</span><span class="o">&lt;</span><span class="n">N</span><span class="p">,</span> <span class="p">(</span><span class="n">N</span> <span class="o">%</span> <span class="mi">16</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">&gt;</span> <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span> <span class="c1">// erreur
 </span><span class="c1"></span><span class="p">{};</span>
-</code></pre></div><p>Faute de mieux, le plus simple est de passer par <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">N</span> <span class="o">%</span> <span class="mi">16</span> <span class="o">==</span> <span class="mi">0</span><span class="o">&gt;</span>
-</code></span> et prendre un type comme second paramètre de template.</p>
+</code></pre></div><p>Faute de mieux, le plus simple est de passer par <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">N</span> <span class="o">%</span> <span class="mi">16</span> <span class="o">==</span> <span class="mi">0</span><span class="o">&gt;</span></code></span> et prendre un type comme second paramètre de template.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2020/04/sfinae/#jouer-avec-les-conversions-implicites"><h3 id="jouer-avec-les-conversions-implicites">Jouer avec les conversions implicites</h3></a>
 <p>Il est possible d&rsquo;ajouter un paramètre dans une fonction et jouer avec les conversions implicites pour prioriser l&rsquo;ordre d&rsquo;appel.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="err">= </span><span class="nc">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">type</span><span class="o">&gt;</span>
@@ -473,10 +458,7 @@
 <span class="k">static_assert</span><span class="p">(</span><span class="n">foo</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
 <span class="c1">// les 2 fonctions sont valides, mais T::type est prioritaire car 42 est un int
 </span><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">foo</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
-</code></pre></div><p>On peut même ajouter autant de paramètres que nécessaire pour avoir une chaîne de priorité. Par exemple, on pourrait faire une fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">front</span><span class="p">()</span>
-</code></span> qui utilise en priorité la fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">front</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span>
-</code></span> dans le namespace de l&rsquo;objet (règles d'<a href="https://en.cppreference.com/w/cpp/language/adl">ADL</a>), sinon <code>cont.front()</code> et en dernier recours <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">*</span><span class="n">begin</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span>
-</code></span>.</p>
+</code></pre></div><p>On peut même ajouter autant de paramètres que nécessaire pour avoir une chaîne de priorité. Par exemple, on pourrait faire une fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">front</span><span class="p">()</span></code></span> qui utilise en priorité la fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">front</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span></code></span> dans le namespace de l&rsquo;objet (règles d'<a href="https://en.cppreference.com/w/cpp/language/adl">ADL</a>), sinon <code>cont.front()</code> et en dernier recours <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">*</span><span class="n">begin</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span></code></span>.</p>
 
   <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp">
 </span><span class="cp"></span>
@@ -558,8 +540,7 @@
 </span></code></pre></div>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2020/04/sfinae/#les-variadiques-de-la-dernière-chance"><h3 id="les-variadiques-de-la-dernière-chance">Les variadiques de la dernière chance</h3></a>
-<p>Il existe en C des paramètres variadiques dont l&rsquo;usage est limité aux types de base et aux pointeurs. Ce genre de paramètre à une particularité intéressante: il n&rsquo;est pris en compte qu&rsquo;à la seule condition qu&rsquo;aucune autre fonction ne pourrait correspondre. Il a donc une priorité inférieure à la conversion et ne rentre pas en conflit avec. On pourrait réécrire <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span>
-</code></span> comme suit</p>
+<p>Il existe en C des paramètres variadiques dont l&rsquo;usage est limité aux types de base et aux pointeurs. Ce genre de paramètre à une particularité intéressante: il n&rsquo;est pris en compte qu&rsquo;à la seule condition qu&rsquo;aucune autre fonction ne pourrait correspondre. Il a donc une priorité inférieure à la conversion et ne rentre pas en conflit avec. On pourrait réécrire <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span></code></span> comme suit</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">From</span><span class="p">,</span> <span class="k">class</span> <span class="nc">To</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">is_convertible_impl</span>
 <span class="p">{</span>
@@ -571,8 +552,7 @@
 <span class="k">using</span> <span class="n">is_convertible</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">is_convertible_impl</span><span class="o">&lt;</span><span class="n">From</span><span class="p">,</span> <span class="n">To</span><span class="o">&gt;::</span><span class="n">test</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">From</span><span class="o">&gt;</span><span class="p">()));</span>
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2020/04/sfinae/#rendre-dépendant-un-type-indépendant"><h3 id="rendre-dépendant-un-type-indépendant">Rendre dépendant un type indépendant</h3></a>
 <p>Cela peut paraître idiot, mais pour rendre dépendant un type indépendant du contexte, il suffit qu&rsquo;il traverse un type dépendant.</p>
-<p>Voici un exemple pour avoir le plus proche d&rsquo;un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">()</span> <span class="p">{}</span> <span class="k">else</span> <span class="k">static_assert</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
-</code></span>:</p>
+<p>Voici un exemple pour avoir le plus proche d&rsquo;un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="nf">constexpr</span> <span class="p">()</span> <span class="p">{}</span> <span class="k">else</span> <span class="k">static_assert</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span></code></span>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">constexpr</span> <span class="k">auto</span> <span class="n">fn_identity</span> <span class="o">=</span> <span class="p">[](</span><span class="k">auto</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 <span class="p">};</span>
@@ -872,17 +852,14 @@
 <tbody>
 <tr>
 <td>./a.out</td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">&amp;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</code></span></td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">&amp;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></code></span></td>
 </tr>
 </tbody>
 </table>
 <p>Maintenant imaginons que notre classe <code>A</code> contienne des <code>std::string</code> et des <code>std::vector</code>. Si le constructeur de déplacement n&rsquo;est pas <code>noexcept</code>, alors il y aura de nombreuses copies qui auront un gros impact sur les performances. Ce n&rsquo;est généralement pas ce qu&rsquo;on veut.</p>
 <p>Personnellement, je déconseille d&rsquo;écrire le constructeur et operator= de déplacement ou de copie. 99% du temps, la version par défaut fait le job, le compilateur déduisant lui-même <code>noexcept</code> pour les fonctions par défaut &ndash; et c&rsquo;est bien le seul moment. S&rsquo;il y a une véritable nécessité, il est généralement possible d&rsquo;avoir une classe qui ne fournit que ce service et l&rsquo;utiliser en variable membre.</p>
-<p>Si on écrit explicitement <code>noexcept</code> sur une fonction par défaut &ndash; par exemple <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">X</span><span class="p">(</span><span class="n">X</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-</code></span> &ndash; le compilateur va <strong>vérifier</strong> que le déplacement de chaque membre ne lance pas d&rsquo;exception. Et dans le cas contraire, ne compile pas.</p>
+<p>Si on écrit explicitement <code>noexcept</code> sur une fonction par défaut &ndash; par exemple <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">X</span><span class="p">(</span><span class="n">X</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></code></span> &ndash; le compilateur va <strong>vérifier</strong> que le déplacement de chaque membre ne lance pas d&rsquo;exception. Et dans le cas contraire, ne compile pas.</p>
 <p>Pour finir, <strong>les destructeurs sont implicitement <code>noexcept</code></strong>. Si un destructeur balance une exception, le programme va s&rsquo;arrêter. Les raisons sont assez simples: il est difficile de catcher une exception d&rsquo;un destructeur et il est impossible d&rsquo;arriver à un état cohérent sans code spécifique si les objets ne peuvent être détruits. De plus, il faut savoir que jeter une exception pendant le traitement d&rsquo;une exception appelle automatiquement <code>std::terminate()</code>. Du coup, les exceptions dans un destructeur sont plutôt une mauvaise idée.</p>
 <p>Mais si on veut autoriser le destructeur à jeter des exceptions ou pouvoir marquer nos fonctions en <code>noexcept</code> à la seule condition qu&rsquo;une expression précise soit elle-même <code>noexcept</code> il existe un nouveau mot clef: <code>noexcept</code>. Oui, mais non, il est différent.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/#spécificateur-dexception-et-opérateur-noexcept"><h2 id="spécificateur-dexception-et-opérateur-noexcept">Spécificateur d&rsquo;exception et opérateur noexcept</h2></a>
@@ -916,8 +893,7 @@
 <p>2 fonctions qui ne diffèrent que par la spécification d&rsquo;exception ne peuvent être surchargées car leur signature est identique. Ceci n&rsquo;est pas autorisé:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">();</span>
 <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span> <span class="c1">// erreur
-</span></code></pre></div><p>Du fait de la signature identique, <code>noexcept</code> peut très bien apparaître dans le prototype d&rsquo;une fonction exposée dans une bibliothèque C (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">extern</span> <span class="s">&#34;C&#34;</span>
-</code></span>), mais cette information disparaît dans la bibliothèque elle-même. Mieux que ça, si la bibliothèque est compilée sans <code>noexcept</code>, mais que le <code>.h</code> distribué les met, le compilateur retrouve ses petits, car le name mangling est le même.</p>
+</span></code></pre></div><p>Du fait de la signature identique, <code>noexcept</code> peut très bien apparaître dans le prototype d&rsquo;une fonction exposée dans une bibliothèque C (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">extern</span> <span class="s">&#34;C&#34;</span></code></span>), mais cette information disparaît dans la bibliothèque elle-même. Mieux que ça, si la bibliothèque est compilée sans <code>noexcept</code>, mais que le <code>.h</code> distribué les met, le compilateur retrouve ses petits, car le name mangling est le même.</p>
 <p>Par contre, avant C++17 le type d&rsquo;une fonction ne prend jamais en compte <code>noexcept</code>. C’est-à-dire que les types <code>void(*)()</code> et <code>void(*)() noexcept</code> sont identiques.</p>
 <p>À partir de C++17, <code>noexcept</code> fait partie intégrante du type de la fonction. Un pointeur de fonction <code>noexcept</code> n&rsquo;est pas compatible avec un pointeur de fonction qui jette potentiellement une exception. Néanmoins, une fonction <code>noexcept</code> est convertible en un pointeur de fonction qui n&rsquo;est pas <code>noexcept</code>. Les posts conditions sont plus fortes ce qui ne brise pas le <a href="https://fr.wikipedia.org/wiki/Principe_de_substitution_de_Liskov">LSP</a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span>
@@ -1070,7 +1046,7 @@
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>On notera que <code>auto a[] {1,2,3}</code> n&rsquo;est pas autorisé. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>On notera que <code>auto a[] {1,2,3}</code> n&rsquo;est pas autorisé.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -1578,7 +1554,7 @@ note: penser à investir dans une porte plus solide
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>std::move n&rsquo;est qu&rsquo;un <code>static_cast&lt;T&amp;&amp;&gt;</code> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>std::move n&rsquo;est qu&rsquo;un <code>static_cast&lt;T&amp;&amp;&gt;</code>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
@@ -1691,8 +1667,7 @@ note: penser à investir dans une porte plus solide
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>Il ne reste qu&rsquo;une dernière étape, la continuation finale lorsqu&rsquo;il n&rsquo;y a plus rien à faire. Les plus utilisés sont au nombre de 2 et servent de valeur par défaut à l&rsquo;ensemble des algorithmes, j&rsquo;ai nommé <code>identity</code> et <code>listify</code>.</p>
 
@@ -1709,8 +1684,7 @@ note: penser à investir dans une porte plus solide
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
   <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/#cest-beau-cest-propre"><h2 id="cest-beau-cest-propre">C&rsquo;est beau, c&rsquo;est propre</h2></a>
 <p>Il y a quelques jours, après mon petit passage quotidien dans libstdc++ et en regardant <code>std::decay</code>, je me suis dit <del>c&rsquo;est beau, c&rsquo;est propre</del> qu&rsquo;il faudrait comparer avec une implémentation qui utilise les concepts de kvasir.</p>
@@ -1775,8 +1749,7 @@ note: penser à investir dans une porte plus solide
     <span class="o">&gt;</span><span class="p">,</span>
     <span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
   <span class="o">&gt;</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>Avec l&rsquo;implémentation de <code>if_</code>, <code>cfl</code> (continuation from a lazy metafunction) et <code>cfe</code> (continuation from a eager metafunction):</p>
 
@@ -1821,8 +1794,7 @@ note: penser à investir dans une porte plus solide
   <span class="p">{</span>
     <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">U</span><span class="p">;</span>
   <span class="p">};</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>L&rsquo;ensemble des sources se trouve sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/metafunc_continuation/decay.cpp">github</a>
 .</p>
@@ -1891,17 +1863,14 @@ note: penser à investir dans une porte plus solide
   </header>
   <div class="post__content">
       <p>La <code>vtable</code> est le mécanisme interne utilisé par C++ pour implémenter les fonctions virtuelles. Lorsqu&rsquo;une classe possède une fonction virtuelle, un pointeur sur la <code>vtable</code> (virtual table) est automatiquement réservé par le compilateur. Cette table contient des pointeurs de fonction sur l&rsquo;ensemble des fonctions virtuelles de la classe et chaque classe dérivée possède sa propre <code>vtable</code>.</p>
-<p>Pour une classe de base implémentant une fonction <code>foo</code> virtuelle comme ci-dessous, l&rsquo;utilisation de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">obj</span><span class="o">-&gt;</span><span class="n">foo</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">)</span>
-</code></span> va être remplacé par quelque chose proche de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">cast</span><span class="o">&lt;</span><span class="n">FunctionType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">__vtable</span><span class="p">[</span><span class="mi">0</span><span class="p">])(</span><span class="n">obj</span><span class="cm">/*, params...*/</span><span class="p">)</span>
-</code></span>.</p>
+<p>Pour une classe de base implémentant une fonction <code>foo</code> virtuelle comme ci-dessous, l&rsquo;utilisation de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">obj</span><span class="o">-&gt;</span><span class="n">foo</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">)</span></code></span> va être remplacé par quelque chose proche de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">cast</span><span class="o">&lt;</span><span class="n">FunctionType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">__vtable</span><span class="p">[</span><span class="mi">0</span><span class="p">])(</span><span class="n">obj</span><span class="cm">/*, params...*/</span><span class="p">)</span></code></span>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Base</span>
 <span class="p">{</span>
   <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">};</span>
 </code></pre></div><p>Chaque classe dérivée qui ajoute des fonctions virtuelles réserve des cases supplémentaires dans son tableau. Le compilateur se basant sur les types utilisés pour garantir la validité des indices.</p>
 <p>Ce fonctionnement est très économique : un pointeur pour chaque instance d&rsquo;une classe et une vtable en lecture seule par classe. C&rsquo;est également très facile d&rsquo;ajouter de nouvelles tables, y compris dynamiquement par le chargement de bibliothèque. Mais il y a aussi des inconvénients comme une fragmentation mémoire au niveau de la position des tables et un double déréférencement pour accéder au pointeur de fonction.</p>
-<p>Pour la suite on se base sur une interface avec une fonction draw: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">const</span>
-</code></span> et 2 objets ce qu&rsquo;il a de plus classique: <code>Rect</code> et <code>Circle</code>.</p>
+<p>Pour la suite on se base sur une interface avec une fonction draw: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">const</span></code></span> et 2 objets ce qu&rsquo;il a de plus classique: <code>Rect</code> et <code>Circle</code>.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-hpp" data-lang="hpp"><span class="k">struct</span> <span class="nc">Rect</span>
 <span class="p">{</span>
@@ -1917,16 +1886,14 @@ note: penser à investir dans une porte plus solide
   <span class="p">{</span>
     <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Circle</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/#une-vtable-à-la-mano"><h2 id="une-vtable-à-la-mano">Une vtable à la mano</h2></a>
 <p>Notre vtable va contenir des pointeurs de fonction. Le type commun d&rsquo;une majorité de pointeurs est <code>void*</code>. Sauf que les pointeurs de fonction sont une exception, il n&rsquo;est pas légal de les transformer en <code>void*</code> &ndash; même si en interne le compilateur peut se le permettre pour sa vtable. Par contre, on peut récupérer l&rsquo;adresse du pointeur de fonction pour avoir un pointeur de pointeur de fonction. Cela fait beaucoup de pointeurs et d&rsquo;indirections alors le tableau sera remplacé par un tuple, car finalement on connait exactement les types de fonction que contient la vtable.</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">using</span> <span class="n">draw_func_type</span> <span class="o">=</span> <span class="kt">void</span><span class="p">(</span><span class="kt">void</span> <span class="k">const</span><span class="o">*</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">);</span>
 
-<span class="k">using</span> <span class="n">drawable_vtable</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">draw_func_type</span> <span class="k">const</span><span class="o">*&gt;</span><span class="p">;</span>
-</code></pre></div>
+<span class="k">using</span> <span class="n">drawable_vtable</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">draw_func_type</span> <span class="k">const</span><span class="o">*&gt;</span><span class="p">;</span></code></pre></div>
 
 <p>Maintenant qu&rsquo;on a un type pour la vtable, il faut pouvoir la construire à partir de n&rsquo;importe quel type qui pourrait supporter cette interface.</p>
 
@@ -1938,8 +1905,7 @@ note: penser à investir dans une porte plus solide
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="kr">inline</span> <span class="n">drawable_vtable</span> <span class="n">drawable_vtable_for</span><span class="p">{</span>
   <span class="n">draw_func_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>Grâce à ses variables inline, on peut construire notre tableau très facilement. Il ne reste plus qu&rsquo;à faire un petit wrapper pour utiliser <code>Rect</code> et <code>Circle</code> indistinctement.</p>
 
@@ -1959,8 +1925,7 @@ note: penser à investir dans une porte plus solide
 <span class="k">private</span><span class="o">:</span>
   <span class="kt">void</span><span class="o">*</span> <span class="n">obj</span><span class="p">;</span>
   <span class="n">drawable_vtable</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">vtable</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p><code>Drawable</code> pourrait contenir directement <code>Rect</code> ou <code>Circle</code> plutôt qu&rsquo;avoir un <code>void*</code>, mais pour supporter n&rsquo;importe quel type et être optimisé, il est préférable d&rsquo;utiliser <a href="https://akrzemi1.wordpress.com/2014/04/14/common-optimizations/">SBO (Small Buffer Optimization)</a> Dans une optique de simplification, la classe n&rsquo;accepte que des références et garde un pointeur. On peut la considérer comme une vue polymorphique.</p>
 <p>Une petite démonstration de la chose:</p>
@@ -1979,8 +1944,7 @@ note: penser à investir dans une porte plus solide
 
   <span class="n">draw</span><span class="p">(</span><span class="n">rect</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">);</span> <span class="c1">// affiche Rect
 </span><span class="c1"></span>  <span class="n">draw</span><span class="p">(</span><span class="n">circle</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">);</span> <span class="c1">// affiche Circle
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div>
+</span><span class="c1"></span><span class="p">}</span></code></pre></div>
 
 <p>C&rsquo;est tout :).</p>
 <p>Il est possible de rendre plus simple la déclaration de la classe <code>Drawable</code> avec des macros pour supprimer 2/3 du code, mais je passe mon tour.</p>
@@ -2004,8 +1968,7 @@ note: penser à investir dans une porte plus solide
 <span class="k">private</span><span class="o">:</span>
   <span class="kt">void</span><span class="o">*</span> <span class="n">obj</span><span class="p">;</span>
   <span class="n">draw_func_type</span><span class="o">*</span> <span class="n">draw_func</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>Pour une classe qui ne possède qu&rsquo;une fonction polymorphique, le pointeur de fonction en membre est un peu plus efficace qu&rsquo;une vtable en évitant une indirection. <code>std::function</code> utilise le même principe en interne en plus de prendre l&rsquo;ownership de l&rsquo;objet. Prendre l&rsquo;ownership implique de mettre l&rsquo;objet en membre, si l&rsquo;objet prend trop de place, comme une lambda avec une grosse capture, alors elle déborde du tampon interne et une allocation dynamique est généralement effectuée. Pour un comportement plus proche des exemples ci-dessus qui prennent une référence sur les données, il existe <a href="https://github.com/Naios/function2#small-functor-optimization">fn2::function_view</a>.</p>
 <p>Par contre, pour chaque fonction polymorphique, la classe doit contenir un pointeur de fonction ce qui augmente sa taille. Si cet objet est mis dans un vector, alors il y aura beaucoup de pointeurs similaires entre les valeurs et une vtable peut réduire drastiquement la mémoire allouée par le vecteur.</p>
@@ -2127,8 +2090,7 @@ note: penser à investir dans une porte plus solide
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
   <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
     <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Une implémentation avec ternaire récursive comme on peut la trouver dans le fichier variant de libstdc++. Elle souffre d&rsquo;un léger problème: il y a autant d&rsquo;instance de <code>_index_of</code> que d&rsquo;élément dans la liste, même si <code>T</code> se trouve en première position.</p>
 
@@ -2150,8 +2112,7 @@ note: penser à investir dans une porte plus solide
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>L&rsquo;indice courant se trouve en paramètre template et la récursion s&rsquo;arrête dès que <code>T</code> est trouvé. Seulement, l&rsquo;ajout de l&rsquo;indice en paramètre va dégrader la mémoïsation en créant plus de types que nécessaire.</p>
 
@@ -2175,8 +2136,7 @@ note: penser à investir dans une porte plus solide
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
   <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
     <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Un mélange des 2 implémentations précédentes sans les inconvénients. En réalité, c&rsquo;est la forme la plus communément écrite.</p>
 <!-- raw HTML omitted -->
@@ -2201,8 +2161,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="p">{</span>
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">recursive</span><span class="o">::</span><span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>L&rsquo;utilisation de <code>typename std::is_same&lt;T, Ts&gt;::type</code> au lieu de simplement <code>std::is_same&lt;T, Ts&gt;</code> permet de restreindre les types à <code>std::false_type</code> et <code>std::true_type</code>.</p>
 <p>On peut aussi faire la comparaison avec un <code>detail::_index_of</code> spécialement dédié à la recherche d&rsquo;un <code>std::true_type</code>.</p>
@@ -2225,8 +2184,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
   <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...,</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
     <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...,</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Et une autre version qui travaille sur des valeurs plutôt que des types pour vérifier si cela a une influence.</p>
 
@@ -2248,8 +2206,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
   <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">...,</span> <span class="nb">true</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
     <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">...,</span> <span class="nb">true</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <!-- raw HTML omitted -->
 <p><img src="/post/mp_index_of/rec_bool_gcc_time.png" alt="comparaison de temps de 3 implémentations qui font une transformation en booléan"></p>
@@ -2309,8 +2266,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
   <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
     <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Et L&rsquo;équivalent qui fait une transformation en liste de booléen avant:</p>
 
@@ -2351,8 +2307,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
   <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
     <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <!-- raw HTML omitted -->
 <p><img src="/post/mp_index_of/pack8_gcc_time.png" alt="duré de compilation avec gcc pour un algo récursive par pack de 8"></p>
@@ -2488,8 +2443,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">detail</span><span class="o">::</span><span class="n">_find_index</span><span class="o">&lt;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Wooa, cette monstruosité. Il faut être complètement barge pour écrire cette horreur. C&rsquo;est pourtant une chose que l&rsquo;on trouve dans <a href="https://github.com/brunocodutra/metal/blob/master/include/metal/list/join.hpp#L51">Metal</a>, <a href="https://github.com/edouarda/brigand/blob/master/include/brigand/sequences/append.hpp#L29">Brigand</a>, <a href="https://github.com/boostorg/mp11/blob/develop/include/boost/mp11/detail/mp_append.hpp#L48">Cpp11</a> ou <a href="https://github.com/boostorg/hana/blob/master/include/boost/hana/detail/variadic/foldl1.hpp#L23">Boost.Hana</a>. La palme d&rsquo;or revient à <a href="https://github.com/kvasir-io/mpl/blob/development/src/kvasir/mpl/sequence/join.hpp#L14">Kvasir.Mpl</a> avec une template de 1025 éléments variadiques.</p>
 <!-- raw HTML omitted -->
@@ -2518,8 +2472,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
   <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
     <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span><span class="p">()</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Les booléens sont en paramètre template. C&rsquo;est dommage, parce que cela limite les transferts de paramètre depuis une autre fonction. Il vaut mieux mettre les valeurs en paramètre de fonction comme on le fait d&rsquo;habitude.</p>
 
@@ -2543,8 +2496,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
   <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
     <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;</span><span class="p">...)</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>C&rsquo;est beau, c&rsquo;est simple, c&rsquo;est élégant.</p>
 <!-- raw HTML omitted -->
@@ -2570,8 +2522,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span><span class="p">()</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Le code est beaucoup plus concis, mais aussi beaucoup plus obscur. Il faut dire que <code>index_of</code> n&rsquo;est pas le meilleur algorithme pour représenter la beauté des folds ;).</p>
 <!-- raw HTML omitted -->
@@ -2715,8 +2666,7 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
 
 <span class="k">private</span><span class="o">:</span>
   <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">VariantBase</span><span class="o">&gt;</span> <span class="n">impl_</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>Pour ne pas parasiter les codes, je n&rsquo;ajoute pas les noexcept. De toute façon, avec les allocations dynamiques, cela ne va pas être évident.</p>
 <p>Toute la difficulté va se trouver dans les implémentations de <code>VariantBase</code> et la fonction <code>visit</code>. Pour en faire une dérivée, un pattern assez commun va être utilisé, celui d&rsquo;avoir une classe <code>VariantImpl</code> template sur le type à stocker.</p>
@@ -2771,8 +2721,7 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
 <span class="p">{</span>
   <span class="n">impl_</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
   <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>En réalité ce qu&rsquo;on vient de faire ici n&rsquo;est ni plus ni moins qu&rsquo;un <code>std::any</code>. Si on réfléchit bien, nous ne sommes pas limités dans les types à stocker et il n&rsquo;y a aucune vérification au niveau de l&rsquo;initialisation d&rsquo;une valeur. C&rsquo;est mal, mais on va rester comme cela pour le moment.</p>
 <p>Reste ensuite la fonction <code>visit</code>. À ce stade, je dirais que la solution la plus naturelle est d&rsquo;utiliser <code>dynamic_cast</code> pour déterminer le type réel et appeler la bonne surcharge de fonction.</p>
@@ -2794,8 +2743,7 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
     <span class="p">}</span>
   <span class="p">};</span>
   <span class="k">return</span> <span class="nf">visit_impl</span><span class="p">(</span><span class="n">visit_impl</span><span class="p">,</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)...);</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Cette implémentation parcourt récursivement les types du variant pour trouver celui qui correspond à la valeur de <code>impl_</code>, appel <code>f</code> avec le bon type puis propage son retour en remontant la pile d&rsquo;appel.
 Le dernier élément est un cas spécial traité dans le <code>else</code> car, quand on le compare avec <code>dynamic_cast</code>, le résultat est toujours vrai.
@@ -2834,8 +2782,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span>
   <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span> <span class="o">-</span> <span class="n">detail</span><span class="o">::</span><span class="n">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">-</span> <span class="mi">1</span>
-<span class="o">&gt;</span><span class="p">;</span>
-</code></pre></div>
+<span class="o">&gt;</span><span class="p">;</span></code></pre></div>
 
 <p><code>mp_index_of</code> est un alias sur <code>std::integral_constant</code>. L&rsquo;implémentation déroule récursivement les éléments de <code>Ts</code> jusqu&rsquo;à trouver <code>T</code> et retourne le nombre d&rsquo;éléments qu&rsquo;il reste dans la liste. Soustraire ce résultat à <code>sizeof...(Ts) - 1</code> permet d&rsquo;avoir la position de <code>T</code>.</p>
 <p>On met à jour l&rsquo;implémentation pour initialiser le nouveau membre.</p>
@@ -2868,8 +2815,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
   <span class="n">impl_</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
   <span class="n">type_index_</span> <span class="o">=</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span> <span class="c1">// et là
 </span><span class="c1"></span>  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Puis on supprime <code>dynamic_cast</code> de la fonction <code>visit</code>, le remplaçant par une comparaison d&rsquo;index.</p>
 
@@ -2893,8 +2839,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
     <span class="p">}</span>
   <span class="p">};</span>
   <span class="k">return</span> <span class="nf">visit_impl</span><span class="p">(</span><span class="n">visit_impl</span><span class="p">,</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)...);</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Peu de changement finalement, mais maintenant <code>variant</code> peut fonctionner sans support de <a href="https://fr.wikipedia.org/wiki/Run-time_type_information">RTTI</a> !</p>
 <p>On notera aussi que puisque nous possédons l&rsquo;indice lié au type, on peut aussi remplacer les fonctions virtuelles par un appel à <code>visit</code> pour supprimer la vtable et enlever l&rsquo;indirection pour accéder aux fonctions virtuelles dans celle-ci.</p>
@@ -2918,8 +2863,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 
 <span class="k">private</span><span class="o">:</span>
   <span class="n">std</span><span class="o">::</span><span class="n">aligned_union_t</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>Sans les constructeurs, la version avec <code>std::aligned_union</code> est vraiment simple. Mais l&rsquo;utilisation de <code>reinterpret_cast</code> empêche de mettre la fonction <code>get()</code> en <code>constexpr</code> (gcc l&rsquo;accepte néanmoins).</p>
 <p>À contrario, la version avec une union récursive est extrêmement verbeuse (toujours sans constructeur d&rsquo;initialisation de valeur):</p>
@@ -2972,8 +2916,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="k">private</span><span class="o">:</span>
 
   <span class="n">detail</span><span class="o">::</span><span class="n">RecursiveUnion</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>Si on regarde <a href="https://godbolt.org/g/xu9fwh">l&rsquo;assembleur</a>, il s&rsquo;avère que les 2 versions sont exactement les mêmes.</p>
 <p>Pour initialiser l&rsquo;objet avec une valeur, la version avec <code>std::aligned_union</code> doit utiliser un <a href="http://en.cppreference.com/w/cpp/language/new">placement new</a> qui empêche de rendre le constructeur <code>constexpr</code>. Ce qui par la même occasion s&rsquo;applique aussi au variant. Sans compter le problème du <code>reinterpret_cast</code> dans la fonction <code>get()</code>. Du coup, bien que cette version soit plus simple et que je ne mette pas <code>constexpr</code>, l&rsquo;union récursive est préférable.</p>
@@ -2983,8 +2926,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="k">struct</span> <span class="nc">in_place_index_t</span>
 <span class="p">{</span>
   <span class="k">explicit</span> <span class="nf">in_place_index_t</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>(<code>RecursiveUnion</code> devient <code>VariadicUnion</code>)</p>
 
@@ -2996,8 +2938,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
     <span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">I</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
     <span class="n">VariadicUnion</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">U</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
     <span class="o">:</span> <span class="n">others</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="p">{}</span>
-</code></pre></div>
+    <span class="p">{}</span></code></pre></div>
 
 <p>Puis on adapte les fonctions de <code>Variant</code>.
 Le code final est plutôt gros alors je ne mets <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/cpp_variant/variant3.cpp#l157">que le lien</a>

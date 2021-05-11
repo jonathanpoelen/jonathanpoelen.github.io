@@ -107,7 +107,7 @@ Du côté de Clang, il y a un -Weverything qui active absolument tous les warnin
       <pubDate>Wed, 05 Jul 2017 22:02:11 +0200</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/</guid>
-      <description>Je vais me baser sur un classique: une classe de matrice contenant un std::vector&amp;lt;int&amp;gt; . Cette classe va implémenter 2 opérateurs mathématiques: +  et += . Le premier en fonction libre, le second en fonction membre.
+      <description>Je vais me baser sur un classique: une classe de matrice contenant un std::vector&amp;lt;int&amp;gt;. Cette classe va implémenter 2 opérateurs mathématiques: + et +=. Le premier en fonction libre, le second en fonction membre.
 Pour rigoler un peu, on ajoute une petite contrainte qui est &amp;ldquo;l&amp;rsquo;efficacité&amp;rdquo;. Petit mot qui englobe un peu tout et n&amp;rsquo;importe quoi tel que la performance en mémoire et en temps.
 À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc.</description>
     </item>
@@ -129,7 +129,7 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
       <pubDate>Mon, 21 Sep 2015 00:33:38 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/</guid>
-      <description>Le but de if constexpr  est d&amp;rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&amp;rsquo;a pas l&amp;rsquo;obligation de pouvoir être compilé.
+      <description>Le but de if constexpr est d&amp;rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&amp;rsquo;a pas l&amp;rsquo;obligation de pouvoir être compilé.
 Plutôt étrange, n&amp;rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.
 Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières:
  foncteur + paramètres fonction membre + objet + paramètres fonction membre + pointeur d&amp;rsquo;objet + paramètres  // x et y sont des std::string invoke(std::equal_to&amp;lt;&amp;gt;{}, x, y); // foncteur invoke(&amp;amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;amp;std::string::size, &amp;amp;x, y); // fonction membre et pointeur En C++17, tout peut se faire en une seule fonction, alors qu&amp;rsquo;avant C++17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if.</description>
@@ -143,7 +143,7 @@ Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières
       <guid>https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/</guid>
       <description>Cet article est la démonstration de l&amp;rsquo;article précédent. La problématique présentée est la suivante: &amp;ldquo;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&amp;rdquo;
 La fonction de référence sera la suivante:
-void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, char border_bottom = &amp;#39;-&amp;#39; , char border_left = &amp;#39;&amp;lt;&amp;#39;, char border_right = &amp;#39;&amp;gt;&amp;#39; , char fill = &amp;#39;#&amp;#39; ) { std::cout &amp;lt;&amp;lt; std::setfill(border_top) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; while (h--) { std::cout &amp;lt;&amp;lt; border_left &amp;lt;&amp;lt; std::setfill(fill) &amp;lt;&amp;lt; std::setw(w) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; border_right &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } std::cout &amp;lt;&amp;lt; std::setfill(border_bottom) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } Comment faire un appel proche de draw_rect(4,3, fill=&amp;#39;@&amp;#39;)  ?</description>
+void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, char border_bottom = &amp;#39;-&amp;#39; , char border_left = &amp;#39;&amp;lt;&amp;#39;, char border_right = &amp;#39;&amp;gt;&amp;#39; , char fill = &amp;#39;#&amp;#39; ) { std::cout &amp;lt;&amp;lt; std::setfill(border_top) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; while (h--) { std::cout &amp;lt;&amp;lt; border_left &amp;lt;&amp;lt; std::setfill(fill) &amp;lt;&amp;lt; std::setw(w) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; border_right &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } std::cout &amp;lt;&amp;lt; std::setfill(border_bottom) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } Comment faire un appel proche de draw_rect(4,3, fill=&amp;#39;@&amp;#39;) ?</description>
     </item>
     
     <item>
@@ -225,7 +225,7 @@ Quelque chose dans ce goût-là:
       <pubDate>Wed, 18 Sep 2013 20:09:51 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/</guid>
-      <description>Prenons le type suivant: std::vector&amp;lt;int[4]&amp;gt; . Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&amp;rsquo;est vrai !
+      <description>Prenons le type suivant: std::vector&amp;lt;int[4]&amp;gt;. Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&amp;rsquo;est vrai !
 Ajoutons maintenant un élément à notre vector avec push_back.
 std::vector&amp;lt;int[2]&amp;gt; v; int a[2]{}; v.push_back(a); Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&amp;rsquo;a ni constructeur ni destructeur.
 La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau.</description>
@@ -247,8 +247,8 @@ Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilit
       <pubDate>Mon, 13 May 2013 03:18:42 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/05/reference-constante-sur-reference/</guid>
-      <description>Une petite note sur les références et le qualificatif const  en commençant par un exemple :).
-using reference = int&amp;amp;; int i = 0; reference const r = i; r = 3; Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de r. En fait, ajouter const  sur une référence ne fait rien car cela ne s&amp;rsquo;applique pas sur le référé qui reste un int&amp;amp; .</description>
+      <description>Une petite note sur les références et le qualificatif const en commençant par un exemple :).
+using reference = int&amp;amp;; int i = 0; reference const r = i; r = 3; Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de r. En fait, ajouter const sur une référence ne fait rien car cela ne s&amp;rsquo;applique pas sur le référé qui reste un int&amp;amp;.</description>
     </item>
     
     <item>
@@ -257,9 +257,9 @@ using reference = int&amp;amp;; int i = 0; reference const r = i; r = 3; Contrai
       <pubDate>Mon, 22 Apr 2013 22:17:22 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/</guid>
-      <description>new  est généralement utilisé pour allouer un bloc mémoire et &amp;ndash; où il diffère de malloc(), &amp;ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.
-Mais new  fait une troisième chose: il lance une exception std::bad_alloc si l&amp;rsquo;espace mémoire est insuffisant.
-Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&amp;rsquo;en-tête &amp;lt;new&amp;gt; un type (std::nothrow_t) et une variable (std::nothrow) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</description>
+      <description>new est généralement utilisé pour allouer un bloc mémoire et &amp;ndash; où il diffère de malloc(), &amp;ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.
+Mais new fait une troisième chose: il lance une exception std::bad_alloc si l&amp;rsquo;espace mémoire est insuffisant.
+Ou pas. Car new est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&amp;rsquo;en-tête &amp;lt;new&amp;gt; un type (std::nothrow_t) et une variable (std::nothrow) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</description>
     </item>
     
     <item>

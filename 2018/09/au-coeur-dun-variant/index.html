@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Au cœur d&#39;un variant</title>
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.83.1" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -277,8 +277,7 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
 
 <span class="k">private</span><span class="o">:</span>
   <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">VariantBase</span><span class="o">&gt;</span> <span class="n">impl_</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>Pour ne pas parasiter les codes, je n&rsquo;ajoute pas les noexcept. De toute façon, avec les allocations dynamiques, cela ne va pas être évident.</p>
 <p>Toute la difficulté va se trouver dans les implémentations de <code>VariantBase</code> et la fonction <code>visit</code>. Pour en faire une dérivée, un pattern assez commun va être utilisé, celui d&rsquo;avoir une classe <code>VariantImpl</code> template sur le type à stocker.</p>
@@ -333,8 +332,7 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
 <span class="p">{</span>
   <span class="n">impl_</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
   <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>En réalité ce qu&rsquo;on vient de faire ici n&rsquo;est ni plus ni moins qu&rsquo;un <code>std::any</code>. Si on réfléchit bien, nous ne sommes pas limités dans les types à stocker et il n&rsquo;y a aucune vérification au niveau de l&rsquo;initialisation d&rsquo;une valeur. C&rsquo;est mal, mais on va rester comme cela pour le moment.</p>
 <p>Reste ensuite la fonction <code>visit</code>. À ce stade, je dirais que la solution la plus naturelle est d&rsquo;utiliser <code>dynamic_cast</code> pour déterminer le type réel et appeler la bonne surcharge de fonction.</p>
@@ -356,8 +354,7 @@ Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de c
     <span class="p">}</span>
   <span class="p">};</span>
   <span class="k">return</span> <span class="nf">visit_impl</span><span class="p">(</span><span class="n">visit_impl</span><span class="p">,</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)...);</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Cette implémentation parcourt récursivement les types du variant pour trouver celui qui correspond à la valeur de <code>impl_</code>, appel <code>f</code> avec le bon type puis propage son retour en remontant la pile d&rsquo;appel.
 Le dernier élément est un cas spécial traité dans le <code>else</code> car, quand on le compare avec <code>dynamic_cast</code>, le résultat est toujours vrai.
@@ -396,8 +393,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span>
   <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span> <span class="o">-</span> <span class="n">detail</span><span class="o">::</span><span class="n">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">-</span> <span class="mi">1</span>
-<span class="o">&gt;</span><span class="p">;</span>
-</code></pre></div>
+<span class="o">&gt;</span><span class="p">;</span></code></pre></div>
 
 <p><code>mp_index_of</code> est un alias sur <code>std::integral_constant</code>. L&rsquo;implémentation déroule récursivement les éléments de <code>Ts</code> jusqu&rsquo;à trouver <code>T</code> et retourne le nombre d&rsquo;éléments qu&rsquo;il reste dans la liste. Soustraire ce résultat à <code>sizeof...(Ts) - 1</code> permet d&rsquo;avoir la position de <code>T</code>.</p>
 <p>On met à jour l&rsquo;implémentation pour initialiser le nouveau membre.</p>
@@ -430,8 +426,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
   <span class="n">impl_</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
   <span class="n">type_index_</span> <span class="o">=</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span> <span class="c1">// et là
 </span><span class="c1"></span>  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Puis on supprime <code>dynamic_cast</code> de la fonction <code>visit</code>, le remplaçant par une comparaison d&rsquo;index.</p>
 
@@ -455,8 +450,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
     <span class="p">}</span>
   <span class="p">};</span>
   <span class="k">return</span> <span class="nf">visit_impl</span><span class="p">(</span><span class="n">visit_impl</span><span class="p">,</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)...);</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Peu de changement finalement, mais maintenant <code>variant</code> peut fonctionner sans support de <a href="https://fr.wikipedia.org/wiki/Run-time_type_information">RTTI</a> !</p>
 <p>On notera aussi que puisque nous possédons l&rsquo;indice lié au type, on peut aussi remplacer les fonctions virtuelles par un appel à <code>visit</code> pour supprimer la vtable et enlever l&rsquo;indirection pour accéder aux fonctions virtuelles dans celle-ci.</p>
@@ -480,8 +474,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 
 <span class="k">private</span><span class="o">:</span>
   <span class="n">std</span><span class="o">::</span><span class="n">aligned_union_t</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>Sans les constructeurs, la version avec <code>std::aligned_union</code> est vraiment simple. Mais l&rsquo;utilisation de <code>reinterpret_cast</code> empêche de mettre la fonction <code>get()</code> en <code>constexpr</code> (gcc l&rsquo;accepte néanmoins).</p>
 <p>À contrario, la version avec une union récursive est extrêmement verbeuse (toujours sans constructeur d&rsquo;initialisation de valeur):</p>
@@ -534,8 +527,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="k">private</span><span class="o">:</span>
 
   <span class="n">detail</span><span class="o">::</span><span class="n">RecursiveUnion</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>Si on regarde <a href="https://godbolt.org/g/xu9fwh">l&rsquo;assembleur</a>, il s&rsquo;avère que les 2 versions sont exactement les mêmes.</p>
 <p>Pour initialiser l&rsquo;objet avec une valeur, la version avec <code>std::aligned_union</code> doit utiliser un <a href="http://en.cppreference.com/w/cpp/language/new">placement new</a> qui empêche de rendre le constructeur <code>constexpr</code>. Ce qui par la même occasion s&rsquo;applique aussi au variant. Sans compter le problème du <code>reinterpret_cast</code> dans la fonction <code>get()</code>. Du coup, bien que cette version soit plus simple et que je ne mette pas <code>constexpr</code>, l&rsquo;union récursive est préférable.</p>
@@ -545,8 +537,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
 <span class="k">struct</span> <span class="nc">in_place_index_t</span>
 <span class="p">{</span>
   <span class="k">explicit</span> <span class="nf">in_place_index_t</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>(<code>RecursiveUnion</code> devient <code>VariadicUnion</code>)</p>
 
@@ -558,8 +549,7 @@ Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre res
     <span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">I</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
     <span class="n">VariadicUnion</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">U</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
     <span class="o">:</span> <span class="n">others</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="p">{}</span>
-</code></pre></div>
+    <span class="p">{}</span></code></pre></div>
 
 <p>Puis on adapte les fonctions de <code>Variant</code>.
 Le code final est plutôt gros alors je ne mets <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/cpp_variant/variant3.cpp#l157">que le lien</a>

@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Placement new, allocateur et conteneur</title>
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.83.1" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -21,12 +21,12 @@
 <meta property="twitter:card" content="summary">
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/">
 <meta property="twitter:title" content="Placement new, allocateur et conteneur">
-<meta name="description" content="new  est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de malloc(), &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.
-Mais new  fait une troisième chose: il lance une exception std::bad_alloc si l&rsquo;espace mémoire est insuffisant.
-Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête &lt;new&gt; un type (std::nothrow_t) et une variable (std::nothrow) qui permettent de retourner un pointeur nul plutôt que lancer une exception.">
-<meta property="twitter:description" content="new  est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de malloc(), &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.
-Mais new  fait une troisième chose: il lance une exception std::bad_alloc si l&rsquo;espace mémoire est insuffisant.
-Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête &lt;new&gt; un type (std::nothrow_t) et une variable (std::nothrow) qui permettent de retourner un pointeur nul plutôt que lancer une exception.">
+<meta name="description" content="new est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de malloc(), &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.
+Mais new fait une troisième chose: il lance une exception std::bad_alloc si l&rsquo;espace mémoire est insuffisant.
+Ou pas. Car new est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête &lt;new&gt; un type (std::nothrow_t) et une variable (std::nothrow) qui permettent de retourner un pointeur nul plutôt que lancer une exception.">
+<meta property="twitter:description" content="new est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de malloc(), &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.
+Mais new fait une troisième chose: il lance une exception std::bad_alloc si l&rsquo;espace mémoire est insuffisant.
+Ou pas. Car new est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête &lt;new&gt; un type (std::nothrow_t) et une variable (std::nothrow) qui permettent de retourner un pointeur nul plutôt que lancer une exception.">
 
 </head>
 <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
@@ -225,12 +225,9 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
   </ul>
 </nav>
         </div></aside>
-      <p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
-</code></span> est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de <code>malloc()</code>, &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.</p>
-<p>Mais <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
-</code></span> fait une troisième chose: il lance une exception <code>std::bad_alloc</code> si l&rsquo;espace mémoire est insuffisant.</p>
-<p>Ou pas. Car <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
-</code></span> est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête <code>&lt;new&gt;</code> un type (<code>std::nothrow_t</code>) et une variable (<code>std::nothrow</code>) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</p>
+      <p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de <code>malloc()</code>, &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.</p>
+<p>Mais <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> fait une troisième chose: il lance une exception <code>std::bad_alloc</code> si l&rsquo;espace mémoire est insuffisant.</p>
+<p>Ou pas. Car <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête <code>&lt;new&gt;</code> un type (<code>std::nothrow_t</code>) et une variable (<code>std::nothrow</code>) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">);</span>
 </code></pre></div><p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparement.</p>
 <a class="headline-hash" href="#allouer-de-la-mémoire"><h2 id="allouer-de-la-mémoire">Allouer de la mémoire</h2></a>
@@ -252,25 +249,15 @@ Ou pas. Car new  est un opérateur surchargeable qui prend des paramètres. Le s
 <p>Évidemment, si <code>machin</code> possède un destructeur virtuel et est en réalité une classe fille, alors c&rsquo;est le destructeur de la classe dérivée qui est appelé.</p>
 <p>Il ne reste plus qu&rsquo;à libérer la mémoire.</p>
 <a class="headline-hash" href="#libération-de-la-mémoire"><h2 id="libération-de-la-mémoire">Libération de la mémoire</h2></a>
-<p>De la même manière qu&rsquo;il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span>
-</code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span><span class="p">[]</span>
-</code></span> pour <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
-</code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span><span class="p">[]</span>
-</code></span>, il existe un <a href="http://en.cppreference.com/w/cpp/memory/new/operator_delete">::operator delete()</a> associé à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">()</span>
-</code></span>.</p>
+<p>De la même manière qu&rsquo;il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span></code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span><span class="p">[]</span></code></span> pour <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span><span class="p">[]</span></code></span>, il existe un <a href="http://en.cppreference.com/w/cpp/memory/new/operator_delete">::operator delete()</a> associé à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">()</span></code></span>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span> <span class="p">(</span><span class="n">p</span><span class="p">);</span>
 </code></pre></div><a class="headline-hash" href="#allocation-de-tableau"><h2 id="allocation-de-tableau">Allocation de tableau</h2></a>
-<p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[]</span>
-</code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">[]</span>
-</code></span> fonctionnent de la même manière, mais sont plus sûrs qu&rsquo;une gestion manuelle de tableau avec leurs homologues sans crochets. Ne serait-ce que pour détruire proprement les objets si un des constructeurs jette une exception.</p>
+<p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[]</span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">[]</span></code></span> fonctionnent de la même manière, mais sont plus sûrs qu&rsquo;une gestion manuelle de tableau avec leurs homologues sans crochets. Ne serait-ce que pour détruire proprement les objets si un des constructeurs jette une exception.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[](</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span> <span class="c1">// identique que la version sans crochet
 </span><span class="c1"></span><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="cm">/*{params...}*/</span><span class="p">;</span>
 </code></pre></div><a class="headline-hash" href="#surcharge-de-new-et-delete"><h2 id="surcharge-de-new-et-delete">Surcharge de new et delete</h2></a>
-<p>Toutes les formes de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
-</code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span>
-</code></span> sont surchargeables de façon locale ou globale. Local quand l&rsquo;opérateur est implémenté à l&rsquo;intérieur d&rsquo;une classe (son prototype sera implicitement statique) et global lorsqu&rsquo;implémenté dans le namespace global.</p>
-<p>De plus, comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
-</code></span> peut prendre des paramètres, il est possible de les personnaliser et d&rsquo;en ajouter.</p>
+<p>Toutes les formes de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span></code></span> sont surchargeables de façon locale ou globale. Local quand l&rsquo;opérateur est implémenté à l&rsquo;intérieur d&rsquo;une classe (son prototype sera implicitement statique) et global lorsqu&rsquo;implémenté dans le namespace global.</p>
+<p>De plus, comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> peut prendre des paramètres, il est possible de les personnaliser et d&rsquo;en ajouter.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;new&gt;</span><span class="cp">
 </span><span class="cp"></span><span class="k">struct</span> <span class="nc">A</span>
 <span class="p">{</span>

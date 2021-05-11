@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Effets et utilisations de noexcept</title>
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.83.1" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -397,17 +397,14 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 <tbody>
 <tr>
 <td>./a.out</td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">&amp;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</code></span></td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</code></span></td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">&amp;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></code></span></td>
 </tr>
 </tbody>
 </table>
 <p>Maintenant imaginons que notre classe <code>A</code> contienne des <code>std::string</code> et des <code>std::vector</code>. Si le constructeur de déplacement n&rsquo;est pas <code>noexcept</code>, alors il y aura de nombreuses copies qui auront un gros impact sur les performances. Ce n&rsquo;est généralement pas ce qu&rsquo;on veut.</p>
 <p>Personnellement, je déconseille d&rsquo;écrire le constructeur et operator= de déplacement ou de copie. 99% du temps, la version par défaut fait le job, le compilateur déduisant lui-même <code>noexcept</code> pour les fonctions par défaut &ndash; et c&rsquo;est bien le seul moment. S&rsquo;il y a une véritable nécessité, il est généralement possible d&rsquo;avoir une classe qui ne fournit que ce service et l&rsquo;utiliser en variable membre.</p>
-<p>Si on écrit explicitement <code>noexcept</code> sur une fonction par défaut &ndash; par exemple <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">X</span><span class="p">(</span><span class="n">X</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-</code></span> &ndash; le compilateur va <strong>vérifier</strong> que le déplacement de chaque membre ne lance pas d&rsquo;exception. Et dans le cas contraire, ne compile pas.</p>
+<p>Si on écrit explicitement <code>noexcept</code> sur une fonction par défaut &ndash; par exemple <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">X</span><span class="p">(</span><span class="n">X</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></code></span> &ndash; le compilateur va <strong>vérifier</strong> que le déplacement de chaque membre ne lance pas d&rsquo;exception. Et dans le cas contraire, ne compile pas.</p>
 <p>Pour finir, <strong>les destructeurs sont implicitement <code>noexcept</code></strong>. Si un destructeur balance une exception, le programme va s&rsquo;arrêter. Les raisons sont assez simples: il est difficile de catcher une exception d&rsquo;un destructeur et il est impossible d&rsquo;arriver à un état cohérent sans code spécifique si les objets ne peuvent être détruits. De plus, il faut savoir que jeter une exception pendant le traitement d&rsquo;une exception appelle automatiquement <code>std::terminate()</code>. Du coup, les exceptions dans un destructeur sont plutôt une mauvaise idée.</p>
 <p>Mais si on veut autoriser le destructeur à jeter des exceptions ou pouvoir marquer nos fonctions en <code>noexcept</code> à la seule condition qu&rsquo;une expression précise soit elle-même <code>noexcept</code> il existe un nouveau mot clef: <code>noexcept</code>. Oui, mais non, il est différent.</p>
 <a class="headline-hash" href="#spécificateur-dexception-et-opérateur-noexcept"><h2 id="spécificateur-dexception-et-opérateur-noexcept">Spécificateur d&rsquo;exception et opérateur noexcept</h2></a>
@@ -441,8 +438,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 <p>2 fonctions qui ne diffèrent que par la spécification d&rsquo;exception ne peuvent être surchargées car leur signature est identique. Ceci n&rsquo;est pas autorisé:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">();</span>
 <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span> <span class="c1">// erreur
-</span></code></pre></div><p>Du fait de la signature identique, <code>noexcept</code> peut très bien apparaître dans le prototype d&rsquo;une fonction exposée dans une bibliothèque C (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">extern</span> <span class="s">&#34;C&#34;</span>
-</code></span>), mais cette information disparaît dans la bibliothèque elle-même. Mieux que ça, si la bibliothèque est compilée sans <code>noexcept</code>, mais que le <code>.h</code> distribué les met, le compilateur retrouve ses petits, car le name mangling est le même.</p>
+</span></code></pre></div><p>Du fait de la signature identique, <code>noexcept</code> peut très bien apparaître dans le prototype d&rsquo;une fonction exposée dans une bibliothèque C (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">extern</span> <span class="s">&#34;C&#34;</span></code></span>), mais cette information disparaît dans la bibliothèque elle-même. Mieux que ça, si la bibliothèque est compilée sans <code>noexcept</code>, mais que le <code>.h</code> distribué les met, le compilateur retrouve ses petits, car le name mangling est le même.</p>
 <p>Par contre, avant C++17 le type d&rsquo;une fonction ne prend jamais en compte <code>noexcept</code>. C’est-à-dire que les types <code>void(*)()</code> et <code>void(*)() noexcept</code> sont identiques.</p>
 <p>À partir de C++17, <code>noexcept</code> fait partie intégrante du type de la fonction. Un pointeur de fonction <code>noexcept</code> n&rsquo;est pas compatible avec un pointeur de fonction qui jette potentiellement une exception. Néanmoins, une fonction <code>noexcept</code> est convertible en un pointeur de fonction qui n&rsquo;est pas <code>noexcept</code>. Les posts conditions sont plus fortes ce qui ne brise pas le <a href="https://fr.wikipedia.org/wiki/Principe_de_substitution_de_Liskov">LSP</a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span>

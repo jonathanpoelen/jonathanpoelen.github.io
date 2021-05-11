@@ -1,259 +1,157 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</loc>
     <lastmod>2020-04-07T09:29:25+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/categories/</loc>
     <lastmod>2020-04-07T09:29:25+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/</loc>
     <lastmod>2020-04-07T09:29:25+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/post/</loc>
     <lastmod>2020-04-07T09:29:25+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2020/04/sfinae/</loc>
     <lastmod>2020-04-07T09:29:25+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/</loc>
     <lastmod>2019-09-01T16:09:32+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</loc>
     <lastmod>2019-03-29T17:28:19+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/</loc>
     <lastmod>2019-01-28T22:45:03+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/categories/script-shell/</loc>
     <lastmod>2019-01-28T22:45:03+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/categories/zsh/</loc>
     <lastmod>2019-01-28T22:45:03+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/</loc>
     <lastmod>2018-12-09T13:11:29+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/</loc>
     <lastmod>2018-11-08T18:56:13+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/</loc>
     <lastmod>2018-11-01T20:42:09+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/</loc>
     <lastmod>2018-10-01T18:28:21+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/</loc>
     <lastmod>2018-09-02T14:45:55+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2018/02/faites-parler-votre-compilateur/</loc>
     <lastmod>2018-02-13T03:00:28+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/categories/accessibilite-web/</loc>
     <lastmod>2018-01-02T14:18:22+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/</loc>
     <lastmod>2018-01-02T14:18:22+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2017/07/de-blogspot-a-hugo-il-a-change-de-peau/</loc>
     <lastmod>2017-07-29T16:03:53+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/archives/</loc>
     <lastmod>2017-07-14T01:22:56+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/</loc>
     <lastmod>2017-07-05T22:02:11+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2016/04/comment-se-passer-de-stdforward/</loc>
     <lastmod>2016-04-04T23:09:41+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/</loc>
     <lastmod>2018-03-04T23:14:38+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/</loc>
     <lastmod>2015-07-28T00:43:22+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/</loc>
     <lastmod>2015-07-02T01:49:41+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/</loc>
     <lastmod>2014-11-30T19:17:52+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/</loc>
     <lastmod>2014-06-28T14:10:11+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/</loc>
     <lastmod>2014-06-09T00:35:19+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/</loc>
     <lastmod>2014-05-31T21:18:10+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/</loc>
     <lastmod>2014-05-22T09:51:53+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</loc>
     <lastmod>2019-03-23T03:23:06+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/</loc>
     <lastmod>2013-09-18T20:09:51+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/</loc>
     <lastmod>2013-07-20T11:18:49+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/categories/make/</loc>
     <lastmod>2013-06-26T11:05:28+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/</loc>
     <lastmod>2013-06-26T11:05:28+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/</loc>
     <lastmod>2013-05-29T00:23:12+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2013/05/reference-constante-sur-reference/</loc>
     <lastmod>2013-05-13T03:18:42+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/</loc>
     <lastmod>2013-04-22T22:17:22+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2013/03/ne-pas-empecher-la-nrvo/</loc>
     <lastmod>2013-03-17T17:12:57+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/categories/sqlite/</loc>
     <lastmod>2013-03-04T23:36:14+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/</loc>
     <lastmod>2013-03-04T23:36:14+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/</loc>
     <lastmod>2013-02-17T10:42:27+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/</loc>
     <lastmod>2013-01-18T15:16:12+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/categories/javascript/</loc>
     <lastmod>2013-01-18T15:16:12+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2012/12/la-vis-cachee-de-getopt/</loc>
     <lastmod>2012-12-25T12:58:55+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/</loc>
     <lastmod>2012-12-20T01:22:50+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/</loc>
     <lastmod>2012-10-14T19:46:36+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/</loc>
     <lastmod>2012-08-16T02:22:24+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/</loc>
     <lastmod>2012-06-11T10:11:50+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</loc>
     <lastmod>2011-12-31T12:05:43+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jonathanpoelen.github.io/tags/</loc>
   </url>
-  
 </urlset>

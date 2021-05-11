@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.78.2" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.83.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -510,13 +510,9 @@ Et comme la page d&rsquo;accueil contient plusieurs articles, la taille du scrol
 
   </header>
   <div class="post__content">
-      <p>Je vais me baser sur un classique: une classe de matrice contenant un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>
-</code></span>. Cette classe va implémenter 2 opérateurs mathématiques: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">+</span>
-</code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">+=</span>
-</code></span>. Le premier en fonction libre, le second en fonction membre.</p>
+      <p>Je vais me baser sur un classique: une classe de matrice contenant un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span></code></span>. Cette classe va implémenter 2 opérateurs mathématiques: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">+</span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">+=</span></code></span>. Le premier en fonction libre, le second en fonction membre.</p>
 <p>Pour rigoler un peu, on ajoute une petite contrainte qui est &ldquo;l&rsquo;efficacité&rdquo;. Petit mot qui englobe un peu tout et n&rsquo;importe quoi tel que la performance en mémoire et en temps.</p>
-<p>À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc. Des bibliothèques comme uBLAS, Eigen, Blitz implémentent une tripotée de choses. Ici, on va uniquement s&rsquo;intéresser à la manière d&rsquo;implémenter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span>
-</code></span> pour recycler les variables temporaires dans le but d&rsquo;avoir le moins d&rsquo;allocations possibles dûes aux copies.</p>
+<p>À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc. Des bibliothèques comme uBLAS, Eigen, Blitz implémentent une tripotée de choses. Ici, on va uniquement s&rsquo;intéresser à la manière d&rsquo;implémenter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span></code></span> pour recycler les variables temporaires dans le but d&rsquo;avoir le moins d&rsquo;allocations possibles dûes aux copies.</p>
 <p>Grosso-modo, des rvalues à droite, des rvalues à gauche, des rvalues partout et pour finir, pas de rvalue.</p>
 <p>En réalité, il y a plusieurs approches possibles que je mets ici en opposition sans qu&rsquo;elles le soient réellement.</p>
 <ol>
@@ -524,8 +520,7 @@ Et comme la page d&rsquo;accueil contient plusieurs articles, la taille du scrol
 <li>un opérator unique pour les gouverner tous.</li>
 </ol>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#plein-de-surcharges-de-operator"><h2 id="plein-de-surcharges-de-operator">Plein de surcharges de operator+</h2></a>
-<p>Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">noexcept</span>
-</code></span> sur de tels prototypes.</p>
+<p>Faire 4 prototypes pour distinguer les rvalues des lvalues est un choix assez naturel. Si un prototype contient une rvalue, alors il y a moyen de recycler une valeur. On pourrait même ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">noexcept</span></code></span> sur de tels prototypes.</p>
 <p>Voici ce que donne l&rsquo;implémentation:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">Matrix</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
@@ -565,10 +560,7 @@ Et comme la page d&rsquo;accueil contient plusieurs articles, la taille du scrol
 </span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rhs</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><p>Les prototypes ne sont pas symétriques pour éviter les ambiguïtés. Le prototype prenant un paramètre par copie sera moins prioritaire que celui avec une rvalue, mais il accepte toutes les formes de référence.</p>
-<p>Ainsi, si dans l&rsquo;expression <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">b</span>
-</code></span> une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__PRETTY_FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span>
-</code></span> dans les implémentations et le test qui suit.</p>
+<p>Ainsi, si dans l&rsquo;expression <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">a</span> <span class="o">+</span> <span class="n">b</span></code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">b</span></code></span> une rvalue, la seconde fonction sera utilisée. Dans les autres cas, la première fonction sera utilisée. On peut facilement vérifier quelle expression correspond à quelle fonction avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__PRETTY_FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span></code></span> dans les implémentations et le test qui suit.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Lhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Rhs</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">test</span><span class="p">()</span>
 <span class="p">{</span>
@@ -595,7 +587,7 @@ Et comme la page d&rsquo;accueil contient plusieurs articles, la taille du scrol
   <span class="n">test</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Matrix</span><span class="p">,</span> <span class="k">const</span> <span class="n">Matrix</span><span class="o">&gt;</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div><p>Résultat:</p>
-<pre><code>Matrix       a; Matrix       b;
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>Matrix       a; Matrix       b;
 
 a            + b              Matrix operator+(Matrix, const Matrix&amp;)
 a            + std::move(b)   Matrix operator+(const Matrix&amp;, Matrix&amp;&amp;)
@@ -625,31 +617,25 @@ a            + b              Matrix operator+(Matrix, const Matrix&amp;)
 a            + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + b              Matrix operator+(Matrix, const Matrix&amp;)
 std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
-</code></pre><p>Si on y tient vraiment, on peut ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">)</span>
-</code></span>. Mais comme dit précédemment le besoin est très faible.</p>
+</code></pre></div><p>Si on y tient vraiment, on peut ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&amp;&amp;</span><span class="p">)</span></code></span>. Mais comme dit précédemment le besoin est très faible.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#un-prototype-multi-fonction"><h2 id="un-prototype-multi-fonction">Un prototype multi-fonction</h2></a>
 <p>Une autre solution pour la surcharge d&rsquo;opérateur est de ne faire qu&rsquo;un seul et unique prototype template qui s&rsquo;active en présence d&rsquo;un certain type. Ce n&rsquo;est pas une approche opposée à la précédente (elle peut servir de complément), mais je vais présenter ici comment le faire avec seulement un prototype.</p>
-<p>Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">enable_if</span>
-</code></span>. Ce qui donne:</p>
+<p>Pour filtrer les types compatibles, on va utiliser la bonne vieille méthode à base de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">enable_if</span></code></span>. Ce qui donne:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">MatrixLhs</span><span class="p">,</span> <span class="k">class</span> <span class="nc">MatrixRhs</span><span class="o">&gt;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixLhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">MatrixRhs</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Matrix</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
   <span class="n">Matrix</span><span class="o">&gt;</span>
 <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">MatrixLhs</span><span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="n">MatrixRhs</span><span class="o">&amp;&amp;</span> <span class="n">rhs</span><span class="p">);</span>
-</code></pre></div><p>Dans la réalité, l&rsquo;addition d&rsquo;une matrice fonctionne aussi sur des entiers (cf: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">+</span> <span class="n">Matrix</span>
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="o">+</span> <span class="kt">int</span>
-</code></span>). Le filtre sera alors beaucoup plus compliqué puisqu&rsquo;il faut qu&rsquo;au moins une des opérandes soit un type <code>Matrix</code> et que les paramètres soient des types compatibles (en prenant en compte la présence des références et des <code>const</code>). La condition devient alors quelque chose comme:</p>
+</code></pre></div><p>Dans la réalité, l&rsquo;addition d&rsquo;une matrice fonctionne aussi sur des entiers (cf: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">+</span> <span class="n">Matrix</span></code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">Matrix</span> <span class="o">+</span> <span class="kt">int</span></code></span>). Le filtre sera alors beaucoup plus compliqué puisqu&rsquo;il faut qu&rsquo;au moins une des opérandes soit un type <code>Matrix</code> et que les paramètres soient des types compatibles (en prenant en compte la présence des références et des <code>const</code>). La condition devient alors quelque chose comme:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
 <span class="n">is_matrix_operand</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span> <span class="o">&amp;&amp;</span>
 <span class="p">(</span><span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Lhs</span><span class="o">&gt;</span> <span class="o">||</span> <span class="n">is_matrix</span><span class="o">&lt;</span><span class="n">Rhs</span><span class="o">&gt;</span><span class="p">)</span>
 </code></pre></div><p>Il devient alors très facile d&rsquo;ajouter un nouveau type à prendre en compte, comme par exemple un conteneur de la SL, un tableau C, un autre type matriciel d&rsquo;une autre bibliothèque, etc. Faire comme dans le premier chapitre avec un prototype pour chaque cas devient vite infernal.</p>
 <p>Il est également envisageable de faire des prototypes par catégorie de variable: Sequence et Matrix, Integer et Matrix.</p>
-<p>Revenons-en à notre <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span>
-</code></span> et son implémentation. Celle-ci va être plus compliqué car elle doit être équivalente aux 4 implémentations du début ; sachant que la première possède une variable et les opérandes sont inversés dans la troisième et la quatrième.</p>
+<p>Revenons-en à notre <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span></code></span> et son implémentation. Celle-ci va être plus compliqué car elle doit être équivalente aux 4 implémentations du début ; sachant que la première possède une variable et les opérandes sont inversés dans la troisième et la quatrième.</p>
 <p>Une solution possible est de mettre 2 valeurs intermédiaires qui représentent l&rsquo;opérande de gauche et l&rsquo;opérande de droite et dont le type s&rsquo;adapte en fonction des types en entrée.</p>
-<p>Ci-dessous un tableau récapitulatif des types et valeurs de nos 2 nouvelles variables <code>Lhs</code> et <code>Rhs</code>. Les <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
-</code></span> sont supprimés car seule la référence importe.</p>
+<p>Ci-dessous un tableau récapitulatif des types et valeurs de nos 2 nouvelles variables <code>Lhs</code> et <code>Rhs</code>. Les <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> sont supprimés car seule la référence importe.</p>
 <table>
 <thead>
 <tr>
@@ -669,31 +655,23 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 </code></span> = rhs</td>
 </tr>
 <tr>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span></code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
 </code></span></td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span> = lhs</td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span></code></span> = lhs</td>
 <td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
 </code></span> = rhs</td>
 </tr>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span></td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span> = rhs</td>
+</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span></code></span> = rhs</td>
 <td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;</span> 
 </code></span> = lhs</td>
 </tr>
 <tr>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span></td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span> = rhs</td>
-<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span>
-</code></span> = lhs</td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span></code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span></code></span> = rhs</td>
+<td><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">M</span> <span class="o">&amp;&amp;</span></code></span> = lhs</td>
 </tr>
 </tbody>
 </table>
@@ -743,21 +721,11 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
   <span class="k">return</span> <span class="n">new_lhs</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div><p>Le code mérite quelques explications. Pour commencer, parlons de <code>rvalue_reference</code> qui est un palliatif pour une optimisation au niveau de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">return</span>
-</code></span>. Au niveau du retour, si <code>NewLhs</code> est une rvalue, il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">move</span>
-</code></span>, sauf que l&rsquo;utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_rvalue_reference</span><span class="o">&lt;</span><span class="n">NewLhs</span><span class="o">&gt;</span><span class="p">{})</span> <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lhs</span><span class="p">);</span>
-</code></span> avant <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">return</span> <span class="n">new_lhs</span>
-</code></span> l&rsquo;optimisation n&rsquo;est pas faite. Cela fonctionne néanmoins avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span>
-</code></span> de c++17. Le but de <code>rvalue_reference</code>  est finalement de rendre automatique un retour par rvalue grâce à l&rsquo;opérateur de cast interne.</p>
+</code></pre></div><p>Le code mérite quelques explications. Pour commencer, parlons de <code>rvalue_reference</code> qui est un palliatif pour une optimisation au niveau de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">return</span></code></span>. Au niveau du retour, si <code>NewLhs</code> est une rvalue, il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">move</span></code></span>, sauf que l&rsquo;utiliser sur une variable locale à la fonction bloque le RVO. Hélas, même avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_rvalue_reference</span><span class="o">&lt;</span><span class="n">NewLhs</span><span class="o">&gt;</span><span class="p">{})</span> <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lhs</span><span class="p">);</span></code></span> avant <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">return</span> <span class="n">new_lhs</span></code></span> l&rsquo;optimisation n&rsquo;est pas faite. Cela fonctionne néanmoins avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span></code></span> de c++17. Le but de <code>rvalue_reference</code>  est finalement de rendre automatique un retour par rvalue grâce à l&rsquo;opérateur de cast interne.</p>
 <p>Concernant ce curieux enchaînement de cast, celui-ci s&rsquo;explique par la difficulté de contrôler le type retourné par une ternaire. Une ternaire sur deux variables de même type va retourner une référence (une variable est toujours une lvalue). La référence sera considérée constante si une des deux valeurs est une référence constante. Du coup, on vire le const pour ensuite construire les types <code>NewLhs</code> et <code>NewRhs</code>.</p>
-<p>Ici, le constructeur de la matrice (quand <code>NewLhs = Matrix</code>) va recevoir un type non const. À moins qu&rsquo;un constructeur existe pour les références non const, cela ne cause pas de problème. On peut très bien ajouter un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">conditional</span>
-</code></span> pour forcer le const.</p>
-<p>En première impression <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NewRhs</span><span class="o">&gt;</span>
-</code></span> pourrait être optionnel, mais celui-ci permet de forcer la rvalue pour construire NewRhs. Une lvalue (le retour de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&amp;&gt;</span>
-</code></span>) ne pouvant être affectée à une rvalue sans cela.</p>
-<p>Les casts présents fonctionnent bien parce que <code>lhs</code> et <code>rhs</code> sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">falcon</span><span class="o">::</span><span class="n">cif</span>
-</code></span> ou <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">boost</span><span class="o">::</span><span class="n">hana</span><span class="o">::</span><span class="n">if_</span>
-</code></span>. Plusieurs de mes articles en parlent.</p>
+<p>Ici, le constructeur de la matrice (quand <code>NewLhs = Matrix</code>) va recevoir un type non const. À moins qu&rsquo;un constructeur existe pour les références non const, cela ne cause pas de problème. On peut très bien ajouter un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">conditional</span></code></span> pour forcer le const.</p>
+<p>En première impression <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">NewRhs</span><span class="o">&gt;</span></code></span> pourrait être optionnel, mais celui-ci permet de forcer la rvalue pour construire NewRhs. Une lvalue (le retour de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const_cast</span><span class="o">&lt;</span><span class="n">Matrix</span><span class="o">&amp;&gt;</span></code></span>) ne pouvant être affectée à une rvalue sans cela.</p>
+<p>Les casts présents fonctionnent bien parce que <code>lhs</code> et <code>rhs</code> sont tous deux du même type. Dans le cas contraire, il faut faire un branchement à la compilation via de la surcharge de fonction (dispatch de type) tel que font <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">falcon</span><span class="o">::</span><span class="n">cif</span></code></span> ou <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">boost</span><span class="o">::</span><span class="n">hana</span><span class="o">::</span><span class="n">if_</span></code></span>. Plusieurs de mes articles en parlent.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/#nécrivez-pas-operator-vous-même-cest-trop-compliquénbsp"><h2 id="nécrivez-pas-operator-vous-même-cest-trop-compliquénbsp">N&rsquo;écrivez pas operator+ vous-même, c&rsquo;est trop compliqué !</h2></a>
 <p>Sérieusement, qui veut écrire une 20taine de lignes pour chaque opérateur ? Ne le faites pas, le code est alourdi, la lisibilité réduite. Il y a moyen d&rsquo;implémenter la plupart des opérateurs en quelques lignes pour le même résultat.</p>
 <p>De plus, l&rsquo;implémentation des opérateurs peuvent varier. Par exemple, pas de commutativité. Ses variantes sont difficiles à détecter dans une grande masse de code, il devient facile de faire une erreur aussi bien à l&rsquo;écriture qu&rsquo;à la lecture.</p>
@@ -938,8 +906,7 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
 
   </header>
   <div class="post__content">
-      <p>Le but de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span>
-</code></span> est d&rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&rsquo;a pas l&rsquo;obligation de pouvoir être compilé.</p>
+      <p>Le but de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span></code></span> est d&rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&rsquo;a pas l&rsquo;obligation de pouvoir être compilé.</p>
 <p>Plutôt étrange, n&rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.</p>
 <p>Prenons comme exemple une fonction <code>invoke</code> qui s&rsquo;utilise de 3 manières:</p>
 <ul>
@@ -975,10 +942,8 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
   <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">)();</span>
 <span class="p">}</span>
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/#simulation-de-if-constexpr-en-pre-c17"><h2 id="simulation-de-if-constexpr-en-pre-c17">Simulation de if constexpr en pre-C++17</h2></a>
-<p>L&rsquo;atout principal de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span>
-</code></span> ici est de n&rsquo;évaluer le code qu&rsquo;au besoin. Il faut donc un moyen de court-circuiter le flux de code. Le plus simple consiste à faire 2 fonctions, une avec un paramètre de type <code>std::true_type</code>, l&rsquo;autre avec un <code>std::false_type</code> qui représente le résultat de la condition et 2 paramètres: <code>If</code> et <code>Else</code>.</p>
-<p>Aussi, pour que les foncteurs <code>If</code> et <code>Else</code> soient évalués au dernier moment, ils devront prendre et utiliser un paramètre générique (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">auto</span>
-</code></span>). Sinon le compilateur va vérifier le code au moment de l&rsquo;instanciation de la lambda plutôt qu&rsquo;au moment de son utilisation.</p>
+<p>L&rsquo;atout principal de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span></code></span> ici est de n&rsquo;évaluer le code qu&rsquo;au besoin. Il faut donc un moyen de court-circuiter le flux de code. Le plus simple consiste à faire 2 fonctions, une avec un paramètre de type <code>std::true_type</code>, l&rsquo;autre avec un <code>std::false_type</code> qui représente le résultat de la condition et 2 paramètres: <code>If</code> et <code>Else</code>.</p>
+<p>Aussi, pour que les foncteurs <code>If</code> et <code>Else</code> soient évalués au dernier moment, ils devront prendre et utiliser un paramètre générique (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">auto</span></code></span>). Sinon le compilateur va vérifier le code au moment de l&rsquo;instanciation de la lambda plutôt qu&rsquo;au moment de son utilisation.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Identity</span>
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
@@ -1009,12 +974,8 @@ std::move(a) + std::move(b)   Matrix operator+(Matrix, const Matrix&amp;)
   <span class="p">});</span>
 <span class="p">}</span>
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/#limitation"><h2 id="limitation">Limitation</h2></a>
-<p>Cette version ne supporte pas <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">else</span>
-</code></span>, demande d&rsquo;utiliser <code>_</code> &ldquo;là où il faut&rdquo; et est syntaxiquement plus lourde.
-Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonction qui ne propage pas l&rsquo;usage de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">break</span>
-</code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">continue</span>
-</code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">return</span>
-</code></span>.</p>
+<p>Cette version ne supporte pas <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">else</span></code></span>, demande d&rsquo;utiliser <code>_</code> &ldquo;là où il faut&rdquo; et est syntaxiquement plus lourde.
+Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonction qui ne propage pas l&rsquo;usage de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">break</span></code></span>, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">continue</span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">return</span></code></span>.</p>
 
   </div>
   <footer class="post__footer">
@@ -1095,13 +1056,9 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
   <span class="p">}</span>
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setfill</span><span class="p">(</span><span class="n">border_bottom</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">setw</span><span class="p">(</span><span class="n">w</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div><p>Comment faire un appel proche de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">draw_rect</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="sc">&#39;@&#39;</span><span class="p">)</span>
-</code></span> ?</p>
+</code></pre></div><p>Comment faire un appel proche de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">draw_rect</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="sc">&#39;@&#39;</span><span class="p">)</span></code></span> ?</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/#création-dun-paramètre-nommé"><h2 id="création-dun-paramètre-nommé">Création d&rsquo;un paramètre nommé</h2></a>
-<p>La première étape consiste à créer un type par paramètre optionnel. Comme je n&rsquo;ai pas envie de me compliquer la vie, la syntaxe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">fill</span><span class="o">=</span><span class="sc">&#39;@&#39;</span>
-</code></span> qui demande plus de code à cause d&rsquo;une surcharge de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">=</span>
-</code></span> sera remplacée par un simple appel de constructeur <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">fill</span><span class="p">{</span><span class="sc">&#39;@&#39;</span><span class="p">}</span>
-</code></span>.</p>
+<p>La première étape consiste à créer un type par paramètre optionnel. Comme je n&rsquo;ai pas envie de me compliquer la vie, la syntaxe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">fill</span><span class="o">=</span><span class="sc">&#39;@&#39;</span></code></span> qui demande plus de code à cause d&rsquo;une surcharge de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">=</span></code></span> sera remplacée par un simple appel de constructeur <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">fill</span><span class="p">{</span><span class="sc">&#39;@&#39;</span><span class="p">}</span></code></span>.</p>
 <p>La définition des types devient alors véritablement simpliste:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">border_top</span> <span class="p">{</span> <span class="kt">char</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
 <span class="k">struct</span> <span class="nc">border_bottom</span> <span class="p">{</span> <span class="kt">char</span> <span class="n">value</span><span class="p">;</span> <span class="p">};</span>
@@ -1132,8 +1089,7 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
 <span class="p">,</span> <span class="n">getval</span><span class="o">&lt;</span><span class="n">border_right</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="sc">&#39;&gt;&#39;</span><span class="p">)</span>
 <span class="p">,</span> <span class="n">getval</span><span class="o">&lt;</span><span class="n">fill</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="sc">&#39;#&#39;</span><span class="p">)</span>
 <span class="p">);</span>
-</code></pre></div><p>Pour les plus attentifs (il m&rsquo;a fallu 2 jours pour le réaliser…), rien n&rsquo;empêche d&rsquo;envoyer des paramètres inutiles. On peut l&rsquo;empêcher grâce à un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">static_assert</span>
-</code></span> avec une condition qui ressemble à</p>
+</code></pre></div><p>Pour les plus attentifs (il m&rsquo;a fallu 2 jours pour le réaliser…), rien n&rsquo;empêche d&rsquo;envoyer des paramètres inutiles. On peut l&rsquo;empêcher grâce à un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">static_assert</span></code></span> avec une condition qui ressemble à</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">is_convertible_t</span><span class="o">&lt;</span><span class="n">border_top</span><span class="o">&gt;</span><span class="p">()</span>
                <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span><span class="o">&lt;</span><span class="n">border_bottom</span><span class="o">&gt;</span><span class="p">()</span>
                <span class="o">+</span> <span class="cm">/*etc*/</span>
@@ -1146,8 +1102,7 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
   <span class="o">::</span><span class="n">get</span><span class="p">(</span><span class="n">pack</span><span class="p">,</span> <span class="n">default_</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/#aller-plus-loin"><h2 id="aller-plus-loin">Aller plus loin</h2></a>
-<p>Les choses se compliquent quand on veut récupérer un type partiel. Un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">basic_fill</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
-</code></span> par exemple. Actuellement, rien n&rsquo;existe dans le standard et il faudra jouer avec les paramètres template template et un <a href="https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/">appel conditionnel de fonction selon la validité d&rsquo;une expression</a>.</p>
+<p>Les choses se compliquent quand on veut récupérer un type partiel. Un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">basic_fill</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span></code></span> par exemple. Actuellement, rien n&rsquo;existe dans le standard et il faudra jouer avec les paramètres template template et un <a href="https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/">appel conditionnel de fonction selon la validité d&rsquo;une expression</a>.</p>
 <p>Pour compléter la solution, il faudrait aussi prendre en compte les références et ajouter des contraintes sur le paramètre.</p>
 <p>Pour continuer dans la voie des paramètres nommés, il existe <code>Boost.Parameters</code> et des variantes plus modernes telles que <a href="https://github.com/odinthenerd/parameter2">parameter2</a>.</p>
 
@@ -1225,8 +1180,7 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">item</span> <span class="p">{</span> <span class="n">T</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">typeset</span> <span class="o">:</span> <span class="n">item</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span> <span class="p">{};</span>
-</code></pre></div><p>Avec cette implémentation, des petits malins pourraient faire de la pseudo-duplication de type en y ajoutant des qualificeurs, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&gt;</span>
-</code></span> par exemple.</p>
+</code></pre></div><p>Avec cette implémentation, des petits malins pourraient faire de la pseudo-duplication de type en y ajoutant des qualificeurs, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&gt;</span></code></span> par exemple.</p>
 <p>On peut être tolérant ou devenir un tyran sans pitié en empêchant cela.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">tyrannical_typeset_impl</span> <span class="o">:</span> <span class="n">typeset</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{</span>
@@ -1332,10 +1286,7 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
 <p>L&rsquo;exemple va se faire sur la classe <code>std::list</code> qui n&rsquo;est pas triable avec <code>std::sort</code>, mais possède une fonction membre <code>sort()</code>. Ainsi que sur <code>std::vector</code> qui, inversement, n&rsquo;a pas de fonction membre <code>sort()</code>, mais fonctionne avec <code>std::sort</code>.</p>
 <p>La méthode est simple et consiste à créer 2 fonctions: une pour vérifier si une expression est valide (ici <code>x.sort()</code>) et une autre en cas d&rsquo;échec.</p>
 <p>Seulement, qui dit 2 fonctions dit 2 prototypes. Leur prototype doit être légèrement différent mais compatible avec les mêmes valeurs d&rsquo;entrée pour appeler la seconde si la première échoue (principe du <a href="http://en.cppreference.com/w/cpp/language/sfinae">SFINAE</a>).</p>
-<p>Pour vérifier l&rsquo;expression, seuls 2 mots clef existent: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span>
-</code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span>
-</code></span>. Cette procédure est donc possible avant C++11, même si <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span>
-</code></span> requière un peu d&rsquo;enrobage.</p>
+<p>Pour vérifier l&rsquo;expression, seuls 2 mots clef existent: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span></code></span>. Cette procédure est donc possible avant C++11, même si <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span></code></span> requière un peu d&rsquo;enrobage.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">//avec decltype
@@ -1355,17 +1306,9 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Cont</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">sort</span><span class="p">(</span><span class="n">Cont</span><span class="o">&amp;</span> <span class="n">c</span><span class="p">)</span>
 <span class="p">{</span> <span class="n">dispatch_sort</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="p">}</span>
-</code></pre></div><p>La fonction <code>sort</code> appel <code>dispatch_sort</code> avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span>
-</code></span> (la valeur n&rsquo;importe pas, seul le type compte). Comme la seule différence des 2 fonctions <code>dispatch_sort</code> est le premier paramètre, le prototype avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span>
-</code></span> correspond parfaitement.</p>
-<p>Si une fonction membre <code>sort</code> existe, alors l&rsquo;expression dans <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span>
-</code></span> est valide et la fonction appelé. Dans le cas contraire, le compilateur cherche une fonction avec des paramètres pouvant être compatibles. Le <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span>
-</code></span> pouvant être converti en <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">unsigned</span>
-</code></span>, le compilateur se rabat sur le second prototype qui fait appel à <code>std::sort</code>.</p>
-<p>Le point clef étant de mettre toutes les informations dans le prototype. J&rsquo;aurais par exemple pu mettre <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span>
-</code></span> dans un paramètre initialisé avec une valeur par défaut (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">f</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="k">decltype</span><span class="p">(</span><span class="n">xxx</span><span class="p">)</span><span class="o">*</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
-</code></span>, mais il faudra probablement ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">remove_reference</span>
-</code></span> car un pointeur sur une référence n&rsquo;est pas permis).</p>
+</code></pre></div><p>La fonction <code>sort</code> appel <code>dispatch_sort</code> avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span></code></span> (la valeur n&rsquo;importe pas, seul le type compte). Comme la seule différence des 2 fonctions <code>dispatch_sort</code> est le premier paramètre, le prototype avec un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span></code></span> correspond parfaitement.</p>
+<p>Si une fonction membre <code>sort</code> existe, alors l&rsquo;expression dans <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span></code></span> est valide et la fonction appelé. Dans le cas contraire, le compilateur cherche une fonction avec des paramètres pouvant être compatibles. Le <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span></code></span> pouvant être converti en <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">unsigned</span></code></span>, le compilateur se rabat sur le second prototype qui fait appel à <code>std::sort</code>.</p>
+<p>Le point clef étant de mettre toutes les informations dans le prototype. J&rsquo;aurais par exemple pu mettre <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span></code></span> dans un paramètre initialisé avec une valeur par défaut (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">f</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="k">decltype</span><span class="p">(</span><span class="n">xxx</span><span class="p">)</span><span class="o">*</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span></code></span>, mais il faudra probablement ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">remove_reference</span></code></span> car un pointeur sur une référence n&rsquo;est pas permis).</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/#programme-de-test"><h2 id="programme-de-test">Programme de test</h2></a>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
@@ -1384,12 +1327,10 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
   <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">i</span> <span class="p">:</span> <span class="n">l</span><span class="p">)</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div><p>Résultats:</p>
-<pre><code>2 4 6
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>2 4 6
 2 4 6
-</code></pre><a class="headline-hash" href="https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/#implémentation-avec-sizeof-pre-c11"><h2 id="implémentation-avec-sizeof-pre-c11">implémentation avec sizeof (pre-C++11)</h2></a>
-<p>J&rsquo;ai indiqué qu&rsquo;il été possible d&rsquo;utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span>
-</code></span> à la place de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span>
-</code></span>. Voici comment:</p>
+</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/#implémentation-avec-sizeof-pre-c11"><h2 id="implémentation-avec-sizeof-pre-c11">implémentation avec sizeof (pre-C++11)</h2></a>
+<p>J&rsquo;ai indiqué qu&rsquo;il été possible d&rsquo;utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span></code></span> à la place de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span></code></span>. Voici comment:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">dispatch_result_type</span>
 <span class="p">{</span> <span class="k">typedef</span> <span class="n">T</span> <span class="n">type</span><span class="p">;</span> <span class="p">};</span>
@@ -1403,21 +1344,9 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
 <span class="o">&gt;::</span><span class="n">type</span>
 <span class="n">dispatch_sort</span><span class="p">(</span><span class="n">Container</span><span class="o">&amp;</span> <span class="n">c</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span>
 <span class="p">{</span> <span class="n">c</span><span class="p">.</span><span class="n">sort</span><span class="p">();</span> <span class="p">}</span>
-</code></pre></div><p>Le <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="p">,</span><span class="mi">1</span>
-</code></span> de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">xxx</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-</code></span> peut dérouter mais est requis si l&rsquo;expression <code>xxx</code> retourne <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span>
-</code></span>. Comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span>
-</code></span> n&rsquo;est pas vraiment un type, il ne fonctionne pas avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span>
-</code></span> et il faut donc lui fournir autre chose. Il faut bien comprendre qu&rsquo;ici <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">xxx</span><span class="p">,</span><span class="mi">1</span>
-</code></span> est <strong>une seule</strong> expression et non pas 2 paramètres.</p>
-<p>Bien que très peu probable, si j&rsquo;ai mis <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="p">(</span><span class="n">yyy</span><span class="p">)</span>
-</code></span>, c&rsquo;est pour prévenir la surcharge de l&rsquo;opérator &lsquo;<code>,</code>&rsquo; sur le type de retour retourné par <code>yyy</code> (car cet opérateur peut lui-même retourner un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span>
-</code></span>).</p>
-<p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span>
-</code></span> ne donne pas l&rsquo;information sur le type de retour mais une valeur, il est couplé à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">dispatch_result_type</span>
-</code></span> qui prend en second paramètre template le type de retour (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span>
-</code></span> par défaut). Quant à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">declval</span>
-</code></span>, c&rsquo;est le même principe que <a href="http://en.cppreference.com/w/cpp/utility/declval">celui de la SL</a>.</p>
+</code></pre></div><p>Le <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="p">,</span><span class="mi">1</span></code></span> de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">xxx</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span></code></span> peut dérouter mais est requis si l&rsquo;expression <code>xxx</code> retourne <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span></code></span>. Comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span></code></span> n&rsquo;est pas vraiment un type, il ne fonctionne pas avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span></code></span> et il faut donc lui fournir autre chose. Il faut bien comprendre qu&rsquo;ici <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">xxx</span><span class="p">,</span><span class="mi">1</span></code></span> est <strong>une seule</strong> expression et non pas 2 paramètres.</p>
+<p>Bien que très peu probable, si j&rsquo;ai mis <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="p">(</span><span class="n">yyy</span><span class="p">)</span></code></span>, c&rsquo;est pour prévenir la surcharge de l&rsquo;opérator &lsquo;<code>,</code>&rsquo; sur le type de retour retourné par <code>yyy</code> (car cet opérateur peut lui-même retourner un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span></code></span>).</p>
+<p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span></code></span> ne donne pas l&rsquo;information sur le type de retour mais une valeur, il est couplé à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">dispatch_result_type</span></code></span> qui prend en second paramètre template le type de retour (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span></code></span> par défaut). Quant à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">declval</span></code></span>, c&rsquo;est le même principe que <a href="http://en.cppreference.com/w/cpp/utility/declval">celui de la SL</a>.</p>
 
   </div>
   <footer class="post__footer">
@@ -1496,14 +1425,10 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
 <p>Cependant, même si <code>Deleter</code> est une classe sans attribut, sa taille est de 1 octet.</p>
 <p>À partir d&rsquo;ici je considère que <code>Deleter</code> est toujours la valeur par défaut, ce qui donne:</p>
 <ul>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="o">*</span><span class="p">)</span>
-</code></span> == 8</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">Deleter</span><span class="p">)</span>
-</code></span> == 1</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
-</code></span> == 16</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
-</code></span> == 8</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="o">*</span><span class="p">)</span></code></span> == 8</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">Deleter</span><span class="p">)</span></code></span> == 1</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></code></span> == 16</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></code></span> == 8</li>
 </ul>
 <p>Ouille, méchant padding, alors que seuls 8 octets sont vraiment utilisés.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/#comment-fait-la-stl-pour-supprimer-8-octets-"><h2 id="comment-fait-la-stl-pour-supprimer-8-octets-">Comment fait la STL pour &ldquo;supprimer&rdquo; 8 octets ?</h2></a>
@@ -1517,19 +1442,15 @@ Concrètement, cela se traduit par une classe interne qui contient le pointeur e
   <span class="c1">// ...
 </span><span class="c1"></span><span class="p">};</span>
 </code></pre></div><ul>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
-</code></span> == 8</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></code></span> == 8</li>
 </ul>
 <p>Mieux, non ?</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/#et-si-lhéritage-nest-pas-possible-"><h2 id="et-si-lhéritage-nest-pas-possible-">Et si l&rsquo;héritage n&rsquo;est pas possible ?</h2></a>
-<p>Si le Deleter est une référence ou une classe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">final</span>
-</code></span>, l&rsquo;héritage ne fonctionne pas. Il faut se rabattre sur la première forme (celle naïve).
+<p>Si le Deleter est une référence ou une classe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">final</span></code></span>, l&rsquo;héritage ne fonctionne pas. Il faut se rabattre sur la première forme (celle naïve).
 Avec des traits et un code plus ou moins volumineux, cela est &ldquo;facile&rdquo;.
-Il faut cependant noter que <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_final</span>
-</code></span> n&rsquo;apparaît qu&rsquo;à partir de C++14 et son implémentation n&rsquo;est pas possible en pure C++.
+Il faut cependant noter que <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_final</span></code></span> n&rsquo;apparaît qu&rsquo;à partir de C++14 et son implémentation n&rsquo;est pas possible en pure C++.
 Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standard.</p>
-<p>Toutefois, la STL possède un conteneur générique qui utilise l&rsquo;EBO si possible: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span>
-</code></span>. Ce qui permet de s&rsquo;affranchir de ces difficultés tout en optimisant l&rsquo;espace mémoire à condition de mettre les types dans l&rsquo;ordre croissant d&rsquo;alignement pour réduire le padding entre les membres lorsqu&rsquo;il y en a plus de 2.</p>
+<p>Toutefois, la STL possède un conteneur générique qui utilise l&rsquo;EBO si possible: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span></code></span>. Ce qui permet de s&rsquo;affranchir de ces difficultés tout en optimisant l&rsquo;espace mémoire à condition de mettre les types dans l&rsquo;ordre croissant d&rsquo;alignement pour réduire le padding entre les membres lorsqu&rsquo;il y en a plus de 2.</p>
 
   </div>
   <footer class="post__footer">

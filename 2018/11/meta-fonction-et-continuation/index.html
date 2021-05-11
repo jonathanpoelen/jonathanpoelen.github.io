@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Méta-fonction et continuation</title>
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.83.1" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -262,8 +262,7 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;&gt;</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>Il ne reste qu&rsquo;une dernière étape, la continuation finale lorsqu&rsquo;il n&rsquo;y a plus rien à faire. Les plus utilisés sont au nombre de 2 et servent de valeur par défaut à l&rsquo;ensemble des algorithmes, j&rsquo;ai nommé <code>identity</code> et <code>listify</code>.</p>
 
@@ -280,8 +279,7 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
   <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <a class="headline-hash" href="#cest-beau-cest-propre"><h2 id="cest-beau-cest-propre">C&rsquo;est beau, c&rsquo;est propre</h2></a>
 <p>Il y a quelques jours, après mon petit passage quotidien dans libstdc++ et en regardant <code>std::decay</code>, je me suis dit <del>c&rsquo;est beau, c&rsquo;est propre</del> qu&rsquo;il faudrait comparer avec une implémentation qui utilise les concepts de kvasir.</p>
@@ -346,8 +344,7 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo
     <span class="o">&gt;</span><span class="p">,</span>
     <span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
   <span class="o">&gt;</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+<span class="p">};</span></code></pre></div>
 
 <p>Avec l&rsquo;implémentation de <code>if_</code>, <code>cfl</code> (continuation from a lazy metafunction) et <code>cfe</code> (continuation from a eager metafunction):</p>
 
@@ -392,8 +389,7 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo
   <span class="p">{</span>
     <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span> <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">U</span><span class="p">;</span>
   <span class="p">};</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>L&rsquo;ensemble des sources se trouve sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/metafunc_continuation/decay.cpp">github</a>
 .</p>

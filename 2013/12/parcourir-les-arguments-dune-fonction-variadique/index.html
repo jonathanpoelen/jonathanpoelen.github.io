@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parcourir les arguments d&#39;une fonction variadique</title>
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.83.1" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -264,11 +264,11 @@ Quelque chose dans ce goût-là:
   <span class="n">f2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="s">&#34;plop&#34;</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><p>Ce qui affiche:</p>
-<pre><code>1
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>1
 2.4
 plop
 1, 2.4, plop
-</code></pre><a class="headline-hash" href="#sans-récursivité"><h2 id="sans-récursivité">Sans récursivité</h2></a>
+</code></pre></div><a class="headline-hash" href="#sans-récursivité"><h2 id="sans-récursivité">Sans récursivité</h2></a>
 <p>Il existe cependant une autre façon de faire qui n&rsquo;utilise pas la récursivité. J&rsquo;ai découvert cette méthode sur le forum de openclassroms (<a href="http://fr.openclassrooms.com/forum/sujet/atelier-quiz-question-pour-un-champion-c?page=4">ce sujet, 10ème message</a>), elle est très astucieuse.</p>
 <p>Implémentée sous la forme d&rsquo;une macro cela donne:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#define UNPACK(...)                   \
@@ -276,13 +276,9 @@ plop
 </span><span class="cp">    (void((__VA_ARGS__)), 0)...       \
 </span><span class="cp">  }
 </span></code></pre></div><ul>
-<li>Le premier <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span>
-</code></span> permet d&rsquo;ignorer l'<code>initializer_list</code> créé.</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="p">(</span><span class="kt">void</span><span class="p">((</span><span class="n">__VA_ARGS__</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)...</span>
-</code></span> évalue l&rsquo;ensemble de l&rsquo;expression, ignore le résulat (grâce au <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span>
-</code></span>) et retourne un caractère dans l'<code>initalizer_list</code>.</li>
-<li>Au final, l&rsquo;expression est dépaquetée et l'<code>initializer_list</code> est rempli de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="mi">0</span>
-</code></span>.</li>
+<li>Le premier <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span></code></span> permet d&rsquo;ignorer l'<code>initializer_list</code> créé.</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="p">(</span><span class="kt">void</span><span class="p">((</span><span class="n">__VA_ARGS__</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)...</span></code></span> évalue l&rsquo;ensemble de l&rsquo;expression, ignore le résulat (grâce au <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span></code></span>) et retourne un caractère dans l'<code>initalizer_list</code>.</li>
+<li>Au final, l&rsquo;expression est dépaquetée et l'<code>initializer_list</code> est rempli de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="mi">0</span></code></span>.</li>
 </ul>
 <p>Avec cette macro les 2 fonctions précédentes deviennent:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>

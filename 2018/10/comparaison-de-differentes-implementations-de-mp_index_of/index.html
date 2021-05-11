@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comparaison de différentes implémentations de mp_index_of</title>
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.83.1" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -275,8 +275,7 @@ Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car 
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
   <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
     <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Une implémentation avec ternaire récursive comme on peut la trouver dans le fichier variant de libstdc++. Elle souffre d&rsquo;un léger problème: il y a autant d&rsquo;instance de <code>_index_of</code> que d&rsquo;élément dans la liste, même si <code>T</code> se trouve en première position.</p>
 
@@ -298,8 +297,7 @@ Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car 
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>L&rsquo;indice courant se trouve en paramètre template et la récursion s&rsquo;arrête dès que <code>T</code> est trouvé. Seulement, l&rsquo;ajout de l&rsquo;indice en paramètre va dégrader la mémoïsation en créant plus de types que nécessaire.</p>
 
@@ -323,8 +321,7 @@ Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car 
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
   <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
     <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Un mélange des 2 implémentations précédentes sans les inconvénients. En réalité, c&rsquo;est la forme la plus communément écrite.</p>
 <!-- raw HTML omitted -->
@@ -349,8 +346,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="p">{</span>
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">recursive</span><span class="o">::</span><span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>L&rsquo;utilisation de <code>typename std::is_same&lt;T, Ts&gt;::type</code> au lieu de simplement <code>std::is_same&lt;T, Ts&gt;</code> permet de restreindre les types à <code>std::false_type</code> et <code>std::true_type</code>.</p>
 <p>On peut aussi faire la comparaison avec un <code>detail::_index_of</code> spécialement dédié à la recherche d&rsquo;un <code>std::true_type</code>.</p>
@@ -373,8 +369,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
   <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...,</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
     <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...,</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Et une autre version qui travaille sur des valeurs plutôt que des types pour vérifier si cela a une influence.</p>
 
@@ -396,8 +391,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
   <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">...,</span> <span class="nb">true</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
     <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">...,</span> <span class="nb">true</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <!-- raw HTML omitted -->
 <p><img src="/post/mp_index_of/rec_bool_gcc_time.png" alt="comparaison de temps de 3 implémentations qui font une transformation en booléan"></p>
@@ -457,8 +451,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
   <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
     <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Et L&rsquo;équivalent qui fait une transformation en liste de booléen avant:</p>
 
@@ -499,8 +492,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
   <span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&gt;=</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">))</span>
     <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="nb">false</span><span class="p">,</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <!-- raw HTML omitted -->
 <p><img src="/post/mp_index_of/pack8_gcc_time.png" alt="duré de compilation avec gcc pour un algo récursive par pack de 8"></p>
@@ -636,8 +628,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">detail</span><span class="o">::</span><span class="n">_find_index</span><span class="o">&lt;</span>
   <span class="n">std</span><span class="o">::</span><span class="n">make_index_sequence</span><span class="o">&lt;</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Wooa, cette monstruosité. Il faut être complètement barge pour écrire cette horreur. C&rsquo;est pourtant une chose que l&rsquo;on trouve dans <a href="https://github.com/brunocodutra/metal/blob/master/include/metal/list/join.hpp#L51">Metal</a>, <a href="https://github.com/edouarda/brigand/blob/master/include/brigand/sequences/append.hpp#L29">Brigand</a>, <a href="https://github.com/boostorg/mp11/blob/develop/include/boost/mp11/detail/mp_append.hpp#L48">Cpp11</a> ou <a href="https://github.com/boostorg/hana/blob/master/include/boost/hana/detail/variadic/foldl1.hpp#L23">Boost.Hana</a>. La palme d&rsquo;or revient à <a href="https://github.com/kvasir-io/mpl/blob/development/src/kvasir/mpl/sequence/join.hpp#L14">Kvasir.Mpl</a> avec une template de 1025 éléments variadiques.</p>
 <!-- raw HTML omitted -->
@@ -666,8 +657,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
   <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
     <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span><span class="p">()</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Les booléens sont en paramètre template. C&rsquo;est dommage, parce que cela limite les transferts de paramètre depuis une autre fonction. Il vaut mieux mettre les valeurs en paramètre de fonction comme on le fait d&rsquo;habitude.</p>
 
@@ -691,8 +681,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
   <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span>
     <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;</span><span class="p">...)</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>C&rsquo;est beau, c&rsquo;est simple, c&rsquo;est élégant.</p>
 <!-- raw HTML omitted -->
@@ -718,8 +707,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">detail</span><span class="o">::</span><span class="n">_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span><span class="p">()</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <p>Le code est beaucoup plus concis, mais aussi beaucoup plus obscur. Il faut dire que <code>index_of</code> n&rsquo;est pas le meilleur algorithme pour représenter la beauté des folds ;).</p>
 <!-- raw HTML omitted -->

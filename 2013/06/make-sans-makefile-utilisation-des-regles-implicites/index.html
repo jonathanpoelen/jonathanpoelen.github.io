@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>make sans Makefile, utilisation des règles implicites</title>
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.83.1" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -220,12 +220,10 @@ int main(int ac, char** av) { return ac; } Que je compile avec make test pour cr
 <span class="p">}</span>
 </code></pre></div><p>Que je compile avec <code>make test</code> pour créer l&rsquo;exécutable <code>test</code>.
 Mais si on veut avoir des fichiers objets, il faut le demander explicitement: <code>make test.o test</code>.</p>
-<p>Maintenant, on remplace <code>test.c</code> par <code>test.cpp</code> et on inclut <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
-</code></span>.</p>
+<p>Maintenant, on remplace <code>test.c</code> par <code>test.cpp</code> et on inclut <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span></code></span>.</p>
 <p>La compilation se fait encore avec <code>make test</code> ou <code>make test.o test</code> pour avoir les fichiers objets.</p>
 <p>Ah ! En fait non, le second ne fonctionne pas.
-<code>test.o</code> est compilé avec <code>cc</code>, et comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
-</code></span> est linké avec une lib, l&rsquo;implémentation du constructeur <a href="http://en.cppreference.com/w/cpp/io/ios_base/Init">std::ios_base::Init</a> n&rsquo;est pas trouvée. L&rsquo;idéal serait d&rsquo;utiliser <code>g++</code> ou un autre compilateur C++ pour avoir les chemins de bibliothèque convenablement configurés.</p>
+<code>test.o</code> est compilé avec <code>cc</code>, et comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span></code></span> est linké avec une lib, l&rsquo;implémentation du constructeur <a href="http://en.cppreference.com/w/cpp/io/ios_base/Init">std::ios_base::Init</a> n&rsquo;est pas trouvée. L&rsquo;idéal serait d&rsquo;utiliser <code>g++</code> ou un autre compilateur C++ pour avoir les chemins de bibliothèque convenablement configurés.</p>
 <p>Si ce n&rsquo;est qu&rsquo;une question de compilateur, changeons-le !</p>
 <p>Tout d&rsquo;abord, la règle de compilation d&rsquo;un <code>.o</code> vers un exécutable:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;%: %.o&#39;</span> -A3

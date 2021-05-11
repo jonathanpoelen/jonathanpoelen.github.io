@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.78.2" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.83.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -562,11 +562,11 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
   <span class="n">f2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="s">&#34;plop&#34;</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><p>Ce qui affiche:</p>
-<pre><code>1
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>1
 2.4
 plop
 1, 2.4, plop
-</code></pre><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#sans-récursivité"><h2 id="sans-récursivité">Sans récursivité</h2></a>
+</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#sans-récursivité"><h2 id="sans-récursivité">Sans récursivité</h2></a>
 <p>Il existe cependant une autre façon de faire qui n&rsquo;utilise pas la récursivité. J&rsquo;ai découvert cette méthode sur le forum de openclassroms (<a href="http://fr.openclassrooms.com/forum/sujet/atelier-quiz-question-pour-un-champion-c?page=4">ce sujet, 10ème message</a>), elle est très astucieuse.</p>
 <p>Implémentée sous la forme d&rsquo;une macro cela donne:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#define UNPACK(...)                   \
@@ -574,13 +574,9 @@ plop
 </span><span class="cp">    (void((__VA_ARGS__)), 0)...       \
 </span><span class="cp">  }
 </span></code></pre></div><ul>
-<li>Le premier <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span>
-</code></span> permet d&rsquo;ignorer l'<code>initializer_list</code> créé.</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="p">(</span><span class="kt">void</span><span class="p">((</span><span class="n">__VA_ARGS__</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)...</span>
-</code></span> évalue l&rsquo;ensemble de l&rsquo;expression, ignore le résulat (grâce au <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span>
-</code></span>) et retourne un caractère dans l'<code>initalizer_list</code>.</li>
-<li>Au final, l&rsquo;expression est dépaquetée et l'<code>initializer_list</code> est rempli de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="mi">0</span>
-</code></span>.</li>
+<li>Le premier <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span></code></span> permet d&rsquo;ignorer l'<code>initializer_list</code> créé.</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="p">(</span><span class="kt">void</span><span class="p">((</span><span class="n">__VA_ARGS__</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)...</span></code></span> évalue l&rsquo;ensemble de l&rsquo;expression, ignore le résulat (grâce au <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span></code></span>) et retourne un caractère dans l'<code>initalizer_list</code>.</li>
+<li>Au final, l&rsquo;expression est dépaquetée et l'<code>initializer_list</code> est rempli de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="mi">0</span></code></span>.</li>
 </ul>
 <p>Avec cette macro les 2 fonctions précédentes deviennent:</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
@@ -682,25 +678,20 @@ plop
 
   </header>
   <div class="post__content">
-      <p>Prenons le type suivant: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">&gt;</span>
-</code></span>. Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&rsquo;est vrai !</p>
+      <p>Prenons le type suivant: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">&gt;</span></code></span>. Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&rsquo;est vrai !</p>
 <p>Ajoutons maintenant un élément à notre vector avec <code>push_back</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
 <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]{};</span>
 <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
 </code></pre></div><p>Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.</p>
 <p>La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau. Écrire ce wrapper n&rsquo;est pas très compliqué et Oh joie, Oh bonheur, il existe <a href="http://en.cppreference.com/w/cpp/container/array">std::array</a>.</p>
-<p>Mais si l&rsquo;on tient vraiment à notre tableau (pour d&rsquo;obscures raisons sataniques :D) il est toujours possible de modifier le comportement du vector pour qu&rsquo;il comprenne les tableaux. Ceci à travers l&rsquo;allocateur, le second paramètre template d&rsquo;un vector ; celui jamais utilisé, toujours oublié <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">là_ici</span><span class="o">&gt;</span>
-</code></span>.</p>
+<p>Mais si l&rsquo;on tient vraiment à notre tableau (pour d&rsquo;obscures raisons sataniques :D) il est toujours possible de modifier le comportement du vector pour qu&rsquo;il comprenne les tableaux. Ceci à travers l&rsquo;allocateur, le second paramètre template d&rsquo;un vector ; celui jamais utilisé, toujours oublié <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">là_ici</span><span class="o">&gt;</span></code></span>.</p>
 <p>La technique consiste à remplacer l&rsquo;allocateur par une version spécialisée pour les tableaux. Le plus simple est d&rsquo;hériter d&rsquo;un <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a> et de redéfinir les 2 méthodes problématiques: <a href="http://en.cppreference.com/w/cpp/memory/allocator/construct">construct</a> et <a href="http://en.cppreference.com/w/cpp/memory/allocator/destroy">destroy</a>. On peut aussi utiliser une spécialisation de template.</p>
 <p>Et ne surtout pas oublier <code>rebind</code> qui permet de recréer l&rsquo;allocateur avec un type interne différent. C&rsquo;est utilisé par les conteneurs :).</p>
 <p>(Un <a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/">précédent article</a> permet de comprendre les mécanismes utilisés par un allocateur.)</p>
 <p>L&rsquo;implémentation de <code>construct</code> et <code>destroy</code> est vraiment bateau, il suffit d&rsquo;appeler le constructeur ou le destructeur pour chaque élément du tableau.</p>
-<p>Mais pour faire au minimum bien les choses et supporter l&rsquo;allocation de tableau de tableau (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
-</code></span>) on utilise <code>array_allocator::construct/destroy</code> si les cellules sont des tableaux (appel récursif) ou <code>std::allocator::construct/destroy</code> dans le cas contraire.</p>
-<p>À noter que la récursivité peut être éliminée en utilisant les propriétés d&rsquo;alignement des tableaux (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
-</code></span> -&gt; <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span>
-</code></span>).</p>
+<p>Mais pour faire au minimum bien les choses et supporter l&rsquo;allocation de tableau de tableau (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span></code></span>) on utilise <code>array_allocator::construct/destroy</code> si les cellules sont des tableaux (appel récursif) ou <code>std::allocator::construct/destroy</code> dans le cas contraire.</p>
+<p>À noter que la récursivité peut être éliminée en utilisant les propriétés d&rsquo;alignement des tableaux (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span></code></span> -&gt; <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span></code></span>).</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 <span class="k">class</span> <span class="nc">array_allocator</span><span class="p">;</span>
 
@@ -849,8 +840,7 @@ Toutefois, cette version est fonctionnelle avec <code>push_back</code> :).</p>
 Et surtout, 2 syntaxes différentes.</p>
 <p>Dans un contexte générique (typiquement des templates) et de maintient de code, 2 formes, ce n&rsquo;est pas acceptable.
 Il faudrait que <code>std::swap</code> soit utilisé si aucun <code>swap</code> spécialisé n&rsquo;existe.</p>
-<p>Pour ce, on &ldquo;déplace&rdquo; <code>std::swap</code> dans le scope courant avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">using</span>
-</code></span> et grâce l'<a href="http://en.cppreference.com/w/cpp/language/adl">ADL (Argument-dependent lookup)</a>, le compilateur appellera la bonne fonction.</p>
+<p>Pour ce, on &ldquo;déplace&rdquo; <code>std::swap</code> dans le scope courant avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">using</span></code></span> et grâce l'<a href="http://en.cppreference.com/w/cpp/language/adl">ADL (Argument-dependent lookup)</a>, le compilateur appellera la bonne fonction.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
@@ -993,12 +983,10 @@ Il faudrait que <code>std::swap</code> soit utilisé si aucun <code>swap</code> 
 <span class="p">}</span>
 </code></pre></div><p>Que je compile avec <code>make test</code> pour créer l&rsquo;exécutable <code>test</code>.
 Mais si on veut avoir des fichiers objets, il faut le demander explicitement: <code>make test.o test</code>.</p>
-<p>Maintenant, on remplace <code>test.c</code> par <code>test.cpp</code> et on inclut <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
-</code></span>.</p>
+<p>Maintenant, on remplace <code>test.c</code> par <code>test.cpp</code> et on inclut <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span></code></span>.</p>
 <p>La compilation se fait encore avec <code>make test</code> ou <code>make test.o test</code> pour avoir les fichiers objets.</p>
 <p>Ah ! En fait non, le second ne fonctionne pas.
-<code>test.o</code> est compilé avec <code>cc</code>, et comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span>
-</code></span> est linké avec une lib, l&rsquo;implémentation du constructeur <a href="http://en.cppreference.com/w/cpp/io/ios_base/Init">std::ios_base::Init</a> n&rsquo;est pas trouvée. L&rsquo;idéal serait d&rsquo;utiliser <code>g++</code> ou un autre compilateur C++ pour avoir les chemins de bibliothèque convenablement configurés.</p>
+<code>test.o</code> est compilé avec <code>cc</code>, et comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span></code></span> est linké avec une lib, l&rsquo;implémentation du constructeur <a href="http://en.cppreference.com/w/cpp/io/ios_base/Init">std::ios_base::Init</a> n&rsquo;est pas trouvée. L&rsquo;idéal serait d&rsquo;utiliser <code>g++</code> ou un autre compilateur C++ pour avoir les chemins de bibliothèque convenablement configurés.</p>
 <p>Si ce n&rsquo;est qu&rsquo;une question de compilateur, changeons-le !</p>
 <p>Tout d&rsquo;abord, la règle de compilation d&rsquo;un <code>.o</code> vers un exécutable:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;%: %.o&#39;</span> -A3
@@ -1119,7 +1107,7 @@ coproc bc 2&gt;<span class="p">&amp;</span><span class="m">1</span>
   <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> <span class="p">|</span> bc
 <span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
 </code></pre></div><p>À tester avec par exemple un fichier de calcul comme celui-ci:</p>
-<pre><code>2+3
+<div class="highlight-nocode"><pre class="chroma-nocode"><code>2+3
 2+3*9
 23*9
 23s*9
@@ -1188,24 +1176,17 @@ coproc bc 2&gt;<span class="p">&amp;</span><span class="m">1</span>
 
   </header>
   <div class="post__content">
-      <p>Une petite note sur les références et le qualificatif <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
-</code></span> en commençant par un exemple :).</p>
+      <p>Une petite note sur les références et le qualificatif <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> en commençant par un exemple :).</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">using</span> <span class="n">reference</span> <span class="o">=</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">;</span>
 <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="n">reference</span> <span class="k">const</span> <span class="n">r</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
 <span class="n">r</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-</code></pre></div><p>Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de <code>r</code>.
-En fait, ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
-</code></span> sur une référence ne fait rien car cela ne s&rsquo;applique pas sur le référé qui reste un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="o">&amp;</span>
-</code></span>.</p>
-<p>Si on déroule complètement le type de <code>r</code>, on obtient <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span> <span class="n">r</span>
-</code></span>: une référence constante sur un entier.
-Comme une référence est par nature immutable (le référé ne peut pas changer), le <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
-</code></span> est superflux.
+</code></pre></div></div><p>Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de <code>r</code>.
+En fait, ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> sur une référence ne fait rien car cela ne s&rsquo;applique pas sur le référé qui reste un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="o">&amp;</span></code></span>.</p>
+<p>Si on déroule complètement le type de <code>r</code>, on obtient <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span> <span class="n">r</span></code></span>: une référence constante sur un entier.
+Comme une référence est par nature immutable (le référé ne peut pas changer), le <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> est superflux.
 Le type de <code>r</code> est donc bien une référence sur un entier non-constant.</p>
-<p>(On notera toutefois que la syntaxe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span>
-</code></span> est invalide puisque <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span>
-</code></span> ne peut s&rsquo;appliquer directement sur une référence.)</p>
+<p>(On notera toutefois que la syntaxe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span></code></span> est invalide puisque <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> ne peut s&rsquo;appliquer directement sur une référence.)</p>
 
   </div>
   <footer class="post__footer">
@@ -1270,12 +1251,9 @@ Le type de <code>r</code> est donc bien une référence sur un entier non-consta
 
   </header>
   <div class="post__content">
-      <p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
-</code></span> est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de <code>malloc()</code>, &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.</p>
-<p>Mais <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
-</code></span> fait une troisième chose: il lance une exception <code>std::bad_alloc</code> si l&rsquo;espace mémoire est insuffisant.</p>
-<p>Ou pas. Car <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
-</code></span> est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête <code>&lt;new&gt;</code> un type (<code>std::nothrow_t</code>) et une variable (<code>std::nothrow</code>) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</p>
+      <p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de <code>malloc()</code>, &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.</p>
+<p>Mais <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> fait une troisième chose: il lance une exception <code>std::bad_alloc</code> si l&rsquo;espace mémoire est insuffisant.</p>
+<p>Ou pas. Car <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête <code>&lt;new&gt;</code> un type (<code>std::nothrow_t</code>) et une variable (<code>std::nothrow</code>) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">);</span>
 </code></pre></div><p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparement.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allouer-de-la-mémoire"><h2 id="allouer-de-la-mémoire">Allouer de la mémoire</h2></a>
@@ -1297,25 +1275,15 @@ Le type de <code>r</code> est donc bien une référence sur un entier non-consta
 <p>Évidemment, si <code>machin</code> possède un destructeur virtuel et est en réalité une classe fille, alors c&rsquo;est le destructeur de la classe dérivée qui est appelé.</p>
 <p>Il ne reste plus qu&rsquo;à libérer la mémoire.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#libération-de-la-mémoire"><h2 id="libération-de-la-mémoire">Libération de la mémoire</h2></a>
-<p>De la même manière qu&rsquo;il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span>
-</code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span><span class="p">[]</span>
-</code></span> pour <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
-</code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span><span class="p">[]</span>
-</code></span>, il existe un <a href="http://en.cppreference.com/w/cpp/memory/new/operator_delete">::operator delete()</a> associé à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">()</span>
-</code></span>.</p>
+<p>De la même manière qu&rsquo;il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span></code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span><span class="p">[]</span></code></span> pour <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span><span class="p">[]</span></code></span>, il existe un <a href="http://en.cppreference.com/w/cpp/memory/new/operator_delete">::operator delete()</a> associé à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">()</span></code></span>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span> <span class="p">(</span><span class="n">p</span><span class="p">);</span>
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allocation-de-tableau"><h2 id="allocation-de-tableau">Allocation de tableau</h2></a>
-<p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[]</span>
-</code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">[]</span>
-</code></span> fonctionnent de la même manière, mais sont plus sûrs qu&rsquo;une gestion manuelle de tableau avec leurs homologues sans crochets. Ne serait-ce que pour détruire proprement les objets si un des constructeurs jette une exception.</p>
+<p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[]</span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">[]</span></code></span> fonctionnent de la même manière, mais sont plus sûrs qu&rsquo;une gestion manuelle de tableau avec leurs homologues sans crochets. Ne serait-ce que pour détruire proprement les objets si un des constructeurs jette une exception.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[](</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span> <span class="c1">// identique que la version sans crochet
 </span><span class="c1"></span><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="cm">/*{params...}*/</span><span class="p">;</span>
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#surcharge-de-new-et-delete"><h2 id="surcharge-de-new-et-delete">Surcharge de new et delete</h2></a>
-<p>Toutes les formes de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
-</code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span>
-</code></span> sont surchargeables de façon locale ou globale. Local quand l&rsquo;opérateur est implémenté à l&rsquo;intérieur d&rsquo;une classe (son prototype sera implicitement statique) et global lorsqu&rsquo;implémenté dans le namespace global.</p>
-<p>De plus, comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span>
-</code></span> peut prendre des paramètres, il est possible de les personnaliser et d&rsquo;en ajouter.</p>
+<p>Toutes les formes de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span></code></span> sont surchargeables de façon locale ou globale. Local quand l&rsquo;opérateur est implémenté à l&rsquo;intérieur d&rsquo;une classe (son prototype sera implicitement statique) et global lorsqu&rsquo;implémenté dans le namespace global.</p>
+<p>De plus, comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> peut prendre des paramètres, il est possible de les personnaliser et d&rsquo;en ajouter.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;new&gt;</span><span class="cp">
 </span><span class="cp"></span><span class="k">struct</span> <span class="nc">A</span>
 <span class="p">{</span>

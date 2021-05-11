@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Réduire l&#39;empreinte mémoire d&#39;une agglomération de types</title>
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.83.1" />
 
-<link rel="stylesheet" type="text/css" media="all" href="https://jonathanpoelen.github.io/css/style.min.4aec54993e1e6032fee8258716a75d358b42bbf79ca77df67a1a7f8da0f6998b.css">
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
 <link rel="shortcut icon" href="/favicon.jpg"/>
 <link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
@@ -237,14 +237,10 @@ Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 oct
 <p>Cependant, même si <code>Deleter</code> est une classe sans attribut, sa taille est de 1 octet.</p>
 <p>À partir d&rsquo;ici je considère que <code>Deleter</code> est toujours la valeur par défaut, ce qui donne:</p>
 <ul>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="o">*</span><span class="p">)</span>
-</code></span> == 8</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">Deleter</span><span class="p">)</span>
-</code></span> == 1</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
-</code></span> == 16</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
-</code></span> == 8</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="o">*</span><span class="p">)</span></code></span> == 8</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">Deleter</span><span class="p">)</span></code></span> == 1</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></code></span> == 16</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></code></span> == 8</li>
 </ul>
 <p>Ouille, méchant padding, alors que seuls 8 octets sont vraiment utilisés.</p>
 <a class="headline-hash" href="#comment-fait-la-stl-pour-supprimer-8-octets-"><h2 id="comment-fait-la-stl-pour-supprimer-8-octets-">Comment fait la STL pour &ldquo;supprimer&rdquo; 8 octets ?</h2></a>
@@ -258,19 +254,15 @@ Concrètement, cela se traduit par une classe interne qui contient le pointeur e
   <span class="c1">// ...
 </span><span class="c1"></span><span class="p">};</span>
 </code></pre></div><ul>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span>
-</code></span> == 8</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></code></span> == 8</li>
 </ul>
 <p>Mieux, non ?</p>
 <a class="headline-hash" href="#et-si-lhéritage-nest-pas-possible-"><h2 id="et-si-lhéritage-nest-pas-possible-">Et si l&rsquo;héritage n&rsquo;est pas possible ?</h2></a>
-<p>Si le Deleter est une référence ou une classe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">final</span>
-</code></span>, l&rsquo;héritage ne fonctionne pas. Il faut se rabattre sur la première forme (celle naïve).
+<p>Si le Deleter est une référence ou une classe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">final</span></code></span>, l&rsquo;héritage ne fonctionne pas. Il faut se rabattre sur la première forme (celle naïve).
 Avec des traits et un code plus ou moins volumineux, cela est &ldquo;facile&rdquo;.
-Il faut cependant noter que <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_final</span>
-</code></span> n&rsquo;apparaît qu&rsquo;à partir de C++14 et son implémentation n&rsquo;est pas possible en pure C++.
+Il faut cependant noter que <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_final</span></code></span> n&rsquo;apparaît qu&rsquo;à partir de C++14 et son implémentation n&rsquo;est pas possible en pure C++.
 Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standard.</p>
-<p>Toutefois, la STL possède un conteneur générique qui utilise l&rsquo;EBO si possible: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span>
-</code></span>. Ce qui permet de s&rsquo;affranchir de ces difficultés tout en optimisant l&rsquo;espace mémoire à condition de mettre les types dans l&rsquo;ordre croissant d&rsquo;alignement pour réduire le padding entre les membres lorsqu&rsquo;il y en a plus de 2.</p>
+<p>Toutefois, la STL possède un conteneur générique qui utilise l&rsquo;EBO si possible: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span></code></span>. Ce qui permet de s&rsquo;affranchir de ces difficultés tout en optimisant l&rsquo;espace mémoire à condition de mettre les types dans l&rsquo;ordre croissant d&rsquo;alignement pour réduire le padding entre les membres lorsqu&rsquo;il y en a plus de 2.</p>
 
   </div>
   <footer class="post__footer">
