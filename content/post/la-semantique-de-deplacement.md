@@ -2,14 +2,14 @@
 title: "la sémantique de déplacement"
 #thumbnail: ""
 #description: ""
-date: 2020-12-24T22:14:00+01:00
+date: 2021-05-12T22:14:00+01:00
 #lastmod: 2020-12-24T00:22:00+01:00
 slug: "la-semantique-de-deplacement"
 #toc: false
 #tags: [ ]
 aliases: []
 categories: [ "c++" ]
-draft: true
+draft: false
 ghcommentid: 0
 expire: 2038
 ---
@@ -19,12 +19,12 @@ L'objectif derrière la sémantique de déplacement est de transférer les donn�
 - Garantir l'unicité d'une ressource. La responsabilité étant passée à quelqu'un d'autre, il n'y a toujours qu'un seul propriétaire en charge de la durée de vie de celle-ci.
 - Éviter des copies profondes en les remplaçant par des copies superficielles plus performantes.
 
-Toutes autres raison est une erreur.
+Toute autre raison est une erreur.
 
 
 ## Principe d'unicité
 
-Prenons un petit animal sauvage et nommons-le Pikachu. Ce Pikachu est unique, il n'en existe qu'un seul dans tout l'univers. Si on compare notre Pikachu à un autre Pikachu, ils sont différents, il n'y en a pas 2 pareil, même s'ils ont le même nom.
+Prenons un petit animal sauvage et nommons-le Pikachu. Ce Pikachu est unique, il n'en existe qu'un seul dans tout l'univers. Si on compare notre Pikachu à un autre Pikachu, ils sont différents, il n'y en a pas 2 pareils, même s'ils ont le même nom.
 
 Rangeons-le dans sa pokéball.
 
@@ -39,7 +39,7 @@ Un soir, au coin du feu, un brigand passe par là et prend notre sac.
 brigand.bag = my_bag;
 ```
 
-Et tout l'univers et sans dessus-dessous, notre Pikachu existe en double, le principe d'unicité est brisé !
+Et tout l'univers est sans dessus-dessous, notre Pikachu existe en double, le principe d'unicité est brisé !
 
 Heureusement, `Pokemon` n'étant pas copiable, le code ne compile pas. Ouf, l'univers est sauf !
 
@@ -49,19 +49,17 @@ Du coup, plutôt que copier le sac, on le déplace directement dans celui de bri
 brigand.bag = std::move(my_bag);
 ```
 
-Au passage, on vient d'écraser tout ce qu'il y avait dans le de notre voleur ; bien fait pour lui ! Mais le plus important est là: Pikachu appartient maintenant au brigand. `my_bag` est vide, sa taille est de 0. On a bien eu un transfert des pokémons d'un sac `A` vers un sac `B`, il y a eu déplacement.
+Au passage, on vient d'écraser tout ce qu'il y avait dans le sac de notre voleur ; bien fait pour lui ! Mais le plus important est là: Pikachu appartient maintenant au brigand. `my_bag` est vide, sa taille est de 0. On a bien eu un transfert des pokémons d'un sac `A` vers un sac `B`, il y a eu déplacement.
 
 
 ## Copie profonde et copie superficielle
 
-La copie profonde est une copie de tous les membres, y comprit des données référencées par un pointeur lorsque leur durée de vie est gérée par la classe. Ce dernier point est important, car sans pointeur -- et pour aller plus loin, sans ressource, -- il n'y a pas de différence entre une copie classique ou une copie superficielle. Vouloir les opérateurs de déplacement dans cette situation **ne sert à rien**, l'implémentation serait strictement identique à celle d'une copie. Autre point, même s'il y a un pointeur, il faut que les fonctions de copie fassent une copie profonde pour que les fonctions de déplacements puisse faire une copie superficielle, sinon, rebelote, aucune différence avec la copie.
+La copie profonde est une copie de tous les membres, y compris des données référencées par un pointeur lorsque leur durée de vie est gérée par la classe. Ce dernier point est important, car sans pointeur -- et pour aller plus loin, sans ressource, -- il n'y a pas de différence entre une copie classique ou une copie superficielle. Vouloir les opérateurs de déplacement dans cette situation **ne sert à rien**, l'implémentation serait strictement identique à celle d'une copie. Autre point, même s'il y a un pointeur, il faut que les fonctions de copie fassent une copie profonde pour que les fonctions de déplacements puissent faire une copie superficielle, sinon, rebelote, aucune différence avec la copie.
 
 Comme une illustration est plus parlante, supposons une classe `vector` avec 2 variables membres:
 
 - `int* p`, un pointeur alloué dynamiquement et désalloué dans le destructeur
-- `size_t n` qui représente le nombre d'élément alloué
-
-(Toutes ressemblent avec une classe nommée `std::vector` est fortuite.)
+- `size_t n` qui représente le nombre d'éléments alloué
 
 L'instance de référence nommé `A` contient les nombres 7, 1, 3, 7, 0, 5, ce qui donne en mémoire
 
@@ -108,12 +106,9 @@ Le déplacement a le même fonctionnement que le principe d'unicité: l'allocati
 
 ## Catégorie de valeur
 
-Tout le principe de sémantique de déplacement repose sur l'introduction des rvalues. Les rvalues font partie d'un ensemble de 5 catégories de valeur qui sont: lvalue, prvalue, xvalue, glvalue et rvalue. Ça c'est que dit la norme, en tant que développeur, il n'y a que 2 types qui sont différenciables dans un programme: lvalue et rvalue. Les autres deviennent automatiquement soit des lvalues, soit rvalues suivant le contexte. On peut les oublier.
+Tout le principe de sémantique de déplacement repose sur l'introduction des rvalues. Les rvalues font partie d'un ensemble de 5 catégories de valeur qui sont: lvalue, prvalue, xvalue, glvalue et rvalue. Ça c'est ce que dit la norme, en tant que développeur, il n'y a que 2 types qui sont différenciables dans un programme: lvalue et rvalue. Les autres deviennent automatiquement soit des lvalues, soit rvalues suivant le contexte. On peut les oublier.
 
-Une explication fréquente, mais trop simplifiée est de dire qu'une lvalue est gauche d'une expression et une rvalue à droite. Par exemple dans `x = y`, `x` serait une lvalue et `y` une rvalue. En réalité, ici, `x` et `y` sont toutes les 2 des lvalues, on ne peut pas réduire l'explication à simplement droite/gauche. Voici une explication un peu moins naïve, mais qui n'est pas entièrement exacte pour autant.
-
-- Une rvalue est une expression qui se veut temporaire (noté `T&&`). Si la valeur de l'expression n'est pas capturée dans une variable, elle est perdue. En réalité, c'est un peu plus subtile, si cette valeur provient d'une référence, elle existe toujours.
-- Une lvalue peut être mise dans une référence (noté `T&`). Contrairement à la rvalue, ignoré la valeur de l'expression ne la fait pas disparaître, elle existe encore quelque part. À savoir que toutes variables -- quel que soit son type réel -- **est toujours** manipulée comme une lvalue. C’est-à-dire qu'avec `int i; foo(i);`, la fonction `foo()` reçoit une référence (`int&`), pas juste `int`.
+Une lvalue (noté `T&`) est une référence. Une rvalue (noté `T&&`) est une expression qui se veut temporaire. Si la valeur de cette expression provient d'une opération, elle doit être capturée dans une variable, autrement, elle est perdue. À savoir que toutes variables -- quel que soit son type réel -- **est toujours** manipulée comme une lvalue. C’est-à-dire qu'avec `int i; foo(i);`, la fonction `foo()` reçoit une référence (`int&`), pas juste `int`.
 
 ```cpp
 int main()
@@ -130,7 +125,7 @@ int main()
 }
 ```
 
-Un des aspects essentiel de la sémantique de déplacement est la conversion d'une lvalue en une rvalue en utilisant `std::move()`.
+Un des aspects essentiels de la sémantique de déplacement est la conversion d'une lvalue en une rvalue en utilisant `std::move()`.
 
 ```cpp
 int main()
@@ -146,7 +141,7 @@ int main()
 
 ## Constructeur de déplacement
 
-Pour prendre un exemple connu, les chapitres suivant reposent sur le fonctionnement de `std::unique_ptr`, un pointeur intelligent qui fait une désallocation automatique de la mémoire dans son destructeur et interdit la copie pour respecter le principe d'unicité.
+Pour prendre un exemple connu, les chapitres suivants reposent sur le fonctionnement de `std::unique_ptr`, un pointeur intelligent qui fait une désallocation automatique de la mémoire dans son destructeur et interdit la copie pour respecter le principe d'unicité.
 
 Pour simplifier les codes, la classe ne travaille qu'avec des `int` et ne possède que `operator*` et `operator bool ()` comme fonction membre.
 
@@ -209,7 +204,7 @@ int main()
 }
 ```
 
-Reste l'implémentation du constructeur de déplacement. Comme dit précédemment, seule une instance doit posséder le pointeur interne. L'instance déplacée doit être modifiée pour ne plus y faire référence, tout en restant dans un état dit **destructible** pour que le destructeur fonctionne convenablement. Les prérequis de [MoveConstructible](https://en.cppreference.com/w/cpp/named_req/MoveConstructible) parle d'un état non spécifié. C'est-à-dire que l'implémentation est libre de faire ce qu'elle veut du moment que la destruction fonctionne encore. Cependant, chaque fonction peut explicitement documenter le comportement. Le plus simple ici est de mettre le pointeur à `nullptr`.
+Reste l'implémentation du constructeur de déplacement. Comme dit précédemment, seule une instance doit posséder le pointeur interne. L'instance déplacée doit être modifiée pour ne plus y faire référence, tout en restant dans un état dit **destructible** pour que le destructeur fonctionne convenablement. Les prérequis de [MoveConstructible](https://en.cppreference.com/w/cpp/named_req/MoveConstructible) parlent d'un état non spécifié. C'est-à-dire que l'implémentation est libre de faire ce qu'elle veut du moment que la destruction fonctionne encore. Cependant, chaque fonction peut explicitement documenter le comportement. Le plus simple ici est de mettre le pointeur à `nullptr`.
 
 ```cpp
 unique_ptr::unique_ptr(unique_ptr&& other)
@@ -217,7 +212,7 @@ unique_ptr::unique_ptr(unique_ptr&& other)
 {}
 ```
 
-Finalement beaucoup d'explication pour 1 ligne de code. Mais nous somme loin d'avoir terminé, notre `unique_ptr` ne respecte pas tous les prérequis nécessaires pour un bon constructeur de déplacement. Il n'y a pas non plus d'affectation par déplacement qui amène à de grosse surprise. Et surtout, qui nous dit qu'il n'est pas copiable ?
+Finalement beaucoup d'explications pour 1 ligne de code. Mais nous sommes loin d'avoir terminé, notre `unique_ptr` ne respecte pas tous les prérequis nécessaires pour un bon constructeur de déplacement. Il n'y a pas non plus d'affectation par déplacement qui amène à de grosse surprise. Et surtout, qui nous dit qu'il n'est pas copiable ?
 
 
 
@@ -232,7 +227,7 @@ Une classe possède 6 fonctions spéciales générées automatiquement par le co
 - l'affectation par déplacement
 - le destructeur
 
-Si aucune de ces fonctions n'est déclarée dans la classe, leur existence dépend des membres la composant. Ainsi, si un membre comme `std::unique_ptr` existe, les 2 fonctions liées à la copie seront implicitement supprimées car inexistant pour le type `std::unique_ptr`.
+Si aucune de ces fonctions n'est déclarée dans la classe, leur existence dépend des membres la composant. Ainsi, si un membre comme `std::unique_ptr` existe, les 2 fonctions liées à la copie seront implicitement supprimées car inexistantes pour le type `std::unique_ptr`.
 
 À l'inverse, définir explicitement certaines fonctions va en désactiver d'autres. Il est nécessaire d'utiliser `=default` pour les réactiver.
 
@@ -256,7 +251,7 @@ unique_ptr(unique_ptr const&) = delete;
 unique_ptr& operator=(unique_ptr const&) = delete;
 ```
 
-Quit à déclarer certaines fonctions comme étant supprimées, il est aussi plus explicite pour l'utilisateur de la classe de mettre explicitement `=default` pour les autres fonctions. C'est le principe de la [règle de 5](https://en.cppreference.com/w/cpp/language/rule_of_three#Rule_of_five) qui consiste à définir explicitement les fonctions spéciales (en excluant le constructeur par défaut dans cette règle).
+Quitte à déclarer certaines fonctions comme étant supprimées, il est aussi plus explicite pour l'utilisateur de la classe de mettre explicitement `=default` pour les autres fonctions. C'est le principe de la [règle de 5](https://en.cppreference.com/w/cpp/language/rule_of_three#Rule_of_five) qui consiste à définir explicitement les fonctions spéciales (en excluant le constructeur par défaut dans cette règle).
 
 À savoir aussi que -- sauf cas très spécifique -- les constructeurs et `operator=` vont par paire. Si l'un est implémenté, l'autre devrait l'être également. Ce que nous allons faire dans le prochain chapitre.
 
@@ -308,15 +303,15 @@ Le code affiche n'importe quoi et explose ! La raison est toute bête, on désal
 Si on se réfère au prérequis de [MoveAssignable](https://en.cppreference.com/w/cpp/named_req/MoveAssignable), il n'y a aucune indication sur l'état de `t` dans `t = rv` lorsque `t` et `rv` sont la même référence. Plusieurs choix s'offrent à nous en cas de self-move-assignment:
 
 - considérer cela comme un comportement indéfini
-- définir `rv` comme étant égale à nul (donc le pointeur est ici supprimé)
+- définir `rv` comme étant égal à nul (donc le pointeur est ici supprimé)
 - définir `t` comme contenant le pointeur de `rv` (et donc ici ne rien faire)
 
 
 ### Self-move-assignment comme comportement indéfini
 
-Ce choix peut paraitre étrange voire dangereux, mais il est justifié pour un besoin de performance: le déplacement doit être rapide. Gérer un tel scénario demande du code supplémentaire -- généralement un `if (this != &other)` -- et cela peut avoir un impacte signification pour un cas de figure fortement marginal. Le choix du standard penche beaucoup pour un comportement indéfini et seules certaines classes l'autorisent.
+Ce choix peut paraitre étrange voire dangereux, mais il est justifié pour un besoin de performance: le déplacement doit être rapide. Gérer un tel scénario demande du code supplémentaire -- généralement un `if (this != &other)` -- et cela peut avoir un impact signification pour un cas de figure fortement marginal. Le choix du standard penche beaucoup pour un comportement indéfini et seules certaines classes l'autorisent.
 
-Pour information, les implémentations de libc++ et libstdc++ (clang et gcc) vide les containers tel que `std::vector`. Il y a même une assertion si on utilise libstdc++ avec la macro `_GLIBCXX_DEBUG`.
+Pour information, les implémentations de libc++ et libstdc++ (clang et gcc) vident les containers tel que `std::vector`. Il y a même une assertion si on utilise libstdc++ avec la macro `_GLIBCXX_DEBUG`.
 
 ```cpp
 #include <vector>
@@ -370,7 +365,7 @@ unique_ptr& operator=(unique_ptr&& other)
 }
 ```
 
-Cette dernière peut aussi s'écrire avec l'idiome [copy-and-swap](https://en.cppreference.com/w/cpp/language/operators#Assignment_operator) ou avec `if (this == &other) return *this` en début de fonction pour complétement ignorer l'affectation sur soi-même. Personnellement, j'évite les conditions dans les fonctions de déplacement lorsque cela est possible.
+Cette dernière peut aussi s'écrire avec l'idiome [copy-and-swap](https://en.cppreference.com/w/cpp/language/operators#Assignment_operator) ou avec `if (this == &other) return *this` en début de fonction pour complètement ignorer l'affectation sur soi-même. Personnellement, j'évite les conditions dans les fonctions de déplacement lorsque cela est possible.
 
 ```cpp
 // copy-and-swap
@@ -402,7 +397,7 @@ struct A
   A(A&&) { std::puts("A&&"); }
 };
 
-// copie autorisé, mais déplacement qui n'est pas noexcept
+// copie autorisée, mais déplacement qui n'est pas noexcept
 struct B
 {
   B()=default;
@@ -410,7 +405,7 @@ struct B
   B(B&&) { std::puts("B&&"); }
 };
 
-// copie autorisé et déplacement noexcept
+// copie autorisée et déplacement noexcept
 struct C
 {
   C()=default;
@@ -450,7 +445,7 @@ Une note sur l'implémentation derrière: les containers se basent sur la foncti
 
 Je ne vais pas mentir, tout le baratin précédent n'est là que pour placer ce chapitre. Autant de bla bla juste pour le plaisir de mettre ce titre :).
 
-Ceci dit, arrivé ici, vous devriez être conscient que `std::move` ne fait pas grand-chose: tout se situe dans les constructeur et opérateur de déplacement.
+Ceci dit, arrivé ici, vous devriez être conscient que `std::move` ne fait pas grand-chose: tout se situe dans les constructeurs et opérateurs de déplacement.
 
 Mais alors, que fait `std::move` ? Eh bien, rien... Ou plus précisément, la fonction ne touche pas à l'instance, mais à la catégorie de valeur. Ce n'est rien de plus qu'un cast d'une lvalue en rvalue ! On pourrait tout aussi bien remplacer `std::move(x)` par `static_cast<std::remove_reference_t<decltype(x)>&&>(x) `, le résultat serait exactement le même -- à la verbosité près.
 
@@ -508,17 +503,17 @@ Pour ce faire, `std::forward<T>(x)` combine simplement `T` à une rvalue pour ca
 
 Les explications sont complexes, mais la chose importante à retenir est qu'un type template de la forme `T&&` doit être propagé avec `std::forward<T>()` pour conserver le type de référence.
 
-Il faut aussi bien comprendre que les forwarding references s'appliquent sur un type template complet, ce qui n'est pas le cas par exemple pour `void foo(std::vector<T>&& vec)` où la fonction attends toujours une rvalue.
+Il faut aussi bien comprendre que les forwarding references s'appliquent sur un type template complet, ce qui n'est pas le cas par exemple pour `void foo(std::vector<T>&& vec)` où la fonction attend toujours une rvalue.
 
 
 
 # Que personne ne bouge, v'là la conclusion
 
-Pour résumé tout ça:
+Pour résumer tout ça:
 
-- `std::move` n'étant qu'un cast user-friendly vers une rvalue, mais ce n'est pas lui qui fait le déplacement à proprement parler. Mal l'utilisé désactive aussi certaines optimisations.
+- `std::move` n'étant qu'un cast user-friendly vers une rvalue, mais ce n'est pas lui qui fait le déplacement à proprement parler. Mal l'utiliser désactive aussi certaines optimisations.
 - Le comportement du déplacement est défini par les fonctions qui reçoivent une rvalue.
-- Définir certaines fonctions spéciales en désactive d'autre, il est préférable d'indiquer explicitement le comportement de chacune de préférence avec `=default` ou `=delete`. Pour rappel, les fonctions spéciales sont ici les constructeurs de déplacement et de copie, l'affectation par déplacement et de copie ainsi que le destructeur.
+- Définir certaines fonctions spéciales en désactivent d'autres, il est préférable d'indiquer explicitement le comportement de chacune de préférence avec `=default` ou `=delete`. Pour rappel, les fonctions spéciales sont ici les constructeurs de déplacement et de copie, l'affectation par déplacement et de copie ainsi que le destructeur.
 - le constructeur de déplacement et l'affectation par déplacement devrait être noexcept pour que les containers de la STL les utilisent.
 - `std::forward` s'utilise pour des paramètres template de la forme `T&&` pour propager la catégorie de référence (lvalue ou rvalue).
 
