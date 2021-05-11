@@ -1,8 +1,8 @@
 ---
-title: "la sémantique de déplacement"
+title: "La sémantique de déplacement"
 #thumbnail: ""
 #description: ""
-date: 2021-05-12T22:14:00+01:00
+date: 2021-05-11T22:14:00+01:00
 #lastmod: 2020-12-24T00:22:00+01:00
 slug: "la-semantique-de-deplacement"
 #toc: false
