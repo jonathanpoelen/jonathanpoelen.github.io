@@ -14,7 +14,7 @@ ghcommentid: 0
 expire: 2038
 ---
 
-L'objectif derrière la sémantique de déplacement est de transférer les données d'un objet A à un objet B. Si les 2 objets sont du même type, on parle de constructeur de déplacement ou affectation par déplacement. Cela permet 2 choses:
+L'objectif derrière la sémantique de déplacement est de transférer les données d'un objet `A` à un objet `B`. Si les 2 objets sont du même type, on parle de constructeur de déplacement ou affectation par déplacement. Cela permet 2 choses:
 
 - Garantir l'unicité d'une ressource. La responsabilité étant passée à quelqu'un d'autre, il n'y a toujours qu'un seul propriétaire en charge de la durée de vie de celle-ci.
 - Éviter des copies profondes en les remplaçant par des copies superficielles plus performantes.
@@ -54,7 +54,7 @@ Au passage, on vient d'écraser tout ce qu'il y avait dans le sac de notre voleu
 
 ## Copie profonde et copie superficielle
 
-La copie profonde est une copie de tous les membres, y compris des données référencées par un pointeur lorsque leur durée de vie est gérée par la classe. Ce dernier point est important, car sans pointeur -- et pour aller plus loin, sans ressource, -- il n'y a pas de différence entre une copie classique ou une copie superficielle. Vouloir les opérateurs de déplacement dans cette situation **ne sert à rien**, l'implémentation serait strictement identique à celle d'une copie. Autre point, même s'il y a un pointeur, il faut que les fonctions de copie fassent une copie profonde pour que les fonctions de déplacements puissent faire une copie superficielle, sinon, rebelote, aucune différence avec la copie.
+La copie profonde est une copie de tous les membres, y compris des données référencées par un pointeur lorsque leur durée de vie est gérée par la classe. Ce dernier point est important, car sans pointeur -- et pour aller plus loin, sans ressource, -- il n'y a pas de différence entre une copie classique ou une copie superficielle. Vouloir les opérateurs de déplacement dans cette dernière situation **ne sert à rien**, l'implémentation serait strictement identique à celle d'une copie. Autre point, même s'il y a un pointeur, il faut que les fonctions de copie fassent une copie profonde pour que les fonctions de déplacements puissent faire une copie superficielle, sinon, rebelote, aucune différence avec la copie.
 
 Comme une illustration est plus parlante, supposons une classe `vector` avec 2 variables membres:
 
@@ -80,7 +80,7 @@ B = {
 }
 ```
 
-La copie superficielle effectuée par un déplacement n'alloue pas de mémoire, elle copie simplement `A.p` dans `B.p` qui est une opération bien plus rapide.
+La copie superficielle effectuée par un déplacement n'alloue pas de mémoire, elle copie simplement `A.p` dans `B.p` qui est une opération bien plus rapide. L'adresse des pointeurs est identique.
 
 ```cpp
 // B = std::move(A)
@@ -116,8 +116,9 @@ int main()
   int & lvalue = 3; // Erreur, 3 n'est pas une variable, ni une référence,
                     // mais une valeur temporaire
   int && rvalue = 3; // Ok, mais cela est dangereux à cause de l'aspect temporaire
-                     // des rvalues. Il faut éviter de les conserver, mais plutôt
-                     // les "accrocher" à une variable qui n'est pas une référence
+                     // des rvalues (la variable est détruite en fin de scope).
+                     // Il faut éviter de les conserver, mais plutôt les "accrocher"
+                     // à une variable qui n'est pas une référence
   int value = 3; // C'est... Un point d'encrage d'un temporaire
 
   int & lvalue = rvalue; // rvalue est une variable,
@@ -204,7 +205,7 @@ int main()
 }
 ```
 
-Reste l'implémentation du constructeur de déplacement. Comme dit précédemment, seule une instance doit posséder le pointeur interne. L'instance déplacée doit être modifiée pour ne plus y faire référence, tout en restant dans un état dit **destructible** pour que le destructeur fonctionne convenablement. Les prérequis de [MoveConstructible](https://en.cppreference.com/w/cpp/named_req/MoveConstructible) parlent d'un état non spécifié. C'est-à-dire que l'implémentation est libre de faire ce qu'elle veut du moment que la destruction fonctionne encore. Cependant, chaque fonction peut explicitement documenter le comportement. Le plus simple ici est de mettre le pointeur à `nullptr`.
+Reste l'implémentation du constructeur de déplacement. Comme dit précédemment, seule une instance doit posséder le pointeur interne. L'instance déplacée doit être modifiée pour ne plus y faire référence, tout en restant dans un état dit **destructible** pour que le destructeur fonctionne convenablement. Les prérequis de [MoveConstructible](https://en.cppreference.com/w/cpp/named_req/MoveConstructible) parlent d'un état non spécifié. C'est-à-dire que l'implémentation est libre de faire ce qu'elle veut du moment que la destruction fonctionne encore. Cependant, chaque fonction peut explicitement documenter le comportement. Le plus simple ici est de mettre le pointeur déplacé à `nullptr`.
 
 ```cpp
 unique_ptr::unique_ptr(unique_ptr&& other)
@@ -383,7 +384,11 @@ Ce comportement pour le déplacement est celui documenté dans `std::unique_ptr`
 
 ## Les déplacements devraient être `noexcept`
 
-C'est une chose qu'on oublie facilement, mais les fonctions de déplacement devraient être `noexcept` pour une simple raison: les containers de la STL utilisent les fonctions de déplacement à la condition que ceux-ci sont `noexcept` ou qu'il n'y ait pas de fonction de copie. Voici un exemple qui montre le problème.
+
+C'est une chose qu'on oublie facilement, mais les fonctions de déplacement devraient être `noexcept` pour 2 raisons simples:
+
+- Le déplacement est une opération qui se veut la plus triviale possible. Les risques d'exception sont normalement nuls.
+- Les containers de la STL utilisent les fonctions de déplacement à la condition que ceux-ci sont `noexcept` ou qu'il n'y ait pas de fonction de copie. Voici un exemple qui montre le problème.
 
 ```cpp
 #include <vector>
@@ -480,7 +485,7 @@ A bar()
 
 Pour finaliser les explications sur le déplacement, il faut introduire `std::forward` et les règles de [reference collapsing](https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing).
 
-`std::forward` n'est utile que sur des types templates, dont la catégorie de valeur n'est pas connue. L'exemple le plus simple est une fonction `template<class T> void foo(T&& x);` où `T` représente une forwarding reference. Càd une référence qui est soit une lvalue, soit une rvalue. On peut aussi croiser le nom de référence universelle venant d'avant la normalisation du nom officiel.
+`std::forward` n'est utile que sur des types templates dont la catégorie de valeur n'est pas connue. L'exemple le plus simple est une fonction `template<class T> void foo(T&& x);` où `T` représente une forwarding reference. Càd une référence qui est soit une lvalue, soit une rvalue. On peut aussi croiser le nom de référence universelle venant d'avant la normalisation du nom officiel.
 
 Sur un usage classique de `foo()`, le type réel de `T` est le suivant:
 
@@ -507,11 +512,11 @@ Il faut aussi bien comprendre que les forwarding references s'appliquent sur un 
 
 
 
-# Que personne ne bouge, v'là la conclusion
+## Que personne ne bouge, v'là la conclusion
 
 Pour résumer tout ça:
 
-- `std::move` n'étant qu'un cast user-friendly vers une rvalue, mais ce n'est pas lui qui fait le déplacement à proprement parler. Mal l'utiliser désactive aussi certaines optimisations.
+- `std::move` n'est qu'un cast user-friendly vers une rvalue, ce n'est pas lui qui fait le déplacement à proprement parler. Mal l'utiliser désactive aussi certaines optimisations.
 - Le comportement du déplacement est défini par les fonctions qui reçoivent une rvalue.
 - Définir certaines fonctions spéciales en désactivent d'autres, il est préférable d'indiquer explicitement le comportement de chacune de préférence avec `=default` ou `=delete`. Pour rappel, les fonctions spéciales sont ici les constructeurs de déplacement et de copie, l'affectation par déplacement et de copie ainsi que le destructeur.
 - le constructeur de déplacement et l'affectation par déplacement devrait être noexcept pour que les containers de la STL les utilisent.
