@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>la sémantique de déplacement</title>
+<meta name="generator" content="Hugo 0.83.1" />
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
+<link rel="shortcut icon" href="/favicon.jpg"/>
+<link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
+<link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
+<link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
+<link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
+<meta property="og:title" content="la sémantique de déplacement">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/">
+<meta property="twitter:title" content="la sémantique de déplacement">
+<meta name="description" content="L&rsquo;objectif derrière la sémantique de déplacement est de transférer les données d&rsquo;un objet A à un objet B. Si les 2 objets sont du même type, on parle de constructeur de déplacement ou affectation par déplacement. Cela permet 2 choses:
+ Garantir l&rsquo;unicité d&rsquo;une ressource. La responsabilité étant passée à quelqu&rsquo;un d&rsquo;autre, il n&rsquo;y a toujours qu&rsquo;un seul propriétaire en charge de la durée de vie de celle-ci. Éviter des copies profondes en les remplaçant par des copies superficielles plus performantes.">
+<meta property="twitter:description" content="L&rsquo;objectif derrière la sémantique de déplacement est de transférer les données d&rsquo;un objet A à un objet B. Si les 2 objets sont du même type, on parle de constructeur de déplacement ou affectation par déplacement. Cela permet 2 choses:
+ Garantir l&rsquo;unicité d&rsquo;une ressource. La responsabilité étant passée à quelqu&rsquo;un d&rsquo;autre, il n&rsquo;y a toujours qu&rsquo;un seul propriétaire en charge de la durée de vie de celle-ci. Éviter des copies profondes en les remplaçant par des copies superficielles plus performantes.">
+
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+  <div id="avoidance-link">
+    <a class="evitement" href="#main-content" title="Aller au contenu">Aller au contenu</a>
+    <a class="evitement" href="#main-menu" title="Aller au menu">Aller au menu</a>
+  </div>
+  <div class="container container-outer">
+    <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+      <div class="container-inner">
+        <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
+            <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
+            <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
+          </a>
+        </div>
+        <nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <ul class="menu__list">
+    <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
+      <i class="fab fa-github" aria-hidden="true"></i> Github
+    </a></li>
+    <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
+      <i class="fas fa-archive" aria-hidden="true"></i> Archives</a>
+    </li>
+    <li class="menu__item"><a class="menu__link" type="application/rss+xml" title="Flux RSS" href="/post/index.xml">
+      <i class="fas fa-rss" aria-hidden="true"></i> RSS</a>
+    </li>
+  </ul>
+</nav>
+
+
+      </div>
+    </header>
+    <div class="wrapper clearfix">
+
+<aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="widget-search widget">
+  <form class="widget-search__form" role="search" method="get" action="https://duckduckgo.com">
+    <label>
+      <span class="screen-reader-text">Search for:</span>
+      <input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+    </label>
+    <input class="widget-search__submit" type="submit" value="Search">
+    <input type="hidden" name="sites" value="https://jonathanpoelen.github.io/" />
+  </form>
+</div>
+
+	
+<div class="widget-recent widget" id="main-menu">
+  <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2021/05/la-semantique-de-deplacement/">la sémantique de déplacement</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2020/04/sfinae/">SFINAE</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
+      
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">36 autres…</a></li>
+    </ul>
+  </div>
+</div>
+<div class="widget-recent widget">
+  <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+
+    </ul>
+  </div>
+</div>
+
+	
+<div class="widget-categories widget">
+  <h4 class="widget__title"><i class="fas fa-folder-o" aria-hidden="true"></i> Catégories</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/c&#43;&#43;/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (27)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/script-shell/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/script-shell">Script-Shell (7)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/accessibilite-web/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilite-Web">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/accessibilite-web">Accessibilite-Web (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/javascript/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/zsh/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/zsh">Zsh (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/make/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/make">Make (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/sqlite/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+	
+	
+
+</aside>
+<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
+  
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="la-s%C3%A9mantique-de-d%C3%A9placement"><span>
+        &nbsp;
+        <a href="https://jonathanpoelen.github.io/2020/04/sfinae/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: SFINAE"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/">la sémantique de déplacement</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="https://jonathanpoelen.github.io/2020/04/sfinae/">Article précédent: SFINAE</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2021-05-11T22:14:00">11 mai 2021
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>15 minutes ;
+  <a href="https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#06c44e7418e7b77e55af140ca92232ab-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
+</p>
+
+
+  </header>
+  <div class="post__content">
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#principe-dunicité">Principe d&rsquo;unicité</a></li>
+    <li><a href="#copie-profonde-et-copie-superficielle">Copie profonde et copie superficielle</a></li>
+    <li><a href="#catégorie-de-valeur">Catégorie de valeur</a></li>
+    <li><a href="#constructeur-de-déplacement">Constructeur de déplacement</a></li>
+    <li><a href="#fonctions-spéciales">Fonctions spéciales</a></li>
+    <li><a href="#affectation-par-déplacement">Affectation par déplacement</a>
+      <ul>
+        <li><a href="#self-move-assignment-comme-comportement-indéfini">Self-move-assignment comme comportement indéfini</a></li>
+        <li><a href="#définir-létat-de-rv-sur-self-move-assignment">Définir l&rsquo;état de rv sur self-move-assignment</a></li>
+        <li><a href="#définir-létat-de-t-sur-self-move-assignment">Définir l&rsquo;état de <code>t</code> sur self-move-assignment</a></li>
+      </ul>
+    </li>
+    <li><a href="#les-déplacements-devraient-être-noexcept">Les déplacements devraient être <code>noexcept</code></a></li>
+    <li><a href="#la-vérité-vraie-du-mensonge-quest-stdmove">La vérité vraie du mensonge qu&rsquo;est std::move</a></li>
+    <li><a href="#stdforward">std::forward</a></li>
+  </ul>
+</nav>
+        </div></aside>
+      <p>L&rsquo;objectif derrière la sémantique de déplacement est de transférer les données d&rsquo;un objet A à un objet B. Si les 2 objets sont du même type, on parle de constructeur de déplacement ou affectation par déplacement. Cela permet 2 choses:</p>
+<ul>
+<li>Garantir l&rsquo;unicité d&rsquo;une ressource. La responsabilité étant passée à quelqu&rsquo;un d&rsquo;autre, il n&rsquo;y a toujours qu&rsquo;un seul propriétaire en charge de la durée de vie de celle-ci.</li>
+<li>Éviter des copies profondes en les remplaçant par des copies superficielles plus performantes.</li>
+</ul>
+<p>Toute autre raison est une erreur.</p>
+<a class="headline-hash" href="#principe-dunicité"><h2 id="principe-dunicité">Principe d&rsquo;unicité</h2></a>
+<p>Prenons un petit animal sauvage et nommons-le Pikachu. Ce Pikachu est unique, il n&rsquo;en existe qu&rsquo;un seul dans tout l&rsquo;univers. Si on compare notre Pikachu à un autre Pikachu, ils sont différents, il n&rsquo;y en a pas 2 pareils, même s&rsquo;ils ont le même nom.</p>
+<p>Rangeons-le dans sa pokéball.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Pokemon</span><span class="o">&gt;</span> <span class="n">my_bag</span><span class="p">;</span>
+<span class="n">my_bag</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">&#34;Pikachu&#34;</span><span class="p">);</span>
+</code></pre></div><p>Un soir, au coin du feu, un brigand passe par là et prend notre sac.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">brigand</span><span class="p">.</span><span class="n">bag</span> <span class="o">=</span> <span class="n">my_bag</span><span class="p">;</span>
+</code></pre></div><p>Et tout l&rsquo;univers est sans dessus-dessous, notre Pikachu existe en double, le principe d&rsquo;unicité est brisé !</p>
+<p>Heureusement, <code>Pokemon</code> n&rsquo;étant pas copiable, le code ne compile pas. Ouf, l&rsquo;univers est sauf !</p>
+<p>Du coup, plutôt que copier le sac, on le déplace directement dans celui de brigand en utilisant la fonction <code>std::move</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">brigand</span><span class="p">.</span><span class="n">bag</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">my_bag</span><span class="p">);</span>
+</code></pre></div><p>Au passage, on vient d&rsquo;écraser tout ce qu&rsquo;il y avait dans le sac de notre voleur ; bien fait pour lui ! Mais le plus important est là: Pikachu appartient maintenant au brigand. <code>my_bag</code> est vide, sa taille est de 0. On a bien eu un transfert des pokémons d&rsquo;un sac <code>A</code> vers un sac <code>B</code>, il y a eu déplacement.</p>
+<a class="headline-hash" href="#copie-profonde-et-copie-superficielle"><h2 id="copie-profonde-et-copie-superficielle">Copie profonde et copie superficielle</h2></a>
+<p>La copie profonde est une copie de tous les membres, y compris des données référencées par un pointeur lorsque leur durée de vie est gérée par la classe. Ce dernier point est important, car sans pointeur &ndash; et pour aller plus loin, sans ressource, &ndash; il n&rsquo;y a pas de différence entre une copie classique ou une copie superficielle. Vouloir les opérateurs de déplacement dans cette situation <strong>ne sert à rien</strong>, l&rsquo;implémentation serait strictement identique à celle d&rsquo;une copie. Autre point, même s&rsquo;il y a un pointeur, il faut que les fonctions de copie fassent une copie profonde pour que les fonctions de déplacements puissent faire une copie superficielle, sinon, rebelote, aucune différence avec la copie.</p>
+<p>Comme une illustration est plus parlante, supposons une classe <code>vector</code> avec 2 variables membres:</p>
+<ul>
+<li><code>int* p</code>, un pointeur alloué dynamiquement et désalloué dans le destructeur</li>
+<li><code>size_t n</code> qui représente le nombre d&rsquo;éléments alloué</li>
+</ul>
+<p>L&rsquo;instance de référence nommé <code>A</code> contient les nombres 7, 1, 3, 7, 0, 5, ce qui donne en mémoire</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">A</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="cm">/*adresse=*/</span><span class="mh">0x12345678</span> <span class="cm">/*valeurs=*/</span><span class="p">{</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="p">}</span>
+</code></pre></div><p>La copie profonde va faire une nouvelle allocation dynamique et copier les valeurs de <code>A.p</code> dans <code>B.p</code>. L&rsquo;adresse du pointeur est donc différente, mais le contenu est identique.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// B = A
+</span><span class="c1"></span><span class="n">B</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="cm">/*adresse=*/</span><span class="mh">0x87654321</span> <span class="cm">/*valeurs=*/</span><span class="p">{</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="p">}</span>
+</code></pre></div><p>La copie superficielle effectuée par un déplacement n&rsquo;alloue pas de mémoire, elle copie simplement <code>A.p</code> dans <code>B.p</code> qui est une opération bien plus rapide.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// B = std::move(A)
+</span><span class="c1"></span><span class="n">B</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="cm">/*adresse=*/</span><span class="mh">0x12345678</span> <span class="cm">/*valeurs=*/</span><span class="p">{</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="p">}</span>
+</code></pre></div><p>Malheureusement, lorsque le destructeur est appelé, il libère la mémoire du pointeur <code>p</code> qui est partagé entre <code>A</code> et <code>B</code>. Cela donne inévitablement une double désallocation qui finit sur un crash de l&rsquo;application. Pour prévenir cette erreur, <code>A.p</code> ne doit pas être libéré, par exemple en mettant le pointeur à <code>nullptr</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// B = std::move(A)
+</span><span class="c1"></span><span class="n">A</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">}</span>
+</code></pre></div><p>Le déplacement a le même fonctionnement que le principe d&rsquo;unicité: l&rsquo;allocation dynamique (la ressource) ne doit être possédée que par une seule instance.</p>
+<a class="headline-hash" href="#catégorie-de-valeur"><h2 id="catégorie-de-valeur">Catégorie de valeur</h2></a>
+<p>Tout le principe de sémantique de déplacement repose sur l&rsquo;introduction des rvalues. Les rvalues font partie d&rsquo;un ensemble de 5 catégories de valeur qui sont: lvalue, prvalue, xvalue, glvalue et rvalue. Ça c&rsquo;est ce que dit la norme, en tant que développeur, il n&rsquo;y a que 2 types qui sont différenciables dans un programme: lvalue et rvalue. Les autres deviennent automatiquement soit des lvalues, soit rvalues suivant le contexte. On peut les oublier.</p>
+<p>Une lvalue (noté <code>T&amp;</code>) est une référence. Une rvalue (noté <code>T&amp;&amp;</code>) est une expression qui se veut temporaire. Si la valeur de cette expression provient d&rsquo;une opération, elle doit être capturée dans une variable, autrement, elle est perdue. À savoir que toutes variables &ndash; quel que soit son type réel &ndash; <strong>est toujours</strong> manipulée comme une lvalue. C’est-à-dire qu&rsquo;avec <code>int i; foo(i);</code>, la fonction <code>foo()</code> reçoit une référence (<code>int&amp;</code>), pas juste <code>int</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="o">&amp;</span> <span class="n">lvalue</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// Erreur, 3 n&#39;est pas une variable, ni une référence,
+</span><span class="c1"></span>                    <span class="c1">// mais une valeur temporaire
+</span><span class="c1"></span>  <span class="kt">int</span> <span class="o">&amp;&amp;</span> <span class="n">rvalue</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// Ok, mais cela est dangereux à cause de l&#39;aspect temporaire
+</span><span class="c1"></span>                     <span class="c1">// des rvalues. Il faut éviter de les conserver, mais plutôt
+</span><span class="c1"></span>                     <span class="c1">// les &#34;accrocher&#34; à une variable qui n&#39;est pas une référence
+</span><span class="c1"></span>  <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// C&#39;est... Un point d&#39;encrage d&#39;un temporaire
+</span><span class="c1"></span>
+  <span class="kt">int</span> <span class="o">&amp;</span> <span class="n">lvalue</span> <span class="o">=</span> <span class="n">rvalue</span><span class="p">;</span> <span class="c1">// rvalue est une variable,
+</span><span class="c1"></span>                         <span class="c1">// on peut donc avoir une référence dessus
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>Un des aspects essentiels de la sémantique de déplacement est la conversion d&rsquo;une lvalue en une rvalue en utilisant <code>std::move()</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="o">&amp;&amp;</span> <span class="n">rvalue</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="c1">// value est une lvalue
+</span><span class="c1"></span>                                    <span class="c1">// std::move() retourne une rvalue
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><a class="headline-hash" href="#constructeur-de-déplacement"><h2 id="constructeur-de-déplacement">Constructeur de déplacement</h2></a>
+<p>Pour prendre un exemple connu, les chapitres suivants reposent sur le fonctionnement de <code>std::unique_ptr</code>, un pointeur intelligent qui fait une désallocation automatique de la mémoire dans son destructeur et interdit la copie pour respecter le principe d&rsquo;unicité.</p>
+<p>Pour simplifier les codes, la classe ne travaille qu&rsquo;avec des <code>int</code> et ne possède que <code>operator*</code> et <code>operator bool ()</code> comme fonction membre.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;cassert&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">struct</span> <span class="nc">unique_ptr</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">value_type</span> <span class="o">=</span> <span class="kt">int</span><span class="p">;</span> <span class="c1">// normalement un type template,
+</span><span class="c1"></span>                          <span class="c1">// mais pour cet exemple, juste un int
+</span><span class="c1"></span>
+  <span class="n">unique_ptr</span><span class="p">(</span><span class="n">value_type</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_p</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="o">~</span><span class="n">unique_ptr</span><span class="p">()</span> <span class="p">{</span> <span class="k">delete</span> <span class="n">m_p</span><span class="p">;</span> <span class="p">}</span>
+
+  <span class="c1">// notre constructeur de déplacement
+</span><span class="c1"></span>  <span class="n">unique_ptr</span><span class="p">(</span><span class="n">unique_ptr</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">);</span>
+
+  <span class="k">explicit</span> <span class="k">operator</span> <span class="nf">bool</span> <span class="p">()</span> <span class="k">const</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">m_p</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="n">value_type</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">*</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">m_p</span><span class="p">);</span>
+    <span class="k">return</span> <span class="o">*</span><span class="n">m_p</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">value_type</span><span class="o">*</span> <span class="n">m_p</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div><p>Et un premier exemple d&rsquo;utilisation.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// exemple
+</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="n">unique_ptr</span><span class="o">&amp;</span> <span class="n">ptr</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">ptr</span><span class="p">)</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+  <span class="k">else</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;nullptr&#34;</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">unique_ptr</span> <span class="n">p1</span><span class="p">(</span><span class="k">new</span> <span class="kt">int</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
+  <span class="n">unique_ptr</span> <span class="n">p2</span><span class="p">{</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">p1</span><span class="p">)};</span> <span class="c1">// on déplace p1 dans p2
+</span><span class="c1"></span>
+  <span class="c1">// p1 est vide, cela affiche nullptr
+</span><span class="c1"></span>  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;p1: &#34;</span><span class="p">;</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
+
+  <span class="c1">// p2 possède un pointer valide, cela affiche 3
+</span><span class="c1"></span>  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;p2: &#34;</span><span class="p">;</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">p2</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>Reste l&rsquo;implémentation du constructeur de déplacement. Comme dit précédemment, seule une instance doit posséder le pointeur interne. L&rsquo;instance déplacée doit être modifiée pour ne plus y faire référence, tout en restant dans un état dit <strong>destructible</strong> pour que le destructeur fonctionne convenablement. Les prérequis de <a href="https://en.cppreference.com/w/cpp/named_req/MoveConstructible">MoveConstructible</a> parlent d&rsquo;un état non spécifié. C&rsquo;est-à-dire que l&rsquo;implémentation est libre de faire ce qu&rsquo;elle veut du moment que la destruction fonctionne encore. Cependant, chaque fonction peut explicitement documenter le comportement. Le plus simple ici est de mettre le pointeur à <code>nullptr</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">unique_ptr</span><span class="o">::</span><span class="n">unique_ptr</span><span class="p">(</span><span class="n">unique_ptr</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span>
+<span class="o">:</span> <span class="n">_p</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">exchange</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">_p</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">))</span>
+<span class="p">{}</span>
+</code></pre></div><p>Finalement beaucoup d&rsquo;explications pour 1 ligne de code. Mais nous sommes loin d&rsquo;avoir terminé, notre <code>unique_ptr</code> ne respecte pas tous les prérequis nécessaires pour un bon constructeur de déplacement. Il n&rsquo;y a pas non plus d&rsquo;affectation par déplacement qui amène à de grosse surprise. Et surtout, qui nous dit qu&rsquo;il n&rsquo;est pas copiable ?</p>
+<a class="headline-hash" href="#fonctions-spéciales"><h2 id="fonctions-spéciales">Fonctions spéciales</h2></a>
+<p>Une classe possède 6 fonctions spéciales générées automatiquement par le compilateur:</p>
+<ul>
+<li>le constructeur par défaut</li>
+<li>le constructeur par copie</li>
+<li>l&rsquo;affectation par copie</li>
+<li>le constructeur par déplacement</li>
+<li>l&rsquo;affectation par déplacement</li>
+<li>le destructeur</li>
+</ul>
+<p>Si aucune de ces fonctions n&rsquo;est déclarée dans la classe, leur existence dépend des membres la composant. Ainsi, si un membre comme <code>std::unique_ptr</code> existe, les 2 fonctions liées à la copie seront implicitement supprimées car inexistantes pour le type <code>std::unique_ptr</code>.</p>
+<p>À l&rsquo;inverse, définir explicitement certaines fonctions va en désactiver d&rsquo;autres. Il est nécessaire d&rsquo;utiliser <code>=default</code> pour les réactiver.</p>
+<table>
+<thead>
+<tr>
+<th><!-- raw HTML omitted -->déclare<!-- raw HTML omitted --> / <!-- raw HTML omitted -->existe<!-- raw HTML omitted --></th>
+<th>default-ctor</th>
+<th>copy-ctor</th>
+<th>copy-assignment</th>
+<th>move-ctor</th>
+<th>move-assignment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>default-constructor</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>copy-constructor</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>copy-assignment</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>move-constructor</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td>move-assignment</td>
+<td>✓</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>destructor</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>À cela s&rsquo;ajoute que le constructeur par défaut n&rsquo;est plus défini en présence de n&rsquo;importe quel autre constructeur (pas uniquement ceux de copie ou de déplacement).</p>
+<p>Si on reprend notre <code>unique_ptr</code> précédemment, ce tableau affirme une chose: la copie n&rsquo;est pas possible et l&rsquo;affectation par déplacement est bien manquante.</p>
+<p>À titre personnel, je pense qu&rsquo;il vaut mieux explicitement indiquer que la copie est interdite, soit via une classe spécifique comme boost::noncopyable soit en ajoutant les prototypes suivants:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">unique_ptr</span><span class="p">(</span><span class="n">unique_ptr</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+<span class="n">unique_ptr</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">unique_ptr</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+</code></pre></div><p>Quitte à déclarer certaines fonctions comme étant supprimées, il est aussi plus explicite pour l&rsquo;utilisateur de la classe de mettre explicitement <code>=default</code> pour les autres fonctions. C&rsquo;est le principe de la <a href="https://en.cppreference.com/w/cpp/language/rule_of_three#Rule_of_five">règle de 5</a> qui consiste à définir explicitement les fonctions spéciales (en excluant le constructeur par défaut dans cette règle).</p>
+<p>À savoir aussi que &ndash; sauf cas très spécifique &ndash; les constructeurs et <code>operator=</code> vont par paire. Si l&rsquo;un est implémenté, l&rsquo;autre devrait l&rsquo;être également. Ce que nous allons faire dans le prochain chapitre.</p>
+<a class="headline-hash" href="#affectation-par-déplacement"><h2 id="affectation-par-déplacement">Affectation par déplacement</h2></a>
+<p>Cette fonction est proche du constructeur de déplacement, mais possède un petit piège qu&rsquo;il est bon de savoir. Commençons par l&rsquo;implémentation classique:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">unique_ptr</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">unique_ptr</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">delete</span> <span class="n">m_p</span><span class="p">;</span>
+  <span class="n">m_p</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">exchange</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">m_p</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span> <span class="c1">// ligne qu&#39;on retrouve dans le constructeur
+</span><span class="c1"></span>  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>En apparence, aucun problème, le pointeur à l&rsquo;intérieur de <code>other</code> est déplacé puis remis à zéro, alors que l&rsquo;ancien se fait détruire. Un petit test le confirme:</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">unique_ptr</span> <span class="n">p1</span><span class="p">{</span><span class="k">new</span> <span class="kt">int</span><span class="p">(</span><span class="mi">3</span><span class="p">)};</span>
+  <span class="n">unique_ptr</span> <span class="n">p2</span><span class="p">;</span>
+
+  <span class="n">print</span><span class="p">(</span><span class="n">p2</span><span class="p">);</span> <span class="c1">// nullptr
+</span><span class="c1"></span>  <span class="n">p2</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">p2</span><span class="p">);</span> <span class="c1">// p2 contient int* sur 3
+</span><span class="c1"></span>  <span class="n">print</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span> <span class="c1">// p1 est maintenant nullptr
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>Mais que se passe-t-il si on fait un déplacement sur soi-même ?</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">unique_ptr</span> <span class="n">p</span><span class="p">{</span><span class="k">new</span> <span class="kt">int</span><span class="p">(</span><span class="mi">3</span><span class="p">)};</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="c1">// 3
+</span><span class="c1"></span>  <span class="n">p</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="c1">// ???
+</span><span class="c1"></span><span class="p">}</span> <span class="c1">// double-free !!!
+</span></code></pre></div><p>Le code affiche n&rsquo;importe quoi et explose ! La raison est toute bête, on désalloue le pointeur puis on récupère celui dans <code>other</code> qui est identique au pointeur précédemment libéré. Une écriture aussi explicite que <code>p = std::move(p)</code> n&rsquo;a pas beaucoup de sens, mais il est possible d&rsquo;arriver dans une telle situation avec un code plus complexe et 2 variables à priori bien distinctes.</p>
+<p>Si on se réfère au prérequis de <a href="https://en.cppreference.com/w/cpp/named_req/MoveAssignable">MoveAssignable</a>, il n&rsquo;y a aucune indication sur l&rsquo;état de <code>t</code> dans <code>t = rv</code> lorsque <code>t</code> et <code>rv</code> sont la même référence. Plusieurs choix s&rsquo;offrent à nous en cas de self-move-assignment:</p>
+<ul>
+<li>considérer cela comme un comportement indéfini</li>
+<li>définir <code>rv</code> comme étant égal à nul (donc le pointeur est ici supprimé)</li>
+<li>définir <code>t</code> comme contenant le pointeur de <code>rv</code> (et donc ici ne rien faire)</li>
+</ul>
+<a class="headline-hash" href="#self-move-assignment-comme-comportement-indéfini"><h3 id="self-move-assignment-comme-comportement-indéfini">Self-move-assignment comme comportement indéfini</h3></a>
+<p>Ce choix peut paraitre étrange voire dangereux, mais il est justifié pour un besoin de performance: le déplacement doit être rapide. Gérer un tel scénario demande du code supplémentaire &ndash; généralement un <code>if (this != &amp;other)</code> &ndash; et cela peut avoir un impact signification pour un cas de figure fortement marginal. Le choix du standard penche beaucoup pour un comportement indéfini et seules certaines classes l&rsquo;autorisent.</p>
+<p>Pour information, les implémentations de libc++ et libstdc++ (clang et gcc) vident les containers tel que <code>std::vector</code>. Il y a même une assertion si on utilise libstdc++ avec la macro <code>_GLIBCXX_DEBUG</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+  <span class="n">v</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">v</span><span class="p">);</span> <span class="c1">// kaboum avec -D_GLIBCXX_DEBUG: https://godbolt.org/z/Gn4KWe
+</span><span class="c1"></span>  <span class="c1">// v.size() == 0
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">g++ test.cpp -D_GLIBCXX_DEBUG <span class="o">&amp;&amp;</span> ./a.out
+<span class="o">[</span>...<span class="o">]</span>
+Error: attempt to self move assign.
+<span class="o">[</span>...<span class="o">]</span>
+</code></pre></div><a class="headline-hash" href="#définir-létat-de-rv-sur-self-move-assignment"><h3 id="définir-létat-de-rv-sur-self-move-assignment">Définir l&rsquo;état de rv sur self-move-assignment</h3></a>
+<p>Dans ce scénario, seul l&rsquo;état de rv dans <code>t = rv</code> est défini comme étant à nul. Pour ce faire, on désalloue le pointeur de <code>t</code> puis on le met à <code>nullptr</code>. Après un déplacement sur soi-même, le pointeur est systématiquement détruit.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">unique_ptr</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">unique_ptr</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">delete</span> <span class="n">m_p</span><span class="p">;</span>
+  <span class="n">m_p</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span> <span class="c1">// other.m_p devient nullptr quand other.m_p == m_p
+</span><span class="c1"></span>  <span class="n">m_p</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">exchange</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">m_p</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
+  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>Ce comportement n&rsquo;est pas très logique. Ce qui importe dans un déplacement est de connaître l&rsquo;état de la destination (<code>t</code>). De plus, se retrouver avec <code>t == nullptr</code> est en contradiction avec le comportement principal du déplacement: « la valeur de <code>t</code> est équivalent à la valeur de <code>rv</code> avant affectation ».</p>
+<p>Finalement ce choix n&rsquo;est pas très judicieux.</p>
+<h3 id="définir-létat-de-t-sur-self-move-assignment">Définir l&rsquo;état de <code>t</code> sur self-move-assignment</h3>
+<p>Ici l&rsquo;état de <code>t</code> est défini, même quand <code>t = rv</code> équivaut à un déplacement sur soi-même. Si c&rsquo;est le cas, on ne désalloue rien et le déplacement ne fait rien: on a bien <code>t</code> équivalent à la valeur de <code>rv</code> avant affectation.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">unique_ptr</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">unique_ptr</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">auto</span><span class="o">*</span> <span class="n">new_p</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">exchange</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">m_p</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
+  <span class="k">delete</span> <span class="n">m_p</span><span class="p">;</span> <span class="c1">// m_p = nullptr quand other.m_p == m_p
+</span><span class="c1"></span>  <span class="n">m_p</span> <span class="o">=</span> <span class="n">new_p</span><span class="p">;</span>
+  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>Cette dernière peut aussi s&rsquo;écrire avec l&rsquo;idiome <a href="https://en.cppreference.com/w/cpp/language/operators#Assignment_operator">copy-and-swap</a> ou avec <code>if (this == &amp;other) return *this</code> en début de fonction pour complètement ignorer l&rsquo;affectation sur soi-même. Personnellement, j&rsquo;évite les conditions dans les fonctions de déplacement lorsque cela est possible.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// copy-and-swap
+</span><span class="c1"></span><span class="n">unique_ptr</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">unique_ptr</span> <span class="n">other</span><span class="p">)</span> <span class="c1">// on prend par valeur
+</span><span class="c1"></span><span class="p">{</span>
+  <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+  <span class="n">swap</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">m_p</span><span class="p">,</span> <span class="n">m_p</span><span class="p">);</span> <span class="c1">// et on swap
+</span><span class="c1"></span>  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+  <span class="c1">// le destructeur de other va libérer la mémoire à sa destruction
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>Ce comportement pour le déplacement est celui documenté dans <code>std::unique_ptr</code> qui impose l&rsquo;équivalence à <code>reset(r.release())</code>: la valeur ne change pas lorsque <code>t</code> et <code>rv</code> référencent le même objet.</p>
+<h2 id="les-déplacements-devraient-être-noexcept">Les déplacements devraient être <code>noexcept</code></h2>
+<p>C&rsquo;est une chose qu&rsquo;on oublie facilement, mais les fonctions de déplacement devraient être <code>noexcept</code> pour une simple raison: les containers de la STL utilisent les fonctions de déplacement à la condition que ceux-ci sont <code>noexcept</code> ou qu&rsquo;il n&rsquo;y ait pas de fonction de copie. Voici un exemple qui montre le problème.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="c1">// copie interdite
+</span><span class="c1"></span><span class="k">struct</span> <span class="nc">A</span>
+<span class="p">{</span>
+  <span class="n">A</span><span class="p">()</span><span class="o">=</span><span class="k">default</span><span class="p">;</span>
+  <span class="n">A</span><span class="p">(</span><span class="n">A</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span><span class="o">=</span><span class="k">delete</span><span class="p">;</span>
+  <span class="n">A</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">puts</span><span class="p">(</span><span class="s">&#34;A&amp;&amp;&#34;</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// copie autorisée, mais déplacement qui n&#39;est pas noexcept
+</span><span class="c1"></span><span class="k">struct</span> <span class="nc">B</span>
+<span class="p">{</span>
+  <span class="n">B</span><span class="p">()</span><span class="o">=</span><span class="k">default</span><span class="p">;</span>
+  <span class="n">B</span><span class="p">(</span><span class="n">B</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span><span class="o">=</span><span class="k">default</span><span class="p">;</span>
+  <span class="n">B</span><span class="p">(</span><span class="n">B</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">puts</span><span class="p">(</span><span class="s">&#34;B&amp;&amp;&#34;</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// copie autorisée et déplacement noexcept
+</span><span class="c1"></span><span class="k">struct</span> <span class="nc">C</span>
+<span class="p">{</span>
+  <span class="n">C</span><span class="p">()</span><span class="o">=</span><span class="k">default</span><span class="p">;</span>
+  <span class="n">C</span><span class="p">(</span><span class="n">C</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">)</span><span class="o">=</span><span class="k">default</span><span class="p">;</span>
+  <span class="n">C</span><span class="p">(</span><span class="n">C</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">puts</span><span class="p">(</span><span class="s">&#34;C&amp;&amp;&#34;</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="c1">// va afficher au moins un A&amp;&amp;
+</span><span class="c1"></span>  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span>
+  <span class="n">a</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">();</span>
+  <span class="n">a</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">();</span>
+  <span class="n">a</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">();</span>
+
+  <span class="c1">// aucun B&amp;&amp;
+</span><span class="c1"></span>  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">B</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">;</span>
+  <span class="n">b</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">();</span>
+  <span class="n">b</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">();</span>
+  <span class="n">b</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">();</span>
+
+  <span class="c1">// va afficher au moins un C&amp;&amp;
+</span><span class="c1"></span>  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">;</span>
+  <span class="n">c</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">();</span>
+  <span class="n">c</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">();</span>
+  <span class="n">c</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div><p>(Je n&rsquo;ai pas mis <code>operator=</code>, mais il est évident que la version par déplacement devrait aussi être noexcept.)</p>
+<p>Une note sur l&rsquo;implémentation derrière: les containers se basent sur la fonction <a href="https://en.cppreference.com/w/cpp/utility/move_if_noexcept">std::move_if_noexcept</a>.</p>
+<a class="headline-hash" href="#la-vérité-vraie-du-mensonge-quest-stdmove"><h2 id="la-vérité-vraie-du-mensonge-quest-stdmove">La vérité vraie du mensonge qu&rsquo;est std::move</h2></a>
+<p>Je ne vais pas mentir, tout le baratin précédent n&rsquo;est là que pour placer ce chapitre. Autant de bla bla juste pour le plaisir de mettre ce titre :).</p>
+<p>Ceci dit, arrivé ici, vous devriez être conscient que <code>std::move</code> ne fait pas grand-chose: tout se situe dans les constructeurs et opérateurs de déplacement.</p>
+<p>Mais alors, que fait <code>std::move</code> ? Eh bien, rien&hellip; Ou plus précisément, la fonction ne touche pas à l&rsquo;instance, mais à la catégorie de valeur. Ce n&rsquo;est rien de plus qu&rsquo;un cast d&rsquo;une lvalue en rvalue ! On pourrait tout aussi bien remplacer <code>std::move(x)</code> par <code>static_cast&lt;std::remove_reference_t&lt;decltype(x)&gt;&amp;&amp;&gt;(x) </code>, le résultat serait exactement le même &ndash; à la verbosité près.</p>
+<p>Puisque <code>std::move</code> n&rsquo;est rien de plus qu&rsquo;un cast, il est inutile de l&rsquo;utiliser sur des rvalues. <code>std::move(Bidule{})</code> n&rsquo;a aucun sens, <code>Bidule{}</code> est déjà une rvalue (mieux, c&rsquo;est une prvalue). Il n&rsquo;est pas non plus nécessaire de l&rsquo;utiliser sur le retour des fonctions qui bénéficient de la <a href="https://cpp.developpez.com/faq/cpp/?page=Optimisation#Qu-est-ce-que-la-RVO">RVO</a> et de l&rsquo;élision de copie en général.</p>
+<p>Pire, utiliser <code>std::move</code> lorsque cela n&rsquo;est pas nécessaire désactive certaines optimisations. Sur ce point, gcc et clang ont tous deux les avertissements <code>-Wpessimizing-move</code> et <code>-Wredundant-move</code> qui se déclenchent sur une utilisation inappropriée de <code>std::move</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">A</span> <span class="nf">foo</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">A</span> <span class="n">ret</span><span class="p">;</span>
+  <span class="c1">// ...
+</span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">ret</span><span class="p">);</span> <span class="c1">// -Wpessimizing-move
+</span><span class="c1"></span>  <span class="k">return</span> <span class="n">ret</span><span class="p">;</span> <span class="c1">// NRVO
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="n">A</span> <span class="nf">foo</span><span class="p">(</span><span class="n">A</span> <span class="n">a</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">a</span><span class="p">);</span> <span class="c1">// -Wredundant-move
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="n">A</span> <span class="nf">bar</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">A</span><span class="p">{}));</span> <span class="c1">// -Wpessimizing-move
+</span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">foo</span><span class="p">());</span> <span class="c1">// -Wpessimizing-move
+</span><span class="c1"></span>  <span class="k">return</span> <span class="n">foo</span><span class="p">();</span> <span class="c1">// RVO
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><a class="headline-hash" href="#stdforward"><h2 id="stdforward">std::forward</h2></a>
+<p>Pour finaliser les explications sur le déplacement, il faut introduire <code>std::forward</code> et les règles de <a href="https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing">reference collapsing</a>.</p>
+<p><code>std::forward</code> n&rsquo;est utile que sur des types templates, dont la catégorie de valeur n&rsquo;est pas connue. L&rsquo;exemple le plus simple est une fonction <code>template&lt;class T&gt; void foo(T&amp;&amp; x);</code> où <code>T</code> représente une forwarding reference. Càd une référence qui est soit une lvalue, soit une rvalue. On peut aussi croiser le nom de référence universelle venant d&rsquo;avant la normalisation du nom officiel.</p>
+<p>Sur un usage classique de <code>foo()</code>, le type réel de <code>T</code> est le suivant:</p>
+<ul>
+<li><code>foo(std::string())</code>: <code>T</code> = <code>std::string</code>. <code>T&amp;&amp;</code> = <code>std::string</code></li>
+<li><code>foo(str)</code>: <code>T</code> = <code>std::string&amp;</code>. <code>T&amp;&amp;</code> = <code>std::string&amp;</code></li>
+</ul>
+<p>Appliquer une rvalue sur un type qui est une lvalue donne une lvalue. C&rsquo;est le point essentiel de la references collapsing.</p>
+<table>
+<thead>
+<tr>
+<th>lhs</th>
+<th>rhs</th>
+<th>référence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;</code></td>
+<td><code>&amp;</code></td>
+<td><code>&amp;</code></td>
+</tr>
+<tr>
+<td><code>&amp;</code></td>
+<td><code>&amp;&amp;</code></td>
+<td><code>&amp;</code></td>
+</tr>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td><code>&amp;</code></td>
+<td><code>&amp;</code></td>
+</tr>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td><code>&amp;&amp;</code></td>
+<td><code>&amp;&amp;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Le but de <code>std::forward</code> est de propager la catégorie de valeur en castant vers une rvalue quand le type d&rsquo;origine est une rvalue (n&rsquo;oublions pas qu&rsquo;à ce niveau, la variable <code>x</code> est une lvalue, même si son type est une rvalue).</p>
+<p>Pour ce faire, <code>std::forward&lt;T&gt;(x)</code> combine simplement <code>T</code> à une rvalue pour caster la variable dans la bonne catégorie de valeur. Ceci est strictement équivalent à <code>static_cast&lt;T&amp;&amp;&gt;(x)</code> ou <code>static_cast&lt;decltype(x)&amp;&amp;&gt;(x)</code>. Certains projets définissent une macro <code>FWD(x)</code> qui fonctionne ainsi.</p>
+<p>Les explications sont complexes, mais la chose importante à retenir est qu&rsquo;un type template de la forme <code>T&amp;&amp;</code> doit être propagé avec <code>std::forward&lt;T&gt;()</code> pour conserver le type de référence.</p>
+<p>Il faut aussi bien comprendre que les forwarding references s&rsquo;appliquent sur un type template complet, ce qui n&rsquo;est pas le cas par exemple pour <code>void foo(std::vector&lt;T&gt;&amp;&amp; vec)</code> où la fonction attend toujours une rvalue.</p>
+<h1 id="que-personne-ne-bouge-vlà-la-conclusion">Que personne ne bouge, v&rsquo;là la conclusion</h1>
+<p>Pour résumer tout ça:</p>
+<ul>
+<li><code>std::move</code> n&rsquo;étant qu&rsquo;un cast user-friendly vers une rvalue, mais ce n&rsquo;est pas lui qui fait le déplacement à proprement parler. Mal l&rsquo;utiliser désactive aussi certaines optimisations.</li>
+<li>Le comportement du déplacement est défini par les fonctions qui reçoivent une rvalue.</li>
+<li>Définir certaines fonctions spéciales en désactivent d&rsquo;autres, il est préférable d&rsquo;indiquer explicitement le comportement de chacune de préférence avec <code>=default</code> ou <code>=delete</code>. Pour rappel, les fonctions spéciales sont ici les constructeurs de déplacement et de copie, l&rsquo;affectation par déplacement et de copie ainsi que le destructeur.</li>
+<li>le constructeur de déplacement et l&rsquo;affectation par déplacement devrait être noexcept pour que les containers de la STL les utilisent.</li>
+<li><code>std::forward</code> s&rsquo;utilise pour des paramètres template de la forme <code>T&amp;&amp;</code> pour propager la catégorie de référence (lvalue ou rvalue).</li>
+</ul>
+<p>Voilà qui clôture cet article sur la sémantique de déplacement. Et n&rsquo;oubliez pas, une variable n&rsquo;est jamais une rvalue et &ndash; sauf exception de la NRVO &ndash; il faut explicitement utiliser <code>std::move</code> pour l&rsquo;utiliser comme une rvalue.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2021-05-11T22:14:00">11 mai 2021
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="06c44e7418e7b77e55af140ca92232ab-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=la-s%25C3%25A9mantique-de-d%25C3%25A9placement&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f05%2fla-semantique-de-deplacement%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f05%2fla-semantique-de-deplacement%2f&amp;title=la-s%25C3%25A9mantique-de-d%25C3%25A9placement" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f05%2fla-semantique-de-deplacement%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f05%2fla-semantique-de-deplacement%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f05%2fla-semantique-de-deplacement%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f05%2fla-semantique-de-deplacement%2f&amp;name=la-s%25C3%25A9mantique-de-d%25C3%25A9placement" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+  
+  
+<nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--prev">
+    <a class="post-nav__link" href="/2020/04/sfinae/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">SFINAE</span></a>
+  </div>
+  <div class="post-nav__item post-nav__item--next">
+  </div>
+</nav>
+
+  <section id="gh-comments">
+  <h1>Commentaires</h1>
+<p>Les commentaires ne sont pas encore ouverts.</p>
+<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues">les issues de github</a> et aucun n'est associée au billet.
+Vous pouvez faire votre commentaire dans une issue qui a comme titre celui du billet. Je
+me chargerai de les associer.</p>
+</section>
+
+</main>
+</div>
+  <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+    <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
+    <p class="footer__copyright">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
+      Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> et basé sur le thème <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a>.
+      Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
+      </span>
+    </p>
+  </footer>
+</div>
+<a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
+
+</body>
+</html>
+

@@ -8,7 +8,17 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Tue, 07 Apr 2020 09:29:25 +0200</lastBuildDate><atom:link href="https://jonathanpoelen.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 May 2021 22:14:00 +0100</lastBuildDate><atom:link href="https://jonathanpoelen.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>la sémantique de déplacement</title>
+      <link>https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/</link>
+      <pubDate>Tue, 11 May 2021 22:14:00 +0100</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/</guid>
+      <description>L&amp;rsquo;objectif derrière la sémantique de déplacement est de transférer les données d&amp;rsquo;un objet A à un objet B. Si les 2 objets sont du même type, on parle de constructeur de déplacement ou affectation par déplacement. Cela permet 2 choses:
+ Garantir l&amp;rsquo;unicité d&amp;rsquo;une ressource. La responsabilité étant passée à quelqu&amp;rsquo;un d&amp;rsquo;autre, il n&amp;rsquo;y a toujours qu&amp;rsquo;un seul propriétaire en charge de la durée de vie de celle-ci. Éviter des copies profondes en les remplaçant par des copies superficielles plus performantes.</description>
+    </item>
+    
     <item>
       <title>SFINAE</title>
       <link>https://jonathanpoelen.github.io/2020/04/sfinae/</link>
