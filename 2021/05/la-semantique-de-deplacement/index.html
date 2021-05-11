@@ -221,10 +221,11 @@
     <li><a href="#les-déplacements-devraient-être-noexcept">Les déplacements devraient être <code>noexcept</code></a></li>
     <li><a href="#la-vérité-vraie-du-mensonge-quest-stdmove">La vérité vraie du mensonge qu&rsquo;est std::move</a></li>
     <li><a href="#stdforward">std::forward</a></li>
+    <li><a href="#que-personne-ne-bouge-vlà-la-conclusion">Que personne ne bouge, v&rsquo;là la conclusion</a></li>
   </ul>
 </nav>
         </div></aside>
-      <p>L&rsquo;objectif derrière la sémantique de déplacement est de transférer les données d&rsquo;un objet A à un objet B. Si les 2 objets sont du même type, on parle de constructeur de déplacement ou affectation par déplacement. Cela permet 2 choses:</p>
+      <p>L&rsquo;objectif derrière la sémantique de déplacement est de transférer les données d&rsquo;un objet <code>A</code> à un objet <code>B</code>. Si les 2 objets sont du même type, on parle de constructeur de déplacement ou affectation par déplacement. Cela permet 2 choses:</p>
 <ul>
 <li>Garantir l&rsquo;unicité d&rsquo;une ressource. La responsabilité étant passée à quelqu&rsquo;un d&rsquo;autre, il n&rsquo;y a toujours qu&rsquo;un seul propriétaire en charge de la durée de vie de celle-ci.</li>
 <li>Éviter des copies profondes en les remplaçant par des copies superficielles plus performantes.</li>
@@ -243,7 +244,7 @@
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">brigand</span><span class="p">.</span><span class="n">bag</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">my_bag</span><span class="p">);</span>
 </code></pre></div><p>Au passage, on vient d&rsquo;écraser tout ce qu&rsquo;il y avait dans le sac de notre voleur ; bien fait pour lui ! Mais le plus important est là: Pikachu appartient maintenant au brigand. <code>my_bag</code> est vide, sa taille est de 0. On a bien eu un transfert des pokémons d&rsquo;un sac <code>A</code> vers un sac <code>B</code>, il y a eu déplacement.</p>
 <a class="headline-hash" href="#copie-profonde-et-copie-superficielle"><h2 id="copie-profonde-et-copie-superficielle">Copie profonde et copie superficielle</h2></a>
-<p>La copie profonde est une copie de tous les membres, y compris des données référencées par un pointeur lorsque leur durée de vie est gérée par la classe. Ce dernier point est important, car sans pointeur &ndash; et pour aller plus loin, sans ressource, &ndash; il n&rsquo;y a pas de différence entre une copie classique ou une copie superficielle. Vouloir les opérateurs de déplacement dans cette situation <strong>ne sert à rien</strong>, l&rsquo;implémentation serait strictement identique à celle d&rsquo;une copie. Autre point, même s&rsquo;il y a un pointeur, il faut que les fonctions de copie fassent une copie profonde pour que les fonctions de déplacements puissent faire une copie superficielle, sinon, rebelote, aucune différence avec la copie.</p>
+<p>La copie profonde est une copie de tous les membres, y compris des données référencées par un pointeur lorsque leur durée de vie est gérée par la classe. Ce dernier point est important, car sans pointeur &ndash; et pour aller plus loin, sans ressource, &ndash; il n&rsquo;y a pas de différence entre une copie classique ou une copie superficielle. Vouloir les opérateurs de déplacement dans cette dernière situation <strong>ne sert à rien</strong>, l&rsquo;implémentation serait strictement identique à celle d&rsquo;une copie. Autre point, même s&rsquo;il y a un pointeur, il faut que les fonctions de copie fassent une copie profonde pour que les fonctions de déplacements puissent faire une copie superficielle, sinon, rebelote, aucune différence avec la copie.</p>
 <p>Comme une illustration est plus parlante, supposons une classe <code>vector</code> avec 2 variables membres:</p>
 <ul>
 <li><code>int* p</code>, un pointeur alloué dynamiquement et désalloué dans le destructeur</li>
@@ -260,7 +261,7 @@
   <span class="n">p</span> <span class="o">=</span> <span class="cm">/*adresse=*/</span><span class="mh">0x87654321</span> <span class="cm">/*valeurs=*/</span><span class="p">{</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span>
   <span class="n">n</span> <span class="o">=</span> <span class="mi">6</span>
 <span class="p">}</span>
-</code></pre></div><p>La copie superficielle effectuée par un déplacement n&rsquo;alloue pas de mémoire, elle copie simplement <code>A.p</code> dans <code>B.p</code> qui est une opération bien plus rapide.</p>
+</code></pre></div><p>La copie superficielle effectuée par un déplacement n&rsquo;alloue pas de mémoire, elle copie simplement <code>A.p</code> dans <code>B.p</code> qui est une opération bien plus rapide. L&rsquo;adresse des pointeurs est identique.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// B = std::move(A)
 </span><span class="c1"></span><span class="n">B</span> <span class="o">=</span> <span class="p">{</span>
   <span class="n">p</span> <span class="o">=</span> <span class="cm">/*adresse=*/</span><span class="mh">0x12345678</span> <span class="cm">/*valeurs=*/</span><span class="p">{</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span> <span class="p">}</span>
@@ -281,8 +282,9 @@
   <span class="kt">int</span> <span class="o">&amp;</span> <span class="n">lvalue</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// Erreur, 3 n&#39;est pas une variable, ni une référence,
 </span><span class="c1"></span>                    <span class="c1">// mais une valeur temporaire
 </span><span class="c1"></span>  <span class="kt">int</span> <span class="o">&amp;&amp;</span> <span class="n">rvalue</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// Ok, mais cela est dangereux à cause de l&#39;aspect temporaire
-</span><span class="c1"></span>                     <span class="c1">// des rvalues. Il faut éviter de les conserver, mais plutôt
-</span><span class="c1"></span>                     <span class="c1">// les &#34;accrocher&#34; à une variable qui n&#39;est pas une référence
+</span><span class="c1"></span>                     <span class="c1">// des rvalues (la variable est détruite en fin de scope).
+</span><span class="c1"></span>                     <span class="c1">// Il faut éviter de les conserver, mais plutôt les &#34;accrocher&#34;
+</span><span class="c1"></span>                     <span class="c1">// à une variable qui n&#39;est pas une référence
 </span><span class="c1"></span>  <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="c1">// C&#39;est... Un point d&#39;encrage d&#39;un temporaire
 </span><span class="c1"></span>
   <span class="kt">int</span> <span class="o">&amp;</span> <span class="n">lvalue</span> <span class="o">=</span> <span class="n">rvalue</span><span class="p">;</span> <span class="c1">// rvalue est une variable,
@@ -351,7 +353,7 @@
 </span><span class="c1"></span>  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;p2: &#34;</span><span class="p">;</span>
   <span class="n">print</span><span class="p">(</span><span class="n">p2</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div><p>Reste l&rsquo;implémentation du constructeur de déplacement. Comme dit précédemment, seule une instance doit posséder le pointeur interne. L&rsquo;instance déplacée doit être modifiée pour ne plus y faire référence, tout en restant dans un état dit <strong>destructible</strong> pour que le destructeur fonctionne convenablement. Les prérequis de <a href="https://en.cppreference.com/w/cpp/named_req/MoveConstructible">MoveConstructible</a> parlent d&rsquo;un état non spécifié. C&rsquo;est-à-dire que l&rsquo;implémentation est libre de faire ce qu&rsquo;elle veut du moment que la destruction fonctionne encore. Cependant, chaque fonction peut explicitement documenter le comportement. Le plus simple ici est de mettre le pointeur à <code>nullptr</code>.</p>
+</code></pre></div><p>Reste l&rsquo;implémentation du constructeur de déplacement. Comme dit précédemment, seule une instance doit posséder le pointeur interne. L&rsquo;instance déplacée doit être modifiée pour ne plus y faire référence, tout en restant dans un état dit <strong>destructible</strong> pour que le destructeur fonctionne convenablement. Les prérequis de <a href="https://en.cppreference.com/w/cpp/named_req/MoveConstructible">MoveConstructible</a> parlent d&rsquo;un état non spécifié. C&rsquo;est-à-dire que l&rsquo;implémentation est libre de faire ce qu&rsquo;elle veut du moment que la destruction fonctionne encore. Cependant, chaque fonction peut explicitement documenter le comportement. Le plus simple ici est de mettre le pointeur déplacé à <code>nullptr</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">unique_ptr</span><span class="o">::</span><span class="n">unique_ptr</span><span class="p">(</span><span class="n">unique_ptr</span><span class="o">&amp;&amp;</span> <span class="n">other</span><span class="p">)</span>
 <span class="o">:</span> <span class="n">_p</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">exchange</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">_p</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">))</span>
 <span class="p">{}</span>
@@ -517,7 +519,11 @@ Error: attempt to self move assign.
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></div><p>Ce comportement pour le déplacement est celui documenté dans <code>std::unique_ptr</code> qui impose l&rsquo;équivalence à <code>reset(r.release())</code>: la valeur ne change pas lorsque <code>t</code> et <code>rv</code> référencent le même objet.</p>
 <h2 id="les-déplacements-devraient-être-noexcept">Les déplacements devraient être <code>noexcept</code></h2>
-<p>C&rsquo;est une chose qu&rsquo;on oublie facilement, mais les fonctions de déplacement devraient être <code>noexcept</code> pour une simple raison: les containers de la STL utilisent les fonctions de déplacement à la condition que ceux-ci sont <code>noexcept</code> ou qu&rsquo;il n&rsquo;y ait pas de fonction de copie. Voici un exemple qui montre le problème.</p>
+<p>C&rsquo;est une chose qu&rsquo;on oublie facilement, mais les fonctions de déplacement devraient être <code>noexcept</code> pour 2 raisons simples:</p>
+<ul>
+<li>Le déplacement est une opération qui se veut la plus triviale possible. Les risques d&rsquo;exception sont normalement nuls.</li>
+<li>Les containers de la STL utilisent les fonctions de déplacement à la condition que ceux-ci sont <code>noexcept</code> ou qu&rsquo;il n&rsquo;y ait pas de fonction de copie. Voici un exemple qui montre le problème.</li>
+</ul>
 <div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span><span class="cp"></span>
@@ -594,7 +600,7 @@ Error: attempt to self move assign.
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></div><a class="headline-hash" href="#stdforward"><h2 id="stdforward">std::forward</h2></a>
 <p>Pour finaliser les explications sur le déplacement, il faut introduire <code>std::forward</code> et les règles de <a href="https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing">reference collapsing</a>.</p>
-<p><code>std::forward</code> n&rsquo;est utile que sur des types templates, dont la catégorie de valeur n&rsquo;est pas connue. L&rsquo;exemple le plus simple est une fonction <code>template&lt;class T&gt; void foo(T&amp;&amp; x);</code> où <code>T</code> représente une forwarding reference. Càd une référence qui est soit une lvalue, soit une rvalue. On peut aussi croiser le nom de référence universelle venant d&rsquo;avant la normalisation du nom officiel.</p>
+<p><code>std::forward</code> n&rsquo;est utile que sur des types templates dont la catégorie de valeur n&rsquo;est pas connue. L&rsquo;exemple le plus simple est une fonction <code>template&lt;class T&gt; void foo(T&amp;&amp; x);</code> où <code>T</code> représente une forwarding reference. Càd une référence qui est soit une lvalue, soit une rvalue. On peut aussi croiser le nom de référence universelle venant d&rsquo;avant la normalisation du nom officiel.</p>
 <p>Sur un usage classique de <code>foo()</code>, le type réel de <code>T</code> est le suivant:</p>
 <ul>
 <li><code>foo(std::string())</code>: <code>T</code> = <code>std::string</code>. <code>T&amp;&amp;</code> = <code>std::string</code></li>
@@ -636,10 +642,10 @@ Error: attempt to self move assign.
 <p>Pour ce faire, <code>std::forward&lt;T&gt;(x)</code> combine simplement <code>T</code> à une rvalue pour caster la variable dans la bonne catégorie de valeur. Ceci est strictement équivalent à <code>static_cast&lt;T&amp;&amp;&gt;(x)</code> ou <code>static_cast&lt;decltype(x)&amp;&amp;&gt;(x)</code>. Certains projets définissent une macro <code>FWD(x)</code> qui fonctionne ainsi.</p>
 <p>Les explications sont complexes, mais la chose importante à retenir est qu&rsquo;un type template de la forme <code>T&amp;&amp;</code> doit être propagé avec <code>std::forward&lt;T&gt;()</code> pour conserver le type de référence.</p>
 <p>Il faut aussi bien comprendre que les forwarding references s&rsquo;appliquent sur un type template complet, ce qui n&rsquo;est pas le cas par exemple pour <code>void foo(std::vector&lt;T&gt;&amp;&amp; vec)</code> où la fonction attend toujours une rvalue.</p>
-<h1 id="que-personne-ne-bouge-vlà-la-conclusion">Que personne ne bouge, v&rsquo;là la conclusion</h1>
+<a class="headline-hash" href="#que-personne-ne-bouge-vlà-la-conclusion"><h2 id="que-personne-ne-bouge-vlà-la-conclusion">Que personne ne bouge, v&rsquo;là la conclusion</h2></a>
 <p>Pour résumer tout ça:</p>
 <ul>
-<li><code>std::move</code> n&rsquo;étant qu&rsquo;un cast user-friendly vers une rvalue, mais ce n&rsquo;est pas lui qui fait le déplacement à proprement parler. Mal l&rsquo;utiliser désactive aussi certaines optimisations.</li>
+<li><code>std::move</code> n&rsquo;est qu&rsquo;un cast user-friendly vers une rvalue, ce n&rsquo;est pas lui qui fait le déplacement à proprement parler. Mal l&rsquo;utiliser désactive aussi certaines optimisations.</li>
 <li>Le comportement du déplacement est défini par les fonctions qui reçoivent une rvalue.</li>
 <li>Définir certaines fonctions spéciales en désactivent d&rsquo;autres, il est préférable d&rsquo;indiquer explicitement le comportement de chacune de préférence avec <code>=default</code> ou <code>=delete</code>. Pour rappel, les fonctions spéciales sont ici les constructeurs de déplacement et de copie, l&rsquo;affectation par déplacement et de copie ainsi que le destructeur.</li>
 <li>le constructeur de déplacement et l&rsquo;affectation par déplacement devrait être noexcept pour que les containers de la STL les utilisent.</li>
