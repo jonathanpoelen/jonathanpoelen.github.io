@@ -17,7 +17,7 @@ expire: 2038
 L'objectif derrière la sémantique de déplacement est de transférer les données d'un objet `A` à un objet `B`. Si les 2 objets sont du même type, on parle de constructeur de déplacement ou affectation par déplacement. Cela permet 2 choses:
 
 - Garantir l'unicité d'une ressource. La responsabilité étant passée à quelqu'un d'autre, il n'y a toujours qu'un seul propriétaire en charge de la durée de vie de celle-ci.
-- Éviter des copies profondes en les remplaçant par des copies superficielles plus performantes.
+- Éviter des copies profondes (deep copies) en les remplaçant par des copies superficielles (shallow copies) plus performantes.
 
 Toute autre raison est une erreur.
 
@@ -49,7 +49,7 @@ Du coup, plutôt que copier le sac, on le déplace directement dans celui de bri
 brigand.bag = std::move(my_bag);
 ```
 
-Au passage, on vient d'écraser tout ce qu'il y avait dans le sac de notre voleur ; bien fait pour lui ! Mais le plus important est là: Pikachu appartient maintenant au brigand. `my_bag` est vide, sa taille est de 0. On a bien eu un transfert des pokémons d'un sac `A` vers un sac `B`, il y a eu déplacement.
+Au passage, on vient d'écraser tout ce qu'il y avait dans le sac de notre voleur ; bien fait pour lui ! Mais le plus important est là: Pikachu appartient maintenant au brigand, `my_bag` ne devrait plus être utilisé. On a bien eu un transfert des pokémons d'un sac `A` vers un sac `B`, il y a eu déplacement.
 
 
 ## Copie profonde et copie superficielle
@@ -104,47 +104,14 @@ Le déplacement a le même fonctionnement que le principe d'unicité: l'allocati
 
 
 
-## Catégorie de valeur
-
-Tout le principe de sémantique de déplacement repose sur l'introduction des rvalues. Les rvalues font partie d'un ensemble de 5 catégories de valeur qui sont: lvalue, prvalue, xvalue, glvalue et rvalue. Ça c'est ce que dit la norme, en tant que développeur, il n'y a que 2 types qui sont différenciables dans un programme: lvalue et rvalue. Les autres deviennent automatiquement soit des lvalues, soit rvalues suivant le contexte. On peut les oublier.
-
-Une lvalue (noté `T&`) est une référence. Une rvalue (noté `T&&`) est une expression qui se veut temporaire. Si la valeur de cette expression provient d'une opération, elle doit être capturée dans une variable, autrement, elle est perdue. À savoir que toutes variables -- quel que soit son type réel -- **est toujours** manipulée comme une lvalue. C’est-à-dire qu'avec `int i; foo(i);`, la fonction `foo()` reçoit une référence (`int&`), pas juste `int`.
-
-```cpp
-int main()
-{
-  int & lvalue = 3; // Erreur, 3 n'est pas une variable, ni une référence,
-                    // mais une valeur temporaire
-  int && rvalue = 3; // Ok, mais cela est dangereux à cause de l'aspect temporaire
-                     // des rvalues (la variable est détruite en fin de scope).
-                     // Il faut éviter de les conserver, mais plutôt les "accrocher"
-                     // à une variable qui n'est pas une référence
-  int value = 3; // C'est... Un point d'encrage d'un temporaire
-
-  int & lvalue = rvalue; // rvalue est une variable,
-                         // on peut donc avoir une référence dessus
-}
-```
-
-Un des aspects essentiels de la sémantique de déplacement est la conversion d'une lvalue en une rvalue en utilisant `std::move()`.
-
-```cpp
-int main()
-{
-  int value = 3;
-
-  int && rvalue = std::move(value); // value est une lvalue
-                                    // std::move() retourne une rvalue
-}
-```
-
-
-
 ## Constructeur de déplacement
+
+Le constructeur de déplacement prend ce qu'on nomme une rvalue (noté `T&&`). C'est une référence qui se veut temporaire. Si la valeur de cette expression provient d'une opération, elle doit être capturée dans la classe, autrement, elle est perdue. Lorsque cette valeur provient d'un déplacement explicite comme avec `std::move(x)`, il faut considérer que `x` est dans un état qui ne permet plus de l'utiliser (sauf si la documentation indique le contraire).
+
+À savoir que toutes variables -- quel que soit son type réel -- **est toujours** manipulée comme une lvalue. C’est-à-dire qu'avec `int i; foo(i);`, la fonction `foo()` reçoit une référence (`int&`), pas juste `int`.
 
 Pour prendre un exemple connu, les chapitres suivants reposent sur le fonctionnement de `std::unique_ptr`, un pointeur intelligent qui fait une désallocation automatique de la mémoire dans son destructeur et interdit la copie pour respecter le principe d'unicité.
 
-Pour simplifier les codes, la classe ne travaille qu'avec des `int` et ne possède que `operator*` et `operator bool ()` comme fonction membre.
 
 ```cpp
 #include <cassert>
@@ -154,11 +121,21 @@ struct unique_ptr
   using value_type = int; // normalement un type template,
                           // mais pour cet exemple, juste un int
 
-  unique_ptr(value_type* p = nullptr) : m_p(p) {}
-  ~unique_ptr() { delete m_p; }
+  unique_ptr(value_type* p = nullptr)
+  : m_p(p)
+  {}
 
-  // notre constructeur de déplacement
+  // Notre constructeur de déplacement
+  // D'après la documentation std::unique_ptr, après cette fonction
+  // other.m_p doit être nullptr
   unique_ptr(unique_ptr&& other);
+
+  ~unique_ptr()
+  {
+    delete m_p;
+  }
+
+  // Pour simplifier, la classe ne possède que `operator*` et `operator bool ()`
 
   explicit operator bool () const
   {
@@ -179,7 +156,6 @@ private:
 Et un premier exemple d'utilisation.
 
 ```cpp
-// exemple
 #include <iostream>
 #include <utility>
 
@@ -205,7 +181,9 @@ int main()
 }
 ```
 
-Reste l'implémentation du constructeur de déplacement. Comme dit précédemment, seule une instance doit posséder le pointeur interne. L'instance déplacée doit être modifiée pour ne plus y faire référence, tout en restant dans un état dit **destructible** pour que le destructeur fonctionne convenablement. Les prérequis de [MoveConstructible](https://en.cppreference.com/w/cpp/named_req/MoveConstructible) parlent d'un état non spécifié. C'est-à-dire que l'implémentation est libre de faire ce qu'elle veut du moment que la destruction fonctionne encore. Cependant, chaque fonction peut explicitement documenter le comportement. Le plus simple ici est de mettre le pointeur déplacé à `nullptr`.
+Reste l'implémentation du constructeur de déplacement. Comme dit précédemment, seule une instance doit posséder le pointeur interne. L'instance déplacée doit être modifiée pour ne plus y faire référence, tout en restant dans un état dit **destructible** pour que le destructeur fonctionne convenablement. Les prérequis de [MoveConstructible](https://en.cppreference.com/w/cpp/named_req/MoveConstructible) parlent d'un état non spécifié. C'est-à-dire que l'implémentation est libre de faire ce qu'elle veut du moment que la destruction fonctionne encore, mais il ne faut plus utiliser la variable.
+
+Cependant, chaque fonction peut explicitement documenter le comportement comme c'est le cas avec `std::unique_ptr` qui met le pointeur déplacé à `nullptr`.
 
 ```cpp
 unique_ptr::unique_ptr(unique_ptr&& other)
@@ -230,7 +208,7 @@ Une classe possède 6 fonctions spéciales générées automatiquement par le co
 
 Si aucune de ces fonctions n'est déclarée dans la classe, leur existence dépend des membres la composant. Ainsi, si un membre comme `std::unique_ptr` existe, les 2 fonctions liées à la copie seront implicitement supprimées car inexistantes pour le type `std::unique_ptr`.
 
-À l'inverse, définir explicitement certaines fonctions va en désactiver d'autres. Il est nécessaire d'utiliser `=default` pour les réactiver.
+De plus, définir explicitement certaines fonctions va en désactiver d'autres. Il est nécessaire d'utiliser `=default` pour les réactiver.
 
 <sub>déclare</sub> / <sup>existe</sup> | default-ctor | copy-ctor | copy-assignment | move-ctor | move-assignment
 -------------------------------------- | ------------ | --------- | --------------- | --------- | ---------------
@@ -245,7 +223,7 @@ destructor                             |       ✓      |     ✓     |        �
 
 Si on reprend notre `unique_ptr` précédemment, ce tableau affirme une chose: la copie n'est pas possible et l'affectation par déplacement est bien manquante.
 
-À titre personnel, je pense qu'il vaut mieux explicitement indiquer que la copie est interdite, soit via une classe spécifique comme boost::noncopyable soit en ajoutant les prototypes suivants:
+À titre personnel, je pense qu'il vaut mieux explicitement indiquer que la copie est interdite, soit via une classe spécifique comme `boost::noncopyable` soit en ajoutant les prototypes suivants:
 
 ```cpp
 unique_ptr(unique_ptr const&) = delete;
@@ -260,7 +238,7 @@ Quitte à déclarer certaines fonctions comme étant supprimées, il est aussi p
 
 ## Affectation par déplacement
 
-Cette fonction est proche du constructeur de déplacement, mais possède un petit piège qu'il est bon de savoir. Commençons par l'implémentation classique:
+Cette fonction est proche du constructeur de déplacement, mais possède un petit piège qu'il est bon de savoir. Commençons par une implémentation possible:
 
 ```cpp
 unique_ptr& operator=(unique_ptr&& other)
@@ -333,7 +311,7 @@ Error: attempt to self move assign.
 ```
 
 
-### Définir l'état de rv sur self-move-assignment
+### Définir l'état de `rv` sur self-move-assignment
 
 Dans ce scénario, seul l'état de rv dans `t = rv` est défini comme étant à nul. Pour ce faire, on désalloue le pointeur de `t` puis on le met à `nullptr`. Après un déplacement sur soi-même, le pointeur est systématiquement détruit.
 
@@ -483,16 +461,42 @@ A bar()
 
 ## std::forward
 
-Pour finaliser les explications sur le déplacement, il faut introduire `std::forward` et les règles de [reference collapsing](https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing).
+Pour finaliser les explications sur le déplacement, il faut introduire `std::forward`. 
 
-`std::forward` n'est utile que sur des types templates dont la catégorie de valeur n'est pas connue. L'exemple le plus simple est une fonction `template<class T> void foo(T&& x);` où `T` représente une forwarding reference. Càd une référence qui est soit une lvalue, soit une rvalue. On peut aussi croiser le nom de référence universelle venant d'avant la normalisation du nom officiel.
+Cette fonction n'est utile que sur des types templates dont la catégorie de valeur n'est pas connue. L'exemple le plus simple est une fonction `template<class T> void foo(T&& x);` où `T` représente une forwarding reference. Càd une référence qui est soit une lvalue, soit une rvalue. On peut aussi croiser le nom de référence universelle venant d'avant la normalisation du nom officiel.
 
-Sur un usage classique de `foo()`, le type réel de `T` est le suivant:
+Il faut bien comprendre que les forwarding references s'appliquent sur un type template complet, ce qui n'est pas le cas par exemple pour `void foo(std::vector<T>&& vec)` où la fonction attend toujours une rvalue.
 
-- `foo(std::string())`: `T` = `std::string`. `T&&` = `std::string`
-- `foo(str)`: `T` = `std::string&`. `T&&` = `std::string&`
+Le but de `std::forward` est de propager la référence en castant une variable vers une rvalue quand le type d'origine est une rvalue (n'oublions pas qu'à ce niveau, une variable est une lvalue, même si son type est une rvalue).
 
-Appliquer une rvalue sur un type qui est une lvalue donne une lvalue. C'est le point essentiel de la references collapsing.
+```cpp
+#include <iostream>
+
+void foo(int&& x) { std::cout << "foo(int&&)\n"; }
+void foo(int& x) { std::cout << "foo(int&)\n"; }
+
+template<class T>
+void bar(T&& x)
+{
+  foo(std::forward<T>(x)); // `x` est castée en rvalue lorsque T&& est une rvalue
+}
+
+int main()
+{
+  int i = 0;
+  bar(i);            // foo(int&)
+  bar(std::move(i)); // foo(int&&)
+}
+```
+
+Sans l'usage de `std::forward`, les 2 appels donneraient `foo(int&)`.
+
+Si on veut comprendre la magie derrière, il faut regarder le type réel de `T`:
+
+- `bar(i)`: `T` = `int&`. `T&&` = `int&`
+- `bar(std::move(i))`: `T` = `int`. `T&&` = `int`
+
+Appliquer une rvalue sur un type qui est une lvalue donne une lvalue. C'est ce qu'on appel les règles de [reference collapsing](https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing).
 
  lhs  | rhs  | référence
 ------|------|-----------
@@ -501,14 +505,7 @@ Appliquer une rvalue sur un type qui est une lvalue donne une lvalue. C'est le p
  `&&` | `&`  | `&`
  `&&` | `&&` | `&&`
 
-
-Le but de `std::forward` est de propager la catégorie de valeur en castant vers une rvalue quand le type d'origine est une rvalue (n'oublions pas qu'à ce niveau, la variable `x` est une lvalue, même si son type est une rvalue).
-
-Pour ce faire, `std::forward<T>(x)` combine simplement `T` à une rvalue pour caster la variable dans la bonne catégorie de valeur. Ceci est strictement équivalent à `static_cast<T&&>(x)` ou `static_cast<decltype(x)&&>(x)`. Certains projets définissent une macro `FWD(x)` qui fonctionne ainsi.
-
-Les explications sont complexes, mais la chose importante à retenir est qu'un type template de la forme `T&&` doit être propagé avec `std::forward<T>()` pour conserver le type de référence.
-
-Il faut aussi bien comprendre que les forwarding references s'appliquent sur un type template complet, ce qui n'est pas le cas par exemple pour `void foo(std::vector<T>&& vec)` où la fonction attend toujours une rvalue.
+C'est également le mécanisme derrière `std::forward<T>(x)` qui combine simplement `T` à une rvalue pour caster la variable dans la bonne catégorie de valeur. Ceci est strictement équivalent à `static_cast<T&&>(x)` ou `static_cast<decltype(x)&&>(x)`. Certains projets définissent une macro `FWD(x)` qui fonctionne ainsi.
 
 
 
@@ -520,6 +517,6 @@ Pour résumer tout ça:
 - Le comportement du déplacement est défini par les fonctions qui reçoivent une rvalue.
 - Définir certaines fonctions spéciales en désactivent d'autres, il est préférable d'indiquer explicitement le comportement de chacune de préférence avec `=default` ou `=delete`. Pour rappel, les fonctions spéciales sont ici les constructeurs de déplacement et de copie, l'affectation par déplacement et de copie ainsi que le destructeur.
 - le constructeur de déplacement et l'affectation par déplacement devrait être noexcept pour que les containers de la STL les utilisent.
-- `std::forward` s'utilise pour des paramètres template de la forme `T&&` pour propager la catégorie de référence (lvalue ou rvalue).
+- `std::forward` s'utilise pour des paramètres template de la forme `T&&` pour propager le type de référence (lvalue ou rvalue).
 
 Voilà qui clôture cet article sur la sémantique de déplacement. Et n'oubliez pas, une variable n'est jamais une rvalue et -- sauf exception de la NRVO -- il faut explicitement utiliser `std::move` pour l'utiliser comme une rvalue.
