@@ -496,7 +496,7 @@ Si on veut comprendre la magie derrière, il faut regarder le type réel de `T`:
 - `bar(i)`: `T` = `int&`. `T&&` = `int&`
 - `bar(std::move(i))`: `T` = `int`. `T&&` = `int`
 
-Appliquer une rvalue sur un type qui est une lvalue donne une lvalue. C'est ce qu'on appel les règles de [reference collapsing](https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing).
+Appliquer une rvalue sur un type qui est une lvalue donne une lvalue. C'est ce qu'on appelle les règles de [reference collapsing](https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing).
 
  lhs  | rhs  | référence
 ------|------|-----------
