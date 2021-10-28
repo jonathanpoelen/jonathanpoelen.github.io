@@ -62,6 +62,23 @@ void print(int const (&array)[3]); // bienvenue dans le monde merveilleux de C++
 À ce moment, le compilateur considère `array` comme étant un tableau de 3 entiers constants et la boucle précédente pourra fonctionner. Si l'utilisateur met un tableau de moins ou de plus de 3 éléments, le compilateur va gentiment l'envoyer bouler.
 
 
+## Un tableau C se convertit en entier... Dans certains circonstances
+
+Il est possible de convertir un tableau C en entier sans faire exprès, de la même manière qu'un pointeur se convertit en entier.
+
+```cpp
+using T = unsigned long long;
+
+void foo(T);
+
+int a[10];
+
+foo(T(a1)); // ok, on passe l'adresse de `a`. À ne pas confondre avec la valeur du premier élément
+```
+
+J'ai déjà eu ce genre d'erreur dans un code proche de `write(a, std::size_t(a))` à la place de `write(a, std::size(a))`.
+
+
 ## Un tableau C n'est pas copiable
 
 Le tableau est le seul type du C qui ne supporte ni la copie, ni l'affectation, ce qui le rend inutilisable dans n'importe quel conteneur de la STL tel que `std::vector`. Il n'est pas non plus possible de construire un tableau directement dans l'appel d'une fonction (sauf en C99 avec un cast: `foo((int[]){1,2})`).
