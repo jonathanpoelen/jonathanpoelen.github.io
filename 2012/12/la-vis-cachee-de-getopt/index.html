@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La vis cachée de getopt</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -209,7 +209,7 @@ function parsecmd() { getopt -o &#39;&#39; --long \  option-longue,option-encore
   <div class="post__content">
       <p>Voici une petite information très mal connue et peu utilisée du <code>getopt</code> de la lib C et de la commande shell. Ainsi que <code>Boost.Program_options</code>. Parce que boost c&rsquo;est bien :p.</p>
 <p>Les noms des options longues n&rsquo;ont pas besoin d&rsquo;être écrites entièrement.</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="k">function</span> parsecmd<span class="o">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="k">function</span> parsecmd<span class="o">()</span>
 <span class="o">{</span>
   getopt -o <span class="s1">&#39;&#39;</span> --long <span class="se">\
 </span><span class="se"></span>    option-longue,option-encore-plus-longue,une-autre-option: <span class="se">\
@@ -218,7 +218,7 @@ function parsecmd() { getopt -o &#39;&#39; --long \  option-longue,option-encore
 
 parsecmd --option-l --u plop bidule
 </code></pre></div><p>Donne</p>
-<div class="highlight-nocode"><pre class="chroma-nocode"><code>--option-longue --une-autre-option 'plop' -- 'bidule'
+<div class="highlight-nocode"><pre tabindex="0" class="chroma-nocode"><code>--option-longue --une-autre-option 'plop' -- 'bidule'
 </code></pre><p>La commande shell <code>getopt</code> est un peu plus souple que les autres. Si ambiguïté, la première option correspondante sera sélectionnée. Si l&rsquo;option <code>-a</code> existe ce n&rsquo;est plus le cas et le code d&rsquo;erreur <code>1</code> est retourné ainsi qu&rsquo;un petit message listant les options possibles. Mais avec <code>-a</code> les options longues peuvent commencer par un simple tiret.</p>
 <p>La plupart des commandes Linux utilisant <code>getopt</code>, cette astuce peut s&rsquo;utiliser assez souvent.</p>
 

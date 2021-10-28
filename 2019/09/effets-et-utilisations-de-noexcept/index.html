@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Effets et utilisations de noexcept</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -220,7 +220,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 <p><code>noexcept</code> est un mot clef apparu en C++11. Dans le prototype d&rsquo;une fonction, il indique que cette dernière ne jette pas d&rsquo;exception. Cela ne veut pas dire qu&rsquo;aucune exception ne sera présente dans la fonction, mais qu'<strong>aucune exception ne sortira</strong> de la fonction. Dans le cas contraire, le programme s&rsquo;arrête subitement avec un appel à <a href="https://en.cppreference.com/w/cpp/error/terminate"><code>std::terminate</code></a>.</p>
 <p><code>noexcept</code> n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il est tout à fait possible d&rsquo;utiliser des fonctions qui ne sont pas marquées <code>noexcept</code> à l&rsquo;intérieur d&rsquo;une fonction <code>noexcept</code>, voire, de jeter des exceptions. La seule contrainte se trouve sur le chemin de sortie: il ne doit pas se faire avec une exception.</p>
 <p>Voici un code totalement inutile de démonstration avec une exception qui traverse une fonction <code>foo()</code> marquée <code>noexcept</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span>
 <span class="p">{</span>
   <span class="k">throw</span> <span class="mi">42</span><span class="p">;</span> <span class="c1">// noexcept ? Pas vu
 </span><span class="c1"></span><span class="p">}</span>
@@ -237,7 +237,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
   <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;ok</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="c1">// ne s&#39;affiche jamais
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></div><p>La compilation puis l&rsquo;exécution donne:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="err">$</span> <span class="n">g</span><span class="o">++</span> <span class="n">test</span><span class="p">.</span><span class="n">cpp</span> <span class="o">&amp;&amp;</span> <span class="p">.</span><span class="o">/</span><span class="n">a</span><span class="p">.</span><span class="n">out</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="err">$</span> <span class="n">g</span><span class="o">++</span> <span class="n">test</span><span class="p">.</span><span class="n">cpp</span> <span class="o">&amp;&amp;</span> <span class="p">.</span><span class="o">/</span><span class="n">a</span><span class="p">.</span><span class="n">out</span>
 <span class="n">test</span><span class="p">.</span><span class="nl">cpp</span><span class="p">:</span> <span class="n">In</span> <span class="n">function</span> <span class="err">‘</span><span class="kt">void</span> <span class="n">foo</span><span class="p">()</span><span class="err">’</span><span class="o">:</span>
 <span class="n">test</span><span class="p">.</span><span class="nl">cpp</span><span class="p">:</span><span class="mi">3</span><span class="o">:</span><span class="mi">9</span><span class="o">:</span> <span class="nl">warning</span><span class="p">:</span> <span class="k">throw</span> <span class="n">will</span> <span class="n">always</span> <span class="n">call</span> <span class="n">terminate</span><span class="p">()</span> <span class="p">[</span><span class="o">-</span><span class="n">Wterminate</span><span class="p">]</span>
     <span class="mi">3</span> <span class="o">|</span>   <span class="k">throw</span> <span class="mi">42</span><span class="p">;</span>
@@ -251,14 +251,14 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 <p>Une mauvaise utilisation de <code>noexcept</code> peut faire planter un programme. Mais une fonctionnalité à risque ne vient jamais sans avantage. Puisque <code>noexcept</code> garantit qu&rsquo;aucune exception ne sorte de la fonction, le compilateur peut éjecter le code qui s&rsquo;en occupe. Si les fonctions ne lancent pas d&rsquo;exception, il peut déterminer avec certitude quels sont les chemins de sortie, supprimer du code, réordonner les instructions et appliquer autres obscures magies dont il a le secret.</p>
 <p>Dit comme ça, on pourrait croire que plein d&rsquo;optimisations s&rsquo;offrent à nous, mais non. Premièrement, les compilateurs sont capables de faire des exceptions qui n&rsquo;ont de coût qu&rsquo;au moment de l&rsquo;appel. Bien sûr, l&rsquo;exécutable est plus gros et peut impacter le cache d&rsquo;instruction, mais le coût d&rsquo;une exception non utilisée est nulle. Secundo, ce n&rsquo;est pas évident de produire un exécutable qui supprime vraiment du code, à moins d&rsquo;avoir absolument toutes les fonctions en <code>noexcept</code>, la magie du compilateur se verra limité. Surtout que les bonnes options d&rsquo;optimisation donnent des résultats comparables.</p>
 <p>Après plusieurs essais d&rsquo;exemples de code pseudo-réaliste, en voici 2 basés sur une fonction très simple</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// foo.cpp
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// foo.cpp
 </span><span class="c1"></span><span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="n">NOEXCEPT</span>
 <span class="p">{</span>
   <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div><p><code>NOEXCEPT</code> sera à remplacer par <code>noexcept</code> ou rien. Respectivement les options de compilation <code>-DNOEXCEPT=noexcept</code> et <code>-DNOEXCEPT=</code>.</p>
 <p>Ce premier exemple prouve que le compilateur est capable de prendre en compte <code>noexcept</code> pour supprimer du code.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// main.cpp
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// main.cpp
 </span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">NOEXCEPT</span><span class="p">;</span>
@@ -286,7 +286,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 </code></pre></div><p>Ce code permet d&rsquo;afficher un message sur l&rsquo;étape en cours avant une éventuelle exception. Dans notre cas, <code>foo()</code> ne lance pas d&rsquo;exception, mais en l&rsquo;absence de <code>noexcept</code>, <code>main.cpp</code> ne le sait pas.</p>
 <p>Si <code>foo()</code> ne lance pas d&rsquo;exception, alors <code>err</code> sera toujours égal à <code>nullptr</code> dans le <code>catch</code>. Il est alors possible de supprimer la condition qui serait toujours évaluée à <code>false</code>, ce qui doit donner un exécutable plus petit.</p>
 <p>Le petit script suivant va compiler chaque <code>.cpp</code> avec et sans <code>noexcept</code> puis afficher la taille de l&rsquo;exécutable.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> x in noexcept <span class="s1">&#39;&#39;</span> <span class="p">;</span> <span class="k">do</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> x in noexcept <span class="s1">&#39;&#39;</span> <span class="p">;</span> <span class="k">do</span>
   <span class="nv">d</span><span class="o">=</span><span class="nv">NOEXCEPT</span><span class="o">=</span><span class="nv">$x</span>
   g++ -O3 -D<span class="nv">$d</span> *.cpp <span class="o">&amp;&amp;</span>
   <span class="nb">echo</span> <span class="nv">$d</span> <span class="o">&amp;&amp;</span>
@@ -310,7 +310,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 </table>
 <p>Pronostic vérifié. On peut même regarder l'<a href="https://godbolt.org/z/xBmjdI">assembleur sur godbolt</a> pour s&rsquo;en convaincre.</p>
 <p>Voici un second exemple plus simple qui montre que le compilateur supprime totalement la gestion des exceptions lorsqu&rsquo;il lui est permis de le faire.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">NOEXCEPT</span><span class="p">;</span>
 
@@ -322,7 +322,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
     <span class="k">return</span> <span class="n">foo</span><span class="p">(</span><span class="o">*</span><span class="n">u</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><p>Et l&rsquo;asm de <a href="https://godbolt.org/z/-yIB7m">https://godbolt.org/z/-yIB7m</a></p>
-<div class="highlight"><pre class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">bar</span><span class="p">(</span><span class="no">std</span><span class="p">::</span><span class="no">unique_ptr</span><span class="err">&lt;</span><span class="no">int</span><span class="p">,</span> <span class="no">std</span><span class="p">::</span><span class="no">default_delete</span><span class="err">&lt;</span><span class="no">int</span><span class="err">&gt;</span> <span class="err">&gt;&amp;&amp;</span><span class="p">):</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">bar</span><span class="p">(</span><span class="no">std</span><span class="p">::</span><span class="no">unique_ptr</span><span class="err">&lt;</span><span class="no">int</span><span class="p">,</span> <span class="no">std</span><span class="p">::</span><span class="no">default_delete</span><span class="err">&lt;</span><span class="no">int</span><span class="err">&gt;</span> <span class="err">&gt;&amp;&amp;</span><span class="p">):</span>
         <span class="nf">push</span>    <span class="no">r12</span>
         <span class="nf">push</span>    <span class="no">rbp</span>
         <span class="nf">sub</span>     <span class="no">rsp</span><span class="p">,</span> <span class="mi">8</span>
@@ -358,7 +358,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 <p>Néanmoins, <code>noexcept</code> est vraiment important sur les constructeurs déplacement.</p>
 <p>Pour être plus précis, conjointement avec les conteneurs de la STL, cela va déterminer si le conteneur utilise ou non le déplacement. Si la fonction est <code>noexcept</code>, le déplacement d&rsquo;un élément ne peut pas échouer. Dans le cas d&rsquo;un <code>std::vector&lt;T&gt;</code>, cela veut dire qu&rsquo;après un agrandissement de la capacité, tous les éléments peuvent être déplacés sans échec. Par contre, si le déplacement lance une exception, une partie des données pourrait se perdre et <code>std::vector</code> utilise alors la copie. On parle de résistance aux exceptions ou d'<a href="https://en.wikipedia.org/wiki/Exception_guarantees">exception-safety</a>. Dans le cas de <code>std::vector</code>, c&rsquo;est une garantie forte: l&rsquo;état du vector est inchangé s&rsquo;il y a une exception sur l&rsquo;augmentation de la capacité. Pour en savoir un peu plus sur l&rsquo;exception-safety, c&rsquo;est <a href="https://www.boost.org/community/exception_safety.html">par là</a>.</p>
 <p>Pour illustrer l&rsquo;influence de <code>noexcept</code> avec std::vector, voici une petite classe qui affiche quel constructeur est utilisé. Le constructeur de déplacement est toujours présent, seule la présence de <code>noexcept</code> diffère.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="k">struct</span> <span class="nc">A</span>
 <span class="p">{</span>
@@ -410,7 +410,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 <li>L&rsquo;opérateur <code>noexcept(expr)</code> prend une expression est retourne un booléen qui indique si oui ou non une expression peut lancer une exception.</li>
 </ul>
 <p>Voici quelques exemples:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">constexpr</span> <span class="kt">bool</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">constexpr</span> <span class="kt">bool</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="kt">void</span> <span class="nf">f1</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span>
 <span class="kt">void</span> <span class="nf">f2</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
@@ -432,12 +432,12 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 <p>Avant C++11, il existait le spécificateur <code>throw()</code> pour indiquer qu&rsquo;une fonction ne jette pas d&rsquo;exception. Son comportement est très différent et pas du tout efficace. En C++17, il devient l&rsquo;équivalent de <code>noexcept(true)</code> pour finalement être supprimé en C++20.</p>
 <a class="headline-hash" href="#signature-et-type-de-fonction"><h2 id="signature-et-type-de-fonction">Signature et type de fonction</h2></a>
 <p>2 fonctions qui ne diffèrent que par la spécification d&rsquo;exception ne peuvent être surchargées car leur signature est identique. Ceci n&rsquo;est pas autorisé:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">();</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">();</span>
 <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span> <span class="c1">// erreur
 </span></code></pre></div><p>Du fait de la signature identique, <code>noexcept</code> peut très bien apparaître dans le prototype d&rsquo;une fonction exposée dans une bibliothèque C (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">extern</span> <span class="s">&#34;C&#34;</span></code></span>), mais cette information disparaît dans la bibliothèque elle-même. Mieux que ça, si la bibliothèque est compilée sans <code>noexcept</code>, mais que le <code>.h</code> distribué les met, le compilateur retrouve ses petits, car le name mangling est le même.</p>
 <p>Par contre, avant C++17 le type d&rsquo;une fonction ne prend jamais en compte <code>noexcept</code>. C’est-à-dire que les types <code>void(*)()</code> et <code>void(*)() noexcept</code> sont identiques.</p>
 <p>À partir de C++17, <code>noexcept</code> fait partie intégrante du type de la fonction. Un pointeur de fonction <code>noexcept</code> n&rsquo;est pas compatible avec un pointeur de fonction qui jette potentiellement une exception. Néanmoins, une fonction <code>noexcept</code> est convertible en un pointeur de fonction qui n&rsquo;est pas <code>noexcept</code>. Les posts conditions sont plus fortes ce qui ne brise pas le <a href="https://fr.wikipedia.org/wiki/Principe_de_substitution_de_Liskov">LSP</a>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span><span class="p">;</span>
 <span class="kt">void</span> <span class="nf">bar</span><span class="p">();</span>
 
 <span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="p">)()</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="n">foo</span><span class="p">;</span>
@@ -446,7 +446,7 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 <span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">g</span><span class="p">)()</span> <span class="o">=</span> <span class="n">bar</span><span class="p">;</span>
 <span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="n">g</span><span class="p">)()</span> <span class="o">=</span> <span class="n">foo</span><span class="p">;</span> <span class="c1">// ok
 </span></code></pre></div><p>Cette caractéristique s&rsquo;applique aussi aux fonctions <code>virtual</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">A</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">A</span>
 <span class="p">{</span>
   <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">bar</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>

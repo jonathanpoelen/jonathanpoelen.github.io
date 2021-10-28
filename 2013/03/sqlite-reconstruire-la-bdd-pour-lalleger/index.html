@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sqlite, reconstruire la bdd pour l&#39;alléger</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -211,7 +211,7 @@ J&rsquo;ai nommé: <a href="http://sqlite.org/lang_vacuum.html">VACUUM</a>.</p>
 <p>Comme certains logiciels se servent de sqlite comme BDD, il peut être intéressant d&rsquo;utiliser cette commande de temps en temps.
 La première fois que je l&rsquo;ai fait pour firefox (fichier <code>~/.mozilla/firefox/nom-du-profil/*.sqlite</code> sur linux) j&rsquo;ai gagné ½ giga :).</p>
 <p>Voici un petit script qui va permettre de le faire sur tous les fichiers sqlite du système (du moins, ceux indexés) et connaître la taille totale avant et après utilisation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
 </span><span class="cp"></span><span class="nv">tmpf</span><span class="o">=</span><span class="si">${</span><span class="nv">TMPDIR</span><span class="p">:=/tmp</span><span class="si">}</span>/sqlite_file_path
 locate <span class="se">\.</span>sqlite <span class="se">\
 </span><span class="se"></span><span class="p">|</span> xargs -d<span class="s1">&#39;\n&#39;</span> mimetype <span class="se">\
@@ -225,7 +225,7 @@ xargs --arg-file <span class="s2">&#34;</span><span class="nv">$tmpf</span><span
 xargs --arg-file <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span> -d<span class="s1">&#39;\n&#39;</span> du -hc <span class="p">|</span> tail -n1
 rm <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span>
 </code></pre></div><p>Et une petite version qui prend des fichiers en paramètre:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
 </span><span class="cp"></span>du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span>
 <span class="k">for</span> f in <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span> <span class="p">;</span> <span class="k">do</span>
   sqlite3 <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s1">&#39;VACUUM;&#39;</span>

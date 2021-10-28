@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Utilisation de swap et des fonctions utilitaires en général</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -217,7 +217,7 @@ Toutes ces fonctions citées sont disponibles en C&#43;&#43;11. La seule fonctio
 <a class="headline-hash" href="#comment-déclarer-et-utiliser-une-fonction-utilitaire"><h2 id="comment-déclarer-et-utiliser-une-fonction-utilitaire">Comment déclarer et utiliser une fonction utilitaire</h2></a>
 <p>Il arrive qu&rsquo;un jour ou l&rsquo;autre on veuille faire une surcharge de <code>swap</code> pour un objet particulier. À ce moment 2 choix s&rsquo;offrent: en faire une fonction libre dans le namespace où se trouve la classe ou dans le namespace <code>std</code>. Évidemment, le meilleur choix est le premier.</p>
 <p>Et là, pour toutes les personnes qui ont en horreur le <code>using namespace std</code> ou travaillant dans les .h, un problème va se poser. Comme <code>swap</code> se trouve dans le namespace de la STL, il est logique de faire <code>std::swap(...)</code>. Mais à ce moment, la fonction <code>swap</code> spécialisée dans le namespace de la classe n&rsquo;est pas utilisée&hellip;</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp">#if __cplusplus &gt;= 201103L
 </span><span class="cp"># include &lt;utility&gt;
 </span><span class="cp">#else
@@ -237,14 +237,14 @@ Toutes ces fonctions citées sont disponibles en C&#43;&#43;11. La seule fonctio
 <span class="p">}</span>
 </code></pre></div><p>N&rsquo;affiche rien&hellip; :/.</p>
 <p>Par contre ce qui suit affiche &ldquo;ok&rdquo;.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
   <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><p>Comme une fonction <code>swap</code> prenant des <code>my::A</code> existe, elle est utilisée. Cela est possible car la fonction <code>swap</code> fait partie du namespace <code>my</code> et que les variables <code>a</code> et <code>b</code> sont des instances d&rsquo;une classe du même namespace.</p>
 <p>Alors que ceci ne compile pas.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
   <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
@@ -254,7 +254,7 @@ Et surtout, 2 syntaxes différentes.</p>
 <p>Dans un contexte générique (typiquement des templates) et de maintient de code, 2 formes, ce n&rsquo;est pas acceptable.
 Il faudrait que <code>std::swap</code> soit utilisé si aucun <code>swap</code> spécialisé n&rsquo;existe.</p>
 <p>Pour ce, on &ldquo;déplace&rdquo; <code>std::swap</code> dans le scope courant avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">using</span></code></span> et grâce l'<a href="http://en.cppreference.com/w/cpp/language/adl">ADL (Argument-dependent lookup)</a>, le compilateur appellera la bonne fonction.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
   <span class="p">{</span>
@@ -270,7 +270,7 @@ Il faudrait que <code>std::swap</code> soit utilisé si aucun <code>swap</code> 
 <a class="headline-hash" href="#simplifier-lutilisation"><h2 id="simplifier-lutilisation">Simplifier l&rsquo;utilisation</h2></a>
 <p>La nécessité de &ldquo;déplacer&rdquo; les fonctions dans le scope est lourd et facile à oublier.</p>
 <p>L&rsquo;idéal serait la présence d&rsquo;une unique fonction en charge d&rsquo;appeler la bonne surcharge. La solution consiste en la création d&rsquo;un namespace dans lequel la fonction générale est exportée et où une fonction intermédiaire l&rsquo;appelle. Comme la règle d&rsquo;ADL s&rsquo;applique, la fonction surchargée sera appelée si existante.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="k">namespace</span> <span class="n">fn</span> <span class="p">{</span>
   <span class="k">namespace</span> <span class="n">adl_barrier</span> <span class="p">{</span>
@@ -287,7 +287,7 @@ Il faudrait que <code>std::swap</code> soit utilisé si aucun <code>swap</code> 
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div><p>Cependant, cette solution souffre de l&rsquo;effet inverse: la fonction ne peut pas être déplacée dans le même scope qu&rsquo;une fonction généraliste. Il y aurait 2 prototypes identiques, le compilateur ne pourrait pas lever l&rsquo;ambiguïté. Comme il est très courant de voir <code>using namespace std;</code>, un <code>using fn::swap</code> dans le même scope rentrerait en conflit avec <code>std::swap</code> lors de l&rsquo;appel (aucun problème si dans un sous-scope).</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="k">namespace</span> <span class="n">my</span> <span class="p">{</span>
   <span class="k">struct</span> <span class="nc">A</span><span class="p">{};</span>

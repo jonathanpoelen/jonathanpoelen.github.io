@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Implémentation d&#39;un magasin de type</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -223,12 +223,12 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
 <a class="headline-hash" href="#planter-la-compilation-quand-un-type-est-en-doublon"><h2 id="planter-la-compilation-quand-un-type-est-en-doublon">Planter la compilation quand un type est en doublon</h2></a>
 <p>Le C++ dispose déjà d&rsquo;un mécanisme interne qui vérifie et hurle au scandale si un type doublon existe. J&rsquo;ai nommé l'<strong>héritage</strong>.</p>
 <p>Seulement, un héritage direct n&rsquo;est pas possible avec les types scalaires, il faut un intermédiaire.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">item</span> <span class="p">{</span> <span class="n">T</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">item</span> <span class="p">{</span> <span class="n">T</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">typeset</span> <span class="o">:</span> <span class="n">item</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span> <span class="p">{};</span>
 </code></pre></div><p>Avec cette implémentation, des petits malins pourraient faire de la pseudo-duplication de type en y ajoutant des qualificeurs, <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">const</span><span class="o">&gt;</span></code></span> par exemple.</p>
 <p>On peut être tolérant ou devenir un tyran sans pitié en empêchant cela.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">tyrannical_typeset_impl</span> <span class="o">:</span> <span class="n">typeset</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">&gt;</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{</span>
   <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">typeset</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="p">};</span>
@@ -238,20 +238,20 @@ Une fois pour manipuler de façon similaire des types hétérogènes sans la lou
 </code></pre></div><p>Le typeset tyrannique est construit en 2 étapes, car un alias direct sur un typeset épuré ne permet pas de garder les qualificatifs.</p>
 <a class="headline-hash" href="#piocher-dans-le-magasin"><h2 id="piocher-dans-le-magasin">Piocher dans le magasin</h2></a>
 <p>Piquer un élément du typeset est une affaire de cast. Un simple <code>static_cast</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
 
 <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">item</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;&gt;</span><span class="p">(</span><span class="n">my_typeset</span><span class="p">).</span><span class="n">x</span><span class="p">;</span>
 </code></pre></div><p>En mettant des opérateurs de cast dans la classe item, plus besoin de préciser cette dernière avec le <code>static_cast</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">item</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="nc">item</span> <span class="p">{</span>
   <span class="k">explicit</span> <span class="k">operator</span> <span class="n">T</span><span class="o">&amp;</span> <span class="p">()</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
   <span class="k">explicit</span> <span class="k">operator</span> <span class="n">T</span> <span class="k">const</span><span class="o">&amp;</span> <span class="p">()</span> <span class="k">const</span> <span class="k">noexcept</span> <span class="p">{</span> <span class="k">return</span> <span class="n">x</span><span class="p">;</span> <span class="p">}</span>
 <span class="k">private</span><span class="o">:</span>
   <span class="n">T</span> <span class="n">x_</span><span class="p">;</span>
 <span class="p">};</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
 <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">my_typeset</span><span class="p">);</span>
 </code></pre></div><p>Petit bémol toutefois, cela ne permet pas d&rsquo;enlever l&rsquo;ambiguïté pour un type qui diffère uniquement par son qualificatif.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">volatile</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">typeset</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span> <span class="k">volatile</span><span class="o">&gt;</span> <span class="n">my_typeset</span><span class="p">;</span>
 
 <span class="c1">// ‘typeset&lt;int, volatile int&gt;’ to ‘volatile int&amp;’ is ambiguous
 </span><span class="c1"></span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span> <span class="k">volatile</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">my_typeset</span><span class="p">);</span>

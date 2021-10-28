@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Taguer vos classes, cataloguées-les</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -221,7 +221,7 @@ Première implémentation La fonction std::advance() permet d&rsquo;incrémenter
 <p>Comme exemple je vais utiliser les <a href="http://en.cppreference.com/w/cpp/iterator">tags présents dans les itérateurs de la STL</a> et une implémentation de la fonction <a href="http://en.cppreference.com/w/cpp/iterator/advance">std::advance()</a>.</p>
 <a class="headline-hash" href="#première-implémentation"><h2 id="première-implémentation">Première implémentation</h2></a>
 <p>La fonction <code>std::advance()</code> permet d&rsquo;incrémenter un itérateur de <code>N</code> éléments (ou décrémenter si <code>N</code> est négatif). D&rsquo;après cette description, un premier algorithme peut être émis:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
@@ -242,7 +242,7 @@ Première implémentation La fonction std::advance() permet d&rsquo;incrémenter
 <p>En réalité un tag est une classe vide. Cela suffit, le type est porteur de l&rsquo;information. Les <a href="http://en.cppreference.com/w/cpp/iterator/iterator_tags">tags des itérateurs</a> possèdent aussi une hiérarchie et certains sont donc hérités.</p>
 <p>Pour récupérer le type contenu dans un itérateur il faut passer par <code>std::iterator_traits&lt;&gt;</code>, cela permet de fonctionner même avec un type scalaire comme le pointeur qui ne possède pas de type interne.</p>
 <p>Le tag d&rsquo;un pointeur étant <code>std::random_access_iterator_tag</code> voici une implémentation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">It</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">It</span><span class="o">&gt;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">It</span><span class="o">&gt;::</span><span class="n">iterator_category</span>
 <span class="n">iterator_category</span><span class="p">(</span><span class="k">const</span> <span class="n">It</span><span class="o">&amp;</span><span class="p">)</span>
 <span class="p">{</span>
@@ -261,11 +261,11 @@ Première implémentation La fonction std::advance() permet d&rsquo;incrémenter
   <span class="n">advance</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">iterator_category</span><span class="p">(</span><span class="n">it</span><span class="p">));</span>
 <span class="p">}</span>
 </code></pre></div><p>Bien sûr, on change aussi le prototype de la précédente implémentation.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">);</span>
 </code></pre></div><a class="headline-hash" href="#problème-avec-forwarditerator"><h2 id="problème-avec-forwarditerator">Problème avec ForwardIterator</h2></a>
 <p>Toutefois un problème persiste, lorsqu&rsquo;un ForwardIterator est utilisé, il n&rsquo;y a pas d&rsquo;opération de décrémentation, et la compilation ne se fait pas. Il faut de nouveau changer notre première implémentation pour qu&rsquo;elle ne fonctionne qu&rsquo;avec <code>bidirectional_iterator_tag</code> et une implémentation généraliste qui fait une incrémentation.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">)</span>

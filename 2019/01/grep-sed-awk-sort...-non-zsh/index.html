@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grep, sed, awk, sort... Non ! Zsh</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -246,7 +246,7 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 <p>Le <code>man</code> de zsh fait plus de 5 fois celui de bash. Le manuel est tellement gros qu&rsquo;il est divisé en 16 parties + un <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">man zshall</code></span> pour les afficher tous. Difficile de tout mettre en 1 article alors je me contente de certaines parties de <code>zshexpn</code> (zsh expansion and substitution). Parmi celles utilisées ici il y a les options d&rsquo;expansion de paramètres (<span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">(@)x</span><span class="si">}</span></code></span>) et les modificateurs (<span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">x</span><span class="p">:</span><span class="nv">h</span><span class="si">}</span></code></span> ou <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="nv">$x</span>:h</code></span>). Il existe un pdf compilant les options et syntaxe de zsh: <a href="http://www.bash2zsh.com/zsh_refcard/refcard.pdf">http://www.bash2zsh.com/zsh_refcard/refcard.pdf</a>.</p>
 <a class="headline-hash" href="#lire-un-fichier"><h3 id="lire-un-fichier">Lire un fichier</h3></a>
 <p>Voici comment les scripts zsh peuvent lire un fichier et mettre chaque ligne dans un tableau grâce aux extensions de paramètres:</p>
-<div class="highlight"><pre class="chroma"><code class="language-zsh" data-lang="zsh"><span class="nv">contents</span><span class="o">=</span><span class="k">$(</span>&lt;file<span class="k">)</span> <span class="c1"># lire un fichier</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="nv">contents</span><span class="o">=</span><span class="k">$(</span>&lt;file<span class="k">)</span> <span class="c1"># lire un fichier</span>
 <span class="nv">contents</span><span class="o">=</span><span class="k">$(</span>&lt;file1 &lt;file2<span class="k">)</span> <span class="c1"># lire 2 fichiers</span>
 <span class="nv">contents</span><span class="o">=</span><span class="k">$(</span>&lt;file <span class="p">;</span> ls<span class="k">)</span> <span class="c1"># lire un fichier et le retour de la commande `ls`</span>
 
@@ -409,7 +409,7 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 </table>
 <a class="headline-hash" href="#awk"><h3 id="awk">awk</h3></a>
 <p>Pour celui-là, l&rsquo;entrée sera le texte ci-dessous. Le programme va coloriser le préfixe.</p>
-<div class="highlight-nocode"><pre class="chroma-nocode"><code>info: un alligator dort sur le balcon
+<div class="highlight-nocode"><pre tabindex="0" class="chroma-nocode"><code>info: un alligator dort sur le balcon
 avertissement: l'alligator se réveille
 erreur: l'alligator attaque
 note: penser à investir dans une porte plus solide

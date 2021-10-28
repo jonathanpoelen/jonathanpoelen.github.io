@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Réduire l&#39;empreinte mémoire d&#39;une agglomération de types</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -223,7 +223,7 @@ Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 oct
 <a class="headline-hash" href="#implémentation-naïve-de-stdunique_ptr"><h2 id="implémentation-naïve-de-stdunique_ptr">Implémentation naïve de std::unique_ptr</h2></a>
 <p>Pour rappel, <code>std::unique_ptr</code> prend 2 paramètres template: <code>T</code> et <code>Deleter</code> (qui par défaut égal <code>std::default_delete&lt;T&gt;</code>).</p>
 <p>Naïvement, l&rsquo;implémentation serait:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Deleter</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Deleter</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
 <span class="k">class</span> <span class="nc">my_unique_ptr</span> <span class="p">{</span>
   <span class="n">T</span><span class="o">*</span> <span class="n">m_pointer</span><span class="p">;</span>
   <span class="n">Deleter</span> <span class="n">m_deleter</span><span class="p">;</span>
@@ -242,7 +242,7 @@ Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 oct
 <a class="headline-hash" href="#comment-fait-la-stl-pour-supprimer-8-octets-"><h2 id="comment-fait-la-stl-pour-supprimer-8-octets-">Comment fait la STL pour &ldquo;supprimer&rdquo; 8 octets ?</h2></a>
 <p>La bibliohèque standard utilise une optimisation surnommée <a href="http://en.cppreference.com/w/cpp/language/ebo">Empty Base Class Optimization (EBCO)</a>.
 Concrètement, cela se traduit par une classe interne qui contient le pointeur et hérite de <code>Deleter</code>. Les attributs de la classe dérivée vont se mettre après ceux de <code>Deleter</code>, et s&rsquo;il n&rsquo;en a pas, ils se positionnent au début de la classe. Grâce à cette astuce, l&rsquo;adresse du premier membre de la classe (ici, le pointeur) se confond avec celle de la classe englobante et parente, éliminant ainsi l&rsquo;espace occupé par <code>Deleter</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Deleter</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Deleter</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
 <span class="k">class</span> <span class="nc">my_unique_ptr</span> <span class="p">{</span>
   <span class="k">struct</span> <span class="nc">internal</span> <span class="o">:</span> <span class="n">Deleter</span> <span class="p">{</span>
     <span class="n">T</span><span class="o">*</span> <span class="n">pointeur</span><span class="p">;</span>

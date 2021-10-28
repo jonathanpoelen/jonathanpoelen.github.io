@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -218,11 +218,11 @@
 </ul>
 <p>Sur bash, il n&rsquo;y a aucune différence entre <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span>. Par contre, sur ksh/zsh, <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> représente un tableau d&rsquo;arguments. Il faut savoir que sur bash, utiliser une variable sans guillemet revient à créer autant d&rsquo;arguments qu&rsquo;il y a de mots. Les mots sont séparés en fonction des caractères de <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$IFS</span></code></span> (la variable contient : espace, tabulation et saut de ligne). C&rsquo;est pour cela qu&rsquo;il est conseillé d&rsquo;entourer ces variables de guillemets doubles.</p>
 <p>Un petit exemple pour comprendre :).</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span>
 <span class="k">for</span> v in <span class="nv">$a</span> <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
 <span class="k">done</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">&gt; a
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">&gt; a
 &gt; b
 &gt; c
 </code></pre></div><p>Le résultat est 3 lignes pour 1 paramètre, la chaîne <code>'a b c'</code> contenant des espaces s&rsquo;est fait couper. Ce n&rsquo;est pas le cas pour zsh qui ne fait pas cette césure (raison historique, j&rsquo;y reviens à la fin).</p>
@@ -232,7 +232,7 @@
 <li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span> représente les paramètres réels. C&rsquo;est identique à <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> avec ksh et zsh.</li>
 </ul>
 <a class="headline-hash" href="#démonstration"><h2 id="démonstration">Démonstration</h2></a>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># test.sh</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># test.sh</span>
 <span class="k">for</span> v in XXX <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
 <span class="k">done</span>
@@ -274,7 +274,7 @@
 </tbody>
 </table>
 <p>Pour que zsh boucle sur des mots, il faut ajouter un flag à la variable (<span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">=*</span><span class="si">}</span></code></span>), comme ci-dessous.</p>
-<div class="highlight"><pre class="chroma"><code class="language-zsh" data-lang="zsh"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span><span class="p">;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span><span class="p">;</span>
 <span class="k">for</span> v in <span class="si">${</span><span class="p">=a</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
 <span class="k">done</span>

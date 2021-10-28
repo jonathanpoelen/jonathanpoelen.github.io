@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simuler une vtable sans fonction virtuelle</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -215,7 +215,7 @@ Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessou
         </div></aside>
       <p>La <code>vtable</code> est le mécanisme interne utilisé par C++ pour implémenter les fonctions virtuelles. Lorsqu&rsquo;une classe possède une fonction virtuelle, un pointeur sur la <code>vtable</code> (virtual table) est automatiquement réservé par le compilateur. Cette table contient des pointeurs de fonction sur l&rsquo;ensemble des fonctions virtuelles de la classe et chaque classe dérivée possède sa propre <code>vtable</code>.</p>
 <p>Pour une classe de base implémentant une fonction <code>foo</code> virtuelle comme ci-dessous, l&rsquo;utilisation de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">obj</span><span class="o">-&gt;</span><span class="n">foo</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">)</span></code></span> va être remplacé par quelque chose proche de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">cast</span><span class="o">&lt;</span><span class="n">FunctionType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">obj</span><span class="o">-&gt;</span><span class="n">__vtable</span><span class="p">[</span><span class="mi">0</span><span class="p">])(</span><span class="n">obj</span><span class="cm">/*, params...*/</span><span class="p">)</span></code></span>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Base</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Base</span>
 <span class="p">{</span>
   <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">};</span>
@@ -223,7 +223,7 @@ Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessou
 <p>Ce fonctionnement est très économique : un pointeur pour chaque instance d&rsquo;une classe et une vtable en lecture seule par classe. C&rsquo;est également très facile d&rsquo;ajouter de nouvelles tables, y compris dynamiquement par le chargement de bibliothèque. Mais il y a aussi des inconvénients comme une fragmentation mémoire au niveau de la position des tables et un double déréférencement pour accéder au pointeur de fonction.</p>
 <p>Pour la suite on se base sur une interface avec une fonction draw: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">const</span></code></span> et 2 objets ce qu&rsquo;il a de plus classique: <code>Rect</code> et <code>Circle</code>.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-hpp" data-lang="hpp"><span class="k">struct</span> <span class="nc">Rect</span>
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-hpp" data-lang="hpp"><span class="k">struct</span> <span class="nc">Rect</span>
 <span class="p">{</span>
   <span class="kt">void</span> <span class="nf">draw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span> <span class="k">const</span>
   <span class="p">{</span>
@@ -242,13 +242,13 @@ Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessou
 <a class="headline-hash" href="#une-vtable-à-la-mano"><h2 id="une-vtable-à-la-mano">Une vtable à la mano</h2></a>
 <p>Notre vtable va contenir des pointeurs de fonction. Le type commun d&rsquo;une majorité de pointeurs est <code>void*</code>. Sauf que les pointeurs de fonction sont une exception, il n&rsquo;est pas légal de les transformer en <code>void*</code> &ndash; même si en interne le compilateur peut se le permettre pour sa vtable. Par contre, on peut récupérer l&rsquo;adresse du pointeur de fonction pour avoir un pointeur de pointeur de fonction. Cela fait beaucoup de pointeurs et d&rsquo;indirections alors le tableau sera remplacé par un tuple, car finalement on connait exactement les types de fonction que contient la vtable.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">using</span> <span class="n">draw_func_type</span> <span class="o">=</span> <span class="kt">void</span><span class="p">(</span><span class="kt">void</span> <span class="k">const</span><span class="o">*</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">using</span> <span class="n">draw_func_type</span> <span class="o">=</span> <span class="kt">void</span><span class="p">(</span><span class="kt">void</span> <span class="k">const</span><span class="o">*</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">);</span>
 
 <span class="k">using</span> <span class="n">drawable_vtable</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">draw_func_type</span> <span class="k">const</span><span class="o">*&gt;</span><span class="p">;</span></code></pre></div>
 
 <p>Maintenant qu&rsquo;on a un type pour la vtable, il faut pouvoir la construire à partir de n&rsquo;importe quel type qui pourrait supporter cette interface.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="kr">inline</span> <span class="k">auto</span> <span class="n">draw_func_ptr</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">void</span> <span class="k">const</span><span class="o">*</span> <span class="n">base</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span> <span class="k">const</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">base</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">(</span><span class="n">out</span><span class="p">);</span>
 <span class="p">};</span>
@@ -260,7 +260,7 @@ Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessou
 
 <p>Grâce à ses variables inline, on peut construire notre tableau très facilement. Il ne reste plus qu&rsquo;à faire un petit wrapper pour utiliser <code>Rect</code> et <code>Circle</code> indistinctement.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Drawable</span>
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Drawable</span>
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="n">Drawable</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
@@ -281,7 +281,7 @@ Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessou
 <p><code>Drawable</code> pourrait contenir directement <code>Rect</code> ou <code>Circle</code> plutôt qu&rsquo;avoir un <code>void*</code>, mais pour supporter n&rsquo;importe quel type et être optimisé, il est préférable d&rsquo;utiliser <a href="https://akrzemi1.wordpress.com/2014/04/14/common-optimizations/">SBO (Small Buffer Optimization)</a> Dans une optique de simplification, la classe n&rsquo;accepte que des références et garde un pointeur. On peut la considérer comme une vue polymorphique.</p>
 <p>Une petite démonstration de la chose:</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="kt">void</span> <span class="nf">draw</span><span class="p">(</span><span class="n">Drawable</span> <span class="n">drawable</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span>
 <span class="p">{</span>
@@ -303,7 +303,7 @@ Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessou
 <a class="headline-hash" href="#une-vtable-par-type-vs-une-vtable-par-instance"><h2 id="une-vtable-par-type-vs-une-vtable-par-instance">Une vtable par type vs une vtable par instance</h2></a>
 <p>Notre <code>Drawable</code> contient une référence sur la vtable qui est elle-même un tableau de 1 pointeur de fonction. Autant jeter la vtable et avoir directement le pointeur de fonction comme membre. C&rsquo;est plus direct et le code est plus court.</p>
 
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Drawable</span>
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Drawable</span>
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="n">Drawable</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>

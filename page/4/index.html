@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.83.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.88.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -205,12 +205,12 @@
   <div class="post__content">
       <p>La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la <a href="https://cpp.developpez.com/faq/cpp/?page=Optimisation#Qu-est-ce-que-la-RVO">FAQ C++ developpez.com</a>.</p>
 <p>Cependant, ces optimisations ne s&rsquo;appliquent que sur une variable de type <code>T</code> <strong>sans référence</strong>. Ce qui veut dire qu&rsquo;une référence ne sera pas optimisée.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">iterator</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">iterator</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">iterator</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">iterator</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">return</span> <span class="nf">iterator</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// pas de RVO
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></div><p>Alors qu&rsquo;une décomposition de la fonction active la NRVO.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">iterator</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">iterator</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">iterator</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">iterator</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">iterator</span> <span class="nf">ret</span><span class="p">(</span><span class="n">other</span><span class="p">);</span>
   <span class="n">ret</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span>
@@ -287,7 +287,7 @@ J&rsquo;ai nommé: <a href="http://sqlite.org/lang_vacuum.html">VACUUM</a>.</p>
 <p>Comme certains logiciels se servent de sqlite comme BDD, il peut être intéressant d&rsquo;utiliser cette commande de temps en temps.
 La première fois que je l&rsquo;ai fait pour firefox (fichier <code>~/.mozilla/firefox/nom-du-profil/*.sqlite</code> sur linux) j&rsquo;ai gagné ½ giga :).</p>
 <p>Voici un petit script qui va permettre de le faire sur tous les fichiers sqlite du système (du moins, ceux indexés) et connaître la taille totale avant et après utilisation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
 </span><span class="cp"></span><span class="nv">tmpf</span><span class="o">=</span><span class="si">${</span><span class="nv">TMPDIR</span><span class="p">:=/tmp</span><span class="si">}</span>/sqlite_file_path
 locate <span class="se">\.</span>sqlite <span class="se">\
 </span><span class="se"></span><span class="p">|</span> xargs -d<span class="s1">&#39;\n&#39;</span> mimetype <span class="se">\
@@ -301,7 +301,7 @@ xargs --arg-file <span class="s2">&#34;</span><span class="nv">$tmpf</span><span
 xargs --arg-file <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span> -d<span class="s1">&#39;\n&#39;</span> du -hc <span class="p">|</span> tail -n1
 rm <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span>
 </code></pre></div><p>Et une petite version qui prend des fichiers en paramètre:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
 </span><span class="cp"></span>du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span>
 <span class="k">for</span> f in <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span> <span class="p">;</span> <span class="k">do</span>
   sqlite3 <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s1">&#39;VACUUM;&#39;</span>
@@ -378,11 +378,11 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 </ul>
 <p>Sur bash, il n&rsquo;y a aucune différence entre <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span>. Par contre, sur ksh/zsh, <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> représente un tableau d&rsquo;arguments. Il faut savoir que sur bash, utiliser une variable sans guillemet revient à créer autant d&rsquo;arguments qu&rsquo;il y a de mots. Les mots sont séparés en fonction des caractères de <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$IFS</span></code></span> (la variable contient : espace, tabulation et saut de ligne). C&rsquo;est pour cela qu&rsquo;il est conseillé d&rsquo;entourer ces variables de guillemets doubles.</p>
 <p>Un petit exemple pour comprendre :).</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span>
 <span class="k">for</span> v in <span class="nv">$a</span> <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
 <span class="k">done</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">&gt; a
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">&gt; a
 &gt; b
 &gt; c
 </code></pre></div><p>Le résultat est 3 lignes pour 1 paramètre, la chaîne <code>'a b c'</code> contenant des espaces s&rsquo;est fait couper. Ce n&rsquo;est pas le cas pour zsh qui ne fait pas cette césure (raison historique, j&rsquo;y reviens à la fin).</p>
@@ -392,7 +392,7 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 <li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span> représente les paramètres réels. C&rsquo;est identique à <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> avec ksh et zsh.</li>
 </ul>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/#démonstration"><h2 id="démonstration">Démonstration</h2></a>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># test.sh</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># test.sh</span>
 <span class="k">for</span> v in XXX <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
 <span class="k">done</span>
@@ -434,7 +434,7 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 </tbody>
 </table>
 <p>Pour que zsh boucle sur des mots, il faut ajouter un flag à la variable (<span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">=*</span><span class="si">}</span></code></span>), comme ci-dessous.</p>
-<div class="highlight"><pre class="chroma"><code class="language-zsh" data-lang="zsh"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span><span class="p">;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span><span class="p">;</span>
 <span class="k">for</span> v in <span class="si">${</span><span class="p">=a</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span>
   <span class="nb">echo</span> <span class="nv">$v</span>
 <span class="k">done</span>
@@ -505,7 +505,7 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
       <p>En règle générale les événements sont attachés à l&rsquo;élément qui va le traiter.</p>
 <p>Par exemple en javascript, un menu (<code>ul</code>) contenant 10 entrées (<code>li</code>) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.</p>
 <p>Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ul</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;menu&#34;</span><span class="p">);</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ul</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;menu&#34;</span><span class="p">);</span>
 <span class="nx">ul</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span> <span class="o">===</span> <span class="nx">ul</span><span class="p">)</span> <span class="c1">// est-ce toi mon fils ?
 </span><span class="c1"></span>    <span class="nx">openWithAjax</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
@@ -577,7 +577,7 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
   <div class="post__content">
       <p>Voici une petite information très mal connue et peu utilisée du <code>getopt</code> de la lib C et de la commande shell. Ainsi que <code>Boost.Program_options</code>. Parce que boost c&rsquo;est bien :p.</p>
 <p>Les noms des options longues n&rsquo;ont pas besoin d&rsquo;être écrites entièrement.</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="k">function</span> parsecmd<span class="o">()</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="k">function</span> parsecmd<span class="o">()</span>
 <span class="o">{</span>
   getopt -o <span class="s1">&#39;&#39;</span> --long <span class="se">\
 </span><span class="se"></span>    option-longue,option-encore-plus-longue,une-autre-option: <span class="se">\
@@ -586,7 +586,7 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 
 parsecmd --option-l --u plop bidule
 </code></pre></div><p>Donne</p>
-<div class="highlight-nocode"><pre class="chroma-nocode"><code>--option-longue --une-autre-option 'plop' -- 'bidule'
+<div class="highlight-nocode"><pre tabindex="0" class="chroma-nocode"><code>--option-longue --une-autre-option 'plop' -- 'bidule'
 </code></pre><p>La commande shell <code>getopt</code> est un peu plus souple que les autres. Si ambiguïté, la première option correspondante sera sélectionnée. Si l&rsquo;option <code>-a</code> existe ce n&rsquo;est plus le cas et le code d&rsquo;erreur <code>1</code> est retourné ainsi qu&rsquo;un petit message listant les options possibles. Mais avec <code>-a</code> les options longues peuvent commencer par un simple tiret.</p>
 <p>La plupart des commandes Linux utilisant <code>getopt</code>, cette astuce peut s&rsquo;utiliser assez souvent.</p>
 
@@ -657,7 +657,7 @@ parsecmd --option-l --u plop bidule
 <p>Comme exemple je vais utiliser les <a href="http://en.cppreference.com/w/cpp/iterator">tags présents dans les itérateurs de la STL</a> et une implémentation de la fonction <a href="http://en.cppreference.com/w/cpp/iterator/advance">std::advance()</a>.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#première-implémentation"><h2 id="première-implémentation">Première implémentation</h2></a>
 <p>La fonction <code>std::advance()</code> permet d&rsquo;incrémenter un itérateur de <code>N</code> éléments (ou décrémenter si <code>N</code> est négatif). D&rsquo;après cette description, un premier algorithme peut être émis:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
@@ -678,7 +678,7 @@ parsecmd --option-l --u plop bidule
 <p>En réalité un tag est une classe vide. Cela suffit, le type est porteur de l&rsquo;information. Les <a href="http://en.cppreference.com/w/cpp/iterator/iterator_tags">tags des itérateurs</a> possèdent aussi une hiérarchie et certains sont donc hérités.</p>
 <p>Pour récupérer le type contenu dans un itérateur il faut passer par <code>std::iterator_traits&lt;&gt;</code>, cela permet de fonctionner même avec un type scalaire comme le pointeur qui ne possède pas de type interne.</p>
 <p>Le tag d&rsquo;un pointeur étant <code>std::random_access_iterator_tag</code> voici une implémentation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">It</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">It</span><span class="o">&gt;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">It</span><span class="o">&gt;::</span><span class="n">iterator_category</span>
 <span class="n">iterator_category</span><span class="p">(</span><span class="k">const</span> <span class="n">It</span><span class="o">&amp;</span><span class="p">)</span>
 <span class="p">{</span>
@@ -697,11 +697,11 @@ parsecmd --option-l --u plop bidule
   <span class="n">advance</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">iterator_category</span><span class="p">(</span><span class="n">it</span><span class="p">));</span>
 <span class="p">}</span>
 </code></pre></div></div><p>Bien sûr, on change aussi le prototype de la précédente implémentation.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">);</span>
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#problème-avec-forwarditerator"><h2 id="problème-avec-forwarditerator">Problème avec ForwardIterator</h2></a>
 <p>Toutefois un problème persiste, lorsqu&rsquo;un ForwardIterator est utilisé, il n&rsquo;y a pas d&rsquo;opération de décrémentation, et la compilation ne se fait pas. Il faut de nouveau changer notre première implémentation pour qu&rsquo;elle ne fonctionne qu&rsquo;avec <code>bidirectional_iterator_tag</code> et une implémentation généraliste qui fait une incrémentation.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
 <span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">)</span>
@@ -789,7 +789,7 @@ parsecmd --option-l --u plop bidule
       <p>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&rsquo;interpréteur utilisé. J&rsquo;ai eu le coup une fois lorsqu&rsquo;il fallait charger le module <code>canberra-gtk</code> pour les programmes java.</p>
 <p>Une variable <code>$GTK_MODULES</code> est définie et contient tous les modules gtk séparés par des deux points (<code>:</code>).
 Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-gtk-module</code>. Les fautifs ? <code>52libcanberra-gtk-module_add-to-gtk-modules</code> et <code>52libcanberra-gtk3-module_add-to-gtk-modules</code> Avec un contenu identique:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
     <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;canberra-gtk-module&#34;</span>
 <span class="k">else</span>
     <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">:canberra-gtk-module&#34;</span>
@@ -799,16 +799,16 @@ Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-
 </code></pre></div><p>Et là, paf ! C&rsquo;est le drame. <code>$GTK_MODULES</code> = <code>canberra-gtk-moduleanberra-gtk-module</code>, naturellement :D.</p>
 <p>Vous venez d&rsquo;assister à l&rsquo;effet du modificateur <code>c</code> (dans <code>:c</code>) qui ajoute le chemin de l&rsquo;executable présent dans <code>$GTK_MODULES</code>. Comme <code>canberra-gtk-module</code> n&rsquo;est pas un executable, rien n&rsquo;est fait, mais <code>:c</code> disparaît. Avec l&rsquo;auto-complétion on peut voir qu&rsquo;il y en a une petite quinzaine de disponibles, de quoi tomber plusieurs fois dans le piège.</p>
 <p>Les modificateurs existent aussi dans bash, mais ils sont moins nombreux et ne s&rsquo;utilisent qu&rsquo;avec l&rsquo;historique (paragraphe <code>HISTORY EXPANSION</code> du manuel).</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> unfichier.txt
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> unfichier.txt
 <span class="nb">echo</span> !:1:r
 </code></pre></div><p>Résultat :</p>
-<div class="highlight-nocode"><pre class="chroma-nocode"><code>unfichier.txt
+<div class="highlight-nocode"><pre tabindex="0" class="chroma-nocode"><code>unfichier.txt
 unfichier
 </code></pre></div><p>Quasiment jamais utilisé en fait.</p>
 <p>Mais voilà, zsh les généralise aussi aux variables ce qui engendre une erreur dans <code>GTK_MODULES</code>.</p>
 <p>Alors comment faire ?
 Simple, entourer la variable d&rsquo;accolades:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GTK_MODULES</span><span class="si">}</span><span class="s2">:canberra-gtk-module&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GTK_MODULES</span><span class="si">}</span><span class="s2">:canberra-gtk-module&#34;</span>
 </code></pre></div>
   </div>
   <footer class="post__footer">
@@ -878,7 +878,7 @@ Simple, entourer la variable d&rsquo;accolades:</p>
 <p>Coder la <a href="https://fr.wikipedia.org/wiki/Suite_de_Fibonacci">suite de Fibonacci</a> en récursive et en itérative.</p>
 </blockquote>
 <p>Mais partout où j&rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&rsquo;on peut trouver.</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">//itérative
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">//itérative
 </span><span class="c1"></span><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
@@ -902,7 +902,7 @@ Simple, entourer la variable d&rsquo;accolades:</p>
 <span class="p">}</span>
 </code></pre></div><p>Sauf que cet algorithme récursif est pourri. Il recalcule sans cesse <code>fib-1</code> et <code>fib-2</code> et fait monter la pile d&rsquo;appel <strong>jusqu&rsquo;à explosion</strong> là où l&rsquo;algorithme itératif additionne une variable.</p>
 <p>Pour avoir un algorithme récursif équivalent à celui itératif, il faut garder le même comportement. C&rsquo;est à dire garder <code>a</code> et <code>b</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r_impl</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">r</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">rp</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r_impl</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">r</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">rp</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
@@ -981,9 +981,9 @@ Simple, entourer la variable d&rsquo;accolades:</p>
       <p>Il y a 3 semaines environ je cherchais le moyen d&rsquo;utiliser la commande sed avec une regex sur plusieurs lignes. Je voulais transformer tous les <code>/\+\n\s+&quot;&quot;/</code> en rien du tout (oui, les supprimer…). Sauf que comme tel, ça ne fonctionne pas, <code>sed</code> comme beaucoup de commandes unix fonctionne par ligne. Après de lourdes et pompeuses recherches d&rsquo;au moins 7 secondes montre en main, je suis tombé sur la solution.</p>
 <p>Pour ce faire, il suffit d&rsquo;un identifiant, un petit label, une information de multi-ligne au milieu et 3 autres bricoles ; rien que ça :D.</p>
 <p>Ce qui se traduit par:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sed -e :a -e N -e <span class="s1">&#39;$!ba&#39;</span> -e s<span class="s1">&#39;/+\n\s\+&#34;&#34;//g&#39;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sed -e :a -e N -e <span class="s1">&#39;$!ba&#39;</span> -e s<span class="s1">&#39;/+\n\s\+&#34;&#34;//g&#39;</span>
 </code></pre></div><p>Et en version courte:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sed <span class="s1">&#39;:a;N;$!ba;s/+\n\s\+&#34;&#34;//g&#39;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sed <span class="s1">&#39;:a;N;$!ba;s/+\n\s\+&#34;&#34;//g&#39;</span>
 </code></pre></div><p>Je sais ce que vous vous demandez: pourquoi il n&rsquo;y a pas <code>-e</code> dans la version courte ?</p>
 <p>Mais parce que c&rsquo;est la version courte, évidemment !</p>
 <p>Sinon dans une moindre mesure.</p>

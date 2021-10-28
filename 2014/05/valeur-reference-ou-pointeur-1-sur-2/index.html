@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valeur, référence ou pointeur ? (1/2)</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -240,7 +240,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:
 <p>J&rsquo;insiste bien sur référence <strong>constante</strong> car, pour être au plus proche de l&rsquo;effet d&rsquo;une copie, l&rsquo;objet d&rsquo;origine ne doit pas bouger. De plus, une instance constante ne peut appeler que des fonction membre constantes, ce qui assure une invariance (cf: const-correctness).</p>
 <p>Donc, référence constante pour les valeurs qui ne sont pas modifiés dans la fonction. Une règle dit: &ldquo;tout ce qui est plus grand qu&rsquo;un pointeur pourrait être passé par référence constante&rdquo;. Je préfère dire tous les types en référence constante sauf les <a href="http://en.cppreference.com/w/cpp/language/types">fondamentaux</a> (int, float, etc). Même si mettre une référence constante sur un <code>int</code> n&rsquo;est pas une erreur, je n&rsquo;adhère pas vraiment.</p>
 <p>Une seule exception cependant, quand le paramètre va de toute façon être copié localement dans la fonction pour être modifié. On pourrait croire que le résultat sera le même, mais c&rsquo;est être naïf.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">BigInt</span> <span class="p">{</span> <span class="err">…</span> <span class="p">};</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">BigInt</span> <span class="p">{</span> <span class="err">…</span> <span class="p">};</span>
 <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">BigInt</span> <span class="nf">ret</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
@@ -248,7 +248,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:
   <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div><p>Supposons que BigInt fasse de l&rsquo;allocation dynamique pour représenter les nombres. Avec ce code:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">BigInt</span> <span class="nf">n1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">BigInt</span> <span class="nf">n1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="n">BigInt</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">BigInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">n1</span><span class="p">;</span>
 </code></pre></div><p>Il y a 3 allocations:</p>
 <ul>
@@ -257,7 +257,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:
 <li>ret</li>
 </ul>
 <p>Alors que cette implémentation de <code>operator+</code> n&rsquo;en produit que 2.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">BigInt</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">BigInt</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">a</span> <span class="o">+=</span> <span class="n">b</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
@@ -267,7 +267,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:
 <p>Maintenant qu&rsquo;il y a la <a href="http://h-deb.clg.qc.ca/Sujets/Divers--cplusplus/Mouvement.html">sémantique de déplacement</a>, les copies sont préférées quand une fonction recevant le paramètre va, quoi qu&rsquo;il arrive, le copier dans une variable membre. Premièrement parce que l&rsquo;utilisateur pourra faire un <code>std::move</code> de sa variable pour s&rsquo;en &ldquo;débarrasser&rdquo; car il n&rsquo;en a plus besoin. Deuxièmement parce que la fonction a besoin d&rsquo;une copie et le compilateur le fera pour nous.</p>
 <p>En comparaison avec une copie sur le <code>std::vector</code>, le move-constructor et le move-assignment sont extrêmement rapide: 3 affections de pointeur pour chaque vecteur.</p>
 <p>Par exemple avec cette base:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="k">using</span> <span class="n">vector_int_t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
@@ -281,20 +281,20 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:
   <span class="p">{}</span>
 <span class="p">};</span>
 </code></pre></div><p>Le code suivant fait 2 allocations (comme avec les références constantes)</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
 <span class="n">A</span> <span class="nf">a</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
 </code></pre></div><p>Alors que celui-ci qu&rsquo;une seule</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
 <span class="n">A</span> <span class="nf">a</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
 <span class="c1">// c.size() == 0;
 </span></code></pre></div><p>Et ce dernier aussi</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="p">(</span><span class="n">vector_int_t</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">});</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="p">(</span><span class="n">vector_int_t</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">});</span>
 <span class="c1">// ou A({1 ,2});
 </span></code></pre></div><p>Mais si le type ne possède pas de constructeur de déplacement, celui de copie sera utilisé et alors une référence constante est probablement mieux.</p>
 <a class="headline-hash" href="#quand-la-copie-se-fait-sous-condition"><h2 id="quand-la-copie-se-fait-sous-condition">Quand la copie se fait sous condition</h2></a>
 <p>Il existe des paramètres pouvant être copiés, mais pas toujours. Dans ce cas, bien que la référence constante reste une bonne solution, une version prenant aussi une temporaire (rvalue ici) est probablement mieux. Mais si les types ne sont pas abstraits (comprendre full template) alors il faudra faire 2 versions: une avec rvalue et une avec constref. Ce qui se traduit, quand le code est un peu long, par l&rsquo;ajout d&rsquo;une fonction de prédicat ou une version template privée appelé par les 2 autres.</p>
 <p>Les <code>&amp;&amp;</code> sur les types full templates ont 2 états possibles: rvalue ou lvalue (<a href="http://en.cppreference.com/w/cpp/language/value_category">catégorie de valeurs</a>).</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Foo</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Foo</span> <span class="p">{</span>
   <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
   <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">));</span> <span class="p">}</span>
 
@@ -312,7 +312,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:
   <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
 <span class="p">};</span>
 </code></pre></div><p>Ou</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Bar</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Bar</span> <span class="p">{</span>
   <span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="n">str</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
   <span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="n">str</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
 
@@ -342,7 +342,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:
 <p>J&rsquo;entends par observer les variables qui sont gardées en lecture dans le but de vérifier leur état à un instant t.</p>
 <p>Les références constantes peuvent être des temporaires à leur construction (Jusque-là c&rsquo;est défini par la norme: prolongement de la durée de vie d&rsquo;une temporaire). Le problème vient du déplacement vers un scope parent. La valeur temporaire est détruite, mais la référence est gardée ; référence sur une valeur qui n&rsquo;existe plus. Cela débouche sur un comportement indéfini et, dans le meilleurs des cas, un segfault.</p>
 <p><a href="http://blog.developpez.com/gpu/?p=309">Un article qui présente une situation similaire avec une lambda retournant T à travers <code>std::function&lt;const T&amp;&gt;</code>.</a></p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="k">struct</span> <span class="nc">Validate</span>
@@ -361,7 +361,7 @@ Tout d&rsquo;abord, décomposons cette question en 2 parties:
 <span class="p">}</span>
 </code></pre></div><p>(Moi j&rsquo;ai un segfault)</p>
 <p>Pour limiter ce bug, il faut empêcher de prendre une rvalue. Soit avec les constucteurs suivants:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Validate</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="o">=</span><span class="k">delete</span><span class="p">;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Validate</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="o">=</span><span class="k">delete</span><span class="p">;</span>
 <span class="n">Validate</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">s</span><span class="p">(</span><span class="n">s</span><span class="p">){}</span>
 </code></pre></div><p>Soit en utilisant <a href="http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper">std::reference_wrapper</a> (et <a href="http://en.cppreference.com/w/cpp/utility/functional/ref">std::cref</a>).</p>
 <p>Ou, peut-être mieux, faire un objet <code>observable</code> tout pareil que <code>std::reference_wrapper</code>, mais avec constructeur explicite. L&rsquo;intérêt d&rsquo;utiliser l&rsquo;un des 2 objets cités et de focaliser l&rsquo;utilisateur sur l&rsquo;aspect &ldquo;j&rsquo;ai besoin que cette variable vive au moins aussi longtemps que moi&rdquo;.</p>

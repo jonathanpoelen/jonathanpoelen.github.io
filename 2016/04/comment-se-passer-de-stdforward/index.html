@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comment se passer de std::forward</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -209,7 +209,7 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
 <p>C&rsquo;est d&rsquo;ailleurs la raison de ce billet, puisque bien sûr, j&rsquo;en ai oubliés.</p>
 <p>Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence. Comme l&rsquo;objet créé a pleinement connaissance du type de variable qu&rsquo;il contient et que traverser une chaîne de fonctions ne fait pas disparaître cette information, il n&rsquo;y a plus besoin de std::forward. Le dernier maillon peut alors extraire une lvalue ou une rvalue via &ndash;par exemple&ndash; une fonction <code>get()</code>.</p>
 <p>Pour illustrer, voilà ce que cela donne:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">forwarder</span>
 <span class="p">{</span>
   <span class="c1">// reference collapsing:

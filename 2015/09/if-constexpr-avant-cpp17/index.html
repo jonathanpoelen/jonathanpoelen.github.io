@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>if constexpr avant C&#43;&#43;17</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -228,13 +228,13 @@ Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
 <li>fonction membre + objet + paramètres</li>
 <li>fonction membre + pointeur d&rsquo;objet + paramètres</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// x et y sont des std::string
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// x et y sont des std::string
 </span><span class="c1"></span><span class="n">invoke</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">equal_to</span><span class="o">&lt;&gt;</span><span class="p">{},</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// foncteur
 </span><span class="c1"></span><span class="n">invoke</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">size</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// fonction membre et référence
 </span><span class="c1"></span><span class="n">invoke</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">size</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// fonction membre et pointeur
 </span></code></pre></div><p>En C++17, tout peut se faire en une seule fonction, alors qu&rsquo;avant C++17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec <code>std::enable_if</code>.</p>
 <a class="headline-hash" href="#implémentation-avec-if-constexpr"><h2 id="implémentation-avec-if-constexpr">Implémentation avec if constexpr</h2></a>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
 <span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="n">invoke</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_member_function_pointer</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;&gt;::</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
@@ -258,7 +258,7 @@ Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
 </code></pre></div><a class="headline-hash" href="#simulation-de-if-constexpr-en-pre-c17"><h2 id="simulation-de-if-constexpr-en-pre-c17">Simulation de if constexpr en pre-C++17</h2></a>
 <p>L&rsquo;atout principal de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="k">constexpr</span></code></span> ici est de n&rsquo;évaluer le code qu&rsquo;au besoin. Il faut donc un moyen de court-circuiter le flux de code. Le plus simple consiste à faire 2 fonctions, une avec un paramètre de type <code>std::true_type</code>, l&rsquo;autre avec un <code>std::false_type</code> qui représente le résultat de la condition et 2 paramètres: <code>If</code> et <code>Else</code>.</p>
 <p>Aussi, pour que les foncteurs <code>If</code> et <code>Else</code> soient évalués au dernier moment, ils devront prendre et utiliser un paramètre générique (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">auto</span></code></span>). Sinon le compilateur va vérifier le code au moment de l&rsquo;instanciation de la lambda plutôt qu&rsquo;au moment de son utilisation.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Identity</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Identity</span>
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="k">decltype</span><span class="p">(</span><span class="k">auto</span><span class="p">)</span> <span class="k">operator</span><span class="p">()(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="k">const</span> <span class="k">noexcept</span>

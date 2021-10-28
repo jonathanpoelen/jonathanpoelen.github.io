@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Appel conditionnel de fonction selon la validité d&#39;une expression</title>
-<meta name="generator" content="Hugo 0.83.1" />
+<meta name="generator" content="Hugo 0.88.1" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -219,7 +219,7 @@ Appeler T::sort si possible, sinon std::sort(begin(T), end(T)) L&rsquo;exemple v
 <p>La méthode est simple et consiste à créer 2 fonctions: une pour vérifier si une expression est valide (ici <code>x.sort()</code>) et une autre en cas d&rsquo;échec.</p>
 <p>Seulement, qui dit 2 fonctions dit 2 prototypes. Leur prototype doit être légèrement différent mais compatible avec les mêmes valeurs d&rsquo;entrée pour appeler la seconde si la première échoue (principe du <a href="http://en.cppreference.com/w/cpp/language/sfinae">SFINAE</a>).</p>
 <p>Pour vérifier l&rsquo;expression, seuls 2 mots clef existent: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span></code></span>. Cette procédure est donc possible avant C++11, même si <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span></code></span> requière un peu d&rsquo;enrobage.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">//avec decltype
 </span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Container</span><span class="o">&gt;</span>
@@ -242,7 +242,7 @@ Appeler T::sort si possible, sinon std::sort(begin(T), end(T)) L&rsquo;exemple v
 <p>Si une fonction membre <code>sort</code> existe, alors l&rsquo;expression dans <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span></code></span> est valide et la fonction appelé. Dans le cas contraire, le compilateur cherche une fonction avec des paramètres pouvant être compatibles. Le <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span></code></span> pouvant être converti en <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">unsigned</span></code></span>, le compilateur se rabat sur le second prototype qui fait appel à <code>std::sort</code>.</p>
 <p>Le point clef étant de mettre toutes les informations dans le prototype. J&rsquo;aurais par exemple pu mettre <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span></code></span> dans un paramètre initialisé avec une valeur par défaut (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">f</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="k">decltype</span><span class="p">(</span><span class="n">xxx</span><span class="p">)</span><span class="o">*</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span></code></span>, mais il faudra probablement ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">remove_reference</span></code></span> car un pointeur sur une référence n&rsquo;est pas permis).</p>
 <a class="headline-hash" href="#programme-de-test"><h2 id="programme-de-test">Programme de test</h2></a>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
 </span><span class="cp">#include</span> <span class="cpf">&lt;list&gt;</span><span class="cp">
 </span><span class="cp"></span>
@@ -259,11 +259,11 @@ Appeler T::sort si possible, sinon std::sort(begin(T), end(T)) L&rsquo;exemple v
   <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">i</span> <span class="p">:</span> <span class="n">l</span><span class="p">)</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div><p>Résultats:</p>
-<div class="highlight-nocode"><pre class="chroma-nocode"><code>2 4 6
+<div class="highlight-nocode"><pre tabindex="0" class="chroma-nocode"><code>2 4 6
 2 4 6
 </code></pre></div><a class="headline-hash" href="#implémentation-avec-sizeof-pre-c11"><h2 id="implémentation-avec-sizeof-pre-c11">implémentation avec sizeof (pre-C++11)</h2></a>
 <p>J&rsquo;ai indiqué qu&rsquo;il été possible d&rsquo;utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span></code></span> à la place de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">decltype</span></code></span>. Voici comment:</p>
-<div class="highlight"><pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">dispatch_result_type</span>
 <span class="p">{</span> <span class="k">typedef</span> <span class="n">T</span> <span class="n">type</span><span class="p">;</span> <span class="p">};</span>
 
