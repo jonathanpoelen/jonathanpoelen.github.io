@@ -1,3 +1,3 @@
-<span class="inlinecode highlight">{{- if len .Params | eq 1 }}{{- safeHTML (replaceRE "^.{43}|.{12}$" "" (highlight .Inner (.Get 0) "")) }}
-{{- else }}{{- safeHTML (replaceRE "^.{43}|.{12}$" "" (highlight (.Get 1) (.Get 0) "")) }}
+<span class="inlinecode highlight">{{- if len .Params | eq 1 }}{{- safeHTML (replaceRE "^.{56}|.{12}$" "" (highlight .Inner (.Get 0) "")) }}
+{{- else }}{{- safeHTML (replaceRE "^.{56}|.{12}$" "" (highlight (.Get 1) (.Get 0) "")) }}
 {{- end }}</span>
