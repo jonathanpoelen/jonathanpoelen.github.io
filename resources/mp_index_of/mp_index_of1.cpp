@@ -11,12 +11,14 @@ namespace recursive_ternary
 namespace detail
 {
   template<class T, class... Ts>
-  struct _index_of : std::integral_constant<int, 1> {};
+  struct _index_of : std::integral_constant<int, 1>
+  {};
 
   template<class T, class First, class... Rest>
   struct _index_of<T, First, Rest...>
   : std::integral_constant<int, std::is_same_v<T, First>
-    ? 0 : _index_of<T, Rest...>::value + 1> {};
+    ? 0 : _index_of<T, Rest...>::value + 1>
+  {};
 }
 
 template<class T, class... Ts>
@@ -33,15 +35,19 @@ namespace recursive_indexed
 namespace detail
 {
   template<int i, class T, class... Ts>
-  struct _index_of : std::integral_constant<int, -1> {};
+  struct _index_of
+  : std::integral_constant<int, -1>
+  {};
 
   template<int i, class T, class First, class... Rest>
   struct _index_of<i, T, First, Rest...>
-  : _index_of<i+1, T, Rest...> {};
+  : _index_of<i+1, T, Rest...>
+  {};
 
   template<int i, class T, class... Rest>
   struct _index_of<i, T, T, Rest...>
-  : std::integral_constant<int, i> {};
+  : std::integral_constant<int, i>
+  {};
 }
 
 template<class T, class... Ts>
@@ -56,15 +62,19 @@ namespace recursive
 namespace detail
 {
   template<class T, class... Ts>
-  struct _index_of : std::integral_constant<int, 1> {};
+  struct _index_of
+  : std::integral_constant<int, 1>
+  {};
 
   template<class T, class First, class... Rest>
   struct _index_of<T, First, Rest...>
-  : std::integral_constant<int, 1+_index_of<T, Rest...>::value> {};
+  : std::integral_constant<int, 1+_index_of<T, Rest...>::value>
+  {};
 
   template<class T, class... Rest>
   struct _index_of<T, T, Rest...>
-  : std::integral_constant<int, 0> {};
+  : std::integral_constant<int, 0>
+  {};
 }
 
 template<class T, class... Ts>
@@ -79,7 +89,10 @@ using mp_index_of = std::integral_constant<int,
 namespace recursive_bool
 {
 template<class T, class... Ts>
-using mp_index_of = recursive::mp_index_of<std::true_type, typename std::is_same<T, Ts>::type...>;
+using mp_index_of = recursive::mp_index_of<
+  std::true_type,
+  typename std::is_same<T, Ts>::type...
+>;
 }
 //END recursive_bool
 
@@ -88,7 +101,10 @@ using mp_index_of = recursive::mp_index_of<std::true_type, typename std::is_same
 namespace recursive_bool_ternary
 {
 template<class T, class... Ts>
-using mp_index_of = recursive_ternary::mp_index_of<std::true_type, typename std::is_same<T, Ts>::type...>;
+using mp_index_of = recursive_ternary::mp_index_of<
+  std::true_type,
+  typename std::is_same<T, Ts>::type...
+>;
 }
 //END recursive_bool_ternary
 
@@ -105,13 +121,16 @@ namespace detail
 
   template<class... Rest>
   struct _index_of<std::true_type, Rest...>
-  : std::integral_constant<int, 0> {};
+  : std::integral_constant<int, 0>
+  {};
 }
 
 template<class T, class... Ts>
 using mp_index_of = std::integral_constant<int,
-  (detail::_index_of<typename std::is_same<T, Ts>::type..., std::true_type>::value >= sizeof...(Ts))
-    ? -1 : detail::_index_of<typename std::is_same<T, Ts>::type..., std::true_type>::value>;
+  (detail::_index_of<typename std::is_same<T, Ts>::type...,
+                     std::true_type>::value >= sizeof...(Ts))
+    ? -1 : detail::_index_of<typename std::is_same<T, Ts>::type...,
+                             std::true_type>::value>;
 }
 //END recursive_bool2
 
@@ -127,7 +146,8 @@ namespace detail
 
   template<bool... Rest>
   struct _index_of<true, Rest...>
-  : std::integral_constant<int, 0> {};
+  : std::integral_constant<int, 0>
+  {};
 }
 
 template<class T, class... Ts>
@@ -163,11 +183,13 @@ namespace detail
                 std::is_same_v<T, U5> ||
                 std::is_same_v<T, U6> ||
                 std::is_same_v<T, U7>
-    , T, Rest...>::value> {};
+    , T, Rest...>::value>
+  {};
 
   template<class T, class U0, class U1, class U2, class U3, class U4, class U5, class U6, class U7, class... Rest>
   struct _index_of<true, T, U0, U1, U2, U3, U4, U5, U6, U7, Rest...>
-  : std::integral_constant<int, 0> {};
+  : std::integral_constant<int, 0>
+  {};
 
   template<class T, class U0, class U1, class U2, class U3, class U4, class U5, class U6, class U7>
   struct _index_of<false, T, U0, U1, U2, U3, U4, U5, U6, U7>
@@ -178,7 +200,8 @@ namespace detail
                                 std::is_same_v<T, U4> ? 4 :
                                 std::is_same_v<T, U5> ? 5 :
                                 std::is_same_v<T, U6> ? 6 :
-                                std::is_same_v<T, U7> ? 7 : 8> {};
+                                std::is_same_v<T, U7> ? 7 : 8>
+  {};
 }
 
 template<class T, class... Ts>
@@ -216,11 +239,13 @@ namespace detail
                 U5::value ||
                 U6::value ||
                 U7::value
-    , Rest...>::value> {};
+    , Rest...>::value>
+  {};
 
   template<class U0, class U1, class U2, class U3, class U4, class U5, class U6, class U7, class... Rest>
   struct _index_of<true, U0, U1, U2, U3, U4, U5, U6, U7, Rest...>
-  : std::integral_constant<int, 0> {};
+  : std::integral_constant<int, 0>
+  {};
 }
 
 template<class T, class... Ts>
@@ -258,11 +283,13 @@ namespace detail
                                              U5::value ||
                                              U6::value ||
                                              U7::value>
-    , Rest...>::value> {};
+    , Rest...>::value>
+  {};
 
   template<class U0, class U1, class U2, class U3, class U4, class U5, class U6, class U7, class... Rest>
   struct _index_of<std::true_type, U0, U1, U2, U3, U4, U5, U6, U7, Rest...>
-  : std::integral_constant<int, 0> {};
+  : std::integral_constant<int, 0>
+  {};
 }
 
 template<class T, class... Ts>
@@ -321,7 +348,8 @@ namespace detail
                                  || std::is_same<T, U5>::value
                                  || std::is_same<T, U6>::value
                                  || std::is_same<T, U7>::value
-  >::template type<T, U0, U1, U2, U3, U4, U5, U6, U7, Rest...> {};
+  >::template type<T, U0, U1, U2, U3, U4, U5, U6, U7, Rest...>
+  {};
 }
 
 
@@ -383,7 +411,8 @@ namespace detail
                                  || U5::value
                                  || U6::value
                                  || U7::value
-  >::template type<U0, U1, U2, U3, U4, U5, U6, U7, Rest...> {};
+  >::template type<U0, U1, U2, U3, U4, U5, U6, U7, Rest...>
+  {};
 }
 
 
@@ -505,7 +534,8 @@ namespace detail
         >...,
         list<std::integral_constant<int, -1>>
       >::type
-    > {};
+    >
+  {};
 }
 
 template<class T, class... Ts>
