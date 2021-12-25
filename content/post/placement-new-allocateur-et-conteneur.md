@@ -23,7 +23,7 @@ Ou pas. Car {{<hi cpp "new"/>}} est un opérateur surchargeable qui prend des pa
 Machin* machin = new (std::nothrow) Machin(/*params...*/);
 ```
 
-Voici ce qui clôt l'utilisation courante et voyons comment faire chaque étape séparement.
+Voici ce qui clôt l'utilisation courante et voyons comment faire chaque étape séparément.
 
 
 ## Allouer de la mémoire
