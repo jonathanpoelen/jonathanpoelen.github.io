@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.88.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.89.4" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -77,12 +77,12 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2021/12/les-operateurs-new-et-delete/">Les opérateurs new et delete</a></li>
       <li class="widget__item"><a class="widget__link" href="/2021/05/la-semantique-de-deplacement/">La sémantique de déplacement</a></li>
       <li class="widget__item"><a class="widget__link" href="/2020/04/sfinae/">SFINAE</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">36 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">37 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -106,7 +106,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (27)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (28)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/script-shell/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -166,6 +166,423 @@
 </aside>
 
   <main class="main-content list content" role="main" id="main-content">
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="au-c%C5%93ur-dun-variant"><span>
+        <a href="#comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Comparaison de différentes implémentations de mp_index_of"></i></a>
+        <a href="#faites-parler-votre-compilateur"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Faites parler votre compilateur"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/">Au cœur d&#39;un variant</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of">Article suivant: Comparaison de différentes implémentations de mp_index_of</a><br/>
+        <a href="#faites-parler-votre-compilateur">Article précédent: Faites parler votre compilateur</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2018-09-02T14:45:55">02 septembre 2018
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>9 minutes ;
+  <a href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#dc9b2e982ad7fe0bb2aca98f8a852275-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p>Cet article va être consacré à la réalisation d&rsquo;une classe variant comme on peut la trouver dans la <a href="http://en.cppreference.com/w/cpp/utility/variant">STL</a>, <a href="http://en.cppreference.com/w/cpp/utility/variant">boost</a> et <a href="https://github.com/mapbox/variant">autres</a>. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&rsquo;exécution. Je vais faire un petit tour de ce que j&rsquo;ai pu voir et comment les implémenter.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#rappel-sur-ce-quest-un-variant"><h2 id="rappel-sur-ce-quest-un-variant">Rappel sur ce qu&rsquo;est un variant</h2></a>
+<p>Un variant est une <strong>union sécurisée</strong> comme on peut le trouver dans les langages fonctionnels.
+Contrairement aux <a href="http://en.cppreference.com/w/cpp/language/union">union</a> classique du C++, le variant garde l&rsquo;information du type manipulé.
+C&rsquo;est en cela qu&rsquo;il est sécurisé, on ne sélectionne pas une valeur d&rsquo;un certain type,
+mais on fournit une fonction que le variant appelle avec le type enregistré.</p>
+<p>Même si le variant peut aisément remplacer l&rsquo;héritage lorsque le nombre de classe dérivée est connue,
+il est beaucoup plus adapté lorsque les valeurs priment sur les comportements.
+Par exemple, une valeur d&rsquo;une structure JSON représente un nombre, un tableau, une chaîne de caractères ou un objet.
+Il n&rsquo;y a pas de comportement commun, les traitements se feront en fonction du type de la valeur.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#un-premier-variant"><h2 id="un-premier-variant">Un premier variant</h2></a>
+<p>Notre version minimale de variant va contenir:</p>
+<ul>
+<li>Les constructeurs par défaut, de copie et de déplacement.</li>
+<li>Un constructeur pour initialiser avec un type de la liste.</li>
+<li>Les opérateurs d&rsquo;affectation correspondant aux constructeurs.</li>
+<li>Une fonction <code>visit</code> (en membre, pour des raisons de simplification).</li>
+</ul>
+
+<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> <p>L&rsquo;implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l&rsquo;exemple à ne pas suivre.
+Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l'<em>idéal</em> du variant.</p>
+</p></div>
+
+<p>Comme le type change en cours de route, nous allons utiliser en interne une classe de base qui pour chaque dérivée va contenir le type réel.
+Grâce à cela, le type stocké pourra être supprimé et un nouveau type pourra y être enregistré.
+Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de copie via une fonction <code>clone</code>.</p>
+
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="nc">VariantBase</span>
+  <span class="p">{</span>
+    <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">VariantBase</span><span class="o">&gt;</span> <span class="n">clone</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="o">~</span><span class="n">VariantBase</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">Variant</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">Variant</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+  <span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+  <span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="n">Variant</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">);</span>
+
+  <span class="n">Variant</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Variant</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+  <span class="n">Variant</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="n">Variant</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">);</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="o">&gt;</span>
+  <span class="k">auto</span> <span class="n">visit</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span><span class="p">);</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">VariantBase</span><span class="o">&gt;</span> <span class="n">impl_</span><span class="p">;</span>
+<span class="p">};</span></code></pre></div>
+
+<p>Pour ne pas parasiter les codes, je n&rsquo;ajoute pas les noexcept. De toute façon, avec les allocations dynamiques, cela ne va pas être évident.</p>
+<p>Toute la difficulté va se trouver dans les implémentations de <code>VariantBase</code> et la fonction <code>visit</code>. Pour en faire une dérivée, un pattern assez commun va être utilisé, celui d&rsquo;avoir une classe <code>VariantImpl</code> template sur le type à stocker.</p>
+
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">VariantImpl</span> <span class="o">:</span> <span class="n">VariantBase</span>
+  <span class="p">{</span>
+    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
+    <span class="n">VariantImpl</span><span class="p">(</span><span class="n">U</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
+    <span class="o">:</span> <span class="n">value_</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="p">{}</span>
+
+    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">VariantBase</span><span class="o">&gt;</span> <span class="n">clone</span><span class="p">()</span> <span class="k">override</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">VariantImpl</span><span class="o">&gt;</span><span class="p">(</span><span class="n">value_</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">T</span> <span class="n">value_</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">auto</span> <span class="n">make_variant_impl</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">VariantImpl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
+<span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">impl_</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">())</span>
+<span class="p">{}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
+<span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<span class="p">{}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">impl_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">impl_</span> <span class="o">?</span> <span class="n">other</span><span class="p">.</span><span class="n">impl_</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">()</span> <span class="o">:</span> <span class="k">nullptr</span><span class="p">;</span>
+  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">impl_</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<p>En réalité ce qu&rsquo;on vient de faire ici n&rsquo;est ni plus ni moins qu&rsquo;un <code>std::any</code>. Si on réfléchit bien, nous ne sommes pas limités dans les types à stocker et il n&rsquo;y a aucune vérification au niveau de l&rsquo;initialisation d&rsquo;une valeur. C&rsquo;est mal, mais on va rester comme cela pour le moment.</p>
+<p>Reste ensuite la fonction <code>visit</code>. À ce stade, je dirais que la solution la plus naturelle est d&rsquo;utiliser <code>dynamic_cast</code> pour déterminer le type réel et appeler la bonne surcharge de fonction.</p>
+
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="o">&gt;</span>
+<span class="k">auto</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">visit</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">impl_</span><span class="p">);</span>
+  <span class="k">auto</span> <span class="n">visit_impl</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">auto</span> <span class="n">rec</span><span class="p">,</span> <span class="k">auto</span><span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="k">auto</span><span class="o">*</span><span class="p">...</span> <span class="n">ts</span><span class="p">){</span>
+    <span class="k">using</span> <span class="n">Impl</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">VariantImpl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">ts</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">auto</span><span class="o">*</span> <span class="n">impl</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
+      <span class="k">return</span> <span class="n">impl</span> <span class="o">?</span> <span class="n">f</span><span class="p">(</span><span class="n">impl</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">)</span> <span class="o">:</span> <span class="n">rec</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">ts</span><span class="p">...);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">rec</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nf">f</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="nf">visit_impl</span><span class="p">(</span><span class="n">visit_impl</span><span class="p">,</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)...);</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Cette implémentation parcourt récursivement les types du variant pour trouver celui qui correspond à la valeur de <code>impl_</code>, appel <code>f</code> avec le bon type puis propage son retour en remontant la pile d&rsquo;appel.
+Le dernier élément est un cas spécial traité dans le <code>else</code> car, quand on le compare avec <code>dynamic_cast</code>, le résultat est toujours vrai.
+Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre restreint de types, si la valeur de <code>impl_</code> ne correspond pas aux types qui précèdent le dernier, alors <code>impl_</code> est forcément du type du dernier élément.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#moi-jaime-pas-dynamic_cast"><h2 id="moi-jaime-pas-dynamic_cast">Moi j&rsquo;aime pas dynamic_cast</h2></a>
+<p><code>dynamic_cast</code> est souvent un signe révélateur d&rsquo;un problème de conception. Si on abstrait les valeurs, c&rsquo;est dans le but de ne pas se soucier du type de l&rsquo;implémentation. Or, un variant met le focus sur le type et rend caduque cette abstraction. Seulement, <code>dynamic_cast</code> a un coût d&rsquo;exécution exorbitant par rapport à la tâche qu&rsquo;il effectue ici.</p>
+<p>De ce fait, <code>dynamic_cast</code> n&rsquo;est pas une bonne solution, il est plus judicieux de conserver une information pour différencier les types. Comme un variant contient une liste d&rsquo;éléments, l&rsquo;indice du type utilisé suffit amplement.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Variant</span>
+<span class="p">{</span>
+  <span class="c1">// ...
+</span><span class="c1"></span><span class="k">private</span><span class="o">:</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">VariantBase</span><span class="o">&gt;</span> <span class="n">impl_</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">type_index_</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>Maintenant, il faut convertir un type en indice, c&rsquo;est à ce moment que la méta-programmation arrive à la rescousse.</p>
+
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;type_traits&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">count_items_to_right_of</span><span class="p">;</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Us</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">Us</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Us</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="p">{};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Us</span><span class="o">&gt;</span>
+  <span class="k">struct</span> <span class="nc">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Us</span><span class="p">...</span><span class="o">&gt;</span>
+  <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Us</span><span class="p">)</span><span class="o">&gt;</span>
+  <span class="p">{};</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span>
+  <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span> <span class="o">-</span> <span class="n">detail</span><span class="o">::</span><span class="n">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="o">&gt;</span><span class="p">;</span></code></pre></div>
+
+<p><code>mp_index_of</code> est un alias sur <code>std::integral_constant</code>. L&rsquo;implémentation déroule récursivement les éléments de <code>Ts</code> jusqu&rsquo;à trouver <code>T</code> et retourne le nombre d&rsquo;éléments qu&rsquo;il reste dans la liste. Soustraire ce résultat à <code>sizeof...(Ts) - 1</code> permet d&rsquo;avoir la position de <code>T</code>.</p>
+<p>On met à jour l&rsquo;implémentation pour initialiser le nouveau membre.</p>
+
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
+<span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">impl_</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">())</span>
+<span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">type_index_</span><span class="p">)</span> <span class="c1">// ici
+</span><span class="c1"></span><span class="p">{}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
+<span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span> <span class="c1">// là
+</span><span class="c1"></span><span class="p">{}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">impl_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">impl_</span> <span class="o">?</span> <span class="n">other</span><span class="p">.</span><span class="n">impl_</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">()</span> <span class="o">:</span> <span class="k">nullptr</span><span class="p">;</span>
+  <span class="n">type_index_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">type_index_</span><span class="p">;</span> <span class="c1">// ici aussi
+</span><span class="c1"></span>  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">impl_</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
+  <span class="n">type_index_</span> <span class="o">=</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span> <span class="c1">// et là
+</span><span class="c1"></span>  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Puis on supprime <code>dynamic_cast</code> de la fonction <code>visit</code>, le remplaçant par une comparaison d&rsquo;index.</p>
+
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="o">&gt;</span>
+<span class="k">auto</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">visit</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">assert</span><span class="p">(</span><span class="n">impl_</span><span class="p">);</span>
+  <span class="k">auto</span> <span class="n">visit_impl</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">auto</span> <span class="n">rec</span><span class="p">,</span> <span class="k">auto</span><span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="k">auto</span><span class="o">*</span><span class="p">...</span> <span class="n">ts</span><span class="p">){</span>
+    <span class="k">using</span> <span class="n">T</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="k">using</span> <span class="n">Impl</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">VariantImpl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">ts</span><span class="p">))</span> <span class="p">{</span>
+      <span class="c1">// plus de dynamic_cast, mais une comparaison d&#39;entier + static_cast
+</span><span class="c1"></span>      <span class="k">return</span> <span class="n">type_index_</span> <span class="o">==</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span>
+        <span class="o">?</span> <span class="n">f</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">)</span>
+        <span class="o">:</span> <span class="n">rec</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">ts</span><span class="p">...);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">rec</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nf">f</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="nf">visit_impl</span><span class="p">(</span><span class="n">visit_impl</span><span class="p">,</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)...);</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Peu de changement finalement, mais maintenant <code>variant</code> peut fonctionner sans support de <a href="https://fr.wikipedia.org/wiki/Run-time_type_information">RTTI</a> !</p>
+<p>On notera aussi que puisque nous possédons l&rsquo;indice lié au type, on peut aussi remplacer les fonctions virtuelles par un appel à <code>visit</code> pour supprimer la vtable et enlever l&rsquo;indirection pour accéder aux fonctions virtuelles dans celle-ci.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#lallocation-dynamique-nest-pas-gratuite"><h2 id="lallocation-dynamique-nest-pas-gratuite">L&rsquo;allocation dynamique n&rsquo;est pas gratuite</h2></a>
+<p>Il est vrai que l&rsquo;allocation dynamique a un coût non négligeable sur les performances. Personne n&rsquo;a idée de faire <code>new int</code> alors qu&rsquo;en regardant de plus près, c&rsquo;est exactement ce que fait notre implémentation. Vient ensuite les déréférencements de pointeur qui font sauter des optimisations. Effet amplifié lorsque les fonctions sont <code>virtual</code>. Décidément, l&rsquo;allocation dynamique pour un variant n&rsquo;est pas une bonne idée.</p>
+<p>Le mieux serait de stocker nos types de la même manière qu&rsquo;une union: un seul bloc mémoire de la taille du type le plus grand. À ma connaissance il existe 2 possibilités:</p>
+<ul>
+<li>une union récursive</li>
+<li><a href="http://en.cppreference.com/w/cpp/types/aligned_union">std::aligned_union</a></li>
+</ul>
+<p>Pour choisir le procédé le plus efficace, nous implémentons les 2 dans une classe qui ne possède que les fonctions d&rsquo;accès et les constructeurs.</p>
+
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">AlignedStorage</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="n">T</span><span class="o">&amp;</span> <span class="n">get</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">aligned_union_t</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
+<span class="p">};</span></code></pre></div>
+
+<p>Sans les constructeurs, la version avec <code>std::aligned_union</code> est vraiment simple. Mais l&rsquo;utilisation de <code>reinterpret_cast</code> empêche de mettre la fonction <code>get()</code> en <code>constexpr</code> (gcc l&rsquo;accepte néanmoins).</p>
+<p>À contrario, la version avec une union récursive est extrêmement verbeuse (toujours sans constructeur d&rsquo;initialisation de valeur):</p>
+
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="k">union</span> <span class="nc">RecursiveUnion</span>
+  <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">dummy</span><span class="p">;</span>
+    <span class="n">T</span> <span class="n">value</span><span class="p">;</span>
+    <span class="n">RecursiveUnion</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span> <span class="n">others</span><span class="p">;</span>
+
+    <span class="n">RecursiveUnion</span><span class="p">()</span> <span class="o">:</span> <span class="n">dummy</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="o">~</span><span class="n">RecursiveUnion</span><span class="p">(){}</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="k">union</span> <span class="nc">RecursiveUnion</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+  <span class="p">{</span>
+    <span class="kt">char</span> <span class="n">dummy</span><span class="p">;</span>
+    <span class="n">T</span> <span class="n">value</span><span class="p">;</span>
+
+    <span class="n">RecursiveUnion</span><span class="p">()</span> <span class="o">:</span> <span class="n">dummy</span><span class="p">()</span> <span class="p">{}</span>
+    <span class="o">~</span><span class="n">RecursiveUnion</span><span class="p">(){}</span>
+  <span class="p">};</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+  <span class="n">T</span><span class="o">&amp;</span> <span class="n">get</span><span class="p">(</span><span class="n">RecursiveUnion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">u</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">u</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
+  <span class="n">T</span><span class="o">&amp;</span> <span class="n">get</span><span class="p">(</span><span class="n">U</span><span class="o">&amp;</span> <span class="n">u</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">get</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">others</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">UnionStorage</span>
+<span class="p">{</span>
+  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+  <span class="n">T</span><span class="o">&amp;</span> <span class="n">get</span><span class="p">()</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="n">detail</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+  <span class="p">}</span>
+
+<span class="k">private</span><span class="o">:</span>
+
+  <span class="n">detail</span><span class="o">::</span><span class="n">RecursiveUnion</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
+<span class="p">};</span></code></pre></div>
+
+<p>Si on regarde <a href="https://godbolt.org/g/xu9fwh">l&rsquo;assembleur</a>, il s&rsquo;avère que les 2 versions sont exactement les mêmes.</p>
+<p>Pour initialiser l&rsquo;objet avec une valeur, la version avec <code>std::aligned_union</code> doit utiliser un <a href="http://en.cppreference.com/w/cpp/language/new">placement new</a> qui empêche de rendre le constructeur <code>constexpr</code>. Ce qui par la même occasion s&rsquo;applique aussi au variant. Sans compter le problème du <code>reinterpret_cast</code> dans la fonction <code>get()</code>. Du coup, bien que cette version soit plus simple et que je ne mette pas <code>constexpr</code>, l&rsquo;union récursive est préférable.</p>
+
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// std::in_place_index_t
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="nc">in_place_index_t</span>
+<span class="p">{</span>
+  <span class="k">explicit</span> <span class="nf">in_place_index_t</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+<span class="p">};</span></code></pre></div>
+
+<p>(<code>RecursiveUnion</code> devient <code>VariadicUnion</code>)</p>
+
+<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp">    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
+    <span class="n">VariadicUnion</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">U</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
+    <span class="o">:</span> <span class="n">value</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="p">{}</span>
+
+    <span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">I</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
+    <span class="n">VariadicUnion</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">U</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
+    <span class="o">:</span> <span class="n">others</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="p">{}</span></code></pre></div>
+
+<p>Puis on adapte les fonctions de <code>Variant</code>.
+Le code final est plutôt gros alors je ne mets <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/cpp_variant/variant3.cpp#l157">que le lien</a>
+.</p>
+<p>Pour éviter une condition particulière dans le code, l&rsquo;union possède un membre supplémentaire: <code>Uninit</code>, utilisé par <code>init</code>, <code>copy</code> et <code>destroy</code> pour représenter un variant sans valeur.</p>
+<p>Il y a aussi une condition dans <code>operator=</code> pour choisir entre la fonction <code>copy</code> si les 2 éléments sont du même type ou les fonctions <code>destroy</code>+<code>init</code> dans le cas contraire. Cette condition peut être supprimée si:</p>
+<ul>
+<li>Tous les éléments ont un destructeur trivial: il n&rsquo;y a pas besoin de faire <code>destroy</code>+<code>init</code>.</li>
+<li>La fonction <code>visit</code> peut prendre plusieurs variants en paramètre pour faire un switch allant de 0 à <code>(sizeof...(Ts) + 1) * (sizeof...(Ts) + 1)</code>.</li>
+</ul>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#mot-de-la-fin"><h2 id="mot-de-la-fin">Mot de la fin</h2></a>
+<p>Bien que le variant actuel soit incomplet, il est utilisable et proche des implémentations actuelles. Mais il y a plusieurs petits détails qui ne sont pas approfondis ici:</p>
+<ul>
+<li>l&rsquo;optimisation sur la taille de <code>type_index</code>,</li>
+<li>les différents moyens de remplacer une vtable (ici je n&rsquo;utilise que le if/else récursif),</li>
+<li>le coût d&rsquo;utilisation d&rsquo;un objet en fonction de sa nature (par exemple: le compilateur dévirtualise-t-il les fonctions virtuelles venant d&rsquo;un membre de variant ?)</li>
+<li>les variants récursives</li>
+<li>et bien d&rsquo;autres</li>
+</ul>
+<p>Les prochains articles seront davantage axés sur la méta-programmation et indirectement reliés avec certains aspects du variant présentés ici.</p>
+<p>Les sources sont disponibles sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/cpp_variant">github</a>
+.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2018-09-02T14:45:55">02 septembre 2018
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="dc9b2e982ad7fe0bb2aca98f8a852275-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=au-c%25C5%2593ur-dun-variant&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f09%2fau-coeur-dun-variant%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f09%2fau-coeur-dun-variant%2f&amp;title=au-c%25C5%2593ur-dun-variant" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f09%2fau-coeur-dun-variant%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f09%2fau-coeur-dun-variant%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f09%2fau-coeur-dun-variant%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f09%2fau-coeur-dun-variant%2f&amp;name=au-c%25C5%2593ur-dun-variant" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
         
 <article class="post">
   <header class="post__header clearfix">
@@ -1442,119 +1859,16 @@ Mais la véritable limitation réside dans l&rsquo;appel même d&rsquo;une fonct
   </footer>
 </article>
 
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="r%C3%A9duire-lempreinte-m%C3%A9moire-dune-agglom%C3%A9ration-de-types"><span>
-        <a href="#appel-conditionnel-de-fonction-selon-la-validit%25C3%25A9-dune-expression"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Appel conditionnel de fonction selon la validité d&#39;une expression"></i></a>
-        <a href="#256-couleurs-et-plus-dans-la-console"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: 256 couleurs et plus dans la console"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/">Réduire l&#39;empreinte mémoire d&#39;une agglomération de types</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#appel-conditionnel-de-fonction-selon-la-validit%25C3%25A9-dune-expression">Article suivant: Appel conditionnel de fonction selon la validité d&#39;une expression</a><br/>
-        <a href="#256-couleurs-et-plus-dans-la-console">Article précédent: 256 couleurs et plus dans la console</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2014-06-28T14:10:11">28 juin 2014
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>2 minutes ;
-  <a href="https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#07d9fb6ce945d12ea3809b5709e32be9-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-  
-
-</p>
-
-
-  </header>
-  <div class="post__content">
-      <p>Un petit article pour parler d&rsquo;optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr">std::unique_ptr</a>.</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/#implémentation-naïve-de-stdunique_ptr"><h2 id="implémentation-naïve-de-stdunique_ptr">Implémentation naïve de std::unique_ptr</h2></a>
-<p>Pour rappel, <code>std::unique_ptr</code> prend 2 paramètres template: <code>T</code> et <code>Deleter</code> (qui par défaut égal <code>std::default_delete&lt;T&gt;</code>).</p>
-<p>Naïvement, l&rsquo;implémentation serait:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Deleter</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
-<span class="k">class</span> <span class="nc">my_unique_ptr</span> <span class="p">{</span>
-  <span class="n">T</span><span class="o">*</span> <span class="n">m_pointer</span><span class="p">;</span>
-  <span class="n">Deleter</span> <span class="n">m_deleter</span><span class="p">;</span>
-  <span class="c1">// …
-</span><span class="c1"></span><span class="p">};</span>
-</code></pre></div><p>Rien d&rsquo;extraordinaire.</p>
-<p>Cependant, même si <code>Deleter</code> est une classe sans attribut, sa taille est de 1 octet.</p>
-<p>À partir d&rsquo;ici je considère que <code>Deleter</code> est toujours la valeur par défaut, ce qui donne:</p>
-<ul>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="o">*</span><span class="p">)</span></code></span> == 8</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">Deleter</span><span class="p">)</span></code></span> == 1</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></code></span> == 16</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></code></span> == 8</li>
-</ul>
-<p>Ouille, méchant padding, alors que seuls 8 octets sont vraiment utilisés.</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/#comment-fait-la-stl-pour-supprimer-8-octets-"><h2 id="comment-fait-la-stl-pour-supprimer-8-octets-">Comment fait la STL pour &ldquo;supprimer&rdquo; 8 octets ?</h2></a>
-<p>La bibliohèque standard utilise une optimisation surnommée <a href="http://en.cppreference.com/w/cpp/language/ebo">Empty Base Class Optimization (EBCO)</a>.
-Concrètement, cela se traduit par une classe interne qui contient le pointeur et hérite de <code>Deleter</code>. Les attributs de la classe dérivée vont se mettre après ceux de <code>Deleter</code>, et s&rsquo;il n&rsquo;en a pas, ils se positionnent au début de la classe. Grâce à cette astuce, l&rsquo;adresse du premier membre de la classe (ici, le pointeur) se confond avec celle de la classe englobante et parente, éliminant ainsi l&rsquo;espace occupé par <code>Deleter</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Deleter</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
-<span class="k">class</span> <span class="nc">my_unique_ptr</span> <span class="p">{</span>
-  <span class="k">struct</span> <span class="nc">internal</span> <span class="o">:</span> <span class="n">Deleter</span> <span class="p">{</span>
-    <span class="n">T</span><span class="o">*</span> <span class="n">pointeur</span><span class="p">;</span>
-  <span class="p">}</span> <span class="n">m_data</span><span class="p">;</span>
-  <span class="c1">// ...
-</span><span class="c1"></span><span class="p">};</span>
-</code></pre></div><ul>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></code></span> == 8</li>
-</ul>
-<p>Mieux, non ?</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/#et-si-lhéritage-nest-pas-possible-"><h2 id="et-si-lhéritage-nest-pas-possible-">Et si l&rsquo;héritage n&rsquo;est pas possible ?</h2></a>
-<p>Si le Deleter est une référence ou une classe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">final</span></code></span>, l&rsquo;héritage ne fonctionne pas. Il faut se rabattre sur la première forme (celle naïve).
-Avec des traits et un code plus ou moins volumineux, cela est &ldquo;facile&rdquo;.
-Il faut cependant noter que <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_final</span></code></span> n&rsquo;apparaît qu&rsquo;à partir de C++14 et son implémentation n&rsquo;est pas possible en pure C++.
-Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standard.</p>
-<p>Toutefois, la STL possède un conteneur générique qui utilise l&rsquo;EBO si possible: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span></code></span>. Ce qui permet de s&rsquo;affranchir de ces difficultés tout en optimisant l&rsquo;espace mémoire à condition de mettre les types dans l&rsquo;ordre croissant d&rsquo;alignement pour réduire le padding entre les membres lorsqu&rsquo;il y en a plus de 2.</p>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2014-06-28T14:10:11">28 juin 2014
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
- ;
-  
-
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="07d9fb6ce945d12ea3809b5709e32be9-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=r%25C3%25A9duire-lempreinte-m%25C3%25A9moire-dune-agglom%25C3%25A9ration-de-types&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2freduire-lempreinte-memoire-dune-agglomeration-de-types%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2freduire-lempreinte-memoire-dune-agglomeration-de-types%2f&amp;title=r%25C3%25A9duire-lempreinte-m%25C3%25A9moire-dune-agglom%25C3%25A9ration-de-types" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2freduire-lempreinte-memoire-dune-agglomeration-de-types%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2freduire-lempreinte-memoire-dune-agglomeration-de-types%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2freduire-lempreinte-memoire-dune-agglomeration-de-types%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2014%2f06%2freduire-lempreinte-memoire-dune-agglomeration-de-types%2f&amp;name=r%25C3%25A9duire-lempreinte-m%25C3%25A9moire-dune-agglom%25C3%25A9ration-de-types" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
 
     
       
 <div class="pagination clearfix">
   <a class="pagination__item pagination__item--prev" href="/">◀</a>
   <a class="pagination__item" href="/">1</a>
-  <span class="pagination__item pagination__item--current">2/4</span>
+  <span class="pagination__item pagination__item--current">2/5</span>
   <a class="pagination__item" href="/page/3/">3</a>
   <a class="pagination__item" href="/page/4/">4</a>
+  <a class="pagination__item" href="/page/5/">5</a>
   <a class="pagination__item pagination__item--next" href="/page/3/">▶</a>
 </div>
 

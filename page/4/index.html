@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.88.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.89.4" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -77,12 +77,12 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2021/12/les-operateurs-new-et-delete/">Les opérateurs new et delete</a></li>
       <li class="widget__item"><a class="widget__link" href="/2021/05/la-semantique-de-deplacement/">La sémantique de déplacement</a></li>
       <li class="widget__item"><a class="widget__link" href="/2020/04/sfinae/">SFINAE</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">36 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">37 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -106,7 +106,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (27)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (28)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/script-shell/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -166,6 +166,138 @@
 </aside>
 
   <main class="main-content list content" role="main" id="main-content">
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="placement-new-allocateur-et-conteneur"><span>
+        <a href="#r%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Référence constante sur référence"></i></a>
+        <a href="#ne-pas-emp%25C3%25AAcher-la-nrvo"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Ne pas empêcher la NRVO"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/">Placement new, allocateur et conteneur</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#r%25C3%25A9f%25C3%25A9rence-constante-sur-r%25C3%25A9f%25C3%25A9rence">Article suivant: Référence constante sur référence</a><br/>
+        <a href="#ne-pas-emp%25C3%25AAcher-la-nrvo">Article précédent: Ne pas empêcher la NRVO</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2013-04-22T22:17:22">22 avril 2013
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>5 minutes ;
+  <a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#cd274394e663297dc1b6eed4f38f0550-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de <code>malloc()</code>, &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.</p>
+<p>Mais <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> fait une troisième chose: il lance une exception <code>std::bad_alloc</code> si l&rsquo;espace mémoire est insuffisant.</p>
+<p>Ou pas. Car <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête <code>&lt;new&gt;</code> un type (<code>std::nothrow_t</code>) et une variable (<code>std::nothrow</code>) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">);</span>
+</code></pre></div><p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparément.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allouer-de-la-mémoire"><h2 id="allouer-de-la-mémoire">Allouer de la mémoire</h2></a>
+<p>Comme on veut juste réserver un espace mémoire, <code>malloc()</code> peut suffire, mais prenons les bonnes habitudes, utilisons la fonction <a href="http://en.cppreference.com/w/cpp/memory/new/operator_new">::operator new()</a> !</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">));</span>
+</code></pre></div><p>Ou la version sans exception.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">);</span>
+</code></pre></div><p>Maintenant qu&rsquo;on a un joli espace mémoire tout fraîchement alloué, construisons l&rsquo;objet.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#placement-new"><h2 id="placement-new">Placement new</h2></a>
+<p>Le placement new permet d&rsquo;appeler le constructeur d&rsquo;un objet sur une zone mémoire prédéfinie.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params…*/</span><span class="p">);</span>
+<span class="c1">// machin == p (même zone mémoire)
+</span></code></pre></div><p>Mais attention aux fuites mémoire si le constructeur de <code>Machin</code> lance une exception.</p>
+<p>Et maintenant que c&rsquo;est construit, on détruit :D</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#destruction"><h2 id="destruction">Destruction</h2></a>
+<p>Un appel explicite au destructeur et le tour est joué.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">machin</span><span class="o">-&gt;~</span><span class="n">Machin</span><span class="p">();</span>
+</code></pre></div><p>Étape inutile pour les types scalaires. De toute façon ils n&rsquo;ont pas de destructeur. En C++17, la STL contient <a href="http://en.cppreference.com/w/cpp/memory/destroy_at">std::destroy_at</a>.</p>
+<p>Évidemment, si <code>machin</code> possède un destructeur virtuel et est en réalité une classe fille, alors c&rsquo;est le destructeur de la classe dérivée qui est appelé.</p>
+<p>Il ne reste plus qu&rsquo;à libérer la mémoire.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#libération-de-la-mémoire"><h2 id="libération-de-la-mémoire">Libération de la mémoire</h2></a>
+<p>De la même manière qu&rsquo;il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span></code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span><span class="p">[]</span></code></span> pour <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span><span class="p">[]</span></code></span>, il existe un <a href="http://en.cppreference.com/w/cpp/memory/new/operator_delete">::operator delete()</a> associé à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">()</span></code></span>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span> <span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allocation-de-tableau"><h2 id="allocation-de-tableau">Allocation de tableau</h2></a>
+<p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[]</span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">[]</span></code></span> fonctionnent de la même manière, mais sont plus sûrs qu&rsquo;une gestion manuelle de tableau avec leurs homologues sans crochets. Ne serait-ce que pour détruire proprement les objets si un des constructeurs jette une exception.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[](</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span> <span class="c1">// identique que la version sans crochet
+</span><span class="c1"></span><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="cm">/*{params...}*/</span><span class="p">;</span>
+</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#surcharge-de-new-et-delete"><h2 id="surcharge-de-new-et-delete">Surcharge de new et delete</h2></a>
+<p>Toutes les formes de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span></code></span> sont surchargeables de façon locale ou globale. Local quand l&rsquo;opérateur est implémenté à l&rsquo;intérieur d&rsquo;une classe (son prototype sera implicitement statique) et global lorsqu&rsquo;implémenté dans le namespace global.</p>
+<p>De plus, comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> peut prendre des paramètres, il est possible de les personnaliser et d&rsquo;en ajouter.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;new&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="k">struct</span> <span class="nc">A</span>
+<span class="p">{</span>
+  <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;A(&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;)&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;new A &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="n">A</span><span class="p">;</span> <span class="c1">// affiche &#34;new A 1 2 A(0)&#34;
+</span></code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#lalignement-mémoire"><h2 id="lalignement-mémoire">L&rsquo;alignement mémoire</h2></a>
+<p>L&rsquo;alignement mémoire est une histoire à part entière, je n&rsquo;en parle donc pas plus que ça :p.</p>
+<p>Toutefois, renseignez-vous dessus, des variables non alignées peuvent faire chuter les performances et planter certaines architectures de processeur.
+Présent dans boost et la dernière norme du C++, il existe <a href="http://en.cppreference.com/w/cpp/types/aligned_storage">aligned_storage</a> et co pour aider.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allocateurs-de-la-sl"><h2 id="allocateurs-de-la-sl">Allocateurs de la SL</h2></a>
+<p>Les allocateurs sont des objets qui s&rsquo;occupent de faire tout ce qui a été dit auparavant à travers des fonctions comme <code>allocate</code>/<code>desallocate</code>, <code>construct</code>/<code>destroy</code>, etc, mais sans faire de surcharge. En fait, tous les conteneurs dynamiques de la STL utilisent un <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a> comme allocateur par défaut paramétrable à travers le dernier type template du conteneur.</p>
+<p>Depuis C++11, il existe <a href="http://en.cppreference.com/w/cpp/memory/allocator_traits">std::allocator_traits</a> qui simplifie grandement la création d&rsquo;un allocateur en rendant la plupart des fonctions optionnelles.
+Et à partir de C++17 un <a href="http://en.cppreference.com/w/cpp/header/memory_resource">allocateur polymorphique</a> voit le jour avec quelques gestionnaires de mémoire.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allocateurs-et-conteneurs"><h2 id="allocateurs-et-conteneurs">Allocateurs et conteneurs</h2></a>
+<p>Utiliser un allocateur personnalisé permet d&rsquo;avoir un contrôle plus fin de la mémoire pour répondre plus efficacement au besoin et augmenter les performances.</p>
+<p>Évidemment, l&rsquo;allocateur peut être personnalisable et dans certaines circonstances permet un gain de performance en évitant l&rsquo;allocation/dés-allocation répété.</p>
+<p>Par exemple, il y a quelques semaines, j&rsquo;ai fait un algorithme qui faisait au total 2'100'000 <code>new</code> pour au final ne garder que 100'000 objets. Donc 2'000'000 de <code>delete</code>.</p>
+<p>Dans le pire des cas, il y avait une suite de 25 objets à supprimer. Avec un allocateur qui ne vide pas la mémoire mais garde un tableau des pointeurs alloués je n&rsquo;avais plus qu&rsquo;à faire 25 dés-allocations au lieu de 2'000'000. Le nombre de <code>new</code> effectuées descendait quant à lui à 100'025.</p>
+<p>Seul le nombre d&rsquo;appels au destructeur et au placement new restait inchangé. Respectivement 2'000'000 et 2'100'000.</p>
+<p>Au final l&rsquo;algorithme était quand même 30% plus rapide. J&rsquo;aurais aussi pu allouer directement tous mes objets et les réutiliser, mais là n&rsquo;est pas le propos :).</p>
+<p>Ce type d&rsquo;optimisation reste toutefois exceptionnel et n&rsquo;est pas adapté à tous les conteneurs. Par exemple, std::vector se prête mal à ce genre d&rsquo;exercice car il demande toujours une allocation d&rsquo;au moins la taille du nombre d&rsquo;éléments qu&rsquo;il possède.</p>
+<p>Par contre, les conteneurs comme std::list ou std::map, qui allouent toujours un seul élément à la fois sont un meilleur choix pour utiliser ce type d&rsquo;allocateur.
+Cependant, comme les conteneurs retournent une copie de leur allocateur, il sera difficile de supprimer de manière simple la mémoire non utilisée par l&rsquo;allocateur du conteneur.</p>
+<p>En ce moment, j&rsquo;ajoute plusieurs allocateurs dans <a href="https://github.com/jonathanpoelen/falcon/tree/master/falcon/memory">falcon/memory</a>. Même si celui dont je viens de parler n&rsquo;est pas encore présent car son implémentation était vraiment basique et spécifique, il fait quand même partie de ma todo-list.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2013-04-22T22:17:22">22 avril 2013
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="cd274394e663297dc1b6eed4f38f0550-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=placement-new-allocateur-et-conteneur&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f&amp;title=placement-new-allocateur-et-conteneur" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2013%2f04%2fplacement-new-allocateur-et-conteneur%2f&amp;name=placement-new-allocateur-et-conteneur" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
         
 <article class="post">
   <header class="post__header clearfix">
@@ -1029,88 +1161,6 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
   </footer>
 </article>
 
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="rendre-accessible-le-chargement-de-lien-avec-ajax"><span>
-        <a href="#sed-tout-puissant"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Sed tout puissant"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/">Rendre accessible le chargement de lien avec AJAX</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#sed-tout-puissant">Article suivant: Sed tout puissant</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2011-12-31T12:05:43">31 décembre 2011
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/accessibilite-web" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>accessibilite-web</a>, <a class="meta-categories__link" href="/categories/javascript" rel="category">javascript</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
-  <a href="https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#c9424985d87b338fdde86553094cece6-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-  
-
-</p>
-
-
-  </header>
-  <div class="post__content">
-      <p class="old_article"><strong class="old_article_title">Attention :</strong> Cet article date de plus de 9 ans. Les informations y figurant peuvent être dépassées.</p>
-      <p>Le but d&rsquo;un site chargeant ces pages avec AJAX est double:</p>
-<ul>
-<li>Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées).</li>
-<li>Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins.</li>
-</ul>
-<p>Toutefois, si mal fait, des problèmes apparaissent au niveau de l&rsquo;historique qui n&rsquo;est plus utilisable. Par la même occasion, il sera impossible d&rsquo;accéder à une page via son url. Quant à ceux n&rsquo;ayant pas javascript ‑moteur de recherche compris‑ il est totalement impossible de visiter le site.</p>
-<p>Le premier problème peut se corriger avec <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#The_pushState().C2.A0method"><code>history.pushState</code></a> qui permet d&rsquo;ajouter, supprimer et modifier l&rsquo;historique d&rsquo;une page. Le second problème est tout simple, il suffit d&rsquo;indiquer une page complète et ajouter un paramètre dans l&rsquo;url pour les utilisateurs ayant javascript. Si ce paramètre existe, la page ne renvoie que le contenu désiré. Dans le cas contraire, la page est entièrement retournée.</p>
-<p>Par exemple avec un lien sur <code>ma_page.php</code> qui retourne une page complète. On intercepte l&rsquo;événement click. On ajoute un paramètre, par exemple <code>ajax</code>, ce qui donne <code>ma_page.php?ajax</code> puis on charge cette page. Le serveur ne renvoie que le contenu, on ajoute <code>ma_page.php</code> dans l&rsquo;historique et on remplace l&rsquo;ancien contenu par le nouveau.</p>
-<p>Il faut également vérifier que les liens fonctionnent lorsqu&rsquo;ils sont ouverts dans un nouvel onglet. Il n&rsquo;y a rien de plus énervant pour moi qu&rsquo;un lien qui ne peut pas s&rsquo;ouvrir dans un autre onglet. J&rsquo;ai pour habitude en lisant un article ou certains sites d&rsquo;ouvrir les liens potentiellement intéressants dans un nouvel onglet. Ceux s&rsquo;ouvrant en javascript sont une vraie plaie ! Ils ouvrent une page blanche et quelle horreur de constater au bout d&rsquo;un quart d&rsquo;heure que toutes mes pages dûment sélectionnées sont ouvertes sur le néant.</p>
-<p>Alors soit je fuis le site, soit je commence un véritable parcours du combattant pour l&rsquo;ouvrir dans un onglet:</p>
-<ul>
-<li>copier l&rsquo;url (Ctrl+L, Ctrl+C)</li>
-<li>retour en arrière (Alt+gauche)</li>
-<li>ouvrir un nouvel onglet (Ctrl+T)</li>
-<li>aller sur la page copiée (Ctrl+Shift+V ou Ctrl+V, Entrée)</li>
-<li>revenir sur l&rsquo;onglet original (Ctrl+Shift+Tab)</li>
-</ul>
-<p>Généralement, je fuis !</p>
-<p>Pour une bonne expérience utilisateur, il faut aussi indiquer les chargements quelque part, surtout quand ils s&rsquo;éternisent (c&rsquo;est perturbant de ne rien voir réagir après un clic). Et ne surtout pas oublier la gestion d&rsquo;erreur. Avoir des problèmes de connexion peut arriver à n&rsquo;importe qui, si le site ne réagit plus sans en avertir l&rsquo;utilisateur, alors dans la tête de l&rsquo;usager, le site est bogué. Mais il faut le faire de manière intelligente, pas en cachant le contenu sous une énorme popup ;).</p>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2011-12-31T12:05:43">31 décembre 2011
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/accessibilite-web" rel="category">accessibilite-web</a>, <a class="meta-categories__link" href="/categories/javascript" rel="category">javascript</a>
- ;
-  
-
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="c9424985d87b338fdde86553094cece6-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=rendre-accessible-le-chargement-de-lien-avec-ajax&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2011%2f12%2frendre-accessible-le-chargement-de-lien-avec-ajax%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2011%2f12%2frendre-accessible-le-chargement-de-lien-avec-ajax%2f&amp;title=rendre-accessible-le-chargement-de-lien-avec-ajax" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2011%2f12%2frendre-accessible-le-chargement-de-lien-avec-ajax%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2011%2f12%2frendre-accessible-le-chargement-de-lien-avec-ajax%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2011%2f12%2frendre-accessible-le-chargement-de-lien-avec-ajax%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2011%2f12%2frendre-accessible-le-chargement-de-lien-avec-ajax%2f&amp;name=rendre-accessible-le-chargement-de-lien-avec-ajax" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
 
     
       
@@ -1119,7 +1169,9 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
   <a class="pagination__item" href="/">1</a>
   <a class="pagination__item" href="/page/2/">2</a>
   <a class="pagination__item" href="/page/3/">3</a>
-  <span class="pagination__item pagination__item--current">4/4</span>
+  <span class="pagination__item pagination__item--current">4/5</span>
+  <a class="pagination__item" href="/page/5/">5</a>
+  <a class="pagination__item pagination__item--next" href="/page/5/">▶</a>
 </div>
 
 

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les opérateurs new et delete</title>
+<meta name="generator" content="Hugo 0.89.4" />
+
+<link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
+<link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
+<link rel="shortcut icon" href="/favicon.jpg"/>
+<link rel="icon" sizes="32x32" href="/favicon-32.jpg" type="image/jpeg">
+<link rel="icon" sizes="64x64" href="/favicon-64.jpg" type="image/jpeg">
+<link rel="icon" sizes="96x96" href="/favicon-96.jpg" type="image/jpeg"> 
+<link rel="icon" sizes="128x128" href="/favicon-128.jpg" type="image/jpeg">
+<meta property="og:site_name" content="Le blog de Jonathan Poelen">
+<meta property="og:title" content="Les opérateurs new et delete">
+<meta property="og:url" content="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/">
+<meta property="og:language" content="fr-FR">
+<meta property="twitter:domain" content="https://jonathanpoelen.github.io/">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:url" content="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/">
+<meta property="twitter:title" content="Les opérateurs new et delete">
+<meta name="description" content="L&rsquo;allocation dynamique c&rsquo;est facile: pour un new, un delete
+ Le quidam du coin.
+ Pour 12 opérateurs new, 14 opérateurs delete.
+ La norme de C&#43;&#43;11.
+ Mmmh, va pour 16 opérateurs delete.
+ C&#43;&#43;14.
+ Finalement 22 opérateurs new et 26 opérateurs delete.
+ L&rsquo;apparition de C&#43;&#43;17.
+ Allez, 30 opérateurs delete.
+ Toujours plus loin avec C&#43;&#43;20.
+ Cet article va parler des opérateurs new et delete.">
+<meta property="twitter:description" content="L&rsquo;allocation dynamique c&rsquo;est facile: pour un new, un delete
+ Le quidam du coin.
+ Pour 12 opérateurs new, 14 opérateurs delete.
+ La norme de C&#43;&#43;11.
+ Mmmh, va pour 16 opérateurs delete.
+ C&#43;&#43;14.
+ Finalement 22 opérateurs new et 26 opérateurs delete.
+ L&rsquo;apparition de C&#43;&#43;17.
+ Allez, 30 opérateurs delete.
+ Toujours plus loin avec C&#43;&#43;20.
+ Cet article va parler des opérateurs new et delete.">
+
+</head>
+<body itemscope="itemscope" itemtype="http://schema.org/WebPage">
+  <div id="avoidance-link">
+    <a class="evitement" href="#main-content" title="Aller au contenu">Aller au contenu</a>
+    <a class="evitement" href="#main-menu" title="Aller au menu">Aller au menu</a>
+  </div>
+  <div class="container container-outer">
+    <header class="header" itemscope="itemscope" itemtype="http://schema.org/WPHeader">
+      <div class="container-inner">
+        <div class="logo" role="banner" itemscope="itemscope" itemtype="http://schema.org/Brand">
+          <a class="logo__link" href="/" title="Le blog de Jonathan Poelen" rel="home">
+            <h1 class="logo__title">Le blog de Jonathan Poelen</h1>
+            <h2 class="logo__tagline">Mon petit mémo sur tout ce qui touche à la programmation =)</h2>
+          </a>
+        </div>
+        <nav class="menu" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <ul class="menu__list">
+    <li class="menu__item"><a class="menu__link" title="GitHub" rel="noopener noreferrer" href="https://github.com/jonathanpoelen">
+      <i class="fab fa-github" aria-hidden="true"></i> Github
+    </a></li>
+    <li class="menu__item "><a class="menu__link" title="Archives" href="/archives">
+      <i class="fas fa-archive" aria-hidden="true"></i> Archives</a>
+    </li>
+    <li class="menu__item"><a class="menu__link" type="application/rss+xml" title="Flux RSS" href="/post/index.xml">
+      <i class="fas fa-rss" aria-hidden="true"></i> RSS</a>
+    </li>
+  </ul>
+</nav>
+
+
+      </div>
+    </header>
+    <div class="wrapper clearfix">
+
+<aside class="sidebar" itemscope="itemscope" itemtype="http://schema.org/WPSideBar">
+	
+<div class="widget-search widget">
+  <form class="widget-search__form" role="search" method="get" action="https://duckduckgo.com">
+    <label>
+      <span class="screen-reader-text">Search for:</span>
+      <input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+    </label>
+    <input class="widget-search__submit" type="submit" value="Search">
+    <input type="hidden" name="sites" value="https://jonathanpoelen.github.io/" />
+  </form>
+</div>
+
+	
+<div class="widget-recent widget" id="main-menu">
+  <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2021/12/les-operateurs-new-et-delete/">Les opérateurs new et delete</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2021/05/la-semantique-de-deplacement/">La sémantique de déplacement</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2020/04/sfinae/">SFINAE</a></li>
+      <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
+      
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">37 autres…</a></li>
+    </ul>
+  </div>
+</div>
+<div class="widget-recent widget">
+  <h4 class="widget__title"><i class="fas fa-clock-o" aria-hidden="true"></i> Articles récemment mis à jour</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+
+    </ul>
+  </div>
+</div>
+
+	
+<div class="widget-categories widget">
+  <h4 class="widget__title"><i class="fas fa-folder-o" aria-hidden="true"></i> Catégories</h4>
+  <div class="widget__content">
+    <ul class="widget__list">
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/c&#43;&#43;/index.xml" type="application/rss+xml" title="Flux RSS pour C&#43;&#43;">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (28)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/script-shell/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/script-shell">Script-Shell (7)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/accessibilite-web/index.xml" type="application/rss+xml" title="Flux RSS pour Accessibilite-Web">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/accessibilite-web">Accessibilite-Web (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/javascript/index.xml" type="application/rss+xml" title="Flux RSS pour Javascript">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/javascript">Javascript (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/zsh/index.xml" type="application/rss+xml" title="Flux RSS pour Zsh">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/zsh">Zsh (2)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/make/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/make">Make (1)</a>
+      </li>
+      <li class="widget__item">
+        <a class="rss-link" href="/categories/sqlite/index.xml" type="application/rss+xml" title="Flux RSS pour Sqlite">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/sqlite">Sqlite (1)</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+	
+	
+
+</aside>
+<main class="main-content content" role="main" itemprop="mainContentOfPage" id="main-content">
+  
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="les-op%C3%A9rateurs-new-et-delete"><span>
+        &nbsp;
+        <a href="https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: La sémantique de déplacement"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/">Les opérateurs new et delete</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/">Article précédent: La sémantique de déplacement</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2021-12-25T23:54:27">25 décembre 2021
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>10 minutes ;
+  <a href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#7a499a0b99601e8fe75da34ae5a191c1-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
+</p>
+
+
+  </header>
+  <div class="post__content">
+        <aside id="toc"><div id="tocInner">
+          <h2 id="tocHeading">Sommaire</h2>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#new-ou-operator-new-">new ou operator new ?</a></li>
+    <li><a href="#séparation-en-catégorie">Séparation en catégorie</a></li>
+    <li><a href="#fonctions-dallocation-remplaçables">Fonctions d&rsquo;allocation remplaçables</a></li>
+    <li><a href="#placement-new-la-construction-sans-allocation">Placement-new, la construction sans allocation</a></li>
+    <li><a href="#les-opérateurs-new-et-delete-membre">Les opérateurs new et delete membre</a></li>
+    <li><a href="#lopérateur-delete-chargé-dutiliser-le-destructeur">L&rsquo;opérateur delete chargé d&rsquo;utiliser le destructeur</a></li>
+    <li><a href="#remplacement-de-lallocateur-global">Remplacement de l&rsquo;allocateur global</a></li>
+  </ul>
+</nav>
+        </div></aside>
+      <blockquote>
+<p>L&rsquo;allocation dynamique c&rsquo;est facile: pour un new, un delete</p>
+</blockquote>
+<p>Le quidam du coin.</p>
+<blockquote>
+<p>Pour 12 opérateurs new, 14 opérateurs delete.</p>
+</blockquote>
+<p>La norme de C++11.</p>
+<blockquote>
+<p>Mmmh, va pour 16 opérateurs delete.</p>
+</blockquote>
+<p>C++14.</p>
+<blockquote>
+<p>Finalement 22 opérateurs new et 26 opérateurs delete.</p>
+</blockquote>
+<p>L&rsquo;apparition de C++17.</p>
+<blockquote>
+<p>Allez, 30 opérateurs delete.</p>
+</blockquote>
+<p>Toujours plus loin avec C++20.</p>
+<hr>
+<p>Cet article va parler des opérateurs <a href="https://en.cppreference.com/w/cpp/memory/new/operator_new"><code>new</code></a> et <a href="https://en.cppreference.com/w/cpp/memory/new/operator_delete"><code>delete</code></a>. Pas les mots clefs <code>new</code> et <code>delete</code> tout seuls, mais bien de <code>operator new</code> et <code>operator delete</code> de l&rsquo;en-tête <code>&lt;new&gt;</code>, car derrière les mots clefs usuels se cachent en réalité beaucoup de fonctions surchargées. Soit appelées implicitement par le compilateur, soit explicitement par le développeur en donnant des paramètres à <code>new</code>.</p>
+<p>Bien sûr, ce sont des techniques très bas niveau liées à l&rsquo;allocation dynamique, à moins de vouloir écrire un allocateur global, il est probable que vous n&rsquo;en ayez jamais besoin. Je vais néanmoins présenter ici les différents opérateurs existant dans le standard et à quel moment ils sont utilisés.</p>
+<a class="headline-hash" href="#new-ou-operator-new-"><h2 id="new-ou-operator-new-">new ou operator new ?</h2></a>
+<p>La première chose à faire est de distinguer le mot clef <code>new</code> traditionnellement utilisé de la fonction <code>operator new()</code> se trouvant dans l&rsquo;en-tête <code>&lt;new&gt;</code>. L&rsquo;expression <code>new T</code> fait en réalité 2 choses:</p>
+<ul>
+<li>Allouer une zone mémoire en utilisant <code>operator new()</code>.</li>
+<li>Construire le type <code>T</code> dans la zone mémoire préalablement allouée (appel du constructeur).</li>
+</ul>
+<p>Ces 2 étapes peuvent se faire manuellement en utilisant explicitement un opérateur <code>new</code> suivi d&rsquo;un placement-new qui appelle un opérateur new spécifique.</p>
+<p><code>new</code> utilise <code>new</code> et 2 <code>operator new</code>, il y a de quoi s&rsquo;y perdre :).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">mem</span> <span class="o">=</span> <span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">));</span> <span class="c1">// on alloue une mémoire pouvant contenir un T
+</span><span class="c1"></span><span class="n">T</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">mem</span><span class="p">)</span> <span class="n">T</span><span class="p">();</span> <span class="c1">// on construit un T dans la zone allouée
+</span><span class="c1"></span>                     <span class="c1">// ceci n&#39;effectue aucune allocation dynamique
+</span></code></pre></div><p>Il existe la même symétrie avec l&rsquo;expression <code>delete</code> qui utilise le destructeur suivi d&rsquo;une libération de la mémoire.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">p</span><span class="o">-&gt;~</span><span class="n">T</span><span class="p">();</span> <span class="c1">// appel explicite du destructeur
+</span><span class="c1"></span><span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="c1">// libération de la mémoire
+</span></code></pre></div><p>Ceci représente le cas de base pour une gestion plus fine de la mémoire. Pour information, c&rsquo;est une partie de ce qu&rsquo;utilisent les containers de la STL tel que <code>std::vector</code> à travers les allocateurs (<code>std::allocator</code>). Une partie seulement, car C++17 ajoute un paramètre d&rsquo;alignement.</p>
+<a class="headline-hash" href="#séparation-en-catégorie"><h2 id="séparation-en-catégorie">Séparation en catégorie</h2></a>
+<p>Tous les opérateurs <code>new</code> et presque tous les opérateurs <code>delete</code> sont séparés en 2 catégories: une version tableau et une version sans.</p>
+<p>Par exemple <code>void* operator new(std::size_t)</code> et <code>void *operator new[](std::size_t)</code>. À part les 4 nouveaux opérateurs <code>delete</code> de C++20, il n&rsquo;y a pas d&rsquo;exception.</p>
+<p>Il y a néanmoins une différence de comportement avec les <code>operator new[]</code>: La taille nécessaire à leur allocation peut être supérieure à <code>sizeof(T) * len</code>. Il y a un surplus permettant de stocker la taille du tableau et ainsi appeler le bon nombre de destructeurs au moment du <code>delete[]</code>. Cet ajout est automatiquement fait par le compilateur et dépend de son implémentation.</p>
+<p>Toute la suite de l&rsquo;article ne présentera plus les versions tableaux, car le principe derrière est exactement le même que les versions sans tableau.</p>
+<p>Plus que 11 opérateurs new et 17 delete :)</p>
+<a class="headline-hash" href="#fonctions-dallocation-remplaçables"><h2 id="fonctions-dallocation-remplaçables">Fonctions d&rsquo;allocation remplaçables</h2></a>
+<p>Parmi les opérateurs disponibles, il existe 16 fonctions candidates au remplacement de la fonction d&rsquo;allocation. C&rsquo;est-à-dire qu&rsquo;utiliser <code>new T</code>/<code>new T[n]</code> ou <code>delete p</code>/<code>delete[] p</code> va implicitement faire appel à l&rsquo;une de ces fonctions que l&rsquo;utilisateur peut lui-même définir pour changer le comportement par défaut.</p>
+<p>La version <code>operator new</code>, en plus du paramètre <code>std::size_t count</code> représentant le nombre d&rsquo;octets à allouer, prend 2 paramètres optionnels:</p>
+<ul>
+<li><code>std::nothrow_t</code> qui représente l&rsquo;absence d&rsquo;exception et</li>
+<li><code>std::align_val_t</code> qui indique l&rsquo;alignement de l&rsquo;allocation.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow_t</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow_t</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="c1">// plus version new[]
+</span></code></pre></div><p>Le paramètre <code>std::nothrow_t</code> s&rsquo;utilise pour un new de la forme <code>new(std::nothrow) T</code>. Cela ne veut pas dire qu&rsquo;il n&rsquo;y aura jamais d&rsquo;exception (le constructeur de <code>T</code> peut le faire), mais que l&rsquo;allocation de l&rsquo;espace mémoire nécessaire ne le fera pas. Si l&rsquo;allocation échoue, un pointeur nul est retourné.</p>
+<p><code>std::align_val_t</code> fait référence aux types dont l&rsquo;alignement est supérieur à <code>__STDCPP_DEFAULT_NEW_ALIGNMENT__</code> et sera alors automatiquement ajouté par le compilateur. Cela dépend des implémentations, mais cette valeur devrait être au moins de la taille du plus grand type disponible, à priori <code>long double</code>.</p>
+<p>En supposant que <code>__STDCPP_DEFAULT_NEW_ALIGNMENT__</code> fait 16, pour utiliser la version <code>new</code> avec alignement, il faudrait un type tel que <code>struct alignas(32) A {};</code>.</p>
+<p>Ensuite vient <code>operator delete</code> qui, à la place d&rsquo;une taille, prend le pointeur à libérer.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow_t</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow_t</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">sz</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">sz</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="c1">// plus version delete[]
+</span></code></pre></div><p>Et les ennuis commencent. Il y a bien une correspondance 1-1, mais 2 fonctions prenant un <code>std::size_t sz</code> se sont subtilement ajoutées.</p>
+<p>Le paramètre <code>sz</code> ajouté en C++14 correspond à la taille de l&rsquo;objet libéré. Néanmoins, les 2 fonctions avec ce paramètre peuvent ne pas être utilisées pour les types trivialement destructibles ou incomplets. Dans ce cas, ce sont les versions sans ce paramètre qui seront utilisées. Actuellement, gcc utilise bien les fonctions avec le paramètre <code>sz</code> à partir de C++14, mais il faut le forcer avec <code>-fsized-deallocation</code> pour les standards inférieurs. Pour clang, ce flag est requis quel que soit le standard utilisé.</p>
+<p>Les versions avec <code>std::nothrow_t</code> sont utilisées lorsque le constructeur de <code>T</code> dans l&rsquo;expression <code>new(std::nothrow) T</code> jette une exception. Dans ce cas, l&rsquo;exception est relancée après libération de la mémoire.</p>
+<p>Peut-on faire une quelconque différence d&rsquo;implémentation entre les delete qui prennent des <code>std::nothrow_t</code> et ceux qui ne les prennent pas ? Je ne pense pas, je n&rsquo;arrive pas à imaginer un tel scénario.</p>
+<p>Étrangement, il n&rsquo;y a pas de prototype qui utilise en même temps <code>sz</code> et <code>std::nothrow_t</code>, alors que l&rsquo;information de taille pourrait être utilisée pour accélérer certaines désallocations.</p>
+<p>Encore 7 opérateurs new et 11 delete.</p>
+<a class="headline-hash" href="#placement-new-la-construction-sans-allocation"><h2 id="placement-new-la-construction-sans-allocation">Placement-new, la construction sans allocation</h2></a>
+<p>Le placement-new est ce qui permet de construire un objet depuis une zone mémoire préalablement réservée. Soit via un tableau statique, soit à travers une allocation dynamique.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">alignas</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)];</span>
+<span class="n">T</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="n">T</span><span class="p">;</span> <span class="c1">// construction de T
+</span></code></pre></div><p>La destruction de cet objet se fait manuellement via un appel direct du destructeur (<code>p-&gt;~T()</code>) puis en libérant le buffer si nécessaire.</p>
+<p>Cet appel à <code>new</code> correspond au prototype ci-dessous dont l&rsquo;implémentation est prédéfinie par la bibliothèque standard:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="c1">// + version new[]
+</span></code></pre></div><p>Néanmoins, il est possible de surcharger cette fonction pour y introduire n&rsquo;importe quel paramètre:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span><span class="o">-</span><span class="n">args</span><span class="p">...);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">,</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span><span class="o">-</span><span class="n">args</span><span class="p">...);</span>
+<span class="c1">// + version new[]
+</span></code></pre></div><p><code>count</code> correspond au sizeof de <code>T</code> et la version avec alignement sera automatiquement utilisée si définie et que l&rsquo;alignement de T dépasse <code>__STDCPP_DEFAULT_NEW_ALIGNMENT__</code>. Dans le cas contraire, le compilateur se rabat sur celle sans alignement.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">T</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">opt</span><span class="p">)</span> <span class="n">T</span><span class="p">;</span> <span class="c1">// pourrait correspondre à operator new(std::size_t count, Storage&amp;, StorageOptions)
+</span><span class="c1"></span>                            <span class="c1">// et operator new(std::size_t count, std::align_val_t al, Storage&amp;, StorageOptions)
+</span></code></pre></div><p>Chacun de ses <code>new</code> a son équivalent <code>delete</code> dans le cas où le constructeur lance une exception.</p>
+<p>La version de la bibliothèque standard qui ne fait normalement rien:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">place</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="c1">// + version delete[]
+</span></code></pre></div><p>Et les surcharges utilisateur:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span><span class="o">-</span><span class="n">args</span><span class="p">...);</span>
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">,</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span><span class="o">-</span><span class="n">args</span><span class="p">...);</span>
+</code></pre></div><p>cppreference.com ne fait pas explicitement mention de la version avec <code>std::align_val_t</code>, mais je l&rsquo;ajoute pour une meilleure correspondance avec les prototypes de <code>new</code>.</p>
+<p>On peut sérieusement se demander à quoi peut servir ces opérateurs prenant n&rsquo;importe quel type, alors qu&rsquo;ils pourraient très bien être remplacés par une fonction classique. Une fonction est beaucoup moins tordue que <code>new(a,b,c) T</code>.</p>
+<p>Plus que 4 opérateurs new et 9 delete.</p>
+<a class="headline-hash" href="#les-opérateurs-new-et-delete-membre"><h2 id="les-opérateurs-new-et-delete-membre">Les opérateurs new et delete membre</h2></a>
+<p>Jusqu&rsquo;ici, tous les opérateurs étaient des fonctions libres qui ne peuvent avoir connaissance du type réellement alloué. Il est possible d&rsquo;avoir cette information en déclarant les opérateurs new et delete en membre statique d&rsquo;une classe. Les versions membres seront prioritaires à celles libres.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span><span class="o">-</span><span class="n">args</span><span class="p">...);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">,</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span><span class="o">-</span><span class="n">args</span><span class="p">...);</span>
+<span class="c1">// + version new[]
+</span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">sz</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">sz</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">args</span><span class="p">...)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="c1">// + version delete[]
+</span></code></pre></div><p>Le nombre de prototypes est inférieur au nombre de fonctions libres, mais il est tout à fait possible de les réintroduire via les types utilisateurs.</p>
+<p>Petite particularité des opérateurs membres: il est possible d&rsquo;interdire les allocations dynamiques en supprimant la fonction avec <code>void* operator new(std::size_t count) = delete</code>. On peut cependant outrepasser cette restriction en utilisant l&rsquo;opérateur global avec <code>::new T</code>.</p>
+<p>Bientôt la fin, il ne reste que 4 opérateurs delete.</p>
+<a class="headline-hash" href="#lopérateur-delete-chargé-dutiliser-le-destructeur"><h2 id="lopérateur-delete-chargé-dutiliser-le-destructeur">L&rsquo;opérateur delete chargé d&rsquo;utiliser le destructeur</h2></a>
+<p>En début d&rsquo;article, j&rsquo;indique que la construction d&rsquo;un objet se fait en 4 étapes représentées par 4 appels de fonctions consécutives:</p>
+<ul>
+<li>Allocation de la mémoire</li>
+<li>Construction de l&rsquo;objet dans la mémoire allouée</li>
+<li>Appel du destructeur</li>
+<li>Libération de la mémoire</li>
+</ul>
+<p>C++20 introduit 4 opérateurs delete qui doivent eux-mêmes faire l&rsquo;appel du destructeur en plus de la libération.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">destroying_delete_t</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">destroying_delete_t</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">destroying_delete_t</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">sz</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">destroying_delete_t</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">sz</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">);</span>
+<span class="c1">// pas de version delete[] à cause de l&#39;overhead ajouté par le compilateur pour new[]
+</span></code></pre></div><p>On y retrouve <code>al</code> et <code>sz</code> qui suivent les mêmes règles que d&rsquo;habitude et un type <code>std::destroying_delete_t</code> qui permet une différenciation avec les autres fonctions.</p>
+<p>Les raisons de cet ajout sont expliquées dans la proposition <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0722r1.html">P0722</a> qui corrige les sized-delete avec des classes à taille variable (entre autres).</p>
+<p>Pour expliquer le fonctionnement, une classe à taille variable n&rsquo;est constructible qu&rsquo;à travers une allocation dynamique de la mémoire ; son allocation contient un surplus de taille contenant la partie variable. Par exemple, une string peut être un segment contenant la taille suivie des chars. Tout cela dans le même segment de donnée. Comme la partie variable n&rsquo;est pas dans l&rsquo;objet lui-même, un sizeof de ce type de chaîne correspond à la taille de son seul membre: <code>std::size_t length</code> (par exemple). Les données variables sont ensuite accessibles via <code>reinterpret_cast&lt;char*&gt;(this + 1)</code>. On peut retrouver la même chose avec des données variables insérées avant le pointeur de l&rsquo;objet.</p>
+<p>Le problème de ce type de classe apparaît au moment de la libération: comment utiliser l&rsquo;opérateur delete prenant une taille ou un alignement quand ces 2 informations ne font pas partie du type ? Celui introduit par le compilateur sera erroné. Ou encore, comment récupérer le pointeur d&rsquo;origine lorsque les données sont insérées avant le type utlisé ?</p>
+<p>Dans le premier scénario, une solution (fausse) est de récupérer cette information depuis la fonction <code>void T::operator delete(void* ptr)</code> en castant <code>ptr</code> en type <code>T</code> pour y extraire les informations nécessaires. Malheureusement, <code>ptr</code> représente un <code>T</code> détruit (destructeur utilisé): lire ses membres est invalide.</p>
+<p>Pour pallier à tous ces problèmes, les opérateurs delete introduits en C++20 prennent non plus un <code>void* ptr</code>, mais un <code>T* ptr</code> encore valide. C&rsquo;est pour cette raison que cette fonction doit elle-même appeler le destructeur.</p>
+<p>Quant au pointeur alloué, il peut vivre sa vie comme n&rsquo;importe quel pointeur et être utilisé dans &ndash; par exemple &ndash; un <code>std::unique_ptr</code>.</p>
+<a class="headline-hash" href="#remplacement-de-lallocateur-global"><h2 id="remplacement-de-lallocateur-global">Remplacement de l&rsquo;allocateur global</h2></a>
+<p>L&rsquo;allocateur global est plutôt facile à remplacer, mais seuls les opérateurs considérés comment remplaçables pourront être utilisés de manière transparente. Cela exclut les <code>new</code>/<code>delete</code> avec des variables utilisateurs dont les prototypes doivent être connus par le programme qui les utilise.</p>
+<p>Pour ce faire, il suffit de compiler un .cpp qui contient les opérateurs pour en faire soit un .o, soit une bibliothèque. Dans les 2 cas, le bout de code sera compilé dans l&rsquo;exécutable final.</p>
+<p>Dans le cas d&rsquo;une bibliothèque externe, il est possible de la charger « plus tard » via les méthodes propres à chaque système d&rsquo;exploitation. Par exemple, les variables d&rsquo;environnement <code>LD_PRELOAD</code> et <code>LD_LIBRARY_PATH</code> pour Linux.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2021-12-25T23:54:27">25 décembre 2021
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="7a499a0b99601e8fe75da34ae5a191c1-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=les-op%25C3%25A9rateurs-new-et-delete&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f12%2fles-operateurs-new-et-delete%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f12%2fles-operateurs-new-et-delete%2f&amp;title=les-op%25C3%25A9rateurs-new-et-delete" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f12%2fles-operateurs-new-et-delete%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f12%2fles-operateurs-new-et-delete%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f12%2fles-operateurs-new-et-delete%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f12%2fles-operateurs-new-et-delete%2f&amp;name=les-op%25C3%25A9rateurs-new-et-delete" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+  
+  
+<nav class="post-nav row" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+  <div class="post-nav__item post-nav__item--prev">
+    <a class="post-nav__link" href="/2021/05/la-semantique-de-deplacement/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">La sémantique de déplacement</span></a>
+  </div>
+  <div class="post-nav__item post-nav__item--next">
+  </div>
+</nav>
+
+  <section id="gh-comments">
+  <h1>Commentaires</h1>
+<p>Les commentaires ne sont pas encore ouverts.</p>
+<p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues">les issues de github</a> et aucun n'est associée au billet.
+Vous pouvez faire votre commentaire dans une issue qui a comme titre celui du billet. Je
+me chargerai de les associer.</p>
+</section>
+
+</main>
+</div>
+  <footer class="footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+    <p class="footer-archive"><a href="/archives" title="Archives">Archives</a></p>
+    <p class="footer__copyright">
+       Le blog de Jonathan Poelen. <span class="footer__copyright-credits">
+      Généré avec <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> et basé sur le thème <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a>.
+      Utilise <a href="http://fontawesome.io" rel="nofollow noopener" target="_blank">Font Awesome</a> de Dave Gandy pour les icônes.
+      </span>
+    </p>
+  </footer>
+</div>
+<a id="backtop" href="#avoidance-link"><i class="fas fa-arrow-circle-up fa-3x" aria-hidden="true"></i><span class="sr-only">Revenir en haut</span></a>
+
+</body>
+</html>
+

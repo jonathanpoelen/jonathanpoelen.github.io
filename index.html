@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.88.1" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.89.4" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -77,12 +77,12 @@
   <h4 class="widget__title"><i class="fas fa-file-text-o" aria-hidden="true"></i> Articles récents</h4>
   <div class="widget__content">
     <ul class="widget__list">
+      <li class="widget__item"><a class="widget__link" href="/2021/12/les-operateurs-new-et-delete/">Les opérateurs new et delete</a></li>
       <li class="widget__item"><a class="widget__link" href="/2021/05/la-semantique-de-deplacement/">La sémantique de déplacement</a></li>
       <li class="widget__item"><a class="widget__link" href="/2020/04/sfinae/">SFINAE</a></li>
       <li class="widget__item"><a class="widget__link" href="/2019/09/effets-et-utilisations-de-noexcept/">Effets et utilisations de noexcept</a></li>
-      <li class="widget__item"><a class="widget__link" href="/2019/03/stdarray-oui-mais-pourquoi/">std::array, oui, mais pourquoi ?</a></li>
       
-      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">36 autres…</a></li>
+      <li class="widget__item"><a class="widget__link widget__link__other" href="/archives">37 autres…</a></li>
     </ul>
   </div>
 </div>
@@ -106,7 +106,7 @@
           <i class="fas fa-rss" aria-hidden="true"></i>
           <span class="sr-only link-alt">Flux RSS</span>&nbsp;
         </a>
-        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (27)</a>
+        <a class="widget__link" href="/categories/c&#43;&#43;">C&#43;&#43; (28)</a>
       </li>
       <li class="widget__item">
         <a class="rss-link" href="/categories/script-shell/index.xml" type="application/rss+xml" title="Flux RSS pour Script-Shell">
@@ -169,12 +169,215 @@
         
 <article class="post">
   <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="la-s%C3%A9mantique-de-d%C3%A9placement"><span>
+    <div class="post__title-nextprev" id="les-op%C3%A9rateurs-new-et-delete"><span>
         &nbsp;
+        <a href="#la-s%25C3%25A9mantique-de-d%25C3%25A9placement"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: La sémantique de déplacement"></i></a>
+    </span></div>
+    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/">Les opérateurs new et delete</a></h1>
+    <div class="post__title-nextprev-text sr-only">
+        <a href="#la-s%25C3%25A9mantique-de-d%25C3%25A9placement">Article précédent: La sémantique de déplacement</a><br/>
+    </div>
+    
+<p class="post__meta meta">
+    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
+    <time class="post__meta-date" datetime="2021-12-25T23:54:27">25 décembre 2021
+</time>
+    
+    ;
+  
+
+  
+
+<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
+;
+
+
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>10 minutes ;
+  <a href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
+  <a href="#7a499a0b99601e8fe75da34ae5a191c1-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
+  
+
+</p>
+
+
+  </header>
+  <div class="post__content">
+      <blockquote>
+<p>L&rsquo;allocation dynamique c&rsquo;est facile: pour un new, un delete</p>
+</blockquote>
+<p>Le quidam du coin.</p>
+<blockquote>
+<p>Pour 12 opérateurs new, 14 opérateurs delete.</p>
+</blockquote>
+<p>La norme de C++11.</p>
+<blockquote>
+<p>Mmmh, va pour 16 opérateurs delete.</p>
+</blockquote>
+<p>C++14.</p>
+<blockquote>
+<p>Finalement 22 opérateurs new et 26 opérateurs delete.</p>
+</blockquote>
+<p>L&rsquo;apparition de C++17.</p>
+<blockquote>
+<p>Allez, 30 opérateurs delete.</p>
+</blockquote>
+<p>Toujours plus loin avec C++20.</p>
+<hr>
+<p>Cet article va parler des opérateurs <a href="https://en.cppreference.com/w/cpp/memory/new/operator_new"><code>new</code></a> et <a href="https://en.cppreference.com/w/cpp/memory/new/operator_delete"><code>delete</code></a>. Pas les mots clefs <code>new</code> et <code>delete</code> tout seuls, mais bien de <code>operator new</code> et <code>operator delete</code> de l&rsquo;en-tête <code>&lt;new&gt;</code>, car derrière les mots clefs usuels se cachent en réalité beaucoup de fonctions surchargées. Soit appelées implicitement par le compilateur, soit explicitement par le développeur en donnant des paramètres à <code>new</code>.</p>
+<p>Bien sûr, ce sont des techniques très bas niveau liées à l&rsquo;allocation dynamique, à moins de vouloir écrire un allocateur global, il est probable que vous n&rsquo;en ayez jamais besoin. Je vais néanmoins présenter ici les différents opérateurs existant dans le standard et à quel moment ils sont utilisés.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/#new-ou-operator-new-"><h2 id="new-ou-operator-new-">new ou operator new ?</h2></a>
+<p>La première chose à faire est de distinguer le mot clef <code>new</code> traditionnellement utilisé de la fonction <code>operator new()</code> se trouvant dans l&rsquo;en-tête <code>&lt;new&gt;</code>. L&rsquo;expression <code>new T</code> fait en réalité 2 choses:</p>
+<ul>
+<li>Allouer une zone mémoire en utilisant <code>operator new()</code>.</li>
+<li>Construire le type <code>T</code> dans la zone mémoire préalablement allouée (appel du constructeur).</li>
+</ul>
+<p>Ces 2 étapes peuvent se faire manuellement en utilisant explicitement un opérateur <code>new</code> suivi d&rsquo;un placement-new qui appelle un opérateur new spécifique.</p>
+<p><code>new</code> utilise <code>new</code> et 2 <code>operator new</code>, il y a de quoi s&rsquo;y perdre :).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">mem</span> <span class="o">=</span> <span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">));</span> <span class="c1">// on alloue une mémoire pouvant contenir un T
+</span><span class="c1"></span><span class="n">T</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">mem</span><span class="p">)</span> <span class="n">T</span><span class="p">();</span> <span class="c1">// on construit un T dans la zone allouée
+</span><span class="c1"></span>                     <span class="c1">// ceci n&#39;effectue aucune allocation dynamique
+</span></code></pre></div><p>Il existe la même symétrie avec l&rsquo;expression <code>delete</code> qui utilise le destructeur suivi d&rsquo;une libération de la mémoire.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">p</span><span class="o">-&gt;~</span><span class="n">T</span><span class="p">();</span> <span class="c1">// appel explicite du destructeur
+</span><span class="c1"></span><span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="c1">// libération de la mémoire
+</span></code></pre></div><p>Ceci représente le cas de base pour une gestion plus fine de la mémoire. Pour information, c&rsquo;est une partie de ce qu&rsquo;utilisent les containers de la STL tel que <code>std::vector</code> à travers les allocateurs (<code>std::allocator</code>). Une partie seulement, car C++17 ajoute un paramètre d&rsquo;alignement.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/#séparation-en-catégorie"><h2 id="séparation-en-catégorie">Séparation en catégorie</h2></a>
+<p>Tous les opérateurs <code>new</code> et presque tous les opérateurs <code>delete</code> sont séparés en 2 catégories: une version tableau et une version sans.</p>
+<p>Par exemple <code>void* operator new(std::size_t)</code> et <code>void *operator new[](std::size_t)</code>. À part les 4 nouveaux opérateurs <code>delete</code> de C++20, il n&rsquo;y a pas d&rsquo;exception.</p>
+<p>Il y a néanmoins une différence de comportement avec les <code>operator new[]</code>: La taille nécessaire à leur allocation peut être supérieure à <code>sizeof(T) * len</code>. Il y a un surplus permettant de stocker la taille du tableau et ainsi appeler le bon nombre de destructeurs au moment du <code>delete[]</code>. Cet ajout est automatiquement fait par le compilateur et dépend de son implémentation.</p>
+<p>Toute la suite de l&rsquo;article ne présentera plus les versions tableaux, car le principe derrière est exactement le même que les versions sans tableau.</p>
+<p>Plus que 11 opérateurs new et 17 delete :)</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/#fonctions-dallocation-remplaçables"><h2 id="fonctions-dallocation-remplaçables">Fonctions d&rsquo;allocation remplaçables</h2></a>
+<p>Parmi les opérateurs disponibles, il existe 16 fonctions candidates au remplacement de la fonction d&rsquo;allocation. C&rsquo;est-à-dire qu&rsquo;utiliser <code>new T</code>/<code>new T[n]</code> ou <code>delete p</code>/<code>delete[] p</code> va implicitement faire appel à l&rsquo;une de ces fonctions que l&rsquo;utilisateur peut lui-même définir pour changer le comportement par défaut.</p>
+<p>La version <code>operator new</code>, en plus du paramètre <code>std::size_t count</code> représentant le nombre d&rsquo;octets à allouer, prend 2 paramètres optionnels:</p>
+<ul>
+<li><code>std::nothrow_t</code> qui représente l&rsquo;absence d&rsquo;exception et</li>
+<li><code>std::align_val_t</code> qui indique l&rsquo;alignement de l&rsquo;allocation.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow_t</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow_t</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="c1">// plus version new[]
+</span></code></pre></div><p>Le paramètre <code>std::nothrow_t</code> s&rsquo;utilise pour un new de la forme <code>new(std::nothrow) T</code>. Cela ne veut pas dire qu&rsquo;il n&rsquo;y aura jamais d&rsquo;exception (le constructeur de <code>T</code> peut le faire), mais que l&rsquo;allocation de l&rsquo;espace mémoire nécessaire ne le fera pas. Si l&rsquo;allocation échoue, un pointeur nul est retourné.</p>
+<p><code>std::align_val_t</code> fait référence aux types dont l&rsquo;alignement est supérieur à <code>__STDCPP_DEFAULT_NEW_ALIGNMENT__</code> et sera alors automatiquement ajouté par le compilateur. Cela dépend des implémentations, mais cette valeur devrait être au moins de la taille du plus grand type disponible, à priori <code>long double</code>.</p>
+<p>En supposant que <code>__STDCPP_DEFAULT_NEW_ALIGNMENT__</code> fait 16, pour utiliser la version <code>new</code> avec alignement, il faudrait un type tel que <code>struct alignas(32) A {};</code>.</p>
+<p>Ensuite vient <code>operator delete</code> qui, à la place d&rsquo;une taille, prend le pointeur à libérer.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow_t</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow_t</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">sz</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">sz</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="c1">// plus version delete[]
+</span></code></pre></div><p>Et les ennuis commencent. Il y a bien une correspondance 1-1, mais 2 fonctions prenant un <code>std::size_t sz</code> se sont subtilement ajoutées.</p>
+<p>Le paramètre <code>sz</code> ajouté en C++14 correspond à la taille de l&rsquo;objet libéré. Néanmoins, les 2 fonctions avec ce paramètre peuvent ne pas être utilisées pour les types trivialement destructibles ou incomplets. Dans ce cas, ce sont les versions sans ce paramètre qui seront utilisées. Actuellement, gcc utilise bien les fonctions avec le paramètre <code>sz</code> à partir de C++14, mais il faut le forcer avec <code>-fsized-deallocation</code> pour les standards inférieurs. Pour clang, ce flag est requis quel que soit le standard utilisé.</p>
+<p>Les versions avec <code>std::nothrow_t</code> sont utilisées lorsque le constructeur de <code>T</code> dans l&rsquo;expression <code>new(std::nothrow) T</code> jette une exception. Dans ce cas, l&rsquo;exception est relancée après libération de la mémoire.</p>
+<p>Peut-on faire une quelconque différence d&rsquo;implémentation entre les delete qui prennent des <code>std::nothrow_t</code> et ceux qui ne les prennent pas ? Je ne pense pas, je n&rsquo;arrive pas à imaginer un tel scénario.</p>
+<p>Étrangement, il n&rsquo;y a pas de prototype qui utilise en même temps <code>sz</code> et <code>std::nothrow_t</code>, alors que l&rsquo;information de taille pourrait être utilisée pour accélérer certaines désallocations.</p>
+<p>Encore 7 opérateurs new et 11 delete.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/#placement-new-la-construction-sans-allocation"><h2 id="placement-new-la-construction-sans-allocation">Placement-new, la construction sans allocation</h2></a>
+<p>Le placement-new est ce qui permet de construire un objet depuis une zone mémoire préalablement réservée. Soit via un tableau statique, soit à travers une allocation dynamique.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">alignas</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)];</span>
+<span class="n">T</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="n">T</span><span class="p">;</span> <span class="c1">// construction de T
+</span></code></pre></div><p>La destruction de cet objet se fait manuellement via un appel direct du destructeur (<code>p-&gt;~T()</code>) puis en libérant le buffer si nécessaire.</p>
+<p>Cet appel à <code>new</code> correspond au prototype ci-dessous dont l&rsquo;implémentation est prédéfinie par la bibliothèque standard:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="c1">// + version new[]
+</span></code></pre></div><p>Néanmoins, il est possible de surcharger cette fonction pour y introduire n&rsquo;importe quel paramètre:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span><span class="o">-</span><span class="n">args</span><span class="p">...);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">,</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span><span class="o">-</span><span class="n">args</span><span class="p">...);</span>
+<span class="c1">// + version new[]
+</span></code></pre></div><p><code>count</code> correspond au sizeof de <code>T</code> et la version avec alignement sera automatiquement utilisée si définie et que l&rsquo;alignement de T dépasse <code>__STDCPP_DEFAULT_NEW_ALIGNMENT__</code>. Dans le cas contraire, le compilateur se rabat sur celle sans alignement.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">T</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">storage</span><span class="p">,</span> <span class="n">opt</span><span class="p">)</span> <span class="n">T</span><span class="p">;</span> <span class="c1">// pourrait correspondre à operator new(std::size_t count, Storage&amp;, StorageOptions)
+</span><span class="c1"></span>                            <span class="c1">// et operator new(std::size_t count, std::align_val_t al, Storage&amp;, StorageOptions)
+</span></code></pre></div><p>Chacun de ses <code>new</code> a son équivalent <code>delete</code> dans le cas où le constructeur lance une exception.</p>
+<p>La version de la bibliothèque standard qui ne fait normalement rien:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="kt">void</span><span class="o">*</span> <span class="n">place</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="c1">// + version delete[]
+</span></code></pre></div><p>Et les surcharges utilisateur:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span><span class="o">-</span><span class="n">args</span><span class="p">...);</span>
+<span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">,</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span><span class="o">-</span><span class="n">args</span><span class="p">...);</span>
+</code></pre></div><p>cppreference.com ne fait pas explicitement mention de la version avec <code>std::align_val_t</code>, mais je l&rsquo;ajoute pour une meilleure correspondance avec les prototypes de <code>new</code>.</p>
+<p>On peut sérieusement se demander à quoi peut servir ces opérateurs prenant n&rsquo;importe quel type, alors qu&rsquo;ils pourraient très bien être remplacés par une fonction classique. Une fonction est beaucoup moins tordue que <code>new(a,b,c) T</code>.</p>
+<p>Plus que 4 opérateurs new et 9 delete.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/#les-opérateurs-new-et-delete-membre"><h2 id="les-opérateurs-new-et-delete-membre">Les opérateurs new et delete membre</h2></a>
+<p>Jusqu&rsquo;ici, tous les opérateurs étaient des fonctions libres qui ne peuvent avoir connaissance du type réellement alloué. Il est possible d&rsquo;avoir cette information en déclarant les opérateurs new et delete en membre statique d&rsquo;une classe. Les versions membres seront prioritaires à celles libres.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span><span class="o">-</span><span class="n">args</span><span class="p">...);</span>
+<span class="kt">void</span><span class="o">*</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">count</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">,</span> <span class="n">user</span><span class="o">-</span><span class="n">defined</span><span class="o">-</span><span class="n">args</span><span class="p">...);</span>
+<span class="c1">// + version new[]
+</span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">sz</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">sz</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">args</span><span class="p">...)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="c1">// + version delete[]
+</span></code></pre></div><p>Le nombre de prototypes est inférieur au nombre de fonctions libres, mais il est tout à fait possible de les réintroduire via les types utilisateurs.</p>
+<p>Petite particularité des opérateurs membres: il est possible d&rsquo;interdire les allocations dynamiques en supprimant la fonction avec <code>void* operator new(std::size_t count) = delete</code>. On peut cependant outrepasser cette restriction en utilisant l&rsquo;opérateur global avec <code>::new T</code>.</p>
+<p>Bientôt la fin, il ne reste que 4 opérateurs delete.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/#lopérateur-delete-chargé-dutiliser-le-destructeur"><h2 id="lopérateur-delete-chargé-dutiliser-le-destructeur">L&rsquo;opérateur delete chargé d&rsquo;utiliser le destructeur</h2></a>
+<p>En début d&rsquo;article, j&rsquo;indique que la construction d&rsquo;un objet se fait en 4 étapes représentées par 4 appels de fonctions consécutives:</p>
+<ul>
+<li>Allocation de la mémoire</li>
+<li>Construction de l&rsquo;objet dans la mémoire allouée</li>
+<li>Appel du destructeur</li>
+<li>Libération de la mémoire</li>
+</ul>
+<p>C++20 introduit 4 opérateurs delete qui doivent eux-mêmes faire l&rsquo;appel du destructeur en plus de la libération.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">destroying_delete_t</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">destroying_delete_t</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">destroying_delete_t</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">sz</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">T</span><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">(</span><span class="n">T</span><span class="o">*</span> <span class="n">ptr</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">destroying_delete_t</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">sz</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">align_val_t</span> <span class="n">al</span><span class="p">);</span>
+<span class="c1">// pas de version delete[] à cause de l&#39;overhead ajouté par le compilateur pour new[]
+</span></code></pre></div><p>On y retrouve <code>al</code> et <code>sz</code> qui suivent les mêmes règles que d&rsquo;habitude et un type <code>std::destroying_delete_t</code> qui permet une différenciation avec les autres fonctions.</p>
+<p>Les raisons de cet ajout sont expliquées dans la proposition <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0722r1.html">P0722</a> qui corrige les sized-delete avec des classes à taille variable (entre autres).</p>
+<p>Pour expliquer le fonctionnement, une classe à taille variable n&rsquo;est constructible qu&rsquo;à travers une allocation dynamique de la mémoire ; son allocation contient un surplus de taille contenant la partie variable. Par exemple, une string peut être un segment contenant la taille suivie des chars. Tout cela dans le même segment de donnée. Comme la partie variable n&rsquo;est pas dans l&rsquo;objet lui-même, un sizeof de ce type de chaîne correspond à la taille de son seul membre: <code>std::size_t length</code> (par exemple). Les données variables sont ensuite accessibles via <code>reinterpret_cast&lt;char*&gt;(this + 1)</code>. On peut retrouver la même chose avec des données variables insérées avant le pointeur de l&rsquo;objet.</p>
+<p>Le problème de ce type de classe apparaît au moment de la libération: comment utiliser l&rsquo;opérateur delete prenant une taille ou un alignement quand ces 2 informations ne font pas partie du type ? Celui introduit par le compilateur sera erroné. Ou encore, comment récupérer le pointeur d&rsquo;origine lorsque les données sont insérées avant le type utlisé ?</p>
+<p>Dans le premier scénario, une solution (fausse) est de récupérer cette information depuis la fonction <code>void T::operator delete(void* ptr)</code> en castant <code>ptr</code> en type <code>T</code> pour y extraire les informations nécessaires. Malheureusement, <code>ptr</code> représente un <code>T</code> détruit (destructeur utilisé): lire ses membres est invalide.</p>
+<p>Pour pallier à tous ces problèmes, les opérateurs delete introduits en C++20 prennent non plus un <code>void* ptr</code>, mais un <code>T* ptr</code> encore valide. C&rsquo;est pour cette raison que cette fonction doit elle-même appeler le destructeur.</p>
+<p>Quant au pointeur alloué, il peut vivre sa vie comme n&rsquo;importe quel pointeur et être utilisé dans &ndash; par exemple &ndash; un <code>std::unique_ptr</code>.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/#remplacement-de-lallocateur-global"><h2 id="remplacement-de-lallocateur-global">Remplacement de l&rsquo;allocateur global</h2></a>
+<p>L&rsquo;allocateur global est plutôt facile à remplacer, mais seuls les opérateurs considérés comment remplaçables pourront être utilisés de manière transparente. Cela exclut les <code>new</code>/<code>delete</code> avec des variables utilisateurs dont les prototypes doivent être connus par le programme qui les utilise.</p>
+<p>Pour ce faire, il suffit de compiler un .cpp qui contient les opérateurs pour en faire soit un .o, soit une bibliothèque. Dans les 2 cas, le bout de code sera compilé dans l&rsquo;exécutable final.</p>
+<p>Dans le cas d&rsquo;une bibliothèque externe, il est possible de la charger « plus tard » via les méthodes propres à chaque système d&rsquo;exploitation. Par exemple, les variables d&rsquo;environnement <code>LD_PRELOAD</code> et <code>LD_LIBRARY_PATH</code> pour Linux.</p>
+
+  </div>
+  <footer class="post__footer">
+    <p class="post__meta meta">
+  Le <time class="post__meta-date" datetime="2021-12-25T23:54:27">25 décembre 2021
+</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
+ ;
+  
+
+  
+
+  <br/><a href="https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
+</p>
+<p class="post__meta meta share" id="7a499a0b99601e8fe75da34ae5a191c1-share">
+  
+  Partager Par
+  <a title="Partager par email" href="mailto:?subject=les-op%25C3%25A9rateurs-new-et-delete&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f12%2fles-operateurs-new-et-delete%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
+  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f12%2fles-operateurs-new-et-delete%2f&amp;title=les-op%25C3%25A9rateurs-new-et-delete" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
+  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f12%2fles-operateurs-new-et-delete%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
+  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f12%2fles-operateurs-new-et-delete%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
+  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f12%2fles-operateurs-new-et-delete%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
+  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2021%2f12%2fles-operateurs-new-et-delete%2f&amp;name=les-op%25C3%25A9rateurs-new-et-delete" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
+</p>
+
+  </footer>
+</article>
+
+        
+<article class="post">
+  <header class="post__header clearfix">
+    <div class="post__title-nextprev" id="la-s%C3%A9mantique-de-d%C3%A9placement"><span>
+        <a href="#les-op%25C3%25A9rateurs-new-et-delete"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Les opérateurs new et delete"></i></a>
         <a href="#sfinae"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: SFINAE"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/">La sémantique de déplacement</a></h1>
     <div class="post__title-nextprev-text sr-only">
+        <a href="#les-op%25C3%25A9rateurs-new-et-delete">Article suivant: Les opérateurs new et delete</a><br/>
         <a href="#sfinae">Article précédent: SFINAE</a><br/>
     </div>
     
@@ -3095,431 +3298,15 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
   </footer>
 </article>
 
-        
-<article class="post">
-  <header class="post__header clearfix">
-    <div class="post__title-nextprev" id="au-c%C5%93ur-dun-variant"><span>
-        <a href="#comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Comparaison de différentes implémentations de mp_index_of"></i></a>
-        <a href="#faites-parler-votre-compilateur"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Faites parler votre compilateur"></i></a>
-    </span></div>
-    <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/">Au cœur d&#39;un variant</a></h1>
-    <div class="post__title-nextprev-text sr-only">
-        <a href="#comparaison-de-diff%25C3%25A9rentes-impl%25C3%25A9mentations-de-mp_index_of">Article suivant: Comparaison de différentes implémentations de mp_index_of</a><br/>
-        <a href="#faites-parler-votre-compilateur">Article précédent: Faites parler votre compilateur</a><br/>
-    </div>
-    
-<p class="post__meta meta">
-    <i class="fas fa-clock-o fa-fw" aria-hidden="true"></i>
-    <time class="post__meta-date" datetime="2018-09-02T14:45:55">02 septembre 2018
-</time>
-    
-    ;
-  
-
-  
-
-<a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category"><i class="fas fa-folder fa-fw" aria-hidden="true"></i><span class="sr-only text-alt">Catégories&nbsp;:</span>c&#43;&#43;</a>
-;
-
-
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>9 minutes ;
-  <a href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
-  <a href="#dc9b2e982ad7fe0bb2aca98f8a852275-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
-  
-
-</p>
-
-
-  </header>
-  <div class="post__content">
-      <p>Cet article va être consacré à la réalisation d&rsquo;une classe variant comme on peut la trouver dans la <a href="http://en.cppreference.com/w/cpp/utility/variant">STL</a>, <a href="http://en.cppreference.com/w/cpp/utility/variant">boost</a> et <a href="https://github.com/mapbox/variant">autres</a>. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&rsquo;exécution. Je vais faire un petit tour de ce que j&rsquo;ai pu voir et comment les implémenter.</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#rappel-sur-ce-quest-un-variant"><h2 id="rappel-sur-ce-quest-un-variant">Rappel sur ce qu&rsquo;est un variant</h2></a>
-<p>Un variant est une <strong>union sécurisée</strong> comme on peut le trouver dans les langages fonctionnels.
-Contrairement aux <a href="http://en.cppreference.com/w/cpp/language/union">union</a> classique du C++, le variant garde l&rsquo;information du type manipulé.
-C&rsquo;est en cela qu&rsquo;il est sécurisé, on ne sélectionne pas une valeur d&rsquo;un certain type,
-mais on fournit une fonction que le variant appelle avec le type enregistré.</p>
-<p>Même si le variant peut aisément remplacer l&rsquo;héritage lorsque le nombre de classe dérivée est connue,
-il est beaucoup plus adapté lorsque les valeurs priment sur les comportements.
-Par exemple, une valeur d&rsquo;une structure JSON représente un nombre, un tableau, une chaîne de caractères ou un objet.
-Il n&rsquo;y a pas de comportement commun, les traitements se feront en fonction du type de la valeur.</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#un-premier-variant"><h2 id="un-premier-variant">Un premier variant</h2></a>
-<p>Notre version minimale de variant va contenir:</p>
-<ul>
-<li>Les constructeurs par défaut, de copie et de déplacement.</li>
-<li>Un constructeur pour initialiser avec un type de la liste.</li>
-<li>Les opérateurs d&rsquo;affectation correspondant aux constructeurs.</li>
-<li>Une fonction <code>visit</code> (en membre, pour des raisons de simplification).</li>
-</ul>
-
-<div class="InfoBox"><p><strong class="InfoBox-title">Info :</strong> <p>L&rsquo;implémentation qui va suivre se veut simple et surtout naïve. De ce fait, elle est totalement inefficace et montre l&rsquo;exemple à ne pas suivre.
-Elle servira néanmoins de base de travail et sera peaufinée tout au long des chapitres pour atteindre l'<em>idéal</em> du variant.</p>
-</p></div>
-
-<p>Comme le type change en cours de route, nous allons utiliser en interne une classe de base qui pour chaque dérivée va contenir le type réel.
-Grâce à cela, le type stocké pourra être supprimé et un nouveau type pourra y être enregistré.
-Cette classe de base pourra aussi servir à implémenter l&rsquo;opérateur de copie via une fonction <code>clone</code>.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
-<span class="p">{</span>
-  <span class="k">struct</span> <span class="nc">VariantBase</span>
-  <span class="p">{</span>
-    <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">VariantBase</span><span class="o">&gt;</span> <span class="n">clone</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">virtual</span> <span class="o">~</span><span class="n">VariantBase</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-  <span class="p">};</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">Variant</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-  <span class="n">Variant</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-  <span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-  <span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
-
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-  <span class="n">Variant</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">);</span>
-
-  <span class="n">Variant</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Variant</span><span class="o">&amp;&amp;</span><span class="p">)</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-  <span class="n">Variant</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span><span class="p">);</span>
-
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-  <span class="n">Variant</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">);</span>
-
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="o">&gt;</span>
-  <span class="k">auto</span> <span class="n">visit</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span><span class="p">);</span>
-
-<span class="k">private</span><span class="o">:</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">VariantBase</span><span class="o">&gt;</span> <span class="n">impl_</span><span class="p">;</span>
-<span class="p">};</span></code></pre></div>
-
-<p>Pour ne pas parasiter les codes, je n&rsquo;ajoute pas les noexcept. De toute façon, avec les allocations dynamiques, cela ne va pas être évident.</p>
-<p>Toute la difficulté va se trouver dans les implémentations de <code>VariantBase</code> et la fonction <code>visit</code>. Pour en faire une dérivée, un pattern assez commun va être utilisé, celui d&rsquo;avoir une classe <code>VariantImpl</code> template sur le type à stocker.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
-<span class="p">{</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-  <span class="k">struct</span> <span class="nc">VariantImpl</span> <span class="o">:</span> <span class="n">VariantBase</span>
-  <span class="p">{</span>
-    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
-    <span class="n">VariantImpl</span><span class="p">(</span><span class="n">U</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
-    <span class="o">:</span> <span class="n">value_</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="p">{}</span>
-
-    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">VariantBase</span><span class="o">&gt;</span> <span class="n">clone</span><span class="p">()</span> <span class="k">override</span>
-    <span class="p">{</span>
-      <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">VariantImpl</span><span class="o">&gt;</span><span class="p">(</span><span class="n">value_</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="n">T</span> <span class="n">value_</span><span class="p">;</span>
-  <span class="p">};</span>
-
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-  <span class="k">auto</span> <span class="n">make_variant_impl</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">VariantImpl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span>
-      <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
-<span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">impl_</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">())</span>
-<span class="p">{}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
-<span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
-<span class="p">{}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">impl_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">impl_</span> <span class="o">?</span> <span class="n">other</span><span class="p">.</span><span class="n">impl_</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">()</span> <span class="o">:</span> <span class="k">nullptr</span><span class="p">;</span>
-  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">impl_</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
-  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
-
-<p>En réalité ce qu&rsquo;on vient de faire ici n&rsquo;est ni plus ni moins qu&rsquo;un <code>std::any</code>. Si on réfléchit bien, nous ne sommes pas limités dans les types à stocker et il n&rsquo;y a aucune vérification au niveau de l&rsquo;initialisation d&rsquo;une valeur. C&rsquo;est mal, mais on va rester comme cela pour le moment.</p>
-<p>Reste ensuite la fonction <code>visit</code>. À ce stade, je dirais que la solution la plus naturelle est d&rsquo;utiliser <code>dynamic_cast</code> pour déterminer le type réel et appeler la bonne surcharge de fonction.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="o">&gt;</span>
-<span class="k">auto</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">visit</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">assert</span><span class="p">(</span><span class="n">impl_</span><span class="p">);</span>
-  <span class="k">auto</span> <span class="n">visit_impl</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">auto</span> <span class="n">rec</span><span class="p">,</span> <span class="k">auto</span><span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="k">auto</span><span class="o">*</span><span class="p">...</span> <span class="n">ts</span><span class="p">){</span>
-    <span class="k">using</span> <span class="n">Impl</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">VariantImpl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="p">;</span>
-    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">ts</span><span class="p">))</span> <span class="p">{</span>
-      <span class="k">auto</span><span class="o">*</span> <span class="n">impl</span> <span class="o">=</span> <span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">());</span>
-      <span class="k">return</span> <span class="n">impl</span> <span class="o">?</span> <span class="n">f</span><span class="p">(</span><span class="n">impl</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">)</span> <span class="o">:</span> <span class="n">rec</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">ts</span><span class="p">...);</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="p">{</span>
-      <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">rec</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nf">f</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">};</span>
-  <span class="k">return</span> <span class="nf">visit_impl</span><span class="p">(</span><span class="n">visit_impl</span><span class="p">,</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)...);</span>
-<span class="p">}</span></code></pre></div>
-
-<p>Cette implémentation parcourt récursivement les types du variant pour trouver celui qui correspond à la valeur de <code>impl_</code>, appel <code>f</code> avec le bon type puis propage son retour en remontant la pile d&rsquo;appel.
-Le dernier élément est un cas spécial traité dans le <code>else</code> car, quand on le compare avec <code>dynamic_cast</code>, le résultat est toujours vrai.
-Comme notre variant ne contient &ndash;normalement&ndash; qu&rsquo;un nombre restreint de types, si la valeur de <code>impl_</code> ne correspond pas aux types qui précèdent le dernier, alors <code>impl_</code> est forcément du type du dernier élément.</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#moi-jaime-pas-dynamic_cast"><h2 id="moi-jaime-pas-dynamic_cast">Moi j&rsquo;aime pas dynamic_cast</h2></a>
-<p><code>dynamic_cast</code> est souvent un signe révélateur d&rsquo;un problème de conception. Si on abstrait les valeurs, c&rsquo;est dans le but de ne pas se soucier du type de l&rsquo;implémentation. Or, un variant met le focus sur le type et rend caduque cette abstraction. Seulement, <code>dynamic_cast</code> a un coût d&rsquo;exécution exorbitant par rapport à la tâche qu&rsquo;il effectue ici.</p>
-<p>De ce fait, <code>dynamic_cast</code> n&rsquo;est pas une bonne solution, il est plus judicieux de conserver une information pour différencier les types. Comme un variant contient une liste d&rsquo;éléments, l&rsquo;indice du type utilisé suffit amplement.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Variant</span>
-<span class="p">{</span>
-  <span class="c1">// ...
-</span><span class="c1"></span><span class="k">private</span><span class="o">:</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">detail</span><span class="o">::</span><span class="n">VariantBase</span><span class="o">&gt;</span> <span class="n">impl_</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">type_index_</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>Maintenant, il faut convertir un type en indice, c&rsquo;est à ce moment que la méta-programmation arrive à la rescousse.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;type_traits&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">namespace</span> <span class="n">detail</span>
-<span class="p">{</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-  <span class="k">struct</span> <span class="nc">count_items_to_right_of</span><span class="p">;</span>
-
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Us</span><span class="o">&gt;</span>
-  <span class="k">struct</span> <span class="nc">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">Us</span><span class="p">...</span><span class="o">&gt;</span>
-  <span class="o">:</span> <span class="n">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Us</span><span class="p">...</span><span class="o">&gt;</span>
-  <span class="p">{};</span>
-
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Us</span><span class="o">&gt;</span>
-  <span class="k">struct</span> <span class="nc">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Us</span><span class="p">...</span><span class="o">&gt;</span>
-  <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">...(</span><span class="n">Us</span><span class="p">)</span><span class="o">&gt;</span>
-  <span class="p">{};</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">size_t</span><span class="p">,</span>
-  <span class="k">sizeof</span><span class="p">...(</span><span class="n">Ts</span><span class="p">)</span> <span class="o">-</span> <span class="n">detail</span><span class="o">::</span><span class="n">count_items_to_right_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">-</span> <span class="mi">1</span>
-<span class="o">&gt;</span><span class="p">;</span></code></pre></div>
-
-<p><code>mp_index_of</code> est un alias sur <code>std::integral_constant</code>. L&rsquo;implémentation déroule récursivement les éléments de <code>Ts</code> jusqu&rsquo;à trouver <code>T</code> et retourne le nombre d&rsquo;éléments qu&rsquo;il reste dans la liste. Soustraire ce résultat à <code>sizeof...(Ts) - 1</code> permet d&rsquo;avoir la position de <code>T</code>.</p>
-<p>On met à jour l&rsquo;implémentation pour initialiser le nouveau membre.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
-<span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">impl_</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">())</span>
-<span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">type_index_</span><span class="p">)</span> <span class="c1">// ici
-</span><span class="c1"></span><span class="p">{}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">Variant</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
-<span class="o">:</span> <span class="n">impl_</span><span class="p">(</span><span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
-<span class="p">,</span> <span class="n">type_index_</span><span class="p">(</span><span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">)</span> <span class="c1">// là
-</span><span class="c1"></span><span class="p">{}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">Variant</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">impl_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">impl_</span> <span class="o">?</span> <span class="n">other</span><span class="p">.</span><span class="n">impl_</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">()</span> <span class="o">:</span> <span class="k">nullptr</span><span class="p">;</span>
-  <span class="n">type_index_</span> <span class="o">=</span> <span class="n">other</span><span class="p">.</span><span class="n">type_index_</span><span class="p">;</span> <span class="c1">// ici aussi
-</span><span class="c1"></span>  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-<span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">impl_</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">make_variant_impl</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
-  <span class="n">type_index_</span> <span class="o">=</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">;</span> <span class="c1">// et là
-</span><span class="c1"></span>  <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
-
-<p>Puis on supprime <code>dynamic_cast</code> de la fonction <code>visit</code>, le remplaçant par une comparaison d&rsquo;index.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="o">&gt;</span>
-<span class="k">auto</span> <span class="n">Variant</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">visit</span><span class="p">(</span><span class="n">F</span><span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">assert</span><span class="p">(</span><span class="n">impl_</span><span class="p">);</span>
-  <span class="k">auto</span> <span class="n">visit_impl</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="k">auto</span> <span class="n">rec</span><span class="p">,</span> <span class="k">auto</span><span class="o">*</span> <span class="n">t</span><span class="p">,</span> <span class="k">auto</span><span class="o">*</span><span class="p">...</span> <span class="n">ts</span><span class="p">){</span>
-    <span class="k">using</span> <span class="n">T</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">&gt;</span><span class="p">;</span>
-    <span class="k">using</span> <span class="n">Impl</span> <span class="o">=</span> <span class="n">detail</span><span class="o">::</span><span class="n">VariantImpl</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">;</span>
-    <span class="k">if</span> <span class="nf">constexpr</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">...(</span><span class="n">ts</span><span class="p">))</span> <span class="p">{</span>
-      <span class="c1">// plus de dynamic_cast, mais une comparaison d&#39;entier + static_cast
-</span><span class="c1"></span>      <span class="k">return</span> <span class="n">type_index_</span> <span class="o">==</span> <span class="n">mp_index_of</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;::</span><span class="n">value</span>
-        <span class="o">?</span> <span class="n">f</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">)</span>
-        <span class="o">:</span> <span class="n">rec</span><span class="p">(</span><span class="n">rec</span><span class="p">,</span> <span class="n">ts</span><span class="p">...);</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="p">{</span>
-      <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">rec</span><span class="p">;</span>
-      <span class="k">return</span> <span class="nf">f</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Impl</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">impl_</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="o">-&gt;</span><span class="n">value_</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">};</span>
-  <span class="k">return</span> <span class="nf">visit_impl</span><span class="p">(</span><span class="n">visit_impl</span><span class="p">,</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Ts</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)...);</span>
-<span class="p">}</span></code></pre></div>
-
-<p>Peu de changement finalement, mais maintenant <code>variant</code> peut fonctionner sans support de <a href="https://fr.wikipedia.org/wiki/Run-time_type_information">RTTI</a> !</p>
-<p>On notera aussi que puisque nous possédons l&rsquo;indice lié au type, on peut aussi remplacer les fonctions virtuelles par un appel à <code>visit</code> pour supprimer la vtable et enlever l&rsquo;indirection pour accéder aux fonctions virtuelles dans celle-ci.</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#lallocation-dynamique-nest-pas-gratuite"><h2 id="lallocation-dynamique-nest-pas-gratuite">L&rsquo;allocation dynamique n&rsquo;est pas gratuite</h2></a>
-<p>Il est vrai que l&rsquo;allocation dynamique a un coût non négligeable sur les performances. Personne n&rsquo;a idée de faire <code>new int</code> alors qu&rsquo;en regardant de plus près, c&rsquo;est exactement ce que fait notre implémentation. Vient ensuite les déréférencements de pointeur qui font sauter des optimisations. Effet amplifié lorsque les fonctions sont <code>virtual</code>. Décidément, l&rsquo;allocation dynamique pour un variant n&rsquo;est pas une bonne idée.</p>
-<p>Le mieux serait de stocker nos types de la même manière qu&rsquo;une union: un seul bloc mémoire de la taille du type le plus grand. À ma connaissance il existe 2 possibilités:</p>
-<ul>
-<li>une union récursive</li>
-<li><a href="http://en.cppreference.com/w/cpp/types/aligned_union">std::aligned_union</a></li>
-</ul>
-<p>Pour choisir le procédé le plus efficace, nous implémentons les 2 dans une classe qui ne possède que les fonctions d&rsquo;accès et les constructeurs.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="nc">AlignedStorage</span>
-<span class="p">{</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-  <span class="n">T</span><span class="o">&amp;</span> <span class="n">get</span><span class="p">()</span>
-  <span class="p">{</span>
-    <span class="k">return</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">);</span>
-  <span class="p">}</span>
-
-<span class="k">private</span><span class="o">:</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">aligned_union_t</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
-<span class="p">};</span></code></pre></div>
-
-<p>Sans les constructeurs, la version avec <code>std::aligned_union</code> est vraiment simple. Mais l&rsquo;utilisation de <code>reinterpret_cast</code> empêche de mettre la fonction <code>get()</code> en <code>constexpr</code> (gcc l&rsquo;accepte néanmoins).</p>
-<p>À contrario, la version avec une union récursive est extrêmement verbeuse (toujours sans constructeur d&rsquo;initialisation de valeur):</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
-<span class="p">{</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-  <span class="k">union</span> <span class="nc">RecursiveUnion</span>
-  <span class="p">{</span>
-    <span class="kt">char</span> <span class="n">dummy</span><span class="p">;</span>
-    <span class="n">T</span> <span class="n">value</span><span class="p">;</span>
-    <span class="n">RecursiveUnion</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span> <span class="n">others</span><span class="p">;</span>
-
-    <span class="n">RecursiveUnion</span><span class="p">()</span> <span class="o">:</span> <span class="n">dummy</span><span class="p">()</span> <span class="p">{}</span>
-    <span class="o">~</span><span class="n">RecursiveUnion</span><span class="p">(){}</span>
-  <span class="p">};</span>
-
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-  <span class="k">union</span> <span class="nc">RecursiveUnion</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
-  <span class="p">{</span>
-    <span class="kt">char</span> <span class="n">dummy</span><span class="p">;</span>
-    <span class="n">T</span> <span class="n">value</span><span class="p">;</span>
-
-    <span class="n">RecursiveUnion</span><span class="p">()</span> <span class="o">:</span> <span class="n">dummy</span><span class="p">()</span> <span class="p">{}</span>
-    <span class="o">~</span><span class="n">RecursiveUnion</span><span class="p">(){}</span>
-  <span class="p">};</span>
-
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-  <span class="n">T</span><span class="o">&amp;</span> <span class="n">get</span><span class="p">(</span><span class="n">RecursiveUnion</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">u</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="k">return</span> <span class="n">u</span><span class="p">.</span><span class="n">value</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
-  <span class="n">T</span><span class="o">&amp;</span> <span class="n">get</span><span class="p">(</span><span class="n">U</span><span class="o">&amp;</span> <span class="n">u</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="k">return</span> <span class="n">get</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">others</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="nc">UnionStorage</span>
-<span class="p">{</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-  <span class="n">T</span><span class="o">&amp;</span> <span class="n">get</span><span class="p">()</span>
-  <span class="p">{</span>
-    <span class="k">return</span> <span class="n">detail</span><span class="o">::</span><span class="n">get</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
-  <span class="p">}</span>
-
-<span class="k">private</span><span class="o">:</span>
-
-  <span class="n">detail</span><span class="o">::</span><span class="n">RecursiveUnion</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span> <span class="n">data</span><span class="p">;</span>
-<span class="p">};</span></code></pre></div>
-
-<p>Si on regarde <a href="https://godbolt.org/g/xu9fwh">l&rsquo;assembleur</a>, il s&rsquo;avère que les 2 versions sont exactement les mêmes.</p>
-<p>Pour initialiser l&rsquo;objet avec une valeur, la version avec <code>std::aligned_union</code> doit utiliser un <a href="http://en.cppreference.com/w/cpp/language/new">placement new</a> qui empêche de rendre le constructeur <code>constexpr</code>. Ce qui par la même occasion s&rsquo;applique aussi au variant. Sans compter le problème du <code>reinterpret_cast</code> dans la fonction <code>get()</code>. Du coup, bien que cette version soit plus simple et que je ne mette pas <code>constexpr</code>, l&rsquo;union récursive est préférable.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// std::in_place_index_t
-</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">i</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="nc">in_place_index_t</span>
-<span class="p">{</span>
-  <span class="k">explicit</span> <span class="nf">in_place_index_t</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
-<span class="p">};</span></code></pre></div>
-
-<p>(<code>RecursiveUnion</code> devient <code>VariadicUnion</code>)</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp">    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
-    <span class="n">VariadicUnion</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">U</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
-    <span class="o">:</span> <span class="n">value</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="p">{}</span>
-
-    <span class="k">template</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">I</span><span class="p">,</span> <span class="k">class</span> <span class="nc">U</span><span class="o">&gt;</span>
-    <span class="n">VariadicUnion</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">U</span><span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span>
-    <span class="o">:</span> <span class="n">others</span><span class="p">(</span><span class="n">in_place_index_t</span><span class="o">&lt;</span><span class="n">I</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">{},</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="p">{}</span></code></pre></div>
-
-<p>Puis on adapte les fonctions de <code>Variant</code>.
-Le code final est plutôt gros alors je ne mets <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/cpp_variant/variant3.cpp#l157">que le lien</a>
-.</p>
-<p>Pour éviter une condition particulière dans le code, l&rsquo;union possède un membre supplémentaire: <code>Uninit</code>, utilisé par <code>init</code>, <code>copy</code> et <code>destroy</code> pour représenter un variant sans valeur.</p>
-<p>Il y a aussi une condition dans <code>operator=</code> pour choisir entre la fonction <code>copy</code> si les 2 éléments sont du même type ou les fonctions <code>destroy</code>+<code>init</code> dans le cas contraire. Cette condition peut être supprimée si:</p>
-<ul>
-<li>Tous les éléments ont un destructeur trivial: il n&rsquo;y a pas besoin de faire <code>destroy</code>+<code>init</code>.</li>
-<li>La fonction <code>visit</code> peut prendre plusieurs variants en paramètre pour faire un switch allant de 0 à <code>(sizeof...(Ts) + 1) * (sizeof...(Ts) + 1)</code>.</li>
-</ul>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/#mot-de-la-fin"><h2 id="mot-de-la-fin">Mot de la fin</h2></a>
-<p>Bien que le variant actuel soit incomplet, il est utilisable et proche des implémentations actuelles. Mais il y a plusieurs petits détails qui ne sont pas approfondis ici:</p>
-<ul>
-<li>l&rsquo;optimisation sur la taille de <code>type_index</code>,</li>
-<li>les différents moyens de remplacer une vtable (ici je n&rsquo;utilise que le if/else récursif),</li>
-<li>le coût d&rsquo;utilisation d&rsquo;un objet en fonction de sa nature (par exemple: le compilateur dévirtualise-t-il les fonctions virtuelles venant d&rsquo;un membre de variant ?)</li>
-<li>les variants récursives</li>
-<li>et bien d&rsquo;autres</li>
-</ul>
-<p>Les prochains articles seront davantage axés sur la méta-programmation et indirectement reliés avec certains aspects du variant présentés ici.</p>
-<p>Les sources sont disponibles sur <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/tree/source/resources/cpp_variant">github</a>
-.</p>
-
-  </div>
-  <footer class="post__footer">
-    <p class="post__meta meta">
-  Le <time class="post__meta-date" datetime="2018-09-02T14:45:55">02 septembre 2018
-</time> par Jonathan Poelen dans <a class="meta-categories__link" href="/categories/c&#43;&#43;" rel="category">c&#43;&#43;</a>
- ;
-  
-
-  
-
-  <br/><a href="https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/"><i class="fas fa-link fa-fw" aria-hidden="true"></i>Lien permanent.</a>
-</p>
-<p class="post__meta meta share" id="dc9b2e982ad7fe0bb2aca98f8a852275-share">
-  
-  Partager Par
-  <a title="Partager par email" href="mailto:?subject=au-c%25C5%2593ur-dun-variant&amp;Body=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f09%2fau-coeur-dun-variant%2f"><i class="fas fa-envelope-square fa-fw" aria-hidden="true"></i><span class="sr-only">Mail</span></a>
-  <a title="Partager sur Linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f09%2fau-coeur-dun-variant%2f&amp;title=au-c%25C5%2593ur-dun-variant" rel="noopener noreferrer"><i class="fab fa-linkedin fa-fw" aria-hidden="true" style="color: #0077B5"></i><span class="sr-only">Linkedin</span></a>
-  <a title="Partager sur Twitter" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f09%2fau-coeur-dun-variant%2f" rel="noopener noreferrer"><i class="fab fa-twitter-square fa-fw" aria-hidden="true" style="color: #1DA1F2"></i><span class="sr-only">Twitter</span></a>
-  <a title="Partager sur Google+" href="https://plus.google.com/share?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f09%2fau-coeur-dun-variant%2f" rel="noopener noreferrer"><i class="fab fa-google-plus-square fa-fw" aria-hidden="true" style="color: #DE5549"></i><span class="sr-only">Google+</span></a>
-  <a title="Partager sur Facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f09%2fau-coeur-dun-variant%2f" rel="noopener noreferrer"><i class="fab fa-facebook-square fa-fw" aria-hidden="true" style="color: #4869b2"></i><span class="sr-only">Facebook</span></a>
-  <a title="Partager sur Tumblr" href="https://www.tumblr.com/share/link?url=https%3a%2f%2fjonathanpoelen.github.io%2f2018%2f09%2fau-coeur-dun-variant%2f&amp;name=au-c%25C5%2593ur-dun-variant" rel="noopener noreferrer"><i class="fab fa-tumblr-square fa-fw" aria-hidden="true" style="color: #349099"></i><span class="sr-only">Tumblr</span></a>
-</p>
-
-  </footer>
-</article>
-
 
     
       
 <div class="pagination clearfix">
-  <span class="pagination__item pagination__item--current">1/4</span>
+  <span class="pagination__item pagination__item--current">1/5</span>
   <a class="pagination__item" href="/page/2/">2</a>
   <a class="pagination__item" href="/page/3/">3</a>
-  <a class="pagination__item" href="/page/4/">4</a>
+  …
+  <a class="pagination__item" href="/page/5/">5</a>
   <a class="pagination__item pagination__item--next" href="/page/2/">▶</a>
 </div>
 

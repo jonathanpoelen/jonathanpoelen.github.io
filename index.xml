@@ -8,7 +8,26 @@
     <language>fr-FR</language>
     <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
     <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Tue, 11 May 2021 22:14:00 +0100</lastBuildDate><atom:link href="https://jonathanpoelen.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Dec 2021 23:54:27 +0200</lastBuildDate><atom:link href="https://jonathanpoelen.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Les opérateurs new et delete</title>
+      <link>https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/</link>
+      <pubDate>Sat, 25 Dec 2021 23:54:27 +0200</pubDate>
+      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
+      <guid>https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/</guid>
+      <description>L&amp;rsquo;allocation dynamique c&amp;rsquo;est facile: pour un new, un delete
+ Le quidam du coin.
+ Pour 12 opérateurs new, 14 opérateurs delete.
+ La norme de C++11.
+ Mmmh, va pour 16 opérateurs delete.
+ C++14.
+ Finalement 22 opérateurs new et 26 opérateurs delete.
+ L&amp;rsquo;apparition de C++17.
+ Allez, 30 opérateurs delete.
+ Toujours plus loin avec C++20.
+ Cet article va parler des opérateurs new et delete.</description>
+    </item>
+    
     <item>
       <title>La sémantique de déplacement</title>
       <link>https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/</link>
