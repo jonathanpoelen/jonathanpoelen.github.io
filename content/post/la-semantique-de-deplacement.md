@@ -49,7 +49,7 @@ Du coup, plutôt que copier le sac, on le déplace directement dans celui de bri
 brigand.bag = std::move(my_bag);
 ```
 
-Au passage, on vient d'écraser tout ce qu'il y avait dans le sac de notre voleur ; bien fait pour lui ! Mais le plus important est là: Pikachu appartient maintenant au brigand, `my_bag` ne devrait plus être utilisé. On a bien eu un transfert des pokémons d'un sac `A` vers un sac `B`, il y a eu déplacement.
+Au passage, on vient d'écraser tout ce qu'il y avait dans le sac de notre voleur ; bien fait pour lui ! Mais le plus important est là: Pikachu appartient maintenant au brigand, `my_bag` ne devrait plus être utilisé. On a bien eu un transfert des pokémons d'un sac `A` vers un sac `B`, il y a eu **déplacement**.
 
 
 ## Copie profonde et copie superficielle
@@ -493,8 +493,8 @@ Sans l'usage de `std::forward`, les 2 appels donneraient `foo(int&)`.
 
 Si on veut comprendre la magie derrière, il faut regarder le type réel de `T`:
 
-- `bar(i)`: `T` = `int&`. `T&&` = `int&`
-- `bar(std::move(i))`: `T` = `int`. `T&&` = `int`
+- `bar(i)`: `T&&` = `int&`. `T` = `int&`
+- `bar(std::move(i))`: `T&&` = `int&&`. `T` = `int`.
 
 Appliquer une rvalue sur un type qui est une lvalue donne une lvalue. C'est ce qu'on appelle les règles de [reference collapsing](https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing).
 
