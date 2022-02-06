@@ -79,9 +79,32 @@ foo(T(a1)); // ok, on passe l'adresse de `a`. À ne pas confondre avec la valeur
 J'ai déjà eu ce genre d'erreur dans un code proche de `write(a, std::size_t(a))` à la place de `write(a, std::size(a))`.
 
 
+## Les tailles des tableaux multidimensionnels sont à l'envers
+
+Lorsqu'on déclare un tableau multidimensionnel, l'ordre des dimensions est à lire à l'envers. Ce qui n'est pas le cas en utilisant des alias.
+
+```cpp
+int a[2][3]; // tableau de 2 tableaux de 3 int
+
+using A = int[2]; // tableau de 2 int
+A a[3]; // tableau de 3 tableaux de 2 int
+```
+
+
 ## Un tableau C n'est pas copiable
 
-Le tableau est le seul type du C qui ne supporte ni la copie, ni l'affectation, ce qui le rend inutilisable dans n'importe quel conteneur de la STL tel que `std::vector`. Il n'est pas non plus possible de construire un tableau directement dans l'appel d'une fonction (sauf en C99 avec un cast: `foo((int[]){1,2})`).
+Le tableau est le seul type du C qui ne supporte ni la copie, ni l'affectation, ce qui le rend inutilisable en retour de fonction ou dans n'importe quel conteneur de la STL tel que `std::vector`. Il n'est pas non plus possible de construire un tableau directement dans l'appel d'une fonction sauf en C99 ou C++ avec un cast ou à travers un alias.
+
+```cpp
+// cast
+foo((int[]){1,2});
+
+// alias
+template<class T>
+using carray = T[];
+
+foo(carray<int>{1,2});
+```
 
 Par contre, une structure qui contient un tableau est aussi bien copiable qu'affectable. Manipuler un tableau directement impose plusieurs contraintes complètement loufoques, mais mettez le tout dans une boîte et tout est permis. Ce qui m'amène à `std::array`, car il fait justement office de boîte.
 
@@ -104,7 +127,7 @@ La manière intelligente de faire consiste en une fonction libre `size(T(&)[N])`
 
 ## Un tableau de 0 élément
 
-Dans certaines circonstances, on peut vouloir un tableau de 0 élément. Cela fonctionne très bien avec `std::array` contrairement au tableau C qui doit utiliser une extension du compilateur pour le supporter (c'est interdit par le standard). Pour pallier à ce problème, la taille du tableau est généralement forcée à 1, mais d'autres complications surviennent dès que les types ne sont pas trivialement constructibles.
+Dans certaines circonstances, on peut vouloir un tableau de 0 élément. Cela fonctionne très bien avec `std::array` contrairement au tableau C qui doit utiliser une extension du compilateur pour le supporter (c'est interdit par le standard). Pour pallier à ce problème avec les tableau C, sa taille est généralement forcée à 1, mais d'autres complications surviennent dès que les types ne sont pas trivialement constructibles.
 
 
 ## Std::array est un tuple
