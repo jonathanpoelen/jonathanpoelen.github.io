@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.89.4" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.92.0" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -1672,7 +1672,7 @@ Error: attempt to self move assign.
 ;
 
 
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>5 minutes ;
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>6 minutes ;
   <a href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
   <a href="#8f57f6c0a6a13d37f24c60e9a5993627-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
   
@@ -1716,9 +1716,23 @@ Error: attempt to self move assign.
 
 <span class="n">foo</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="n">a1</span><span class="p">));</span> <span class="c1">// ok, on passe l&#39;adresse de `a`. À ne pas confondre avec la valeur du premier élément
 </span></code></pre></div><p>J&rsquo;ai déjà eu ce genre d&rsquo;erreur dans un code proche de <code>write(a, std::size_t(a))</code> à la place de <code>write(a, std::size(a))</code>.</p>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#un-tableau-c-nest-pas-copiable"><h2 id="un-tableau-c-nest-pas-copiable">Un tableau C n&rsquo;est pas copiable</h2></a>
-<p>Le tableau est le seul type du C qui ne supporte ni la copie, ni l&rsquo;affectation, ce qui le rend inutilisable dans n&rsquo;importe quel conteneur de la STL tel que <code>std::vector</code>. Il n&rsquo;est pas non plus possible de construire un tableau directement dans l&rsquo;appel d&rsquo;une fonction (sauf en C99 avec un cast: <code>foo((int[]){1,2})</code>).</p>
-<p>Par contre, une structure qui contient un tableau est aussi bien copiable qu&rsquo;affectable. Manipuler un tableau directement impose plusieurs contraintes complètement loufoques, mais mettez le tout dans une boîte et tout est permis. Ce qui m&rsquo;amène à <code>std::array</code>, car il fait justement office de boîte.</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#les-tailles-des-tableaux-multidimensionnels-sont-à-lenvers"><h2 id="les-tailles-des-tableaux-multidimensionnels-sont-à-lenvers">Les tailles des tableaux multidimensionnels sont à l&rsquo;envers</h2></a>
+<p>Lorsqu&rsquo;on déclare un tableau multidimensionnel, l&rsquo;ordre des dimensions est à lire à l&rsquo;envers. Ce qui n&rsquo;est pas le cas en utilisant des alias.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">];</span> <span class="c1">// tableau de 2 tableaux de 3 int
+</span><span class="c1"></span>
+<span class="k">using</span> <span class="n">A</span> <span class="o">=</span> <span class="kt">int</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// tableau de 2 int
+</span><span class="c1"></span><span class="n">A</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span> <span class="c1">// tableau de 3 tableaux de 2 int
+</span></code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#un-tableau-c-nest-pas-copiable"><h2 id="un-tableau-c-nest-pas-copiable">Un tableau C n&rsquo;est pas copiable</h2></a>
+<p>Le tableau est le seul type du C qui ne supporte ni la copie, ni l&rsquo;affectation, ce qui le rend inutilisable en retour de fonction ou dans n&rsquo;importe quel conteneur de la STL tel que <code>std::vector</code>. Il n&rsquo;est pas non plus possible de construire un tableau directement dans l&rsquo;appel d&rsquo;une fonction sauf en C99 ou C++ avec un cast ou à travers un alias.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// cast
+</span><span class="c1"></span><span class="n">foo</span><span class="p">((</span><span class="kt">int</span><span class="p">[]){</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">});</span>
+
+<span class="c1">// alias
+</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="n">carray</span> <span class="o">=</span> <span class="n">T</span><span class="p">[];</span>
+
+<span class="n">foo</span><span class="p">(</span><span class="n">carray</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">});</span>
+</code></pre></div><p>Par contre, une structure qui contient un tableau est aussi bien copiable qu&rsquo;affectable. Manipuler un tableau directement impose plusieurs contraintes complètement loufoques, mais mettez le tout dans une boîte et tout est permis. Ce qui m&rsquo;amène à <code>std::array</code>, car il fait justement office de boîte.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#stdarray-un-conteneur-comme-les-autres"><h2 id="stdarray-un-conteneur-comme-les-autres">Std::array, un conteneur comme les autres</h2></a>
 <p>Le gros avantage de <code>std::array</code> est son interface commune avec les autres conteneurs:</p>
 <ul>
@@ -1731,7 +1745,7 @@ Error: attempt to self move assign.
 <p>Si je prends le cas de <code>size()</code>, la version tableau C est beaucoup plus compliquée: <code>sizeof(array)/sizeof(array[0])</code>, Mais aussi dangereuse, car le comportement sera totalement imprévisible si, suite à un refactoring, notre tableau est remplacé par <code>std::vector</code>.</p>
 <p>La manière intelligente de faire consiste en une fonction libre <code>size(T(&amp;)[N])</code> qui s&rsquo;occupe de cela pour nous. Si le type change, alors la fonction ne correspond plus et des erreurs apparaissent. Au passage, C++17 introduit <code>std::size(cont)</code>, <code>std::empty(cont)</code> et <code>std::data(cont)</code> valides pour tous les conteneurs, y compris les tableaux. Voici <a href="https://linuxfr.org/news/cpp17-libere-size-data-et-empty">un article de Lmghs</a> sur le sujet et les raisons de ce choix.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#un-tableau-de-0-élément"><h2 id="un-tableau-de-0-élément">Un tableau de 0 élément</h2></a>
-<p>Dans certaines circonstances, on peut vouloir un tableau de 0 élément. Cela fonctionne très bien avec <code>std::array</code> contrairement au tableau C qui doit utiliser une extension du compilateur pour le supporter (c&rsquo;est interdit par le standard). Pour pallier à ce problème, la taille du tableau est généralement forcée à 1, mais d&rsquo;autres complications surviennent dès que les types ne sont pas trivialement constructibles.</p>
+<p>Dans certaines circonstances, on peut vouloir un tableau de 0 élément. Cela fonctionne très bien avec <code>std::array</code> contrairement au tableau C qui doit utiliser une extension du compilateur pour le supporter (c&rsquo;est interdit par le standard). Pour pallier à ce problème avec les tableau C, sa taille est généralement forcée à 1, mais d&rsquo;autres complications surviennent dès que les types ne sont pas trivialement constructibles.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/#stdarray-est-un-tuple"><h2 id="stdarray-est-un-tuple">Std::array est un tuple</h2></a>
 <p>Propriété anecdotique, les fonctions et classes associées au tuple sont disponibles pour <code>std::array</code>. Cela permet par exemple de jouer avec <code>std::apply</code> pour transformer un <code>std::array</code> en un pack variadique.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
