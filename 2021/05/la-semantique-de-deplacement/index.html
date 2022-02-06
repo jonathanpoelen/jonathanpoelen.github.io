@@ -242,7 +242,7 @@
 <p>Heureusement, <code>Pokemon</code> n&rsquo;étant pas copiable, le code ne compile pas. Ouf, l&rsquo;univers est sauf !</p>
 <p>Du coup, plutôt que copier le sac, on le déplace directement dans celui de brigand en utilisant la fonction <code>std::move</code>.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">brigand</span><span class="p">.</span><span class="n">bag</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">my_bag</span><span class="p">);</span>
-</code></pre></div><p>Au passage, on vient d&rsquo;écraser tout ce qu&rsquo;il y avait dans le sac de notre voleur ; bien fait pour lui ! Mais le plus important est là: Pikachu appartient maintenant au brigand, <code>my_bag</code> ne devrait plus être utilisé. On a bien eu un transfert des pokémons d&rsquo;un sac <code>A</code> vers un sac <code>B</code>, il y a eu déplacement.</p>
+</code></pre></div><p>Au passage, on vient d&rsquo;écraser tout ce qu&rsquo;il y avait dans le sac de notre voleur ; bien fait pour lui ! Mais le plus important est là: Pikachu appartient maintenant au brigand, <code>my_bag</code> ne devrait plus être utilisé. On a bien eu un transfert des pokémons d&rsquo;un sac <code>A</code> vers un sac <code>B</code>, il y a eu <strong>déplacement</strong>.</p>
 <a class="headline-hash" href="#copie-profonde-et-copie-superficielle"><h2 id="copie-profonde-et-copie-superficielle">Copie profonde et copie superficielle</h2></a>
 <p>La copie profonde est une copie de tous les membres, y compris des données référencées par un pointeur lorsque leur durée de vie est gérée par la classe. Ce dernier point est important, car sans pointeur &ndash; et pour aller plus loin, sans ressource, &ndash; il n&rsquo;y a pas de différence entre une copie classique ou une copie superficielle. Vouloir les opérateurs de déplacement dans cette dernière situation <strong>ne sert à rien</strong>, l&rsquo;implémentation serait strictement identique à celle d&rsquo;une copie. Autre point, même s&rsquo;il y a un pointeur, il faut que les fonctions de copie fassent une copie profonde pour que les fonctions de déplacements puissent faire une copie superficielle, sinon, rebelote, aucune différence avec la copie.</p>
 <p>Comme une illustration est plus parlante, supposons une classe <code>vector</code> avec 2 variables membres:</p>
@@ -610,8 +610,8 @@ Error: attempt to self move assign.
 </code></pre></div><p>Sans l&rsquo;usage de <code>std::forward</code>, les 2 appels donneraient <code>foo(int&amp;)</code>.</p>
 <p>Si on veut comprendre la magie derrière, il faut regarder le type réel de <code>T</code>:</p>
 <ul>
-<li><code>bar(i)</code>: <code>T</code> = <code>int&amp;</code>. <code>T&amp;&amp;</code> = <code>int&amp;</code></li>
-<li><code>bar(std::move(i))</code>: <code>T</code> = <code>int</code>. <code>T&amp;&amp;</code> = <code>int</code></li>
+<li><code>bar(i)</code>: <code>T&amp;&amp;</code> = <code>int&amp;</code>. <code>T</code> = <code>int&amp;</code></li>
+<li><code>bar(std::move(i))</code>: <code>T&amp;&amp;</code> = <code>int&amp;&amp;</code>. <code>T</code> = <code>int</code>.</li>
 </ul>
 <p>Appliquer une rvalue sur un type qui est une lvalue donne une lvalue. C&rsquo;est ce qu&rsquo;on appelle les règles de <a href="https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing">reference collapsing</a>.</p>
 <table>
