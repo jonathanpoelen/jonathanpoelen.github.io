@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.92.0" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.92.2" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -1153,8 +1153,7 @@ Error: attempt to self move assign.
 <span class="c1">// les 2 fonctions sont valides, mais T::type est prioritaire car 42 est un int
 </span><span class="c1"></span><span class="k">static_assert</span><span class="p">(</span><span class="n">foo</span><span class="o">&lt;</span><span class="n">C</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
 </code></pre></div><p>On peut même ajouter autant de paramètres que nécessaire pour avoir une chaîne de priorité. Par exemple, on pourrait faire une fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">front</span><span class="p">()</span></code></span> qui utilise en priorité la fonction <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">front</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span></code></span> dans le namespace de l&rsquo;objet (règles d'<a href="https://en.cppreference.com/w/cpp/language/adl">ADL</a>), sinon <code>cont.front()</code> et en dernier recours <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">*</span><span class="n">begin</span><span class="p">(</span><span class="n">cont</span><span class="p">)</span></code></span>.</p>
-
-  <div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iterator&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="c1">// juste pour simplifier l&#39;écriture des fonctions
 </span><span class="c1"></span><span class="cp">#define DECLTYPE_AUTO_RETURN_NOEXCEPT(...)                 \
@@ -2343,8 +2342,7 @@ note: penser à investir dans une porte plus solide
       <p>J&rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&rsquo;apprécie particulièrement est <a href="https://github.com/kvasir-io/mpl">Kvasir.Mpl</a>. Son originalité réside dans le support des <a href="https://fr.wikipedia.org/wiki/Continuation">continuations</a> et &ndash;parce que cela va bien de paire,&ndash; l&rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (<code>list&lt;Ts...&gt;</code>).</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/#continuation"><h2 id="continuation">Continuation</h2></a>
 <p>Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo;étape suivante du traitement, c&rsquo;est la continuation. En shell ou dans des bibliothèques comme <a href="https://github.com/ericniebler/range-v3">rangev3</a>, les continuations se font avec l&rsquo;opérateur <code>|</code>. Par exemple <code>grep x | wc -l</code> ou <code>filter(is_odd) | take(6)</code>. Il n&rsquo;est pas possible d&rsquo;utiliser <code>|</code> avec des templates, alors la continuation est un paramètre ajouté à l&rsquo;algorithme. En chaînant les continuations, on construit un nouvel algorithme qui s&rsquo;utilise avec <code>call&lt;algo, args...&gt;</code>.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// `C` pour continuation
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// `C` pour continuation
 </span><span class="c1"></span>
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">C</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">add_const</span><span class="p">;</span>
@@ -2369,8 +2367,7 @@ note: penser à investir dans une porte plus solide
       <span class="cm">/* 1 *//* 2 *//* 3 */</span>      <span class="cm">/* 4 */</span>
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/#méta-fonction"><h2 id="méta-fonction">Méta-fonction</h2></a>
 <p>Au niveau de kvasir, une méta-fonction est un type qui possède un membre template nommé <code>f</code>. Tous les algorithmes de kvasir sont des méta-fonctions et l&rsquo;appel se fait avec <code>call&lt;metafunc, param1, param2,...&gt;</code>. Si on complète <code>add_const</code> et <code>add_lvalue_reference</code> plus haut, cela donne:</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">using</span> <span class="n">call</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">F</span><span class="o">::</span><span class="k">template</span> <span class="n">f</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">C</span><span class="o">&gt;</span>
@@ -2388,8 +2385,7 @@ note: penser à investir dans une porte plus solide
 <span class="p">};</span></code></pre></div>
 
 <p>Il ne reste qu&rsquo;une dernière étape, la continuation finale lorsqu&rsquo;il n&rsquo;y a plus rien à faire. Les plus utilisés sont au nombre de 2 et servent de valeur par défaut à l&rsquo;ensemble des algorithmes, j&rsquo;ai nommé <code>identity</code> et <code>listify</code>.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">identity</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">identity</span>
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="k">using</span> <span class="n">f</span> <span class="o">=</span> <span class="n">T</span><span class="p">;</span>
@@ -2451,8 +2447,7 @@ note: penser à investir dans une porte plus solide
 <span class="o">&gt;</span><span class="p">;</span>
 </code></pre></div><p>Qui engendre son lot de problèmes: en plus des 2 traits précédents, <code>remove_extent</code>, <code>add_pointer</code> et <code>remove_cv</code> sont toujours déclarés avec <code>T</code>. Cela ne pose pas de réel problème ici &ndash; à part le temps de compilation&ndash;, malheureusement, dans certaines situations, les branches ne doivent s&rsquo;évaluer qu&rsquo;en fonction du prédicat et les traits de la STL ne le permettent pas sans ajouter des intermédiaires.</p>
 <p>Mais les continuations changent tout puisque les méta-fonctions ne sont évaluées que pour la branche qui respecte le prédicat. Ainsi, <code>remove_extent&lt;T&gt;</code> ne sera pas instancié lorsque <code>is_array_v&lt;T&gt;</code> est faux, ce qui rend les continuations très facilement composables.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="k">struct</span> <span class="nc">decay</span>
 <span class="p">{</span>
   <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">call</span><span class="o">&lt;</span>
@@ -2470,8 +2465,7 @@ note: penser à investir dans une porte plus solide
 <span class="p">};</span></code></pre></div>
 
 <p>Avec l&rsquo;implémentation de <code>if_</code>, <code>cfl</code> (continuation from a lazy metafunction) et <code>cfe</code> (continuation from a eager metafunction):</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="kt">bool</span> <span class="n">B</span><span class="o">&gt;</span>
   <span class="k">struct</span> <span class="nc">conditional</span><span class="p">;</span>
@@ -2589,8 +2583,7 @@ note: penser à investir dans une porte plus solide
 </code></pre></div><p>Chaque classe dérivée qui ajoute des fonctions virtuelles réserve des cases supplémentaires dans son tableau. Le compilateur se basant sur les types utilisés pour garantir la validité des indices.</p>
 <p>Ce fonctionnement est très économique : un pointeur pour chaque instance d&rsquo;une classe et une vtable en lecture seule par classe. C&rsquo;est également très facile d&rsquo;ajouter de nouvelles tables, y compris dynamiquement par le chargement de bibliothèque. Mais il y a aussi des inconvénients comme une fragmentation mémoire au niveau de la position des tables et un double déréférencement pour accéder au pointeur de fonction.</p>
 <p>Pour la suite on se base sur une interface avec une fonction draw: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">draw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">)</span> <span class="k">const</span></code></span> et 2 objets ce qu&rsquo;il a de plus classique: <code>Rect</code> et <code>Circle</code>.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-hpp" data-lang="hpp"><span class="k">struct</span> <span class="nc">Rect</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hpp" data-lang="hpp"><span class="k">struct</span> <span class="nc">Rect</span>
 <span class="p">{</span>
   <span class="kt">void</span> <span class="nf">draw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span> <span class="k">const</span>
   <span class="p">{</span>
@@ -2608,14 +2601,12 @@ note: penser à investir dans une porte plus solide
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/#une-vtable-à-la-mano"><h2 id="une-vtable-à-la-mano">Une vtable à la mano</h2></a>
 <p>Notre vtable va contenir des pointeurs de fonction. Le type commun d&rsquo;une majorité de pointeurs est <code>void*</code>. Sauf que les pointeurs de fonction sont une exception, il n&rsquo;est pas légal de les transformer en <code>void*</code> &ndash; même si en interne le compilateur peut se le permettre pour sa vtable. Par contre, on peut récupérer l&rsquo;adresse du pointeur de fonction pour avoir un pointeur de pointeur de fonction. Cela fait beaucoup de pointeurs et d&rsquo;indirections alors le tableau sera remplacé par un tuple, car finalement on connait exactement les types de fonction que contient la vtable.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">using</span> <span class="n">draw_func_type</span> <span class="o">=</span> <span class="kt">void</span><span class="p">(</span><span class="kt">void</span> <span class="k">const</span><span class="o">*</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">);</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">using</span> <span class="n">draw_func_type</span> <span class="o">=</span> <span class="kt">void</span><span class="p">(</span><span class="kt">void</span> <span class="k">const</span><span class="o">*</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span><span class="p">);</span>
 
 <span class="k">using</span> <span class="n">drawable_vtable</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">draw_func_type</span> <span class="k">const</span><span class="o">*&gt;</span><span class="p">;</span></code></pre></div>
 
 <p>Maintenant qu&rsquo;on a un type pour la vtable, il faut pouvoir la construire à partir de n&rsquo;importe quel type qui pourrait supporter cette interface.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 <span class="kr">inline</span> <span class="k">auto</span> <span class="n">draw_func_ptr</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">void</span> <span class="k">const</span><span class="o">*</span> <span class="n">base</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span> <span class="k">const</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">base</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">draw</span><span class="p">(</span><span class="n">out</span><span class="p">);</span>
 <span class="p">};</span>
@@ -2626,8 +2617,7 @@ note: penser à investir dans une porte plus solide
 <span class="p">};</span></code></pre></div>
 
 <p>Grâce à ses variables inline, on peut construire notre tableau très facilement. Il ne reste plus qu&rsquo;à faire un petit wrapper pour utiliser <code>Rect</code> et <code>Circle</code> indistinctement.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Drawable</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Drawable</span>
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="n">Drawable</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
@@ -2647,8 +2637,7 @@ note: penser à investir dans une porte plus solide
 
 <p><code>Drawable</code> pourrait contenir directement <code>Rect</code> ou <code>Circle</code> plutôt qu&rsquo;avoir un <code>void*</code>, mais pour supporter n&rsquo;importe quel type et être optimisé, il est préférable d&rsquo;utiliser <a href="https://akrzemi1.wordpress.com/2014/04/14/common-optimizations/">SBO (Small Buffer Optimization)</a> Dans une optique de simplification, la classe n&rsquo;accepte que des références et garde un pointeur. On peut la considérer comme une vue polymorphique.</p>
 <p>Une petite démonstration de la chose:</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span><span class="cp"></span>
 <span class="kt">void</span> <span class="nf">draw</span><span class="p">(</span><span class="n">Drawable</span> <span class="n">drawable</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span>
 <span class="p">{</span>
@@ -2669,8 +2658,7 @@ note: penser à investir dans une porte plus solide
 <p>Par contre, il y a peut-être moyen d&rsquo;avoir mieux pour la vtable.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/#une-vtable-par-type-vs-une-vtable-par-instance"><h2 id="une-vtable-par-type-vs-une-vtable-par-instance">Une vtable par type vs une vtable par instance</h2></a>
 <p>Notre <code>Drawable</code> contient une référence sur la vtable qui est elle-même un tableau de 1 pointeur de fonction. Autant jeter la vtable et avoir directement le pointeur de fonction comme membre. C&rsquo;est plus direct et le code est plus court.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Drawable</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Drawable</span>
 <span class="p">{</span>
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
   <span class="n">Drawable</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
@@ -2790,8 +2778,7 @@ note: penser à investir dans une porte plus solide
 <p>Pour réduire le temps de compilation, il faut donc réduire le nombre de type instancié.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/#la-récursivité"><h2 id="la-récursivité">La récursivité</h2></a>
 <p>La première chose qu&rsquo;on apprend avec les variadiques, c&rsquo;est que les boucles se font avec de la récursivité en enlevant un par un les éléments. C&rsquo;est une forme facile à écrire et à comprendre, mais qui crée beaucoup de types intermédiaires à l&rsquo;intérieur du compilateur.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_ternary</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_ternary</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -2813,8 +2800,7 @@ note: penser à investir dans une porte plus solide
 <span class="p">}</span></code></pre></div>
 
 <p>Une implémentation avec ternaire récursive comme on peut la trouver dans le fichier variant de libstdc++. Elle souffre d&rsquo;un léger problème: il y a autant d&rsquo;instance de <code>_index_of</code> que d&rsquo;élément dans la liste, même si <code>T</code> se trouve en première position.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_indexed</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_indexed</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -2839,8 +2825,7 @@ note: penser à investir dans une porte plus solide
 <span class="p">}</span></code></pre></div>
 
 <p>L&rsquo;indice courant se trouve en paramètre template et la récursion s&rsquo;arrête dès que <code>T</code> est trouvé. Seulement, l&rsquo;ajout de l&rsquo;indice en paramètre va dégrader la mémoïsation en créant plus de types que nécessaire.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -2884,8 +2869,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/#profiter-davantage-de-mémoïsation"><h2 id="profiter-davantage-de-mémoïsation">Profiter davantage de mémoïsation</h2></a>
 <p>Il est possible d&rsquo;augmenter la mémoïsation en réduisant les types dans la liste en une suite de valeur <code>true</code>/<code>false</code>. La mémoïsation est alors beaucoup plus efficace, mais la comparaison se fait sur chaque élément de la liste. Heureusement, dans un code normal, la probabilité de tomber sur la même instance de <code>std::is_same&lt;T, U&gt;</code> est très grande ce qui rend cette solution encore plus efficace.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool</span>
 <span class="p">{</span>
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">recursive</span><span class="o">::</span><span class="n">mp_index_of</span><span class="o">&lt;</span>
@@ -2896,8 +2880,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 
 <p>L&rsquo;utilisation de <code>typename std::is_same&lt;T, Ts&gt;::type</code> au lieu de simplement <code>std::is_same&lt;T, Ts&gt;</code> permet de restreindre les types à <code>std::false_type</code> et <code>std::true_type</code>.</p>
 <p>On peut aussi faire la comparaison avec un <code>detail::_index_of</code> spécialement dédié à la recherche d&rsquo;un <code>std::true_type</code>.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool2</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool2</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -2921,8 +2904,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="p">}</span></code></pre></div>
 
 <p>Et une autre version qui travaille sur des valeurs plutôt que des types pour vérifier si cela a une influence.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool3</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool3</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -2954,8 +2936,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <p>La récursivité possède un défaut qui n&rsquo;est pas forcément un problème dans le code de tous les jours: le niveau de récursion est limité par le compilateur. Gcc s&rsquo;arrête à une profondeur de 900, Clang à 1024 et si je ne me trompe pas, la limite est de 500 pour MSVC. Bien sûr, cela est configurable. C&rsquo;est d&rsquo;ailleurs ce qui a été fait pour générer les premiers graphiques même si comme dit précédemment, Clang crashe lorsqu&rsquo;on dépasse 1293.</p>
 <p>Une technique employée pour dépasser artificiellement cette limite est de prendre plusieurs valeurs par niveau de récursivité. Cela réduit la profondeur de récursion et le nombre de types instanciés. S&rsquo;il y a moins de types instanciés, la compilation devrait également être plus rapide.</p>
 <p>Le code devient malheureusement beaucoup plus verbeux et compliqué:</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">pack8</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">pack8</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -3007,8 +2988,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="p">}</span></code></pre></div>
 
 <p>Et L&rsquo;équivalent qui fait une transformation en liste de booléen avant:</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">pack8_bool</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">pack8_bool</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -3066,8 +3046,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <p>Ainsi, <code>index_of</code> peut se faire en combinant <code>std::make_index_sequence</code>, <code>join</code>, <code>front</code> et éventuellement <code>tranform</code>. On peut aussi le faire avec <code>foldl</code>/<code>foldr</code>.</p>
 <p>Pour le faire avec <code>join</code>, on construit une liste d&rsquo;indices de la taille de <code>Ts</code> qui est ensuite transformée en <code>list&lt;i&gt;</code> lorsque le type est identique à <code>T</code> et en <code>list&lt;&gt;</code> dans le cas contraire. Puis, on fusionne toutes les listes en une seule avec un <code>int&lt;-1&gt;</code> ajouté en fin. Le premier élément de cette liste correspond au résultat de <code>index_of</code>.</p>
 <p>Il serait préférable de ne pas ajouter <code>-1</code>, mais ajouter une valeur dans la liste puis faire un post traitement. Cela augmente les collisions de type et par conséquent la mémoïsation. Mais restons simple !</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">by_indices</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">by_indices</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -3192,8 +3171,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <p>C&rsquo;est étonnamment efficace. Pas autant que <code>pack8_bool</code>, mais globalement plus qu&rsquo;une récursion classique. Dans un projet, <code>join</code> et <code>front</code> seront utilisés ailleurs et à travers d&rsquo;autres algorithmes ce qui, toujours grâce à la mémoïsation, réduit le coût total.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/#fonction-constexpr"><h2 id="fonction-constexpr">Fonction constexpr</h2></a>
 <p>Depuis C++14, il est possible d&rsquo;avoir des conditions et des boucles dans les fonctions. On peut alors écrire <code>index_of</code> presque comme on écrirait n&rsquo;importe quelle fonction impérative.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">loop</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">loop</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -3216,8 +3194,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="p">}</span></code></pre></div>
 
 <p>Les booléens sont en paramètre template. C&rsquo;est dommage, parce que cela limite les transferts de paramètre depuis une autre fonction. Il vaut mieux mettre les valeurs en paramètre de fonction comme on le fait d&rsquo;habitude.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">loop2</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">loop2</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -3247,8 +3224,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <p>En réalité, le coût d&rsquo;appel de fonction est supérieur à celui d&rsquo;une instanciation de classe. Mais si la fonction n&rsquo;est pas récursive, alors le coût peut être amorti par rapport à une implémentation récursive, comme ici.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/#fold-expression"><h2 id="fold-expression">Fold expression</h2></a>
 <p>En C++17 arrive les fold expressions. Plus besoin de boucle explicite ou de fonction récursive pour dérouler des valeurs. Seulement, avec <code>index_of</code>, il faut jouer d&rsquo;ingéniosité pour stopper le fold tout en ayant un compteur qui s&rsquo;incrémente. La manière la plus simple est de mettre plusieurs instructions séparées par des <code>,</code>. La dernière valeur de cette &ldquo;liste&rdquo; sera celle utilisée pour vérifier si <code>T</code> égale <code>Ts</code>.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">fold</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">fold</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>

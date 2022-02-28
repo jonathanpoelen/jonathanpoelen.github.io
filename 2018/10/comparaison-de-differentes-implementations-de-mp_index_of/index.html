@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comparaison de différentes implémentations de mp_index_of</title>
-<meta name="generator" content="Hugo 0.92.0" />
+<meta name="generator" content="Hugo 0.92.2" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -253,8 +253,7 @@ Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car 
 <p>Pour réduire le temps de compilation, il faut donc réduire le nombre de type instancié.</p>
 <a class="headline-hash" href="#la-récursivité"><h2 id="la-récursivité">La récursivité</h2></a>
 <p>La première chose qu&rsquo;on apprend avec les variadiques, c&rsquo;est que les boucles se font avec de la récursivité en enlevant un par un les éléments. C&rsquo;est une forme facile à écrire et à comprendre, mais qui crée beaucoup de types intermédiaires à l&rsquo;intérieur du compilateur.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_ternary</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_ternary</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -276,8 +275,7 @@ Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car 
 <span class="p">}</span></code></pre></div>
 
 <p>Une implémentation avec ternaire récursive comme on peut la trouver dans le fichier variant de libstdc++. Elle souffre d&rsquo;un léger problème: il y a autant d&rsquo;instance de <code>_index_of</code> que d&rsquo;élément dans la liste, même si <code>T</code> se trouve en première position.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_indexed</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_indexed</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -302,8 +300,7 @@ Info : L&rsquo;implémentation citée précédemment ne se retrouve pas ici car 
 <span class="p">}</span></code></pre></div>
 
 <p>L&rsquo;indice courant se trouve en paramètre template et la récursion s&rsquo;arrête dès que <code>T</code> est trouvé. Seulement, l&rsquo;ajout de l&rsquo;indice en paramètre va dégrader la mémoïsation en créant plus de types que nécessaire.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -347,8 +344,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 
 <a class="headline-hash" href="#profiter-davantage-de-mémoïsation"><h2 id="profiter-davantage-de-mémoïsation">Profiter davantage de mémoïsation</h2></a>
 <p>Il est possible d&rsquo;augmenter la mémoïsation en réduisant les types dans la liste en une suite de valeur <code>true</code>/<code>false</code>. La mémoïsation est alors beaucoup plus efficace, mais la comparaison se fait sur chaque élément de la liste. Heureusement, dans un code normal, la probabilité de tomber sur la même instance de <code>std::is_same&lt;T, U&gt;</code> est très grande ce qui rend cette solution encore plus efficace.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool</span>
 <span class="p">{</span>
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 <span class="k">using</span> <span class="n">mp_index_of</span> <span class="o">=</span> <span class="n">recursive</span><span class="o">::</span><span class="n">mp_index_of</span><span class="o">&lt;</span>
@@ -359,8 +355,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 
 <p>L&rsquo;utilisation de <code>typename std::is_same&lt;T, Ts&gt;::type</code> au lieu de simplement <code>std::is_same&lt;T, Ts&gt;</code> permet de restreindre les types à <code>std::false_type</code> et <code>std::true_type</code>.</p>
 <p>On peut aussi faire la comparaison avec un <code>detail::_index_of</code> spécialement dédié à la recherche d&rsquo;un <code>std::true_type</code>.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool2</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool2</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -384,8 +379,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="p">}</span></code></pre></div>
 
 <p>Et une autre version qui travaille sur des valeurs plutôt que des types pour vérifier si cela a une influence.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool3</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">recursive_bool3</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -417,8 +411,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <p>La récursivité possède un défaut qui n&rsquo;est pas forcément un problème dans le code de tous les jours: le niveau de récursion est limité par le compilateur. Gcc s&rsquo;arrête à une profondeur de 900, Clang à 1024 et si je ne me trompe pas, la limite est de 500 pour MSVC. Bien sûr, cela est configurable. C&rsquo;est d&rsquo;ailleurs ce qui a été fait pour générer les premiers graphiques même si comme dit précédemment, Clang crashe lorsqu&rsquo;on dépasse 1293.</p>
 <p>Une technique employée pour dépasser artificiellement cette limite est de prendre plusieurs valeurs par niveau de récursivité. Cela réduit la profondeur de récursion et le nombre de types instanciés. S&rsquo;il y a moins de types instanciés, la compilation devrait également être plus rapide.</p>
 <p>Le code devient malheureusement beaucoup plus verbeux et compliqué:</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">pack8</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">pack8</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -470,8 +463,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="p">}</span></code></pre></div>
 
 <p>Et L&rsquo;équivalent qui fait une transformation en liste de booléen avant:</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">pack8_bool</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">pack8_bool</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -529,8 +521,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <p>Ainsi, <code>index_of</code> peut se faire en combinant <code>std::make_index_sequence</code>, <code>join</code>, <code>front</code> et éventuellement <code>tranform</code>. On peut aussi le faire avec <code>foldl</code>/<code>foldr</code>.</p>
 <p>Pour le faire avec <code>join</code>, on construit une liste d&rsquo;indices de la taille de <code>Ts</code> qui est ensuite transformée en <code>list&lt;i&gt;</code> lorsque le type est identique à <code>T</code> et en <code>list&lt;&gt;</code> dans le cas contraire. Puis, on fusionne toutes les listes en une seule avec un <code>int&lt;-1&gt;</code> ajouté en fin. Le premier élément de cette liste correspond au résultat de <code>index_of</code>.</p>
 <p>Il serait préférable de ne pas ajouter <code>-1</code>, mais ajouter une valeur dans la liste puis faire un post traitement. Cela augmente les collisions de type et par conséquent la mémoïsation. Mais restons simple !</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">by_indices</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">by_indices</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -655,8 +646,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <p>C&rsquo;est étonnamment efficace. Pas autant que <code>pack8_bool</code>, mais globalement plus qu&rsquo;une récursion classique. Dans un projet, <code>join</code> et <code>front</code> seront utilisés ailleurs et à travers d&rsquo;autres algorithmes ce qui, toujours grâce à la mémoïsation, réduit le coût total.</p>
 <a class="headline-hash" href="#fonction-constexpr"><h2 id="fonction-constexpr">Fonction constexpr</h2></a>
 <p>Depuis C++14, il est possible d&rsquo;avoir des conditions et des boucles dans les fonctions. On peut alors écrire <code>index_of</code> presque comme on écrirait n&rsquo;importe quelle fonction impérative.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">loop</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">loop</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -679,8 +669,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <span class="p">}</span></code></pre></div>
 
 <p>Les booléens sont en paramètre template. C&rsquo;est dommage, parce que cela limite les transferts de paramètre depuis une autre fonction. Il vaut mieux mettre les valeurs en paramètre de fonction comme on le fait d&rsquo;habitude.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">loop2</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">loop2</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
@@ -710,8 +699,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 <p>En réalité, le coût d&rsquo;appel de fonction est supérieur à celui d&rsquo;une instanciation de classe. Mais si la fonction n&rsquo;est pas récursive, alors le coût peut être amorti par rapport à une implémentation récursive, comme ici.</p>
 <a class="headline-hash" href="#fold-expression"><h2 id="fold-expression">Fold expression</h2></a>
 <p>En C++17 arrive les fold expressions. Plus besoin de boucle explicite ou de fonction récursive pour dérouler des valeurs. Seulement, avec <code>index_of</code>, il faut jouer d&rsquo;ingéniosité pour stopper le fold tout en ayant un compteur qui s&rsquo;incrémente. La manière la plus simple est de mettre plusieurs instructions séparées par des <code>,</code>. La dernière valeur de cette &ldquo;liste&rdquo; sera celle utilisée pour vérifier si <code>T</code> égale <code>Ts</code>.</p>
-
-<div class="highlight"><pre class="chroma">ass="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">fold</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">namespace</span> <span class="n">fold</span>
 <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">detail</span>
 <span class="p">{</span>
