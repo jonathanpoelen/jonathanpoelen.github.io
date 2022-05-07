@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>make sans Makefile, utilisation des règles implicites</title>
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.96.0" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -210,44 +210,44 @@ int main(int ac, char** av) { return ac; } Que je compile avec make test pour cr
       <p>La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile &ldquo;par défaut&rdquo; avec plein de règles. Celui-ci est visible en tapant <code>make -pf /dev/null</code> dans un terminal.</p>
 <p>Rien qu&rsquo;avec ça, on peut compiler des fichiers C, C++, archive, latex, etc. Il y a de quoi faire en fait.</p>
 <p>Par exemple, je crée un fichier C nommé <code>test.c</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">ac</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">av</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="n">ac</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>Que je compile avec <code>make test</code> pour créer l&rsquo;exécutable <code>test</code>.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">ac</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">av</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">ac</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Que je compile avec <code>make test</code> pour créer l&rsquo;exécutable <code>test</code>.
 Mais si on veut avoir des fichiers objets, il faut le demander explicitement: <code>make test.o test</code>.</p>
-<p>Maintenant, on remplace <code>test.c</code> par <code>test.cpp</code> et on inclut <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span></code></span>.</p>
+<p>Maintenant, on remplace <code>test.c</code> par <code>test.cpp</code> et on inclut <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span></span></span></code></span>.</p>
 <p>La compilation se fait encore avec <code>make test</code> ou <code>make test.o test</code> pour avoir les fichiers objets.</p>
 <p>Ah ! En fait non, le second ne fonctionne pas.
-<code>test.o</code> est compilé avec <code>cc</code>, et comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span></code></span> est linké avec une lib, l&rsquo;implémentation du constructeur <a href="http://en.cppreference.com/w/cpp/io/ios_base/Init">std::ios_base::Init</a> n&rsquo;est pas trouvée. L&rsquo;idéal serait d&rsquo;utiliser <code>g++</code> ou un autre compilateur C++ pour avoir les chemins de bibliothèque convenablement configurés.</p>
+<code>test.o</code> est compilé avec <code>cc</code>, et comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span></span></span></code></span> est linké avec une lib, l&rsquo;implémentation du constructeur <a href="http://en.cppreference.com/w/cpp/io/ios_base/Init">std::ios_base::Init</a> n&rsquo;est pas trouvée. L&rsquo;idéal serait d&rsquo;utiliser <code>g++</code> ou un autre compilateur C++ pour avoir les chemins de bibliothèque convenablement configurés.</p>
 <p>Si ce n&rsquo;est qu&rsquo;une question de compilateur, changeons-le !</p>
 <p>Tout d&rsquo;abord, la règle de compilation d&rsquo;un <code>.o</code> vers un exécutable:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;%: %.o&#39;</span> -A3
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">%</span><span class="o">:</span> %.<span class="n">o</span>
-<span class="c">#  commands to execute (built-in):
-</span><span class="c"></span>        <span class="k">$(</span>LINK.o<span class="k">)</span> $^ <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
-</code></pre></div><p>Cela utilise pour compiler la variable <code>LINK.o</code>. Soit, qu&rsquo;est sa valeur ?</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> g <span class="s1">&#39;LINK.o =&#39;</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">LINK.o</span> <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
-</code></pre></div><p>Qui fait référence à <code>CC</code>. On s&rsquo;approche, vérifions:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> g <span class="s1">&#39;CC =&#39;</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">CC</span> <span class="o">=</span> cc
-</code></pre></div><p>Bingo \o/. Il suffit donc de changer la valeur de <code>CC</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;%: %.o&#39;</span> -A3
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nf">%</span><span class="o">:</span> %.<span class="n">o</span>
+</span></span><span class="line"><span class="cl"><span class="c">#  commands to execute (built-in):
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>        <span class="k">$(</span>LINK.o<span class="k">)</span> $^ <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+</span></span></code></pre></div><p>Cela utilise pour compiler la variable <code>LINK.o</code>. Soit, qu&rsquo;est sa valeur ?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;LINK.o =&#39;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nv">LINK.o</span> <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+</span></span></code></pre></div><p>Qui fait référence à <code>CC</code>. On s&rsquo;approche, vérifions:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;CC =&#39;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nv">CC</span> <span class="o">=</span> cc
+</span></span></code></pre></div><p>Bingo \o/. Il suffit donc de changer la valeur de <code>CC</code>.</p>
 <p>On recommence avec <code>make CC=g++ test.o test</code> et ça fonctionne :).</p>
 <p>Cette petite excursion permet mine de rien de découvrir pas mal de variables. Au passage, il est plus intéressant de les utiliser que d&rsquo;en recréer des nouvelles. Idem dans les règles de dépendances. S&rsquo;il faut les personnaliser, autant garder les mêmes commandes à exécuter.</p>
 <p>Par exemple, pour compiler un <code>.cpp</code> en <code>.o</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">%.o</span><span class="o">:</span> %.<span class="n">cpp</span>
-<span class="c">#  commands to execute (built-in):
-</span><span class="c"></span>        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
-</code></pre></div><p>Généralement les sources sont également dépendantes de fichier d&rsquo;en-tête. Si on fait une règle qui prend en compte cela, autant garder la même commande:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nf">%.o</span><span class="o">:</span> %.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl"><span class="c">#  commands to execute (built-in):
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
+</span></span></code></pre></div><p>Généralement les sources sont également dépendantes de fichier d&rsquo;en-tête. Si on fait une règle qui prend en compte cela, autant garder la même commande:
 (petite parenthèse pour dire que gcc possède l&rsquo;option <code>-MM</code> pour lister les dépendances entre les fichiers.)</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">bidule.o</span><span class="o">:</span> <span class="n">bidule</span>.<span class="n">cpp</span> <span class="n">bidule</span>.<span class="n">h</span> <span class="n">machin</span>.<span class="n">h</span>
-        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
-</code></pre></div><p>Ainsi, quand <code>CXXFLAGS</code> sera modifié, la règle le prendra en compte car</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">COMPILE.cpp</span> <span class="o">=</span> COMPILE.cc
-</code></pre></div><p>Et</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">COMPILE.cc</span> <span class="o">=</span> <span class="k">$(</span>CXX<span class="k">)</span> <span class="k">$(</span>CXXFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
-</code></pre></div><p>À noter que la variable <code>CPPFLAGS</code> fait référence à la commande <code>cpp</code> (ou option <code>-E</code> de gcc) et concerne le <a href="http://fr.wikipedia.org/wiki/Pr%C3%A9processeur_C">C-preprocessor</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nf">bidule.o</span><span class="o">:</span> <span class="n">bidule</span>.<span class="n">cpp</span> <span class="n">bidule</span>.<span class="n">h</span> <span class="n">machin</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl">        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
+</span></span></code></pre></div><p>Ainsi, quand <code>CXXFLAGS</code> sera modifié, la règle le prendra en compte car</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nv">COMPILE.cpp</span> <span class="o">=</span> COMPILE.cc
+</span></span></code></pre></div><p>Et</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nv">COMPILE.cc</span> <span class="o">=</span> <span class="k">$(</span>CXX<span class="k">)</span> <span class="k">$(</span>CXXFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
+</span></span></code></pre></div><p>À noter que la variable <code>CPPFLAGS</code> fait référence à la commande <code>cpp</code> (ou option <code>-E</code> de gcc) et concerne le <a href="http://fr.wikipedia.org/wiki/Pr%C3%A9processeur_C">C-preprocessor</a>.</p>
 <p>Bien sûr, la technique du Makefile seul a des limites. Par exemple, s&rsquo;il y a plusieurs fichiers C, je peux créer tous les fichiers objets avec <code>make *.o</code>, mais l&rsquo;exécutable ne sera dépendant que d&rsquo;un fichier. Au final les règles par défaut ne permettront pas de créer l&rsquo;exécutable, il faudra faire <code>gcc *.o</code> ou un Makefile avec au minimum <code>a.out: *.o</code>.</p>
 <p>Voilà, ce fut un petit post pour découvrir l&rsquo;existence des règles implicites et des variables prédéfinies :).</p>
 <p><a href="http://www.gnu.org/software/make/manual/make.html">Manual de make</a></p>

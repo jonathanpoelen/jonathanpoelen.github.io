@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Référence constante sur référence</title>
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.96.0" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -203,17 +203,17 @@ using reference = int&amp;; int i = 0; reference const r = i; r = 3; Contraireme
 
   </header>
   <div class="post__content">
-      <p>Une petite note sur les références et le qualificatif <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> en commençant par un exemple :).</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">using</span> <span class="n">reference</span> <span class="o">=</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="n">reference</span> <span class="k">const</span> <span class="n">r</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-<span class="n">r</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-</code></pre></div><p>Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de <code>r</code>.
-En fait, ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> sur une référence ne fait rien car cela ne s&rsquo;applique pas sur le référé qui reste un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="o">&amp;</span></code></span>.</p>
-<p>Si on déroule complètement le type de <code>r</code>, on obtient <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span> <span class="n">r</span></code></span>: une référence constante sur un entier.
-Comme une référence est par nature immutable (le référé ne peut pas changer), le <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> est superflux.
+      <p>Une petite note sur les références et le qualificatif <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span></span></span></code></span> en commençant par un exemple :).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">reference</span> <span class="o">=</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">reference</span> <span class="k">const</span> <span class="n">r</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span></code></pre></div><p>Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de <code>r</code>.
+En fait, ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span></span></span></code></span> sur une référence ne fait rien car cela ne s&rsquo;applique pas sur le référé qui reste un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span><span class="o">&amp;</span></span></span></code></span>.</p>
+<p>Si on déroule complètement le type de <code>r</code>, on obtient <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span> <span class="n">r</span></span></span></code></span>: une référence constante sur un entier.
+Comme une référence est par nature immutable (le référé ne peut pas changer), le <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span></span></span></code></span> est superflux.
 Le type de <code>r</code> est donc bien une référence sur un entier non-constant.</p>
-<p>(On notera toutefois que la syntaxe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span></code></span> est invalide puisque <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> ne peut s&rsquo;appliquer directement sur une référence.)</p>
+<p>(On notera toutefois que la syntaxe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span></span></span></code></span> est invalide puisque <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span></span></span></code></span> ne peut s&rsquo;appliquer directement sur une référence.)</p>
 
   </div>
   <footer class="post__footer">

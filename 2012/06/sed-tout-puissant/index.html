@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sed tout puissant</title>
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.96.0" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -206,10 +206,10 @@ Pour ce faire, il suffit d&rsquo;un identifiant, un petit label, une information
       <p>Il y a 3 semaines environ je cherchais le moyen d&rsquo;utiliser la commande sed avec une regex sur plusieurs lignes. Je voulais transformer tous les <code>/\+\n\s+&quot;&quot;/</code> en rien du tout (oui, les supprimer…). Sauf que comme tel, ça ne fonctionne pas, <code>sed</code> comme beaucoup de commandes unix fonctionne par ligne. Après de lourdes et pompeuses recherches d&rsquo;au moins 7 secondes montre en main, je suis tombé sur la solution.</p>
 <p>Pour ce faire, il suffit d&rsquo;un identifiant, un petit label, une information de multi-ligne au milieu et 3 autres bricoles ; rien que ça :D.</p>
 <p>Ce qui se traduit par:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sed -e :a -e N -e <span class="s1">&#39;$!ba&#39;</span> -e s<span class="s1">&#39;/+\n\s\+&#34;&#34;//g&#39;</span>
-</code></pre></div><p>Et en version courte:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sed <span class="s1">&#39;:a;N;$!ba;s/+\n\s\+&#34;&#34;//g&#39;</span>
-</code></pre></div><p>Je sais ce que vous vous demandez: pourquoi il n&rsquo;y a pas <code>-e</code> dans la version courte ?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -e :a -e N -e <span class="s1">&#39;$!ba&#39;</span> -e s<span class="s1">&#39;/+\n\s\+&#34;&#34;//g&#39;</span>
+</span></span></code></pre></div><p>Et en version courte:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed <span class="s1">&#39;:a;N;$!ba;s/+\n\s\+&#34;&#34;//g&#39;</span>
+</span></span></code></pre></div><p>Je sais ce que vous vous demandez: pourquoi il n&rsquo;y a pas <code>-e</code> dans la version courte ?</p>
 <p>Mais parce que c&rsquo;est la version courte, évidemment !</p>
 <p>Sinon dans une moindre mesure.</p>
 <ul>
@@ -223,9 +223,9 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
 <p>L&rsquo;espace de recherche est la partie sur laquelle s&rsquo;applique une regex. Par défaut, l&rsquo;espace de recherche ne contient qu&rsquo;une ligne à la fois qui sont manipulées individuellement. Avec cette boucle, l&rsquo;espace de recherche contient toutes les lignes (avec saut de ligne) et la regex est appliquée sur l&rsquo;ensemble du document.</p>
 <p>Et en bonus, quelques commandes supplémentaires bons à savoir.</p>
 <ul>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed 2,5s/e/U/g</code></span> remplace <code>e</code> par <code>U</code> à partir de la ligne 2 jusqu&rsquo;à la 5.</li>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,/</span><span class="nv">$fin</span><span class="s2">/&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> jusqu&rsquo;à <code>$fin</code>.</li>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,+5&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> et sur 5 lignes.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sed 2,5s/e/U/g</span></span></code></span> remplace <code>e</code> par <code>U</code> à partir de la ligne 2 jusqu&rsquo;à la 5.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,/</span><span class="nv">$fin</span><span class="s2">/&#34;</span>s/A/a/g</span></span></code></span> depuis <code>$debut</code> jusqu&rsquo;à <code>$fin</code>.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,+5&#34;</span>s/A/a/g</span></span></code></span> depuis <code>$debut</code> et sur 5 lignes.</li>
 </ul>
 
   </div>

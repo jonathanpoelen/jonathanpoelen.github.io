@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.92.2" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.96.0" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -203,56 +203,56 @@
 
   </header>
   <div class="post__content">
-      <p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de <code>malloc()</code>, &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.</p>
-<p>Mais <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> fait une troisième chose: il lance une exception <code>std::bad_alloc</code> si l&rsquo;espace mémoire est insuffisant.</p>
-<p>Ou pas. Car <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête <code>&lt;new&gt;</code> un type (<code>std::nothrow_t</code>) et une variable (<code>std::nothrow</code>) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">);</span>
-</code></pre></div><p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparément.</p>
+      <p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">new</span></span></span></code></span> est généralement utilisé pour allouer un bloc mémoire et &ndash; où il diffère de <code>malloc()</code>, &ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.</p>
+<p>Mais <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">new</span></span></span></code></span> fait une troisième chose: il lance une exception <code>std::bad_alloc</code> si l&rsquo;espace mémoire est insuffisant.</p>
+<p>Ou pas. Car <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">new</span></span></span></code></span> est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&rsquo;en-tête <code>&lt;new&gt;</code> un type (<code>std::nothrow_t</code>) et une variable (<code>std::nothrow</code>) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params...*/</span><span class="p">);</span>
+</span></span></code></pre></div><p>Voici ce qui clôt l&rsquo;utilisation courante et voyons comment faire chaque étape séparément.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allouer-de-la-mémoire"><h2 id="allouer-de-la-mémoire">Allouer de la mémoire</h2></a>
 <p>Comme on veut juste réserver un espace mémoire, <code>malloc()</code> peut suffire, mais prenons les bonnes habitudes, utilisons la fonction <a href="http://en.cppreference.com/w/cpp/memory/new/operator_new">::operator new()</a> !</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">));</span>
-</code></pre></div><p>Ou la version sans exception.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">);</span>
-</code></pre></div><p>Maintenant qu&rsquo;on a un joli espace mémoire tout fraîchement alloué, construisons l&rsquo;objet.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">));</span>
+</span></span></code></pre></div><p>Ou la version sans exception.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">nothrow</span><span class="p">);</span>
+</span></span></code></pre></div><p>Maintenant qu&rsquo;on a un joli espace mémoire tout fraîchement alloué, construisons l&rsquo;objet.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#placement-new"><h2 id="placement-new">Placement new</h2></a>
 <p>Le placement new permet d&rsquo;appeler le constructeur d&rsquo;un objet sur une zone mémoire prédéfinie.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params…*/</span><span class="p">);</span>
-<span class="c1">// machin == p (même zone mémoire)
-</span></code></pre></div><p>Mais attention aux fuites mémoire si le constructeur de <code>Machin</code> lance une exception.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">(</span><span class="cm">/*params…*/</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// machin == p (même zone mémoire)
+</span></span></span></code></pre></div><p>Mais attention aux fuites mémoire si le constructeur de <code>Machin</code> lance une exception.</p>
 <p>Et maintenant que c&rsquo;est construit, on détruit :D</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#destruction"><h2 id="destruction">Destruction</h2></a>
 <p>Un appel explicite au destructeur et le tour est joué.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">machin</span><span class="o">-&gt;~</span><span class="n">Machin</span><span class="p">();</span>
-</code></pre></div><p>Étape inutile pour les types scalaires. De toute façon ils n&rsquo;ont pas de destructeur. En C++17, la STL contient <a href="http://en.cppreference.com/w/cpp/memory/destroy_at">std::destroy_at</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">machin</span><span class="o">-&gt;~</span><span class="n">Machin</span><span class="p">();</span>
+</span></span></code></pre></div><p>Étape inutile pour les types scalaires. De toute façon ils n&rsquo;ont pas de destructeur. En C++17, la STL contient <a href="http://en.cppreference.com/w/cpp/memory/destroy_at">std::destroy_at</a>.</p>
 <p>Évidemment, si <code>machin</code> possède un destructeur virtuel et est en réalité une classe fille, alors c&rsquo;est le destructeur de la classe dérivée qui est appelé.</p>
 <p>Il ne reste plus qu&rsquo;à libérer la mémoire.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#libération-de-la-mémoire"><h2 id="libération-de-la-mémoire">Libération de la mémoire</h2></a>
-<p>De la même manière qu&rsquo;il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span></code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span><span class="p">[]</span></code></span> pour <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span><span class="p">[]</span></code></span>, il existe un <a href="http://en.cppreference.com/w/cpp/memory/new/operator_delete">::operator delete()</a> associé à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">()</span></code></span>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span> <span class="p">(</span><span class="n">p</span><span class="p">);</span>
-</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allocation-de-tableau"><h2 id="allocation-de-tableau">Allocation de tableau</h2></a>
-<p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[]</span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">[]</span></code></span> fonctionnent de la même manière, mais sont plus sûrs qu&rsquo;une gestion manuelle de tableau avec leurs homologues sans crochets. Ne serait-ce que pour détruire proprement les objets si un des constructeurs jette une exception.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[](</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span> <span class="c1">// identique que la version sans crochet
-</span><span class="c1"></span><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="cm">/*{params...}*/</span><span class="p">;</span>
-</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#surcharge-de-new-et-delete"><h2 id="surcharge-de-new-et-delete">Surcharge de new et delete</h2></a>
-<p>Toutes les formes de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">delete</span></code></span> sont surchargeables de façon locale ou globale. Local quand l&rsquo;opérateur est implémenté à l&rsquo;intérieur d&rsquo;une classe (son prototype sera implicitement statique) et global lorsqu&rsquo;implémenté dans le namespace global.</p>
-<p>De plus, comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">new</span></code></span> peut prendre des paramètres, il est possible de les personnaliser et d&rsquo;en ajouter.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;new&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="k">struct</span> <span class="nc">A</span>
-<span class="p">{</span>
-  <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;A(&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;)&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;new A &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-    <span class="k">return</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="n">A</span><span class="p">;</span> <span class="c1">// affiche &#34;new A 1 2 A(0)&#34;
-</span></code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#lalignement-mémoire"><h2 id="lalignement-mémoire">L&rsquo;alignement mémoire</h2></a>
+<p>De la même manière qu&rsquo;il faut utiliser <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">delete</span></span></span></code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">delete</span><span class="p">[]</span></span></span></code></span> pour <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">new</span></span></span></code></span>/<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">new</span><span class="p">[]</span></span></span></code></span>, il existe un <a href="http://en.cppreference.com/w/cpp/memory/new/operator_delete">::operator delete()</a> associé à <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">()</span></span></span></code></span>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span> <span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span></span></code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#allocation-de-tableau"><h2 id="allocation-de-tableau">Allocation de tableau</h2></a>
+<p><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[]</span></span></span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">::</span><span class="k">operator</span> <span class="k">delete</span><span class="p">[]</span></span></span></code></span> fonctionnent de la même manière, mais sont plus sûrs qu&rsquo;une gestion manuelle de tableau avec leurs homologues sans crochets. Ne serait-ce que pour détruire proprement les objets si un des constructeurs jette une exception.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span><span class="p">[](</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Machin</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span> <span class="c1">// identique que la version sans crochet
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Machin</span><span class="o">*</span> <span class="n">machin</span> <span class="o">=</span> <span class="k">new</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="n">Machin</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="cm">/*{params...}*/</span><span class="p">;</span>
+</span></span></code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#surcharge-de-new-et-delete"><h2 id="surcharge-de-new-et-delete">Surcharge de new et delete</h2></a>
+<p>Toutes les formes de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">new</span></span></span></code></span> et <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">delete</span></span></span></code></span> sont surchargeables de façon locale ou globale. Local quand l&rsquo;opérateur est implémenté à l&rsquo;intérieur d&rsquo;une classe (son prototype sera implicitement statique) et global lorsqu&rsquo;implémenté dans le namespace global.</p>
+<p>De plus, comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">new</span></span></span></code></span> peut prendre des paramètres, il est possible de les personnaliser et d&rsquo;en ajouter.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;new&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">struct</span> <span class="nc">A</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;A(&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;)&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span><span class="o">*</span> <span class="k">operator</span> <span class="nf">new</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="k">throw</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;new A &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span> <span class="o">&lt;&lt;</span> <span class="n">y</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">::</span><span class="k">operator</span> <span class="k">new</span> <span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="n">A</span><span class="p">;</span> <span class="c1">// affiche &#34;new A 1 2 A(0)&#34;
+</span></span></span></code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/#lalignement-mémoire"><h2 id="lalignement-mémoire">L&rsquo;alignement mémoire</h2></a>
 <p>L&rsquo;alignement mémoire est une histoire à part entière, je n&rsquo;en parle donc pas plus que ça :p.</p>
 <p>Toutefois, renseignez-vous dessus, des variables non alignées peuvent faire chuter les performances et planter certaines architectures de processeur.
 Présent dans boost et la dernière norme du C++, il existe <a href="http://en.cppreference.com/w/cpp/types/aligned_storage">aligned_storage</a> et co pour aider.</p>
@@ -337,18 +337,18 @@ Cependant, comme les conteneurs retournent une copie de leur allocateur, il sera
   <div class="post__content">
       <p>La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la <a href="https://cpp.developpez.com/faq/cpp/?page=Optimisation#Qu-est-ce-que-la-RVO">FAQ C++ developpez.com</a>.</p>
 <p>Cependant, ces optimisations ne s&rsquo;appliquent que sur une variable de type <code>T</code> <strong>sans référence</strong>. Ce qui veut dire qu&rsquo;une référence ne sera pas optimisée.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">iterator</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">iterator</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="nf">iterator</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// pas de RVO
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>Alors qu&rsquo;une décomposition de la fonction active la NRVO.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">iterator</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">iterator</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">iterator</span> <span class="nf">ret</span><span class="p">(</span><span class="n">other</span><span class="p">);</span>
-  <span class="n">ret</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>C&rsquo;est une optimisation facile à faire et il est tout aussi facile de passer à côté ;).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">iterator</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">iterator</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">iterator</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// pas de RVO
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>Alors qu&rsquo;une décomposition de la fonction active la NRVO.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">iterator</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">iterator</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">iterator</span> <span class="nf">ret</span><span class="p">(</span><span class="n">other</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ret</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>C&rsquo;est une optimisation facile à faire et il est tout aussi facile de passer à côté ;).</p>
 
   </div>
   <footer class="post__footer">
@@ -419,27 +419,27 @@ J&rsquo;ai nommé: <a href="http://sqlite.org/lang_vacuum.html">VACUUM</a>.</p>
 <p>Comme certains logiciels se servent de sqlite comme BDD, il peut être intéressant d&rsquo;utiliser cette commande de temps en temps.
 La première fois que je l&rsquo;ai fait pour firefox (fichier <code>~/.mozilla/firefox/nom-du-profil/*.sqlite</code> sur linux) j&rsquo;ai gagné ½ giga :).</p>
 <p>Voici un petit script qui va permettre de le faire sur tous les fichiers sqlite du système (du moins, ceux indexés) et connaître la taille totale avant et après utilisation:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
-</span><span class="cp"></span><span class="nv">tmpf</span><span class="o">=</span><span class="si">${</span><span class="nv">TMPDIR</span><span class="p">:=/tmp</span><span class="si">}</span>/sqlite_file_path
-locate <span class="se">\.</span>sqlite <span class="se">\
-</span><span class="se"></span><span class="p">|</span> xargs -d<span class="s1">&#39;\n&#39;</span> mimetype <span class="se">\
-</span><span class="se"></span><span class="p">|</span> grep <span class="s1">&#39;application/x-sqlite3$&#39;</span> <span class="se">\
-</span><span class="se"></span><span class="p">|</span> sed <span class="s1">&#39;s/:\s*application\/x-sqlite3\s*$//&#39;</span> <span class="se">\
-</span><span class="se"></span>&gt; <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span>
-xargs --arg-file <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span> -d<span class="s1">&#39;\n&#39;</span> du -hc <span class="p">|</span> tail -n1
-<span class="k">while</span> <span class="nb">read</span> f <span class="p">;</span> <span class="k">do</span>
-  sqlite3 <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s1">&#39;VACUUM;&#39;</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s2">&#34;\tfor </span><span class="nv">$f</span><span class="s2">&#34;</span>
-<span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span>
-xargs --arg-file <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span> -d<span class="s1">&#39;\n&#39;</span> du -hc <span class="p">|</span> tail -n1
-rm <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span>
-</code></pre></div><p>Et une petite version qui prend des fichiers en paramètre:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
-</span><span class="cp"></span>du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span>
-<span class="k">for</span> f in <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span> <span class="p">;</span> <span class="k">do</span>
-  sqlite3 <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s1">&#39;VACUUM;&#39;</span>
-<span class="k">done</span>
-du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">tmpf</span><span class="o">=</span><span class="si">${</span><span class="nv">TMPDIR</span><span class="p">:=/tmp</span><span class="si">}</span>/sqlite_file_path
+</span></span><span class="line"><span class="cl">locate <span class="se">\.</span>sqlite <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> xargs -d<span class="s1">&#39;\n&#39;</span> mimetype <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> grep <span class="s1">&#39;application/x-sqlite3$&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span><span class="p">|</span> sed <span class="s1">&#39;s/:\s*application\/x-sqlite3\s*$//&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>&gt; <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">xargs --arg-file <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span> -d<span class="s1">&#39;\n&#39;</span> du -hc <span class="p">|</span> tail -n1
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="nb">read</span> f <span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  sqlite3 <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s1">&#39;VACUUM;&#39;</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s2">&#34;\tfor </span><span class="nv">$f</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">xargs --arg-file <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span> -d<span class="s1">&#39;\n&#39;</span> du -hc <span class="p">|</span> tail -n1
+</span></span><span class="line"><span class="cl">rm <span class="s2">&#34;</span><span class="nv">$tmpf</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>Et une petite version qui prend des fichiers en paramètre:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> f in <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span> <span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  sqlite3 <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s1">&#39;VACUUM;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span>
+</span></span></code></pre></div>
   </div>
   <footer class="post__footer">
     <p class="post__meta meta">
@@ -503,32 +503,32 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 
   </header>
   <div class="post__content">
-      <p>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées <code>argv</code> dans pas mal d&rsquo;autres langages): <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span>.</p>
+      <p>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées <code>argv</code> dans pas mal d&rsquo;autres langages): <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$*</span></span></span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$@</span></span></span></code></span>.</p>
 <ul>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> est une variable ce qu&rsquo;il y a de plus normale et ne diffère pas d&rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&rsquo;y reviens après).</li>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> est une variable au comportement différent entre les shells basés sur sh (bash, dash, &hellip;) et les autres (ksh, zsh).</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$*</span></span></span></code></span> est une variable ce qu&rsquo;il y a de plus normale et ne diffère pas d&rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&rsquo;y reviens après).</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$@</span></span></span></code></span> est une variable au comportement différent entre les shells.</li>
 </ul>
-<p>Sur bash, il n&rsquo;y a aucune différence entre <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span>. Par contre, sur ksh/zsh, <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> représente un tableau d&rsquo;arguments. Il faut savoir que sur bash, utiliser une variable sans guillemet revient à créer autant d&rsquo;arguments qu&rsquo;il y a de mots. Les mots sont séparés en fonction des caractères de <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$IFS</span></code></span> (la variable contient : espace, tabulation et saut de ligne). C&rsquo;est pour cela qu&rsquo;il est conseillé d&rsquo;entourer ces variables de guillemets doubles.</p>
+<p>Sur bash, il n&rsquo;y a aucune différence entre <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$*</span></span></span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$@</span></span></span></code></span>. Par contre, sur ksh et zsh, <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$@</span></span></span></code></span> représente un tableau d&rsquo;arguments. Il faut savoir que sur bash, utiliser une variable sans guillemet revient à créer autant d&rsquo;arguments qu&rsquo;il y a de mots. Les mots sont séparés en fonction des caractères dans <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$IFS</span></span></span></code></span> (la variable contient par défaut : espace, tabulation et saut de ligne). C&rsquo;est pour cela qu&rsquo;il est conseillé d&rsquo;entourer ces variables de guillemets doubles.</p>
 <p>Un petit exemple pour comprendre :).</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span>
-<span class="k">for</span> v in <span class="nv">$a</span> <span class="p">;</span> <span class="k">do</span>
-  <span class="nb">echo</span> <span class="nv">$v</span>
-<span class="k">done</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">&gt; a
-&gt; b
-&gt; c
-</code></pre></div><p>Le résultat est 3 lignes pour 1 paramètre, la chaîne <code>'a b c'</code> contenant des espaces s&rsquo;est fait couper. Ce n&rsquo;est pas le cas pour zsh qui ne fait pas cette césure (raison historique, j&rsquo;y reviens à la fin).</p>
-<p>Maintenant il reste <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span> qui ne diffère pas entre les shells.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> v in <span class="nv">$a</span> <span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="nv">$v</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">&gt; a
+</span></span><span class="line"><span class="cl">&gt; b
+</span></span><span class="line"><span class="cl">&gt; c
+</span></span></code></pre></div><p>Le résultat est 3 lignes pour 1 paramètre, la chaîne <code>'a b c'</code> contenant des espaces s&rsquo;est fait couper. Ce n&rsquo;est pas le cas pour zsh qui ne fait pas cette césure (raison historique, j&rsquo;y reviens à la fin).</p>
+<p>Maintenant il reste <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></span></span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></span></span></code></span> qui ne diffèrent pas entre les shells.</p>
 <ul>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span> correspond à une seule chaîne, tout est géré en un seul bloc.</li>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span> représente les paramètres réels. C&rsquo;est identique à <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span> avec ksh et zsh.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></span></span></code></span> correspond à une seule chaîne, tout est géré en un seul bloc.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></span></span></code></span> représente les paramètres réels. C&rsquo;est identique à <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$@</span></span></span></code></span> avec ksh et zsh.</li>
 </ul>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/#démonstration"><h2 id="démonstration">Démonstration</h2></a>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># test.sh</span>
-<span class="k">for</span> v in XXX <span class="p">;</span> <span class="k">do</span>
-  <span class="nb">echo</span> <span class="nv">$v</span>
-<span class="k">done</span>
-</code></pre></div><p>Le code ci-dessus est utilisé avec <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">./test.s <span class="s1">&#39;a b&#39;</span> c</code></span> et pour lequel <code>XXX</code> est remplacé par une des 4 variables précédemment citées.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># test.sh</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> v in XXX <span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="nv">$v</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><p>Le code ci-dessus est utilisé avec <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">./test.s <span class="s1">&#39;a b&#39;</span> c</span></span></code></span> et pour lequel <code>XXX</code> est remplacé par une des 4 variables précédemment citées.</p>
 <table>
 <thead>
 <tr>
@@ -540,37 +540,46 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
 </thead>
 <tbody>
 <tr>
-<td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$*</span></code></span></td>
-<td>a<!-- raw HTML omitted -->b<!-- raw HTML omitted -->c</td>
-<td>a<!-- raw HTML omitted -->b<!-- raw HTML omitted -->c</td>
-<td>a b<!-- raw HTML omitted -->c</td>
+<td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$*</span></span></span></code></span></td>
+<td>a<br/>b<br/>c
+</td>
+<td>a<br>b<br>c
+</td>
+<td>a b<br>c
+</td>
 </tr>
 <tr>
-<td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$@</span></code></span></td>
-<td>a<!-- raw HTML omitted -->b<!-- raw HTML omitted -->c</td>
-<td>a b<!-- raw HTML omitted -->c</td>
-<td>a b<!-- raw HTML omitted -->c</td>
+<td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$@</span></span></span></code></span></td>
+<td>a<br>b<br>c
+</td>
+<td>a b<br>c
+</td>
+<td>a b<br>c
+</td>
 </tr>
 <tr>
-<td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span></span></span></code></span></td>
 <td>a b c</td>
 <td>a b c</td>
 <td>a b c</td>
 </tr>
 <tr>
-<td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></code></span></td>
-<td>a b<!-- raw HTML omitted -->c</td>
-<td>a b<!-- raw HTML omitted -->c</td>
-<td>a b<!-- raw HTML omitted -->c</td>
+<td><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span></span></span></code></span></td>
+<td>a b<br>c
+</td>
+<td>a b<br>c
+</td>
+<td>a b<br>c
+</td>
 </tr>
 </tbody>
 </table>
-<p>Pour que zsh boucle sur des mots, il faut ajouter un flag à la variable (<span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="p">=*</span><span class="si">}</span></code></span>), comme ci-dessous.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span><span class="p">;</span>
-<span class="k">for</span> v in <span class="si">${</span><span class="p">=a</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span>
-  <span class="nb">echo</span> <span class="nv">$v</span>
-<span class="k">done</span>
-</code></pre></div>
+<p>Pour que zsh boucle sur des mots, il faut ajouter un flag à la variable (<span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="si">${</span><span class="p">=*</span><span class="si">}</span></span></span></code></span> ou <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl">$<span class="o">=</span>*</span></span></code></span>), comme ci-dessous.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="nv">a</span><span class="o">=</span><span class="s1">&#39;a b c&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> v in <span class="si">${</span><span class="p">=a</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="nv">$v</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div>
   </div>
   <footer class="post__footer">
     <p class="post__meta meta">
@@ -637,12 +646,12 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
       <p>En règle générale les événements sont attachés à l&rsquo;élément qui va le traiter.</p>
 <p>Par exemple en javascript, un menu (<code>ul</code>) contenant 10 entrées (<code>li</code>) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.</p>
 <p>Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ul</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;menu&#34;</span><span class="p">);</span>
-<span class="nx">ul</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span> <span class="o">===</span> <span class="nx">ul</span><span class="p">)</span> <span class="c1">// est-ce toi mon fils ?
-</span><span class="c1"></span>    <span class="nx">openWithAjax</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div><p>On peut trouver le même type de fonction dans JQuery: <a href="https://api.jquery.com/on/">.on()</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">ul</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;menu&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ul</span><span class="p">.</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span> <span class="o">===</span> <span class="nx">ul</span><span class="p">)</span> <span class="c1">// est-ce toi mon fils ?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">openWithAjax</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>On peut trouver le même type de fonction dans JQuery: <a href="https://api.jquery.com/on/">.on()</a>.</p>
 
   </div>
   <footer class="post__footer">
@@ -709,16 +718,16 @@ du -hc <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&
   <div class="post__content">
       <p>Voici une petite information très mal connue et peu utilisée du <code>getopt</code> de la lib C et de la commande shell. Ainsi que <code>Boost.Program_options</code>. Parce que boost c&rsquo;est bien :p.</p>
 <p>Les noms des options longues n&rsquo;ont pas besoin d&rsquo;être écrites entièrement.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="k">function</span> parsecmd<span class="o">()</span>
-<span class="o">{</span>
-  getopt -o <span class="s1">&#39;&#39;</span> --long <span class="se">\
-</span><span class="se"></span>    option-longue,option-encore-plus-longue,une-autre-option: <span class="se">\
-</span><span class="se"></span>    -n <span class="s1">&#39;example&#39;</span> -- <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span>
-<span class="o">}</span>
-
-parsecmd --option-l --u plop bidule
-</code></pre></div><p>Donne</p>
-<div class="highlight-nocode"><pre tabindex="0" class="chroma-nocode"><code>--option-longue --une-autre-option 'plop' -- 'bidule'
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="k">function</span> parsecmd<span class="o">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  getopt -o <span class="s1">&#39;&#39;</span> --long <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    option-longue,option-encore-plus-longue,une-autre-option: <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -n <span class="s1">&#39;example&#39;</span> -- <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">parsecmd --option-l --u plop bidule
+</span></span></code></pre></div><p>Donne</p>
+<div class="highlight-nocode"><pre tabindex="0" class="chroma-nocode"><code>--option-longue --une-autre-option &#39;plop&#39; -- &#39;bidule&#39;
 </code></pre><p>La commande shell <code>getopt</code> est un peu plus souple que les autres. Si ambiguïté, la première option correspondante sera sélectionnée. Si l&rsquo;option <code>-a</code> existe ce n&rsquo;est plus le cas et le code d&rsquo;erreur <code>1</code> est retourné ainsi qu&rsquo;un petit message listant les options possibles. Mais avec <code>-a</code> les options longues peuvent commencer par un simple tiret.</p>
 <p>La plupart des commandes Linux utilisant <code>getopt</code>, cette astuce peut s&rsquo;utiliser assez souvent.</p>
 
@@ -789,19 +798,19 @@ parsecmd --option-l --u plop bidule
 <p>Comme exemple je vais utiliser les <a href="http://en.cppreference.com/w/cpp/iterator">tags présents dans les itérateurs de la STL</a> et une implémentation de la fonction <a href="http://en.cppreference.com/w/cpp/iterator/advance">std::advance()</a>.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#première-implémentation"><h2 id="première-implémentation">Première implémentation</h2></a>
 <p>La fonction <code>std::advance()</code> permet d&rsquo;incrémenter un itérateur de <code>N</code> éléments (ou décrémenter si <code>N</code> est négatif). D&rsquo;après cette description, un premier algorithme peut être émis:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">++</span><span class="p">)</span>
-      <span class="o">--</span><span class="n">it</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">else</span> <span class="p">{</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">)</span>
-      <span class="o">++</span><span class="n">it</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#optimisation"><h2 id="optimisation">Optimisation</h2></a>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">--</span><span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">++</span><span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#optimisation"><h2 id="optimisation">Optimisation</h2></a>
 <p>Maintenant, que se passe-t-il quand l&rsquo;itérateur est un pointeur ? Réponse: une boucle.</p>
 <p>Ne serait-il pas préférable de faire <code>it += n</code> !?</p>
 <p>C&rsquo;est là que les tags entrent en jeu.</p>
@@ -810,49 +819,49 @@ parsecmd --option-l --u plop bidule
 <p>En réalité un tag est une classe vide. Cela suffit, le type est porteur de l&rsquo;information. Les <a href="http://en.cppreference.com/w/cpp/iterator/iterator_tags">tags des itérateurs</a> possèdent aussi une hiérarchie et certains sont donc hérités.</p>
 <p>Pour récupérer le type contenu dans un itérateur il faut passer par <code>std::iterator_traits&lt;&gt;</code>, cela permet de fonctionner même avec un type scalaire comme le pointeur qui ne possède pas de type interne.</p>
 <p>Le tag d&rsquo;un pointeur étant <code>std::random_access_iterator_tag</code> voici une implémentation:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">It</span><span class="o">&gt;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">It</span><span class="o">&gt;::</span><span class="n">iterator_category</span>
-<span class="n">iterator_category</span><span class="p">(</span><span class="k">const</span> <span class="n">It</span><span class="o">&amp;</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">It</span><span class="o">&gt;::</span><span class="n">iterator_category</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">RandomIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">RandomIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">random_access_iterator_tag</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">it</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">advance</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">iterator_category</span><span class="p">(</span><span class="n">it</span><span class="p">));</span>
-<span class="p">}</span>
-</code></pre></div></div><p>Bien sûr, on change aussi le prototype de la précédente implémentation.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">);</span>
-</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#problème-avec-forwarditerator"><h2 id="problème-avec-forwarditerator">Problème avec ForwardIterator</h2></a>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">It</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">It</span><span class="o">&gt;::</span><span class="n">iterator_category</span>
+</span></span><span class="line"><span class="cl"><span class="n">iterator_category</span><span class="p">(</span><span class="k">const</span> <span class="n">It</span><span class="o">&amp;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">iterator_traits</span><span class="o">&lt;</span><span class="n">It</span><span class="o">&gt;::</span><span class="n">iterator_category</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">RandomIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">RandomIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">random_access_iterator_tag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">it</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">advance</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">iterator_category</span><span class="p">(</span><span class="n">it</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Bien sûr, on change aussi le prototype de la précédente implémentation.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">);</span>
+</span></span></code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#problème-avec-forwarditerator"><h2 id="problème-avec-forwarditerator">Problème avec ForwardIterator</h2></a>
 <p>Toutefois un problème persiste, lorsqu&rsquo;un ForwardIterator est utilisé, il n&rsquo;y a pas d&rsquo;opération de décrémentation, et la compilation ne se fait pas. Il faut de nouveau changer notre première implémentation pour qu&rsquo;elle ne fonctionne qu&rsquo;avec <code>bidirectional_iterator_tag</code> et une implémentation généraliste qui fait une incrémentation.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">)</span>
-    <span class="o">++</span><span class="n">it</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">bidirectional_iterator_tag</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">++</span><span class="p">)</span>
-      <span class="o">--</span><span class="n">it</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">else</span> <span class="p">{</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">)</span>
-      <span class="o">++</span><span class="n">it</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#conclusion"><h2 id="conclusion">Conclusion</h2></a>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Tag</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">Tag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">++</span><span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIt</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">advance</span><span class="p">(</span><span class="n">InputIt</span><span class="o">&amp;</span> <span class="n">it</span><span class="p">,</span> <span class="n">Distance</span> <span class="n">n</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">bidirectional_iterator_tag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">--</span><span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">++</span><span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/#conclusion"><h2 id="conclusion">Conclusion</h2></a>
 <p>Les tags sont un moyen simple de spécifier les comportements liés à une classe. On peut les voir comme une liste d&rsquo;interface disponible pour cibler précisément ce qu&rsquo;il est possible de faire ou ne pas faire.</p>
 
   </div>
@@ -921,27 +930,27 @@ parsecmd --option-l --u plop bidule
       <p>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&rsquo;interpréteur utilisé. J&rsquo;ai eu le coup une fois lorsqu&rsquo;il fallait charger le module <code>canberra-gtk</code> pour les programmes java.</p>
 <p>Une variable <code>$GTK_MODULES</code> est définie et contient tous les modules gtk séparés par des deux points (<code>:</code>).
 Visiblement, j&rsquo;ai 2 modules gtk. Tous 2 servant à ajouter <code>canberra-gtk-module</code>. Les fautifs ? <code>52libcanberra-gtk-module_add-to-gtk-modules</code> et <code>52libcanberra-gtk3-module_add-to-gtk-modules</code> Avec un contenu identique:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-    <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;canberra-gtk-module&#34;</span>
-<span class="k">else</span>
-    <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">:canberra-gtk-module&#34;</span>
-<span class="k">fi</span>
-
-<span class="nb">export</span> GTK_MODULES
-</code></pre></div><p>Et là, paf ! C&rsquo;est le drame. <code>$GTK_MODULES</code> = <code>canberra-gtk-moduleanberra-gtk-module</code>, naturellement :D.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;canberra-gtk-module&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$GTK_MODULES</span><span class="s2">:canberra-gtk-module&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> GTK_MODULES
+</span></span></code></pre></div><p>Et là, paf ! C&rsquo;est le drame. <code>$GTK_MODULES</code> = <code>canberra-gtk-moduleanberra-gtk-module</code>, naturellement :D.</p>
 <p>Vous venez d&rsquo;assister à l&rsquo;effet du modificateur <code>c</code> (dans <code>:c</code>) qui ajoute le chemin de l&rsquo;executable présent dans <code>$GTK_MODULES</code>. Comme <code>canberra-gtk-module</code> n&rsquo;est pas un executable, rien n&rsquo;est fait, mais <code>:c</code> disparaît. Avec l&rsquo;auto-complétion on peut voir qu&rsquo;il y en a une petite quinzaine de disponibles, de quoi tomber plusieurs fois dans le piège.</p>
 <p>Les modificateurs existent aussi dans bash, mais ils sont moins nombreux et ne s&rsquo;utilisent qu&rsquo;avec l&rsquo;historique (paragraphe <code>HISTORY EXPANSION</code> du manuel).</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">echo</span> unfichier.txt
-<span class="nb">echo</span> !:1:r
-</code></pre></div><p>Résultat :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> unfichier.txt
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> !:1:r
+</span></span></code></pre></div><p>Résultat :</p>
 <div class="highlight-nocode"><pre tabindex="0" class="chroma-nocode"><code>unfichier.txt
 unfichier
 </code></pre></div><p>Quasiment jamais utilisé en fait.</p>
 <p>Mais voilà, zsh les généralise aussi aux variables ce qui engendre une erreur dans <code>GTK_MODULES</code>.</p>
 <p>Alors comment faire ?
 Simple, entourer la variable d&rsquo;accolades:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GTK_MODULES</span><span class="si">}</span><span class="s2">:canberra-gtk-module&#34;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">GTK_MODULES</span><span class="o">=</span><span class="s2">&#34;</span><span class="si">${</span><span class="nv">GTK_MODULES</span><span class="si">}</span><span class="s2">:canberra-gtk-module&#34;</span>
+</span></span></code></pre></div>
   </div>
   <footer class="post__footer">
     <p class="post__meta meta">
@@ -1010,42 +1019,42 @@ Simple, entourer la variable d&rsquo;accolades:</p>
 <p>Coder la <a href="https://fr.wikipedia.org/wiki/Suite_de_Fibonacci">suite de Fibonacci</a> en récursive et en itérative.</p>
 </blockquote>
 <p>Mais partout où j&rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&rsquo;on peut trouver.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="c1">//itérative
-</span><span class="c1"></span><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
-  <span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tmp</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="o">--</span><span class="n">n</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">b</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c1">// récursive
-</span><span class="c1"></span><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">n</span> <span class="o">||</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">fib_r</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib_r</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>Sauf que cet algorithme récursif est pourri. Il recalcule sans cesse <code>fib-1</code> et <code>fib-2</code> et fait monter la pile d&rsquo;appel <strong>jusqu&rsquo;à explosion</strong> là où l&rsquo;algorithme itératif additionne une variable.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">//itérative
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tmp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="o">--</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tmp</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">b</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// récursive
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">n</span> <span class="o">||</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">fib_r</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib_r</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Sauf que cet algorithme récursif est pourri. Il recalcule sans cesse <code>fib-1</code> et <code>fib-2</code> et fait monter la pile d&rsquo;appel <strong>jusqu&rsquo;à explosion</strong> là où l&rsquo;algorithme itératif additionne une variable.</p>
 <p>Pour avoir un algorithme récursif équivalent à celui itératif, il faut garder le même comportement. C&rsquo;est à dire garder <code>a</code> et <code>b</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r_impl</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">r</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">rp</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">fib_r_impl</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="n">rp</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="n">fib_r_impl</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>Cet algo est strictement identique au premier car applique la <a href="http://fr.wikipedia.org/wiki/R%C3%A9cursion_terminale">récursion terminale</a>. Ainsi, le code généré par un compilateur (avec les options d&rsquo;optimisation) donnera un binaire identique (ou très proche). Des langages comme OCaml ou Haskel optimisent la pile quand il y a une récursion terminale.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r_impl</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">r</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">rp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">fib_r_impl</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="n">rp</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">fib_r</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">fib_r_impl</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Cet algo est strictement identique au premier car applique la <a href="http://fr.wikipedia.org/wiki/R%C3%A9cursion_terminale">récursion terminale</a>. Ainsi, le code généré par un compilateur (avec les options d&rsquo;optimisation) donnera un binaire identique (ou très proche). Des langages comme OCaml ou Haskel optimisent la pile quand il y a une récursion terminale.</p>
 
   </div>
   <footer class="post__footer">
@@ -1113,10 +1122,10 @@ Simple, entourer la variable d&rsquo;accolades:</p>
       <p>Il y a 3 semaines environ je cherchais le moyen d&rsquo;utiliser la commande sed avec une regex sur plusieurs lignes. Je voulais transformer tous les <code>/\+\n\s+&quot;&quot;/</code> en rien du tout (oui, les supprimer…). Sauf que comme tel, ça ne fonctionne pas, <code>sed</code> comme beaucoup de commandes unix fonctionne par ligne. Après de lourdes et pompeuses recherches d&rsquo;au moins 7 secondes montre en main, je suis tombé sur la solution.</p>
 <p>Pour ce faire, il suffit d&rsquo;un identifiant, un petit label, une information de multi-ligne au milieu et 3 autres bricoles ; rien que ça :D.</p>
 <p>Ce qui se traduit par:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sed -e :a -e N -e <span class="s1">&#39;$!ba&#39;</span> -e s<span class="s1">&#39;/+\n\s\+&#34;&#34;//g&#39;</span>
-</code></pre></div><p>Et en version courte:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">sed <span class="s1">&#39;:a;N;$!ba;s/+\n\s\+&#34;&#34;//g&#39;</span>
-</code></pre></div><p>Je sais ce que vous vous demandez: pourquoi il n&rsquo;y a pas <code>-e</code> dans la version courte ?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed -e :a -e N -e <span class="s1">&#39;$!ba&#39;</span> -e s<span class="s1">&#39;/+\n\s\+&#34;&#34;//g&#39;</span>
+</span></span></code></pre></div><p>Et en version courte:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sed <span class="s1">&#39;:a;N;$!ba;s/+\n\s\+&#34;&#34;//g&#39;</span>
+</span></span></code></pre></div><p>Je sais ce que vous vous demandez: pourquoi il n&rsquo;y a pas <code>-e</code> dans la version courte ?</p>
 <p>Mais parce que c&rsquo;est la version courte, évidemment !</p>
 <p>Sinon dans une moindre mesure.</p>
 <ul>
@@ -1130,9 +1139,9 @@ Si on n&rsquo;est pas (<code>!</code>) sur la dernière ligne (<code>$</code>), 
 <p>L&rsquo;espace de recherche est la partie sur laquelle s&rsquo;applique une regex. Par défaut, l&rsquo;espace de recherche ne contient qu&rsquo;une ligne à la fois qui sont manipulées individuellement. Avec cette boucle, l&rsquo;espace de recherche contient toutes les lignes (avec saut de ligne) et la regex est appliquée sur l&rsquo;ensemble du document.</p>
 <p>Et en bonus, quelques commandes supplémentaires bons à savoir.</p>
 <ul>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed 2,5s/e/U/g</code></span> remplace <code>e</code> par <code>U</code> à partir de la ligne 2 jusqu&rsquo;à la 5.</li>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,/</span><span class="nv">$fin</span><span class="s2">/&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> jusqu&rsquo;à <code>$fin</code>.</li>
-<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,+5&#34;</span>s/A/a/g</code></span> depuis <code>$debut</code> et sur 5 lignes.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sed 2,5s/e/U/g</span></span></code></span> remplace <code>e</code> par <code>U</code> à partir de la ligne 2 jusqu&rsquo;à la 5.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,/</span><span class="nv">$fin</span><span class="s2">/&#34;</span>s/A/a/g</span></span></code></span> depuis <code>$debut</code> jusqu&rsquo;à <code>$fin</code>.</li>
+<li><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sed <span class="s2">&#34;/</span><span class="nv">$debut</span><span class="s2">/,+5&#34;</span>s/A/a/g</span></span></code></span> depuis <code>$debut</code> et sur 5 lignes.</li>
 </ul>
 
   </div>

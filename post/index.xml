@@ -54,7 +54,7 @@ Pour comprendre pleinement le mécanisme derrière, il faut assimiler le princip
       <pubDate>Sun, 01 Sep 2019 16:09:32 +0200</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/</guid>
-      <description>Fonction noexcept noexcept est un mot clef apparu en C++11. Dans le prototype d&amp;rsquo;une fonction, il indique que cette dernière ne jette pas d&amp;rsquo;exception. Cela ne veut pas dire qu&amp;rsquo;aucune exception ne sera présente dans la fonction, mais qu&#39;aucune exception ne sortira de la fonction. Dans le cas contraire, le programme s&amp;rsquo;arrête subitement avec un appel à std::terminate.
+      <description>Fonction noexcept noexcept est un mot clef apparu en C++11. Dans le prototype d&amp;rsquo;une fonction, il indique que cette dernière ne jette pas d&amp;rsquo;exception. Cela ne veut pas dire qu&amp;rsquo;aucune exception ne sera présente dans la fonction, mais qu&amp;rsquo;aucune exception ne sortira de la fonction. Dans le cas contraire, le programme s&amp;rsquo;arrête subitement avec un appel à std::terminate.
 noexcept n&amp;rsquo;impose aucune restriction sur ce que peut faire la fonction. Il est tout à fait possible d&amp;rsquo;utiliser des fonctions qui ne sont pas marquées noexcept à l&amp;rsquo;intérieur d&amp;rsquo;une fonction noexcept, voire, de jeter des exceptions.</description>
     </item>
     
@@ -70,10 +70,10 @@ Les tableaux C se convertissent en pointeur trop facilement Le tableau C a l&amp
     
     <item>
       <title>Grep, sed, awk, sort... Non ! Zsh</title>
-      <link>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/</link>
+      <link>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non--zsh/</link>
       <pubDate>Mon, 28 Jan 2019 22:45:03 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
-      <guid>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/</guid>
+      <guid>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non--zsh/</guid>
       <description>Depuis plusieurs années maintenant, j&amp;rsquo;utilise Zsh comme shell par défaut. Et par la force des choses, il m&amp;rsquo;arrive de taper des commandes zsh, de faire des boucles zsh, de penser zsh. Bref, de coder en zsh. Bien que le langage a des inconvénients, il possède de nombreuses fonctionnalités qui recouvrent celles de certains utilitaires Unix.
 Les gros avantage d&amp;rsquo;utiliser zsh plutôt que les commandes Unix sont au nombre de 3:</description>
     </item>
@@ -247,7 +247,7 @@ Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 oct
       <pubDate>Mon, 09 Jun 2014 00:35:19 +0100</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/</guid>
-      <description>À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j&amp;rsquo;ai récemment appris l&amp;rsquo;existence de 256 couleurs dans la console en tombant sur un screenun peu trop coloré. Ce qui m&amp;rsquo;a dirigé sur un dépôt contenant un $LS_COLORSparticulièrement fourni.
+      <description>À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j&amp;rsquo;ai récemment appris l&amp;rsquo;existence de 256 couleurs dans la console en tombant sur un dépôt contenant un $LS_COLORS particulièrement fourni.
 En fait, il s&amp;rsquo;avère qu&amp;rsquo;en rajoutant extended dans la recherche &amp;ldquo;color shell&amp;rdquo; on puisse trouver quelque(s) ressource(s). J&amp;rsquo;aurais bien voulu y penser la semaine dernière, ça m&amp;rsquo;aurait évité de comprendre par tâtonnement&amp;hellip;</description>
     </item>
     
@@ -384,7 +384,7 @@ Comme certains logiciels se servent de sqlite comme BDD, il peut être intéress
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/</guid>
       <description>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées argv dans pas mal d&amp;rsquo;autres langages): $* et $@.
- $* est une variable ce qu&amp;rsquo;il y a de plus normale et ne diffère pas d&amp;rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&amp;rsquo;y reviens après). $@ est une variable au comportement différent entre les shells basés sur sh (bash, dash, &amp;hellip;) et les autres (ksh, zsh).</description>
+ $* est une variable ce qu&amp;rsquo;il y a de plus normale et ne diffère pas d&amp;rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&amp;rsquo;y reviens après). $@ est une variable au comportement différent entre les shells.</description>
     </item>
     
     <item>
@@ -407,7 +407,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
       <description>Voici une petite information très mal connue et peu utilisée du getopt de la lib C et de la commande shell. Ainsi que Boost.Program_options. Parce que boost c&amp;rsquo;est bien :p.
 Les noms des options longues n&amp;rsquo;ont pas besoin d&amp;rsquo;être écrites entièrement.
 function parsecmd() { getopt -o &amp;#39;&amp;#39; --long \  option-longue,option-encore-plus-longue,une-autre-option: \  -n &amp;#39;example&amp;#39; -- &amp;#34;$@&amp;#34; } parsecmd --option-l --u plop bidule Donne
---option-longue --une-autre-option &#39;plop&#39; -- &#39;bidule&#39; La commande shell getopt est un peu plus souple que les autres.</description>
+--option-longue --une-autre-option &amp;#39;plop&amp;#39; -- &amp;#39;bidule&amp;#39; La commande shell getopt est un peu plus souple que les autres.</description>
     </item>
     
     <item>

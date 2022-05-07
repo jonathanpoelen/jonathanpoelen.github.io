@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Presque toujours std::move</title>
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.96.0" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -172,12 +172,12 @@ Rire sarcastique.">
 <article class="post">
   <header class="post__header clearfix">
     <div class="post__title-nextprev" id="presque-toujours-stdmove"><span>
-        <a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Grep, sed, awk, sort... Non ! Zsh"></i></a>
+        <a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non--zsh/"><i class="fas fa-caret-square-up" aria-hidden="true" title="Article précédent: Grep, sed, awk, sort... Non ! Zsh"></i></a>
         <a href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/"><i class="fas fa-caret-square-down" aria-hidden="true" title="Article suivant: Méta-fonction et continuation"></i></a>
     </span></div>
     <h1 class="post__title"><a href="https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/">Presque toujours std::move</a></h1>
     <div class="post__title-nextprev-text sr-only">
-        <a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non-zsh/">Article suivant: Grep, sed, awk, sort... Non ! Zsh</a><br/>
+        <a href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non--zsh/">Article suivant: Grep, sed, awk, sort... Non ! Zsh</a><br/>
         <a href="https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/">Article précédent: Méta-fonction et continuation</a><br/>
     </div>
     
@@ -219,7 +219,7 @@ Rire sarcastique.">
 <p>Parce qu&rsquo;il est possible de &ldquo;déplacer&rdquo; les valeurs sans passer le constructeur !</p>
 <a class="headline-hash" href="#du-déplacement-sans-stdmove"><h2 id="du-déplacement-sans-stdmove">Du &ldquo;déplacement&rdquo; sans std::move</h2></a>
 <p>C&rsquo;est fort du roquefort ! Pas de constructeur, pas de <code>std::move</code>, mais un objet qui se déplace quand même. On croirait faire de la magie !</p>
-<p><code>std::move</code> va forcer l&rsquo;appel à un constructeur de déplacement alors que le compilateur a les moyens &ndash; et même l&rsquo;obligation &ndash; de le faire pour nous. Ou mieux, bypasser tous les constructeurs et mettre la valeur directement là où il faut. On parle d'<a href="https://en.cppreference.com/w/cpp/language/copy_elision">élision par copie</a> ou de (N)RVO (Named Return Value Optimization). Sauf que <code>std::move</code> bloque ces optimisations.</p>
+<p><code>std::move</code> va forcer l&rsquo;appel à un constructeur de déplacement alors que le compilateur a les moyens &ndash; et même l&rsquo;obligation &ndash; de le faire pour nous. Ou mieux, bypasser tous les constructeurs et mettre la valeur directement là où il faut. On parle d&rsquo;<a href="https://en.cppreference.com/w/cpp/language/copy_elision">élision par copie</a> ou de (N)RVO (Named Return Value Optimization). Sauf que <code>std::move</code> bloque ces optimisations.</p>
 <p>Dans le cas de l&rsquo;élision de copie, le compilateur construit directement les paramètres de type T (un type sans référence) lorsqu&rsquo;on utilise un temporaire.</p>
 <p>Avec <code>void foo(T)</code>, il faut faire <code>foo(T{...})</code> et non pas <code>foo(std::move(T({...})</code>. Comme on ne fait pas <code>T x = std::move(T{...})</code>, mais <code>T x = T{...}</code> (on peut faire <code>T x{}</code>, c&rsquo;est pour l&rsquo;exemple)</p>
 <p>Les temporaires peuvent aussi exister depuis l&rsquo;appel à une fonction qui retourne <code>T</code>.</p>
@@ -228,18 +228,18 @@ Rire sarcastique.">
 <p>On n&rsquo;écrit pas <code>T bar() { return std::move(T{...}); }</code>, mais <code>T bar() { return T{...}; }</code>.</p>
 <p>Le compilateur possède aussi un comportement spécial pour la variable locale retournée: celle-ci doit être déplacée si possible. Et si possible, on optimise avec une élision.</p>
 <p>On écrit</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
-  <span class="c1">// ...
-</span><span class="c1"></span>  <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>À la place de</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">T</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
-  <span class="c1">// ...
-</span><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>Au final, les seuls moments où <code>std::move</code> devrait être utilisé, sont</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">T</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>À la place de</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">T</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">T</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Au final, les seuls moments où <code>std::move</code> devrait être utilisé, sont</p>
 <ul>
 <li>Pour transférer une variable de type référence (lvalue ou rvalue) en la forçant en rvalue.</li>
 <li>Pour passer une variable de type plein (sans référence) à une autre fonction.</li>
@@ -286,7 +286,7 @@ Rire sarcastique.">
     <a class="post-nav__link" href="/2018/11/meta-fonction-et-continuation/" rel="prev"><span class="post-nav__caption">«Précédent</span><span class="post-nav__post-title">Méta-fonction et continuation</span></a>
   </div>
   <div class="post-nav__item post-nav__item--next">
-    <a class="post-nav__link" href="/2019/01/grep-sed-awk-sort...-non-zsh/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">Grep, sed, awk, sort... Non ! Zsh</span></a>
+    <a class="post-nav__link" href="/2019/01/grep-sed-awk-sort...-non--zsh/" rel="next"><span class="post-nav__caption">Suivant»</span><span class="post-nav__post-title">Grep, sed, awk, sort... Non ! Zsh</span></a>
   </div>
 </nav>
 

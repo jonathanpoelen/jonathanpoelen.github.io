@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Optimisation de script bash en limitant l&#39;ouverture de processus</title>
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.96.0" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -207,27 +207,27 @@ Le meilleur moyen d&rsquo;accélérer un script est de passer par les builtins e
 <p>Le meilleur moyen d&rsquo;accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme.
 En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&rsquo;entrée standard et retourne un résultat ; un peu comme <code>bc</code>.
 C&rsquo;est là que les coprocessus viennent à la rescousse :).</p>
-<p>Un coprocessus est un sous-shell exécuté de façon asynchrone et fournissant les tubes d&rsquo;entrée/sortie. Ceux-ci sont accessibles via <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$COPROC</span><span class="o">[</span>1<span class="o">]</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$COPROC</span><span class="o">[</span>2<span class="o">]</span></code></span>.</p>
+<p>Un coprocessus est un sous-shell exécuté de façon asynchrone et fournissant les tubes d&rsquo;entrée/sortie. Ceux-ci sont accessibles via <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$COPROC</span><span class="o">[</span>1<span class="o">]</span></span></span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$COPROC</span><span class="o">[</span>2<span class="o">]</span></span></span></code></span>.</p>
 <p>Du coup, avec <code>bc</code>, la méthode est d&rsquo;écrire dans un tube et lire dans l&rsquo;autre. Comme la lecture est bloquante, le script va attendre que <code>bc</code> retourne le résultat.</p>
 <p>Et voilà ! L&rsquo;ouverture d&rsquo;un programme est remplacé par une lecture/écriture.</p>
 <p>Pour exemple, un petit programme qui lit un fichier contenant des opérations mathématiques et les affichent suivies du résultat.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
-</span><span class="cp"></span><span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">: file&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">1</span>
-
-<span class="c1">#coprocessus de bc avec la sortie d&#39;erreur redirigée vers la sortie standard</span>
-coproc bc 2&gt;<span class="p">&amp;</span><span class="m">1</span>
-
-<span class="k">while</span> <span class="nb">read</span> l<span class="p">;</span> <span class="k">do</span>
-  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> &gt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># écrire dans le processus</span>
-  <span class="nb">read</span> result &lt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[0]</span><span class="si">}</span> <span class="c1"># réception du résultat</span>
-  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2"> = </span><span class="nv">$result</span><span class="s2">&#34;</span>
-<span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
-</code></pre></div><p>Sans <code>coproc</code>, la boucle est plus simple, mais un processus sera ouvert pour chaque ligne du fichier, ce qui est particulièrement coûteux.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">while</span> <span class="nb">read</span> l<span class="p">;</span> <span class="k">do</span>
-  <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2"> = &#34;</span>
-  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> <span class="p">|</span> bc
-<span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
-</code></pre></div><p>À tester avec par exemple un fichier de calcul comme celui-ci:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">: file&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#coprocessus de bc avec la sortie d&#39;erreur redirigée vers la sortie standard</span>
+</span></span><span class="line"><span class="cl">coproc bc 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="nb">read</span> l<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> &gt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># écrire dans le processus</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">read</span> result &lt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[0]</span><span class="si">}</span> <span class="c1"># réception du résultat</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2"> = </span><span class="nv">$result</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>Sans <code>coproc</code>, la boucle est plus simple, mais un processus sera ouvert pour chaque ligne du fichier, ce qui est particulièrement coûteux.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">while</span> <span class="nb">read</span> l<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2"> = &#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> <span class="p">|</span> bc
+</span></span><span class="line"><span class="cl"><span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>À tester avec par exemple un fichier de calcul comme celui-ci:</p>
 <div class="highlight-nocode"><pre tabindex="0" class="chroma-nocode"><code>2+3
 2+3*9
 23*9

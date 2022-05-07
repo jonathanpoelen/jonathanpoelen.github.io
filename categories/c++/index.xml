@@ -54,7 +54,7 @@ Pour comprendre pleinement le mécanisme derrière, il faut assimiler le princip
       <pubDate>Sun, 01 Sep 2019 16:09:32 +0200</pubDate>
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/</guid>
-      <description>Fonction noexcept noexcept est un mot clef apparu en C++11. Dans le prototype d&amp;rsquo;une fonction, il indique que cette dernière ne jette pas d&amp;rsquo;exception. Cela ne veut pas dire qu&amp;rsquo;aucune exception ne sera présente dans la fonction, mais qu&#39;aucune exception ne sortira de la fonction. Dans le cas contraire, le programme s&amp;rsquo;arrête subitement avec un appel à std::terminate.
+      <description>Fonction noexcept noexcept est un mot clef apparu en C++11. Dans le prototype d&amp;rsquo;une fonction, il indique que cette dernière ne jette pas d&amp;rsquo;exception. Cela ne veut pas dire qu&amp;rsquo;aucune exception ne sera présente dans la fonction, mais qu&amp;rsquo;aucune exception ne sortira de la fonction. Dans le cas contraire, le programme s&amp;rsquo;arrête subitement avec un appel à std::terminate.
 noexcept n&amp;rsquo;impose aucune restriction sur ce que peut faire la fonction. Il est tout à fait possible d&amp;rsquo;utiliser des fonctions qui ne sont pas marquées noexcept à l&amp;rsquo;intérieur d&amp;rsquo;une fonction noexcept, voire, de jeter des exceptions.</description>
     </item>
     

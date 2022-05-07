@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comment se passer de std::forward</title>
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.96.0" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -209,43 +209,43 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
 <p>C&rsquo;est d&rsquo;ailleurs la raison de ce billet, puisque bien sûr, j&rsquo;en ai oubliés.</p>
 <p>Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence. Comme l&rsquo;objet créé a pleinement connaissance du type de variable qu&rsquo;il contient et que traverser une chaîne de fonctions ne fait pas disparaître cette information, il n&rsquo;y a plus besoin de std::forward. Le dernier maillon peut alors extraire une lvalue ou une rvalue via &ndash;par exemple&ndash; une fonction <code>get()</code>.</p>
 <p>Pour illustrer, voilà ce que cela donne:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-<span class="k">struct</span> <span class="nc">forwarder</span>
-<span class="p">{</span>
-  <span class="c1">// reference collapsing:
-</span><span class="c1"></span>  <span class="c1">// https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing
-</span><span class="c1"></span>  <span class="n">T</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span>
-  <span class="n">T</span> <span class="o">&amp;&amp;</span> <span class="n">get</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
-<span class="p">};</span>
-
-
-<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
-
-<span class="c1">// dernier niveau d&#39;imbrication avant l&#39;appel de la vrai fonction
-</span><span class="c1">// note: le coup d&#39;une copie est nulle pour le type forwarder
-</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">get</span><span class="p">());</span> <span class="p">}</span>
-
-<span class="c1">// pas besoin de std::forward
-</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">f1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
-
-<span class="c1">// premier maillon, création du contexte
-</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">f2</span><span class="p">(</span><span class="n">forwarder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{</span><span class="n">x</span><span class="p">});</span> <span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="k">const</span> <span class="n">ci</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
-
-  <span class="n">foo</span><span class="p">(</span><span class="n">i</span><span class="p">);</span> <span class="c1">// &amp;
-</span><span class="c1"></span>  <span class="n">foo</span><span class="p">(</span><span class="n">ci</span><span class="p">);</span> <span class="c1">// &amp;
-</span><span class="c1"></span>  <span class="n">foo</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">// &amp;&amp;
-</span><span class="c1"></span>  <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">i</span><span class="p">));</span> <span class="c1">// &amp;&amp;
-</span><span class="c1"></span>  <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">ci</span><span class="p">));</span> <span class="c1">// &amp;&amp;
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>Avec 2 fonctions d&rsquo;accès par référence en plus, <code>ref</code> et <code>cref</code> pour la version constante, on possède une petite classe qui simplifie pas mal la vie.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">forwarder</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// reference collapsing:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// https://en.cppreference.com/w/cpp/language/reference#Reference_collapsing
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">T</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">T</span> <span class="o">&amp;&amp;</span> <span class="n">get</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;</span><span class="p">)</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;&amp;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// dernier niveau d&#39;imbrication avant l&#39;appel de la vrai fonction
+</span></span></span><span class="line"><span class="cl"><span class="c1">// note: le coup d&#39;une copie est nulle pour le type forwarder
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">print</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">get</span><span class="p">());</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// pas besoin de std::forward
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">f1</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// premier maillon, création du contexte
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">T</span> <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="n">f2</span><span class="p">(</span><span class="n">forwarder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">{</span><span class="n">x</span><span class="p">});</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="k">const</span> <span class="n">ci</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">foo</span><span class="p">(</span><span class="n">i</span><span class="p">);</span> <span class="c1">// &amp;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">foo</span><span class="p">(</span><span class="n">ci</span><span class="p">);</span> <span class="c1">// &amp;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">foo</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">// &amp;&amp;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">i</span><span class="p">));</span> <span class="c1">// &amp;&amp;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">ci</span><span class="p">));</span> <span class="c1">// &amp;&amp;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>Avec 2 fonctions d&rsquo;accès par référence en plus, <code>ref</code> et <code>cref</code> pour la version constante, on possède une petite classe qui simplifie pas mal la vie.</p>
 
   </div>
   <footer class="post__footer">

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ma vision de l&#39;accessibilité appliquée pour ce blog</title>
-<meta name="generator" content="Hugo 0.92.2" />
+<meta name="generator" content="Hugo 0.96.0" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -220,8 +220,6 @@ Pour le blog, j&rsquo;ai passé pas mal de temps sur un template déjà existant
         </div></aside>
       <p>Pour changer de la programmation logicielle, je vais parler de l&rsquo;accessibilité d&rsquo;un site et des petits détails exaspérants que je rencontre sur la toile. Je pense qu&rsquo;une bonne partie parle à chacun, généralement on fait avec, simplement parce qu&rsquo;il n&rsquo;y a pas d&rsquo;autre choix, mais c&rsquo;est toujours frustrant de tomber dessus.</p>
 <p>Pour le blog, j&rsquo;ai passé pas mal de temps sur un template déjà existant en touchant finalement un peu à toutes les parties CSS et HTML. Je vais ici parler un peu de couleur, de police, de lien, de la manière de disposer des cadres et quelques autres bricoles insignifiantes et par définition essentielles.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
 <a class="headline-hash" href="#plus-de-clics-moins-de-contenu"><h2 id="plus-de-clics-moins-de-contenu">Plus de clics, moins de contenu</h2></a>
 <p>Depuis plusieurs années, une pratique courante consiste à multiplier les clics pour accéder à du contenu. Cela prend plusieurs formes, généralement à travers un menu sectionné sur une multitude de pages, des listes déroulantes ou du texte qui apparait au clic. De l&rsquo;intuitif comme ils disent.</p>
 <p>Le défaut de vouloir tout cacher est de rendre difficile d&rsquo;accès l&rsquo;information:</p>
@@ -252,10 +250,8 @@ Pour prendre en exemple le blog, sur l&rsquo;ancien (blogspot) les archives sont
 <p>Sauf qu&rsquo;il existe aussi les images, les tableaux, les lecteurs vidéo et l&rsquo;ensemble des éléments dont un &ldquo;saut de ligne&rdquo; n&rsquo;est pas envisageable. Et là, c&rsquo;est le drame. Heureusement, il existe plein d&rsquo;horribles solutions.</p>
 <p>Les exemples qui suivent sont faits avec une ligne de code qui ne fait pas de saut de ligne automatique.</p>
 <ul>
-<li>S&rsquo;adapter au plus grand.</li>
-</ul>
-<!-- raw HTML omitted -->
-<p><div class="figure"><figure>
+<li>S&rsquo;adapter au plus grand.
+<div class="figure"><figure>
   <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row.png' alt="">
   <figcaption>Débordement par la droite.</figcaption>
 </figure></div>
@@ -264,8 +260,7 @@ Pour prendre en exemple le blog, sur l&rsquo;ancien (blogspot) les archives sont
   <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row-reverse.png' alt="">
   <figcaption>Débordement par la gauche. Le scroll disparaît. Au moins pour Firefox.</figcaption>
 </figure></div>
-</p>
-<ul>
+</li>
 <li>Compacter les éléments ou mettre dans un scroll.
 <div class="figure"><figure>
   <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-scroll.png' alt="">
@@ -295,7 +290,6 @@ Pour prendre en exemple le blog, sur l&rsquo;ancien (blogspot) les archives sont
 <a class="headline-hash" href="#liens-zone-de-clic-et-surbrillance"><h2 id="liens-zone-de-clic-et-surbrillance">Liens, zone de clic et surbrillance</h2></a>
 <p>Comment parler du web sans un petit mot sur les liens ? Le point central de la navigation internet et pourtant si difficile à cliquer pour moi.</p>
 <p>J&rsquo;ai l&rsquo;impression de faire partie des gens dont la souris est invariablement attirée par la rangée de pixels non cliquable en plein milieu d&rsquo;un lien. C&rsquo;est systématique lorsque celui-ci est sur plusieurs lignes. Tout indique que je suis dessus: la couleur de fond du cadre qui change, celle du texte, la petite décoration qui apparaît. Tout, sauf le pointeur de souris. Mais il y a tellement de changement autour que ce détail ne se voit même plus.</p>
-<!-- raw HTML omitted -->
 <div class="figure"><figure>
   <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-multi-line.png' alt="">
   <figcaption>Clic... Clic ? Clic clic clic ! Comment ? Je ne suis pas dessus ?</figcaption>
@@ -304,8 +298,6 @@ Pour prendre en exemple le blog, sur l&rsquo;ancien (blogspot) les archives sont
 <p>Arrive mon second fléau, déplacer suffisamment la souris pour être sur le lien. Mais pas trop, parce que ce foutu cadre qui change de couleur n&rsquo;en fait pas partie non plus.</p>
 <p>Le problème que je rencontre ici est récurant. Des changements de couleurs et de formes donnent l&rsquo;impression de pouvoir effectuer une action alors que ce n&rsquo;est pas vrai. Il vient alors un sentiment d&rsquo;incompréhension très désagréable qui se change petit à petit en frustration lorsqu&rsquo;on réalise que le pointeur de souris n&rsquo;a pas la bonne forme.</p>
 <p>Quand un cadre contenant un lien change de couleur au passage de la souris, c&rsquo;est une invitation au clic. Celui-ci se doit d&rsquo;être cliquable pour répondre au principe de la moindre surprise. Bonus, cela élargit la surface de clic et rend par la même occasion le lien plus accessible.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
 <div class="figure"><figure>
   <img src='/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-good.png' alt="">
   <figcaption>C&#39;est quand même plus agréable lorsque le cadre est un lien.</figcaption>
@@ -320,10 +312,35 @@ Pour prendre en exemple le blog, sur l&rsquo;ancien (blogspot) les archives sont
 <a class="headline-hash" href="#la-police-des-caractères"><h2 id="la-police-des-caractères">La police des caractères</h2></a>
 <p>Une chose que j&rsquo;ai apprise en testant plusieurs polices d&rsquo;écriture, est que la taille apparente varie énormément entre 2 fonts. Mettre une taille de police adaptée à la lecture n&rsquo;est pas suffisant, il faut aussi que chaque police dans la liste de <code>font-family</code> ait une taille similaire au risque d&rsquo;avoir des textes trop grands, ou pire, trop petits.</p>
 <p>Je suis également tombé sur un conseil qui va à l&rsquo;encontre du bon sens: mettre un <code>font-size: 62.5%</code> global. Avec pour seule justification que la taille par défaut est trop grande. Sans prendre en compte la taille effective d&rsquo;une police et en rejetant toute configuration utilisateur. Si &ldquo;62.5%&rdquo; est trop petit, c&rsquo;est le problème de l&rsquo;utilisateur après tout.</p>
-<!-- raw HTML omitted -->
+
+<table>
+  <tr><th>Police</th><th>16px</th><th>10px (62.5%)</th></tr>
+  <tr style="font-family: sans-serif">
+    <td>Sans-serif</td>
+    <td style="font-size: 16px">Lorem ipsum</td>
+    <td style="font-size: 10px">Lorem ipsum</td>
+  </tr>
+  <tr style="font-family: Arial">
+    <td>Arial</td>
+    <td style="font-size: 16px">Lorem ipsum</td>
+    <td style="font-size: 10px">Lorem ipsum</td>
+  </tr>
+  <tr style="font-family: 'Times New Roman'">
+    <td style="font-size: 16px">Times New Roman</td>
+    <td style="font-size: 16px">Lorem ipsum</td>
+    <td style="font-size: 10px">Lorem ipsum</td>
+  </tr>
+  <tr style="font-family: Times">
+    <td style="font-size: 16px">Times</td>
+    <td style="font-size: 16px">Lorem ipsum</td>
+    <td style="font-size: 10px">Lorem ipsum</td>
+  </tr>
+</table>
+
+
 <p>Étrangement, il n&rsquo;y a que sur internet où la taille est redéfinie. Sur une application de bureau personne ne s&rsquo;en occupe et les polices et tailles configurées au niveau du système sont utilisées automatiquement pour les différents types d&rsquo;éléments (titre, paragraphe, police monospace, etc).</p>
 <p>Il est également possible d&rsquo;utiliser les polices configurées au niveau du navigateur via leur <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family#Values">nom générique</a>, les principales étant <code>serif</code>, <code>sans-serif</code> et <code>monospace</code>.</p>
-<p>Concernant l'<a href="https://fr.wikipedia.org/wiki/Empattement_(typographie)">empattement</a> (serif ou sans-serif), j&rsquo;en suis venu à la conclusion qu&rsquo;une police sans empattement est plus lisible sur un écran. Peut-être à cause de la petitesse des lettres qui &ldquo;charge&rdquo; visuellement les glyphes. Ou Le rétro-éclairage, je ne sais pas.</p>
+<p>Concernant l&rsquo;<a href="https://fr.wikipedia.org/wiki/Empattement_(typographie)">empattement</a> (serif ou sans-serif), j&rsquo;en suis venu à la conclusion qu&rsquo;une police sans empattement est plus lisible sur un écran. Peut-être à cause de la petitesse des lettres qui &ldquo;charge&rdquo; visuellement les glyphes. Ou Le rétro-éclairage, je ne sais pas.</p>
 <a class="headline-hash" href="#le-pouvoir-de-la-couleur"><h2 id="le-pouvoir-de-la-couleur">Le pouvoir de la couleur</h2></a>
 <p>La couleur est un vecteur d&rsquo;information aussi importante &ndash;voire plus&ndash; que la forme. Par contre, il faut utiliser la couleur d&rsquo;usage sur l&rsquo;objet représenté au risque de perturber le lecteur.</p>
 <div class="figure"><figure>

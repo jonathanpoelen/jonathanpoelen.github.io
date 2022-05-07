@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.92.2" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.96.0" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -207,42 +207,42 @@
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/#implémentation-naïve-de-stdunique_ptr"><h2 id="implémentation-naïve-de-stdunique_ptr">Implémentation naïve de std::unique_ptr</h2></a>
 <p>Pour rappel, <code>std::unique_ptr</code> prend 2 paramètres template: <code>T</code> et <code>Deleter</code> (qui par défaut égal <code>std::default_delete&lt;T&gt;</code>).</p>
 <p>Naïvement, l&rsquo;implémentation serait:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Deleter</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
-<span class="k">class</span> <span class="nc">my_unique_ptr</span> <span class="p">{</span>
-  <span class="n">T</span><span class="o">*</span> <span class="n">m_pointer</span><span class="p">;</span>
-  <span class="n">Deleter</span> <span class="n">m_deleter</span><span class="p">;</span>
-  <span class="c1">// …
-</span><span class="c1"></span><span class="p">};</span>
-</code></pre></div><p>Rien d&rsquo;extraordinaire.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Deleter</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">my_unique_ptr</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">T</span><span class="o">*</span> <span class="n">m_pointer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Deleter</span> <span class="n">m_deleter</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// …
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></div><p>Rien d&rsquo;extraordinaire.</p>
 <p>Cependant, même si <code>Deleter</code> est une classe sans attribut, sa taille est de 1 octet.</p>
 <p>À partir d&rsquo;ici je considère que <code>Deleter</code> est toujours la valeur par défaut, ce qui donne:</p>
 <ul>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="o">*</span><span class="p">)</span></code></span> == 8</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">Deleter</span><span class="p">)</span></code></span> == 1</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></code></span> == 16</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></code></span> == 8</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="o">*</span><span class="p">)</span></span></span></code></span> == 8</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">sizeof</span><span class="p">(</span><span class="n">Deleter</span><span class="p">)</span></span></span></code></span> == 1</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></span></span></code></span> == 16</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">sizeof</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></span></span></code></span> == 8</li>
 </ul>
 <p>Ouille, méchant padding, alors que seuls 8 octets sont vraiment utilisés.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/#comment-fait-la-stl-pour-supprimer-8-octets-"><h2 id="comment-fait-la-stl-pour-supprimer-8-octets-">Comment fait la STL pour &ldquo;supprimer&rdquo; 8 octets ?</h2></a>
 <p>La bibliohèque standard utilise une optimisation surnommée <a href="http://en.cppreference.com/w/cpp/language/ebo">Empty Base Class Optimization (EBCO)</a>.
 Concrètement, cela se traduit par une classe interne qui contient le pointeur et hérite de <code>Deleter</code>. Les attributs de la classe dérivée vont se mettre après ceux de <code>Deleter</code>, et s&rsquo;il n&rsquo;en a pas, ils se positionnent au début de la classe. Grâce à cette astuce, l&rsquo;adresse du premier membre de la classe (ici, le pointeur) se confond avec celle de la classe englobante et parente, éliminant ainsi l&rsquo;espace occupé par <code>Deleter</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Deleter</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
-<span class="k">class</span> <span class="nc">my_unique_ptr</span> <span class="p">{</span>
-  <span class="k">struct</span> <span class="nc">internal</span> <span class="o">:</span> <span class="n">Deleter</span> <span class="p">{</span>
-    <span class="n">T</span><span class="o">*</span> <span class="n">pointeur</span><span class="p">;</span>
-  <span class="p">}</span> <span class="n">m_data</span><span class="p">;</span>
-  <span class="c1">// ...
-</span><span class="c1"></span><span class="p">};</span>
-</code></pre></div><ul>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></code></span> == 8</li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Deleter</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">default_delete</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">my_unique_ptr</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="nc">internal</span> <span class="o">:</span> <span class="n">Deleter</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">T</span><span class="o">*</span> <span class="n">pointeur</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="n">m_data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></div><ul>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">sizeof</span><span class="p">(</span><span class="n">my_unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span></span></span></code></span> == 8</li>
 </ul>
 <p>Mieux, non ?</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/#et-si-lhéritage-nest-pas-possible-"><h2 id="et-si-lhéritage-nest-pas-possible-">Et si l&rsquo;héritage n&rsquo;est pas possible ?</h2></a>
-<p>Si le Deleter est une référence ou une classe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">final</span></code></span>, l&rsquo;héritage ne fonctionne pas. Il faut se rabattre sur la première forme (celle naïve).
+<p>Si le Deleter est une référence ou une classe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">final</span></span></span></code></span>, l&rsquo;héritage ne fonctionne pas. Il faut se rabattre sur la première forme (celle naïve).
 Avec des traits et un code plus ou moins volumineux, cela est &ldquo;facile&rdquo;.
-Il faut cependant noter que <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">is_final</span></code></span> n&rsquo;apparaît qu&rsquo;à partir de C++14 et son implémentation n&rsquo;est pas possible en pure C++.
+Il faut cependant noter que <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">is_final</span></span></span></code></span> n&rsquo;apparaît qu&rsquo;à partir de C++14 et son implémentation n&rsquo;est pas possible en pure C++.
 Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standard.</p>
-<p>Toutefois, la STL possède un conteneur générique qui utilise l&rsquo;EBO si possible: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span></code></span>. Ce qui permet de s&rsquo;affranchir de ces difficultés tout en optimisant l&rsquo;espace mémoire à condition de mettre les types dans l&rsquo;ordre croissant d&rsquo;alignement pour réduire le padding entre les membres lorsqu&rsquo;il y en a plus de 2.</p>
+<p>Toutefois, la STL possède un conteneur générique qui utilise l&rsquo;EBO si possible: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">tuple</span></span></span></code></span>. Ce qui permet de s&rsquo;affranchir de ces difficultés tout en optimisant l&rsquo;espace mémoire à condition de mettre les types dans l&rsquo;ordre croissant d&rsquo;alignement pour réduire le padding entre les membres lorsqu&rsquo;il y en a plus de 2.</p>
 
   </div>
   <footer class="post__footer">
@@ -297,7 +297,7 @@ Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standar
 ;
 
 
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>4 minutes ;
   <a href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
   <a href="#e9e58638f018ab82631069e0fc453885-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
   
@@ -307,15 +307,77 @@ Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standar
 
   </header>
   <div class="post__content">
-      <p>À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j&rsquo;ai récemment appris l&rsquo;existence de 256 couleurs dans la console en tombant sur <!-- raw HTML omitted -->un screen<!-- raw HTML omitted --> un peu trop coloré. Ce qui m&rsquo;a dirigé sur un <!-- raw HTML omitted -->dépôt contenant un $LS_COLORS<!-- raw HTML omitted --> particulièrement fourni.</p>
-<p>En fait, il s&rsquo;avère qu&rsquo;en rajoutant extended dans la recherche &ldquo;color shell&rdquo; on puisse trouver <!-- raw HTML omitted -->quelque(s) ressource(s)<!-- raw HTML omitted -->. J&rsquo;aurais bien voulu y penser la semaine dernière, ça m&rsquo;aurait évité de comprendre par tâtonnement&hellip;</p>
+      <p>À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j&rsquo;ai récemment appris l&rsquo;existence de 256 couleurs dans la console en tombant sur un <a href="https://github.com/trapd00r/LS_COLORS">dépôt contenant un $LS_COLORS</a> particulièrement fourni.</p>
+<p>En fait, il s&rsquo;avère qu&rsquo;en rajoutant extended dans la recherche &ldquo;color shell&rdquo; on puisse trouver <a href="http://misc.flogisoft.com/bash/tip_colors_and_formatting">quelque(s) ressource(s)</a>. J&rsquo;aurais bien voulu y penser la semaine dernière, ça m&rsquo;aurait évité de comprendre par tâtonnement&hellip;</p>
+<p>Ce dernier lien ne contient pas tous les effets et le tableau de compatibilité est ancien. Par exemple, Konsole support dim color depuis quelques années et le mode 256 couleurs fonctionne sur rxvt.</p>
+<p>Le fonctionnement des couleurs du terminal reposent sur les séquences ANSI qu&rsquo;on peut aussi trouver sous l&rsquo;appélation VT100 qui est devenu un standard de fait. Le principe est d&rsquo;écrire certaines séquences de caractères que le terminal va interpréter comme des commandes VT100 pour &ndash; entre autres &ndash; mettre en couleur. Une commande inconnue ne fait rien.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/#utilisation"><h2 id="utilisation">Utilisation</h2></a>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="s2">&#34;\e[</span><span class="si">${</span><span class="nv">FormatColor</span><span class="si">}</span><span class="s2">m&#34;</span>
-</code></pre></div><p>Le caractère <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\e</span></code></span> correspond à la touche Esc (échap). On peut aussi l&rsquo;écrire en hexadécimal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\x</span>1B</code></span> ou en octal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="se">\0</span><span class="m">33</span></code></span>.</p>
-<p>Pour bash et <code>echo</code>, il faut utiliser l&rsquo;option <code>-e</code> pour interpréter les séquences backslashés ou utiliser la forme <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="s1">$&#39;\x1b&#39;</span></code></span>.</p>
-<p><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">FormatColor</span><span class="si">}</span></code></span> correspond à un nombre représentant une couleur de texte, de fond ou un effet. Plusieurs formats peuvent être mis en les séparant par des <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="p">;</span></code></span> (point virgule). L&rsquo;ordre n&rsquo;a pas d&rsquo;importance.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;\e[</span><span class="si">${</span><span class="nv">FormatColor</span><span class="si">}</span><span class="s2">m&#34;</span>
+</span></span></code></pre></div><p>Le caractère <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="se">\e</span></span></span></code></span> correspond à la touche Esc (échap). On peut aussi l&rsquo;écrire en hexadécimal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="se">\x</span>1b</span></span></code></span> ou en octal <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="se">\0</span><span class="m">33</span></span></span></code></span>.</p>
+<p>Pour bash et <code>echo</code>, il faut utiliser l&rsquo;option <code>-e</code> pour interpréter les séquences backslashés ou utiliser la forme <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="s1">$&#39;\x1b&#39;</span></span></span></code></span>.</p>
+<p><span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="si">${</span><span class="nv">FormatColor</span><span class="si">}</span></span></span></code></span> correspond à un nombre expliqué dans les chapitres suivant et représentant une couleur de texte, de fond ou un effet. Plusieurs formats peuvent être mis en les séparant par des <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="p">;</span></span></span></code></span> (point virgule).</p>
+<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/#styleeffet-de-texte"><h2 id="styleeffet-de-texte">Style/effet de texte</h2></a>
+<table>
+<thead>
+<tr>
+<th>Effet</th>
+<th>Code</th>
+<th>Code annulation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>normal</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>gras</td>
+<td>1</td>
+<td>21</td>
+</tr>
+<tr>
+<td>sombre **</td>
+<td>2</td>
+<td>22</td>
+</tr>
+<tr>
+<td>italique *</td>
+<td>3</td>
+<td>23</td>
+</tr>
+<tr>
+<td>souligné</td>
+<td>4</td>
+<td>24</td>
+</tr>
+<tr>
+<td>clignotant</td>
+<td>5</td>
+<td>25</td>
+</tr>
+<tr>
+<td>couleur texte/fond inversée</td>
+<td>7</td>
+<td>27</td>
+</tr>
+<tr>
+<td>caché **</td>
+<td>8</td>
+<td>28</td>
+</tr>
+<tr>
+<td>barré *</td>
+<td>9</td>
+<td>29</td>
+</tr>
+</tbody>
+</table>
+<p>Les effets avec une seule étoile ne sont pas supportés dans quelques rare terminaux et ceux avec 2 étoiles ont un support variable.</p>
+<p>Le code 6 (clignotant rapide) n&rsquo;étant pas supporté, il n&rsquo;est pas listé ici.</p>
+<p>À savoir que le code 0 (normal) supprime également toutes les couleurs.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/#8-couleurs"><h2 id="8-couleurs">8 couleurs</h2></a>
-<p>C&rsquo;est le mode de couleur supporté par la majorité des terminaux. La valeur des couleurs peut également être configurée.</p>
+<p>C&rsquo;est le mode de couleur supporté par la majorité des terminaux. La couleur réellement affichée peut également être configurée au niveau du terminal lui-même ce qui explique pourquoi selon les environnements toutes les couleurs ne sont pas similaires.</p>
 <table>
 <thead>
 <tr>
@@ -365,68 +427,16 @@ Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standar
 <td>37</td>
 <td>47</td>
 </tr>
-</tbody>
-</table>
-<a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/#styleeffet-de-texte"><h2 id="styleeffet-de-texte">Style/effet de texte</h2></a>
-<p>L&rsquo;italique (3) et barré (9) ne sont pas répertoriés dans le lien précédemment cité. Aussi, l&rsquo;effet sombre (ou dim), le mode caché, ainsi que les 2 précédents ne fonctionnent pas partout. Il n&rsquo;existe pas de code 6.</p>
-<table>
-<thead>
 <tr>
-<th>Effet</th>
-<th>Code</th>
-<th>Code annulation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>normal</td>
-<td>0</td>
-<td></td>
-</tr>
-<tr>
-<td>gras</td>
-<td>1</td>
-<td>21</td>
-</tr>
-<tr>
-<td>sombre</td>
-<td>2</td>
-<td>22</td>
-</tr>
-<tr>
-<td>italique</td>
-<td>3</td>
-<td>23</td>
-</tr>
-<tr>
-<td>souligné</td>
-<td>4</td>
-<td>24</td>
-</tr>
-<tr>
-<td>clignotant</td>
-<td>5</td>
-<td>25</td>
-</tr>
-<tr>
-<td>inversé</td>
-<td>7</td>
-<td>27</td>
-</tr>
-<tr>
-<td>caché</td>
-<td>8</td>
-<td>28</td>
-</tr>
-<tr>
-<td>barré</td>
-<td>9</td>
-<td>29</td>
+<td>Défaut</td>
+<td>39</td>
+<td>49</td>
 </tr>
 </tbody>
 </table>
+<p>Les valeurs 38 et 48 représentent un mode étendu expliqué plus tard.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/#16-couleurs"><h2 id="16-couleurs">16 couleurs</h2></a>
-<p>Ce sont 8 couleurs supplémentaires accessibles pour certains terminaux.</p>
+<p>Ce sont 8 couleurs supplémentaires accessibles pour certains terminaux. Les couleurs réelles derrière peuvent également être configurées dans le terminal.</p>
 <table>
 <thead>
 <tr>
@@ -479,33 +489,33 @@ Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standar
 </tbody>
 </table>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/#88-et-256-couleurs"><h2 id="88-et-256-couleurs">88 et 256 couleurs</h2></a>
-<p>C&rsquo;est un mode étendue, certains vieux terminaux limitent à 88 couleurs, mais la plupart en supportent 256. Il s&rsquo;utilise avec le triplet suivant:</p>
+<p>C&rsquo;est un mode étendu, certains vieux terminaux limitent à 88 couleurs, mais la plupart en supportent 256. Il s&rsquo;utilise avec le triplet suivant:</p>
 <ul>
-<li>Texte: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">38<span class="p">;</span>5<span class="p">;</span><span class="si">${</span><span class="nv">x</span><span class="si">}</span></code></span></li>
-<li>Fond: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">48<span class="p">;</span>5<span class="p">;</span><span class="si">${</span><span class="nv">x</span><span class="si">}</span></code></span></li>
+<li>Texte: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">38<span class="p">;</span>5<span class="p">;</span><span class="si">${</span><span class="nv">x</span><span class="si">}</span></span></span></code></span></li>
+<li>Fond: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">48<span class="p">;</span>5<span class="p">;</span><span class="si">${</span><span class="nv">x</span><span class="si">}</span></span></span></code></span></li>
 </ul>
-<p>Dont <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">x</span><span class="si">}</span></code></span> est à remplacer par un nombre allant de 0 à 255 inclus.</p>
+<p>Dont <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="si">${</span><span class="nv">x</span><span class="si">}</span></span></span></code></span> est à remplacer par un nombre allant de 0 à 255 inclus.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/#truecolor"><h2 id="truecolor">TrueColor</h2></a>
 <p>Il est possible d&rsquo;utiliser le classique RGB quand le terminal le permet. Beaucoup d&rsquo;interfaces consoles ne le prennent pas bien en charge ou ne le détectent pas. Pour la seconde catégorie, il faut généralement activer une option.</p>
 <ul>
-<li>Texte: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">38<span class="p">;</span>2<span class="p">;</span><span class="si">${</span><span class="nv">r</span><span class="si">}</span><span class="p">;</span><span class="si">${</span><span class="nv">g</span><span class="si">}</span><span class="p">;</span><span class="si">${</span><span class="nv">b</span><span class="si">}</span></code></span></li>
-<li>Fond: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh">48<span class="p">;</span>2<span class="p">;</span><span class="si">${</span><span class="nv">r</span><span class="si">}</span><span class="p">;</span><span class="si">${</span><span class="nv">g</span><span class="si">}</span><span class="p">;</span><span class="si">${</span><span class="nv">b</span><span class="si">}</span></code></span></li>
+<li>Texte: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">38<span class="p">;</span>2<span class="p">;</span><span class="si">${</span><span class="nv">r</span><span class="si">}</span><span class="p">;</span><span class="si">${</span><span class="nv">g</span><span class="si">}</span><span class="p">;</span><span class="si">${</span><span class="nv">b</span><span class="si">}</span></span></span></code></span></li>
+<li>Fond: <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">48<span class="p">;</span>2<span class="p">;</span><span class="si">${</span><span class="nv">r</span><span class="si">}</span><span class="p">;</span><span class="si">${</span><span class="nv">g</span><span class="si">}</span><span class="p">;</span><span class="si">${</span><span class="nv">b</span><span class="si">}</span></span></span></code></span></li>
 </ul>
-<p>Dont <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">r</span><span class="si">}</span></code></span>, <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">g</span><span class="si">}</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="si">${</span><span class="nv">b</span><span class="si">}</span></code></span> sont à remplacer par un nombre allant de 0 à 255 inclus.</p>
+<p>Dont <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="si">${</span><span class="nv">r</span><span class="si">}</span></span></span></code></span>, <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="si">${</span><span class="nv">g</span><span class="si">}</span></span></span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="si">${</span><span class="nv">b</span><span class="si">}</span></span></span></code></span> sont à remplacer par un nombre allant de 0 à 255 inclus.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/#notes-de-fin"><h2 id="notes-de-fin">Notes de fin</h2></a>
-<p>Outre le fait que TrueColor et les couleurs étendues ne fonctionnent pas partout, elles peuvent allègrement détériorer le rendu. Pour retrouver un terminal propre, il faut le réinitialiser avec <code>tput reset</code>.</p>
-<p>Le bout de code ci-dessous permet de visualiser une palette de 256 couleurs.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> m in <span class="m">38</span> <span class="m">48</span> <span class="p">;</span> <span class="k">do</span>
-  <span class="nv">n</span><span class="o">=</span><span class="m">0</span>
-  <span class="k">for</span> l in <span class="o">{</span>0..31<span class="o">}</span> <span class="p">;</span> <span class="k">do</span>
-    <span class="k">for</span> c in <span class="o">{</span>0..7<span class="o">}</span> <span class="p">;</span> <span class="k">do</span>
-      <span class="nb">echo</span> -ne <span class="s2">&#34;\033[</span><span class="nv">$m</span><span class="s2">;5;</span><span class="nv">$n</span><span class="s2">;1m</span><span class="nv">$n</span><span class="s2">\e[0m\t&#34;</span>
-      <span class="o">((</span>++n<span class="o">))</span>
-    <span class="k">done</span>
-    <span class="nb">echo</span>
-  <span class="k">done</span>
-<span class="k">done</span>
-</code></pre></div>
+<p>Comme TrueColor et les couleurs étendues ne fonctionnent pas partout, le terminal peut interpréter la valeur des couleurs comme des commandes VT100 et détériorer le rendu final. Dans une telle situation, il faut le réinitialiser avec <code>tput reset</code>.</p>
+<p>Voici un bout de code qui permet de visualiser une palette de 256 couleurs.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">for</span> m in <span class="m">38</span> <span class="m">48</span> <span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">n</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> l in <span class="o">{</span>0..31<span class="o">}</span> <span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> c in <span class="o">{</span>0..7<span class="o">}</span> <span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">      <span class="nb">echo</span> -ne <span class="s2">&#34;\033[</span><span class="nv">$m</span><span class="s2">;5;</span><span class="nv">$n</span><span class="s2">;1m</span><span class="nv">$n</span><span class="s2">\e[0m\t&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">((</span>++n<span class="o">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">done</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span>
+</span></span><span class="line"><span class="cl">  <span class="k">done</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div>
   </div>
   <footer class="post__footer">
     <p class="post__meta meta">
@@ -682,91 +692,91 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 <p>J&rsquo;insiste bien sur référence <strong>constante</strong> car, pour être au plus proche de l&rsquo;effet d&rsquo;une copie, l&rsquo;objet d&rsquo;origine ne doit pas bouger. De plus, une instance constante ne peut appeler que des fonction membre constantes, ce qui assure une invariance (cf: const-correctness).</p>
 <p>Donc, référence constante pour les valeurs qui ne sont pas modifiés dans la fonction. Une règle dit: &ldquo;tout ce qui est plus grand qu&rsquo;un pointeur pourrait être passé par référence constante&rdquo;. Je préfère dire tous les types en référence constante sauf les <a href="http://en.cppreference.com/w/cpp/language/types">fondamentaux</a> (int, float, etc). Même si mettre une référence constante sur un <code>int</code> n&rsquo;est pas une erreur, je n&rsquo;adhère pas vraiment.</p>
 <p>Une seule exception cependant, quand le paramètre va de toute façon être copié localement dans la fonction pour être modifié. On pourrait croire que le résultat sera le même, mais c&rsquo;est être naïf.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">BigInt</span> <span class="p">{</span> <span class="err">…</span> <span class="p">};</span>
-<span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">BigInt</span> <span class="nf">ret</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-  <span class="n">ret</span> <span class="o">+=</span> <span class="n">b</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>Supposons que BigInt fasse de l&rsquo;allocation dynamique pour représenter les nombres. Avec ce code:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">BigInt</span> <span class="nf">n1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="n">BigInt</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">BigInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">n1</span><span class="p">;</span>
-</code></pre></div><p>Il y a 3 allocations:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BigInt</span> <span class="p">{</span> <span class="err">…</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">BigInt</span> <span class="nf">ret</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ret</span> <span class="o">+=</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Supposons que BigInt fasse de l&rsquo;allocation dynamique pour représenter les nombres. Avec ce code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">BigInt</span> <span class="nf">n1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">BigInt</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">BigInt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">n1</span><span class="p">;</span>
+</span></span></code></pre></div><p>Il y a 3 allocations:</p>
 <ul>
 <li>n1</li>
 <li>BigInt(2)</li>
 <li>ret</li>
 </ul>
 <p>Alors que cette implémentation de <code>operator+</code> n&rsquo;en produit que 2.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">BigInt</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">a</span> <span class="o">+=</span> <span class="n">b</span><span class="p">;</span>
-  <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>Car il y a <a href="http://en.cppreference.com/w/cpp/language/copy_elision">copy elision</a> (c&rsquo;est le même principe que la RVO mais pour les paramètres). Voir aussi <a href="http://cpp.developpez.com/actu/53711/Operateur-d-affectation-copie-implicite-ou-explicite/">ici et la réponse de Flob90</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="n">BigInt</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">BigInt</span> <span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">a</span> <span class="o">+=</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Car il y a <a href="http://en.cppreference.com/w/cpp/language/copy_elision">copy elision</a> (c&rsquo;est le même principe que la RVO mais pour les paramètres). Voir aussi <a href="http://cpp.developpez.com/actu/53711/Operateur-d-affectation-copie-implicite-ou-explicite/">ici et la réponse de Flob90</a>.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/#mais-ça-cétait-avant"><h2 id="mais-ça-cétait-avant">Mais ça c&rsquo;était avant&hellip;</h2></a>
 <p>Maintenant qu&rsquo;il y a la <a href="http://h-deb.clg.qc.ca/Sujets/Divers--cplusplus/Mouvement.html">sémantique de déplacement</a>, les copies sont préférées quand une fonction recevant le paramètre va, quoi qu&rsquo;il arrive, le copier dans une variable membre. Premièrement parce que l&rsquo;utilisateur pourra faire un <code>std::move</code> de sa variable pour s&rsquo;en &ldquo;débarrasser&rdquo; car il n&rsquo;en a plus besoin. Deuxièmement parce que la fonction a besoin d&rsquo;une copie et le compilateur le fera pour nous.</p>
 <p>En comparaison avec une copie sur le <code>std::vector</code>, le move-constructor et le move-assignment sont extrêmement rapide: 3 affections de pointeur pour chaque vecteur.</p>
 <p>Par exemple avec cette base:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">using</span> <span class="n">vector_int_t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
-  <span class="n">vector_int_t</span> <span class="n">c</span><span class="p">;</span>
-
-<span class="k">public</span><span class="o">:</span>
-  <span class="n">A</span><span class="p">(</span><span class="n">vector_int_t</span> <span class="n">cont</span><span class="p">)</span>
-  <span class="o">:</span> <span class="n">c</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">cont</span><span class="p">))</span>
-  <span class="p">{}</span>
-<span class="p">};</span>
-</code></pre></div><p>Le code suivant fait 2 allocations (comme avec les références constantes)</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
-<span class="n">A</span> <span class="nf">a</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
-</code></pre></div><p>Alors que celui-ci qu&rsquo;une seule</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
-<span class="n">A</span> <span class="nf">a</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
-<span class="c1">// c.size() == 0;
-</span></code></pre></div><p>Et ce dernier aussi</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="p">(</span><span class="n">vector_int_t</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">});</span>
-<span class="c1">// ou A({1 ,2});
-</span></code></pre></div><p>Mais si le type ne possède pas de constructeur de déplacement, celui de copie sera utilisé et alors une référence constante est probablement mieux.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">vector_int_t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">vector_int_t</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">A</span><span class="p">(</span><span class="n">vector_int_t</span> <span class="n">cont</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">:</span> <span class="n">c</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">cont</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>Le code suivant fait 2 allocations (comme avec les références constantes)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="nf">a</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span></code></pre></div><p>Alors que celui-ci qu&rsquo;une seule</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector_int_t</span> <span class="n">c</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="nf">a</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// c.size() == 0;
+</span></span></span></code></pre></div><p>Et ce dernier aussi</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">A</span><span class="p">(</span><span class="n">vector_int_t</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// ou A({1 ,2});
+</span></span></span></code></pre></div><p>Mais si le type ne possède pas de constructeur de déplacement, celui de copie sera utilisé et alors une référence constante est probablement mieux.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/#quand-la-copie-se-fait-sous-condition"><h2 id="quand-la-copie-se-fait-sous-condition">Quand la copie se fait sous condition</h2></a>
 <p>Il existe des paramètres pouvant être copiés, mais pas toujours. Dans ce cas, bien que la référence constante reste une bonne solution, une version prenant aussi une temporaire (rvalue ici) est probablement mieux. Mais si les types ne sont pas abstraits (comprendre full template) alors il faudra faire 2 versions: une avec rvalue et une avec constref. Ce qui se traduit, quand le code est un peu long, par l&rsquo;ajout d&rsquo;une fonction de prédicat ou une version template privée appelé par les 2 autres.</p>
 <p>Les <code>&amp;&amp;</code> sur les types full templates ont 2 états possibles: rvalue ou lvalue (<a href="http://en.cppreference.com/w/cpp/language/value_category">catégorie de valeurs</a>).</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Foo</span> <span class="p">{</span>
-  <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
-  <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">));</span> <span class="p">}</span>
-
-<span class="k">private</span><span class="o">:</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">String</span><span class="o">&gt;</span>
-  <span class="c1">// ici &amp;&amp; représente soit rvalue, soit une référence (constante)
-</span><span class="c1"></span>  <span class="kt">void</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">String</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// …
-</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">xyz</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// soit un move-assignment soit un copy-assignment
-</span><span class="c1"></span>      <span class="n">str</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div><p>Ou</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Bar</span> <span class="p">{</span>
-  <span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="n">str</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
-  <span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="n">str</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
-
-<span class="k">private</span><span class="o">:</span>
-  <span class="kt">bool</span> <span class="n">check</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// …
-</span><span class="c1"></span>    <span class="k">return</span> <span class="n">xyz</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/#prise-dobjet-non-copiable-sous-condition"><h2 id="prise-dobjet-non-copiable-sous-condition">Prise d&rsquo;objet non-copiable sous condition</h2></a>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Foo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">));</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">String</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ici &amp;&amp; représente soit rvalue, soit une référence (constante)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="n">privfoo</span><span class="p">(</span><span class="n">String</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// …
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">xyz</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// soit un move-assignment soit un copy-assignment
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">str</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>Ou</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Bar</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="n">str</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">bar</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="n">str</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">bool</span> <span class="n">check</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// …
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">xyz</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/#prise-dobjet-non-copiable-sous-condition"><h2 id="prise-dobjet-non-copiable-sous-condition">Prise d&rsquo;objet non-copiable sous condition</h2></a>
 <p>Par exemple, donner la propriété d&rsquo;un <a href="http://en.cppreference.com/w/cpp/memory/unique_ptr">std::unique_ptr</a> à une classe selon certains prérequis décidés par une fonction. Contrainte supplémentaire, l&rsquo;objet n&rsquo;est pas copiable.</p>
 <ul>
 <li>Une référence constante n&rsquo;est pas envisageable, l&rsquo;objet ne pouvant pas être déplacé car constant.</li>
@@ -784,32 +794,32 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 <p>J&rsquo;entends par observer les variables qui sont gardées en lecture dans le but de vérifier leur état à un instant t.</p>
 <p>Les références constantes peuvent être des temporaires à leur construction (Jusque-là c&rsquo;est défini par la norme: prolongement de la durée de vie d&rsquo;une temporaire). Le problème vient du déplacement vers un scope parent. La valeur temporaire est détruite, mais la référence est gardée ; référence sur une valeur qui n&rsquo;existe plus. Cela débouche sur un comportement indéfini et, dans le meilleurs des cas, un segfault.</p>
 <p><a href="http://blog.developpez.com/gpu/?p=309">Un article qui présente une situation similaire avec une lambda retournant T à travers <code>std::function&lt;const T&amp;&gt;</code>.</a></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">struct</span> <span class="nc">Validate</span>
-<span class="p">{</span>
-  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="nf">display</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="n">Validate</span> <span class="nf">f</span><span class="p">()</span>
-<span class="p">{</span> <span class="k">return</span> <span class="p">{</span><span class="s">&#34;plop&#34;</span><span class="p">};</span> <span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">Validate</span> <span class="n">x</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span>
-  <span class="n">x</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><p>(Moi j&rsquo;ai un segfault)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Validate</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">display</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Validate</span> <span class="nf">f</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span> <span class="k">return</span> <span class="p">{</span><span class="s">&#34;plop&#34;</span><span class="p">};</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Validate</span> <span class="n">x</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">x</span><span class="p">.</span><span class="n">display</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>(Moi j&rsquo;ai un segfault)</p>
 <p>Pour limiter ce bug, il faut empêcher de prendre une rvalue. Soit avec les constucteurs suivants:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Validate</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="o">=</span><span class="k">delete</span><span class="p">;</span>
-<span class="n">Validate</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">s</span><span class="p">(</span><span class="n">s</span><span class="p">){}</span>
-</code></pre></div><p>Soit en utilisant <a href="http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper">std::reference_wrapper</a> (et <a href="http://en.cppreference.com/w/cpp/utility/functional/ref">std::cref</a>).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Validate</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span><span class="p">)</span><span class="o">=</span><span class="k">delete</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Validate</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span><span class="o">:</span><span class="n">s</span><span class="p">(</span><span class="n">s</span><span class="p">){}</span>
+</span></span></code></pre></div><p>Soit en utilisant <a href="http://en.cppreference.com/w/cpp/utility/functional/reference_wrapper">std::reference_wrapper</a> (et <a href="http://en.cppreference.com/w/cpp/utility/functional/ref">std::cref</a>).</p>
 <p>Ou, peut-être mieux, faire un objet <code>observable</code> tout pareil que <code>std::reference_wrapper</code>, mais avec constructeur explicite. L&rsquo;intérêt d&rsquo;utiliser l&rsquo;un des 2 objets cités et de focaliser l&rsquo;utilisateur sur l&rsquo;aspect &ldquo;j&rsquo;ai besoin que cette variable vive au moins aussi longtemps que moi&rdquo;.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/#résumé"><h2 id="résumé">Résumé</h2></a>
 <ul>
-<li>Valeur pour les types fondamentaux (int, double, etc), ceux modifiés sans que l&rsquo;utilisateur n&rsquo;ai besoin de le savoir (ex: itérateurs ou premier paramètre de l&rsquo;opérateur &lsquo;+') ou les foncteur sans états (prédicats, comparateurs, &hellip;).</li>
+<li>Valeur pour les types fondamentaux (int, double, etc), ceux modifiés sans que l&rsquo;utilisateur n&rsquo;ai besoin de le savoir (ex: itérateurs ou premier paramètre de l&rsquo;opérateur &lsquo;+&rsquo;) ou les foncteur sans états (prédicats, comparateurs, &hellip;).</li>
 <li>Valeur + <code>std::move</code> quand l&rsquo;objet peut être déplacé (possède un move-ctor ou/et move-assign non trivial (ex: <code>std::string</code>, <code>std::vector</code>, &hellip;).</li>
 <li>Valeur pour les ressources non copiables à transférer (<code>std::unique_ptr</code>, &hellip;).</li>
 <li>Référence constante pour les paramètres en lecture seule ou ne disposant pas de move-ctor ou/et move-assign non trivial.</li>
@@ -893,37 +903,37 @@ Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène 
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#fonction-récursive"><h2 id="fonction-récursive">Fonction récursive</h2></a>
 <p>La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&rsquo;à plus d&rsquo;argument ou jusqu&rsquo;à un nombre défini, généralement 1.</p>
 <p>Quelque chose dans ce goût-là:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">void</span> <span class="nf">f1</span><span class="p">()</span>
-<span class="p">{}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-  <span class="n">f1</span><span class="p">(</span><span class="n">others</span><span class="p">...);</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span><span class="p">;</span>
-  <span class="n">f2</span><span class="p">(</span><span class="n">others</span><span class="p">...);</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">f1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="s">&#34;plop&#34;</span><span class="p">);</span>
-  <span class="n">f2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="s">&#34;plop&#34;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>Ce qui affiche:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">f1</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">f1</span><span class="p">(</span><span class="n">others</span><span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">f2</span><span class="p">(</span><span class="n">others</span><span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">f1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="s">&#34;plop&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">f2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="s">&#34;plop&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Ce qui affiche:</p>
 <div class="highlight-nocode"><pre tabindex="0" class="chroma-nocode"><code>1
 2.4
 plop
@@ -931,50 +941,50 @@ plop
 </code></pre></div><a class="headline-hash" href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#sans-récursivité"><h2 id="sans-récursivité">Sans récursivité</h2></a>
 <p>Il existe cependant une autre façon de faire qui n&rsquo;utilise pas la récursivité. J&rsquo;ai découvert cette méthode sur le forum de openclassroms (<a href="http://fr.openclassrooms.com/forum/sujet/atelier-quiz-question-pour-un-champion-c?page=4">ce sujet, 10ème message</a>), elle est très astucieuse.</p>
 <p>Implémentée sous la forme d&rsquo;une macro cela donne:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#define UNPACK(...)                   \
-</span><span class="cp">  (void)::std::initializer_list&lt;int&gt;{ \
-</span><span class="cp">    (void((__VA_ARGS__)), 0)...       \
-</span><span class="cp">  }
-</span></code></pre></div><ul>
-<li>Le premier <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span></code></span> permet d&rsquo;ignorer l'<code>initializer_list</code> créé.</li>
-<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="p">(</span><span class="kt">void</span><span class="p">((</span><span class="n">__VA_ARGS__</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)...</span></code></span> évalue l&rsquo;ensemble de l&rsquo;expression, ignore le résulat (grâce au <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span></code></span>) et retourne un caractère dans l'<code>initalizer_list</code>.</li>
-<li>Au final, l&rsquo;expression est dépaquetée et l'<code>initializer_list</code> est rempli de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="mi">0</span></code></span>.</li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define UNPACK(...)                   \
+</span></span></span><span class="line"><span class="cl"><span class="cp">  (void)::std::initializer_list&lt;int&gt;{ \
+</span></span></span><span class="line"><span class="cl"><span class="cp">    (void((__VA_ARGS__)), 0)...       \
+</span></span></span><span class="line"><span class="cl"><span class="cp">  }
+</span></span></span></code></pre></div><ul>
+<li>Le premier <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span></span></span></code></span> permet d&rsquo;ignorer l&rsquo;<code>initializer_list</code> créé.</li>
+<li><span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="p">(</span><span class="kt">void</span><span class="p">((</span><span class="n">__VA_ARGS__</span><span class="p">)),</span> <span class="mi">0</span><span class="p">)...</span></span></span></code></span> évalue l&rsquo;ensemble de l&rsquo;expression, ignore le résulat (grâce au <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span></span></span></code></span>) et retourne un caractère dans l&rsquo;<code>initalizer_list</code>.</li>
+<li>Au final, l&rsquo;expression est dépaquetée et l&rsquo;<code>initializer_list</code> est rempli de <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">0</span></span></span></code></span>.</li>
 </ul>
 <p>Avec cette macro les 2 fonctions précédentes deviennent:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">UNPACK</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span><span class="p">;</span>
-  <span class="n">UNPACK</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">others</span><span class="p">);</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>Ce qui simplifie considérablement l&rsquo;écriture :).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">UNPACK</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">UNPACK</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">others</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Ce qui simplifie considérablement l&rsquo;écriture :).</p>
 <p>Évidemment, cette macro se trouve depuis dans falcon: <a href="https://github.com/jonathanpoelen/falcon.cxx">falcon.cxx</a>.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/#fold-expression-et-c17"><h2 id="fold-expression-et-c17">Fold expression et C++17</h2></a>
 <p>Depuis C++17, le langage introduit les <a href="https://en.cppreference.com/w/cpp/language/fold">fold expressions</a> qui ne font pas moins que la macro précédente. Elles font même un peu plus, mais je vous laisse consulter la doc pour en prendre connaissance.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="p">((</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">),</span> <span class="p">...);</span>
-<span class="p">}</span>
-
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
-<span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span><span class="p">;</span>
-  <span class="p">((</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">others</span><span class="p">),</span> <span class="p">...);</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>La structure du code est très proche du précédent, il n&rsquo;y a que la macro qui est remplacée par une paire de parenthèse et <code>, ...</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f1</span><span class="p">(</span><span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">((</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">args</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">),</span> <span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">f2</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">first</span><span class="p">,</span> <span class="k">const</span> <span class="n">Args</span><span class="o">&amp;</span><span class="p">...</span> <span class="n">others</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">((</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;, &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">others</span><span class="p">),</span> <span class="p">...);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>La structure du code est très proche du précédent, il n&rsquo;y a que la macro qui est remplacée par une paire de parenthèse et <code>, ...</code>.</p>
 <p>Par contre, il ne faut pas oublier que pour certain type, l&rsquo;opérateur <code>,</code> peut être surchargé et engendrer des comportements indésirables. La solution consiste &ndash; comme précédemment &ndash; à entourer l&rsquo;expression de <code>void</code>. Comme cela devient un peu moche, on recycle la macro <code>UNPACK</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#define UNPACK(...) (void((__VA_ARGS__)), ...)
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#define UNPACK(...) (void((__VA_ARGS__)), ...)
+</span></span></span></code></pre></div>
   </div>
   <footer class="post__footer">
     <p class="post__meta meta">
@@ -1040,63 +1050,63 @@ plop
 
   </header>
   <div class="post__content">
-      <p>Prenons le type suivant: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">&gt;</span></code></span>. Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&rsquo;est vrai !</p>
+      <p>Prenons le type suivant: <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">&gt;</span></span></span></code></span>. Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&rsquo;est vrai !</p>
 <p>Ajoutons maintenant un élément à notre vector avec <code>push_back</code>.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]{};</span>
-<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-</code></pre></div><p>Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]{};</span>
+</span></span><span class="line"><span class="cl"><span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span></span></code></pre></div><p>Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&rsquo;a ni constructeur ni destructeur.</p>
 <p>La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau. Écrire ce wrapper n&rsquo;est pas très compliqué et Oh joie, Oh bonheur, il existe <a href="http://en.cppreference.com/w/cpp/container/array">std::array</a>.</p>
-<p>Mais si l&rsquo;on tient vraiment à notre tableau (pour d&rsquo;obscures raisons sataniques :D) il est toujours possible de modifier le comportement du vector pour qu&rsquo;il comprenne les tableaux. Ceci à travers l&rsquo;allocateur, le second paramètre template d&rsquo;un vector ; celui jamais utilisé, toujours oublié <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">là_ici</span><span class="o">&gt;</span></code></span>.</p>
+<p>Mais si l&rsquo;on tient vraiment à notre tableau (pour d&rsquo;obscures raisons sataniques :D) il est toujours possible de modifier le comportement du vector pour qu&rsquo;il comprenne les tableaux. Ceci à travers l&rsquo;allocateur, le second paramètre template d&rsquo;un vector ; celui jamais utilisé, toujours oublié <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">là_ici</span><span class="o">&gt;</span></span></span></code></span>.</p>
 <p>La technique consiste à remplacer l&rsquo;allocateur par une version spécialisée pour les tableaux. Le plus simple est d&rsquo;hériter d&rsquo;un <a href="http://en.cppreference.com/w/cpp/memory/allocator">std::allocator</a> et de redéfinir les 2 méthodes problématiques: <a href="http://en.cppreference.com/w/cpp/memory/allocator/construct">construct</a> et <a href="http://en.cppreference.com/w/cpp/memory/allocator/destroy">destroy</a>. On peut aussi utiliser une spécialisation de template.</p>
 <p>Et ne surtout pas oublier <code>rebind</code> qui permet de recréer l&rsquo;allocateur avec un type interne différent. C&rsquo;est utilisé par les conteneurs :).</p>
 <p>(Un <a href="https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/">précédent article</a> permet de comprendre les mécanismes utilisés par un allocateur.)</p>
 <p>L&rsquo;implémentation de <code>construct</code> et <code>destroy</code> est vraiment bateau, il suffit d&rsquo;appeler le constructeur ou le destructeur pour chaque élément du tableau.</p>
-<p>Mais pour faire au minimum bien les choses et supporter l&rsquo;allocation de tableau de tableau (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span></code></span>) on utilise <code>array_allocator::construct/destroy</code> si les cellules sont des tableaux (appel récursif) ou <code>std::allocator::construct/destroy</code> dans le cas contraire.</p>
-<p>À noter que la récursivité peut être éliminée en utilisant les propriétés d&rsquo;alignement des tableaux (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span></code></span> -&gt; <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span></code></span>).</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">array_allocator</span><span class="p">;</span>
-
-<span class="c1">//c&#39;est juste pour les tableaux
-</span><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
-<span class="k">class</span> <span class="nc">array_allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
-<span class="o">:</span> <span class="k">public</span>  <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-  <span class="k">using</span> <span class="n">value_allocator</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional</span><span class="o">&lt;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">is_array</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
-    <span class="n">array_allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
-  <span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
-
-<span class="k">public</span><span class="o">:</span>
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">U</span><span class="o">&gt;</span>
-  <span class="k">struct</span> <span class="nc">rebind</span>
-  <span class="p">{</span> <span class="k">typedef</span> <span class="n">array_allocator</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span> <span class="n">other</span><span class="p">;</span> <span class="p">};</span>
-
-  <span class="kt">void</span> <span class="nf">construct</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">N</span><span class="p">],</span> <span class="k">const</span> <span class="n">T</span><span class="p">(</span><span class="o">&amp;</span><span class="n">val</span><span class="p">)[</span><span class="n">N</span><span class="p">])</span>
-  <span class="p">{</span>
-    <span class="n">value_allocator</span> <span class="n">alloc</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">alloc</span><span class="p">.</span><span class="n">construct</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">n</span><span class="p">],</span> <span class="n">val</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="kt">void</span> <span class="nf">destroy</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">N</span><span class="p">])</span>
-  <span class="p">{</span>
-    <span class="n">value_allocator</span> <span class="n">alloc</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">alloc</span><span class="p">.</span><span class="n">destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">n</span><span class="p">]);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div><p>Dans l&rsquo;idéal, il faudrait un <code>construct</code> avec un nombre variable d&rsquo;arguments ce qui permet d&rsquo;utiliser <code>emplace_back</code>.
+<p>Mais pour faire au minimum bien les choses et supporter l&rsquo;allocation de tableau de tableau (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span></span></span></code></span>) on utilise <code>array_allocator::construct/destroy</code> si les cellules sont des tableaux (appel récursif) ou <code>std::allocator::construct/destroy</code> dans le cas contraire.</p>
+<p>À noter que la récursivité peut être éliminée en utilisant les propriétés d&rsquo;alignement des tableaux (<span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span></span></span></code></span> -&gt; <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span></span></span></code></span>).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">array_allocator</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//c&#39;est juste pour les tableaux
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">array_allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">:</span> <span class="k">public</span>  <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">[</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">value_allocator</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">conditional</span><span class="o">&lt;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">is_array</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">array_allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">allocator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">U</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="nc">rebind</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="k">typedef</span> <span class="n">array_allocator</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span> <span class="n">other</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">construct</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">N</span><span class="p">],</span> <span class="k">const</span> <span class="n">T</span><span class="p">(</span><span class="o">&amp;</span><span class="n">val</span><span class="p">)[</span><span class="n">N</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">value_allocator</span> <span class="n">alloc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">alloc</span><span class="p">.</span><span class="n">construct</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">n</span><span class="p">],</span> <span class="n">val</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">destroy</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">N</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">value_allocator</span> <span class="n">alloc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="o">++</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">alloc</span><span class="p">.</span><span class="n">destroy</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="o">*</span><span class="n">arr_ptr</span><span class="p">)[</span><span class="n">n</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>Dans l&rsquo;idéal, il faudrait un <code>construct</code> avec un nombre variable d&rsquo;arguments ce qui permet d&rsquo;utiliser <code>emplace_back</code>.
 Toutefois, cette version est fonctionnelle avec <code>push_back</code> :).</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">array_allocator</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
-<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
-<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">});</span>
-</code></pre></div><p>(La bibliothèque <a href="https://github.com/jonathanpoelen/falcon">falcon</a> (dont je suis le seul développeur actuellement :p) dispose d&rsquo;un allocateur de ce style: <a href="https://github.com/jonathanpoelen/falcon/blob/master/falcon/memory/generic_allocator.hpp">generic_allocator</a>. Comme son nom l&rsquo;indique, l&rsquo;allocateur couvre un spectre un peu plus large et gère en plus des types POD.)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">array_allocator</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">});</span>
+</span></span></code></pre></div><p>(La bibliothèque <a href="https://github.com/jonathanpoelen/falcon">falcon</a> (dont je suis le seul développeur actuellement :p) dispose d&rsquo;un allocateur de ce style: <a href="https://github.com/jonathanpoelen/falcon/blob/master/falcon/memory/generic_allocator.hpp">generic_allocator</a>. Comme son nom l&rsquo;indique, l&rsquo;allocateur couvre un spectre un peu plus large et gère en plus des types POD.)</p>
 
   </div>
   <footer class="post__footer">
@@ -1166,113 +1176,113 @@ Toutefois, cette version est fonctionnelle avec <code>push_back</code> :).</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/#comment-déclarer-et-utiliser-une-fonction-utilitaire"><h2 id="comment-déclarer-et-utiliser-une-fonction-utilitaire">Comment déclarer et utiliser une fonction utilitaire</h2></a>
 <p>Il arrive qu&rsquo;un jour ou l&rsquo;autre on veuille faire une surcharge de <code>swap</code> pour un objet particulier. À ce moment 2 choix s&rsquo;offrent: en faire une fonction libre dans le namespace où se trouve la classe ou dans le namespace <code>std</code>. Évidemment, le meilleur choix est le premier.</p>
 <p>Et là, pour toutes les personnes qui ont en horreur le <code>using namespace std</code> ou travaillant dans les .h, un problème va se poser. Comme <code>swap</code> se trouve dans le namespace de la STL, il est logique de faire <code>std::swap(...)</code>. Mais à ce moment, la fonction <code>swap</code> spécialisée dans le namespace de la classe n&rsquo;est pas utilisée&hellip;</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="cp">#if __cplusplus &gt;= 201103L
-</span><span class="cp"># include &lt;utility&gt;
-</span><span class="cp">#else
-</span><span class="cp"># include &lt;algorithm&gt;
-</span><span class="cp">#endif
-</span><span class="cp"></span>
-<span class="k">namespace</span> <span class="n">my</span> <span class="p">{</span>
-  <span class="k">struct</span> <span class="nc">A</span><span class="p">{};</span>
-  <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">A</span><span class="o">&amp;</span><span class="p">)</span>
-  <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;ok</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>N&rsquo;affiche rien&hellip; :/.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#if __cplusplus &gt;= 201103L
+</span></span></span><span class="line"><span class="cl"><span class="cp"># include &lt;utility&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#else
+</span></span></span><span class="line"><span class="cl"><span class="cp"># include &lt;algorithm&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">my</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="nc">A</span><span class="p">{};</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">A</span><span class="o">&amp;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;ok</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>N&rsquo;affiche rien&hellip; :/.</p>
 <p>Par contre ce qui suit affiche &ldquo;ok&rdquo;.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
-  <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>Comme une fonction <code>swap</code> prenant des <code>my::A</code> existe, elle est utilisée. Cela est possible car la fonction <code>swap</code> fait partie du namespace <code>my</code> et que les variables <code>a</code> et <code>b</code> sont des instances d&rsquo;une classe du même namespace.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Comme une fonction <code>swap</code> prenant des <code>my::A</code> existe, elle est utilisée. Cela est possible car la fonction <code>swap</code> fait partie du namespace <code>my</code> et que les variables <code>a</code> et <code>b</code> sont des instances d&rsquo;une classe du même namespace.</p>
 <p>Alors que ceci ne compile pas.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
-  <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>Donc, d&rsquo;un côté on a un <code>swap</code> générique dans la STL et de l&rsquo;autre un <code>swap</code> spécialisé dans <code>my</code>.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Donc, d&rsquo;un côté on a un <code>swap</code> générique dans la STL et de l&rsquo;autre un <code>swap</code> spécialisé dans <code>my</code>.
 Et surtout, 2 syntaxes différentes.</p>
 <p>Dans un contexte générique (typiquement des templates) et de maintient de code, 2 formes, ce n&rsquo;est pas acceptable.
 Il faudrait que <code>std::swap</code> soit utilisé si aucun <code>swap</code> spécialisé n&rsquo;existe.</p>
-<p>Pour ce, on &ldquo;déplace&rdquo; <code>std::swap</code> dans le scope courant avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">using</span></code></span> et grâce l'<a href="http://en.cppreference.com/w/cpp/language/adl">ADL (Argument-dependent lookup)</a>, le compilateur appellera la bonne fonction.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
-  <span class="p">{</span>
-    <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
-    <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">//affiche ok
-</span><span class="c1"></span>  <span class="p">}</span>
-  <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
-    <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">//compile
-</span><span class="c1"></span>  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Et ceci s&rsquo;applique pour toutes les fonctions libres.</p>
+<p>Pour ce, on &ldquo;déplace&rdquo; <code>std::swap</code> dans le scope courant avec <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span></span></span></code></span> et grâce l&rsquo;<a href="http://en.cppreference.com/w/cpp/language/adl">ADL (Argument-dependent lookup)</a>, le compilateur appellera la bonne fonction.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">//affiche ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">//compile
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Et ceci s&rsquo;applique pour toutes les fonctions libres.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/#simplifier-lutilisation"><h2 id="simplifier-lutilisation">Simplifier l&rsquo;utilisation</h2></a>
 <p>La nécessité de &ldquo;déplacer&rdquo; les fonctions dans le scope est lourd et facile à oublier.</p>
 <p>L&rsquo;idéal serait la présence d&rsquo;une unique fonction en charge d&rsquo;appeler la bonne surcharge. La solution consiste en la création d&rsquo;un namespace dans lequel la fonction générale est exportée et où une fonction intermédiaire l&rsquo;appelle. Comme la règle d&rsquo;ADL s&rsquo;applique, la fonction surchargée sera appelée si existante.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">namespace</span> <span class="n">fn</span> <span class="p">{</span>
-  <span class="k">namespace</span> <span class="n">adl_barrier</span> <span class="p">{</span>
-    <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
-
-    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-    <span class="kt">void</span> <span class="n">swap_impl</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
-    <span class="p">{</span> <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="p">}</span>
-  <span class="p">}</span>
-
-  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-    <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">)</span>
-    <span class="p">{</span> <span class="o">::</span><span class="n">fn</span><span class="o">::</span><span class="n">adl_barrier</span><span class="o">::</span><span class="n">swap_impl</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span> <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Cependant, cette solution souffre de l&rsquo;effet inverse: la fonction ne peut pas être déplacée dans le même scope qu&rsquo;une fonction généraliste. Il y aurait 2 prototypes identiques, le compilateur ne pourrait pas lever l&rsquo;ambiguïté. Comme il est très courant de voir <code>using namespace std;</code>, un <code>using fn::swap</code> dans le même scope rentrerait en conflit avec <code>std::swap</code> lors de l&rsquo;appel (aucun problème si dans un sous-scope).</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="k">namespace</span> <span class="n">my</span> <span class="p">{</span>
-  <span class="k">struct</span> <span class="nc">A</span><span class="p">{};</span>
-  <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">A</span><span class="o">&amp;</span><span class="p">)</span>
-  <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;ok</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">}</span>
-
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="p">{</span>
-    <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
-    <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">// affiche ok
-</span><span class="c1"></span>  <span class="p">}</span>
-  <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
-    <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">// compile
-</span><span class="c1"></span>  <span class="p">}</span>
-
-  <span class="p">{</span>
-    <span class="k">using</span> <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
-    <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
-    <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">// ambiguïté
-</span><span class="c1"></span>  <span class="p">}</span>
-
-  <span class="p">{</span>
-    <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
-    <span class="p">{</span>
-      <span class="k">using</span> <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
-      <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
-      <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">// affiche ok
-</span><span class="c1"></span>    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">fn</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">namespace</span> <span class="n">adl_barrier</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">swap_impl</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> <span class="o">::</span><span class="n">fn</span><span class="o">::</span><span class="n">adl_barrier</span><span class="o">::</span><span class="n">swap_impl</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Cependant, cette solution souffre de l&rsquo;effet inverse: la fonction ne peut pas être déplacée dans le même scope qu&rsquo;une fonction généraliste. Il y aurait 2 prototypes identiques, le compilateur ne pourrait pas lever l&rsquo;ambiguïté. Comme il est très courant de voir <code>using namespace std;</code>, un <code>using fn::swap</code> dans le même scope rentrerait en conflit avec <code>std::swap</code> lors de l&rsquo;appel (aucun problème si dans un sous-scope).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">my</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="nc">A</span><span class="p">{};</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">A</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">A</span><span class="o">&amp;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;ok</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">// affiche ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">// compile
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">// ambiguïté
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">using</span> <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">my</span><span class="o">::</span><span class="n">A</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">fn</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> <span class="c1">// affiche ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
   </div>
   <footer class="post__footer">
     <p class="post__meta meta">
@@ -1339,44 +1349,44 @@ Il faudrait que <code>std::swap</code> soit utilisé si aucun <code>swap</code> 
       <p>La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile &ldquo;par défaut&rdquo; avec plein de règles. Celui-ci est visible en tapant <code>make -pf /dev/null</code> dans un terminal.</p>
 <p>Rien qu&rsquo;avec ça, on peut compiler des fichiers C, C++, archive, latex, etc. Il y a de quoi faire en fait.</p>
 <p>Par exemple, je crée un fichier C nommé <code>test.c</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">ac</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">av</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="n">ac</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>Que je compile avec <code>make test</code> pour créer l&rsquo;exécutable <code>test</code>.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">ac</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">av</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">ac</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Que je compile avec <code>make test</code> pour créer l&rsquo;exécutable <code>test</code>.
 Mais si on veut avoir des fichiers objets, il faut le demander explicitement: <code>make test.o test</code>.</p>
-<p>Maintenant, on remplace <code>test.c</code> par <code>test.cpp</code> et on inclut <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span></code></span>.</p>
+<p>Maintenant, on remplace <code>test.c</code> par <code>test.cpp</code> et on inclut <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span></span></span></code></span>.</p>
 <p>La compilation se fait encore avec <code>make test</code> ou <code>make test.o test</code> pour avoir les fichiers objets.</p>
 <p>Ah ! En fait non, le second ne fonctionne pas.
-<code>test.o</code> est compilé avec <code>cc</code>, et comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span></code></span> est linké avec une lib, l&rsquo;implémentation du constructeur <a href="http://en.cppreference.com/w/cpp/io/ios_base/Init">std::ios_base::Init</a> n&rsquo;est pas trouvée. L&rsquo;idéal serait d&rsquo;utiliser <code>g++</code> ou un autre compilateur C++ pour avoir les chemins de bibliothèque convenablement configurés.</p>
+<code>test.o</code> est compilé avec <code>cc</code>, et comme <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">iostream</span><span class="o">&gt;</span></span></span></code></span> est linké avec une lib, l&rsquo;implémentation du constructeur <a href="http://en.cppreference.com/w/cpp/io/ios_base/Init">std::ios_base::Init</a> n&rsquo;est pas trouvée. L&rsquo;idéal serait d&rsquo;utiliser <code>g++</code> ou un autre compilateur C++ pour avoir les chemins de bibliothèque convenablement configurés.</p>
 <p>Si ce n&rsquo;est qu&rsquo;une question de compilateur, changeons-le !</p>
 <p>Tout d&rsquo;abord, la règle de compilation d&rsquo;un <code>.o</code> vers un exécutable:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;%: %.o&#39;</span> -A3
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">%</span><span class="o">:</span> %.<span class="n">o</span>
-<span class="c">#  commands to execute (built-in):
-</span><span class="c"></span>        <span class="k">$(</span>LINK.o<span class="k">)</span> $^ <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
-</code></pre></div><p>Cela utilise pour compiler la variable <code>LINK.o</code>. Soit, qu&rsquo;est sa valeur ?</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> g <span class="s1">&#39;LINK.o =&#39;</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">LINK.o</span> <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
-</code></pre></div><p>Qui fait référence à <code>CC</code>. On s&rsquo;approche, vérifions:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">make -pf/dev/null <span class="p">|</span> g <span class="s1">&#39;CC =&#39;</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">CC</span> <span class="o">=</span> cc
-</code></pre></div><p>Bingo \o/. Il suffit donc de changer la valeur de <code>CC</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;%: %.o&#39;</span> -A3
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nf">%</span><span class="o">:</span> %.<span class="n">o</span>
+</span></span><span class="line"><span class="cl"><span class="c">#  commands to execute (built-in):
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>        <span class="k">$(</span>LINK.o<span class="k">)</span> $^ <span class="k">$(</span>LOADLIBES<span class="k">)</span> <span class="k">$(</span>LDLIBS<span class="k">)</span> -o <span class="nv">$@</span>
+</span></span></code></pre></div><p>Cela utilise pour compiler la variable <code>LINK.o</code>. Soit, qu&rsquo;est sa valeur ?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;LINK.o =&#39;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nv">LINK.o</span> <span class="o">=</span> <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>LDFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span>
+</span></span></code></pre></div><p>Qui fait référence à <code>CC</code>. On s&rsquo;approche, vérifions:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">make -pf/dev/null <span class="p">|</span> grep <span class="s1">&#39;CC =&#39;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nv">CC</span> <span class="o">=</span> cc
+</span></span></code></pre></div><p>Bingo \o/. Il suffit donc de changer la valeur de <code>CC</code>.</p>
 <p>On recommence avec <code>make CC=g++ test.o test</code> et ça fonctionne :).</p>
 <p>Cette petite excursion permet mine de rien de découvrir pas mal de variables. Au passage, il est plus intéressant de les utiliser que d&rsquo;en recréer des nouvelles. Idem dans les règles de dépendances. S&rsquo;il faut les personnaliser, autant garder les mêmes commandes à exécuter.</p>
 <p>Par exemple, pour compiler un <code>.cpp</code> en <code>.o</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">%.o</span><span class="o">:</span> %.<span class="n">cpp</span>
-<span class="c">#  commands to execute (built-in):
-</span><span class="c"></span>        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
-</code></pre></div><p>Généralement les sources sont également dépendantes de fichier d&rsquo;en-tête. Si on fait une règle qui prend en compte cela, autant garder la même commande:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nf">%.o</span><span class="o">:</span> %.<span class="n">cpp</span>
+</span></span><span class="line"><span class="cl"><span class="c">#  commands to execute (built-in):
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
+</span></span></code></pre></div><p>Généralement les sources sont également dépendantes de fichier d&rsquo;en-tête. Si on fait une règle qui prend en compte cela, autant garder la même commande:
 (petite parenthèse pour dire que gcc possède l&rsquo;option <code>-MM</code> pour lister les dépendances entre les fichiers.)</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nf">bidule.o</span><span class="o">:</span> <span class="n">bidule</span>.<span class="n">cpp</span> <span class="n">bidule</span>.<span class="n">h</span> <span class="n">machin</span>.<span class="n">h</span>
-        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
-</code></pre></div><p>Ainsi, quand <code>CXXFLAGS</code> sera modifié, la règle le prendra en compte car</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">COMPILE.cpp</span> <span class="o">=</span> COMPILE.cc
-</code></pre></div><p>Et</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">COMPILE.cc</span> <span class="o">=</span> <span class="k">$(</span>CXX<span class="k">)</span> <span class="k">$(</span>CXXFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
-</code></pre></div><p>À noter que la variable <code>CPPFLAGS</code> fait référence à la commande <code>cpp</code> (ou option <code>-E</code> de gcc) et concerne le <a href="http://fr.wikipedia.org/wiki/Pr%C3%A9processeur_C">C-preprocessor</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nf">bidule.o</span><span class="o">:</span> <span class="n">bidule</span>.<span class="n">cpp</span> <span class="n">bidule</span>.<span class="n">h</span> <span class="n">machin</span>.<span class="n">h</span>
+</span></span><span class="line"><span class="cl">        <span class="k">$(</span>COMPILE.cpp<span class="k">)</span> <span class="k">$(</span>OUTPUT_OPTION<span class="k">)</span> $<span class="p">&amp;</span>lt<span class="p">;</span>
+</span></span></code></pre></div><p>Ainsi, quand <code>CXXFLAGS</code> sera modifié, la règle le prendra en compte car</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nv">COMPILE.cpp</span> <span class="o">=</span> COMPILE.cc
+</span></span></code></pre></div><p>Et</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="line"><span class="cl"><span class="nv">COMPILE.cc</span> <span class="o">=</span> <span class="k">$(</span>CXX<span class="k">)</span> <span class="k">$(</span>CXXFLAGS<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>TARGET_ARCH<span class="k">)</span> -c
+</span></span></code></pre></div><p>À noter que la variable <code>CPPFLAGS</code> fait référence à la commande <code>cpp</code> (ou option <code>-E</code> de gcc) et concerne le <a href="http://fr.wikipedia.org/wiki/Pr%C3%A9processeur_C">C-preprocessor</a>.</p>
 <p>Bien sûr, la technique du Makefile seul a des limites. Par exemple, s&rsquo;il y a plusieurs fichiers C, je peux créer tous les fichiers objets avec <code>make *.o</code>, mais l&rsquo;exécutable ne sera dépendant que d&rsquo;un fichier. Au final les règles par défaut ne permettront pas de créer l&rsquo;exécutable, il faudra faire <code>gcc *.o</code> ou un Makefile avec au minimum <code>a.out: *.o</code>.</p>
 <p>Voilà, ce fut un petit post pour découvrir l&rsquo;existence des règles implicites et des variables prédéfinies :).</p>
 <p><a href="http://www.gnu.org/software/make/manual/make.html">Manual de make</a></p>
@@ -1448,27 +1458,27 @@ Mais si on veut avoir des fichiers objets, il faut le demander explicitement: <c
 <p>Le meilleur moyen d&rsquo;accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme.
 En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&rsquo;entrée standard et retourne un résultat ; un peu comme <code>bc</code>.
 C&rsquo;est là que les coprocessus viennent à la rescousse :).</p>
-<p>Un coprocessus est un sous-shell exécuté de façon asynchrone et fournissant les tubes d&rsquo;entrée/sortie. Ceux-ci sont accessibles via <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$COPROC</span><span class="o">[</span>1<span class="o">]</span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="nv">$COPROC</span><span class="o">[</span>2<span class="o">]</span></code></span>.</p>
+<p>Un coprocessus est un sous-shell exécuté de façon asynchrone et fournissant les tubes d&rsquo;entrée/sortie. Ceux-ci sont accessibles via <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$COPROC</span><span class="o">[</span>1<span class="o">]</span></span></span></code></span> et <span class="inlinecode highlight"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nv">$COPROC</span><span class="o">[</span>2<span class="o">]</span></span></span></code></span>.</p>
 <p>Du coup, avec <code>bc</code>, la méthode est d&rsquo;écrire dans un tube et lire dans l&rsquo;autre. Comme la lecture est bloquante, le script va attendre que <code>bc</code> retourne le résultat.</p>
 <p>Et voilà ! L&rsquo;ouverture d&rsquo;un programme est remplacé par une lecture/écriture.</p>
 <p>Pour exemple, un petit programme qui lit un fichier contenant des opérations mathématiques et les affichent suivies du résultat.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
-</span><span class="cp"></span><span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">: file&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">1</span>
-
-<span class="c1">#coprocessus de bc avec la sortie d&#39;erreur redirigée vers la sortie standard</span>
-coproc bc 2&gt;<span class="p">&amp;</span><span class="m">1</span>
-
-<span class="k">while</span> <span class="nb">read</span> l<span class="p">;</span> <span class="k">do</span>
-  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> &gt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># écrire dans le processus</span>
-  <span class="nb">read</span> result &lt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[0]</span><span class="si">}</span> <span class="c1"># réception du résultat</span>
-  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2"> = </span><span class="nv">$result</span><span class="s2">&#34;</span>
-<span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
-</code></pre></div><p>Sans <code>coproc</code>, la boucle est plus simple, mais un processus sera ouvert pour chaque ligne du fichier, ce qui est particulièrement coûteux.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">while</span> <span class="nb">read</span> l<span class="p">;</span> <span class="k">do</span>
-  <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2"> = &#34;</span>
-  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> <span class="p">|</span> bc
-<span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
-</code></pre></div><p>À tester avec par exemple un fichier de calcul comme celui-ci:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="o">[</span> -z <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2">: file&#34;</span> &gt;<span class="p">&amp;</span><span class="m">2</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#coprocessus de bc avec la sortie d&#39;erreur redirigée vers la sortie standard</span>
+</span></span><span class="line"><span class="cl">coproc bc 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="nb">read</span> l<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> &gt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[1]</span><span class="si">}</span> <span class="c1"># écrire dans le processus</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">read</span> result &lt;<span class="p">&amp;</span><span class="si">${</span><span class="nv">COPROC</span><span class="p">[0]</span><span class="si">}</span> <span class="c1"># réception du résultat</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2"> = </span><span class="nv">$result</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>Sans <code>coproc</code>, la boucle est plus simple, mais un processus sera ouvert pour chaque ligne du fichier, ce qui est particulièrement coûteux.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">while</span> <span class="nb">read</span> l<span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> -n <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2"> = &#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$l</span><span class="s2">&#34;</span> <span class="p">|</span> bc
+</span></span><span class="line"><span class="cl"><span class="k">done</span> &lt; <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>À tester avec par exemple un fichier de calcul comme celui-ci:</p>
 <div class="highlight-nocode"><pre tabindex="0" class="chroma-nocode"><code>2+3
 2+3*9
 23*9
@@ -1538,17 +1548,17 @@ coproc bc 2&gt;<span class="p">&amp;</span><span class="m">1</span>
 
   </header>
   <div class="post__content">
-      <p>Une petite note sur les références et le qualificatif <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> en commençant par un exemple :).</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">using</span> <span class="n">reference</span> <span class="o">=</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">;</span>
-<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="n">reference</span> <span class="k">const</span> <span class="n">r</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-<span class="n">r</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-</code></pre></div></div><p>Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de <code>r</code>.
-En fait, ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> sur une référence ne fait rien car cela ne s&rsquo;applique pas sur le référé qui reste un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span><span class="o">&amp;</span></code></span>.</p>
-<p>Si on déroule complètement le type de <code>r</code>, on obtient <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span> <span class="n">r</span></code></span>: une référence constante sur un entier.
-Comme une référence est par nature immutable (le référé ne peut pas changer), le <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> est superflux.
+      <p>Une petite note sur les références et le qualificatif <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span></span></span></code></span> en commençant par un exemple :).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">reference</span> <span class="o">=</span> <span class="kt">int</span><span class="o">&amp;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">reference</span> <span class="k">const</span> <span class="n">r</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span></code></pre></div><p>Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de <code>r</code>.
+En fait, ajouter <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span></span></span></code></span> sur une référence ne fait rien car cela ne s&rsquo;applique pas sur le référé qui reste un <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span><span class="o">&amp;</span></span></span></code></span>.</p>
+<p>Si on déroule complètement le type de <code>r</code>, on obtient <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span> <span class="n">r</span></span></span></code></span>: une référence constante sur un entier.
+Comme une référence est par nature immutable (le référé ne peut pas changer), le <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span></span></span></code></span> est superflux.
 Le type de <code>r</code> est donc bien une référence sur un entier non-constant.</p>
-<p>(On notera toutefois que la syntaxe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span></code></span> est invalide puisque <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="k">const</span></code></span> ne peut s&rsquo;appliquer directement sur une référence.)</p>
+<p>(On notera toutefois que la syntaxe <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="o">&amp;</span> <span class="k">const</span></span></span></code></span> est invalide puisque <span class="inlinecode highlight"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span></span></span></code></span> ne peut s&rsquo;appliquer directement sur une référence.)</p>
 
   </div>
   <footer class="post__footer">
