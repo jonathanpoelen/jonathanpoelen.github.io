@@ -53,7 +53,7 @@ make -pf/dev/null | grep '%: %.o' -A3
 Cela utilise pour compiler la variable `LINK.o`. Soit, qu'est sa valeur ?
 
 ```sh
-make -pf/dev/null | g 'LINK.o ='
+make -pf/dev/null | grep 'LINK.o ='
 ```
 
 ```Makefile
@@ -63,7 +63,7 @@ LINK.o = $(CC) $(LDFLAGS) $(TARGET_ARCH)
 Qui fait référence à `CC`. On s'approche, vérifions:
 
 ```sh
-make -pf/dev/null | g 'CC ='
+make -pf/dev/null | grep 'CC ='
 ```
 
 ```Makefile

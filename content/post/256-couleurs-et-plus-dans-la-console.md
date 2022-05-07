@@ -13,56 +13,71 @@ ghcommentid: 0
 expire: 2044
 ---
 
-À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j'ai récemment appris l'existence de 256 couleurs dans la console en tombant sur <a href="http://dotshare.it/dots/100/">un screen</a> un peu trop coloré. Ce qui m'a dirigé sur un <a href="https://github.com/trapd00r/LS_COLORS">dépôt contenant un $LS_COLORS</a> particulièrement fourni.
+À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j'ai récemment appris l'existence de 256 couleurs dans la console en tombant sur un [dépôt contenant un $LS_COLORS](https://github.com/trapd00r/LS_COLORS) particulièrement fourni.
 
-En fait, il s'avère qu'en rajoutant extended dans la recherche "color shell" on puisse trouver <a href="http://misc.flogisoft.com/bash/tip_colors_and_formatting">quelque(s) ressource(s)</a>. J'aurais bien voulu y penser la semaine dernière, ça m'aurait évité de comprendre par tâtonnement...
+En fait, il s'avère qu'en rajoutant extended dans la recherche "color shell" on puisse trouver [quelque(s) ressource(s)](http://misc.flogisoft.com/bash/tip_colors_and_formatting). J'aurais bien voulu y penser la semaine dernière, ça m'aurait évité de comprendre par tâtonnement...
+
+Ce dernier lien ne contient pas tous les effets et le tableau de compatibilité est ancien. Par exemple, Konsole support dim color depuis quelques années et le mode 256 couleurs fonctionne sur rxvt.
+
+Le fonctionnement des couleurs du terminal reposent sur les séquences ANSI qu'on peut aussi trouver sous l'appélation VT100 qui est devenu un standard de fait. Le principe est d'écrire certaines séquences de caractères que le terminal va interpréter comme des commandes VT100 pour -- entre autres -- mettre en couleur. Une commande inconnue ne fait rien.
+
 
 ## Utilisation
 
 ```bash
-"\e[${FormatColor}m"
+echo -e "\e[${FormatColor}m"
 ```
 
-Le caractère {{<hi sh "\e"/>}} correspond à la touche Esc (échap). On peut aussi l'écrire en hexadécimal {{<hi sh "\x1B"/>}} ou en octal {{<hi sh "\033"/>}}.
+Le caractère {{<hi sh "\e"/>}} correspond à la touche Esc (échap). On peut aussi l'écrire en hexadécimal {{<hi sh "\x1b"/>}} ou en octal {{<hi sh "\033"/>}}.
 
 Pour bash et `echo`, il faut utiliser l'option `-e` pour interpréter les séquences backslashés ou utiliser la forme {{<hi sh "$'\x1b'"/>}}.
 
-{{<hi sh "${FormatColor}"/>}} correspond à un nombre représentant une couleur de texte, de fond ou un effet. Plusieurs formats peuvent être mis en les séparant par des {{<hi sh ";"/>}} (point virgule). L'ordre n'a pas d'importance.
+{{<hi sh "${FormatColor}"/>}} correspond à un nombre expliqué dans les chapitres suivant et représentant une couleur de texte, de fond ou un effet. Plusieurs formats peuvent être mis en les séparant par des {{<hi sh ";"/>}} (point virgule).
 
-## 8 couleurs
-
-C'est le mode de couleur supporté par la majorité des terminaux. La valeur des couleurs peut également être configurée.
-
-Couleur | Texte | Fond
---------|-------|-----
-Noir    | 30    | 40
-Rouge   | 31    | 41
-Vert    | 32    | 42
-Jaune   | 33    | 43
-Bleu    | 34    | 44
-Magenta | 35    | 45
-Cyan    | 36    | 46
-Gris clair | 37 | 47
 
 ## Style/effet de texte
 
-L'italique (3) et barré (9) ne sont pas répertoriés dans le lien précédemment cité. Aussi, l'effet sombre (ou dim), le mode caché, ainsi que les 2 précédents ne fonctionnent pas partout. Il n'existe pas de code 6.
+Effet                       | Code | Code annulation
+----------------------------|------|----------------
+normal                      | 0    |
+gras                        | 1    | 21
+sombre **                   | 2    | 22
+italique *                  | 3    | 23
+souligné                    | 4    | 24
+clignotant                  | 5    | 25
+couleur texte/fond inversée | 7    | 27
+caché **                    | 8    | 28
+barré *                     | 9    | 29
 
-Effet      | Code | Code annulation
------------|------|----------------
-normal     | 0    |
-gras       | 1    | 21
-sombre     | 2    | 22
-italique   | 3    | 23
-souligné   | 4    | 24
-clignotant | 5    | 25
-inversé    | 7    | 27
-caché      | 8    | 28
-barré      | 9    | 29
+Les effets avec une seule étoile ne sont pas supportés dans quelques rare terminaux et ceux avec 2 étoiles ont un support variable.
+
+Le code 6 (clignotant rapide) n'étant pas supporté, il n'est pas listé ici.
+
+À savoir que le code 0 (normal) supprime également toutes les couleurs.
+
+
+## 8 couleurs
+
+C'est le mode de couleur supporté par la majorité des terminaux. La couleur réellement affichée peut également être configurée au niveau du terminal lui-même ce qui explique pourquoi selon les environnements toutes les couleurs ne sont pas similaires.
+
+Couleur     | Texte | Fond
+------------|-------|-----
+Noir        | 30    | 40
+Rouge       | 31    | 41
+Vert        | 32    | 42
+Jaune       | 33    | 43
+Bleu        | 34    | 44
+Magenta     | 35    | 45
+Cyan        | 36    | 46
+Gris clair  | 37    | 47
+Défaut      | 39    | 49
+
+Les valeurs 38 et 48 représentent un mode étendu expliqué plus tard.
+
 
 ## 16 couleurs
 
-Ce sont 8 couleurs supplémentaires accessibles pour certains terminaux.
+Ce sont 8 couleurs supplémentaires accessibles pour certains terminaux. Les couleurs réelles derrière peuvent également être configurées dans le terminal.
 
 Couleur       | Texte | Fond
 --------------|-------|-----
@@ -75,14 +90,16 @@ Magenta clair | 95    | 105
 Cyan clair    | 96    | 106
 Blanc         | 97    | 107
 
+
 ## 88 et 256 couleurs
 
-C'est un mode étendue, certains vieux terminaux limitent à 88 couleurs, mais la plupart en supportent 256. Il s'utilise avec le triplet suivant:
+C'est un mode étendu, certains vieux terminaux limitent à 88 couleurs, mais la plupart en supportent 256. Il s'utilise avec le triplet suivant:
 
 - Texte: {{<hi sh "38;5;${x}"/>}}
 - Fond: {{<hi sh "48;5;${x}"/>}}
 
 Dont {{<hi sh "${x}"/>}} est à remplacer par un nombre allant de 0 à 255 inclus.
+
 
 ## TrueColor
 
@@ -93,11 +110,12 @@ Il est possible d'utiliser le classique RGB quand le terminal le permet. Beaucou
 
 Dont {{<hi sh "${r}"/>}}, {{<hi sh "${g}"/>}} et {{<hi sh "${b}"/>}} sont à remplacer par un nombre allant de 0 à 255 inclus.
 
+
 ## Notes de fin
 
-Outre le fait que TrueColor et les couleurs étendues ne fonctionnent pas partout, elles peuvent allègrement détériorer le rendu. Pour retrouver un terminal propre, il faut le réinitialiser avec `tput reset`.
+Comme TrueColor et les couleurs étendues ne fonctionnent pas partout, le terminal peut interpréter la valeur des couleurs comme des commandes VT100 et détériorer le rendu final. Dans une telle situation, il faut le réinitialiser avec `tput reset`.
 
-Le bout de code ci-dessous permet de visualiser une palette de 256 couleurs.
+Voici un bout de code qui permet de visualiser une palette de 256 couleurs.
 
 ```bash
 for m in 38 48 ; do

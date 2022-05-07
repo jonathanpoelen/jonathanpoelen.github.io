@@ -16,7 +16,7 @@ expire: 2038
 
 [SFINAE](https://en.cppreference.com/w/cpp/language/sfinae) (Substitution Failure Is Not An Error) est un mécanisme du compilateur pour ignorer certaines instanciations de fonction ou de classe qui ne compilent pas, sans pour autant émettre une erreur de compilation.
 
-Pour comprendre pleinement le mécanisme derrière, il faut assimiler le principe de substitution appliquée par le compilateur. Lorsqu'une expression dépend d'un **paramètre template**, le compilateur va évaluer l'expression en la substituant par le type ou la valeur de l'expression. Par exemple
+Pour comprendre pleinement le mécanisme derrière, il faut assimiler le principe de substitution appliquée par le compilateur. Lorsqu'une expression dépend d'un **paramètre template**, le compilateur va évaluer l'expression en la substituant par le type ou la valeur de l'expression. Prenons le code suivant:
 
 ```cpp
 struct A { using type = int; };
@@ -101,7 +101,9 @@ L'évaluation systématique des types indépendants explique pourquoi le code ci
 
 ```cpp
 if constexpr (xxx)
-{}
+{
+  // ...
+}
 else
 {
   static_assert(false); // toujours évalué -> erreur de compilation

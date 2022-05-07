@@ -210,7 +210,7 @@ Si aucune de ces fonctions n'est déclarée dans la classe, leur existence dépe
 
 De plus, définir explicitement certaines fonctions va en désactiver d'autres. Il est nécessaire d'utiliser `=default` pour les réactiver.
 
-<sub>déclare</sub> / <sup>existe</sup> | default-ctor | copy-ctor | copy-assignment | move-ctor | move-assignment
+↓déclare / existe→ | default-ctor | copy-ctor | copy-assignment | move-ctor | move-assignment
 -------------------------------------- | ------------ | --------- | --------------- | --------- | ---------------
 default-constructor                    |       ✓      |     ✓     |        ✓        |     ✓     |        ✓
 copy-constructor                       |              |     ✓     |        ✓        |           |
@@ -461,7 +461,7 @@ A bar()
 
 ## std::forward
 
-Pour finaliser les explications sur le déplacement, il faut introduire `std::forward`. 
+Pour finaliser les explications sur le déplacement, il faut introduire `std::forward`.
 
 Cette fonction n'est utile que sur des types templates dont la catégorie de valeur n'est pas connue. L'exemple le plus simple est une fonction `template<class T> void foo(T&& x);` où `T` représente une forwarding reference. Càd une référence qui est soit une lvalue, soit une rvalue. On peut aussi croiser le nom de référence universelle venant d'avant la normalisation du nom officiel.
 

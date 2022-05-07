@@ -18,12 +18,6 @@ Pour changer de la programmation logicielle, je vais parler de l'accessibilité 
 
 Pour le blog, j'ai passé pas mal de temps sur un template déjà existant en touchant finalement un peu à toutes les parties CSS et HTML. Je vais ici parler un peu de couleur, de police, de lien, de la manière de disposer des cadres et quelques autres bricoles insignifiantes et par définition essentielles.
 
-<!--{{< disclaimer >}}
-Mon expérience dans le domaine se limite à ce blog et je n'ai pas la prétention d'être un pro du milieu. Ma manière d'aborder les problèmes peut être à l'antipode des bonnes pratiques, mais ce sont mes choix et, finalement, je les impose aux visiteurs comme le fait n'importe quel site :).
-{{< /disclaimer >}}-->
-<!-- c'est moâ qui décide :p !-->
-
-
 
 ## Plus de clics, moins de contenu
 
@@ -72,7 +66,6 @@ Sauf qu'il existe aussi les images, les tableaux, les lecteurs vidéo et l'ensem
 Les exemples qui suivent sont faits avec une ligne de code qui ne fait pas de saut de ligne automatique.
 
 - S'adapter au plus grand.
-<!-- {{<img alt="Une apparence sans défaut." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-normal.png">}} -->
 {{<img alt="Débordement par la droite." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row.png">}}
 {{<img alt="Débordement par la gauche. Le scroll disparaît. Au moins pour Firefox." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/box-biggest-flex-row-reverse.png">}}
 - Compacter les éléments ou mettre dans un scroll.
@@ -102,7 +95,6 @@ Pour le blog, mon choix s'est porté sur un menu à gauche, un contenu sur plus 
 Comment parler du web sans un petit mot sur les liens ? Le point central de la navigation internet et pourtant si difficile à cliquer pour moi.
 
 J'ai l'impression de faire partie des gens dont la souris est invariablement attirée par la rangée de pixels non cliquable en plein milieu d'un lien. C'est systématique lorsque celui-ci est sur plusieurs lignes. Tout indique que je suis dessus: la couleur de fond du cadre qui change, celle du texte, la petite décoration qui apparaît. Tout, sauf le pointeur de souris. Mais il y a tellement de changement autour que ce détail ne se voit même plus.
-<!-- Demande-moi de faire un gâteau, je te dirai que l'alarme incendie ne s'est pas déclenchée lorsque le four s'est enflammé. -->
 
 {{<img alt="Clic... Clic ? Clic clic clic ! Comment ? Je ne suis pas dessus ?" src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-multi-line.png">}}
 
@@ -112,8 +104,6 @@ Le problème que je rencontre ici est récurant. Des changements de couleurs et 
 
 Quand un cadre contenant un lien change de couleur au passage de la souris, c'est une invitation au clic. Celui-ci se doit d'être cliquable pour répondre au principe de la moindre surprise. Bonus, cela élargit la surface de clic et rend par la même occasion le lien plus accessible.
 
-<!--{{<img alt="Contre toute attente, la souris n'est pas sur le lien." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-bad.png">}}
-VS.-->
 {{<img alt="C'est quand même plus agréable lorsque le cadre est un lien." src="/post/ma-vision-de-l-accessibilite-applique-pour-ce-blog/menu-hover-good.png">}}
 
 Cette extension de la zone de clic est très présente sur le blog. Comme les espaces blancs décoratifs sur le menu qui font partie du lien. Il est possible en plein écran de plaquer le curseur à gauche et de pouvoir cliquer dessus. Ou par exemple les liens "Précédent" et "Suivant" en fin d'article qui prennent chacun une moitié de largeur de contenu. Ou encore les icônes de flux RSS qui possèdent une zone de clic réelle beaucoup plus grande que l'image. Chacun de ces éléments possède une zone de clic plus large pour simplifier la visée.
@@ -135,6 +125,7 @@ Une chose que j'ai apprise en testant plusieurs polices d'écriture, est que la 
 
 Je suis également tombé sur un conseil qui va à l'encontre du bon sens: mettre un `font-size: 62.5%` global. Avec pour seule justification que la taille par défaut est trop grande. Sans prendre en compte la taille effective d'une police et en rejetant toute configuration utilisateur. Si "62.5%" est trop petit, c'est le problème de l'utilisateur après tout.
 
+{{<raw>}}
 <table>
   <tr><th>Police</th><th>16px</th><th>10px (62.5%)</th></tr>
   <tr style="font-family: sans-serif">
@@ -158,6 +149,7 @@ Je suis également tombé sur un conseil qui va à l'encontre du bon sens: mettr
     <td style="font-size: 10px">Lorem ipsum</td>
   </tr>
 </table>
+{{</raw>}}
 
 Étrangement, il n'y a que sur internet où la taille est redéfinie. Sur une application de bureau personne ne s'en occupe et les polices et tailles configurées au niveau du système sont utilisées automatiquement pour les différents types d'éléments (titre, paragraphe, police monospace, etc).
 
