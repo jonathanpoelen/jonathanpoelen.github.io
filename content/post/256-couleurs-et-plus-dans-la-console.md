@@ -111,6 +111,34 @@ Il est possible d'utiliser le classique RGB quand le terminal le permet. Beaucou
 Dont {{<hi sh "${r}"/>}}, {{<hi sh "${g}"/>}} et {{<hi sh "${b}"/>}} sont à remplacer par un nombre allant de 0 à 255 inclus.
 
 
+## Appliquer la couleur seulement en mode interactif
+
+La couleur est bien pratique en mode interactif, mais peut devenir gênant lorsqu'on enchaîne les grep et sed. La plupart des commandes ont une option `--color` qui prend `auto`, `always` et `never` pour forcer ou non l'utilisation des couleurs. `auto` permet de mettre la couleur uniquement si la sortie est un terminal. En bash, le test ce fait comme ceci:
+
+```bash
+if [[ -t 1 ]]; then
+  echo stdout est un terminal
+else
+  echo stdout n\'est pas un terminal
+fi
+```
+
+Il est ensuite facile de définir des variables qui contiennent les séquences ANSI correspondantes.
+
+```bash
+error=$'\e[31m'
+reset=$'\e[0m'
+if [[ ! -t 1 ]]; then
+  error=
+  reset=
+fi
+
+echo "${error}oups${reset}"
+```
+
+Exécuter le script va afficher "oups" en couleur, alors que faire quelque chose comme `./lescript.sh | cat` n'affichera plus de couleur puisque grâce au `|`, la sortie n'est plus un terminal, mais l'entrée de la commande `cat`.
+
+
 ## Notes de fin
 
 Comme TrueColor et les couleurs étendues ne fonctionnent pas partout, le terminal peut interpréter la valeur des couleurs comme des commandes VT100 et détériorer le rendu final. Dans une telle situation, il faut le réinitialiser avec `tput reset`.
