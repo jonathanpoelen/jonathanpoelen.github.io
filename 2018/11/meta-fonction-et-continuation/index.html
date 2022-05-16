@@ -142,6 +142,14 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo
         <a class="widget__link" href="/categories/zsh">Zsh (2)</a>
       </li>
       <li class="widget__item">
+        <a class="rss-link" href="/categories/bash/index.xml" type="application/rss+xml" title="Flux RSS pour Bash">
+          &nbsp;
+          <i class="fas fa-rss" aria-hidden="true"></i>
+          <span class="sr-only link-alt">Flux RSS</span>&nbsp;
+        </a>
+        <a class="widget__link" href="/categories/bash">Bash (1)</a>
+      </li>
+      <li class="widget__item">
         <a class="rss-link" href="/categories/make/index.xml" type="application/rss+xml" title="Flux RSS pour Make">
           &nbsp;
           <i class="fas fa-rss" aria-hidden="true"></i>
@@ -241,7 +249,9 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo
 </span></span><span class="line"><span class="cl">      <span class="cm">/* 1 *//* 2 *//* 3 */</span>      <span class="cm">/* 4 */</span>
 </span></span></code></pre></div><a class="headline-hash" href="#méta-fonction"><h2 id="méta-fonction">Méta-fonction</h2></a>
 <p>Au niveau de kvasir, une méta-fonction est un type qui possède un membre template nommé <code>f</code>. Tous les algorithmes de kvasir sont des méta-fonctions et l&rsquo;appel se fait avec <code>call&lt;metafunc, param1, param2,...&gt;</code>. Si on complète <code>add_const</code> et <code>add_lvalue_reference</code> plus haut, cela donne:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// Cette implémentation de call est volontairement simplifiée
+</span></span></span><span class="line"><span class="cl"><span class="c1">// et ne fonctionne pas pour tous F
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">F</span><span class="p">,</span> <span class="k">class</span><span class="err">... </span><span class="nc">Ts</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">call</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">F</span><span class="o">::</span><span class="k">template</span> <span class="n">f</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">C</span><span class="o">&gt;</span>
@@ -424,7 +434,7 @@ Continuation Chaque algorithme dispose d&rsquo;un paramètre qui décrit l&rsquo
 
   <section id="gh-comments">
   <h1>Commentaires</h1>
-<p>Les commentaires ne sont pas encore ouverts.</p>
+<p>Aucun commentaire pour le moment :'(</p>
 <p>Le système de commentaire passe par <a href="https://github.com/jonathanpoelen/jonathanpoelen.github.io/issues">les issues de github</a> et aucun n'est associée au billet.
 Vous pouvez faire votre commentaire dans une issue qui a comme titre celui du billet. Je
 me chargerai de les associer.</p>
