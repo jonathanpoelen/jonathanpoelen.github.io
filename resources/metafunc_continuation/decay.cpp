@@ -17,6 +17,8 @@ using add_const_lvalue_reference = add_const<add_lvalue_reference<C>>; // un cha
 
 
 //BEGIN impl add_const/lvalue
+// Cette implémentation de call est volontairement simplifiée
+// et ne fonctionne pas pour tous F
 template<class F, class... Ts>
 using call = typename F::template f<Ts...>;
 

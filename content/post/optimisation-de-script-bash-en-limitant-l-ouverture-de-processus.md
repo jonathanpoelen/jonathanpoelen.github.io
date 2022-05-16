@@ -7,7 +7,7 @@ date: 2013-05-29T00:23:12+01:00
 #toc: false
 #tags: [ ]
 aliases: []
-categories: [ "script-shell" ]
+categories: [ "bash", "script-shell" ]
 draft: false
 ghcommentid: 0
 expire: 2048

@@ -38,13 +38,13 @@ Le `man` de zsh fait plus de 5 fois celui de bash. Le manuel est tellement gros 
 Voici comment les scripts zsh peuvent lire un fichier et mettre chaque ligne dans un tableau grâce aux extensions de paramètres:
 
 ```zsh
-contents=$(<file) # lire un fichier
-contents=$(<file1 <file2) # lire 2 fichiers
-contents=$(<file ; ls) # lire un fichier et le retour de la commande `ls`
+content=$(<file) # lire un fichier
+content=$(<file1 <file2) # lire 2 fichiers (si multios est activé)
+content=$(<file ; ls) # lire un fichier et le retour de la commande `ls`
 
-lines=( ${(f)contents} ) # tableau sans ligne vide
-lines=( ${(s:\n:)contents} ) # équivalent
-lines=( "${(@f)contents}" ) # tableau avec toutes les lignes (il faut les quotes et @)
+lines=( ${(f)content} ) # tableau sans ligne vide
+lines=( ${(s:\n:)content} ) # équivalent
+lines=( "${(@f)content}" ) # tableau avec toutes les lignes (il faut les quotes et @)
 
 lines=( ${(f)$(<file)} ) # forme condensée du premier cas
 
@@ -57,12 +57,14 @@ echo -E ${(F)lines}
 echo -E "[${(j:]\n[:)"${(@f)$(<file)}"}]"
 ```
 
-Il y a encore de nombreux paramètres qui peuvent être trouvés dans le manuel ou via l'auto-complétion de zsh. Aussi, pour simplifier les exemples qui suivront, j'utiliserai directement les variables `contents` et `lines`.
+Il y a encore de nombreux paramètres qui peuvent être trouvés dans le manuel ou via l'auto-complétion de zsh. Aussi, pour simplifier les exemples qui suivront, j'utiliserai directement les variables `content` et `lines`.
+
+Petite note concernant `echo`: comme cette commande prend des arguments, le contenu affiché peut influencer le résultat. Pour éviter tout problème, il vaut mieux partir sur une redirection de flux de cette forme `>&1 <<<$content`. Équivalent à `cat <<<$content` mais sans appel de commande.
 
 
 ### Glob et glob étendu
 
-L'une des grandes forces de zsh réside dans le globbing. Il ne se restreint pas qu'à la recherche de fichier, mais peut aussi s'appliquer sur les éléments d'un tableau ou des chaînes pour filtrer ou transformer. En plus de `*` et `?`, zsh comprend `[...]`, `[^...]` et `<x-y>` pour un nombre entre `x` et `y` inclu (`<->` pour n'importe quel digit).
+L'une des grandes forces de zsh réside dans le globbing. Il ne se restreint pas qu'à la recherche de fichier, mais peut aussi s'appliquer sur les éléments d'un tableau ou des chaînes pour filtrer ou transformer. En plus de `*` et `?`, zsh comprend `[...]`, `[^...]` et `<x-y>` pour un nombre entre `x` et `y` inclu (`<->` pour n'importe quel nombre).
 
 Avec le glob étendu (`setopt extendedglob`) on possède alors un équivalent des regex:
 
@@ -86,7 +88,7 @@ ksh-like | glob operators
 
 ## Équivalent des commandes \*Unix
 
-Maintenant que la petite introduction syntaxique est faite, on peut s'attaquer au remplacement des commandes systèmes. Bien sûr, toutes les options d'une commande ne peuvent pas être simulées facilement avec zsh, mais je présente ici l'essentiel. Je précise que les commandes bash ont implicitement {{<hi zsh "<<<$contents"/>}} comme flux de lecture et que le résultat des commandes zsh est fait avec un `echo -E`.
+Maintenant que la petite introduction syntaxique est faite, on peut s'attaquer au remplacement des commandes systèmes. Bien sûr, toutes les options d'une commande ne peuvent pas être simulées facilement avec zsh, mais je présente ici l'essentiel. Je précise que les commandes bash ont implicitement {{<hi zsh "<<<$content"/>}} comme flux de lecture et que le résultat des commandes zsh est fait avec un `echo -E`.
 
 Je conseille aussi le petit [Zsh Native Scripting Guide](https://github.com/zdharma/Zsh-100-Commits-Club/blob/master/Zsh-Native-Scripting-Handbook.adoc).
 
@@ -101,7 +103,7 @@ bash | zsh
 {{<hi zsh "grep -i 'alligator'"/>}} | {{<hi zsh "${(M)lines:#(#i)*alligator*}"/>}}
 {{<hi zsh "grep -m1 'alligator'"/>}} | {{<hi zsh "${lines[(r)*alligator*]}"/>}}
 
-`(#i)` n'est utilisable qu'avec `setopt extendedglob` et peut s'appliquer sur un groupe seulement de caractère (i.e. `((#i)a)lbator`). Il existe l'option inverse: `#I`. Ainsi que `#l` qui fait une recherche insensible à la case pour les lettres minuscules du pattern, et en majuscule pour celles en majuscule dans le pattern.
+`(#i)` pour *i*nsentive n'est utilisable qu'avec `setopt extendedglob` et peut s'appliquer sur un groupe seulement de caractère (i.e. `((#i)a)lbator`). Il existe l'option inverse: `#I`. Ainsi que `#l` qui fait une recherche insensible à la case pour les lettres minuscules du pattern, et en majuscule pour celles en majuscule dans le pattern.
 
 
 ### agrep
@@ -117,9 +119,9 @@ bash | zsh
 
 bash | zsh
 -----|----
-{{<hi zsh "sed '3,6!d'"/>}} | {{<hi zsh "$lines[3,5]"/>}}
-{{<hi zsh "sed s/alligator/crocodile/"/>}}  | {{<hi zsh "${contents/alligator/crocodile}"/>}}
-{{<hi zsh "sed s/alligator/crocodile/g"/>}} | {{<hi zsh "${contents//alligator/crocodile}"/>}}
+{{<hi zsh "sed '3,6!d'"/>}} ou {{<hi zsh "sed -n '3,6p'"/>}} | {{<hi zsh "$lines[3,6]"/>}}
+{{<hi zsh "sed s/alligator/crocodile/"/>}}  | {{<hi zsh "${content/alligator/crocodile}"/>}}
+{{<hi zsh "sed s/alligator/crocodile/g"/>}} | {{<hi zsh "${content//alligator/crocodile}"/>}}
 {{<hi zsh "sed 's/^alligator\*$/_/'"/>}}   | {{<hi zsh "${lines:s%alligator*%_}"/>}} ou {{<hi zsh "${lines/(#s)alligator\*(#e)/_}"/>}}
 {{<hi zsh "sed 's/^\w\+$/[&]/'"/>}} | {{<hi zsh "${lines:/(#m)[[:alnum:]]##/[$MATCH]}"/>}}
 {{<hi zsh "sed -E 's/^(\w+) = (\w+)$/\2 = \1/'"/>}} | {{<hi zsh "${lines:/(#b)([[:alnum:]]##) = ([[:alnum:]]##)/$match[2] = $match[1]}"/>}}
@@ -129,7 +131,22 @@ bash | zsh
 
 bash | zsh
 -----|----
-{{<hi zsh "head -n3"/>}} | {{<hi zsh "$lines[1,3]"/>}}
+{{<hi zsh "head -n3"/>}} | {{<hi zsh "${(F)lines[1,3]}"/>}}
+
+
+### tail
+
+bash | zsh
+-----|----
+{{<hi zsh "tail -n3"/>}} | {{<hi zsh "${(F)lines[-3,-1]}"/>}}
+
+Malheuresement, un nombre négatif en dehors du tableau va afficher un contenu vide. Si on veut un strict équivalent, il faut faire un petit calcul mathématique:
+
+```zsh
+n=10
+
+result=$lines[$((n > $#lines ? 1 : -n)),-1]
+```
 
 
 ### awk
@@ -197,6 +214,7 @@ bash | zsh
 
 À noter que {{<hi zsh "${(u)lines}"/>}} élimine les doublons sans trier le tableau.
 
+
 ### Manipulation de chemin
 
 bash | zsh
@@ -212,13 +230,15 @@ Il y en a évidemment d'autres.
 
 bash | zsh
 -----|----
-{{<hi zsh "cut -d: -f2,1"/>}} | {{<hi zsh "${lines/(#m)*/$(() { echo -E $2:$1 } ${(s:b:)MATCH})}"/>}}
+{{<hi zsh "cut -d: -f2,1"/>}} | {{<hi zsh "echo -E ${(F)lines/(#m)*/$(() { >&1 <<< $2:$1 } ${(s-:-)MATCH})}"/>}}
 
-Mais une boucle serait mieux ici.
+Mais une boucle serait mieux ici. De plus cette ligne ne prend pas en compte l'absence de `:` qu'il faudrait gérer pour être un strict équivalent à la commande `cut`.
 
 
 ### printf
 
 bash | zsh
 -----|----
-{{<hi zsh "printf '%04d' 42"/>}} | {{<hi zsh "echo -E ${(l:4::0:)${:-42}}"/>}} ou {{<hi zsh "echo -E ${(l:4::0:)$n}"/>}}
+{{<hi zsh "printf '%04d' 42"/>}} | {{<hi zsh "echo -E ${(l:4::0:)${:-42}}"/>}} ou {{<hi zsh "echo -E ${(l:4::0:)n}"/>}}
+
+À noter que contrairement à `printf`, le 4 correspond au nombre de caractère qui sera affiché. Ce qui signifie qu'un nombre sur 5 chiffres sera tronqué.

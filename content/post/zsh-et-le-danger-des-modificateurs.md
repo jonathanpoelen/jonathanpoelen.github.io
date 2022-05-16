@@ -7,7 +7,7 @@ date: 2012-10-14T19:46:36+01:00
 #toc: false
 #tags: [ ]
 aliases: []
-categories: [ "script-shell", "zsh" ]
+categories: [ "zsh", "script-shell" ]
 draft: false
 ghcommentid: 0
 expire: 2048
