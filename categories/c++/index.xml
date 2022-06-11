@@ -218,7 +218,7 @@ Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 oct
       <description>Dans le précédent billet, j&amp;rsquo;opposai les paramètres par références constantes à ceux par valeurs.
 Sans plus attendre entamons la seconde question.
 Référence ou pointeur ? Si je dois faire court je dirai: pointeur jamais ; référence quand possible. Sans autre forme de procès :D
-Mais on me dit dans l&amp;rsquo;oreillette qu&amp;rsquo;il faut argumenter&amp;hellip; Alors c&amp;rsquo;est parti.
+Ah, on me dit dans l&amp;rsquo;oreillette qu&amp;rsquo;il faut argumenter&amp;hellip; C&amp;rsquo;est parti.
 Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.</description>
     </item>
     

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.96.0" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.98.0" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -594,7 +594,7 @@ Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standar
 ;
 
 
-  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>3 minutes ;
+  <i class="fas fa-hourglass-start fa-fw" aria-hidden="true"></i><span class="sr-only text-alt fa-fw">Durée de lecture éstimée&nbsp;:</span>4 minutes ;
   <a href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#gh-comments" onclick="DoGithubComments( 0 )"><i class="fas fa-comments fa-fw" aria-hidden="true"></i>Commentaires</a> ;
   <a href="#10ed39526a7913e7e5ec22dcf3e6f161-share"><i class="fas fa-share-alt fa-fw" aria-hidden="true"></i>Partager</a>
   
@@ -608,10 +608,10 @@ Il faut à la place utiliser <code>__is_final</code> qui n&rsquo;est pas standar
 <p>Sans plus attendre entamons la seconde question.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#référence-ou-pointeur-"><h2 id="référence-ou-pointeur-">Référence ou pointeur ?</h2></a>
 <p>Si je dois faire court je dirai: pointeur jamais ; référence quand possible. Sans autre forme de procès :D</p>
-<p>Mais on me dit dans l&rsquo;oreillette qu&rsquo;il faut argumenter&hellip; Alors c&rsquo;est parti.</p>
+<p>Ah, on me dit dans l&rsquo;oreillette qu&rsquo;il faut argumenter&hellip; C&rsquo;est parti.</p>
 <p>Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.</p>
-<p>À contrario, les pointeurs peuvent changer la variable référencée ou ne pointer sur aucune variable (<a href="http://en.cppreference.com/w/cpp/types/nullptr_t">nullptr</a>).</p>
-<p>Une référence est l&rsquo;équivalent d&rsquo;un pointeur constant non-nul (avec une syntaxe d&rsquo;utilisation plus simple: pas besoin de déréférencer).
+<p>À contrario, les pointeurs peuvent changer la variable référencée ou ne pointer sur aucune valeur (<a href="http://en.cppreference.com/w/cpp/types/nullptr_t">nullptr</a>).</p>
+<p>Pour le dire autrement, une référence est l&rsquo;équivalent d&rsquo;un pointeur constant non-nul (avec une syntaxe d&rsquo;utilisation plus simple: pas besoin de déréférencer).
 De leurs restrictions, celles-ci ne peuvent pas toujours correspondre au besoin ; les pointeurs sont alors envisageables.</p>
 <p>De plus, les pointeurs sont beaucoup utilisés dans les constructions dynamiques (allocation dynamique) quand les classes sont à <a href="http://blog.emmanueldeloget.com/index.php?post/2011/11/18/Standard-C11-%3A-la-s%C3%A9mantique-de-d%C3%A9placement">sémantique d&rsquo;entités</a>. Principalement car ces dernières ne sont pas copiables et que l&rsquo;allocation dynamique permet de s&rsquo;affranchir de la portée (le scope) en se détachant de la pile.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/#le-pointeur-parle-trop"><h2 id="le-pointeur-parle-trop">Le pointeur parle trop</h2></a>
@@ -628,13 +628,13 @@ De leurs restrictions, celles-ci ne peuvent pas toujours correspondre au besoin 
 Pour exemple, un pointeur non-nul mais qu&rsquo;on détruira. Le non-nul amène aux références mais idéologiquement une référence n&rsquo;est pas faite pour être détruite.</p>
 <p>On peut néanmoins sortir quelques règles:</p>
 <ul>
-<li>Si le pointeur n&rsquo;est pas nul et que l&rsquo;appelé ne gère pas la durée de vie: <code>std::reference_wrapper</code> qui permet de changer la référence utilisée.</li>
+<li>Si la valeur référencée existe toujours et que l&rsquo;appelé ne gère pas la durée de vie une référence fait l&rsquo;affaire. Attention toute fois avec les références constantes sur temporaire expliquées dans le billet précédent. Selon la situation, <code>std::reference_wrapper</code> qui permet de changer la référence utilisée ou quelque chose comme <code>gsl::non_null</code> peuvent aussi correspondre.</li>
 <li>Si l&rsquo;appelé contrôle la durée de vie: pointeurs intelligents (<code>std::unique_ptr</code> en priorité, <code>std::shared_ptr</code>, &hellip;).</li>
-<li>Si le pointeur peut être nul et que l&rsquo;appelé ne gère pas la durée de vie alors un pointeur est &ldquo;justifié&rdquo;. En interne du moins, pour l&rsquo;extérieur un <code>non_owner_ptr</code> ou un <code>observer_ptr</code> sera plus parlant. Si le pointeur peut être invalidé pendant l&rsquo;exécution alors <code>std::weak_ptr</code> ou autres est à envisager.</li>
+<li>Si le pointeur peut être nul et que l&rsquo;appelé ne gère pas la durée de vie alors un pointeur est &ldquo;justifié&rdquo;. En interne du moins, pour l&rsquo;extérieur un <code>non_owner_ptr</code> ou un <code>observer_ptr</code> sera plus parlant. Si le pointeur peut être invalidé pendant l&rsquo;exécution alors <code>std::weak_ptr</code> ou autres du même genre est à envisager.</li>
 <li>Tout ce qui est tableau est indiqué dans les signatures des objets wrapper (<code>unique_ptr&lt;T[]&gt;</code>) ou/et grâce à un attribut de taille. De plus, s&rsquo;il faut soit des tableaux, soit une valeur alors toujours préférer le type commun: tableau (les valeurs deviennent des tableaux de taille 1). Les tableaux dynamiques sont, quant à eux, plus faciles à utiliser avec <code>std::vector</code>.</li>
 </ul>
 <p>Au final, l&rsquo;usage de pointeur nu est très peu utilisé, voire pas du tout. De plus, leur mauvais usage avec l&rsquo;allocation dynamique amène des fuites mémoires principalement dues aux libérations manuelles. Dans un langage comme le C++, un code non exception safe <strong>va</strong> faire des fuites mémoires. De manière générale, la libération s&rsquo;applique sur toute forme de ressource: lock, fichier, etc.</p>
-<p>Pour éviter cela, les ressources doivent être attachées à la pile et la puissance du déterminisme de destruction permettra de les libérer convenablement. On parle aussi de <a href="http://fr.wikipedia.org/wiki/RAII">RAII</a>. Pour rappel, tout ce qui est sur la pile est détruit à la sortie du scope. La sémantique de déplacement permettra de changer de portée.</p>
+<p>Pour éviter cela, les ressources doivent être attachées à la pile et le déterminisme de destruction permettra de les libérer convenablement. On parle aussi de <a href="http://fr.wikipedia.org/wiki/RAII">RAII</a>. Pour rappel, tout ce qui est sur la pile est détruit à la sortie du scope. La sémantique de déplacement permettra de changer de portée.</p>
 <p>Le wiki de Guillaume Belz en parle très bien: <a href="http://guillaume.belz.free.fr/doku.php?id=pourquoi_le_raii_est_fondamental_en_c">pourquoi le RAII est fondamental en C++ ?</a></p>
 
   </div>
