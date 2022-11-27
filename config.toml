@@ -13,6 +13,8 @@ pygmentsstyle = "emacs"
 
 #SectionPagesMenu = "main"
 
+enableRobotsTXT = true
+
 theme = ["my"]
 
 [taxonomies]
