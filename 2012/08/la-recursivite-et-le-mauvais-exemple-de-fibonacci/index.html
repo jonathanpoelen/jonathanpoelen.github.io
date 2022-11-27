@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La récursivité et le mauvais exemple de Fibonacci</title>
-<meta name="generator" content="Hugo 0.98.0" />
+<meta name="generator" content="Hugo 0.105.0">
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -22,12 +22,12 @@
 <meta property="twitter:url" content="https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/">
 <meta property="twitter:title" content="La récursivité et le mauvais exemple de Fibonacci">
 <meta name="description" content="Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:
- Coder la suite de Fibonacci en récursive et en itérative.
- Mais partout où j&rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&rsquo;on peut trouver.
+Coder la suite de Fibonacci en récursive et en itérative.
+Mais partout où j&rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&rsquo;on peut trouver.
 //itérative long long fib(unsigned n) { if (n == 0) return n; long long a = 0, b = 1, tmp; while (--n) { tmp = a &#43; b; a = b; b = tmp; } return b; } // récursive long long fib_r(unsigned n) { if (0 == n || 1 == n) return n; return fib_r(n-1) &#43; fib_r(n-2); } Sauf que cet algorithme récursif est pourri.">
 <meta property="twitter:description" content="Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:
- Coder la suite de Fibonacci en récursive et en itérative.
- Mais partout où j&rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&rsquo;on peut trouver.
+Coder la suite de Fibonacci en récursive et en itérative.
+Mais partout où j&rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&rsquo;on peut trouver.
 //itérative long long fib(unsigned n) { if (n == 0) return n; long long a = 0, b = 1, tmp; while (--n) { tmp = a &#43; b; a = b; b = tmp; } return b; } // récursive long long fib_r(unsigned n) { if (0 == n || 1 == n) return n; return fib_r(n-1) &#43; fib_r(n-2); } Sauf que cet algorithme récursif est pourri.">
 
 </head>

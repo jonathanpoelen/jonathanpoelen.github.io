@@ -16,16 +16,16 @@
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/</guid>
       <description>L&amp;rsquo;allocation dynamique c&amp;rsquo;est facile: pour un new, un delete
- Le quidam du coin.
- Pour 12 opérateurs new, 14 opérateurs delete.
- La norme de C++11.
- Mmmh, va pour 16 opérateurs delete.
- C++14.
- Finalement 22 opérateurs new et 26 opérateurs delete.
- L&amp;rsquo;apparition de C++17.
- Allez, 30 opérateurs delete.
- Toujours plus loin avec C++20.
- Cet article va parler des opérateurs new et delete.</description>
+Le quidam du coin.
+Pour 12 opérateurs new, 14 opérateurs delete.
+La norme de C++11.
+Mmmh, va pour 16 opérateurs delete.
+C++14.
+Finalement 22 opérateurs new et 26 opérateurs delete.
+L&amp;rsquo;apparition de C++17.
+Allez, 30 opérateurs delete.
+Toujours plus loin avec C++20.
+Cet article va parler des opérateurs new et delete. Pas les mots clefs new et delete tout seuls, mais bien de operator new et operator delete de l&amp;rsquo;en-tête &amp;lt;new&amp;gt;, car derrière les mots clefs usuels se cachent en réalité beaucoup de fonctions surchargées.</description>
     </item>
     
     <item>
@@ -35,7 +35,7 @@
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/</guid>
       <description>L&amp;rsquo;objectif derrière la sémantique de déplacement est de transférer les données d&amp;rsquo;un objet A à un objet B. Si les 2 objets sont du même type, on parle de constructeur de déplacement ou affectation par déplacement. Cela permet 2 choses:
- Garantir l&amp;rsquo;unicité d&amp;rsquo;une ressource. La responsabilité étant passée à quelqu&amp;rsquo;un d&amp;rsquo;autre, il n&amp;rsquo;y a toujours qu&amp;rsquo;un seul propriétaire en charge de la durée de vie de celle-ci. Éviter des copies profondes (deep copies) en les remplaçant par des copies superficielles (shallow copies) plus performantes.</description>
+Garantir l&amp;rsquo;unicité d&amp;rsquo;une ressource. La responsabilité étant passée à quelqu&amp;rsquo;un d&amp;rsquo;autre, il n&amp;rsquo;y a toujours qu&amp;rsquo;un seul propriétaire en charge de la durée de vie de celle-ci. Éviter des copies profondes (deep copies) en les remplaçant par des copies superficielles (shallow copies) plus performantes.</description>
     </item>
     
     <item>
@@ -117,7 +117,7 @@ Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessou
       <guid>https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/</guid>
       <description>Dans l&amp;rsquo;article précédent sur les variants, j&amp;rsquo;ai fait une implémentation un peu spéciale de index_of. Je vais présenter une quinzaine d&amp;rsquo;implémentations possibles et le coût de chacune sur le compilateur.
 Info : L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &amp;ldquo;classique&amp;rdquo; a les mêmes conséquences.
- Avant-propos Toutes les implémentations de mp_index_of&amp;lt;T, Ts...&amp;gt; retournent un std::integral_constant&amp;lt;int, i&amp;gt; correspondant à l&amp;rsquo;indice de T dans Ts ou -1 si T n&amp;rsquo;existe pas.</description>
+Avant-propos Toutes les implémentations de mp_index_of&amp;lt;T, Ts...&amp;gt; retournent un std::integral_constant&amp;lt;int, i&amp;gt; correspondant à l&amp;rsquo;indice de T dans Ts ou -1 si T n&amp;rsquo;existe pas.</description>
     </item>
     
     <item>
@@ -157,8 +157,8 @@ Pour le blog, j&amp;rsquo;ai passé pas mal de temps sur un template déjà exis
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2017/07/de-blogspot-a-hugo-il-a-change-de-peau/</guid>
       <description>Il y a 2 ans je me suis dit :
- Au prochain article, j&amp;rsquo;essaye un autre système de blog !
- Et depuis 2 ans, plus rien&amp;hellip; Je n&amp;rsquo;ai pas parcouru le web à la recherche de la solution idéale, loin de là, je n&amp;rsquo;avais juste pas d&amp;rsquo;idée d&amp;rsquo;article.
+Au prochain article, j&amp;rsquo;essaye un autre système de blog !
+Et depuis 2 ans, plus rien&amp;hellip; Je n&amp;rsquo;ai pas parcouru le web à la recherche de la solution idéale, loin de là, je n&amp;rsquo;avais juste pas d&amp;rsquo;idée d&amp;rsquo;article.
 Il y a 3 mois, en regardant une classe de matrice en C++, une idée m&amp;rsquo;est venue. J&amp;rsquo;ai écrit mon article puis cherché un système de site statique.</description>
     </item>
     
@@ -193,7 +193,7 @@ Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper 
       <description>Le but de if constexpr est d&amp;rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&amp;rsquo;a pas l&amp;rsquo;obligation de pouvoir être compilé.
 Plutôt étrange, n&amp;rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.
 Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières:
- foncteur + paramètres fonction membre + objet + paramètres fonction membre + pointeur d&amp;rsquo;objet + paramètres  // x et y sont des std::string invoke(std::equal_to&amp;lt;&amp;gt;{}, x, y); // foncteur invoke(&amp;amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;amp;std::string::size, &amp;amp;x, y); // fonction membre et pointeur En C++17, tout peut se faire en une seule fonction, alors qu&amp;rsquo;avant C++17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if.</description>
+foncteur + paramètres fonction membre + objet + paramètres fonction membre + pointeur d&amp;rsquo;objet + paramètres // x et y sont des std::string invoke(std::equal_to&amp;lt;&amp;gt;{}, x, y); // foncteur invoke(&amp;amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;amp;std::string::size, &amp;amp;x, y); // fonction membre et pointeur En C++17, tout peut se faire en une seule fonction, alors qu&amp;rsquo;avant C++17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if.</description>
     </item>
     
     <item>
@@ -271,10 +271,10 @@ Les références possèdent un contrat beaucoup plus fort que les pointeurs: ell
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/</guid>
       <description>Quand utiliser une variable par valeur, référence ou pointeur ?
- Telle fut la question qui m&amp;rsquo;a été posée :p.
+Telle fut la question qui m&amp;rsquo;a été posée :p.
 Comme je ne suis pas entièrement satisfait de la réponse que j&amp;rsquo;ai donné, je fais un article. Pour tout dire, la réponse n&amp;rsquo;est pas aussi triviale que l&amp;rsquo;on pourrait le croire depuis l&amp;rsquo;arrivée du C++11 et la sémantique de déplacement.
 Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:
- Valeur ou référence constante ?</description>
+Valeur ou référence constante ?</description>
     </item>
     
     <item>
@@ -285,7 +285,7 @@ Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:
       <guid>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</guid>
       <description>À l&amp;rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
 Info : Ce qui suit n&amp;rsquo;est plus d&amp;rsquo;actualité depuis C++17 et les fold expressions.
- Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.
+Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.
 Quelque chose dans ce goût-là:
 #include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;class T, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;.</description>
     </item>
@@ -384,7 +384,7 @@ Comme certains logiciels se servent de sqlite comme BDD, il peut être intéress
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/</guid>
       <description>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées argv dans pas mal d&amp;rsquo;autres langages): $* et $@.
- $* est une variable ce qu&amp;rsquo;il y a de plus normale et ne diffère pas d&amp;rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&amp;rsquo;y reviens après). $@ est une variable au comportement différent entre les shells.</description>
+$* est une variable ce qu&amp;rsquo;il y a de plus normale et ne diffère pas d&amp;rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&amp;rsquo;y reviens après). $@ est une variable au comportement différent entre les shells. Sur bash, il n&amp;rsquo;y a aucune différence entre $* et $@.</description>
     </item>
     
     <item>
@@ -406,7 +406,7 @@ Pour dire vrai, cette méthode est peu performante et peut la plupart du temps �
       <guid>https://jonathanpoelen.github.io/2012/12/la-vis-cachee-de-getopt/</guid>
       <description>Voici une petite information très mal connue et peu utilisée du getopt de la lib C et de la commande shell. Ainsi que Boost.Program_options. Parce que boost c&amp;rsquo;est bien :p.
 Les noms des options longues n&amp;rsquo;ont pas besoin d&amp;rsquo;être écrites entièrement.
-function parsecmd() { getopt -o &amp;#39;&amp;#39; --long \  option-longue,option-encore-plus-longue,une-autre-option: \  -n &amp;#39;example&amp;#39; -- &amp;#34;$@&amp;#34; } parsecmd --option-l --u plop bidule Donne
+function parsecmd() { getopt -o &amp;#39;&amp;#39; --long \ option-longue,option-encore-plus-longue,une-autre-option: \ -n &amp;#39;example&amp;#39; -- &amp;#34;$@&amp;#34; } parsecmd --option-l --u plop bidule Donne
 --option-longue --une-autre-option &amp;#39;plop&amp;#39; -- &amp;#39;bidule&amp;#39; La commande shell getopt est un peu plus souple que les autres.</description>
     </item>
     
@@ -438,8 +438,8 @@ Une variable $GTK_MODULES est définie et contient tous les modules gtk séparé
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/</guid>
       <description>Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:
- Coder la suite de Fibonacci en récursive et en itérative.
- Mais partout où j&amp;rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&amp;rsquo;on peut trouver.
+Coder la suite de Fibonacci en récursive et en itérative.
+Mais partout où j&amp;rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&amp;rsquo;on peut trouver.
 //itérative long long fib(unsigned n) { if (n == 0) return n; long long a = 0, b = 1, tmp; while (--n) { tmp = a + b; a = b; b = tmp; } return b; } // récursive long long fib_r(unsigned n) { if (0 == n || 1 == n) return n; return fib_r(n-1) + fib_r(n-2); } Sauf que cet algorithme récursif est pourri.</description>
     </item>
     
@@ -460,7 +460,7 @@ Pour ce faire, il suffit d&amp;rsquo;un identifiant, un petit label, une informa
       <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</guid>
       <description>Le but d&amp;rsquo;un site chargeant ces pages avec AJAX est double:
- Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées). Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins.  Toutefois, si mal fait, des problèmes apparaissent au niveau de l&amp;rsquo;historique qui n&amp;rsquo;est plus utilisable.</description>
+Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées). Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins. Toutefois, si mal fait, des problèmes apparaissent au niveau de l&amp;rsquo;historique qui n&amp;rsquo;est plus utilisable. Par la même occasion, il sera impossible d&amp;rsquo;accéder à une page via son url.</description>
     </item>
     
   </channel>

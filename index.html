@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le blog de Jonathan Poelen</title>
-<meta name="generator" content="Hugo 0.98.0" /><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
+<meta name="generator" content="Hugo 0.105.0"><link rel="alternate" type="application/rss+xml" title="Le blog de Jonathan Poelen Feed" href="/index.xml" />
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -1501,8 +1501,8 @@
 </span></span><span class="line"><span class="cl">        <span class="nf">pop</span>     <span class="no">rbp</span>
 </span></span><span class="line"><span class="cl">        <span class="nf">pop</span>     <span class="no">r12</span>
 </span></span><span class="line"><span class="cl">        <span class="nf">ret</span>
-</span></span><span class="line"><span class="cl"><span class="c">; ce qui suit ne concerne que l&#39;éventuelle exception de foo()
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>        <span class="nf">mov</span>     <span class="no">r12</span><span class="p">,</span> <span class="no">rax</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; ce qui suit ne concerne que l&#39;éventuelle exception de foo()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">mov</span>     <span class="no">r12</span><span class="p">,</span> <span class="no">rax</span>
 </span></span><span class="line"><span class="cl">        <span class="nf">jmp</span>     <span class="no">.L2</span>
 </span></span><span class="line"><span class="cl"><span class="nf">bar</span><span class="p">(</span><span class="no">std</span><span class="p">::</span><span class="no">unique_ptr</span><span class="err">&lt;</span><span class="no">int</span><span class="p">,</span> <span class="no">std</span><span class="p">::</span><span class="no">default_delete</span><span class="err">&lt;</span><span class="no">int</span><span class="err">&gt;</span> <span class="err">&gt;&amp;&amp;</span><span class="p">)</span> <span class="p">[</span><span class="no">clone</span> <span class="no">.cold</span><span class="p">]:</span>
 </span></span><span class="line"><span class="cl"><span class="nl">.L2:</span>
@@ -1875,7 +1875,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># affiche chaque ligne d&#39;un fichier dans des crochets</span>
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> -E <span class="s2">&#34;[</span><span class="si">${</span><span class="p">(j:]</span><span class="se">\n</span><span class="p">[:)</span><span class="s2">&#34;</span><span class="si">${</span><span class="p">(@f)</span><span class="k">$(</span>&lt;file<span class="k">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="si">}</span><span class="s2">]&#34;</span>
 </span></span></code></pre></div><p>Il y a encore de nombreux paramètres qui peuvent être trouvés dans le manuel ou via l&rsquo;auto-complétion de zsh. Aussi, pour simplifier les exemples qui suivront, j&rsquo;utiliserai directement les variables <code>content</code> et <code>lines</code>.</p>
-<p>Petite note concernant <code>echo</code>: comme cette commande prend des arguments, le contenu affiché peut influencer le résultat. Pour éviter tout problème, il vaut mieux partir sur une redirection de flux de cette forme <code>&gt;&amp;1 &lt;&lt;&lt;$content</code>. Équivalent à <code>cat &lt;&lt;&lt;$content</code> mais sans appel de commande.</p>
+<p>Petite note concernant <code>echo</code>: comme cette commande prend des arguments, le contenu affiché peut influencer le résultat. Pour éviter tout problème, il vaut mieux partir sur une redirection de flux de cette forme <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl">&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">&lt;&lt;&lt;</span><span class="nv">$content</span></span></span></code></span>. Équivalent à <span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl">cat <span class="o">&lt;&lt;&lt;</span><span class="nv">$content</span></span></span></code></span> mais sans appel de commande.</p>
 <a class="headline-hash" href="https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non--zsh/#glob-et-glob-étendu"><h3 id="glob-et-glob-étendu">Glob et glob étendu</h3></a>
 <p>L&rsquo;une des grandes forces de zsh réside dans le globbing. Il ne se restreint pas qu&rsquo;à la recherche de fichier, mais peut aussi s&rsquo;appliquer sur les éléments d&rsquo;un tableau ou des chaînes pour filtrer ou transformer. En plus de <code>*</code> et <code>?</code>, zsh comprend <code>[...]</code>, <code>[^...]</code> et <code>&lt;x-y&gt;</code> pour un nombre entre <code>x</code> et <code>y</code> inclu (<code>&lt;-&gt;</code> pour n&rsquo;importe quel nombre).</p>
 <p>Avec le glob étendu (<code>setopt extendedglob</code>) on possède alors un équivalent des regex:</p>

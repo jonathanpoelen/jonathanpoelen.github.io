@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Effets et utilisations de noexcept</title>
-<meta name="generator" content="Hugo 0.98.0" />
+<meta name="generator" content="Hugo 0.105.0">
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -347,8 +347,8 @@ noexcept n&rsquo;impose aucune restriction sur ce que peut faire la fonction. Il
 </span></span><span class="line"><span class="cl">        <span class="nf">pop</span>     <span class="no">rbp</span>
 </span></span><span class="line"><span class="cl">        <span class="nf">pop</span>     <span class="no">r12</span>
 </span></span><span class="line"><span class="cl">        <span class="nf">ret</span>
-</span></span><span class="line"><span class="cl"><span class="c">; ce qui suit ne concerne que l&#39;éventuelle exception de foo()
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>        <span class="nf">mov</span>     <span class="no">r12</span><span class="p">,</span> <span class="no">rax</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; ce qui suit ne concerne que l&#39;éventuelle exception de foo()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">mov</span>     <span class="no">r12</span><span class="p">,</span> <span class="no">rax</span>
 </span></span><span class="line"><span class="cl">        <span class="nf">jmp</span>     <span class="no">.L2</span>
 </span></span><span class="line"><span class="cl"><span class="nf">bar</span><span class="p">(</span><span class="no">std</span><span class="p">::</span><span class="no">unique_ptr</span><span class="err">&lt;</span><span class="no">int</span><span class="p">,</span> <span class="no">std</span><span class="p">::</span><span class="no">default_delete</span><span class="err">&lt;</span><span class="no">int</span><span class="err">&gt;</span> <span class="err">&gt;&amp;&amp;</span><span class="p">)</span> <span class="p">[</span><span class="no">clone</span> <span class="no">.cold</span><span class="p">]:</span>
 </span></span><span class="line"><span class="cl"><span class="nl">.L2:</span>

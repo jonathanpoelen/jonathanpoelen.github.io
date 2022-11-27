@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>if constexpr avant C&#43;&#43;17</title>
-<meta name="generator" content="Hugo 0.98.0" />
+<meta name="generator" content="Hugo 0.105.0">
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -24,11 +24,11 @@
 <meta name="description" content="Le but de if constexpr est d&rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&rsquo;a pas l&rsquo;obligation de pouvoir être compilé.
 Plutôt étrange, n&rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.
 Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
- foncteur &#43; paramètres fonction membre &#43; objet &#43; paramètres fonction membre &#43; pointeur d&rsquo;objet &#43; paramètres  // x et y sont des std::string invoke(std::equal_to&lt;&gt;{}, x, y); // foncteur invoke(&amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;std::string::size, &amp;x, y); // fonction membre et pointeur En C&#43;&#43;17, tout peut se faire en une seule fonction, alors qu&rsquo;avant C&#43;&#43;17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if.">
+foncteur &#43; paramètres fonction membre &#43; objet &#43; paramètres fonction membre &#43; pointeur d&rsquo;objet &#43; paramètres // x et y sont des std::string invoke(std::equal_to&lt;&gt;{}, x, y); // foncteur invoke(&amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;std::string::size, &amp;x, y); // fonction membre et pointeur En C&#43;&#43;17, tout peut se faire en une seule fonction, alors qu&rsquo;avant C&#43;&#43;17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if.">
 <meta property="twitter:description" content="Le but de if constexpr est d&rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&rsquo;a pas l&rsquo;obligation de pouvoir être compilé.
 Plutôt étrange, n&rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.
 Prenons comme exemple une fonction invoke qui s&rsquo;utilise de 3 manières:
- foncteur &#43; paramètres fonction membre &#43; objet &#43; paramètres fonction membre &#43; pointeur d&rsquo;objet &#43; paramètres  // x et y sont des std::string invoke(std::equal_to&lt;&gt;{}, x, y); // foncteur invoke(&amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;std::string::size, &amp;x, y); // fonction membre et pointeur En C&#43;&#43;17, tout peut se faire en une seule fonction, alors qu&rsquo;avant C&#43;&#43;17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if.">
+foncteur &#43; paramètres fonction membre &#43; objet &#43; paramètres fonction membre &#43; pointeur d&rsquo;objet &#43; paramètres // x et y sont des std::string invoke(std::equal_to&lt;&gt;{}, x, y); // foncteur invoke(&amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;std::string::size, &amp;x, y); // fonction membre et pointeur En C&#43;&#43;17, tout peut se faire en une seule fonction, alors qu&rsquo;avant C&#43;&#43;17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if.">
 
 </head>
 <body itemscope="itemscope" itemtype="http://schema.org/WebPage">
