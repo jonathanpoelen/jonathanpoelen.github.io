@@ -59,7 +59,7 @@ echo -E "[${(j:]\n[:)"${(@f)$(<file)}"}]"
 
 Il y a encore de nombreux paramètres qui peuvent être trouvés dans le manuel ou via l'auto-complétion de zsh. Aussi, pour simplifier les exemples qui suivront, j'utiliserai directement les variables `content` et `lines`.
 
-Petite note concernant `echo`: comme cette commande prend des arguments, le contenu affiché peut influencer le résultat. Pour éviter tout problème, il vaut mieux partir sur une redirection de flux de cette forme `>&1 <<<$content`. Équivalent à `cat <<<$content` mais sans appel de commande.
+Petite note concernant `echo`: comme cette commande prend des arguments, le contenu affiché peut influencer le résultat. Pour éviter tout problème, il vaut mieux partir sur une redirection de flux de cette forme {{<hi zsh ">&1 <<<$content"/>}}. Équivalent à {{<hi zsh "cat <<<$content"/>}} mais sans appel de commande.
 
 
 ### Glob et glob étendu
