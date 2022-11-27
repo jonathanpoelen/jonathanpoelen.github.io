@@ -2,7 +2,7 @@
 
 set -e
 
-if [ -z "$*" ] ; then
+if [[ -z "$*" ]] ; then
   read -p 'Title: ' title
 else
   title="$*"
@@ -30,14 +30,14 @@ base=content/post
 oldpath="$base/$title"$ext
 newpath="$base/$filename"$ext
 
-if [ -f "$newpath" ] || [ -f "$oldpath" ] ; then
+if [[ -f "$newpath" ]] || [[ -f "$oldpath" ]] ; then
   echo Error: "\"$title\"" already exists.
   exit 255
 fi
 
 hugo new post/"$title"$ext >/dev/null
 
-if [ "$oldpath" != "$newpath" ] ; then
+if [[ "$oldpath" != "$newpath" ]] ; then
   mv "$oldpath" "$newpath"
   sed 's/^#slug:.*/slug: "'"$filename"'"/' -i -- "$newpath"
 fi
