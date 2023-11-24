@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Comparaison de différentes implémentations de mp_index_of</title>
-<meta name="generator" content="Hugo 0.105.0">
+<meta name="generator" content="Hugo 0.119.0">
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -650,7 +650,7 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 
 <p>Wooa, cette monstruosité. Il faut être complètement barge pour écrire cette horreur. C&rsquo;est pourtant une chose que l&rsquo;on trouve dans <a href="https://github.com/brunocodutra/metal/blob/master/include/metal/list/join.hpp#L51">Metal</a>, <a href="https://github.com/edouarda/brigand/blob/master/include/brigand/sequences/append.hpp#L29">Brigand</a>, <a href="https://github.com/boostorg/mp11/blob/develop/include/boost/mp11/detail/mp_append.hpp#L48">Cpp11</a> ou <a href="https://github.com/boostorg/hana/blob/master/include/boost/hana/detail/variadic/foldl1.hpp#L23">Boost.Hana</a>. La palme d&rsquo;or revient à <a href="https://github.com/kvasir-io/mpl/blob/development/src/kvasir/mpl/sequence/join.hpp#L14">Kvasir.Mpl</a> avec une template de 1025 éléments variadiques.</p>
 <!-- raw HTML omitted -->
-<p><img src="/post/mp_index_of/by_indices_time.png" alt="comparaison de temps avec gcc de pack8 et une qui utilise d&amp;rsquo;autres algorithmes"></p>
+<p><img src="/post/mp_index_of/by_indices_time.png" alt="comparaison de temps avec gcc de pack8 et une qui utilise d&rsquo;autres algorithmes"></p>
 <p>C&rsquo;est étonnamment efficace. Pas autant que <code>pack8_bool</code>, mais globalement plus qu&rsquo;une récursion classique. Dans un projet, <code>join</code> et <code>front</code> seront utilisés ailleurs et à travers d&rsquo;autres algorithmes ce qui, toujours grâce à la mémoïsation, réduit le coût total.</p>
 <a class="headline-hash" href="#fonction-constexpr"><h2 id="fonction-constexpr">Fonction constexpr</h2></a>
 <p>Depuis C++14, il est possible d&rsquo;avoir des conditions et des boucles dans les fonctions. On peut alors écrire <code>index_of</code> presque comme on écrirait n&rsquo;importe quelle fonction impérative.</p>
@@ -726,10 +726,10 @@ Alors que les 2 autres implémentations sont beaucoup plus rapides lorsque <code
 
 <p>Le code est beaucoup plus concis, mais aussi beaucoup plus obscur. Il faut dire que <code>index_of</code> n&rsquo;est pas le meilleur algorithme pour représenter la beauté des folds ;).</p>
 <!-- raw HTML omitted -->
-<p><img src="/post/mp_index_of/fold_gcc_time.png" alt="comparaison de temps avec gcc d&amp;rsquo;une fonction constexpr et un fold"></p>
+<p><img src="/post/mp_index_of/fold_gcc_time.png" alt="comparaison de temps avec gcc d&rsquo;une fonction constexpr et un fold"></p>
 <p>Le résultat est très similaire à une boucle manuelle. Clang donne la même chose, mais les versions précédentes de Gcc sont extrêmement lentes avec les fold.</p>
 <!-- raw HTML omitted -->
-<p><img src="/post/mp_index_of/fold_gcc_7_time.png" alt="comparaison de temps avec clang d&amp;rsquo;une fonction constexpr et un fold"></p>
+<p><img src="/post/mp_index_of/fold_gcc_7_time.png" alt="comparaison de temps avec clang d&rsquo;une fonction constexpr et un fold"></p>
 <a class="headline-hash" href="#pour-terminer"><h2 id="pour-terminer">Pour terminer</h2></a>
 <p>On peut retenir de ces différents tests que</p>
 <ul>
