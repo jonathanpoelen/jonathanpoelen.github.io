@@ -19,9 +19,9 @@ Le meilleur moyen d'accélérer un script est de passer par les builtins et limi
 En fait, dans certains cas, on pourrait avoir une commande qui lit sur l'entrée standard et retourne un résultat ; un peu comme `bc`.
 C'est là que les coprocessus viennent à la rescousse :).
 
-Un coprocessus est un sous-shell exécuté de façon asynchrone et fournissant les tubes d'entrée/sortie. Ceux-ci sont accessibles via {{<hi sh "$COPROC[1]"/>}} et {{<hi sh "$COPROC[2]"/>}}.
+Un coprocessus est un sous-shell exécuté de façon asynchrone et fournissant les flux d'entrée/sortie. Ceux-ci sont accessibles via {{<hi sh "$COPROC[1]"/>}} et {{<hi sh "$COPROC[2]"/>}}.
 
-Du coup, avec `bc`, la méthode est d'écrire dans un tube et lire dans l'autre. Comme la lecture est bloquante, le script va attendre que `bc` retourne le résultat.
+Du coup, avec `bc`, la méthode est d'écrire dans un flux et lire dans l'autre. Comme la lecture est bloquante, le script va attendre que `bc` retourne le résultat.
 
 Et voilà ! L'ouverture d'un programme est remplacé par une lecture/écriture.
 
