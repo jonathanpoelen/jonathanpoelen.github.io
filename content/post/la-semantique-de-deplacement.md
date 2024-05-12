@@ -515,8 +515,8 @@ Pour résumer tout ça:
 
 - `std::move` n'est qu'un cast user-friendly vers une rvalue, ce n'est pas lui qui fait le déplacement à proprement parler. Mal l'utiliser désactive aussi certaines optimisations.
 - Le comportement du déplacement est défini par les fonctions qui reçoivent une rvalue.
-- Définir certaines fonctions spéciales en désactivent d'autres, il est préférable d'indiquer explicitement le comportement de chacune de préférence avec `=default` ou `=delete`. Pour rappel, les fonctions spéciales sont ici les constructeurs de déplacement et de copie, l'affectation par déplacement et de copie ainsi que le destructeur.
-- le constructeur de déplacement et l'affectation par déplacement devrait être noexcept pour que les containers de la STL les utilisent.
+- Définir certaines fonctions spéciales en désactive d'autres, il est préférable d'indiquer explicitement le comportement de chacune de préférence avec `=default` ou `=delete`. Pour rappel, les fonctions spéciales sont ici les constructeurs de déplacement et de copie, l'affectation par déplacement et de copie ainsi que le destructeur.
+- le constructeur de déplacement et l'affectation par déplacement devrait être `noexcept` pour que les containers de la STL les utilisent.
 - `std::forward` s'utilise pour des paramètres template de la forme `T&&` pour propager le type de référence (lvalue ou rvalue).
 
 Voilà qui clôture cet article sur la sémantique de déplacement. Et n'oubliez pas, une variable n'est jamais une rvalue et -- sauf exception de la NRVO -- il faut explicitement utiliser `std::move` pour l'utiliser comme une rvalue.
