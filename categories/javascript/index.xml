@@ -1,34 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>javascript on Le blog de Jonathan Poelen</title>
+    <title>Javascript on Le blog de Jonathan Poelen</title>
     <link>https://jonathanpoelen.github.io/categories/javascript/</link>
-    <description>Recent content in javascript on Le blog de Jonathan Poelen</description>
+    <description>Recent content in Javascript on Le blog de Jonathan Poelen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
-    <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Fri, 18 Jan 2013 15:16:12 +0100</lastBuildDate><atom:link href="https://jonathanpoelen.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 18 Jan 2013 15:16:12 +0100</lastBuildDate>
+    <atom:link href="https://jonathanpoelen.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Délégation d&#39;événement en js</title>
       <link>https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/</link>
       <pubDate>Fri, 18 Jan 2013 15:16:12 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/</guid>
-      <description>En règle générale les événements sont attachés à l&amp;rsquo;élément qui va le traiter.
-Par exemple en javascript, un menu (ul) contenant 10 entrées (li) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.
-Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&amp;rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</description>
+      <description>En règle générale les événements sont attachés à l&amp;rsquo;élément qui va le traiter.&#xA;Par exemple en javascript, un menu (ul) contenant 10 entrées (li) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.&#xA;Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&amp;rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</description>
     </item>
-    
     <item>
       <title>Rendre accessible le chargement de lien avec AJAX</title>
       <link>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</link>
       <pubDate>Sat, 31 Dec 2011 12:05:43 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</guid>
-      <description>Le but d&amp;rsquo;un site chargeant ces pages avec AJAX est double:
-Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées). Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins. Toutefois, si mal fait, des problèmes apparaissent au niveau de l&amp;rsquo;historique qui n&amp;rsquo;est plus utilisable. Par la même occasion, il sera impossible d&amp;rsquo;accéder à une page via son url.</description>
+      <description>Le but d&amp;rsquo;un site chargeant ces pages avec AJAX est double:&#xA;Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées). Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins. Toutefois, si mal fait, des problèmes apparaissent au niveau de l&amp;rsquo;historique qui n&amp;rsquo;est plus utilisable. Par la même occasion, il sera impossible d&amp;rsquo;accéder à une page via son url.</description>
     </item>
-    
   </channel>
 </rss>

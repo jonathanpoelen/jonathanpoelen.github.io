@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>bash on Le blog de Jonathan Poelen</title>
+    <title>Bash on Le blog de Jonathan Poelen</title>
     <link>https://jonathanpoelen.github.io/categories/bash/</link>
-    <description>Recent content in bash on Le blog de Jonathan Poelen</description>
+    <description>Recent content in Bash on Le blog de Jonathan Poelen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
-    <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Wed, 29 May 2013 00:23:12 +0100</lastBuildDate><atom:link href="https://jonathanpoelen.github.io/categories/bash/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 May 2013 00:23:12 +0100</lastBuildDate>
+    <atom:link href="https://jonathanpoelen.github.io/categories/bash/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Optimisation de script bash en limitant l&#39;ouverture de processus</title>
       <link>https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/</link>
       <pubDate>Wed, 29 May 2013 00:23:12 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/</guid>
-      <description>Une des choses qui prend du temps dans l&amp;rsquo;exécution d&amp;rsquo;un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés.
-Le meilleur moyen d&amp;rsquo;accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme. En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&amp;rsquo;entrée standard et retourne un résultat ; un peu comme bc. C&amp;rsquo;est là que les coprocessus viennent à la rescousse :).</description>
+      <description>Une des choses qui prend du temps dans l&amp;rsquo;exécution d&amp;rsquo;un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés.&#xA;Le meilleur moyen d&amp;rsquo;accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme. En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&amp;rsquo;entrée standard et retourne un résultat ; un peu comme bc. C&amp;rsquo;est là que les coprocessus viennent à la rescousse :).</description>
     </item>
-    
   </channel>
 </rss>

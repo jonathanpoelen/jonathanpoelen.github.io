@@ -6,462 +6,294 @@
     <description>Recent content in Posts on Le blog de Jonathan Poelen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
-    <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Sat, 25 Dec 2021 23:54:27 +0200</lastBuildDate><atom:link href="https://jonathanpoelen.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Dec 2021 23:54:27 +0200</lastBuildDate>
+    <atom:link href="https://jonathanpoelen.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Les opérateurs new et delete</title>
       <link>https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/</link>
       <pubDate>Sat, 25 Dec 2021 23:54:27 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2021/12/les-operateurs-new-et-delete/</guid>
-      <description>L&amp;rsquo;allocation dynamique c&amp;rsquo;est facile: pour un new, un delete
-Le quidam du coin.
-Pour 12 opérateurs new, 14 opérateurs delete.
-La norme de C++11.
-Mmmh, va pour 16 opérateurs delete.
-C++14.
-Finalement 22 opérateurs new et 26 opérateurs delete.
-L&amp;rsquo;apparition de C++17.
-Allez, 30 opérateurs delete.
-Toujours plus loin avec C++20.
-Cet article va parler des opérateurs new et delete. Pas les mots clefs new et delete tout seuls, mais bien de operator new et operator delete de l&amp;rsquo;en-tête &amp;lt;new&amp;gt;, car derrière les mots clefs usuels se cachent en réalité beaucoup de fonctions surchargées.</description>
+      <description>L&amp;rsquo;allocation dynamique c&amp;rsquo;est facile: pour un new, un delete&#xA;Le quidam du coin.&#xA;Pour 12 opérateurs new, 14 opérateurs delete.&#xA;La norme de C++11.&#xA;Mmmh, va pour 16 opérateurs delete.&#xA;C++14.&#xA;Finalement 22 opérateurs new et 26 opérateurs delete.&#xA;L&amp;rsquo;apparition de C++17.&#xA;Allez, 30 opérateurs delete.&#xA;Toujours plus loin avec C++20.&#xA;Cet article va parler des opérateurs new et delete. Pas les mots clefs new et delete tout seuls, mais bien de operator new et operator delete de l&amp;rsquo;en-tête &amp;lt;new&amp;gt;, car derrière les mots clefs usuels se cachent en réalité beaucoup de fonctions surchargées.</description>
     </item>
-    
     <item>
       <title>La sémantique de déplacement</title>
       <link>https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/</link>
       <pubDate>Tue, 11 May 2021 22:14:00 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2021/05/la-semantique-de-deplacement/</guid>
-      <description>L&amp;rsquo;objectif derrière la sémantique de déplacement est de transférer les données d&amp;rsquo;un objet A à un objet B. Si les 2 objets sont du même type, on parle de constructeur de déplacement ou affectation par déplacement. Cela permet 2 choses:
-Garantir l&amp;rsquo;unicité d&amp;rsquo;une ressource. La responsabilité étant passée à quelqu&amp;rsquo;un d&amp;rsquo;autre, il n&amp;rsquo;y a toujours qu&amp;rsquo;un seul propriétaire en charge de la durée de vie de celle-ci. Éviter des copies profondes (deep copies) en les remplaçant par des copies superficielles (shallow copies) plus performantes.</description>
+      <description>L&amp;rsquo;objectif derrière la sémantique de déplacement est de transférer les données d&amp;rsquo;un objet A à un objet B. Si les 2 objets sont du même type, on parle de constructeur de déplacement ou affectation par déplacement. Cela permet 2 choses:&#xA;Garantir l&amp;rsquo;unicité d&amp;rsquo;une ressource. La responsabilité étant passée à quelqu&amp;rsquo;un d&amp;rsquo;autre, il n&amp;rsquo;y a toujours qu&amp;rsquo;un seul propriétaire en charge de la durée de vie de celle-ci. Éviter des copies profondes (deep copies) en les remplaçant par des copies superficielles (shallow copies) plus performantes.</description>
     </item>
-    
     <item>
       <title>SFINAE</title>
       <link>https://jonathanpoelen.github.io/2020/04/sfinae/</link>
       <pubDate>Tue, 07 Apr 2020 09:29:25 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2020/04/sfinae/</guid>
-      <description>SFINAE (Substitution Failure Is Not An Error) est un mécanisme du compilateur pour ignorer certaines instanciations de fonction ou de classe qui ne compilent pas, sans pour autant émettre une erreur de compilation.
-Pour comprendre pleinement le mécanisme derrière, il faut assimiler le principe de substitution appliquée par le compilateur. Lorsqu&amp;rsquo;une expression dépend d&amp;rsquo;un paramètre template, le compilateur va évaluer l&amp;rsquo;expression en la substituant par le type ou la valeur de l&amp;rsquo;expression.</description>
+      <description>SFINAE (Substitution Failure Is Not An Error) est un mécanisme du compilateur pour ignorer certaines instanciations de fonction ou de classe qui ne compilent pas, sans pour autant émettre une erreur de compilation.&#xA;Pour comprendre pleinement le mécanisme derrière, il faut assimiler le principe de substitution appliquée par le compilateur. Lorsqu&amp;rsquo;une expression dépend d&amp;rsquo;un paramètre template, le compilateur va évaluer l&amp;rsquo;expression en la substituant par le type ou la valeur de l&amp;rsquo;expression.</description>
     </item>
-    
     <item>
       <title>Effets et utilisations de noexcept</title>
       <link>https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/</link>
       <pubDate>Sun, 01 Sep 2019 16:09:32 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2019/09/effets-et-utilisations-de-noexcept/</guid>
-      <description>Fonction noexcept noexcept est un mot clef apparu en C++11. Dans le prototype d&amp;rsquo;une fonction, il indique que cette dernière ne jette pas d&amp;rsquo;exception. Cela ne veut pas dire qu&amp;rsquo;aucune exception ne sera présente dans la fonction, mais qu&amp;rsquo;aucune exception ne sortira de la fonction. Dans le cas contraire, le programme s&amp;rsquo;arrête subitement avec un appel à std::terminate.
-noexcept n&amp;rsquo;impose aucune restriction sur ce que peut faire la fonction. Il est tout à fait possible d&amp;rsquo;utiliser des fonctions qui ne sont pas marquées noexcept à l&amp;rsquo;intérieur d&amp;rsquo;une fonction noexcept, voire, de jeter des exceptions.</description>
+      <description>Fonction noexcept noexcept est un mot clef apparu en C++11. Dans le prototype d&amp;rsquo;une fonction, il indique que cette dernière ne jette pas d&amp;rsquo;exception. Cela ne veut pas dire qu&amp;rsquo;aucune exception ne sera présente dans la fonction, mais qu&amp;rsquo;aucune exception ne sortira de la fonction. Dans le cas contraire, le programme s&amp;rsquo;arrête subitement avec un appel à std::terminate.&#xA;noexcept n&amp;rsquo;impose aucune restriction sur ce que peut faire la fonction. Il est tout à fait possible d&amp;rsquo;utiliser des fonctions qui ne sont pas marquées noexcept à l&amp;rsquo;intérieur d&amp;rsquo;une fonction noexcept, voire, de jeter des exceptions.</description>
     </item>
-    
     <item>
       <title>std::array, oui, mais pourquoi ?</title>
       <link>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</link>
       <pubDate>Fri, 29 Mar 2019 17:28:19 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2019/03/stdarray-oui-mais-pourquoi/</guid>
-      <description>Depuis C++11, un nouveau type de tableau fait son apparition: std::array. S&amp;rsquo;il est là, ce n&amp;rsquo;est pas uniquement parce que la STL est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.
-Les tableaux C se convertissent en pointeur trop facilement Le tableau C a l&amp;rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&amp;rsquo;a aucun sens.</description>
+      <description>Depuis C++11, un nouveau type de tableau fait son apparition: std::array. S&amp;rsquo;il est là, ce n&amp;rsquo;est pas uniquement parce que la STL est cool, mais bien parce que les tableaux C posent des problèmes dans lesquels les débutants sautent à pieds joints.&#xA;Les tableaux C se convertissent en pointeur trop facilement Le tableau C a l&amp;rsquo;alarmante faculté de se convertir en pointeur par simple affectation ou opération arithmétique. Par exemple, Soustraire 2 tableaux donne la distance qui sépare les 2 variables dans la mémoire, ce qui n&amp;rsquo;a aucun sens.</description>
     </item>
-    
     <item>
       <title>Grep, sed, awk, sort... Non ! Zsh</title>
       <link>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non--zsh/</link>
       <pubDate>Mon, 28 Jan 2019 22:45:03 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2019/01/grep-sed-awk-sort...-non--zsh/</guid>
-      <description>Depuis plusieurs années maintenant, j&amp;rsquo;utilise Zsh comme shell par défaut. Et par la force des choses, il m&amp;rsquo;arrive de taper des commandes zsh, de faire des boucles zsh, de penser zsh. Bref, de coder en zsh. Bien que le langage a des inconvénients, il possède de nombreuses fonctionnalités qui recouvrent celles de certains utilitaires Unix.
-Les gros avantage d&amp;rsquo;utiliser zsh plutôt que les commandes Unix sont au nombre de 3:</description>
+      <description>Depuis plusieurs années maintenant, j&amp;rsquo;utilise Zsh comme shell par défaut. Et par la force des choses, il m&amp;rsquo;arrive de taper des commandes zsh, de faire des boucles zsh, de penser zsh. Bref, de coder en zsh. Bien que le langage a des inconvénients, il possède de nombreuses fonctionnalités qui recouvrent celles de certains utilitaires Unix.&#xA;Les gros avantage d&amp;rsquo;utiliser zsh plutôt que les commandes Unix sont au nombre de 3:</description>
     </item>
-    
     <item>
       <title>Presque toujours std::move</title>
       <link>https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/</link>
       <pubDate>Sun, 09 Dec 2018 13:11:29 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/12/presque-toujours-stdmove/</guid>
-      <description>Le principe de std::move est de &amp;ldquo;déplacer1&amp;rdquo; un objet qui n&amp;rsquo;est plus utilisé dans l&amp;rsquo;objectif de décharger la responsabilité dans une autre variable ou d&amp;rsquo;utiliser le constructeur de déplacement à la place de celui de copie.
-Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&amp;rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&amp;rsquo;en priver ?
-Rire sarcastique.</description>
+      <description>Le principe de std::move est de &amp;ldquo;déplacer1&amp;rdquo; un objet qui n&amp;rsquo;est plus utilisé dans l&amp;rsquo;objectif de décharger la responsabilité dans une autre variable ou d&amp;rsquo;utiliser le constructeur de déplacement à la place de celui de copie.&#xA;Pour avoir de meilleures performances, il est tentant de le mettre partout lorsque la variable n&amp;rsquo;est plus utilisée. Un constructeur de déplacement sera toujours préférable au constructeur de copie, pourquoi s&amp;rsquo;en priver ?&#xA;Rire sarcastique.</description>
     </item>
-    
     <item>
       <title>Méta-fonction et continuation</title>
       <link>https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/</link>
       <pubDate>Thu, 08 Nov 2018 18:56:13 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/11/meta-fonction-et-continuation/</guid>
-      <description>J&amp;rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&amp;rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &amp;ndash;parce que cela va bien de paire,&amp;ndash; l&amp;rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&amp;lt;Ts...&amp;gt;).
-Continuation Chaque algorithme dispose d&amp;rsquo;un paramètre qui décrit l&amp;rsquo;étape suivante du traitement, c&amp;rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&amp;rsquo;opérateur |.</description>
+      <description>J&amp;rsquo;ai pas mal bossé avec des bibliothèques de méta-programmation, et une que j&amp;rsquo;apprécie particulièrement est Kvasir.Mpl. Son originalité réside dans le support des continuations et &amp;ndash;parce que cela va bien de paire,&amp;ndash; l&amp;rsquo;évaluation paresseuse ainsi que des algorithmes pensés pour manipuler des packs (template variadique) plutôt que des listes de type (list&amp;lt;Ts...&amp;gt;).&#xA;Continuation Chaque algorithme dispose d&amp;rsquo;un paramètre qui décrit l&amp;rsquo;étape suivante du traitement, c&amp;rsquo;est la continuation. En shell ou dans des bibliothèques comme rangev3, les continuations se font avec l&amp;rsquo;opérateur |.</description>
     </item>
-    
     <item>
       <title>Simuler une vtable sans fonction virtuelle</title>
       <link>https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/</link>
       <pubDate>Thu, 01 Nov 2018 20:42:09 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/11/simuler-une-vtable-sans-fonction-virtuelle/</guid>
-      <description>La vtable est le mécanisme interne utilisé par C++ pour implémenter les fonctions virtuelles. Lorsqu&amp;rsquo;une classe possède une fonction virtuelle, un pointeur sur la vtable (virtual table) est automatiquement réservé par le compilateur. Cette table contient des pointeurs de fonction sur l&amp;rsquo;ensemble des fonctions virtuelles de la classe et chaque classe dérivée possède sa propre vtable.
-Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessous, l&amp;rsquo;utilisation de obj-&amp;gt;foo(/*params.</description>
+      <description>La vtable est le mécanisme interne utilisé par C++ pour implémenter les fonctions virtuelles. Lorsqu&amp;rsquo;une classe possède une fonction virtuelle, un pointeur sur la vtable (virtual table) est automatiquement réservé par le compilateur. Cette table contient des pointeurs de fonction sur l&amp;rsquo;ensemble des fonctions virtuelles de la classe et chaque classe dérivée possède sa propre vtable.&#xA;Pour une classe de base implémentant une fonction foo virtuelle comme ci-dessous, l&amp;rsquo;utilisation de obj-&amp;gt;foo(/*params.</description>
     </item>
-    
     <item>
       <title>Comparaison de différentes implémentations de mp_index_of</title>
       <link>https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/</link>
       <pubDate>Mon, 01 Oct 2018 18:28:21 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/10/comparaison-de-differentes-implementations-de-mp_index_of/</guid>
-      <description>Dans l&amp;rsquo;article précédent sur les variants, j&amp;rsquo;ai fait une implémentation un peu spéciale de index_of. Je vais présenter une quinzaine d&amp;rsquo;implémentations possibles et le coût de chacune sur le compilateur.
-Info : L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &amp;ldquo;classique&amp;rdquo; a les mêmes conséquences.
-Avant-propos Toutes les implémentations de mp_index_of&amp;lt;T, Ts...&amp;gt; retournent un std::integral_constant&amp;lt;int, i&amp;gt; correspondant à l&amp;rsquo;indice de T dans Ts ou -1 si T n&amp;rsquo;existe pas.</description>
+      <description>Dans l&amp;rsquo;article précédent sur les variants, j&amp;rsquo;ai fait une implémentation un peu spéciale de index_of. Je vais présenter une quinzaine d&amp;rsquo;implémentations possibles et le coût de chacune sur le compilateur.&#xA;Info : L&amp;rsquo;implémentation citée précédemment ne se retrouve pas ici car une forme récursive plus &amp;ldquo;classique&amp;rdquo; a les mêmes conséquences.&#xA;Avant-propos Toutes les implémentations de mp_index_of&amp;lt;T, Ts...&amp;gt; retournent un std::integral_constant&amp;lt;int, i&amp;gt; correspondant à l&amp;rsquo;indice de T dans Ts ou -1 si T n&amp;rsquo;existe pas.</description>
     </item>
-    
     <item>
       <title>Au cœur d&#39;un variant</title>
       <link>https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/</link>
       <pubDate>Sun, 02 Sep 2018 14:45:55 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/09/au-coeur-dun-variant/</guid>
-      <description>Cet article va être consacré à la réalisation d&amp;rsquo;une classe variant comme on peut la trouver dans la STL, boost et autres. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&amp;rsquo;exécution. Je vais faire un petit tour de ce que j&amp;rsquo;ai pu voir et comment les implémenter.
-Rappel sur ce qu&amp;rsquo;est un variant Un variant est une union sécurisée comme on peut le trouver dans les langages fonctionnels.</description>
+      <description>Cet article va être consacré à la réalisation d&amp;rsquo;une classe variant comme on peut la trouver dans la STL, boost et autres. Il existe de nombreuses techniques plus ou moins simples à réaliser et plus ou moins coûteuses à l&amp;rsquo;exécution. Je vais faire un petit tour de ce que j&amp;rsquo;ai pu voir et comment les implémenter.&#xA;Rappel sur ce qu&amp;rsquo;est un variant Un variant est une union sécurisée comme on peut le trouver dans les langages fonctionnels.</description>
     </item>
-    
     <item>
       <title>Faites parler votre compilateur</title>
       <link>https://jonathanpoelen.github.io/2018/02/faites-parler-votre-compilateur/</link>
       <pubDate>Tue, 13 Feb 2018 03:00:28 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/02/faites-parler-votre-compilateur/</guid>
-      <description>En C++, notre meilleur ami est le compilateur. Encore faut-il bien le configurer pour qu&amp;rsquo;il nous crache un maximum d&amp;rsquo;avertissements en pleine poire. Hélas, il s&amp;rsquo;avère que les options dépendent grandement du compilateur et de la version.
-Du côté de Clang, il y a un -Weverything qui active absolument tous les warnings &amp;ndash; dont certains que je qualifie de douteux &amp;ndash;, alors que pour Gcc, -Wall et -Wextra n&amp;rsquo;activent pas tout.</description>
+      <description>En C++, notre meilleur ami est le compilateur. Encore faut-il bien le configurer pour qu&amp;rsquo;il nous crache un maximum d&amp;rsquo;avertissements en pleine poire. Hélas, il s&amp;rsquo;avère que les options dépendent grandement du compilateur et de la version.&#xA;Du côté de Clang, il y a un -Weverything qui active absolument tous les warnings &amp;ndash; dont certains que je qualifie de douteux &amp;ndash;, alors que pour Gcc, -Wall et -Wextra n&amp;rsquo;activent pas tout.</description>
     </item>
-    
     <item>
       <title>Ma vision de l&#39;accessibilité appliquée pour ce blog</title>
       <link>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/</link>
       <pubDate>Tue, 02 Jan 2018 14:18:22 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2018/01/ma-vision-de-laccessibilite-appliquee-pour-ce-blog/</guid>
-      <description>Pour changer de la programmation logicielle, je vais parler de l&amp;rsquo;accessibilité d&amp;rsquo;un site et des petits détails exaspérants que je rencontre sur la toile. Je pense qu&amp;rsquo;une bonne partie parle à chacun, généralement on fait avec, simplement parce qu&amp;rsquo;il n&amp;rsquo;y a pas d&amp;rsquo;autre choix, mais c&amp;rsquo;est toujours frustrant de tomber dessus.
-Pour le blog, j&amp;rsquo;ai passé pas mal de temps sur un template déjà existant en touchant finalement un peu à toutes les parties CSS et HTML.</description>
+      <description>Pour changer de la programmation logicielle, je vais parler de l&amp;rsquo;accessibilité d&amp;rsquo;un site et des petits détails exaspérants que je rencontre sur la toile. Je pense qu&amp;rsquo;une bonne partie parle à chacun, généralement on fait avec, simplement parce qu&amp;rsquo;il n&amp;rsquo;y a pas d&amp;rsquo;autre choix, mais c&amp;rsquo;est toujours frustrant de tomber dessus.&#xA;Pour le blog, j&amp;rsquo;ai passé pas mal de temps sur un template déjà existant en touchant finalement un peu à toutes les parties CSS et HTML.</description>
     </item>
-    
     <item>
       <title>De Blogspot à Hugo, il a changé de peau</title>
       <link>https://jonathanpoelen.github.io/2017/07/de-blogspot-a-hugo-il-a-change-de-peau/</link>
       <pubDate>Sat, 29 Jul 2017 16:03:53 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2017/07/de-blogspot-a-hugo-il-a-change-de-peau/</guid>
-      <description>Il y a 2 ans je me suis dit :
-Au prochain article, j&amp;rsquo;essaye un autre système de blog !
-Et depuis 2 ans, plus rien&amp;hellip; Je n&amp;rsquo;ai pas parcouru le web à la recherche de la solution idéale, loin de là, je n&amp;rsquo;avais juste pas d&amp;rsquo;idée d&amp;rsquo;article.
-Il y a 3 mois, en regardant une classe de matrice en C++, une idée m&amp;rsquo;est venue. J&amp;rsquo;ai écrit mon article puis cherché un système de site statique.</description>
+      <description>Il y a 2 ans je me suis dit :&#xA;Au prochain article, j&amp;rsquo;essaye un autre système de blog !&#xA;Et depuis 2 ans, plus rien&amp;hellip; Je n&amp;rsquo;ai pas parcouru le web à la recherche de la solution idéale, loin de là, je n&amp;rsquo;avais juste pas d&amp;rsquo;idée d&amp;rsquo;article.&#xA;Il y a 3 mois, en regardant une classe de matrice en C++, une idée m&amp;rsquo;est venue. J&amp;rsquo;ai écrit mon article puis cherché un système de site statique.</description>
     </item>
-    
     <item>
       <title>Minimiser les copies dans operator&#43;</title>
       <link>https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/</link>
       <pubDate>Wed, 05 Jul 2017 22:02:11 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2017/07/minimiser-les-copies-dans-operator-/</guid>
-      <description>Je vais me baser sur un classique: une classe de matrice contenant un std::vector&amp;lt;int&amp;gt;. Cette classe va implémenter 2 opérateurs mathématiques: + et +=. Le premier en fonction libre, le second en fonction membre.
-Pour rigoler un peu, on ajoute une petite contrainte qui est &amp;ldquo;l&amp;rsquo;efficacité&amp;rdquo;. Petit mot qui englobe un peu tout et n&amp;rsquo;importe quoi tel que la performance en mémoire et en temps.
-À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc.</description>
+      <description>Je vais me baser sur un classique: une classe de matrice contenant un std::vector&amp;lt;int&amp;gt;. Cette classe va implémenter 2 opérateurs mathématiques: + et +=. Le premier en fonction libre, le second en fonction membre.&#xA;Pour rigoler un peu, on ajoute une petite contrainte qui est &amp;ldquo;l&amp;rsquo;efficacité&amp;rdquo;. Petit mot qui englobe un peu tout et n&amp;rsquo;importe quoi tel que la performance en mémoire et en temps.&#xA;À vrai dire, il y a énormément de choses possibles rien que sur la structure du code: instruction vectorisée, alignement mémoire, expression template, etc.</description>
     </item>
-    
     <item>
       <title>Comment se passer de std::forward</title>
       <link>https://jonathanpoelen.github.io/2016/04/comment-se-passer-de-stdforward/</link>
       <pubDate>Mon, 04 Apr 2016 23:09:41 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2016/04/comment-se-passer-de-stdforward/</guid>
-      <description>Actuellement en pleine écriture d&amp;rsquo;une fonction match (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de std::forward utilisée à chaque appel de fonction. J&amp;rsquo;en compte 21 pour un total de 6 niveaux d&amp;rsquo;imbrications. Autant dire qu&amp;rsquo;oublier de le mettre est plutôt facile.
-C&amp;rsquo;est d&amp;rsquo;ailleurs la raison de ce billet, puisque bien sûr, j&amp;rsquo;en ai oubliés.
-Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence.</description>
+      <description>Actuellement en pleine écriture d&amp;rsquo;une fonction match (petit projet de 200 lignes actuellement), je me retrouve, pour respecter le perfect forwarding, avec une armée de std::forward utilisée à chaque appel de fonction. J&amp;rsquo;en compte 21 pour un total de 6 niveaux d&amp;rsquo;imbrications. Autant dire qu&amp;rsquo;oublier de le mettre est plutôt facile.&#xA;C&amp;rsquo;est d&amp;rsquo;ailleurs la raison de ce billet, puisque bien sûr, j&amp;rsquo;en ai oubliés.&#xA;Pour réduire leur nombre et alléger le code, je me suis fait un petit wrapper qui sauvegarde le type de référence.</description>
     </item>
-    
     <item>
       <title>if constexpr avant C&#43;&#43;17</title>
       <link>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/</link>
       <pubDate>Mon, 21 Sep 2015 00:33:38 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2015/09/if-constexpr-avant-cpp17/</guid>
-      <description>Le but de if constexpr est d&amp;rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&amp;rsquo;a pas l&amp;rsquo;obligation de pouvoir être compilé.
-Plutôt étrange, n&amp;rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.
-Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières:
-foncteur + paramètres fonction membre + objet + paramètres fonction membre + pointeur d&amp;rsquo;objet + paramètres // x et y sont des std::string invoke(std::equal_to&amp;lt;&amp;gt;{}, x, y); // foncteur invoke(&amp;amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;amp;std::string::size, &amp;amp;x, y); // fonction membre et pointeur En C++17, tout peut se faire en une seule fonction, alors qu&amp;rsquo;avant C++17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if.</description>
+      <description>Le but de if constexpr est d&amp;rsquo;interpréter le code uniquement si celui-ci respecte la condition. Il doit être syntaxiquement valide, mais n&amp;rsquo;a pas l&amp;rsquo;obligation de pouvoir être compilé.&#xA;Plutôt étrange, n&amp;rsquo;est-ce pas ? Cette propriété se révèle pourtant fort pratique dans les fonctions templates.&#xA;Prenons comme exemple une fonction invoke qui s&amp;rsquo;utilise de 3 manières:&#xA;foncteur + paramètres fonction membre + objet + paramètres fonction membre + pointeur d&amp;rsquo;objet + paramètres // x et y sont des std::string invoke(std::equal_to&amp;lt;&amp;gt;{}, x, y); // foncteur invoke(&amp;amp;std::string::size, x, y); // fonction membre et référence invoke(&amp;amp;std::string::size, &amp;amp;x, y); // fonction membre et pointeur En C++17, tout peut se faire en une seule fonction, alors qu&amp;rsquo;avant C++17, il fallait faire plusieurs surcharges pour les différentes situations et jouer avec std::enable_if.</description>
     </item>
-    
     <item>
       <title>Paramètres de fonction nommés en C&#43;&#43;</title>
       <link>https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/</link>
       <pubDate>Tue, 28 Jul 2015 00:43:22 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2015/07/parametres-de-fonction-nommes-en-cpp/</guid>
-      <description>Cet article est la démonstration de l&amp;rsquo;article précédent. La problématique présentée est la suivante: &amp;ldquo;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&amp;rdquo;
-La fonction de référence sera la suivante:
-void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, char border_bottom = &amp;#39;-&amp;#39; , char border_left = &amp;#39;&amp;lt;&amp;#39;, char border_right = &amp;#39;&amp;gt;&amp;#39; , char fill = &amp;#39;#&amp;#39; ) { std::cout &amp;lt;&amp;lt; std::setfill(border_top) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; while (h--) { std::cout &amp;lt;&amp;lt; border_left &amp;lt;&amp;lt; std::setfill(fill) &amp;lt;&amp;lt; std::setw(w) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; border_right &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } std::cout &amp;lt;&amp;lt; std::setfill(border_bottom) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } Comment faire un appel proche de draw_rect(4,3, fill=&amp;#39;@&amp;#39;) ?</description>
+      <description>Cet article est la démonstration de l&amp;rsquo;article précédent. La problématique présentée est la suivante: &amp;ldquo;Comment, dans une fonction avec plusieurs paramètres optionnels, initialiser un paramètre précis sans indiquer les valeurs optionnelles qui précèdent ?&amp;rdquo;&#xA;La fonction de référence sera la suivante:&#xA;void draw_rect( unsigned w, unsigned h , char border_top = &amp;#39;-&amp;#39;, char border_bottom = &amp;#39;-&amp;#39; , char border_left = &amp;#39;&amp;lt;&amp;#39;, char border_right = &amp;#39;&amp;gt;&amp;#39; , char fill = &amp;#39;#&amp;#39; ) { std::cout &amp;lt;&amp;lt; std::setfill(border_top) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; while (h--) { std::cout &amp;lt;&amp;lt; border_left &amp;lt;&amp;lt; std::setfill(fill) &amp;lt;&amp;lt; std::setw(w) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; border_right &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } std::cout &amp;lt;&amp;lt; std::setfill(border_bottom) &amp;lt;&amp;lt; std::setw(w+2) &amp;lt;&amp;lt; &amp;#34;&amp;#34; &amp;lt;&amp;lt; &amp;#34;\n&amp;#34;; } Comment faire un appel proche de draw_rect(4,3, fill=&amp;#39;@&amp;#39;) ?</description>
     </item>
-    
     <item>
       <title>Implémentation d&#39;un magasin de type</title>
       <link>https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/</link>
       <pubDate>Thu, 02 Jul 2015 01:49:41 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2015/07/implementation-dun-magasin-de-type/</guid>
-      <description>Ce que j&amp;rsquo;appelle ici un magasin de type n&amp;rsquo;est autre qu&amp;rsquo;un std::tuple où les types ne sont présents qu&amp;rsquo;une seule fois. Une espèce de set version tuple en somme.
-Je me suis servi de ce type de structure à 2 reprises.
-Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&amp;rsquo;étais en C++11 et que dans cette norme std::get&amp;lt;Type&amp;gt;() n&amp;rsquo;existe pas.</description>
+      <description>Ce que j&amp;rsquo;appelle ici un magasin de type n&amp;rsquo;est autre qu&amp;rsquo;un std::tuple où les types ne sont présents qu&amp;rsquo;une seule fois. Une espèce de set version tuple en somme.&#xA;Je me suis servi de ce type de structure à 2 reprises.&#xA;Une fois pour manipuler de façon similaire des types hétérogènes sans la lourdeur de std::tuple. Il faut dire aussi que j&amp;rsquo;étais en C++11 et que dans cette norme std::get&amp;lt;Type&amp;gt;() n&amp;rsquo;existe pas.</description>
     </item>
-    
     <item>
       <title>Appel conditionnel de fonction selon la validité d&#39;une expression</title>
       <link>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/</link>
       <pubDate>Sun, 30 Nov 2014 19:17:52 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2014/11/appel-conditionnel-de-fonction-selon-la-validite-dune-expression/</guid>
-      <description>L&amp;rsquo;approche suivante consiste à vérifier qu&amp;rsquo;une fonction (membre ou statique) est appelable dans le but de l&amp;rsquo;utiliser, ou, à défaut, fournir implémentation générique. De manière plus générale, la méthode présentée ici s&amp;rsquo;applique à toutes expressions.
-Appeler T::sort si possible, sinon std::sort(begin(T), end(T)) L&amp;rsquo;exemple va se faire sur la classe std::list qui n&amp;rsquo;est pas triable avec std::sort, mais possède une fonction membre sort(). Ainsi que sur std::vector qui, inversement, n&amp;rsquo;a pas de fonction membre sort(), mais fonctionne avec std::sort.</description>
+      <description>L&amp;rsquo;approche suivante consiste à vérifier qu&amp;rsquo;une fonction (membre ou statique) est appelable dans le but de l&amp;rsquo;utiliser, ou, à défaut, fournir implémentation générique. De manière plus générale, la méthode présentée ici s&amp;rsquo;applique à toutes expressions.&#xA;Appeler T::sort si possible, sinon std::sort(begin(T), end(T)) L&amp;rsquo;exemple va se faire sur la classe std::list qui n&amp;rsquo;est pas triable avec std::sort, mais possède une fonction membre sort(). Ainsi que sur std::vector qui, inversement, n&amp;rsquo;a pas de fonction membre sort(), mais fonctionne avec std::sort.</description>
     </item>
-    
     <item>
       <title>Réduire l&#39;empreinte mémoire d&#39;une agglomération de types</title>
       <link>https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/</link>
       <pubDate>Sat, 28 Jun 2014 14:10:11 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2014/06/reduire-lempreinte-memoire-dune-agglomeration-de-types/</guid>
-      <description>Un petit article pour parler d&amp;rsquo;optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par std::unique_ptr.
-Implémentation naïve de std::unique_ptr Pour rappel, std::unique_ptr prend 2 paramètres template: T et Deleter (qui par défaut égal std::default_delete&amp;lt;T&amp;gt;).
-Naïvement, l&amp;rsquo;implémentation serait:
-template&amp;lt;T, Deleter = std::default_delete&amp;lt;T&amp;gt;&amp;gt; class my_unique_ptr { T* m_pointer; Deleter m_deleter; // … }; Rien d&amp;rsquo;extraordinaire.
-Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 octet.</description>
+      <description>Un petit article pour parler d&amp;rsquo;optimisation mémoire (si on peut appeler ça comme ça) avec comme exemple la structure de donnée utilisée par std::unique_ptr.&#xA;Implémentation naïve de std::unique_ptr Pour rappel, std::unique_ptr prend 2 paramètres template: T et Deleter (qui par défaut égal std::default_delete&amp;lt;T&amp;gt;).&#xA;Naïvement, l&amp;rsquo;implémentation serait:&#xA;template&amp;lt;T, Deleter = std::default_delete&amp;lt;T&amp;gt;&amp;gt; class my_unique_ptr { T* m_pointer; Deleter m_deleter; // … }; Rien d&amp;rsquo;extraordinaire.&#xA;Cependant, même si Deleter est une classe sans attribut, sa taille est de 1 octet.</description>
     </item>
-    
     <item>
       <title>256 couleurs et plus dans la console</title>
       <link>https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/</link>
       <pubDate>Mon, 09 Jun 2014 00:35:19 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2014/06/256-couleurs-et-plus-dans-la-console/</guid>
-      <description>À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j&amp;rsquo;ai récemment appris l&amp;rsquo;existence de 256 couleurs dans la console en tombant sur un dépôt contenant un $LS_COLORS particulièrement fourni.
-En fait, il s&amp;rsquo;avère qu&amp;rsquo;en rajoutant extended dans la recherche &amp;ldquo;color shell&amp;rdquo; on puisse trouver quelque(s) ressource(s). J&amp;rsquo;aurais bien voulu y penser la semaine dernière, ça m&amp;rsquo;aurait évité de comprendre par tâtonnement&amp;hellip;</description>
+      <description>À chaque fois que je cherche des infos sur les couleurs je tombe toujours sur les trucs basiques. Mais j&amp;rsquo;ai récemment appris l&amp;rsquo;existence de 256 couleurs dans la console en tombant sur un dépôt contenant un $LS_COLORS particulièrement fourni.&#xA;En fait, il s&amp;rsquo;avère qu&amp;rsquo;en rajoutant extended dans la recherche &amp;ldquo;color shell&amp;rdquo; on puisse trouver quelque(s) ressource(s). J&amp;rsquo;aurais bien voulu y penser la semaine dernière, ça m&amp;rsquo;aurait évité de comprendre par tâtonnement&amp;hellip;</description>
     </item>
-    
     <item>
       <title>Valeur, référence ou pointeur ? (2/2)</title>
       <link>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/</link>
       <pubDate>Sat, 31 May 2014 21:18:10 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-2-sur-2/</guid>
-      <description>Dans le précédent billet, j&amp;rsquo;opposai les paramètres par références constantes à ceux par valeurs.
-Sans plus attendre entamons la seconde question.
-Référence ou pointeur ? Si je dois faire court je dirai: pointeur jamais ; référence quand possible. Sans autre forme de procès :D
-Ah, on me dit dans l&amp;rsquo;oreillette qu&amp;rsquo;il faut argumenter&amp;hellip; C&amp;rsquo;est parti.
-Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.</description>
+      <description>Dans le précédent billet, j&amp;rsquo;opposai les paramètres par références constantes à ceux par valeurs.&#xA;Sans plus attendre entamons la seconde question.&#xA;Référence ou pointeur ? Si je dois faire court je dirai: pointeur jamais ; référence quand possible. Sans autre forme de procès :D&#xA;Ah, on me dit dans l&amp;rsquo;oreillette qu&amp;rsquo;il faut argumenter&amp;hellip; C&amp;rsquo;est parti.&#xA;Les références possèdent un contrat beaucoup plus fort que les pointeurs: elles ne peuvent être nulles et référencent toujours la même variable.</description>
     </item>
-    
     <item>
       <title>Valeur, référence ou pointeur ? (1/2)</title>
       <link>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/</link>
       <pubDate>Thu, 22 May 2014 09:51:53 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2014/05/valeur-reference-ou-pointeur-1-sur-2/</guid>
-      <description>Quand utiliser une variable par valeur, référence ou pointeur ?
-Telle fut la question qui m&amp;rsquo;a été posée :p.
-Comme je ne suis pas entièrement satisfait de la réponse que j&amp;rsquo;ai donné, je fais un article. Pour tout dire, la réponse n&amp;rsquo;est pas aussi triviale que l&amp;rsquo;on pourrait le croire depuis l&amp;rsquo;arrivée du C++11 et la sémantique de déplacement.
-Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:
-Valeur ou référence constante ?</description>
+      <description>Quand utiliser une variable par valeur, référence ou pointeur ?&#xA;Telle fut la question qui m&amp;rsquo;a été posée :p.&#xA;Comme je ne suis pas entièrement satisfait de la réponse que j&amp;rsquo;ai donné, je fais un article. Pour tout dire, la réponse n&amp;rsquo;est pas aussi triviale que l&amp;rsquo;on pourrait le croire depuis l&amp;rsquo;arrivée du C++11 et la sémantique de déplacement.&#xA;Tout d&amp;rsquo;abord, décomposons cette question en 2 parties:&#xA;Valeur ou référence constante ?</description>
     </item>
-    
     <item>
       <title>Parcourir les arguments d&#39;une fonction variadique</title>
       <link>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</link>
       <pubDate>Sun, 22 Dec 2013 10:03:06 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/12/parcourir-les-arguments-dune-fonction-variadique/</guid>
-      <description>À l&amp;rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.
-Info : Ce qui suit n&amp;rsquo;est plus d&amp;rsquo;actualité depuis C++17 et les fold expressions.
-Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.
-Quelque chose dans ce goût-là:
-#include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;class T, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;.</description>
+      <description>À l&amp;rsquo;approche de Noël et du déballage de cadeaux, faisons un tour sur le déballage des paramètres variadiques.&#xA;Info : Ce qui suit n&amp;rsquo;est plus d&amp;rsquo;actualité depuis C++17 et les fold expressions.&#xA;Fonction récursive La méthode habituelle pour utiliser chaque paramètre est la récursion jusqu&amp;rsquo;à plus d&amp;rsquo;argument ou jusqu&amp;rsquo;à un nombre défini, généralement 1.&#xA;Quelque chose dans ce goût-là:&#xA;#include &amp;lt;iostream&amp;gt; void f1() {} template&amp;lt;class T, class... Args&amp;gt; void f1(const T&amp;amp; first, const Args&amp;amp;.</description>
     </item>
-    
     <item>
       <title>Tableau dans un std::vector</title>
       <link>https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/</link>
       <pubDate>Wed, 18 Sep 2013 20:09:51 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/09/tableau-dans-un-stdvector/</guid>
-      <description>Prenons le type suivant: std::vector&amp;lt;int[4]&amp;gt;. Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&amp;rsquo;est vrai !
-Ajoutons maintenant un élément à notre vector avec push_back.
-std::vector&amp;lt;int[2]&amp;gt; v; int a[2]{}; v.push_back(a); Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&amp;rsquo;a ni constructeur ni destructeur.
-La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau.</description>
+      <description>Prenons le type suivant: std::vector&amp;lt;int[4]&amp;gt;. Qui peut se justifier. À priori, cela ne cause aucun problème ; et c&amp;rsquo;est vrai !&#xA;Ajoutons maintenant un élément à notre vector avec push_back.&#xA;std::vector&amp;lt;int[2]&amp;gt; v; int a[2]{}; v.push_back(a); Patatras, rien ne va plus, il y a 2 erreurs. La première concerne la construction du tableau et la seconde sa destruction car un tableau n&amp;rsquo;a ni constructeur ni destructeur.&#xA;La manière la plus facile pour éliminer ces erreurs de compilation est de mettre un wrapper sur le tableau.</description>
     </item>
-    
     <item>
       <title>Utilisation de swap et des fonctions utilitaires en général</title>
       <link>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/</link>
       <pubDate>Sat, 20 Jul 2013 11:18:49 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/07/utilisation-de-swap-et-des-fonctions-utilitaires-en-general/</guid>
-      <description>Une fonction utilitaire est une fonction libre qui n&amp;rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).
-Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilitaire qui me vient à l&amp;rsquo;esprit en C++03 est std::swap (fonction qui échange le contenu de 2 variables). Pour info, l&amp;rsquo;en-tête de std::swap est passé de &amp;lt;algorithm&amp;gt; en C++03 à &amp;lt;utility&amp;gt; en C++11.</description>
+      <description>Une fonction utilitaire est une fonction libre qui n&amp;rsquo;étant pas attachée à une classe particulière comme une fonction de conversion (to_string, etc) ou un accesseur externe à une classe (get, begin, end, etc).&#xA;Toutes ces fonctions citées sont disponibles en C++11. La seule fonction utilitaire qui me vient à l&amp;rsquo;esprit en C++03 est std::swap (fonction qui échange le contenu de 2 variables). Pour info, l&amp;rsquo;en-tête de std::swap est passé de &amp;lt;algorithm&amp;gt; en C++03 à &amp;lt;utility&amp;gt; en C++11.</description>
     </item>
-    
     <item>
       <title>make sans Makefile, utilisation des règles implicites</title>
       <link>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/</link>
       <pubDate>Wed, 26 Jun 2013 11:05:28 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/06/make-sans-makefile-utilisation-des-regles-implicites/</guid>
-      <description>La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile &amp;ldquo;par défaut&amp;rdquo; avec plein de règles. Celui-ci est visible en tapant make -pf /dev/null dans un terminal.
-Rien qu&amp;rsquo;avec ça, on peut compiler des fichiers C, C++, archive, latex, etc. Il y a de quoi faire en fait.
-Par exemple, je crée un fichier C nommé test.c:
-int main(int ac, char** av) { return ac; } Que je compile avec make test pour créer l&amp;rsquo;exécutable test.</description>
+      <description>La commande GNU make possède énormément de commandes implicites regroupées dans un Makefile &amp;ldquo;par défaut&amp;rdquo; avec plein de règles. Celui-ci est visible en tapant make -pf /dev/null dans un terminal.&#xA;Rien qu&amp;rsquo;avec ça, on peut compiler des fichiers C, C++, archive, latex, etc. Il y a de quoi faire en fait.&#xA;Par exemple, je crée un fichier C nommé test.c:&#xA;int main(int ac, char** av) { return ac; } Que je compile avec make test pour créer l&amp;rsquo;exécutable test.</description>
     </item>
-    
     <item>
       <title>Optimisation de script bash en limitant l&#39;ouverture de processus</title>
       <link>https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/</link>
       <pubDate>Wed, 29 May 2013 00:23:12 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/05/optimisation-de-script-bash-en-limitant-louverture-de-processus/</guid>
-      <description>Une des choses qui prend du temps dans l&amp;rsquo;exécution d&amp;rsquo;un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés.
-Le meilleur moyen d&amp;rsquo;accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme. En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&amp;rsquo;entrée standard et retourne un résultat ; un peu comme bc. C&amp;rsquo;est là que les coprocessus viennent à la rescousse :).</description>
+      <description>Une des choses qui prend du temps dans l&amp;rsquo;exécution d&amp;rsquo;un script shell est le nombre de programmes appelés et par conséquent, le nombre de processus créés.&#xA;Le meilleur moyen d&amp;rsquo;accélérer un script est de passer par les builtins et limiter les boucles ouverture/fermeture de programme. En fait, dans certains cas, on pourrait avoir une commande qui lit sur l&amp;rsquo;entrée standard et retourne un résultat ; un peu comme bc. C&amp;rsquo;est là que les coprocessus viennent à la rescousse :).</description>
     </item>
-    
     <item>
       <title>Référence constante sur référence</title>
       <link>https://jonathanpoelen.github.io/2013/05/reference-constante-sur-reference/</link>
       <pubDate>Mon, 13 May 2013 03:18:42 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/05/reference-constante-sur-reference/</guid>
-      <description>Une petite note sur les références et le qualificatif const en commençant par un exemple :).
-using reference = int&amp;amp;; int i = 0; reference const r = i; r = 3; Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de r. En fait, ajouter const sur une référence ne fait rien car cela ne s&amp;rsquo;applique pas sur le référé qui reste un int&amp;amp;.</description>
+      <description>Une petite note sur les références et le qualificatif const en commençant par un exemple :).&#xA;using reference = int&amp;amp;; int i = 0; reference const r = i; r = 3; Contrairement à ce que laisse croire le code, il est possible de modifier la valeur de r. En fait, ajouter const sur une référence ne fait rien car cela ne s&amp;rsquo;applique pas sur le référé qui reste un int&amp;amp;.</description>
     </item>
-    
     <item>
       <title>Placement new, allocateur et conteneur</title>
       <link>https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/</link>
       <pubDate>Mon, 22 Apr 2013 22:17:22 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/04/placement-new-allocateur-et-conteneur/</guid>
-      <description>new est généralement utilisé pour allouer un bloc mémoire et &amp;ndash; où il diffère de malloc(), &amp;ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.
-Mais new fait une troisième chose: il lance une exception std::bad_alloc si l&amp;rsquo;espace mémoire est insuffisant.
-Ou pas. Car new est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&amp;rsquo;en-tête &amp;lt;new&amp;gt; un type (std::nothrow_t) et une variable (std::nothrow) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</description>
+      <description>new est généralement utilisé pour allouer un bloc mémoire et &amp;ndash; où il diffère de malloc(), &amp;ndash; appelle le constructeur de la classe demandée (si constructeur il y a). Il fait donc deux choses en une.&#xA;Mais new fait une troisième chose: il lance une exception std::bad_alloc si l&amp;rsquo;espace mémoire est insuffisant.&#xA;Ou pas. Car new est un opérateur surchargeable qui prend des paramètres. Le standard définit dans l&amp;rsquo;en-tête &amp;lt;new&amp;gt; un type (std::nothrow_t) et une variable (std::nothrow) qui permettent de retourner un pointeur nul plutôt que lancer une exception.</description>
     </item>
-    
     <item>
       <title>Ne pas empêcher la NRVO</title>
       <link>https://jonathanpoelen.github.io/2013/03/ne-pas-empecher-la-nrvo/</link>
       <pubDate>Sun, 17 Mar 2013 17:12:57 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/03/ne-pas-empecher-la-nrvo/</guid>
-      <description>La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la FAQ C++ developpez.com.
-Cependant, ces optimisations ne s&amp;rsquo;appliquent que sur une variable de type T sans référence. Ce qui veut dire qu&amp;rsquo;une référence ne sera pas optimisée.
-iterator operator+(const iterator&amp;amp; other, int n) { return iterator(other) += n; // pas de RVO } Alors qu&amp;rsquo;une décomposition de la fonction active la NRVO.</description>
+      <description>La NRVO et la RVO sont des optimisations des compilateurs pour retourner un objet sans le copier. Je renvoie directement sur la FAQ C++ developpez.com.&#xA;Cependant, ces optimisations ne s&amp;rsquo;appliquent que sur une variable de type T sans référence. Ce qui veut dire qu&amp;rsquo;une référence ne sera pas optimisée.&#xA;iterator operator+(const iterator&amp;amp; other, int n) { return iterator(other) += n; // pas de RVO } Alors qu&amp;rsquo;une décomposition de la fonction active la NRVO.</description>
     </item>
-    
     <item>
       <title>Sqlite, reconstruire la bdd pour l&#39;alléger</title>
       <link>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/</link>
       <pubDate>Mon, 04 Mar 2013 23:36:14 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/03/sqlite-reconstruire-la-bdd-pour-lalleger/</guid>
-      <description>Il existe sur les bases de données SQLite une commande pour réduire la fragmentation des tables et optimiser l&amp;rsquo;espace disque. J&amp;rsquo;ai nommé: VACUUM.
-Cette commande reconstruit la bdd pour éliminer les lignes vides et réorganise les index (plus de détails dans la doc en lien).
-Comme certains logiciels se servent de sqlite comme BDD, il peut être intéressant d&amp;rsquo;utiliser cette commande de temps en temps. La première fois que je l&amp;rsquo;ai fait pour firefox (fichier ~/.</description>
+      <description>Il existe sur les bases de données SQLite une commande pour réduire la fragmentation des tables et optimiser l&amp;rsquo;espace disque. J&amp;rsquo;ai nommé: VACUUM.&#xA;Cette commande reconstruit la bdd pour éliminer les lignes vides et réorganise les index (plus de détails dans la doc en lien).&#xA;Comme certains logiciels se servent de sqlite comme BDD, il peut être intéressant d&amp;rsquo;utiliser cette commande de temps en temps. La première fois que je l&amp;rsquo;ai fait pour firefox (fichier ~/.</description>
     </item>
-    
     <item>
       <title>Différence entre $@, $*, &#34;$@&#34; et &#34;$*&#34;</title>
       <link>https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/</link>
       <pubDate>Sun, 17 Feb 2013 10:42:27 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/02/difference-entre-variables-speciales/</guid>
-      <description>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées argv dans pas mal d&amp;rsquo;autres langages): $* et $@.
-$* est une variable ce qu&amp;rsquo;il y a de plus normale et ne diffère pas d&amp;rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&amp;rsquo;y reviens après). $@ est une variable au comportement différent entre les shells. Sur bash, il n&amp;rsquo;y a aucune différence entre $* et $@.</description>
+      <description>Dans un script shell, il existe 2 variables pour accéder aux paramètres de la commande (aussi nommées argv dans pas mal d&amp;rsquo;autres langages): $* et $@.&#xA;$* est une variable ce qu&amp;rsquo;il y a de plus normale et ne diffère pas d&amp;rsquo;une autre variable. Cependant, le comportement des variables diffère en fonction du shell, notamment sur zsh (j&amp;rsquo;y reviens après). $@ est une variable au comportement différent entre les shells. Sur bash, il n&amp;rsquo;y a aucune différence entre $* et $@.</description>
     </item>
-    
     <item>
       <title>Délégation d&#39;événement en js</title>
       <link>https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/</link>
       <pubDate>Fri, 18 Jan 2013 15:16:12 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2013/01/delegation-devenement-en-js/</guid>
-      <description>En règle générale les événements sont attachés à l&amp;rsquo;élément qui va le traiter.
-Par exemple en javascript, un menu (ul) contenant 10 entrées (li) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.
-Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&amp;rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</description>
+      <description>En règle générale les événements sont attachés à l&amp;rsquo;élément qui va le traiter.&#xA;Par exemple en javascript, un menu (ul) contenant 10 entrées (li) où chaque entrée est associée à une action crée, au total, 10 événements. 10 événements attachés à la même action.&#xA;Pour dire vrai, cette méthode est peu performante et peut la plupart du temps être remplacée par un seul événement sur le parent. À ce moment le parent vérifie si l&amp;rsquo;événement est généré par un de ses fils et fait le traitement en conséquence.</description>
     </item>
-    
     <item>
       <title>La vis cachée de getopt</title>
       <link>https://jonathanpoelen.github.io/2012/12/la-vis-cachee-de-getopt/</link>
       <pubDate>Tue, 25 Dec 2012 12:58:55 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2012/12/la-vis-cachee-de-getopt/</guid>
-      <description>Voici une petite information très mal connue et peu utilisée du getopt de la lib C et de la commande shell. Ainsi que Boost.Program_options. Parce que boost c&amp;rsquo;est bien :p.
-Les noms des options longues n&amp;rsquo;ont pas besoin d&amp;rsquo;être écrites entièrement.
-function parsecmd() { getopt -o &amp;#39;&amp;#39; --long \ option-longue,option-encore-plus-longue,une-autre-option: \ -n &amp;#39;example&amp;#39; -- &amp;#34;$@&amp;#34; } parsecmd --option-l --u plop bidule Donne
---option-longue --une-autre-option &amp;#39;plop&amp;#39; -- &amp;#39;bidule&amp;#39; La commande shell getopt est un peu plus souple que les autres.</description>
+      <description>Voici une petite information très mal connue et peu utilisée du getopt de la lib C et de la commande shell. Ainsi que Boost.Program_options. Parce que boost c&amp;rsquo;est bien :p.&#xA;Les noms des options longues n&amp;rsquo;ont pas besoin d&amp;rsquo;être écrites entièrement.&#xA;function parsecmd() { getopt -o &amp;#39;&amp;#39; --long \ option-longue,option-encore-plus-longue,une-autre-option: \ -n &amp;#39;example&amp;#39; -- &amp;#34;$@&amp;#34; } parsecmd --option-l --u plop bidule Donne&#xA;--option-longue --une-autre-option &amp;#39;plop&amp;#39; -- &amp;#39;bidule&amp;#39; La commande shell getopt est un peu plus souple que les autres.</description>
     </item>
-    
     <item>
       <title>Taguer vos classes, cataloguées-les</title>
       <link>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/</link>
       <pubDate>Thu, 20 Dec 2012 01:22:50 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2012/12/taguer-vos-classes-cataloguees-les/</guid>
-      <description>Le C++ a l&amp;rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &amp;ldquo;tags&amp;rdquo;.
-Comme exemple je vais utiliser les tags présents dans les itérateurs de la STL et une implémentation de la fonction std::advance().
-Première implémentation La fonction std::advance() permet d&amp;rsquo;incrémenter un itérateur de N éléments (ou décrémenter si N est négatif). D&amp;rsquo;après cette description, un premier algorithme peut être émis:</description>
+      <description>Le C++ a l&amp;rsquo;avantage de faire de la surcharge de fonction et permet ainsi de spécifier des algorithmes selon des critères. Ici ce seront des &amp;ldquo;tags&amp;rdquo;.&#xA;Comme exemple je vais utiliser les tags présents dans les itérateurs de la STL et une implémentation de la fonction std::advance().&#xA;Première implémentation La fonction std::advance() permet d&amp;rsquo;incrémenter un itérateur de N éléments (ou décrémenter si N est négatif). D&amp;rsquo;après cette description, un premier algorithme peut être émis:</description>
     </item>
-    
     <item>
       <title>Zsh et le danger des modificateurs</title>
       <link>https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/</link>
       <pubDate>Sun, 14 Oct 2012 19:46:36 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2012/10/zsh-et-le-danger-des-modificateurs/</guid>
-      <description>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&amp;rsquo;interpréteur utilisé. J&amp;rsquo;ai eu le coup une fois lorsqu&amp;rsquo;il fallait charger le module canberra-gtk pour les programmes java.
-Une variable $GTK_MODULES est définie et contient tous les modules gtk séparés par des deux points (:). Visiblement, j&amp;rsquo;ai 2 modules gtk.</description>
+      <description>Zsh est très bien comme shell, mais fait plus de choses que bash ce qui peut engendrer des bugs quand celui-ci est le shell par défaut et que des scripts ne définissent pas l&amp;rsquo;interpréteur utilisé. J&amp;rsquo;ai eu le coup une fois lorsqu&amp;rsquo;il fallait charger le module canberra-gtk pour les programmes java.&#xA;Une variable $GTK_MODULES est définie et contient tous les modules gtk séparés par des deux points (:). Visiblement, j&amp;rsquo;ai 2 modules gtk.</description>
     </item>
-    
     <item>
       <title>La récursivité et le mauvais exemple de Fibonacci</title>
       <link>https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/</link>
       <pubDate>Thu, 16 Aug 2012 02:22:24 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2012/08/la-recursivite-et-le-mauvais-exemple-de-fibonacci/</guid>
-      <description>Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:
-Coder la suite de Fibonacci en récursive et en itérative.
-Mais partout où j&amp;rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&amp;rsquo;on peut trouver.
-//itérative long long fib(unsigned n) { if (n == 0) return n; long long a = 0, b = 1, tmp; while (--n) { tmp = a + b; a = b; b = tmp; } return b; } // récursive long long fib_r(unsigned n) { if (0 == n || 1 == n) return n; return fib_r(n-1) + fib_r(n-2); } Sauf que cet algorithme récursif est pourri.</description>
+      <description>Quasiment toute personne ayant suivi un cours sur la récursivité a eu un exercice de la forme:&#xA;Coder la suite de Fibonacci en récursive et en itérative.&#xA;Mais partout où j&amp;rsquo;ai vu une implémentation récursive, je suis tombé sur un algorithme inefficace. Voici ce qu&amp;rsquo;on peut trouver.&#xA;//itérative long long fib(unsigned n) { if (n == 0) return n; long long a = 0, b = 1, tmp; while (--n) { tmp = a + b; a = b; b = tmp; } return b; } // récursive long long fib_r(unsigned n) { if (0 == n || 1 == n) return n; return fib_r(n-1) + fib_r(n-2); } Sauf que cet algorithme récursif est pourri.</description>
     </item>
-    
     <item>
       <title>Sed tout puissant</title>
       <link>https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/</link>
       <pubDate>Mon, 11 Jun 2012 10:11:50 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2012/06/sed-tout-puissant/</guid>
-      <description>Il y a 3 semaines environ je cherchais le moyen d&amp;rsquo;utiliser la commande sed avec une regex sur plusieurs lignes. Je voulais transformer tous les /\+\n\s+&amp;quot;&amp;quot;/ en rien du tout (oui, les supprimer…). Sauf que comme tel, ça ne fonctionne pas, sed comme beaucoup de commandes unix fonctionne par ligne. Après de lourdes et pompeuses recherches d&amp;rsquo;au moins 7 secondes montre en main, je suis tombé sur la solution.
-Pour ce faire, il suffit d&amp;rsquo;un identifiant, un petit label, une information de multi-ligne au milieu et 3 autres bricoles ; rien que ça :D.</description>
+      <description>Il y a 3 semaines environ je cherchais le moyen d&amp;rsquo;utiliser la commande sed avec une regex sur plusieurs lignes. Je voulais transformer tous les /\+\n\s+&amp;quot;&amp;quot;/ en rien du tout (oui, les supprimer…). Sauf que comme tel, ça ne fonctionne pas, sed comme beaucoup de commandes unix fonctionne par ligne. Après de lourdes et pompeuses recherches d&amp;rsquo;au moins 7 secondes montre en main, je suis tombé sur la solution.&#xA;Pour ce faire, il suffit d&amp;rsquo;un identifiant, un petit label, une information de multi-ligne au milieu et 3 autres bricoles ; rien que ça :D.</description>
     </item>
-    
     <item>
       <title>Rendre accessible le chargement de lien avec AJAX</title>
       <link>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</link>
       <pubDate>Sat, 31 Dec 2011 12:05:43 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/2011/12/rendre-accessible-le-chargement-de-lien-avec-ajax/</guid>
-      <description>Le but d&amp;rsquo;un site chargeant ces pages avec AJAX est double:
-Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées). Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins. Toutefois, si mal fait, des problèmes apparaissent au niveau de l&amp;rsquo;historique qui n&amp;rsquo;est plus utilisable. Par la même occasion, il sera impossible d&amp;rsquo;accéder à une page via son url.</description>
+      <description>Le but d&amp;rsquo;un site chargeant ces pages avec AJAX est double:&#xA;Diminuer la charge du serveur en ne demandant que le contenu à modifier (ce qui peut potentiellement réduire le nombre de requêtes à la base de données et les données transférées). Avoir une navigation plus fluide et réactive puisque le navigateur travaille moins. Toutefois, si mal fait, des problèmes apparaissent au niveau de l&amp;rsquo;historique qui n&amp;rsquo;est plus utilisable. Par la même occasion, il sera impossible d&amp;rsquo;accéder à une page via son url.</description>
     </item>
-    
   </channel>
 </rss>

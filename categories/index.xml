@@ -6,80 +6,63 @@
     <description>Recent content in Categories on Le blog de Jonathan Poelen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
-    <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster>
-    <lastBuildDate>Sat, 25 Dec 2021 23:54:27 +0200</lastBuildDate><atom:link href="https://jonathanpoelen.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Dec 2021 23:54:27 +0200</lastBuildDate>
+    <atom:link href="https://jonathanpoelen.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>c&#43;&#43;</title>
+      <title>C&#43;&#43;</title>
       <link>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</link>
       <pubDate>Sat, 25 Dec 2021 23:54:27 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/categories/c&#43;&#43;/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>script-shell</title>
+      <title>Script-Shell</title>
       <link>https://jonathanpoelen.github.io/categories/script-shell/</link>
       <pubDate>Mon, 28 Jan 2019 22:45:03 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/categories/script-shell/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>zsh</title>
+      <title>Zsh</title>
       <link>https://jonathanpoelen.github.io/categories/zsh/</link>
       <pubDate>Mon, 28 Jan 2019 22:45:03 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/categories/zsh/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>accessibilite-web</title>
+      <title>Accessibilite-Web</title>
       <link>https://jonathanpoelen.github.io/categories/accessibilite-web/</link>
       <pubDate>Tue, 02 Jan 2018 14:18:22 +0200</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/categories/accessibilite-web/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>make</title>
+      <title>Make</title>
       <link>https://jonathanpoelen.github.io/categories/make/</link>
       <pubDate>Wed, 26 Jun 2013 11:05:28 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/categories/make/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>bash</title>
+      <title>Bash</title>
       <link>https://jonathanpoelen.github.io/categories/bash/</link>
       <pubDate>Wed, 29 May 2013 00:23:12 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/categories/bash/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>SQLite</title>
       <link>https://jonathanpoelen.github.io/categories/sqlite/</link>
       <pubDate>Mon, 04 Mar 2013 23:36:14 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/categories/sqlite/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>javascript</title>
+      <title>Javascript</title>
       <link>https://jonathanpoelen.github.io/categories/javascript/</link>
       <pubDate>Fri, 18 Jan 2013 15:16:12 +0100</pubDate>
-      <author>jonathan.poelen@gmail.com (Jonathan Poelen)</author>
       <guid>https://jonathanpoelen.github.io/categories/javascript/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>

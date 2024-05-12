@@ -6,7 +6,6 @@
     <description>Recent content in Tags on Le blog de Jonathan Poelen</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-FR</language>
-    <managingEditor>jonathan.poelen@gmail.com (Jonathan Poelen)</managingEditor>
-    <webMaster>jonathan.poelen@gmail.com (Jonathan Poelen)</webMaster><atom:link href="https://jonathanpoelen.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://jonathanpoelen.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La sémantique de déplacement</title>
-<meta name="generator" content="Hugo 0.119.0">
+<meta name="generator" content="Hugo 0.123.7">
 
 <link rel="stylesheet" type="text/css" media="all" href="/css/style.min.061e5fb8f10fc49af4099c8c4fb46564f559ce4359d97001cbf764669ef02a8f.css">
 <link rel="stylesheet" type="text/css" media="all" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" />
@@ -659,8 +659,8 @@ Garantir l&rsquo;unicité d&rsquo;une ressource. La responsabilité étant pass�
 <ul>
 <li><code>std::move</code> n&rsquo;est qu&rsquo;un cast user-friendly vers une rvalue, ce n&rsquo;est pas lui qui fait le déplacement à proprement parler. Mal l&rsquo;utiliser désactive aussi certaines optimisations.</li>
 <li>Le comportement du déplacement est défini par les fonctions qui reçoivent une rvalue.</li>
-<li>Définir certaines fonctions spéciales en désactivent d&rsquo;autres, il est préférable d&rsquo;indiquer explicitement le comportement de chacune de préférence avec <code>=default</code> ou <code>=delete</code>. Pour rappel, les fonctions spéciales sont ici les constructeurs de déplacement et de copie, l&rsquo;affectation par déplacement et de copie ainsi que le destructeur.</li>
-<li>le constructeur de déplacement et l&rsquo;affectation par déplacement devrait être noexcept pour que les containers de la STL les utilisent.</li>
+<li>Définir certaines fonctions spéciales en désactive d&rsquo;autres, il est préférable d&rsquo;indiquer explicitement le comportement de chacune de préférence avec <code>=default</code> ou <code>=delete</code>. Pour rappel, les fonctions spéciales sont ici les constructeurs de déplacement et de copie, l&rsquo;affectation par déplacement et de copie ainsi que le destructeur.</li>
+<li>le constructeur de déplacement et l&rsquo;affectation par déplacement devrait être <code>noexcept</code> pour que les containers de la STL les utilisent.</li>
 <li><code>std::forward</code> s&rsquo;utilise pour des paramètres template de la forme <code>T&amp;&amp;</code> pour propager le type de référence (lvalue ou rvalue).</li>
 </ul>
 <p>Voilà qui clôture cet article sur la sémantique de déplacement. Et n&rsquo;oubliez pas, une variable n&rsquo;est jamais une rvalue et &ndash; sauf exception de la NRVO &ndash; il faut explicitement utiliser <code>std::move</code> pour l&rsquo;utiliser comme une rvalue.</p>
