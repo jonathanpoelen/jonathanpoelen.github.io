@@ -123,8 +123,8 @@ bash | zsh
 {{<hi zsh "sed s/alligator/crocodile/"/>}}  | {{<hi zsh "${content/alligator/crocodile}"/>}}
 {{<hi zsh "sed s/alligator/crocodile/g"/>}} | {{<hi zsh "${content//alligator/crocodile}"/>}}
 {{<hi zsh "sed 's/^alligator\*$/_/'"/>}}   | {{<hi zsh "${lines:s%alligator*%_}"/>}} ou {{<hi zsh "${lines/(#s)alligator\*(#e)/_}"/>}}
-{{<hi zsh "sed 's/^\w\+$/[&]/'"/>}} | {{<hi zsh "${lines:/(#m)[[:alnum:]]##/[$MATCH]}"/>}}
-{{<hi zsh "sed -E 's/^(\w+) = (\w+)$/\2 = \1/'"/>}} | {{<hi zsh "${lines:/(#b)([[:alnum:]]##) = ([[:alnum:]]##)/$match[2] = $match[1]}"/>}}
+{{<hi zsh "sed 's/^\w\+$/[&]/'"/>}} | {{<hi zsh "${lines:/(#m)(#s)[[:alnum:]]##/[$MATCH]}"/>}}
+{{<hi zsh "sed -E 's/^(\w+) = (\w+)$/\2 = \1/'"/>}} | {{<hi zsh "${lines:/(#b)(#s)([[:alnum:]]##) = ([[:alnum:]]##)/$match[2] = $match[1]}"/>}}
 
 
 ### head
