@@ -384,11 +384,11 @@ Les gros avantage d&rsquo;utiliser zsh plutôt que les commandes Unix sont au no
 </tr>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed <span class="s1">&#39;s/^\w\+$/[&amp;]/&#39;</span></code></span></td>
-<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">:/(#m)[[:</span><span class="nv">alnum</span><span class="p">:]]##/[</span><span class="nv">$MATCH</span><span class="p">]</span><span class="si">}</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">:/(#m)(#s)[[:</span><span class="nv">alnum</span><span class="p">:]]##/[</span><span class="nv">$MATCH</span><span class="p">]</span><span class="si">}</span></code></span></td>
 </tr>
 <tr>
 <td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh">sed -E <span class="s1">&#39;s/^(\w+) = (\w+)$/\2 = \1/&#39;</span></code></span></td>
-<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">:/(#b)([[:</span><span class="nv">alnum</span><span class="p">:]]##) = ([[:</span><span class="nv">alnum</span><span class="p">:]]##)/</span><span class="nv">$match</span><span class="p">[2] = </span><span class="nv">$match</span><span class="p">[1]</span><span class="si">}</span></code></span></td>
+<td><span class="inlinecode highlight"><code class="language-zsh" data-lang="zsh"><span class="si">${</span><span class="nv">lines</span><span class="p">:/(#b)(#s)([[:</span><span class="nv">alnum</span><span class="p">:]]##) = ([[:</span><span class="nv">alnum</span><span class="p">:]]##)/</span><span class="nv">$match</span><span class="p">[2] = </span><span class="nv">$match</span><span class="p">[1]</span><span class="si">}</span></code></span></td>
 </tr>
 </tbody>
 </table>
